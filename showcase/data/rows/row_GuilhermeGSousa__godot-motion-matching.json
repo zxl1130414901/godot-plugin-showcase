@@ -1,0 +1,33 @@
+{
+  "id": "GuilhermeGSousa__godot-motion-matching",
+  "category": "3d-shader",
+  "tags": [
+    "动画匹配",
+    "AnimationTree",
+    "角色移动",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "descriptionZh": "Godot 4 的运动匹配动画扩展，用姿态数据库替代混合树，适合动画量大、追求自然移动过渡的 3D 角色",
+  "prosShort": [
+    "检索替代状态机，动画多时好维护",
+    "特征与同步器可组合，策略灵活",
+    "编辑器可视化让调库有据可依"
+  ],
+  "consShort": [
+    "动画规范要求高，资产不合规要返工",
+    "不含预编译库，必须自行编译"
+  ],
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "godot-gdunit-labs__gdUnit4",
+  "descriptionZh": "Godot 编辑器内嵌的单元测试框架，支持 GDScript 与 C#，提供 mock、场景输入模拟、孤立节点检测与 CI 报告输出。",
+  "category": "debug-perf",
+  "tags": [
+    "单元测试",
+    "TDD",
+    "Mock",
+    "场景测试",
+    "CI"
+  ],
+  "prosShort": [
+    "编辑器内自动发现并运行测试",
+    "mock 与场景输入模拟能力完整",
+    "同一项目可同时支持 C# 与 GDScript 混合测试"
+  ],
+  "consShort": [
+    "与 Godot 版本绑定非常紧，升级要同步换版本",
+    "全用 GDScript 实现，用例多了跑起来偏慢",
+    "运行时动态生成的类无法直接生成替身"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

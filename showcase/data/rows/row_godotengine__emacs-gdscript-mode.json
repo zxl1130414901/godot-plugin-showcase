@@ -1,0 +1,35 @@
+{
+  "id": "godotengine__emacs-gdscript-mode",
+  "descriptionZh": "在 Emacs 中提供 GDScript 高亮、补全、格式化与断点调试，整体接入成本不高。",
+  "category": "editor-tool",
+  "tags": [
+    "Emacs",
+    "GDScript",
+    "LSP",
+    "调试",
+    "代码格式化"
+  ],
+  "prosShort": [
+    "原生支持 LSP 补全与定义跳转",
+    "内置断点、栈帧与场景树调试",
+    "保存时可自动调用 gdformat 格式化"
+  ],
+  "consShort": [
+    "只适合长期使用 Emacs 的开发者",
+    "补全与调试需手工配置语言服务器",
+    "完全不提供场景可视化编辑能力"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 5
+  },
+  "installComplexity": 2,
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

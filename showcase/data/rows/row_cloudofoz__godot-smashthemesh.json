@@ -1,0 +1,35 @@
+{
+  "id": "cloudofoz__godot-smashthemesh",
+  "descriptionZh": "用 CSG 把 3D 网格切成带刚体的碎块，支持加载时预生成与磁盘缓存，适合可破坏场景道具。",
+  "category": "asset-pipeline",
+  "tags": [
+    "破坏",
+    "网格切分",
+    "CSG",
+    "物理",
+    "缓存"
+  ],
+  "prosShort": [
+    "用 CSG 直接切分网格，碎块自带物理",
+    "碎块结果可缓存，反复破碎不用重算",
+    "轻量与频繁破碎两种节点可按需选"
+  ],
+  "consShort": [
+    "仍是 BETA，复杂模型上的稳定要自己测",
+    "非流形与开放面网格从 4.4 起无法切分",
+    "碎块越多越卡，物理开销也明显更高"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 2
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

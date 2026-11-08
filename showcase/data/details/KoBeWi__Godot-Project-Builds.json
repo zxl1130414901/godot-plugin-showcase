@@ -1,0 +1,141 @@
+{
+  "id": "KoBeWi__Godot-Project-Builds",
+  "depth": "standard",
+  "taglineZh": "可视化编排导出与商店发布流程的构建工具",
+  "summaryZh": "Project Builder 是用 Godot 自身做的自动化构建工具，围绕导出与发布把重复操作串成流程。它以例程为执行单位，例程由若干任务组成，每个任务是一条带参数的命令，顺序与失败处理都可配置。内置任务覆盖多平台导出、Steam、GOG、Epic 与 itch.io 上传，以及复制、改名、压缩等文件操作。配置在图形界面里完成，可保存复用；既能在项目内通过插件启动，也能从命令行触发，方便接进 CI。",
+  "whatItDoes": "把多步骤的导出与发布流程抽象为可复用的例程，例程由若干任务顺序组成，可执行、编辑、复制与删除。内置十余种任务，涵盖导出预设、打 ZIP 包、文件清理与复制、调用自定义命令以及向四大商店上传。配置保存在工程目录的文本文件里，便于纳入版本管理；同时支持命令行运行，方便接进自动化流程。",
+  "useCases": [
+    {
+      "titleZh": "多平台自动导出",
+      "descZh": "把 Windows、Linux 与 macOS 的导出串成一条例程，一键产出全部包体，减少重复手工点击与重复劳动，流程也更稳。"
+    },
+    {
+      "titleZh": "商店发布",
+      "descZh": "内置 Steam、GOG、Epic 与 itch.io 发布任务，填好凭据后随例程自动上传，不必每次手动登录后台与填写表单，凭据也集中管理。"
+    },
+    {
+      "titleZh": "CI 与定时构建",
+      "descZh": "用命令行触发例程，接进流水线或定时任务，夜间构建与发布预告都不用有人守着，也便于回滚。"
+    },
+    {
+      "titleZh": "文件整理",
+      "descZh": "导出后自动改名、打包、复制到目标目录，把发布前的整理杂活交给任务链，减少漏文件。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "例程与任务",
+      "descZh": "例程由任务串成，每个任务是一条带参数的命令，顺序与失败处理都可配。"
+    },
+    {
+      "titleZh": "内置任务库",
+      "descZh": "覆盖导出、商店上传与文件操作，常见发布步骤不用自己写脚本，照着任务模板填参数即可。"
+    },
+    {
+      "titleZh": "图形化配置",
+      "descZh": "在界面里搭例程与参数，配置可保存复用，非程序也能维护发布流程，交接更顺。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "导出任务",
+      "descZh": "调用引擎导出预设产出包体，支持多平台组合，产物路径与文件名可统一规划。"
+    },
+    {
+      "name": "商店上传",
+      "descZh": "内置 Steam、GOG、Epic 与 itch.io 任务，填凭据即可自动发布，省去逐个后台操作。"
+    },
+    {
+      "name": "文件任务",
+      "descZh": "复制、移动、改名与压缩都能编排，发布前后的整理工作可以自动化。"
+    },
+    {
+      "name": "编辑器入口",
+      "descZh": "用 ProjectBuilder 插件在项目内启动构建器，少切窗口，改完配置就能直接跑。"
+    }
+  ],
+  "limitsZh": "这是运行在 Godot 里的独立构建器工程，并非可直接安装到项目里的功能插件，虽然附带 ProjectBuilder 入口插件，完整流程仍要在构建器里搭例程。商店上传依赖各平台命令行工具与已登录的账号，环境缺一件任务就会失败，需要自己补齐并排查。配置以工程内文件保存，跨项目复用要手工搬运。例程中途失败不会自动回滚，发布前需跑一遍完整链路核对产物。界面与文档偏简，复杂任务出错时仍要读脚本与日志，缺少逐任务的参数说明与错误码表。",
+  "workflowZh": [
+    {
+      "stepZh": "把构建器工程打开，或从项目内插件启动"
+    },
+    {
+      "stepZh": "在界面里新建例程并添加导出任务"
+    },
+    {
+      "stepZh": "填导出预设、输出目录与各平台参数"
+    },
+    {
+      "stepZh": "追加商店上传与文件整理任务，并调整执行顺序"
+    },
+    {
+      "stepZh": "运行例程，按日志修正失败的任务后重跑"
+    }
+  ],
+  "pros": [
+    "把导出与发布串成例程，重复劳动交给任务链，少手工操作也少出错",
+    "内置 Steam、GOG、Epic 与 itch.io 任务，常见商店都有覆盖，不必自己写上传脚本",
+    "图形化配置，非程序也能维护发布流程，交接与复用到新项目都更容易",
+    "可从项目内启动，也能命令行触发，便于接进 CI 与定时构建流水线",
+    "任务可组合，文件整理与上传能按项目需要自由编排，顺序也可调整"
+  ],
+  "cons": [
+    "商店上传依赖各平台命令行工具，环境缺一件就跑不通",
+    "配置以工程内文件保存，跨项目复用要手工搬运，容易漏项",
+    "界面与文档偏简，复杂任务出错时仍需读脚本与日志"
+  ],
+  "pitfalls": [
+    "缺少商店 CLI 或未登录会让上传任务直接失败，先补齐环境与凭据",
+    "导出预设名写错时任务静默产出空包，运行后要核对产物大小与目录",
+    "例程中途失败不会自动回滚，发布前先跑一遍完整链路再上传"
+  ],
+  "bestFor": "适合需要频繁出包、面向多个平台与商店发布，并希望把流程固化下来的独立开发者与小型发行团队。",
+  "avoidWhenZh": "只有单一平台、发布频率很低，或已有一套成熟的 CI 构建脚本时，引入独立工具的收益有限。",
+  "compareTips": {
+    "vs": [
+      "godothub__godot-minigame"
+    ],
+    "whenZh": "godot-minigame 专注把项目导出为微信小游戏，通道单一但针对性强；Project Builder 是通用发布编排器，覆盖桌面多平台与多家商店，按目标渠道选择。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "构建自动化",
+    "导出发布",
+    "商店上传",
+    "可视化任务",
+    "独立工具"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "工具以例程和任务组织导出与发布流程",
+      "source": "README.md",
+      "quote": "The builder works by running \"routines\", which are composed of \"tasks\"."
+    },
+    {
+      "claim": "内置任务覆盖导出与多家商店上传",
+      "source": "README.md",
+      "quote": "which include exporting project, publishing to popular stores (Steam, GOG, Epic, itch.io), and file operations."
+    },
+    {
+      "claim": "自身需 Godot 4.3 以上，但可用于 Godot 3 项目",
+      "source": "README.md",
+      "quote": "Running the tool from source requires at least Godot 4.3. ... Project Builder can be used with projects from older Godot versions, including Godot 3."
+    },
+    {
+      "claim": "仓库内 addon 仅用于从编辑器启动工具",
+      "source": "addons/ProjectBuilder/plugin.cfg",
+      "quote": "description=\"Helper addon to start Project Builder from within the project.\""
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "dreadpon__godot_spatial_gardener",
+  "descriptionZh": "在任意 3D 表面手绘植被与道具的编辑器插件，笔刷贴合曲面法线，并用八叉树与分块裁剪支撑大量实例。",
+  "category": "editor-tool",
+  "tags": [
+    "植被",
+    "刷子",
+    "3D布景",
+    "八叉树",
+    "GDScript"
+  ],
+  "prosShort": [
+    "任意曲面都能刷，不依赖高度图",
+    "八叉树裁剪可承载大量实例",
+    "多对象混合与随机变换更自然"
+  ],
+  "consShort": [
+    "只适合单人制作的中等规模场景",
+    "纯 GDScript 实现，实例刷多了会卡顿",
+    "更新停在 2025 年，新版 Godot 适配滞后"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

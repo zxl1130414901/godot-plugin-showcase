@@ -1,0 +1,165 @@
+{
+  "id": "godot-jolt__godot-jolt",
+  "depth": "standard",
+  "taglineZh": "用 Jolt 物理引擎接管 Godot 3D 物理的 GDExtension，可直接替换内置实现",
+  "summaryZh": "Godot Jolt 把 Jolt Physics 接成 Godot 的 3D 物理后端，实现同一套 RigidBody3D、CharacterBody3D 与各类形状节点，改一个项目设置就能整体切换，不必改场景与脚本。它的价值主要在性能与稳定性：大量刚体和堆叠场景下帧时间更可控，求解也更少出现抖动与穿透。它还额外提供一批关节替代节点，支持可断裂关节、软限位与逐关节迭代次数。需要注意它并非确定性的，服务端也不线程安全，SoftBody3D 与 Area3D 的交互有缺口。从 4.4 起官方已把 Jolt 合入引擎，本扩展转入维护模式，整体迁移路径也简单。",
+  "whatItDoes": "编译出 GDExtension 库后在项目设置里把 3D 物理引擎切到 Jolt Physics (Extension)，全部刚体、角色与射线查询改由 Jolt 处理。提供 JoltHingeJoint3D 等关节替代节点，以及可选的接触报告与 face_index 返回开关。缩放会真正作用到刚体、形状与形状查询，形状边距按上界处理并随尺寸缩放。单刚体关节把 node_a 当作世界节点，与内置实现相反。项目设置里可调求解迭代、休眠与接触相关参数。",
+  "useCases": [
+    {
+      "titleZh": "大量刚体场景",
+      "descZh": "堆叠箱子、碎块与掉落物多的关卡切到 Jolt，帧时间通常比内置物理更平稳，卡顿峰值也更容易压住。"
+    },
+    {
+      "titleZh": "角色移动手感",
+      "descZh": "角色控制器与斜坡、台阶的交互更少抖动，配合参数调整能减少贴墙卡住与被弹飞的情况，参数建议从文档默认值起调。"
+    },
+    {
+      "titleZh": "可断裂与软限位关节",
+      "descZh": "用替代关节节点设置断裂阈值与软限位，做吊桥、机械臂与可破坏结构时不必自己写约束逻辑，替代节点可逐个替换。"
+    },
+    {
+      "titleZh": "迁移与对比测试",
+      "descZh": "同一份场景分别用内置物理与 Jolt 跑压力测试，用数据判断是否值得切换，出问题也能快速切回，数据比手感描述更有说服力。"
+    },
+    {
+      "titleZh": "移动端物理开销",
+      "descZh": "在 Android 与 iOS 上替换后端，减轻物理线程的 CPU 占用，为渲染留出更多预算，先测物理线程占用再决定，低端机收益更明显。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可切换的物理后端",
+      "descZh": "一份 GDExtension 库文件，安装后在项目设置里切换引擎，场景与脚本保持原样，注意入口符号一致，安装后确认。"
+    },
+    {
+      "titleZh": "关节替代节点",
+      "descZh": "JoltHingeJoint3D 等节点，提供可断裂、软限位与逐关节迭代次数等内置关节没有的能力，确认库文件已被识别，不要覆盖。"
+    },
+    {
+      "titleZh": "压力测试数据",
+      "descZh": "同一场景在两套后端下的帧时间与稳定性对比，可作为是否切换的依据，否则看不到引擎选项，对比帧时间。"
+    },
+    {
+      "titleZh": "物理参数配置",
+      "descZh": "项目设置里的求解、休眠与接触选项，配合文档给出的建议值形成一套可复现的配置，改完必须重启生效。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Drop-in Replacement",
+      "descZh": "实现同名节点与接口，切换后场景与脚本无需改动，回退也只是改一个设置。"
+    },
+    {
+      "name": "JoltHingeJoint3D",
+      "descZh": "替代内置关节的节点，支持软限位、可断裂配置与逐关节迭代次数，可用于吊桥与机械结构。"
+    },
+    {
+      "name": "Better Performance",
+      "descZh": "大量刚体与堆叠场景下求解更稳定，帧时间波动比内置物理小，堆叠与塌落场景更明显。"
+    },
+    {
+      "name": "Shape Margin Handling",
+      "descZh": "把形状边距当作上界并随尺寸缩放，减少小物体互相穿插的概率，小物体穿插概率随之下降。"
+    },
+    {
+      "name": "Contact Reporting",
+      "descZh": "可选开启接触报告与 face_index 返回，代价是额外的内存与性能开销，默认关闭以免拖慢查询。"
+    }
+  ],
+  "limitsZh": "确定性没有保证：Jolt 本身可做确定性模拟，但这个集成不承诺结果逐帧一致，联机回放与服务器校验不能依赖它。物理服务器不是线程安全的，多线程访问要自己加锁。内存占用不体现在 Godot 的性能监视器里，排查内存问题时看不到这部分。SoftBody3D 与 Area3D 没有交互，布料与区域触发要另想办法。仅支持 4.3 到 4.6，Linux 还要求 glibc 2.35 以上。从 4.4 起官方模块已内置 Jolt，本扩展进入维护模式、只合 bug 修复，长期项目应转向引擎自带实现，功能对齐前两者行为仍有差异，主机平台需自行编译并验证签名，导出前要留出验证时间。",
+  "workflowZh": [
+    {
+      "stepZh": "下载对应版本与平台的预编译包，或自行编译"
+    },
+    {
+      "stepZh": "把文件解压进项目目录并重启 Godot，先备份原项目"
+    },
+    {
+      "stepZh": "在项目设置里开启高级设置并找到物理选项"
+    },
+    {
+      "stepZh": "把 3D 物理引擎切换为 Jolt Physics，选项在高级设置之后"
+    },
+    {
+      "stepZh": "重启后用压力场景对比帧时间与稳定性"
+    },
+    {
+      "stepZh": "按文档调求解与休眠参数并回归玩法"
+    }
+  ],
+  "pros": [
+    "切换只改一个项目设置，场景与脚本不动，试错与回退成本都很低，回退也只改这一处。",
+    "大量刚体与堆叠场景下求解更稳，帧时间波动通常比内置物理更小，堆叠场景收益最直观。",
+    "额外提供关节替代节点，可断裂与软限位这类需求不用自己写约束，省去自己写约束与断裂判定。",
+    "文档把不支持项、行为差异与平台限制逐条列出，接入前就能评估风险，也能判断版本窗口是否合适。"
+  ],
+  "cons": [
+    "不保证确定性，联机同步与回放校验不能依赖它的模拟结果。",
+    "从 4.4 起官方已内置 Jolt，本扩展转入维护模式，只剩 bug 修复，新特性不再跟进。",
+    "只覆盖 4.3 到 4.6，Linux 还要求 glibc 2.35 以上，旧版与新引擎都用不上。"
+  ],
+  "pitfalls": [
+    "切到 Jolt 后旧场景里依赖内置物理细节的调参全部失效，手感要重新调一遍。",
+    "SoftBody3D 与 Area3D 不交互，布料触发器会静默失效而不报错，接入前先确认玩法是否依赖它。",
+    "把物理调用搬到工作线程会因服务端非线程安全出现随机崩溃，需在主线程统一访问。"
+  ],
+  "bestFor": "刚体数量多、物理稳定性吃紧，且引擎版本在 4.3 到 4.6 之间的桌面或移动项目，并且能接受维护模式下的更新节奏。",
+  "avoidWhenZh": "需要确定性模拟做联机校验，或项目已升级到内置 Jolt 可用的版本时，直接用引擎自带实现。",
+  "compareTips": {
+    "vs": [
+      "appsinacup__godot-rapier-physics",
+      "godot-jolt__godot-jolt"
+    ],
+    "whenZh": "Rapier 是另一套可替换的 3D 物理后端，偏 Rust 生态与确定性方向；Godot Jolt 更贴近内置接口、迁移成本最低。要确定性优先看 Rapier，要少改代码、快速对比性能选 Jolt，并注意官方模块已内置 Jolt。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "物理",
+    "GDExtension",
+    "性能",
+    "3D"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "可作为内置 3D 物理的直接替代",
+      "source": "README.md",
+      "quote": "It functions as a drop-in replacement for Godot Physics"
+    },
+    {
+      "claim": "性能与模拟稳定性是主要卖点",
+      "source": "README.md",
+      "quote": "Better performance, mainly, but also generally having a more stable simulation compared to Godot Physics."
+    },
+    {
+      "claim": "扩展已进入维护模式",
+      "source": "README.md",
+      "quote": "this extension will be considered to be in maintenance mode going forward"
+    },
+    {
+      "claim": "不保证确定性",
+      "source": "README.md",
+      "quote": "While Jolt itself offers deterministic simulations, Godot Jolt is not able to make such guarantees."
+    },
+    {
+      "claim": "物理服务器不是线程安全的",
+      "source": "README.md",
+      "quote": "The physics server is not thread-safe"
+    },
+    {
+      "claim": "仅支持 Godot 4.3 到 4.6",
+      "source": "README.md",
+      "quote": "the **only** supported versions of Godot are between **4.3** and **4.6**"
+    }
+  ]
+}

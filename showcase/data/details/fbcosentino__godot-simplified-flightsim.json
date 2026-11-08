@@ -1,0 +1,147 @@
+{
+  "id": "fbcosentino__godot-simplified-flightsim",
+  "depth": "standard",
+  "taglineZh": "为游戏打造的纯 GDScript 简化飞行模拟插件",
+  "summaryZh": "这个 addon 用纯 GDScript 实现模块化的飞行与航天物理：Aircraft 节点只处理机身升力、阻力与温度，引擎、油箱、转向、起落架和仪表都拆成可组合的子节点。开发者只需填写几项手感参数，不必研究翼型与材料，就能让飞机、直升机或飞船在场景里起飞。它不提供 UI 与美术，模块逻辑必须走自己的回调时机，物理精度只服务游戏手感，不适合飞行训练类项目。",
+  "whatItDoes": "提供 Aircraft 节点负责机身升力、三轴阻力、摩擦升温与重力，模块节点负责引擎、油箱、转向、起落架、仪表与控制。模块通过 ModuleType 与 tags 互相查找，Aircraft 在物理帧统一调用它们的回调。世界可设为线性或球形，配合大气信号按高度改空气密度、温度与重力，四个示例覆盖简单飞机、复杂客机、直升机与星际飞船。",
+  "useCases": [
+    {
+      "titleZh": "街机空战",
+      "descZh": "用简化升力与阻力快速做出能翻滚、俯冲的飞机，再把精力放在关卡与敌机上，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "直升机玩法",
+      "descZh": "零升力配合垂直引擎即可模拟直升机与无人机，适合救援或运输关卡，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "太空航行",
+      "descZh": "球形世界与双星球影响范围支持起飞、脱离大气与星际飞行，可做小型太空沙盒，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "载具原型",
+      "descZh": "模块化结构便于替换引擎与油箱，快速比较不同载具的操控手感，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Aircraft 机体",
+      "descZh": "统一处理升力、三轴阻力、摩擦升温与坠毁信号的刚体节点，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "可组合模块",
+      "descZh": "Engine、FuelTank、Steering、LandingGear 与仪表等节点按需拼装，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "大气与星球",
+      "descZh": "按高度与球形世界计算空气密度、温度、重力与罗盘方向，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "示例工程",
+      "descZh": "四个完整场景覆盖简单飞机、复杂飞机、直升机与飞船，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "模块查找",
+      "descZh": "用 ModuleType 与 tags 在运行时定位同类模块，支持一对多控制，参数集中在检查器面板。"
+    },
+    {
+      "name": "球形世界",
+      "descZh": "World Type 设为 Spherical 后重力指向星球中心，可南北极降落，后续修改起来也不费劲。"
+    },
+    {
+      "name": "热管理",
+      "descZh": "依据马赫数与空气温度计算机身升温，超温触发 crashed，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "大气信号",
+      "descZh": "atmospheric_calculations_requested 提供安全的参数修改时机，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "仪表模块",
+      "descZh": "Instrument 系列读取姿态、能量与高度，可直接绑 UI，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "这是手感向的简化模型，不做真实翼型、雷诺数或精确气动，不能用于飞行训练。所有模块逻辑必须写在自己的回调里，绕开 _physics_process 会打乱计算顺序。Aircraft 的 CollisionShape 必须是 primitive，场景碰撞体才可用 trimesh。addon 不含任何 UI、仪表美术与音效，示例界面只是演示。README 很长但以参数解释为主，没有视频教程；版本号仍是 0.0.1，API 变动没有迁移指南。",
+  "workflowZh": [
+    {
+      "stepZh": "拷贝 addons/simplified_flightsim 并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "新建 Aircraft 节点并添加 primitive CollisionShape，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "按载具类型挂引擎、油箱、转向与起落架模块。"
+    },
+    {
+      "stepZh": "设置升力、阻力、Drag Point 与 World Type，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "接仪表信号并在示例场景里试飞调参。"
+    }
+  ],
+  "pros": [
+    "Aircraft 加模块的组合方式覆盖飞机、直升机与飞船，复用度高且边界清楚。",
+    "纯 GDScript 无原生依赖，参数直接暴露在检查器里，调手感很快，团队新人照着示例就能上手。",
+    "README 三万多字符，逐项解释升力、阻力、温度与模块约定，查证方便。",
+    "四个示例从单发飞机到球形星球飞船，能当接入模板逐级参考。"
+  ],
+  "cons": [
+    "不提供 UI、仪表与美术资源，成品界面要全部自制。",
+    "必须遵守模块回调时序，与常规 _physics_process 写法冲突，升级引擎版本时容易卡住。",
+    "气动是近似模型，极端姿态与高速下可能失稳，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "机身碰撞体用 trimesh 会与场景 trimesh 冲突，飞机应使用 primitive 形状，上线前要专门过一遍。",
+    "空气密度、温度与重力只能在 atmospheric_calculations_requested 回调内改，否则当帧计算会崩。",
+    "Drag Point Distance 不能为 0，否则失去尾翼自稳，飞机将持续偏航，排查时需要多留一层日志。"
+  ],
+  "bestFor": "想做街机风飞行、直升机或太空船玩法，希望用可组合模块快速调出操控手感的小团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目要求真实气动数据、现成仪表 UI 或严格飞行训练标准时。",
+  "compareTips": {
+    "vs": [
+      "addmix__godot_aerodynamic_physics"
+    ],
+    "whenZh": "两者都做飞行物理；flightsim 用高层模块与手感参数快速出玩法，aerodynamic_physics 更贴近真实气动面计算。原型期选前者，需要可解释的升力面数据选后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "飞行模拟",
+    "模块化",
+    "载具物理",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "纯 GDScript 实现的简化飞行模拟",
+      "source": "README.md",
+      "quote": "This addon in a simple flight simulation system, in pure GDScript"
+    },
+    {
+      "claim": "机体节点加模块的组装方式",
+      "source": "README.md",
+      "quote": "Your plane is one `Aircraft` node and several _module_ nodes inside."
+    },
+    {
+      "claim": "main 分支对应 Godot 4",
+      "source": "README.md",
+      "quote": "The `main` branch is for Godot 4."
+    },
+    {
+      "claim": "只服务游戏手感而非飞行训练",
+      "source": "README.md",
+      "quote": "this one is optimized for games, not pilot training."
+    }
+  ]
+}

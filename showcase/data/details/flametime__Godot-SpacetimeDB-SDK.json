@@ -1,0 +1,143 @@
+{
+  "id": "flametime__Godot-SpacetimeDB-SDK",
+  "depth": "standard",
+  "taglineZh": "通过 WebSocket 把 Godot 客户端接到 SpacetimeDB 实时后端的 SDK",
+  "summaryZh": "这个 SDK 让 Godot 客户端通过 WebSocket 与 SpacetimeDB 后端保持实时数据同步：插件能从服务端 schema 生成类型、表与 reducer 绑定，本地维护一份数据库副本，并支持订阅、单次查询、reducer 调用与过程调用。它用 BSATN 编解码，附安装、快速上手、API 与代码生成文档。使用前提是已有 SpacetimeDB 2.3 服务端与发布好的模块，Godot 需 4.6.1 以上，选型前建议结合团队实际评估。",
+  "whatItDoes": "插件在 Godot 底部提供 SpacetimeDB 面板，填入服务端地址与模块名后生成 res://spacetime_bindings 下的类型、表客户端、reducer 与模块客户端。运行时客户端负责 WebSocket 连接、订阅与取消订阅、reducer 调用、单次查询与过程调用，并用 BSATN 序列化与本地数据库维护行数据，行变化通过回调通知游戏逻辑。",
+  "useCases": [
+    {
+      "titleZh": "多人联机",
+      "descZh": "需要服务端权威状态与实时同步，用订阅把玩家、房间表推送到各客户端，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "持久化世界",
+      "descZh": "把玩家进度与地图状态放在 SpacetimeDB，客户端只保留可查询的本地副本，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "实时协作",
+      "descZh": "棋盘、建造或聊天类玩法用 reducer 提交操作，订阅自动刷新其他玩家视图，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "后端原型",
+      "descZh": "用 Rust 模块快速验证数据模型，Godot 侧由代码生成自动跟上，减少手写协议，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "生成绑定",
+      "descZh": "types、tables、reducers 与 module client 的 GDScript 代码，生成结果在编辑器与运行时都能复用，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "本地数据库",
+      "descZh": "按表维护的本地行缓存，供查询与回调，结构与引擎资源体系保持一致，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "运行时连接",
+      "descZh": "WebSocket 客户端与订阅、reducer、查询接口，生成结果在编辑器与运行时都能复用，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "代码生成",
+      "descZh": "从服务端 schema 生成完整绑定，字段与 reducer 自动对齐，参数集中在检查器面板。"
+    },
+    {
+      "name": "订阅",
+      "descZh": "按查询订阅表变化，回调驱动界面与实体更新，后续修改起来也不费劲。"
+    },
+    {
+      "name": "reducer",
+      "descZh": "以类型化方法调用服务端逻辑，返回值可区分成功与失败，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "本地库",
+      "descZh": "维护本地表副本，断线时仍可读已有数据，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "BSATN",
+      "descZh": "二进制协议编解码，减少 JSON 解析开销，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "必须先有运行中的 SpacetimeDB 2.3 服务端和已发布模块，离线无法生成绑定。README 标注 Godot 4.6.1 以上，较早 4.x 项目要自行验证。所有表与视图都需要主键，否则只触发插入与删除回调，本地库也不会保存数据。错误处理仍待完善，超时配置缺失，Brotli 压缩不支持。插件尚未上架 AssetLib，只能从 GitHub 下载；文档虽全，但代码生成依赖编辑器底部面板与服务端连通。",
+  "workflowZh": [
+    {
+      "stepZh": "准备 SpacetimeDB 服务端并发布模块，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "复制 addons/SpacetimeDB 并启用插件，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在面板填地址与模块名生成绑定，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "创建模块客户端并连接订阅，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "调用 reducer 并处理表变更回调，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "从 schema 生成强类型绑定，客户端与服务端字段不容易错位，团队新人照着示例就能上手。",
+    "订阅加本地数据库让实时同步与离线读取都有基础，出现问题时也更容易定位原因。",
+    "文档分安装、快速上手、API、代码生成与 Steam 登录，覆盖主要流程，对中小团队的时间成本很友好。",
+    "纯 GDScript 实现，无需为客户端额外编译原生库，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "依赖运行中的 SpacetimeDB 服务端与已发布模块，无法单独试玩。",
+    "表必须有主键，否则本地库不保存数据，升级引擎版本时容易卡住。",
+    "错误处理与超时配置仍不完善，Brotli 也不支持，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "没有主键的表只会触发插入与删除回调，误以为订阅失效时先检查 schema。",
+    "服务端地址或模块名写错时面板只报连接失败，先生成绑定再排查运行时。",
+    "模块更新后必须重新生成绑定，旧绑定会因字段缺失而反序列化失败。"
+  ],
+  "bestFor": "已经使用 SpacetimeDB 做后端，需要在 Godot 客户端获得实时同步与类型化 reducer 调用的联机项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "没有自建后端计划，或只需要简单 HTTP 请求与存档同步时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "heroiclabs__nakama-godot"
+    ],
+    "whenZh": "两者都提供游戏后端客户端；SpacetimeDB SDK 走关系表订阅与 reducer，Nakama 走账号、匹配与存储接口。需要实时表同步选前者，需要成熟账号与匹配服务选后者。"
+  },
+  "category": "network",
+  "tags": [
+    "SpacetimeDB",
+    "实时同步",
+    "WebSocket",
+    "后端"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "面向 SpacetimeDB 2.3 以上",
+      "source": "README.md",
+      "quote": "SpacetimeDB Godot SDK for SpacetimeDB 2.3.0+"
+    },
+    {
+      "claim": "测试于 Godot 4.6.1 以上",
+      "source": "README.md",
+      "quote": "Tested with: `Godot 4.6.1+` and `SpacetimeDB 2.3.0+`"
+    },
+    {
+      "claim": "无主键的表不写入本地数据库",
+      "source": "README.md",
+      "quote": "**Tables and Views without Primary_key:** only the Insert and Delete callbacks get called. Data will not be saved inside the local DB."
+    },
+    {
+      "claim": "定制与错误处理仍有待完善",
+      "source": "README.md",
+      "quote": "**Error Handling:** Can be improved"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "monxa__GodotIK",
+  "category": "3d-shader",
+  "tags": [
+    "反向动力学",
+    "骨骼动画",
+    "FABRIK",
+    "3D角色",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "descriptionZh": "Godot 4.3 起的 FABRIK 反向动力学扩展，用效应器与可编程约束驱动骨骼链，适合脚部贴地与手部抓取",
+  "prosShort": [
+    "提供预编译包，接入不用编译",
+    "约束可用 GDScript 自由扩展，不改源码",
+    "位置求解对贴地拉伸友好，姿态直观"
+  ],
+  "consShort": [
+    "约束无法控制扭转角度，需手动补偿",
+    "仅支持 3D 骨架，2D 项目不能用，范围较窄"
+  ],
+  "sampleStatus": "none"
+}

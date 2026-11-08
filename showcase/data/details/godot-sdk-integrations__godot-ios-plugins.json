@@ -1,0 +1,139 @@
+{
+  "id": "godot-sdk-integrations__godot-ios-plugins",
+  "depth": "standard",
+  "taglineZh": "Godot 官方 iOS 原生插件源码与构建脚本仓库",
+  "summaryZh": "这是 Godot 官方维护的 iOS 原生插件集合与构建脚本，包含 ARKit、GameCenter、相机、内购、麦克风等插件源码，以及生成 XCFramework 与静态库的 SCons、Shell 脚本。它不是编辑器插件，产物只对 iOS 真机或 Xcode 模拟器生效，编辑器里运行时单例不存在，必须导出后才能测试。使用要装 Xcode、SCons，准备对应引擎分支的 Godot 头文件，必要时还要为低版本挑选提交。适合需要深度接 iOS 系统能力并愿意维护原生构建链的团队。",
+  "whatItDoes": "仓库通过 godot 子模块或 Release 提供的头文件生成绑定头，再用 SCons 与脚本把 plugins 下的 Objective-C++ 源码编成 .a 或 XCFramework。产出的插件按引擎的 iOS 插件配置挂进导出流程，为脚本暴露单例与信号，例如内购交易、ARKit 会话与 GameCenter 成就。",
+  "useCases": [
+    {
+      "titleZh": "iOS 内购与支付",
+      "descZh": "接入 InAppStore 插件，处理商品查询、交易与恢复购买，并接好原生回调与错误码，省去自己写 StoreKit 桥接。"
+    },
+    {
+      "titleZh": "AR 与相机功能",
+      "descZh": "用 ARKit 与相机插件获取原生会话与画面，做 AR 玩法，追踪与锚点由系统负责，项目侧只管内容。"
+    },
+    {
+      "titleZh": "GameCenter 成就",
+      "descZh": "接入官方 GameCenter 插件上报分数与成就，显示系统排行榜与挑战，省去自己封装原生接口和账号处理。"
+    },
+    {
+      "titleZh": "自定义 iOS 能力",
+      "descZh": "以仓库现有插件为模板，新增自己的 Objective-C++ 原生能力，直接复用头文件生成与 XCFramework 打包脚本，少走编译配置的弯路。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "iOS 插件二进制",
+      "descZh": "编译成 XCFramework 或静态库，供 iOS 导出挂载，产物可直接随导出预设一起分发到测试机与商店包。"
+    },
+    {
+      "titleZh": "原生单例与信号",
+      "descZh": "在 iOS 运行时向 GDScript 暴露系统能力接口，调用方式与内置单例基本一致，注册流程也由导出自动完成。"
+    },
+    {
+      "titleZh": "可复用的构建脚本",
+      "descZh": "头文件生成、XCFramework 打包与发布脚本齐全，新增插件也能沿用同一套流程，不必另写构建配置。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "ARKit 插件",
+      "descZh": "提供 AR 会话、追踪与锚点能力，需真机验证，模拟器上无法完整测试。"
+    },
+    {
+      "name": "InAppStore",
+      "descZh": "封装内购商品、交易与恢复购买流程，回调与错误码都有对应封装。"
+    },
+    {
+      "name": "GameCenter",
+      "descZh": "上报成就与排行榜，接入系统游戏服务，账号与展示由系统处理。"
+    },
+    {
+      "name": "XCFramework 脚本",
+      "descZh": "一条脚本把指定插件打成可分发的 XCFramework，省去手工配置架构与签名。"
+    },
+    {
+      "name": "头文件生成",
+      "descZh": "从 Godot 源码提取绑定头，保证与引擎版本一致，减少版本错位导致的编译失败。"
+    }
+  ],
+  "limitsZh": "必须在 macOS 上用 Xcode 与 SCons 构建，还要准备对应引擎分支的 Godot 源码头文件；低于 4.4 的版本需要额外挑选提交，可能产生头文件冲突。插件只在 iOS 真机或模拟器生效，编辑器里看不到单例，调试必须反复导出，迭代慢。仓库是插件源码集合而非即用包，官方不建议把它当编辑器插件直接拖入项目；每个插件都要单独生成 XCFramework 并配置导出。升级引擎时要同步切子模块与重编，长期维护成本不低。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆仓库，并用子模块命令初始化所有依赖"
+    },
+    {
+      "stepZh": "切换到对应 Godot 分支与标签，避免头文件错位"
+    },
+    {
+      "stepZh": "先编译引擎，再生成与版本匹配的 iOS 绑定头文件"
+    },
+    {
+      "stepZh": "对目标插件运行生成脚本，产出可分发的 XCFramework"
+    },
+    {
+      "stepZh": "导出到真机，验证单例注册与信号回调"
+    }
+  ],
+  "pros": [
+    "官方维护，插件接口与引擎 iOS 导出流程保持一致，兼容性有保障，升级跟进也快",
+    "覆盖内购、ARKit、GameCenter、相机与麦克风等常用能力，常见需求都有现成实现",
+    "提供头文件生成、打包与发布全套脚本，新增插件也能沿用，不必另写一套构建配置",
+    "源码开放，可作为自定义 iOS 插件的模板，改造成本低，也方便对照实现细节",
+    "按插件粒度构建，可按需只带必要能力，包体不会一次膨胀，也便于分模块发布"
+  ],
+  "cons": [
+    "必须准备 macOS 与 Xcode 环境，构建门槛高，Windows 与 Linux 机器无法参与本地编译",
+    "插件只在 iOS 生效，编辑器内无法调试，迭代必须反复导出",
+    "升级引擎要重切子模块并重编，长期维护成本不低"
+  ],
+  "pitfalls": [
+    "低版本引擎直接构建会出现头文件冲突，需按文档挑选匹配的提交，不要直接拉主干",
+    "忘记初始化子模块会导致头文件生成失败，先跑一次子模块更新",
+    "在编辑器里运行看不到插件单例，误以为接入失败，必须导出到真机验证"
+  ],
+  "bestFor": "需要在 iOS 上接入内购、ARKit 或 GameCenter，并具备 macOS 与 Xcode 构建环境、愿意长期维护原生插件链与引擎升级节奏的 Godot 团队。",
+  "avoidWhenZh": "不做 iOS 发行，或希望零原生构建、直接在编辑器里调试插件的项目，都不适合引入这套仓库。",
+  "compareTips": {
+    "vs": [
+      "godothub__godot-minigame"
+    ],
+    "whenZh": "两者都是平台侧集成：iOS Plugins 提供原生系统能力与构建链，需要导出到真机；godot-minigame 提供微信小游戏导出模板，重点在模板与目录。目标 iOS 选前者，目标微信小游戏选后者。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "iOS",
+    "原生插件",
+    "XCFramework",
+    "内购"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 5,
+  "evidence": [
+    {
+      "claim": "这是 iOS 原生插件而非编辑器插件",
+      "source": "README.md",
+      "quote": "iOS plugins are not editor plugins."
+    },
+    {
+      "claim": "插件只在 iOS 设备或模拟器生效",
+      "source": "README.md",
+      "quote": "iOS plugins are only effective on iOS (either on a physical device or in the Xcode simulator)."
+    },
+    {
+      "claim": "提供生成 XCFramework 的脚本",
+      "source": "README.md",
+      "quote": "./scripts/generate_xcframework.sh <plugin_name> ..."
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "id": "catppuccin__godot",
+  "depth": "standard",
+  "taglineZh": "为 Godot 编辑器准备的 Catppuccin 柔和配色主题",
+  "summaryZh": "这是 Catppuccin 官方为 Godot 4 编辑器提供的配色方案，包含 Latte、Frappé、Macchiato 与 Mocha 四种风格。文本编辑器主题以 .tet 文件提供，界面颜色则需要在编辑器设置里按文档填入基础色、强调色、对比度与图标饱和度。它只影响编辑器外观，不生成项目内 UI 的 Theme 资源，安装需要手动放置文件到用户配置目录，跨平台路径各不相同，团队共享时要逐个配置。",
+  "whatItDoes": "仓库提供四套 .tet 文本编辑器语法主题，以及一份界面配色清单，覆盖基础色、强调色、对比度与图标饱和度。主题由 godot.tera 模板与 Catppuccin 的 whiskers 工具生成，可自行改色后重新导出。安装后可在编辑器设置中切换代码配色，界面主题需按 README 列出的十六进制值逐项填写，不会改动项目内的任何资源。",
+  "useCases": [
+    {
+      "titleZh": "长时间编码",
+      "descZh": "为夜间写 GDScript 准备低对比度深色主题，减少屏幕刺眼感，四种风格可以按显示器亮度挑选。"
+    },
+    {
+      "titleZh": "团队统一风格",
+      "descZh": "多人共用同一套编辑器配色，让截图、录屏与文档配图保持一致，交接时不用再解释界面差异。"
+    },
+    {
+      "titleZh": "教程与直播",
+      "descZh": "录屏或直播时使用统一柔和配色，观众更容易看清代码高亮，整体画面观感也更协调。"
+    },
+    {
+      "titleZh": "编辑器换肤",
+      "descZh": "只想调整 Godot 编辑器界面色调、不改项目内 UI 的项目，可以按文档颜色值快速完成设置。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "四套语法主题",
+      "descZh": "Latte、Frappé、Macchiato、Mocha 对应的 .tet 文件，覆盖注释、关键字、字符串与函数名等常用高亮分组。"
+    },
+    {
+      "titleZh": "界面配色清单",
+      "descZh": "基础色、强调色、对比度与图标饱和度建议值，照着填即可统一编辑器外观。"
+    },
+    {
+      "titleZh": "生成模板",
+      "descZh": "godot.tera 模板配合 whiskers 命令，改一处色值即可批量重导出，适合派生自定义色板的分支版本。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "四种风味",
+      "descZh": "从浅色 Latte 到深色 Mocha 四套配色，一次覆盖白天与夜间使用场景。"
+    },
+    {
+      "name": "语法主题合集",
+      "descZh": "已收录进 godot-syntax-themes 仓库，也可从那里按统一流程安装并跟随上游更新。"
+    },
+    {
+      "name": "模板化生成",
+      "descZh": "主题由 tera 模板生成，改一处颜色即可批量重导出，适合自建分支。"
+    },
+    {
+      "name": "仅编辑器范围",
+      "descZh": "只改编辑器外观，不写入项目资源，也不会影响游戏实际运行画面与导出结果。"
+    }
+  ],
+  "limitsZh": "它本质上是编辑器配色文件集合，不含插件入口，也没有项目内可直接使用的 Theme 资源。文本主题必须放进 Godot 的用户级 text_editor_themes 目录，不同系统与 Steam 版路径不同，换机器要重新放置。界面部分只提供颜色数值，需要手动填入编辑器设置，没有一键导入。仓库只为 Godot 4 维护，Godot 3 需要切换到旧分支；四种风格要分别安装，无法在主题下拉里临时混搭。若需要游戏内 UI 配色，还得另找 Theme 资源。",
+  "workflowZh": [
+    {
+      "stepZh": "从 themes 目录下载需要的 .tet 主题文件，四种风味按需选取。"
+    },
+    {
+      "stepZh": "复制到系统的 text_editor_themes 用户目录，路径按平台对照文档。"
+    },
+    {
+      "stepZh": "打开编辑器设置里的文本编辑器主题项。"
+    },
+    {
+      "stepZh": "在颜色主题下拉框中选择刚放入的对应风格。"
+    },
+    {
+      "stepZh": "按 README 填入界面基础色、强调色与对比度数值。"
+    }
+  ],
+  "pros": [
+    "四种风味覆盖浅色与深色，长时间编码时眼睛负担较小，切换项目也不必换主题，观感统一。",
+    "属于 Catppuccin 官方组织维护，配色数值统一且跟随上游更新，长期可放心使用。",
+    "安装步骤简单，只需放文件再在下拉框里选择，不需要启用任何插件。",
+    "提供 tera 模板，想微调色板时可以自行生成分支版本，方便统一品牌色。"
+  ],
+  "cons": [
+    "只作用于编辑器，游戏内 UI 仍需另配 Theme，无法一套覆盖全部界面。",
+    "界面配色要手动填数值，没有一键导入，换机器要重新填一遍。",
+    "文件放在用户目录，团队同步需要各自配置，新人容易漏装。"
+  ],
+  "pitfalls": [
+    "放错目录时下拉框不会出现新主题，需确认是 text_editor_themes 而非项目目录。",
+    "只装 .tet 不改界面设置，编辑器边框仍是默认灰，容易误以为主题没生效。",
+    "Steam 版 Godot 的配置目录与独立版不同，升级后可能需重新放一次。"
+  ],
+  "bestFor": "希望统一编辑器配色、改善长时间编码观感，不打算改动游戏内 UI 风格，同时希望安装步骤保持简单的独立开发者与小型团队。",
+  "avoidWhenZh": "需要一套可直接套用到游戏 UI 的完整 Theme 资源，或仍在使用 Godot 3 的项目，这类项目另找 UI 主题更合适。",
+  "compareTips": {
+    "vs": [
+      "passivestar__godot-minimal-theme"
+    ],
+    "whenZh": "两者都改善编辑器观感：Catppuccin 提供四套完整配色，minimal-theme 走极简风格并附带界面调整；可按团队审美二选一，也能只取其中一套语法主题搭配另一套界面设置。"
+  },
+  "category": "ui",
+  "tags": [
+    "编辑器主题",
+    "配色方案",
+    "Catppuccin",
+    "界面美化"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 5
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "isGDExtension": false,
+  "evidence": [
+    {
+      "claim": "仅面向 Godot 4，Godot 3 走旧分支",
+      "source": "README.md",
+      "quote": "This theme is for Godot 4. For Godot 3 support, use the [godot3 branch](https://github.com/catppuccin/godot/tree/godot3)"
+    },
+    {
+      "claim": "语法主题需手动放入用户目录",
+      "source": "README.md",
+      "quote": "Download the [`.tet` files](themes/) for the flavour(s) you want into Godot's text editor themes directory:"
+    },
+    {
+      "claim": "已收录进官方语法主题仓库",
+      "source": "README.md",
+      "quote": "Catppuccin is available in the [Godot Syntax Themes repository](https://github.com/godotengine/godot-syntax-themes), installation instructions are in the readme."
+    },
+    {
+      "claim": "界面主题需在编辑器设置里填写颜色值",
+      "source": "README.md",
+      "quote": "In Godot, go to Editor → Editor Settings → Interface → Theme"
+    }
+  ]
+}

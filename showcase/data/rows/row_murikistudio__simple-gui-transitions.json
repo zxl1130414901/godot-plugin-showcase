@@ -1,0 +1,34 @@
+{
+  "id": "murikistudio__simple-gui-transitions",
+  "descriptionZh": "用 GuiTransition 节点在多个静态 GUI 布局之间做淡入淡出、滑动与缩放的菜单过渡插件",
+  "category": "ui",
+  "tags": [
+    "界面过渡",
+    "菜单",
+    "动画",
+    "UI插件"
+  ],
+  "prosShort": [
+    "节点化配置，几乎不用写动画",
+    "单例统一切换方法并提供信号",
+    "项目级默认值统一全项目节奏"
+  ],
+  "consShort": [
+    "运行时不能修改或增删控件",
+    "容器内的子控件不支持滑动",
+    "只管过渡，不管导航与输入焦点"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

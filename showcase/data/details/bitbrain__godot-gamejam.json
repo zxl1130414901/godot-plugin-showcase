@@ -1,0 +1,149 @@
+{
+  "id": "bitbrain__godot-gamejam",
+  "taglineZh": "为 Game Jam 准备的 Godot 4 开局模板含菜单存档与发布",
+  "summaryZh": "这个模板把 Game Jam 常见的杂活提前做好：主菜单、设置、暂停、启动画面、存档、翻译与 itch.io 自动发布。项目按 Persist 分组保存游戏对象，退出时自动写档，新游戏会覆盖旧档。它保持极简，几乎没有玩法代码，留给开发者填核心循环。适合 48 小时比赛快速起项目，也适合作为小型项目骨架；代价是自带约定与目录结构，想完全自定义时要先读懂它的分组与场景流。它把可复用的工程外壳与玩法内容分开。",
+  "whatItDoes": "提供一个可运行的项目骨架，内含菜单流程、设置、暂停、存档、多语言与 CI 发布配置，开发者只需替换美术并填入玩法。",
+  "useCases": [
+    {
+      "titleZh": "48 小时比赛",
+      "descZh": "比赛只有两天，用模板直接得到菜单、设置与暂停，时间全花在核心玩法上，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "自动发 itch.io",
+      "descZh": "需要自动打包到 itch.io，用自带工作流配置密钥后每次推送即出版本，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "小型商业原型",
+      "descZh": "做小型商业原型，先复用存档、语言与设置框架，再逐步替换美术，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "教学练习骨架",
+      "descZh": "教学或练习时用统一骨架，学员不必每人重写一套菜单流程，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "菜单流程",
+      "descZh": "主菜单、设置、暂停与退出连成一条场景流，按钮已接好信号，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "存档骨架",
+      "descZh": "把需要保存的节点加入 Persist 组，退出时自动序列化并在下次载入，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "CI 发布配置",
+      "descZh": "自带的 GitHub Actions 工作流，按密钥把多平台构建推到 itch.io，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "开箱菜单",
+      "descZh": "主菜单、设置与暂停界面可直接换皮，省去搭 UI 的时间，参数集中在检查器面板。"
+    },
+    {
+      "name": "自动存档",
+      "descZh": "退出时保存 Persist 组对象，新游戏覆盖旧档，逻辑简单可预期，后续修改起来也不费劲。"
+    },
+    {
+      "name": "多语言支持",
+      "descZh": "预置翻译表与切换入口，新增语言只需补 csv 与设置项，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "启动画面",
+      "descZh": "支持默认或自定义 bootsplash，比赛提交时观感更完整，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "自动发布",
+      "descZh": "工作流覆盖 Windows、Linux、macOS 与 Web，推送到 itch.io，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "模板刻意保持简单，存档只按 Persist 组整体序列化，复杂背包、任务与多存档槽要自己扩展。它不包含玩法、输入重绑定或手柄适配，设置项只有音量与语言。自动发布依赖 itch.io 的 butler 与仓库密钥，配置错时工作流只给笼统失败。模板会持续更新引擎版本，旧分支合并时容易冲突，建议开新仓库而不是长期跟随上游。目录与场景命名有固定约定，团队想换架构时要先理清启动场景与自动加载。",
+  "workflowZh": [
+    {
+      "stepZh": "在 GitHub 点 Use this template 创建仓库，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "用 Godot 4 打开项目并运行主场景，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "替换美术与字体并调整菜单文案，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "把需要保存的节点加入 Persist 组，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "补翻译表并在设置里加入语言选项"
+    },
+    {
+      "stepZh": "配置 itch.io 密钥并推送触发构建，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "菜单、设置与暂停都已接好，开局省下大量 UI 时间，团队新人照着示例就能上手。",
+    "存档与多语言骨架可直接沿用，小型项目够用，出现问题时也更容易定位原因。",
+    "自带 itch.io 发布流水线，比赛提交更省事，对中小团队的时间成本很友好。",
+    "结构简单、代码量小，读一遍就能改成自己的，长期维护与升级的压力都比较小。",
+    "持续跟进 Godot 4 版本，模板不会停在老 API，实际项目落地时省下大量重复工作。"
+  ],
+  "cons": [
+    "只有骨架没有玩法，复杂系统仍要自己搭，升级引擎版本时容易卡住。",
+    "存档粒度粗，多槽位与增量保存要重写，定制之前往往要先读源码。",
+    "固定目录与约定，深度定制前要先读懂流程，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "没把对象加入 Persist 组就退出，重进游戏会发现进度丢失，上线前要专门过一遍。",
+    "itch.io 密钥变量名写错，工作流失败但不指明具体变量，排查时需要多留一层日志。",
+    "直接在上游模板上长期开发，合并更新时冲突会越积越多，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "要在短时间内完成可提交的 Game Jam 作品，并希望菜单、存档与发布流程开箱即用的独立开发者，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目已有成熟工程结构，或需要复杂存档与输入系统，模板的简单约定反而会成为负担。",
+  "compareTips": {
+    "vs": [
+      "Maaack__Godot-Game-Template",
+      "nezvers__Godot-GameTemplate"
+    ],
+    "whenZh": "三者都是模板：本模板最轻、专为 Game Jam 与 itch.io 发布；Maaack 模板菜单与转场更完整；nezvers 模板偏向俯视射击的玩法骨架。要快速参赛选本模板，要正式项目外壳选 Maaack，要射击玩法参考选 nezvers。"
+  },
+  "category": "ui",
+  "tags": [
+    "模板",
+    "GameJam",
+    "菜单",
+    "存档",
+    "itch.io"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向 Game Jam 的 Godot 4 模板",
+      "source": "README.md",
+      "quote": "Godot Engine 4.0 template to better get started for gamejams"
+    },
+    {
+      "claim": "退出时自动保存游戏状态",
+      "source": "README.md",
+      "quote": "Automatically saves the state of the game on exit."
+    },
+    {
+      "claim": "需要保存的对象加入 Persist 组",
+      "source": "README.md",
+      "quote": "has to be part of the"
+    },
+    {
+      "claim": "自带 itch.io 自动发布",
+      "source": "README.md",
+      "quote": "templates comes with automatic deployment to itch.io"
+    }
+  ],
+  "depth": "standard"
+}

@@ -1,0 +1,149 @@
+{
+  "id": "ahopness__GodotRetro",
+  "taglineZh": "收集 CRT、VHS 与 NTSC 等 22 个复古着色器的效果包",
+  "summaryZh": "GodotRetro 收集了 22 个复古风格着色器与合成器效果，覆盖 CRT、电视、VHS、NTSC、抖动、海报化、噪点、镜头畸变与 PSX 空间效果。Forward 与 Mobile 渲染器下以 CompositorEffect 形式挂到 WorldEnvironment，兼容渲染器则用全屏 ColorRect 加 ShaderMaterial。它把 ShaderToy 与社区作品的移植集中起来，附带 5 个示例场景演示叠加用法。适合做怀旧滤镜与低成本风格化，代价是效果强度需要逐个手调，部分着色器在 Web 导出下不可用。它更像素材库而不是一体化后处理框架。",
+  "whatItDoes": "提供一组可叠加的复古后处理着色器，通过合成器效果或全屏材质接入场景，按需组合出 CRT、VHS 与噪点等画面风格。",
+  "useCases": [
+    {
+      "titleZh": "复古恐怖氛围",
+      "descZh": "做 90 年代恐怖游戏，用 CRT 与噪点叠加出旧电视质感，省去自己写扫描线，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "像素色阶控制",
+      "descZh": "像素游戏想要轻微色偏与抖动，用海报化与 Dithering 控制色阶，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "录像带转场",
+      "descZh": "做 VHS 录像带开场，用 VHS 与暂停效果配合时间线做转场，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "PSX 风格",
+      "descZh": "低多边形项目加 PSX 空间抖动，模拟初代主机的顶点跳动，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "CompositorEffect 集合",
+      "descZh": "注册到 WorldEnvironment 的合成器列表，按顺序叠加多个后处理，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "全屏 ShaderMaterial",
+      "descZh": "兼容渲染器可用的全屏材质，挂在 FullRect 的 ColorRect 上生效，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "示例场景",
+      "descZh": "五个可直接运行的小场景，演示 CRT、VHS、噪点与畸变的组合，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "22 个着色器",
+      "descZh": "CRT、TV、VHS、NTSC、抖动、海报化、噪点与镜头畸变等，参数集中在检查器面板。"
+    },
+    {
+      "name": "两种接入方式",
+      "descZh": "合成器效果适合 Forward 与 Mobile，全屏材质兼容渲染器，后续修改起来也不费劲。"
+    },
+    {
+      "name": "参数可超范围",
+      "descZh": "提示范围只是默认值，改代码里的 hint_range 可放大效果，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "组合叠加",
+      "descZh": "多个效果可串联，官方建议配合锐化避免画面过糊，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "示例工程",
+      "descZh": "附带五个示例场景与操作说明，方便对照调参，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "它是一堆独立着色器，不是统一的后处理管线：效果顺序、强度与性能都要自己控制，叠加过多会明显掉帧。文档以 README 与着色器头注释为主，每个效果的参数含义要读源码。部分着色器在 Web 导出不可用，移动端也要实测填充率。合成器路径要求 Forward 或 Mobile 渲染器，兼容渲染器只能用全屏材质，两条路径的效果不完全一致。许可证混合 CC0 与 MIT，商用前要逐个核对头注释。作者不保证所有移植效果与原始 ShaderToy 完全一致。",
+  "workflowZh": [
+    {
+      "stepZh": "把 GodotRetro 文件夹复制进项目，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在 WorldEnvironment 添加 Compositor 并选效果，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "或用 FullRect ColorRect 挂 ShaderMaterial，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "按画面需要调整强度与叠加顺序，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "用示例场景对照锐化与噪点参数，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "导出前在目标平台实测帧率与兼容性"
+    }
+  ],
+  "pros": [
+    "效果数量多，常见复古滤镜几乎都能找到，团队新人照着示例就能上手。",
+    "两种接入方式覆盖新旧渲染器，出现问题时也更容易定位原因。",
+    "附带示例场景，调参时有参照，对中小团队的时间成本很友好。",
+    "许可证宽松，商用限制少，实际项目落地时省下大量重复工作。",
+    "纯着色器实现，不引入原生依赖，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "效果各自独立，缺少统一管线与预设管理，升级引擎版本时容易卡住。",
+    "叠加多了掉帧明显，移动端要逐项关，定制之前往往要先读源码。",
+    "参数说明偏少，主要靠读源码，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "同时挂多个全屏效果却没用 BackBufferCopy，后一个会覆盖前一个，上线前要专门过一遍。",
+    "在 Web 导出使用不支持的着色器，画面直接黑屏或丢失效果，排查时需要多留一层日志。",
+    "把 hint_range 上限当成效果上限，实际还能继续调，容易过曝，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "做复古、恐怖或像素风格，需要现成 CRT、VHS 与噪点效果，并愿意手动组合的中小项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "需要完整后处理管线、体积光与调色预设，或目标平台以 Web 为主，这套素材库不够稳。",
+  "compareTips": {
+    "vs": [
+      "gdquest-demos__godot-shaders",
+      "GarrettGunnell__Godot-PSX"
+    ],
+    "whenZh": "GodotRetro 是复古效果的素材合集；godot-shaders 偏教学示例，便于理解原理；Godot-PSX 专攻 PS1 渲染特性。要现成 CRT 与 VHS 选前者，要学习着色器写法选示例库，要整套 PSX 渲染选后者。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "复古滤镜",
+    "CRT",
+    "VHS",
+    "后处理",
+    "着色器"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "包含合成器效果与着色器",
+      "source": "README.md",
+      "quote": "godot retro is a compositor effects and shader pack for godot"
+    },
+    {
+      "claim": "提供 22 个着色器",
+      "source": "README.md",
+      "quote": "22 easy to use godot shaders"
+    },
+    {
+      "claim": "部分着色器在 Web 导出不可用",
+      "source": "README.md",
+      "quote": "Some shaders may not work in the web export"
+    },
+    {
+      "claim": "合成器效果需 Forward 或 Mobile",
+      "source": "README.md",
+      "quote": "Compositor Effect (Forward+ & Mobile Renderers)"
+    }
+  ],
+  "depth": "standard"
+}

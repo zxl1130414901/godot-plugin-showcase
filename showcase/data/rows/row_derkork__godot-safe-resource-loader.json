@@ -1,0 +1,34 @@
+{
+  "id": "derkork__godot-safe-resource-loader",
+  "descriptionZh": "在加载玩家提供的 .tres 资源前扫描内嵌 GDScript 与外部路径，阻断恶意代码执行的防护库",
+  "category": "save-data",
+  "tags": [
+    "存档安全",
+    "资源加载",
+    "恶意脚本",
+    "线程加载"
+  ],
+  "prosShort": [
+    "同名接口替换，接入成本极低",
+    "解析阶段不实例化脚本，阻断执行",
+    "附带线程加载与 C# 调用用法"
+  ],
+  "consShort": [
+    "只护文本资源，不管二进制 .res",
+    "会误伤带内嵌脚本的正常资源",
+    "外部引用限 res://，合法依赖被拒"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

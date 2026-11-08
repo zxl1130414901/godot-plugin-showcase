@@ -1,0 +1,35 @@
+{
+  "id": "real-ezTheDev__GodotEzDialoguePlugin",
+  "descriptionZh": "用自带脚本语言编写分支对话的 Godot 编辑器插件，支持跳转、条件与自定义信号",
+  "category": "visual-script",
+  "tags": [
+    "对话系统",
+    "脚本语言",
+    "编辑器插件",
+    "变量插值",
+    "分支剧情"
+  ],
+  "prosShort": [
+    "脚本语言写分支，接近纯文本",
+    "支持变量注入与自定义信号",
+    "JSON 资源保存，便于替换与本地化"
+  ],
+  "consShort": [
+    "只在 Godot 4.0 以上测试过，兼容性未验证",
+    "节点改名后跳转要手工同步",
+    "语法高亮与嵌套条件未完善"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

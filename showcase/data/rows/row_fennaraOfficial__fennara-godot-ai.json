@@ -1,0 +1,35 @@
+{
+  "id": "fennaraOfficial__fennara-godot-ai",
+  "descriptionZh": "带聊天面板、CLI 与守护进程的 Godot AI 助手与多客户端 MCP 工具链",
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "编辑器插件",
+    "CLI",
+    "多客户端"
+  ],
+  "prosShort": [
+    "场景截图与报错都可交给 AI",
+    "多个 MCP 客户端共享守护进程",
+    "CLI 统一安装并写入客户端配置"
+  ],
+  "consShort": [
+    "仅支持 Godot 4.5 以上新引擎，团队要提前评估。",
+    "多组件安装链路失败点较多",
+    "Linux 聊天面板依赖 CEF 运行时，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

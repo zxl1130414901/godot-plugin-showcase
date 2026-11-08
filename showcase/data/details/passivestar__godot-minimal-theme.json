@@ -1,0 +1,153 @@
+{
+  "id": "passivestar__godot-minimal-theme",
+  "depth": "standard",
+  "taglineZh": "一个 tres 文件把 Godot 编辑器换成克制的极简深色界面",
+  "summaryZh": "Minimal Theme 是一份编辑器主题资源，靠一个 minimal_theme.tres 覆盖 Godot 编辑器界面的配色、圆角、间距与图标饱和度。它要解决的是默认界面信息密度过高、控件边框抢视线的问题：去掉多余描边，压低对比，把颜色收敛到几个统一的自定义参数。主题支持编辑器设置项，基础色、强调色、对比度与圆角都能在设置里调，不用改 tres 再重开。兼容 4.3 到 4.5，安装只需在编辑器设置里指定文件并重启。官方已说明它被合入引擎，4.6 起成为默认主题，因此仓库的价值转向给旧版本补一个统一外观，或作为自研主题的参考模板。",
+  "whatItDoes": "仓库只含一个主题资源与说明文件，没有插件脚本或编辑器扩展。主题通过 Theme 类型定义各类控件的样式盒、颜色与图标调制，把编辑器默认的高对比边框换成低对比分隔。颜色由基础色与强调色派生，对比度参数决定层级差，圆角与图标饱和度也可调。安装路径在编辑器设置的 Interface - Theme 下指定自定义主题文件，需要先启用高级设置才可见。它不影响项目运行时 UI，只作用于编辑器界面本身。",
+  "useCases": [
+    {
+      "titleZh": "统一团队编辑器外观",
+      "descZh": "多人在不同机器上截图对问题时，统一主题能减少界面差异带来的误读，评审截图也更接近实际运行观感。"
+    },
+    {
+      "titleZh": "长时间盯编辑器",
+      "descZh": "压低对比与饱和度后，长时间看脚本和场景树不那么刺眼，适合每天开八小时编辑器写逻辑的开发者。"
+    },
+    {
+      "titleZh": "旧版本补默认外观",
+      "descZh": "项目还停在 4.3 到 4.5 上，装这个主题就能提前拿到 4.6 的默认观感，不必为了界面去升级引擎。"
+    },
+    {
+      "titleZh": "自研主题参考",
+      "descZh": "想给自己做编辑器皮肤时，直接读它的 tres 结构，看控件样式盒与颜色派生关系怎么组织，比自己摸索快。"
+    },
+    {
+      "titleZh": "演示与录屏",
+      "descZh": "录教程或做直播时统一深色界面，画面更干净，观众注意力更容易落在场景树与代码上，也更容易看清界面细节。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "主题资源文件",
+      "descZh": "一个 minimal_theme.tres，含控件样式盒、配色与图标调制，可直接在编辑器设置里加载，无需脚本或插件支持，重启后全局生效。"
+    },
+    {
+      "titleZh": "可复用配色基线",
+      "descZh": "由基础色、强调色与对比度派生的颜色集合，可作为自研主题的起点，改两个输入值就能整体换风格。"
+    },
+    {
+      "titleZh": "安装与调参说明",
+      "descZh": "README 里的安装步骤与推荐参数，含色值、圆角与字体建议，照着设一遍即可，省去反复摸索，几分钟就能装好。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "minimal_theme.tres",
+      "descZh": "单文件主题，覆盖按钮、面板、树与标签等控件外观，不需要任何插件脚本，也不占运行时内存。"
+    },
+    {
+      "name": "Base / Accent Color",
+      "descZh": "两个颜色入口决定整体色相与强调色，改一处即可让整屏换色，派生色会自动跟随。"
+    },
+    {
+      "name": "Contrast",
+      "descZh": "控制层级之间的明暗差，调低更柔和，调高更容易分辨选中与悬停状态，建议区间有明确推荐。"
+    },
+    {
+      "name": "Corner Radius",
+      "descZh": "统一控件圆角，数值小更硬朗，数值大更柔和，要与图标风格一起看，过大会显得圆润。"
+    },
+    {
+      "name": "Icon Saturation",
+      "descZh": "调节图标饱和度，让彩色图标在低对比界面里不至于过分跳出来，默认值偏克制。"
+    }
+  ],
+  "limitsZh": "它只是外观层，不改编辑器布局、面板尺寸或快捷键，觉得界面拥挤仍要自己拖布局。主题依赖编辑器设置项，Godot 4.2 及更早没有对应的设置接口，强行加载会出现部分控件不受控。图标饱和度与对比度调过头会让文字和背景糊在一起，弱视或低质量屏幕用户反而更难读。仓库已停止功能开发，4.6 起主题并入引擎，旧版本上的问题不会再有修复。主题不覆盖第三方插件的自定义控件，那些面板会退回默认样式，界面出现明显混搭。它也不提供浅色版本，白天强光环境下可选余地有限。安装后要重启编辑器才生效，换主题还会重置部分手工调过的界面项，团队共用配置时容易被覆盖。",
+  "workflowZh": [
+    {
+      "stepZh": "从 release 下载 minimal_theme.tres 文件并解压到本地目录"
+    },
+    {
+      "stepZh": "开启编辑器设置里的高级选项，才能看到主题入口"
+    },
+    {
+      "stepZh": "在 Interface - Theme 指定自定义主题文件，路径要指向 tres"
+    },
+    {
+      "stepZh": "按推荐值调基础色、对比度、圆角与图标饱和度"
+    },
+    {
+      "stepZh": "保存并重启编辑器查看效果，确认控件都受控"
+    }
+  ],
+  "pros": [
+    "只用一个资源文件就换掉整套编辑器外观，不需要插件、不写入项目，卸载也干净。",
+    "颜色、对比度与圆角都走编辑器设置，改完不用重开 tres 文件，调参过程很直接。",
+    "观感克制，长时间盯代码与场景树眼睛负担小，录屏和截图画面也更统一。",
+    "已被合并进引擎并成为 4.6 默认主题，说明设计方向经过官方与大量用户验证。"
+  ],
+  "cons": [
+    "仓库已停止开发，旧版本上的问题不会修复，只能等引擎自带主题。",
+    "只改外观，不改布局与交互，界面拥挤的问题依旧要自己调整。",
+    "不覆盖第三方插件自定义控件，混用插件时会出现样式不一致。"
+  ],
+  "pitfalls": [
+    "直接覆盖同名 tres 再重启，可能沿用旧缓存的界面项，建议先清掉自定义主题再重新指定。",
+    "对比度调到极低后，选中态与悬停态几乎不可分辨，改参数时要保留明显的反馈差。"
+  ],
+  "bestFor": "希望编辑器界面更安静、长时间写代码不刺眼，且项目仍在 Godot 4.3 到 4.5 上的个人开发者与小团队。",
+  "avoidWhenZh": "需要浅色主题、或希望主题覆盖第三方插件面板时，这个单文件主题满足不了。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-syntax-themes",
+      "YuriSizov__godot-editor-theme-explorer",
+      "Inspiaaa__ThemeGen"
+    ],
+    "whenZh": "syntax-themes 管代码高亮配色，editor-theme-explorer 用来浏览与试验编辑器主题，ThemeGen 走代码生成主题。只想换整体外观装本项目最省事；要改代码配色选 syntax-themes，要从零设计主题用 ThemeGen。"
+  },
+  "category": "ui",
+  "tags": [
+    "编辑器主题",
+    "界面",
+    "配色",
+    "资源文件"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 5
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "主题已被原生合入引擎",
+      "source": "README.md",
+      "quote": "This theme has been ported to Godot natively and is the new default theme starting with Godot 4.6."
+    },
+    {
+      "claim": "4.6 起无需再安装",
+      "source": "README.md",
+      "quote": "You don't need to install it anymore."
+    },
+    {
+      "claim": "安装方式是加载单个主题资源",
+      "source": "README.md",
+      "quote": "Download the `minimal_theme.tres` file"
+    },
+    {
+      "claim": "已在 4.3 到 4.5 上测试",
+      "source": "README.md",
+      "quote": "This theme was tested with Godot 4.3, 4.4 and 4.5."
+    },
+    {
+      "claim": "支持编辑器设置项",
+      "source": "README.md",
+      "quote": "Minimal theme supports all editor settings."
+    }
+  ]
+}

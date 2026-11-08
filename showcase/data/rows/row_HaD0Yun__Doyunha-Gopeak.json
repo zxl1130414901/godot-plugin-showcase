@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "面向 Godot 的 MCP 服务器，让 AI 助手读写场景、跑调试并抓取运行时证据",
+  "prosShort": [
+    "AI 可端到端操作真实 Godot 项目",
+    "工具组按需启用，明显节省上下文",
+    "还含截图、输入注入与 CC0 资产库"
+  ],
+  "consShort": [
+    "必须搭配 MCP 客户端，单独装没用",
+    "多组工具仍标注待验证状态",
+    "LSP 与 DAP 都要额外开端口，并配 addon"
+  ],
+  "isGDExtension": false,
+  "id": "HaD0Yun__Doyunha-Gopeak",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "自动化",
+    "调试",
+    "TypeScript"
+  ],
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

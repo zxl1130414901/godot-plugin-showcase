@@ -1,0 +1,14 @@
+{
+  "id": "ee0pdt__Godot-MCP",
+  "descriptionZh": "把 Claude 等 AI 助手通过 MCP 接入 Godot 工程，可读写节点、脚本与场景并直接写回编辑器的早期开源方案",
+  "category": "ai-gen",
+  "tags": ["MCP", "Claude", "AI编程", "开源", "Node.js"],
+  "prosShort": ["节点、脚本、场景与项目命令都齐全", "服务器与插件源码齐全，可自行修改", "自带已启用插件的示例工程与文档"],
+  "consShort": ["项目自 2025 年 3 月起已停更很久", "安装要先构建服务器再手写配置", "命令能力不及新版商业化的 MCP 方案"],
+  "scores": {"coverage": 3, "usability": 2, "docs": 3, "maintenance": 2, "performance": 3, "stability": 2},
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

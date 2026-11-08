@@ -1,0 +1,35 @@
+{
+  "id": "pkdawson__imgui-godot",
+  "descriptionZh": "让 C#、C++ 与 GDScript 在 Godot 里使用 Dear ImGui 调试界面，适合中小型团队使用。",
+  "category": "ui",
+  "tags": [
+    "调试界面",
+    "ImGui",
+    "GDExtension",
+    "C#",
+    "编辑器工具"
+  ],
+  "prosShort": [
+    "几行代码就能出调试面板，团队上手也快。",
+    "C#、C++ 与 GDScript 都能用，接入成本不高。",
+    "完整包自带多平台原生库，后续扩展方便。"
+  ],
+  "consShort": [
+    "工具风界面不适合玩家，团队要提前评估。",
+    "ImGui.NET 版本错配会崩，规模化后更明显。",
+    "原生库只验证到 4.4，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

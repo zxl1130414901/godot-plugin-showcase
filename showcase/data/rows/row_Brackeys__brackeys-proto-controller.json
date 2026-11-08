@@ -1,0 +1,35 @@
+{
+  "id": "Brackeys__brackeys-proto-controller",
+  "descriptionZh": "Brackeys 的极简第一人称控制器，含跳跃、冲刺与无碰撞飞行，适合快速做原型验证。",
+  "category": "state-logic",
+  "tags": [
+    "fps",
+    "prototype",
+    "character-controller",
+    "beginner",
+    "cc0"
+  ],
+  "prosShort": [
+    "只有脚本和场景两个文件，拖入即用",
+    "跳跃冲刺与飞行模式都有独立开关",
+    "CC0 授权，商用与教学都可自由使用"
+  ],
+  "consShort": [
+    "缺少蹲伏攀爬，也没有动画状态机",
+    "长期无更新，引擎兼容性需自行验证",
+    "仅支持键盘鼠标，无手柄触屏适配"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "DanTrz__TileMapLayer3D",
+  "descriptionZh": "在 3D 视口把 2D 图集刷成体素与 2.5D 关卡的编辑器插件，支持自动接边与碰撞烘焙",
+  "category": "editor-tool",
+  "tags": [
+    "3D瓦片",
+    "关卡编辑",
+    "2D转3D",
+    "自动拼接",
+    "编辑器插件"
+  ],
+  "prosShort": [
+    "2D 图集直接生成 3D 网格，免去建模",
+    "自动接边与智能填充减少重复摆放",
+    "支持分区碰撞与网格烘焙导出"
+  ],
+  "consShort": [
+    "仓库已废弃，上游不再修复问题",
+    "仅支持 Godot 4.5 及以上版本，旧版项目不可用",
+    "旧场景升级缺少可靠迁移路径"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 1,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

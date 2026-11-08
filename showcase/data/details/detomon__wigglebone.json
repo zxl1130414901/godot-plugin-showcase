@@ -1,0 +1,144 @@
+{
+  "id": "detomon__wigglebone",
+  "depth": "standard",
+  "taglineZh": "给骨骼加弹簧式抖动，让头发与配饰自然摆动",
+  "summaryZh": "WiggleBone 用 Godot 4.3 引入的 SkeletonModifier3D 节点，给 Skeleton3D 的某根骨骼加上弹簧式抖动：旋转修饰器让骨骼围绕当前姿势来回摆，位置修饰器让骨骼沿轴做弹性位移。参数以资源形式保存，可在多根骨骼间共享，还能施加重力或恒定外力。它适合头发、尾巴、耳饰、披风骨架这类需要惯性跟随的部位，省去手工 K 动画。旧版 WiggleBone 节点已弃用，4.2 及以下需用单独分支。示例工程里给了手掌与头发的现成配置，照着改参数即可。",
+  "whatItDoes": "插件提供旋转与位置两类 SkeletonModifier3D 修饰器。旋转修饰器把当前骨骼姿势方向当作弹簧静止位，按频率、角阻尼与力缩放计算偏移；位置修饰器沿指定轴做弹性位移。两者都能读取全局或局部恒定外力，参数放在可共享的 Properties 资源里。修饰器只在当前帧生效，父骨骼的修饰器要排在场景树靠前的位置。",
+  "useCases": [
+    {
+      "titleZh": "头发与尾巴跟随",
+      "descZh": "给角色头发或尾巴末端骨骼挂旋转修饰器，跑动时自然甩动，省去逐帧手 K，末端骨骼越多，摆动越有层次，层次感更足。"
+    },
+    {
+      "titleZh": "配饰惯性摆动",
+      "descZh": "耳环、挂坠与腰带用位置修饰器做小幅弹性位移，转身时产生迟滞感，位移幅度不要太大，否则会脱离挂点，避免穿模。"
+    },
+    {
+      "titleZh": "受外力反馈",
+      "descZh": "开启全局外力模拟风向或加速度，让披风与触须朝向随场景变化，风力参数可以按场景调，室内室外差别明显。"
+    },
+    {
+      "titleZh": "低成本物理演出",
+      "descZh": "不用接完整物理引擎，只对关键骨骼做近似弹簧，开销可控，比接入完整物理引擎省资源，调参也更直观好控一些。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "抖动修饰器节点",
+      "descZh": "挂在骨架上的旋转或位置修饰器，在检查器里加节点即可生效，逐帧实时改写骨骼当前姿势。"
+    },
+    {
+      "titleZh": "可共享参数资源",
+      "descZh": "弹簧频率、阻尼与力缩放集中存放，多根骨骼可复用同一份，省去逐点复制，改一处即可全局生效。"
+    },
+    {
+      "titleZh": "编辑器预览手柄",
+      "descZh": "在编辑器里的骨骼 Y 轴上显示可拖拽手柄，调参前可先直观确认实际作用方向与实际距离。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "旋转修饰器",
+      "descZh": "以当前姿势为静止位做弹簧旋转，适合头发与尾巴等链条末端骨骼，摆动更自然。"
+    },
+    {
+      "name": "位置修饰器",
+      "descZh": "沿骨骼轴做弹性位移，表现挂饰与柔软部件的迟滞，上下最大幅度可单独限制。"
+    },
+    {
+      "name": "外力输入",
+      "descZh": "支持全局与局部恒定力，可模拟风或持续加速度，持续吹动时让披风偏向一侧。"
+    },
+    {
+      "name": "参数资源共享",
+      "descZh": "同一份属性资源可被多根骨骼共用，调参不必逐点复制，改一处即可全局生效。"
+    },
+    {
+      "name": "编辑器内测试",
+      "descZh": "在编辑器里不必运行游戏就能看到摆动手柄与预览效果，调参的反馈很直接。"
+    }
+  ],
+  "limitsZh": "它依赖 Godot 4.3 及以上版本的 SkeletonModifier3D，4.2 与更早版本只能用维护分支里的 Node3D 实现，功能与用法有差异。修饰器只处理单根骨骼的弹簧近似，没有碰撞、关节约束与体积保持，密集骨骼链容易互相穿插。姿势修改只对当前帧有效，父骨骼修饰器必须排在子骨骼之前，顺序错了效果会失真。参数需要按角色反复试调，弹簧频率与阻尼配合不当会抖成噪声。旧 WiggleBone 节点虽保留但已弃用，混用会得到两套行为。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 搜索 wigglebone，安装后直接在项目设置里启用插件"
+    },
+    {
+      "stepZh": "在项目设置里启用插件，确认引擎版本不低于 4.3"
+    },
+    {
+      "stepZh": "给 Skeleton3D 添加一个旋转或位置修饰器节点，挂到目标骨骼"
+    },
+    {
+      "stepZh": "新建属性资源，调频率、阻尼与力缩放并共享给多根骨骼"
+    },
+    {
+      "stepZh": "按父子顺序排列修饰器，再运行检查摆动是否自然"
+    }
+  ],
+  "pros": [
+    "用官方 SkeletonModifier3D 扩展，不改引擎源码，也不依赖第三方运行时与额外编译，全部逻辑用 GDScript 写成。",
+    "旋转与位置两类修饰器覆盖大部分头发、尾巴、耳饰与挂饰等各类常见需求。",
+    "参数抽成可共享资源，一份资源即可直接驱动多根骨骼，调参省去重复劳动。",
+    "编辑器内有方向手柄与示例场景，试效果比盲调快，手掌与头发例子可直接打开。"
+  ],
+  "cons": [
+    "最低要求 Godot 4.3，老项目得换分支或升级引擎，处理起来比较麻烦。",
+    "只是弹簧近似，没有碰撞与关节约束，密集骨骼容易互相穿插。",
+    "修饰器顺序敏感，父骨骼排在子骨骼之后整个效果会出现失真。"
+  ],
+  "pitfalls": [
+    "把修饰器挂在子骨骼之前会得到反效果，需按父到子的顺序从上往下排列。",
+    "频率与阻尼配得太低会长时间持续抖动，整个看起来更像穿模而非物理。",
+    "从旧版升级后仍保留 WiggleBone 节点，会与新修饰器叠加出两套逻辑与双倍摆动。"
+  ],
+  "bestFor": "做 3D 角色动画，需要给头发、尾巴或挂饰加惯性摆动的 Godot 独立开发者，尤其是暂时不想接完整物理引擎的小团队。",
+  "avoidWhenZh": "项目停留在 Godot 4.2 或更早，或需要骨骼碰撞与复杂关节约束时，这个插件不合适。",
+  "compareTips": {
+    "vs": [
+      "monxa__GodotIK",
+      "cloudofoz__godot-deformablemesh"
+    ],
+    "whenZh": "和 GodotIK 这类骨骼求解器不同，WiggleBone 不做目标追踪，只做弹簧式余摆；两者可以叠加，IK 定姿势、抖动补细节。需要网格形变时看 deformablemesh，注意修饰器顺序与求解器顺序。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "骨骼动画",
+    "物理抖动",
+    "头发",
+    "Skeleton3D"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "用 SkeletonModifier3D 给骨骼加抖动",
+      "source": "README.md",
+      "quote": "Adds jiggle physics to a `Skeleton3D` bone using `SkeletonModifier3D` nodes."
+    },
+    {
+      "claim": "4.2 及以下版本不支持 SkeletonModifier3D",
+      "source": "README.md",
+      "quote": "As Godot 4.2 and lower does not support `SkeletonModifier3D` nodes"
+    },
+    {
+      "claim": "姿势修改只在当前帧有效",
+      "source": "README.md",
+      "quote": "Poses modified in `SkeletonModifier3D` nodes are only temporary for the current frame."
+    },
+    {
+      "claim": "旧 WiggleBone 节点已弃用",
+      "source": "README.md",
+      "quote": "The `WiggleBone` node is deprecated and should be replaced with either `DMWBWiggleRotationModifier3D` or `DMWBWigglePositionModifier3D`."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "godotjs__GodotJS",
+  "descriptionZh": "为 Godot 4 接入 TypeScript 与 JavaScript 脚本语言，支持多种引擎后端与断点调试的扩展模块。",
+  "category": "visual-script",
+  "tags": ["TypeScript", "JavaScript", "脚本语言", "V8", "热重载"],
+  "prosShort": ["TS 脚本可像 GDScript 一样挂到场景节点", "四种 JS 引擎后端可自由切换", "自带热重载与编辑器内 REPL 调试"],
+  "consShort": ["需自行编译 V8 扩展库，门槛高", "仍处测试阶段，API 随时会变动调整", "Worker 线程与异步模块支持有限"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 3, "maintenance": 4, "performance": 4, "stability": 3},
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

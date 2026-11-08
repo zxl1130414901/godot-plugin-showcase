@@ -1,0 +1,35 @@
+{
+  "id": "DigitallyTailored__Godot-Open-World-Database",
+  "descriptionZh": "开放世界分块流式加载插件，按相机位置加载卸载区块，支持持久化存档与可选多人同步。",
+  "category": "save-data",
+  "tags": [
+    "open-world",
+    "streaming",
+    "chunking",
+    "multiplayer",
+    "save"
+  ],
+  "prosShort": [
+    "按相机距离分块加载与卸载世界内容",
+    "批量加载带时间上限，减少帧率尖峰",
+    "世界状态可持久化并支持多个存档"
+  ],
+  "consShort": [
+    "项目仍在开发，加载卸载可能误删节点",
+    "世界场景必须按区块重新组织内容",
+    "可选网络层会带来明显的同步配置负担"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 2
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

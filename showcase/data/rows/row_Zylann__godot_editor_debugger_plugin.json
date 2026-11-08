@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "在编辑器里查看编辑器自身场景树的调试插件，支持 F12 拾取控件与另存分支",
+  "prosShort": [
+    "直接看到编辑器自身节点树",
+    "F12 拾取控件比逐层查找快得多",
+    "可把分支另存为场景作参考"
+  ],
+  "consShort": [
+    "只能查看属性，不能直接编辑",
+    "仓库很小，既缺说明也缺测试",
+    "依赖编辑器内部结构易失效"
+  ],
+  "isGDExtension": false,
+  "id": "Zylann__godot_editor_debugger_plugin",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "category": "debug-perf",
+  "tags": [
+    "编辑器调试",
+    "场景树检查",
+    "控件拾取",
+    "编辑器插件",
+    "界面排查"
+  ],
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

@@ -1,0 +1,33 @@
+{
+  "id": "gdquest-demos__godot-4-stylized-sky",
+  "descriptionZh": "Godot 4 风格化天空着色器，含三色渐变星空体积云与流星，整体接入成本不高。",
+  "category": "3d-shader",
+  "tags": [
+    "天空",
+    "着色器",
+    "体积云",
+    "风格化"
+  ],
+  "prosShort": [
+    "单文件着色器接入极快，团队上手也快。",
+    "昼夜两套示例可直接套用，接入成本不高。",
+    "带静态天空与采样优化建议"
+  ],
+  "consShort": [
+    "没有插件面板参数要手填，团队要提前评估。",
+    "不含昼夜循环与天气系统，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

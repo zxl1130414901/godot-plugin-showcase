@@ -1,0 +1,144 @@
+{
+  "id": "niklas2902__py4godot",
+  "depth": "standard",
+  "taglineZh": "实验性 GDExtension：在 Godot 4 中用 Python 写游戏脚本",
+  "summaryZh": "它解决的是 Godot 4 只能用 GDScript 与 C# 的问题：用 Cython 把 CPython 绑定到 GDExtension，让 .py 文件像脚本一样挂到节点上，能访问引擎类、导出属性与信号。写法接近 GDScript，用 @gdclass 声明类、用 signal 定义信号，再实现 _ready 与 _process。安装要下载发布包并准备 Python 3.11 以上与 pip。限制是项目仍处早期，README 明说只适合演示，平台仅 Windows 64 位、Linux 64 位与 macOS，性能和稳定性都未经过大项目验证。",
+  "whatItDoes": "提供 py4godot 运行时包与 GDExtension 入口，把 Python 类注册成 Godot 脚本语言对象。用 @gdclass 装饰器声明可挂载类，signal([SignalArg(...)]) 定义信号，属性按 Python 类型注解导出。自带的生成脚本按 extension_api.json 产出全部引擎类绑定，@private 可把方法隐藏到编辑器之外。",
+  "useCases": [
+    {
+      "titleZh": "Python 原型",
+      "descZh": "团队熟悉 Python 与科学计算库，想先用脚本快速验证玩法逻辑，再决定是否下沉到 C#，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "工具与数据",
+      "descZh": "需要读 CSV、跑统计或调外部 Python 库时，把逻辑放进 .py 脚本比 GDScript 更顺手，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "语言绑定研究",
+      "descZh": "研究 Cython 如何批量生成 GDExtension 类绑定与 PluginScript 生命周期，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "教学中试玩",
+      "descZh": "课堂演示想把 Python 代码直接搬进引擎，可对照示例仓库快速跑通，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Python 脚本类",
+      "descZh": "@gdclass 装饰的 Python 类可挂到节点，带 _ready、_process 与导出属性，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "信号与属性",
+      "descZh": "signal 声明与类型注解导出，让 Python 类接入 Godot 检查器与信号系统，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "全量类绑定",
+      "descZh": "生成脚本产出 Godot 全部核心类的 Python 包装，无需逐个手写，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "@gdclass",
+      "descZh": "声明可被 Godot 识别的脚本类，类名要与文件名一致，否则挂载失败。"
+    },
+    {
+      "name": "signal",
+      "descZh": "用 SignalArg 列表声明带类型的信号，可在 Python 侧 emit 与连接，参数集中在检查器面板。"
+    },
+    {
+      "name": "代码生成",
+      "descZh": "按 extension_api.json 生成类、枚举与静态方法包装，覆盖引擎 API，后续修改起来也不费劲。"
+    },
+    {
+      "name": "@private",
+      "descZh": "把方法标记为私有，避免暴露到编辑器检查器与方法列表，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "多平台库",
+      "descZh": "发布包按 Windows、Linux、macOS 提供预编译扩展，复制到 addons 即可，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "README 直接把它定位为早期演示，不建议用于较大项目，这是最重要的风险提示。平台覆盖不完整：支持 Windows 64 位、Linux 64 位与 macOS，32 位、Android 与 iOS 都未支持。运行依赖本机 Python 3.11 以上与 pip，发布构建还要随包带上解释器与依赖，包体与部署复杂度都高。用 Cython 跨语言桥接，每次调用都有转换开销，热点逻辑不适合放在 Python 侧。绑定由脚本生成，引擎 API 变动后要重新生成并重新编译，升级成本偏高。社区与文档规模都小，遇到问题主要靠 issue 与示例仓库。",
+  "workflowZh": [
+    {
+      "stepZh": "下载发布包并解压到项目的 addons 目录"
+    },
+    {
+      "stepZh": "先确认本机 Python 3.11 以上版本与 pip 可用"
+    },
+    {
+      "stepZh": "按 @gdclass 约定新建与类同名的 py 脚本文件"
+    },
+    {
+      "stepZh": "在 Python 脚本里实现 _ready、信号与导出属性"
+    },
+    {
+      "stepZh": "在测试场景挂载脚本并观察控制台输出"
+    }
+  ],
+  "pros": [
+    "可用 Python 直接写游戏逻辑，能复用成熟的 Python 生态与库，团队新人照着示例就能上手。",
+    "示例覆盖类、信号、属性与生命周期，照着就能跑通第一个脚本。",
+    "绑定由 extension_api.json 自动生成，覆盖引擎类而不必手写，出现问题时也更容易定位原因。",
+    "预编译发布包覆盖三大桌面平台，复制 addons 即可试用，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "README 自认是早期演示，不建议用于较大或长期项目。",
+    "只支持 Windows、Linux、macOS 64 位，移动端完全缺席，升级引擎版本时容易卡住。",
+    "需要本机 Python 环境与 pip 依赖，部署链路比 GDScript 复杂得多。"
+  ],
+  "pitfalls": [
+    "@gdclass 类名必须与文件名一致，命名不符时脚本挂载会直接失败。",
+    "本机 Python 版本低于 3.11 或缺少 pip 时，扩展初始化会报导入错误。",
+    "引擎升级后绑定需重新生成并重编译，旧包可能加载失败，上线前要专门过一遍。"
+  ],
+  "bestFor": "想在 Godot 4 里快速用 Python 验证玩法或复用人机学习脚本，并能接受早期项目风险的技术团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "要做正式商业项目、需要移动端发布，或团队不愿维护 Python 运行时环境时。",
+  "compareTips": {
+    "vs": [
+      "gilzoide__godot-lua-pluginscript"
+    ],
+    "whenZh": "两者都是给 Godot 加第三方脚本语言，但路线不同：py4godot 用 Cython 绑定 CPython，支持 Godot 4 且需要本机 Python；Lua PluginScript 走 GDNative，主要服务 Godot 3。新项目选 Python，老项目补 Lua 选后者。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "Python",
+    "GDExtension",
+    "脚本语言",
+    "Cython",
+    "实验性"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "用 Python 像 GDScript 一样写脚本",
+      "source": "README.md",
+      "quote": "This GDExtension plugin allows you to use Python like GDScript, accessing the Godot engine's features and benefiting from Python's vast ecosystem."
+    },
+    {
+      "claim": "项目仍处早期只适合演示",
+      "source": "README.md",
+      "quote": "This project is currently in an early phase of development. Consider this more as a demo and don't use this for bigger projects."
+    },
+    {
+      "claim": "平台支持有限",
+      "source": "README.md",
+      "quote": "At the moment only Windows 64 bit and Linux 64 bit are supported."
+    },
+    {
+      "claim": "需要 Python 3.11 以上与 pip",
+      "source": "README.md",
+      "quote": "You need a Python 3 version of at least 3.11 with pip installed."
+    }
+  ]
+}

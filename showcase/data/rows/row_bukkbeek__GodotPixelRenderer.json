@@ -1,0 +1,35 @@
+{
+  "id": "bukkbeek__GodotPixelRenderer",
+  "descriptionZh": "把 3D 模型与动画离线渲染成像素素材与 PNG 序列的工具，整体接入成本不高。",
+  "category": "asset-pipeline",
+  "tags": [
+    "像素画",
+    "3D转2D",
+    "素材导出",
+    "像素着色器",
+    "独立工具"
+  ],
+  "prosShort": [
+    "3D 模型一键转成像素素材，团队上手也快。",
+    "像素化与色阶描边都可调，接入成本不高。",
+    "可导出法线与高光通道，后续扩展方便。"
+  ],
+  "consShort": [
+    "独立工程不能嵌入游戏项目",
+    "逐帧渲染高面数模型很慢，团队要提前评估。",
+    "材质与骨骼支持比较有限，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

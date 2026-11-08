@@ -1,0 +1,35 @@
+{
+  "id": "bitbrain__godot-gamejam",
+  "descriptionZh": "面向 Game Jam 的 Godot 4 模板，含菜单、存档、翻译与自动发布，整体接入成本不高。",
+  "category": "ui",
+  "tags": [
+    "模板",
+    "GameJam",
+    "菜单",
+    "存档",
+    "itch.io"
+  ],
+  "prosShort": [
+    "菜单存档与设置开箱即用，团队上手也快。",
+    "自带 itch.io 发布流水线，接入成本不高。",
+    "代码量小读一遍就能改，后续扩展方便。"
+  ],
+  "consShort": [
+    "只有骨架没有玩法内容，团队要提前评估。",
+    "存档粒度粗且只支持单槽，规模化后更明显。",
+    "固定约定让深度定制变麻烦"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

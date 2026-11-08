@@ -1,0 +1,146 @@
+{
+  "id": "nagidev__DialogueNodes",
+  "depth": "standard",
+  "taglineZh": "在编辑器里画分支对话图并导出可运行的对话",
+  "summaryZh": "Dialogue Nodes 在 Godot 编辑器里加一个基于图节点的对话树编辑器，把分支、条件、变量与角色信息存成资源文件，运行时由对话框逐句播放。它支持富文本动画标签、带条件的选项、角色头像与颜色，还能在编辑器内预览整段对话。对话文本可放进 tres 做本地化，选项与变量通过信号与游戏逻辑相连。插件用 GDScript 写成，未针对 C# 项目做适配，作者另指了一个 C# 分支项目。安装走 AssetLib，启用插件后在编辑器里多出一个对话图标签页。",
+  "whatItDoes": "插件注册一个图编辑视图，用节点表示台词、选项与跳转，连线决定分支走向。每个节点可写说话人、头像、颜色、富文本标签与条件表达式，选项也能附带显隐条件。保存后得到资源文件，游戏侧用对话框节点加载并推进，遇到选项时把可选分支交给 UI。变量读写与信号回调让对话能影响任务状态，文本还支持按语言切换。",
+  "useCases": [
+    {
+      "titleZh": "剧情向关卡对话",
+      "descZh": "把 NPC 台词与分支选项画成图，运行时按玩家选择跳转，适合 RPG 与冒险游戏，分支多时先在图上理清路线再写台词。"
+    },
+    {
+      "titleZh": "带条件的任务对话",
+      "descZh": "用变量判断任务进度，同一 NPC 在不同阶段给出不同台词与选项，任务变量变化后再回到同一节点，会走不同分支。"
+    },
+    {
+      "titleZh": "多语言文本管理",
+      "descZh": "把台词收进 tres 资源按语言切换，避免把文案写死在场景或脚本里，同一套对话图可以分别导出多份独立的语言文本表。"
+    },
+    {
+      "titleZh": "编辑器内预演",
+      "descZh": "先在预览器里从头点到尾，确认分支与条件无误，再接到正式 UI 上，预览器会把条件判断结果直接标在选项上。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "对话树资源",
+      "descZh": "以图节点描述的台词、选项与跳转，保存成可在运行时加载的资源文件，图中每个节点对应一段台词或一个选项。"
+    },
+    {
+      "titleZh": "可运行的对话框",
+      "descZh": "播放台词、显示头像与选项的界面节点，把资源挂上节点后即可在游戏场景里逐句推进对话。"
+    },
+    {
+      "titleZh": "本地化文本表",
+      "descZh": "按语言存放台词的 tres 文件，切换语言时台词与选项文本会一起替换成对应语种，无需重建资源。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "图编辑视图",
+      "descZh": "在编辑器里用节点与连线搭分支，比手写状态机直观，改路线只要拖动一条连线。"
+    },
+    {
+      "name": "条件与变量",
+      "descZh": "台词和选项都能挂条件，按玩家状态、任务进度与变量值等多个条件随时显隐。"
+    },
+    {
+      "name": "富文本动画",
+      "descZh": "用 bbcodes 给台词加抖动、波浪、颜色与逐字显示等常见效果，动画参数可各自逐段设置。"
+    },
+    {
+      "name": "编辑器内预览",
+      "descZh": "不必启动游戏就能从头试跑整段对话，分支走向一目了然，改完即可立刻重试。"
+    },
+    {
+      "name": "角色头像与配色",
+      "descZh": "每个说话人可在资源里绑定头像与名字颜色，减少 UI 额外配置，场景切换时样式自动跟随。"
+    }
+  ],
+  "limitsZh": "整套系统是 GDScript 实现，README 明确说未测试 C# 支持，C# 项目需另找分支。已知问题包括台词里用回车符时选项可能不显示，以及图节点选项溢出边框，后者作者归因于 Godot 4.2 的编辑器缺陷。多数用法写在 wiki 而非 README，文档仍在频繁更新，部分功能没有说明。对话只覆盖线性分支与条件判断，缺少任务系统、镜头调度与配音时间轴。复杂剧情图在编辑器里会变得相当拥挤，且缺少折叠与分组。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 搜索 Dialogue Nodes，安装后在项目设置的插件页启用它"
+    },
+    {
+      "stepZh": "新建对话图，添加台词与选项节点并用连线接好"
+    },
+    {
+      "stepZh": "为各个节点填写说话人、头像、条件与富文本标签"
+    },
+    {
+      "stepZh": "在预览器里走一遍分支，确认条件与文案都正确"
+    },
+    {
+      "stepZh": "把对话资源挂到对话框节点，用信号接上游戏逻辑"
+    }
+  ],
+  "pros": [
+    "图编辑器直观，分支与跳转关系一眼可见，改剧情不必翻脚本，也不必记节点 ID。",
+    "条件、变量与信号齐全，对话能直接驱动任务与商店等系统，任务、商店与开关都能接。",
+    "自带预览器与富文本动画，调文案时不用反复启动游戏，调文案时省去反复启动游戏。",
+    "资源化存储加 tres 本地化，多语言项目改文案较省事，多语言项目改文案也较省事。"
+  ],
+  "cons": [
+    "官方承认未测试 C# 支持，.NET 项目只能另找分支或改用其他插件。",
+    "已知在台词含回车符时选项不显示，图节点还会溢出边框。",
+    "多数用法写在 wiki 而非常见文档，README 信息量少，新手容易卡住。",
+    "只做对话分支，任务、镜头与配音时间轴这些系统都要自己补。"
+  ],
+  "pitfalls": [
+    "台词里插入回车换行可能让选项整块消失，尽量改写为多节点或避免换行。",
+    "Godot 4.2 上图节点的选项会超出边界，升级编辑器版本前别误判为数据损坏。",
+    "对话资源热改后，运行中的对话框不会自动刷新，需要手动重新加载一次。"
+  ],
+  "bestFor": "做 RPG、冒险或视觉小说，需要分支对话与条件判断，又不想自己写对话系统的 Godot 独立开发者与三人以下的小团队。",
+  "avoidWhenZh": "项目用 C# 开发，或需要任务、镜头、配音一体化的现成剧情编排工具时，它撑不住。",
+  "compareTips": {
+    "vs": [
+      "dialogic-godot__dialogic",
+      "nathanhoad__godot_dialogue_manager",
+      "SproutyLabs__SproutyDialogs"
+    ],
+    "whenZh": "Dialogic 功能更全，含角色管理与时间轴；本项目更轻，图编辑加资源化对话够用。若只要纯文本分支，dialogue manager 的脚本式写法更省事，若剧情还要任务、镜头与配音联动，Dialogic 更合适。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "对话系统",
+    "分支剧情",
+    "图编辑器",
+    "RPG"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "核心功能是在编辑器内创建与导出对话树",
+      "source": "README.md",
+      "quote": "A plugin for creating and exporting dialogue trees from within the Godot Editor."
+    },
+    {
+      "claim": "支持条件对话与选项",
+      "source": "README.md",
+      "quote": "- Conditional dialogues & options"
+    },
+    {
+      "claim": "未针对 C# 项目测试",
+      "source": "README.md",
+      "quote": "The plugin was built using GDscript and has not been tested for a proper C# support."
+    },
+    {
+      "claim": "已知回车符会导致选项缺失",
+      "source": "README.md",
+      "quote": "- Using return character in the dialogue results in options not showing up in certain cases"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "cluttered-code__godot-health-hitbox-hurtbox",
+  "descriptionZh": "2D 与 3D 的生命值、攻击与受击组件，按动作链路结算伤害与治疗。",
+  "category": "state-logic",
+  "tags": [
+    "生命值",
+    "伤害判定",
+    "组件化",
+    "2D与3D",
+    "战斗系统"
+  ],
+  "prosShort": [
+    "伤害链路职责拆分清晰且 2D/3D 齐备",
+    "高级模式支持修饰器",
+    "有示例教程与在线 demo"
+  ],
+  "consShort": [
+    "要求 Godot 4.5 以上",
+    "v5 改名不兼容",
+    "不含动画与击退表现"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

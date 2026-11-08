@@ -1,0 +1,148 @@
+{
+  "id": "carenalgas__popochiu",
+  "depth": "standard",
+  "taglineZh": "在 Godot 里做点击式冒险游戏的完整框架",
+  "summaryZh": "Popochiu 由运行时与编辑器插件两部分组成，按房间、角色、道具与热点组织点击式冒险游戏，内置物品栏、对话、存读档、动作历史与转场，还提供多套可直接用的界面主题。像素风与高清 2D 都能覆盖，也能从 Aseprite 源文件导入房间结构。结构较完整，代价是要接受它的工程组织方式与较新的引擎版本要求，选型前建议结合团队实际评估。",
+  "whatItDoes": "编辑器侧提供 Popochiu Dock、可视化 gizmo 与对话树管理，运行时侧提供房间、可交互道具与热点、角色移动与情绪、物品栏、脚本化对话和存读档。内置命令式 GUI 框架与多套主题，背景音乐与音效也有统一管理入口。可从 Aseprite 导入房间、角色与物品结构。",
+  "useCases": [
+    {
+      "titleZh": "经典点击冒险",
+      "descZh": "做复古点击式冒险游戏，需要房间、热点与物品栏时直接用成熟结构而非从零搭，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "叙事解谜小品",
+      "descZh": "短篇叙事解谜可把精力放在剧本与谜题上，底层交互交给框架，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "像素风剧情游戏",
+      "descZh": "像素美术项目可直接套用其房间与角色体系，并导入 Aseprite 分层结构，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "对话驱动 Demo",
+      "descZh": "需要角色情绪变化与分支对话的演示，用内置对话树快速组织，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "团队原型验证",
+      "descZh": "策划可用 Dock 搭建房间与交互，程序集中处理命令与存档逻辑，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可交互房间",
+      "descZh": "含道具、热点、可行走区域与位置标记的场景结构，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "角色与对话",
+      "descZh": "带情绪状态的角色与脚本化对话树，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "存档与界面",
+      "descZh": "存读档数据、动作历史与现成 GUI 主题，结构与引擎资源体系保持一致，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Popochiu Dock",
+      "descZh": "编辑器侧统一入口，集中管理房间、角色与物品，参数集中在检查器面板。"
+    },
+    {
+      "name": "Hotspot 与 Prop",
+      "descZh": "房间内的可交互热点与场景道具，支持脚本响应，后续修改起来也不费劲。"
+    },
+    {
+      "name": "对话树",
+      "descZh": "可视化维护分支对话与角色情绪，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "存读档",
+      "descZh": "内置游戏会话保存与恢复，含动作历史，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "Aseprite 导入",
+      "descZh": "按源文件图层结构导入房间、角色与物品，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "框架对项目组织有明确主张，房间、角色与 GUI 都要按它的结构搭建，中途接入已有工程会较别扭。它是纯 2D 点击式方案，不适合动作、平台或 3D 项目；对话与命令系统虽完整，但复杂演出仍要写 GDScript。README 标注需要 Godot 4.7，实际可用版本受引擎发布节奏限制。功能面广也意味着源码体量大，深度改造要熟悉其内部约定。",
+  "workflowZh": [
+    {
+      "stepZh": "安装插件并初始化 Popochiu 项目结构，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "用 Dock 创建房间与角色资源，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "布置道具、热点与可行走区域，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "编写对话树与交互命令脚本，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "配置界面主题并接入存读档，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "房间、热点、物品栏、对话等点击式要素基本齐全，团队新人照着示例就能上手。",
+    "编辑器 Dock 与可视化 gizmo 降低场景搭建门槛，出现问题时也更容易定位原因。",
+    "自带多套界面主题与存读档，原型阶段出活快，对中小团队的时间成本很友好。",
+    "Aseprite 导入省去手工重建房间图层结构，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "工程组织方式强势，接入既有项目改造成本高，升级引擎版本时容易卡住。",
+    "仅面向 2D 点击式冒险，其他品类不适用，定制之前往往要先读源码。",
+    "对 Godot 版本要求新，旧项目无法直接升级，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "不走初始化流程直接建场景会导致资源引用缺失，上线前要专门过一遍。",
+    "房间切换未清理旧状态会残留热点响应，排查时需要多留一层日志。",
+    "Aseprite 图层命名不规范时导入结构会错位，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "准备做经典点击式冒险或叙事解谜，愿意按框架约定组织工程、并希望快速拥有物品栏与对话系统的团队。",
+  "avoidWhenZh": "项目是动作、平台或 3D 类型，或已有成熟工程结构、不想大规模重构时。",
+  "compareTips": {
+    "vs": [
+      "dialogic-godot__dialogic"
+    ],
+    "whenZh": "两者都服务叙事：Popochiu 是完整点击式冒险框架，房间、热点、物品栏与对话一体；Dialogic 专注对话与时间线，可插入任意类型项目。做纯冒险可优先 Popochiu，只缺对话则 Dialogic 更轻。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "点击冒险",
+    "叙事",
+    "房间",
+    "物品栏",
+    "对话"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "由运行时与编辑器插件两部分组成",
+      "source": "README.md",
+      "quote": "Popochiu consists of two parts: the runtime engine and the editor plugin."
+    },
+    {
+      "claim": "按房间、角色、道具与热点组织游戏",
+      "source": "README.md",
+      "quote": "Popochiu organizes games into Rooms, where Characters can move around and interact with Props and Hotspots"
+    },
+    {
+      "claim": "内置物品栏与对话系统",
+      "source": "README.md",
+      "quote": "it also provides built-in Inventory and Dialogue systems"
+    },
+    {
+      "claim": "支持从 Aseprite 导入结构",
+      "source": "README.md",
+      "quote": "* Import rooms, characters, and inventory items from [Aseprite](https://www.aseprite.org/) source files with their full structure"
+    }
+  ]
+}

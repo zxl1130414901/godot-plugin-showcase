@@ -1,0 +1,147 @@
+{
+  "id": "JetBrains__godot-support",
+  "depth": "standard",
+  "taglineZh": "在 Rider 等 JetBrains IDE 里获得顺滑的 GDScript 补全、跳转与调试",
+  "summaryZh": "JetBrains Godot Support 是 JetBrains 官方维护的一组插件：Godot.NET 给 Rider 提供 C# 支持，Godot 插件给各家 JetBrains IDE 提供 GDScript 支持，Shared 插件在两者之间搭起桥梁。Rider 已内置这三件套，其它 IDE 要自己构建 GDScript 插件。仓库还包含 godot-rd 桥接层与 Godot 编辑器端插件，用来把 Rider 设为外部编辑器并启用官方推荐的编辑器设置。插件支持 Godot 4.0 以上，Rider 桥接要求 4.6 以上。代码补全、检查、重构与断点调试都按 Rider 的 C# 体验对齐，GDScript 侧则提供语法高亮、导航与运行配置。",
+  "whatItDoes": "仓库分成 GDScript 插件、Godot.NET 插件、Shared 桥接与 godot-rd 运行时几部分。IDE 侧插件负责补全、检查与调试，godot-rd 通过 GDExtension 在编辑器和 Rider 之间传消息，编辑器端 addon 则负责一键把 Rider 设为外部编辑器并套用推荐的设置预设。两边的接口由 Shared 插件统一，C# 与 GDScript 项目共用同一套导航与调试能力。",
+  "useCases": [
+    {
+      "titleZh": "C# 项目在 Rider 里开发",
+      "descZh": "用 Rider 打开 Godot 的 C# 项目，补全、重构与调试按 Rider 的常规体验走，不必切回编辑器；断点能停在 GDScript 与 C# 代码里，变量面板也能查看节点。"
+    },
+    {
+      "titleZh": "GDScript 项目用 IntelliJ",
+      "descZh": "在 IntelliJ IDEA 等 IDE 里装 GDScript 插件，获得补全与跳转，比纯文本编辑舒服很多；需要自己按目标 IDE 的 SDK 构建插件，官方文档只给了大致步骤。"
+    },
+    {
+      "titleZh": "编辑器内调试",
+      "descZh": "把 Rider 设为外部编辑器后，断点调试、场景树查看与远程调试都能在 IDE 里完成，godot-rd 负责把运行中的游戏状态同步过来。"
+    },
+    {
+      "titleZh": "统一团队工具链",
+      "descZh": "团队统一用 Rider 或 IntelliJ，插件把 C# 与 GDScript 的检查规则对齐，减少风格争议；新成员按官方步骤装好插件即可，环境配置成本低。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "GDScript 支持插件",
+      "descZh": "给 JetBrains IDE 的 GDScript 支持，包含语法高亮、补全、导航与调试配置，代码检查能识别引擎 API 与场景文件引用。"
+    },
+    {
+      "titleZh": "Godot.NET 插件",
+      "descZh": "Rider 里的 C# 支持，含项目模型、检查、重构与断点调试；它知道 Godot 的节点生命周期与信号机制，提示更贴近实际用法。"
+    },
+    {
+      "titleZh": "godot-rd 桥接层",
+      "descZh": "编辑器与 Rider 之间的通信层，负责把运行状态与调试信息传过去，以 GDExtension 形式加载，两边版本要对齐。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "C# 深度支持",
+      "descZh": "Rider 内置 Godot.NET 插件，C# 补全、重构与调试体验接近普通 .NET 项目，熟悉 Rider 的人几乎不用重新学习适应。"
+    },
+    {
+      "name": "GDScript 支持",
+      "descZh": "GDScript 插件从 Godot 4.0 起提供高亮、补全与导航，官方宣称长期支持，在 Rider 里开对应项目会自动启用。"
+    },
+    {
+      "name": "编辑器集成",
+      "descZh": "Godot 侧 addon 一键把 Rider 设为外部编辑器，并切换官方推荐设置预设，省去逐项查文档改编辑器选项。"
+    },
+    {
+      "name": "多 IDE 可用",
+      "descZh": "除 Rider 外，GDScript 插件可按任意 JetBrains IDE 的 SDK 自行构建，仓库里给了构建脚本与 Gradle 配置，改目标平台不算难。"
+    }
+  ],
+  "limitsZh": "插件本身不含编译产物，Rider 之外要自己用 Gradle 构建 GDScript 插件，报错时得懂 IntelliJ 平台的那套配置。godot-rd 与编辑器 addon 要求 Godot 4.6 以上，老版本项目用不了。仓库由多个 Gradle、Bazel 与 CMake 工程拼成，体积超过 100MB，克隆与构建都慢。README 只给总览，Rider 之外的安装方式仍写着待补文档。调试依赖桥接层两侧版本对齐，升级其一就要同步升级另一个。GDScript 与 C# 两套支持各自演进，版本说明分散在不同子目录的 README 里，查兼容性要来回翻。它只服务于 JetBrains IDE，用 VS Code 或 Zed 的团队享受不到这些能力。",
+  "workflowZh": [
+    {
+      "stepZh": "Rider 已内置三件套，安装后确认 Godot 与 Godot.NET 插件处于启用状态。"
+    },
+    {
+      "stepZh": "用 Rider 打开项目根目录并等待索引完成，确认场景被识别。"
+    },
+    {
+      "stepZh": "在编辑器设置里填好 Rider 的启动路径，把它设为外部编辑器。"
+    },
+    {
+      "stepZh": "在编辑器插件里按 Rider 侧需求切换官方推荐设置预设。"
+    },
+    {
+      "stepZh": "运行游戏，在 Rider 调试器里下断点，暂停后查看变量与场景树。"
+    }
+  ],
+  "pros": [
+    "Rider 内置插件，C# 与 GDScript 都能在同一窗口里补全与调试，不用在两个工具间来回切换。",
+    "调试器能停住 GDScript 与 C# 代码，还能查看运行中的节点与资源，比打日志高效。",
+    "godot-rd 桥接让编辑器与 IDE 直接通信，设置预设一键切换，省去繁琐的手改配置。",
+    "JetBrains 官方维护，提交活跃到 2026 年，文档与变更记录都能查到，遇到问题有渠道反馈。"
+  ],
+  "cons": [
+    "Rider 之外要自己构建 GDScript 插件，安装步骤官方文档仍写着待补。",
+    "桥接至少要求 Godot 4.6 以上版本，老项目得先把整套引擎升级。",
+    "仓库混用 Gradle、Bazel 与 CMake，体积超 100MB，克隆与首次构建都慢，改一处要等很久。"
+  ],
+  "pitfalls": [
+    "只启用 Godot.NET 插件而没装 Shared，代码补全会缺一块，自定义构建时最容易漏掉它。",
+    "桥接两侧版本不匹配时，调试连接往往会连不上，先对齐版本再排查代码。",
+    "GDScript 项目没设好 SDK，构建出的插件装进 IDE 也无法启用，先确认目标 IDE 的版本与路径。"
+  ],
+  "bestFor": "用 Rider 或其它 JetBrains IDE 做主力的 Godot 团队，项目里 C# 与 GDScript 混用，希望补全、导航与调试都在一个窗口里完成，省去在编辑器与 IDE 之间切换。",
+  "avoidWhenZh": "只用 VS Code、Zed 或 Godot 自带编辑器，或者项目停留在 Godot 4.5 以下的情况，这些方案享受不到它的补全与调试。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-vscode-plugin",
+      "Maran23__script-ide",
+      "GDQuest__zed-gdscript"
+    ],
+    "whenZh": "和 VS Code 的 Godot 插件相比，它把 C# 与 GDScript 的支持做在 IDE 内部，调试器与项目模型更完整；与 script-ide 这类编辑器增强插件相比，它服务的是外部 IDE 而不是 Godot 编辑器；用 Zed 的团队则可以直接选 zed-gdscript。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "Rider",
+    "JetBrains",
+    "GDScript",
+    "C#",
+    "调试"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "定位是增强 JetBrains IDE 里的 Godot 开发",
+      "source": "README.md",
+      "quote": "This repository contains a collection of plugins that enhance Godot game development in JetBrains IDEs:"
+    },
+    {
+      "claim": "Rider 已内置三个插件",
+      "source": "README.md",
+      "quote": "All the three plugins for Godot developments are bundled in Rider."
+    },
+    {
+      "claim": "GDScript 插件支持 Godot 4.0 以上",
+      "source": "README.md",
+      "quote": "Supports Godot 4.0 and higher"
+    },
+    {
+      "claim": "编辑器插件用于把 Rider 设为外部编辑器",
+      "source": "plugin.cfg",
+      "quote": "Godot 4.6+ editor plugin. Simplifies setting up Rider as External Editor."
+    },
+    {
+      "claim": "Rider 桥接最低要求 Godot 4.6",
+      "source": "godot-editor-addon/addons/rider-plugin/plugin.cfg",
+      "quote": "Godot 4.6+ editor plugin. Simplifies setting up Rider as External Editor."
+    }
+  ]
+}

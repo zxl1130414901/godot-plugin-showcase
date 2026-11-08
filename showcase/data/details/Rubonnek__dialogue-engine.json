@@ -1,0 +1,147 @@
+{
+  "id": "Rubonnek__dialogue-engine",
+  "depth": "standard",
+  "taglineZh": "用 GDScript 写分支对话的轻量对话引擎，开箱即用。",
+  "summaryZh": "Dialogue Engine 把对话树抽象成 DialogueEngine 与 DialogueEntry 两个类，用分支 ID、条件 Callable、选项跳转与元数据描述剧情，通过信号通知开始、继续、结束与取消。它刻意不做界面，展示层完全交给你，因此适合已有 UI 方案的项目。代价是对话内容写在 GDScript 里，非程序作者难以独立编辑，也没有内置本地化流程，选型前建议结合团队实际评估。",
+  "whatItDoes": "用 add_text_entry、分支 goto、选项与条件 Callable 构建对话树，推进时按当前条目发出信号。支持动态文本格式化、命名条目查找、元数据挂载与存档恢复，最后一个选项可设置超时。仓库自带 11 个演示工程，覆盖跳转、条件、动画、角色与存读档。",
+  "useCases": [
+    {
+      "titleZh": "分支剧情",
+      "descZh": "视觉小说或 RPG 需要按条件走向不同对白，用分支 ID 与条件 Callable 组织，不必写状态机，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "已有 UI 复用",
+      "descZh": "项目已有对话框与立绘系统，只想替换对话逻辑部分，这个引擎不绑定任何界面节点。"
+    },
+    {
+      "titleZh": "带限时选项",
+      "descZh": "需要倒计时选项制造紧张感时，可用内置超时选项，超时后走指定分支，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "动态文本",
+      "descZh": "对白里要插入玩家名字、数值或随机语句，可用 Callable 与数组字典做格式化，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "存档恢复",
+      "descZh": "对话进行到一半需要存读档，引擎保存当前条目与分支状态，恢复后可继续，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "对话树数据",
+      "descZh": "由条目、选项、条件与跳转组成的运行时可推进结构，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "对话事件信号",
+      "descZh": "开始、继续、结束、取消等生命周期信号，供界面层监听，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "演示工程",
+      "descZh": "覆盖分支、动画、角色与存读档的 11 个示例场景，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "DialogueEngine",
+      "descZh": "管理整棵对话树，负责推进、跳转与分支判断，参数集中在检查器面板。"
+    },
+    {
+      "name": "DialogueEntry",
+      "descZh": "单个对话节点，可带文本、选项、条件与元数据，后续修改起来也不费劲。"
+    },
+    {
+      "name": "条件分支",
+      "descZh": "用自定义 Callable 决定走向，逻辑可任意扩展，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "元数据",
+      "descZh": "给条目挂角色名、情绪等附加数据，界面层自行解释，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "超时选项",
+      "descZh": "选项可设定倒计时，超时自动走默认分支，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "对话内容以 GDScript 代码形式编写，编剧无法脱离代码编辑，版本管理与本地化都要自己搭流程。引擎不提供任何 UI、打字机效果或立绘管理，所有表现层需要自行实现并对接信号。没有可视化对话编辑器，节点规模大了以后代码可读性会下降。仓库以演示为主，缺少针对复杂项目的组织建议与性能说明。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录拷入项目并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在脚本中创建 DialogueEngine 实例，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "用 add_text_entry 与 goto 构建对话树，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "连接信号并驱动自己的对话框界面"
+    },
+    {
+      "stepZh": "按需接入存档与超时选项，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "API 精简，两个核心类就能表达分支与条件，团队新人照着示例就能上手。",
+    "不绑定界面，已有对话框系统可直接复用，出现问题时也更容易定位原因。",
+    "自带 11 个演示，覆盖跳转、条件与存读档，对中小团队的时间成本很友好。",
+    "纯 GDScript，无运行时代码生成或编译步骤，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "对话写在代码里，非程序作者难以独立编辑，升级引擎版本时容易卡住。",
+    "没有内置 UI 与打字机效果，表现层全要自写，定制之前往往要先读源码。",
+    "缺少可视化编辑器，大规模剧情维护吃力，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "跳转 ID 写错时对话会静默结束，不报明显错误，上线前要专门过一遍。",
+    "条件 Callable 抛异常会中断推进，需要自己兜底，排查时需要多留一层日志。",
+    "存读档只保存引擎状态，界面状态要另行同步，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "已有对话框界面、需要一套简洁分支逻辑，且团队能接受用 GDScript 编写剧情的 Godot 4 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "编剧需要独立编辑剧情、要求可视化对话编辑或内置本地化时。",
+  "compareTips": {
+    "vs": [
+      "dialogic-godot__dialogic"
+    ],
+    "whenZh": "两者都做对话：Dialogue Engine 是纯逻辑库，界面与表现全交给项目；Dialogic 提供完整可视化编辑器、角色与时间线。要编剧独立创作选 Dialogic，要轻量可控选前者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "对话系统",
+    "分支剧情",
+    "GDScript",
+    "叙事"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向分支叙事与玩家选择",
+      "source": "README.md",
+      "quote": "designed for creating branching narratives with player choices, conditions, dynamic text formatting, and metadata support"
+    },
+    {
+      "claim": "对话直接写在 GDScript 中",
+      "source": "README.md",
+      "quote": "Simple to use -- just write the dialogue in GDScript"
+    },
+    {
+      "claim": "不绑定界面，可自带 GUI",
+      "source": "README.md",
+      "quote": "Easy to customize -- bring your own GUI nodes for presentation"
+    },
+    {
+      "claim": "提供完整的对话事件信号",
+      "source": "README.md",
+      "quote": "Comprehensive signal system for dialogue events (started, continued, finished, canceled, etc.)"
+    }
+  ]
+}

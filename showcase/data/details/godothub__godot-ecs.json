@@ -1,0 +1,148 @@
+{
+  "id": "godothub__godot-ecs",
+  "depth": "standard",
+  "taglineZh": "纯 GDScript 的 Godot 4 实体组件系统框架，开箱即用。",
+  "summaryZh": "这套纯 GDScript 的 ECS 框架提供两种运行方式：单线程、有状态的 ECSSystem 适合 UI 与流程控制，多线程的 ECSParallel 用依赖图自动排序并分配 WorkerThreadPool 任务。查询支持 With/Without/AnyOf 并用缓存做到 O(1)，还附带可版本迁移的存档与事件系统。代价是 GDScript 性能上限、并行组件需自己保证线程安全，选型前建议结合团队实际评估，更适合作为该品类的专用工具。",
+  "whatItDoes": "用 ECSWorld 管理实体与组件，ECSRunner 按帧驱动系统；每个系统声明读写组件，调度器据此构建有向无环图并做拓扑排序，决定执行顺序与冲突处理。查询层支持复杂条件并在首次查询后缓存结果。配套工具包含序列化、调试实体与事件中心。",
+  "useCases": [
+    {
+      "titleZh": "大规模实体模拟",
+      "descZh": "弹幕、粒子化敌人或大量小怪需要统一数据驱动更新时，用组件与系统把循环拆开，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "逻辑解耦重构",
+      "descZh": "现有项目脚本互相引用严重，可逐步迁到 ECS 结构，降低节点之间的耦合，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "并行计算任务",
+      "descZh": "适合把移动、碰撞筛选等互不依赖的计算放进 ECSParallel，利用多核，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "带版本存档",
+      "descZh": "内置序列化支持版本迁移，方便长线项目迭代存档格式，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "架构教学",
+      "descZh": "文档分中英双语并带示例，可作为团队理解 ECS 与调度器的学习材料，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "实体与组件层",
+      "descZh": "ECSWorld 下的实体、组件与查询结果集合，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "系统调度器",
+      "descZh": "单线程 Runner 与多线程并行调度两套执行入口，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "存档与事件",
+      "descZh": "带版本迁移的序列化数据与事件中心，可以直接放进项目里使用，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "ECSParallel",
+      "descZh": "多线程调度模式，自动分析依赖并分配 WorkerThreadPool 任务，参数集中在检查器面板。"
+    },
+    {
+      "name": "依赖图调度",
+      "descZh": "按系统读写资源构建 DAG，拓扑排序决定执行顺序，后续修改起来也不费劲。"
+    },
+    {
+      "name": "QueryCache",
+      "descZh": "缓存查询结果，重复条件查询可接近 O(1)，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "With/Without/AnyOf",
+      "descZh": "组合式查询条件，按组件有无筛选实体，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "版本化序列化",
+      "descZh": "存档支持版本迁移，旧档可在新版本继续读取，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "纯 GDScript 实现意味着大量实体时的单帧开销仍高于 C++ 扩展，密集模拟需要谨慎控制组件数量。并行模式并非自动安全：组件读写、共享资源与节点访问都要开发者自己保证线程安全，写错会出现难复现的竞态。框架只提供数据层与调度，渲染、输入、场景组织仍要结合 Godot 节点体系设计。文档中的 API 参考被标注为简略，深度用法更多靠源码与示例摸索。",
+  "workflowZh": [
+    {
+      "stepZh": "把 GodotECS 与 GodotUtils 目录拷入项目根目录，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在入口脚本创建 ECSWorld 与 Runner，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "定义组件数据结构与系统脚本，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "向 Runner 注册系统并每帧驱动，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需启用并行调度或接入存档模块"
+    }
+  ],
+  "pros": [
+    "纯 GDScript 无需编译，改源码即可调试，接入成本低，团队新人照着示例就能上手。",
+    "单线程与并行双模式，可从简单写法渐进到高性能调度，出现问题时也更容易定位原因。",
+    "查询缓存与组合条件让实体筛选写法清晰，对中小团队的时间成本很友好。",
+    "自带序列化版本迁移与事件系统，生态相对完整，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "GDScript 性能上限明显，超大实体量不如 C++ 方案，升级引擎版本时容易卡住。",
+    "并行模式需自行保证线程安全，调试成本高，定制之前往往要先读源码。",
+    "API 参考较简略，复杂用法要读源码，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "并行系统里直接操作 Node 或全局单例会引发竞态，上线前要专门过一遍。",
+    "组件字段频繁创建字典会放大 GC 与分配开销，排查时需要多留一层日志。",
+    "系统依赖声明不准确时，调度顺序会悄悄出错，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "想用纯 GDScript 重构游戏逻辑、需要可渐进采用 ECS 与并行调度的中小型 Godot 4 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "追求极致实体规模与稳定帧率，或团队不熟悉 ECS 与多线程调试时。",
+  "compareTips": {
+    "vs": [
+      "HinataYoki__YokiFrame"
+    ],
+    "whenZh": "两者都提供架构分层：godot-ecs 专注实体组件与调度器，用数据驱动解耦；YokiFrame 是 C# 通用游戏框架，覆盖事件、状态机、对象池与 UI。语言与适用场景不同，可对比团队技术栈后再选。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "ECS",
+    "架构",
+    "多线程",
+    "GDScript",
+    "存档"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "纯 GDScript 实现无需编译",
+      "source": "README.md",
+      "quote": "**Pure GDScript Implementation**: No GDExtension compilation required, plug-and-play"
+    },
+    {
+      "claim": "提供单线程与并行两种模式",
+      "source": "README.md",
+      "quote": "**Direct Mode (`ECSSystem`)** ... **Scheduled Mode (`ECSParallel`)**"
+    },
+    {
+      "claim": "使用 DAG 拓扑排序调度系统",
+      "source": "README.md",
+      "quote": "Built-in dependency graph (DAG) based on topological sorting, automatically handling system execution order"
+    },
+    {
+      "claim": "查询缓存达到 O(1)",
+      "source": "README.md",
+      "quote": "with O(1) cached query performance (`QueryCache`)"
+    }
+  ]
+}

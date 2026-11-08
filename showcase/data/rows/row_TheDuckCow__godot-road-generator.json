@@ -1,0 +1,35 @@
+{
+  "id": "TheDuckCow__godot-road-generator",
+  "descriptionZh": "在编辑器里点选绘制三维路网并生成车道网格的插件，附带可沿车道行驶的交通代理与交叉口生成。",
+  "category": "3d-shader",
+  "tags": [
+    "道路生成",
+    "程序化",
+    "路网",
+    "交通模拟",
+    "3D"
+  ],
+  "prosShort": [
+    "横截面插值支持车道数渐变",
+    "点选即可绘制，改路点即时重建网格",
+    "路网容器可另存并吸附拼接"
+  ],
+  "consShort": [
+    "官方明确标注尚未功能完整",
+    "只支持 Godot 4.4 以上，老项目难迁",
+    "纯 GDScript 实现，大路网在编辑器里容易卡顿"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

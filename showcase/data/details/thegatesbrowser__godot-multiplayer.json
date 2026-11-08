@@ -1,0 +1,152 @@
+{
+  "id": "thegatesbrowser__godot-multiplayer",
+  "depth": "standard",
+  "taglineZh": "带 ENet 联机与空间语音的 Godot 4 第三人称模板",
+  "summaryZh": "这是一份可直接运行的多人游戏模板：客户端用 ENet 连接服务器，服务器可用 --server 参数以专用模式启动，玩家控制第三人称角色并在客户端做位置插值。语音走 TwoVoIP 扩展，支持 Opus 编码、3D 空间衰减与噪声抑制。附带昵称管理、玩家生成器与带传送门的中枢场景，适合作为联机项目起点。它更像示例工程而非通用框架，认证、匹配与延迟补偿都要自己补。",
+  "whatItDoes": "项目把连接、玩家与语音拆成独立脚本：Connection 负责创建 ENet 客户端或专用服务器，PlayerSpawner 在服务端生成角色并同步，第三人称控制器处理移动与客户端插值，VoIPManager 管理麦克风开关、音量与空间音频。UserDataManager 保存昵称，HUD 提供连接界面与语音按键，示例关卡用传送门串联场景，方便先跑通一条完整联机链路。",
+  "useCases": [
+    {
+      "titleZh": "联机原型",
+      "descZh": "想快速验证第三人称联机手感，直接跑模板再替换角色与关卡，比从零搭 ENet 快得多，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "语音社交",
+      "descZh": "需要近距离语音的小队或社交玩法，可复用 TwoVoIP 的空间衰减与降噪配置，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "专用服务器",
+      "descZh": "计划用无头服务器跑持久房间，可参考 --server 启动方式与玩家生成流程，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "教学演示",
+      "descZh": "学习 ENet 连接、客户端插值与语音链路的最小实现，代码量小、结构清楚，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "连接层",
+      "descZh": "Connection 脚本区分客户端与专用服务器，并维护 ENet 对等体与命令参数，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "玩家层",
+      "descZh": "PlayerSpawner 与第三人称控制器，含客户端位置插值，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "语音层",
+      "descZh": "VoIPManager 封装 TwoVoIP，处理按键说话、音量与 3D 衰减，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "专用服务器",
+      "descZh": "用 --server 命令行参数启动无头模式，便于部署到 VPS，参数集中在检查器面板。"
+    },
+    {
+      "name": "客户端插值",
+      "descZh": "远端角色做位置平滑，降低网络抖动带来的卡顿感，后续修改起来也不费劲。"
+    },
+    {
+      "name": "空间语音",
+      "descZh": "TwoVoIP 提供 Opus 编码、3D 定位与噪声抑制，近距离交流更自然，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "昵称管理",
+      "descZh": "UserDataManager 保存玩家名，重连后仍能显示，调用方式简单不需要额外封装。"
+    },
+    {
+      "name": "示例关卡",
+      "descZh": "带传送门的中枢场景演示多区域切换与玩家同步，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "README 只有几百字，安装与部署步骤几乎没有，协议细节要靠读脚本。模板未包含账号认证、匹配、房间列表与延迟补偿，正式项目需自行补齐。语音依赖 TwoVoIP 预编译库，平台支持受其发布包限制，移动端与特殊架构要额外验证。专用服务器仍需图形库或导出模板配合，部署文档缺失。项目结构偏示例，脚本耦合场景路径，替换关卡时要同步改常量。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆仓库并用 Godot 4 打开，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "直接运行主场景测试本地联机，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "导出专用服务器并加 --server，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "修改连接地址与端口，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "替换角色场景与关卡，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需调整语音按键与音量，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "连接、生成、插值与语音都有可跑实现，起步快，团队新人照着示例就能上手。",
+    "专用服务器启动方式简单，方便早期部署验证，出现问题时也更容易定位原因。",
+    "语音带 3D 衰减与降噪，社交体验比裸音频好，对中小团队的时间成本很友好。",
+    "结构按功能分脚本，阅读与替换成本低，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "文档极简，部署与协议细节得读代码，升级引擎版本时容易卡住。",
+    "缺认证、匹配与延迟补偿，离成品还远，定制之前往往要先读源码。",
+    "语音库平台受限，跨平台需额外验证，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "服务器忘记加 --server 会同时开客户端逻辑，出现双端抢输入，上线前要专门过一遍。",
+    "直接改 PlayerSpawner 里的场景路径会导致生成失败，排查时需要多留一层日志。",
+    "语音设备未授权时没有明显提示，先检查系统麦克风权限，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "想快速搭第三人称联机原型、并需要近距离语音的独立团队或学习者，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "需要开箱即用的匹配、权威服务器与反作弊，或必须覆盖冷门平台的项目。",
+  "compareTips": {
+    "vs": [
+      "grazianobolla__godot-monke-net"
+    ],
+    "whenZh": "两者都是联机起点：本模板用 ENet 加插值并附语音，monke-net 用客户端预测与状态同步；要语音社交选前者，要高延迟下的操作手感选后者。"
+  },
+  "category": "network",
+  "tags": [
+    "多人联机",
+    "ENet",
+    "VoIP",
+    "第三人称模板"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "isGDExtension": true,
+  "evidence": [
+    {
+      "claim": "模板自带客户端-服务器联机与语音",
+      "source": "README.md",
+      "quote": "Template repository with client-server multiplayer and voice chat ready to go."
+    },
+    {
+      "claim": "第三人称控制器在客户端做插值",
+      "source": "README.md",
+      "quote": "Third person controller with interpolation on client"
+    },
+    {
+      "claim": "语音带 3D 定位",
+      "source": "README.md",
+      "quote": "Voice over with 3d positioning"
+    },
+    {
+      "claim": "提供客户端-服务器多人联机与语音聊天模板",
+      "source": "README.md",
+      "quote": "Template repository with client-server multiplayer and voice chat ready to go."
+    },
+    {
+      "claim": "语音扩展兼容 Godot 4.1.4 起",
+      "source": "addons/twovoip/twovoip.gdextension",
+      "quote": "compatibility_minimum = \"4.1.4\""
+    }
+  ]
+}

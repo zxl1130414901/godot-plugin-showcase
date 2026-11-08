@@ -1,0 +1,35 @@
+{
+  "id": "NodotProject__nodot",
+  "descriptionZh": "面向游戏原型的节点组合库，附带九类自动加载管理器，以及 FPS、RTS 与多人射击示例工程。",
+  "category": "state-logic",
+  "tags": [
+    "node-composition",
+    "autoload",
+    "prototyping",
+    "examples",
+    "fps"
+  ],
+  "prosShort": [
+    "节点种类丰富，原型阶段拼装速度快",
+    "九类自动加载管理器开箱即可使用",
+    "附带多类完整示例工程可供参考"
+  ],
+  "consShort": [
+    "版本仍处早期，节点接口可能变动",
+    "覆盖面广，复杂玩法仍要自己实现",
+    "全局管理器较多，隐式状态耦合较重"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

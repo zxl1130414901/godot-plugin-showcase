@@ -1,0 +1,68 @@
+{
+  "id": "RandallLiuXin__GodotMaker",
+  "depth": "standard",
+  "taglineZh": "把一句游戏点子交给 AI 代理，自动产出可玩的 Godot 工程",
+  "summaryZh": "GodotMaker 是一条面向 Godot 的自主动 text-to-game 流水线，输入一句游戏构想，就能由多个 AI 代理接力产出可玩的工程。它把工作拆成分析与拆解、GDD 审计、实现、评审、验证与素材生产等角色，用阶段机制和钩子在关键节点检查前置条件与完成度，防止代理跳过验证。整个流程本地优先，产出的是普通 Godot 项目，含源码、场景、素材、测试、截图与报告，代码归用户所有。它假定你已装好 Claude Code、Codex 或 Opencode 等编码代理，并需要自己完成配置。",
+  "whatItDoes": "它把一次游戏制作拆成有先后关系的阶段，每个阶段由不同代理承担：分析师整理需求，拆解器切成可执行任务，审计器检查设计文档是否自相矛盾，工作代理写代码与场景，评审与验证代理跑测试并实际启动游戏截图核对，素材代理补足资源。钩子脚本在阶段之间检查前置条件、文件权限、工作区是否干净以及完成标准，未通过就拦下流程。运行结束后留下的是一个能直接在 Godot 里打开的完整工程，附带测试与报告。",
+  "useCases": [
+    {"titleZh": "快速验证玩法点子", "descZh": "只想先确认一个玩法是否站得住，把构想交给流水线跑一轮，几小时后就能拿到可操作的原型再进行判断。"},
+    {"titleZh": "多方案并行试错", "descZh": "同一批想法分别跑下去，用产出的工程与截图横向比较，比坐下来逐个讨论再决定要省下不少时间。"},
+    {"titleZh": "小团队提速原型", "descZh": "独立开发者或小团队没有人手做重复的场景搭建与测试，可让代理承担这些环节，自己专注在设计与打磨。"},
+    {"titleZh": "研究多代理协作", "descZh": "仓库把角色划分、阶段结构与钩子检查都写成明文配置，适合研究多代理如何分工与验收的开发者阅读改造。"},
+    {"titleZh": "自建定制流水线", "descZh": "以现成的 agent 定义与钩子脚本为起点，改成本团队的技术规范与验收标准，做成自己的游戏生产流水线。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "设计文档与阶段计划", "descZh": "把随口一句构想扩写成结构化的 GDD，再拆成带前置条件与完成标准的分阶段任务清单。"},
+    {"titleZh": "可玩的 Godot 工程", "descZh": "最终产出普通 Godot 项目，含场景、源码与素材，可在编辑器里继续调试、扩展并自行发布。"},
+    {"titleZh": "测试与运行报告", "descZh": "流水线会跑测试、启动游戏并截图核对，把结果整理成报告与截图，方便人工复核质量。"},
+    {"titleZh": "钩子与配置模板", "descZh": "提供阶段提醒、完成门禁与权限检查等钩子脚本，以及可复制的配置样例，便于改成自己的规则。"}
+  ],
+  "featureCallouts": [
+    {"name": "多角色代理分工", "descZh": "分析、拆解、审计、实现、评审、验证与素材各有专职代理，职责边界写在角色说明里，衔接清楚。"},
+    {"name": "阶段钩子把关", "descZh": "在阶段之间自动检查前置条件、工作区状态与完成标准，不达标就拦住流程，减少无效推进。"},
+    {"name": "默认无人值守", "descZh": "你给出目标后流水线会持续运行，不需要每一步坐在电脑前看构建、截图并手动反馈，省去盯盘时间。"},
+    {"name": "本地优先产出", "descZh": "流程在本地跑，产出物落在磁盘上，不锁在平台服务器里，代码与素材都能自行保管和继续开发。"},
+    {"name": "可玩性验证", "descZh": "验证环节会实际启动游戏并截图对照设计目标，而不是只跑单元测试就宣布完成，验收更实在。"}
+  ],
+  "limitsZh": "上手门槛不低：需要 Python 环境、一个可用的编码代理，以及按文档填写配置，缺任何一环都跑不起来。流水线把大量工作交给大模型，运行时长与 token 消耗取决于任务规模，长跑过程中还可能因为模型判断失误而卡住或产出偏离设计的工程。仓库许可证标注为 NOASSERTION，商用前需要自行确认授权范围。产出质量高度依赖输入构想与 GDD 的清晰度，含糊的想法往往换回一个能跑但不好玩的版本，仍需人工评审与迭代。仓库体积较大，包含大量文档、钩子与示例，初次阅读要花时间建立整体认识。",
+  "workflowZh": [
+    {"stepZh": "装好 Python 与 Claude Code 或 Codex 等编码代理，并确认命令行可用"},
+    {"stepZh": "复制配置样例，填写模型、路径与阶段相关选项"},
+    {"stepZh": "把一句游戏构想输入流水线，先让它生成并审计 GDD"},
+    {"stepZh": "启动自动运行，让各代理按阶段实现、测试并截图核对"},
+    {"stepZh": "拿到工程后人工试玩评审，再改 GDD 跑下一轮迭代"}
+  ],
+  "pros": [
+    "从一句构想到可玩工程全流程自动推进，把重复的场景搭建与测试交给代理，人只需在关键节点评审",
+    "角色分工与阶段钩子都写在明文文件里，流程可读可改，团队能按自己的验收标准替换某个环节",
+    "产出是普通 Godot 工程，代码与素材落在本地磁盘，可继续调试、扩展与发布，不被平台锁住",
+    "默认无人值守运行，不需要守着电脑逐步喂反馈，适合在空档期跑原型并事后比较结果"
+  ],
+  "cons": [
+    "需要 Python 环境与可用的编码代理，还要按文档填写配置，环境与账号缺一项就跑不起来",
+    "长跑依赖大模型判断，token 消耗与运行时长不可控，中途卡住或跑偏仍需人工介入",
+    "许可证标注为 NOASSERTION，商用授权范围不明确，正式项目使用前要自行核实",
+    "产出质量取决于想法与 GDD 的清晰度，常得到能跑但不好玩的版本，还需多轮迭代打磨"
+  ],
+  "pitfalls": [
+    "构想过于笼统就直接开跑，代理会自行补充大量假设，产出的玩法容易偏离预期，应先写清核心循环",
+    "没按文档配置钩子与阶段依赖就启动，流程可能跳过验证环节，最后拿到一个能编译但玩不起来的工程",
+    "把自动跑出的报告当作验收结论，未实际试玩就对外使用，可玩性问题往往在人工试玩时才暴露"
+  ],
+  "bestFor": "想快速把玩法点子跑成可玩原型、并且已熟悉 Claude Code 等编码代理与命令行的独立开发者或小团队。",
+  "avoidWhenZh": "不熟悉命令行与编码代理、需要确定性产出，或对许可证有严格合规要求的项目。",
+  "compareTips": {"vs": ["Coding-Solo__godot-mcp"], "whenZh": "GodotMaker 是端到端的游戏生产流水线，从构想一路跑到可玩工程；Godot MCP 只给编辑器补上工具接口，让外部助手能操作场景与脚本。想省去搭建过程选前者，想在自己熟悉的编辑器里做精细控制则选后者。"},
+  "category": "ai-gen",
+  "tags": ["AI生成", "text-to-game", "代理", "Claude Code", "Codex", "流水线"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 4, "maintenance": 4, "performance": 3, "stability": 3},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 4,
+  "evidence": [
+    {"claim": "通过 CLI 驱动多种代码代理完成整条流水线", "source": "README.md", "quote": "The command-line tool drives the workflow end to end so you can run GodotMaker with minimal manual coordination."},
+    {"claim": "给出想法即可换来可玩的游戏", "source": "README.md", "quote": "Bring your idea. Give it to GodotMaker. Get a playable game."},
+    {"claim": "默认无人值守持续运行", "source": "README.md", "quote": "**No-human-in-the-loop by default.** Like long-running goal modes in modern coding agents, GodotMaker keeps going after you state the target."},
+    {"claim": "产出是含源码与测试的普通 Godot 工程", "source": "README.md", "quote": "**The code is yours.** The output is a normal Godot project with source files, scenes, assets, tests, screenshots, and reports."},
+    {"claim": "流程由规划、实现、测试、运行与修复组成", "source": "README.md", "quote": "let agents run through planning, implementation, tests, gameplay runs, screenshots, evaluation, and fixes"}
+  ]
+}

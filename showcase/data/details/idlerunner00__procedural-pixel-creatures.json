@@ -1,0 +1,140 @@
+{
+  "id": "idlerunner00__procedural-pixel-creatures",
+  "depth": "standard",
+  "taglineZh": "程序化生成像素生物与繁殖实验场",
+  "summaryZh": "这是一个用 Godot 4.5 .NET 与 C# 写的像素生物生成器：体型、肢体、脸、配色、花纹、绑定与运动全部由代码生成，仓库不含预制精灵，也不调用 AI 绘图。它提供 Workshop 单体型编辑、Genetics 繁殖变异、最多 100 只生物的生态观察、测试地形与 JSON、PNG、精灵表导出，还开放与引擎无关的 C# 核心和 CreatureActor 供二次开发。九个科属与 54 个样例基因组足以玩很久。限制是启动脚本优先 Windows，首次要联网下载工具链，生成大量生物时开销明显。",
+  "whatItDoes": "运行 Start.cmd 会检查并下载缺失的 .NET 与 Godot，构建工程后打开工作坊。你可以在 Workshop 锁定部分基因、重掷其余特征，在 Genetics 里生成四只后代或组合双亲，在 Overview 批量生成并筛选收藏。导出可存版本化 JSON、透明 PNG 或带动画元数据的精灵表，便于拿去别的项目用。",
+  "useCases": [
+    {
+      "titleZh": "像素素材量产",
+      "descZh": "批量生成怪物与角色原型，导出精灵表，省去从零画行走与待机帧，原型阶段效率提升明显。"
+    },
+    {
+      "titleZh": "图鉴与收集玩法",
+      "descZh": "用基因与科属组合出大量变体，做图鉴、孵蛋与收集系统，玩家能繁殖出独一个体，基因组合还能保证差异明显。"
+    },
+    {
+      "titleZh": "程序化动画研究",
+      "descZh": "观察八方向移动与体型绑定的对应关系，学习代码动画的组织方式，可迁移到自己的生成器。"
+    },
+    {
+      "titleZh": "C# 生成框架复用",
+      "descZh": "把与引擎无关的生成核心接进自己的工具或服务器端批处理，批量产出素材，不必打开编辑器。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可导出的生物精灵",
+      "descZh": "透明 PNG 与精灵表附带动画元数据，能直接进 Godot 或别的引擎，减少手工切图。"
+    },
+    {
+      "titleZh": "基因组与谱系数据",
+      "descZh": "版本化 JSON 保存性状与随机种子，结果可按版本复现，便于回滚、比对与分享。"
+    },
+    {
+      "titleZh": "可运行的生态场景",
+      "descZh": "带丘陵、断崖与水域的测试地图，陆生与水生生物各按环境活动，可直接观察行为。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "九大科属",
+      "descZh": "四足、人形、爬行与龙、节肢、翼生、蛇形、水生、史莱姆与植物等科属各有模板。"
+    },
+    {
+      "name": "基因锁定与重掷",
+      "descZh": "在工作坊锁定满意性状，只重掷其余基因，快速逼近目标造型而不破坏已有部分。"
+    },
+    {
+      "name": "繁殖与变异",
+      "descZh": "生成四只后代或组合双亲，变异强度可调，形成可持续谱系与家族树。"
+    },
+    {
+      "name": "精灵表导出",
+      "descZh": "输出透明 PNG、精灵表与动画元数据，带播放预览与命名规则，命名前缀可自己配。"
+    },
+    {
+      "name": "CreatureActor 框架",
+      "descZh": "公开扩展 API，植物科属即示例，可自行新增家族与运动模板，照着写就能接。"
+    }
+  ],
+  "limitsZh": "自动安装脚本主要面向 Windows 10/11 x64，Linux 与 macOS 要自己装 Godot 4.5 与 .NET 再手动构建，首次运行还必须联网下载工具链。它生成的是像素风生物，造型受家族模板与基因范围限制，想要独特 Boss 或写实角色仍需手工返修。同屏 100 只生物会带来明显 CPU 与绘制压力，导出大量精灵表也耗时。仓库自述主要由大模型一次性生成后少量迭代，代码风格与边界处理未必像长期维护项目那样打磨，接入前要预留读代码成本。",
+  "workflowZh": [
+    {
+      "stepZh": "下载仓库并解压到可写目录，避免只读路径导致构建失败"
+    },
+    {
+      "stepZh": "双击 Start.cmd 等待环境检测与工具链下载完成"
+    },
+    {
+      "stepZh": "在工作坊调整基因与体型，锁定满意的性状"
+    },
+    {
+      "stepZh": "在繁殖页生成后代或组合双亲，调变异强度"
+    },
+    {
+      "stepZh": "筛选满意个体并导出精灵表与基因组 JSON"
+    }
+  ],
+  "pros": [
+    "体型、配色、花纹与动画全部程序化，变体数量极大，适合量产原型",
+    "工作坊支持锁定与重掷，调造型效率高，不必从头重掷，改造型也不必重来",
+    "可直接导出 JSON、PNG 与带元数据的精灵表，接引擎省去切图与对位",
+    "开放引擎无关的 C# 核心，便于二次开发与批处理，批量产出省事",
+    "附 54 个样例基因组与九个科属，开箱即有内容可玩，上手就有素材"
+  ],
+  "cons": [
+    "自动安装脚本以 Windows 为主，其他平台要手动配 Godot 与 .NET",
+    "同屏生物多时性能压力明显，生态观察要控制数量",
+    "代码由大模型主导生成，边界处理参差，接入前要读代码"
+  ],
+  "pitfalls": [
+    "首次启动必须联网下载工具链，离线环境会卡在准备阶段，建议先在有网机器准备好环境",
+    "解压到只读目录或中文路径会导致构建失败，应放在可写的纯英文路径下",
+    "导出精灵表前先确认动画元数据版本，换版本后帧序可能对不上，要重新校验"
+  ],
+  "bestFor": "需要大量像素怪物与角色素材、愿意在 Windows 上跑生成工作坊，并且能读 C# 做二次开发或接进自有管线的独立开发者。",
+  "avoidWhenZh": "目标平台不是 Windows、需要写实或高精度美术，或要求代码长期可维护、可交给外包接手维护的团队。",
+  "compareTips": {
+    "vs": [
+      "98teg__SpriteMesh"
+    ],
+    "whenZh": "Procedural Pixel Creatures 从零生成像素生物与动画素材并导出精灵表，SpriteMesh 把已有精灵挤出成 3D 网格。要造素材选前者，要把 2D 素材变 3D 选后者，两者也能串成一条管线。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "程序化生成",
+    "像素美术",
+    "C#",
+    "精灵表",
+    "生物"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "体型、肢体、配色与动画均由代码生成",
+      "source": "README.md",
+      "quote": "Body shapes, limbs, faces, colors, markings, rigs and movement are generated in code."
+    },
+    {
+      "claim": "不含预制精灵，也不依赖 AI 绘图服务",
+      "source": "README.md",
+      "quote": "There are no premade creature sprites or AI-generated source images."
+    },
+    {
+      "claim": "支持导出 JSON、PNG 与精灵表",
+      "source": "README.md",
+      "quote": "Save versioned JSON presets, transparent PNGs, or sprite sheets with animation metadata"
+    }
+  ]
+}

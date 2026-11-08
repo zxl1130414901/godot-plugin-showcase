@@ -1,0 +1,35 @@
+{
+  "id": "Cat-Lips__GodotSharp.SourceGenerators",
+  "descriptionZh": "用 C# 源生成器为 Godot 场景与项目配置生成强类型代码，整体接入成本不高。",
+  "category": "editor-tool",
+  "tags": [
+    "C#",
+    "源生成器",
+    "强类型",
+    "场景树",
+    "NuGet"
+  ],
+  "prosShort": [
+    "场景层级会变成强类型属性",
+    "覆盖输入图层翻译与着色器",
+    "编译期生成且运行时无反射"
+  ],
+  "consShort": [
+    "仅适用于纯 C# 项目场景，团队要提前评估。",
+    "版本线按 Godot 版本分开，规模化后更明显。",
+    "部分特性要求 partial 类声明，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,139 @@
+{
+  "id": "Kubulambula__Godot-GDShell",
+  "depth": "standard",
+  "taglineZh": "提供类 Linux 命令行的游戏内调试控制台",
+  "summaryZh": "GDShell 给游戏加一个类似 Linux shell 的控制台：每条命令就是一个继承 GDShellCommand 的脚本，放进命令目录即可被识别，不用把 Callable 和方法关系绑在一起。它支持 &&、||、分号顺序执行、后台命令与管道传值，还允许替换 UI、增加操作符或做按钮面板，适合开发期调试、作弊码与内部工具。插件标注仍在早期开发，版本号 1.0-dev2，接口可能变；控制台本身会暴露命令入口，发布版要记得关闭或做权限限制。",
+  "whatItDoes": "启用后在游戏中呼出控制台窗口，输入命令名与参数，由调度器找到对应脚本并调用 _main。命令可返回结果字典供管道传给下一条命令，支持顺序、条件与后台执行。默认命令集提供帮助、清屏等基础操作，UI 与解析器都按模块拆分，可按需替换。",
+  "useCases": [
+    {
+      "titleZh": "开发期调试命令",
+      "descZh": "给测试同学一条命令切关卡、刷资源、改数值，不用重编译就能验证分支，省去等待构建。"
+    },
+    {
+      "titleZh": "内置作弊码",
+      "descZh": "把秘籍做成命令，配合条件执行与后台任务做组合效果，输入一次就能触发一串操作，适合连招或刷宝。"
+    },
+    {
+      "titleZh": "运营与客服工具",
+      "descZh": "在测试包里留受控命令，远程指导玩家排查状态，必要时导出关键数据给客服，减少来回沟通。"
+    },
+    {
+      "titleZh": "自定义游戏内终端",
+      "descZh": "替换 UI 与命令集，做成符合世界观的终端界面，甚至当作游戏内玩法入口，玩家输入即可互动。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可扩展控制台界面",
+      "descZh": "默认 UI 可整体替换，也能只留按钮直接触发命令，适配手游触屏与键鼠操作。"
+    },
+    {
+      "titleZh": "脚本化命令库",
+      "descZh": "每条命令独立脚本，按目录组织，便于版本管理与按模块拆分，冲突面更小。"
+    },
+    {
+      "titleZh": "命令链与管道",
+      "descZh": "支持条件、顺序、后台与结果传递，能拼出复合操作而不必为每种组合写专用脚本。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "GDShellCommand",
+      "descZh": "继承 GDShellCommand 后实现 _main 方法，即可注册一条带参数与说明的命令，自动补全也生效。"
+    },
+    {
+      "name": "命令链",
+      "descZh": "用 &&、|| 与分号组合命令，按成功与失败分支执行，行为接近真实 shell。"
+    },
+    {
+      "name": "管道传值",
+      "descZh": "上一条命令的结果可传给下一条，减少重复查询与手工复制。"
+    },
+    {
+      "name": "后台执行",
+      "descZh": "命令后加 & 放到后台执行，不阻塞控制台继续输入，适合跑耗时任务。"
+    },
+    {
+      "name": "模块化 UI",
+      "descZh": "界面与解析器可替换，能改成终端、按钮面板或游戏内手机样式。"
+    }
+  ],
+  "limitsZh": "项目自己标注仍在早期开发，1.0-dev2 的命令接口、解析规则与 UI 结构都可能调整，升级时要预留改动成本。控制台默认面向开发与调试，没有账号、权限分级或远程审计，发布版若直接保留等于给玩家一个命令入口。命令以脚本形式散落在目录里，数量多时缺少集中注册表与自动补全的强约束；复杂参数解析仍要命令自己处理。它也不提供日志持久化或崩溃回放，排障深度有限。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 或 GitHub 安装插件，并在项目设置里启用"
+    },
+    {
+      "stepZh": "在项目中加入控制台场景或节点，绑定快捷键与显示层级"
+    },
+    {
+      "stepZh": "按模板新建命令脚本，放进命令目录等待自动识别"
+    },
+    {
+      "stepZh": "实现 _main 并输出结果，注意参数解析与错误返回"
+    },
+    {
+      "stepZh": "调整 UI、快捷键与发布版开关，确认正式包默认关闭"
+    }
+  ],
+  "pros": [
+    "命令即脚本，新增功能不用改核心调度代码，扩展成本很低，也不需要重新注册",
+    "支持条件链、管道与后台执行，表达力接近真实 shell，组合能力强",
+    "UI 与解析器模块化，能改成终端或按钮面板，适配不同项目风格",
+    "AssetLib 可直接安装，接入路径很短，写完命令立刻能试，不需要额外配置",
+    "默认命令与文档比较齐全，上手示例清楚，二次改造成本低，能照着模板加命令"
+  ],
+  "cons": [
+    "仍在早期开发，接口与解析行为可能变动，升级要留改动预算",
+    "无权限体系，发布版保留等于给玩家一个命令入口",
+    "命令散在目录，规模大时缺少注册表与自动补全，管理成本上升"
+  ],
+  "pitfalls": [
+    "发布版忘记禁用控制台，玩家可直接执行调试与作弊命令，务必在导出前确认开关",
+    "命令脚本命名冲突时后加载者覆盖，需统一前缀避免互相顶掉",
+    "后台命令异常不会阻塞控制台，错误容易被忽略，建议统一记日志"
+  ],
+  "bestFor": "需要游戏内调试终端、作弊码或运营工具，且能接受早期版本接口变动与自行做发布开关的 Godot 4 团队。",
+  "avoidWhenZh": "要求稳定 API、需要多人权限审计，或不想在发布包中保留命令入口的项目。",
+  "compareTips": {
+    "vs": [
+      "HungryProton__monitor_overlay"
+    ],
+    "whenZh": "GDShell 是输入命令并执行操作的控制台，Monitor Overlay 是只读的性能浮层。要执行调试动作选 GDShell，要观察指标选后者，两者可以同时挂着不冲突。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "游戏内控制台",
+    "调试命令",
+    "作弊码",
+    "命令行"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "类 Linux 的游戏内控制台",
+      "source": "README.md",
+      "quote": "Simple, linux-like, all-in-one, in-game console for development, debugging, cheats and/or any other interaction with your game."
+    },
+    {
+      "claim": "每条命令是独立脚本",
+      "source": "README.md",
+      "quote": "Every command is it's own script, resulting in better code organization and project structure by design."
+    },
+    {
+      "claim": "仍在早期开发",
+      "source": "README.md",
+      "quote": "⚠️ This plugin is still in early development"
+    }
+  ]
+}

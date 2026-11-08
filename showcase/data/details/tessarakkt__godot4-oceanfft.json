@@ -1,0 +1,65 @@
+{
+  "id": "tessarakkt__godot4-oceanfft",
+  "depth": "standard",
+  "taglineZh": "用 FFT 与计算着色器在 Godot 4 里生成可浮力海浪",
+  "summaryZh": "godot4-oceanfft 是 Godot 4 的开放海域插件，用 Tessendorf 的 FFT 方法生成海浪位移图，计算部分跑在计算着色器上。它用四叉树 CDLOD 动态管理海面网格密度，远处减少三角形又不出现跳变，还提供基础浮力、水下效果、白浪以及透明、反射、折射和次表面散射等着色。仓库附带可自由飞行的示例场景，按键即可切换菜单与自由相机。作者称其为早期在研项目，待办包括飞溅粒子、更快的低细节着色器与海岸交互。",
+  "whatItDoes": "插件用计算着色器按统一波谱生成多张 FFT 位移与法线贴图，再交给海面着色器采样，形成随时间演化的波浪。海面网格由 Quadtree3D 按相机距离细分，近处密、远处疏，并按 CDLOD 规则消除层级跳变。浮力系统采样海面高度推动刚体，水下效果按相机位置切换后处理，白浪与反射、折射由材质与 ReflectionProbe 共同完成。",
+  "useCases": [
+    {"titleZh": "开放海域航行", "descZh": "为航海或飞行场景提供可无限延伸的波浪海面，并让船只随浪起伏，省去自写水体，适合中小项目。"},
+    {"titleZh": "浮力与物理试验", "descZh": "用基础浮力系统让木箱或角色漂浮，观察 FFT 高度场对刚体的推力，便于调参数，快速验证手感。"},
+    {"titleZh": "水下与海面镜头", "descZh": "借助水下效果与折射、次表面散射，做出从水下仰视海面的观感，适合短片式演出，氛围自然。"},
+    {"titleZh": "水面渲染学习", "descZh": "FFT 波谱、CDLOD 与白浪实现都写在插件里，可拆开研究海洋渲染管线与计算着色器，参考价值高。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "FFT 位移贴图", "descZh": "计算着色器每帧生成波面位移与法线，交给材质采样形成动态海浪与泡沫。"},
+    {"titleZh": "CDLOD 海面网格", "descZh": "四叉树按距离细分海面，近密远疏且层级过渡平滑，减少三角形，并省显存。"},
+    {"titleZh": "浮力与水下效果", "descZh": "基础浮力推动刚体，水下后处理与折射营造沉入水中的观感，可调强度与颜色。"}
+  ],
+  "featureCallouts": [
+    {"name": "Tessendorf FFT", "descZh": "按统一波谱生成海浪，能量分布接近真实海况，方向与风速可调。"},
+    {"name": "计算着色器", "descZh": "位移图在 GPU 上并行计算，避免每帧在 CPU 上重建大量顶点与上传贴图。"},
+    {"name": "CDLOD 四叉树", "descZh": "按相机距离动态分配网格密度，远处省三角形且不出现跳变。"},
+    {"name": "基础浮力", "descZh": "采样海面高度推动刚体，让船与漂浮物随浪上下，可直接接入物理。"},
+    {"name": "水下与白浪", "descZh": "提供水下效果与白浪渲染，配合反射折射补足海面的层次与近岸细节。"}
+  ],
+  "limitsZh": "作者明确标注这是早期在研项目，版本号还是 devel，功能与参数都可能变动。地形与海岸交互还没做，船迹、浪花碰撞与多人同步都在待办里，写实海战或需要复杂交互的项目要自己补大量工作。性能依赖计算着色器与四叉树细分，低端 GPU 或移动端要下调分辨率与细分等级。材质与 LOD 的调参项很多，缺少逐步教程，新手容易调不出预期海面。示例场景带自由相机，但工程本身较重，首次导入耗时明显。",
+  "workflowZh": [
+    {"stepZh": "把 addons/tessarakkt.oceanfft 目录复制进自己的项目并保持结构"},
+    {"stepZh": "在项目设置的插件页勾选启用 OceanFFT 海面插件并重载"},
+    {"stepZh": "在场景中放入海面节点并指定波谱参数与风速"},
+    {"stepZh": "给相机挂上环境与反射探针调整观感和天空盒"},
+    {"stepZh": "用示例场景的按键切换自由相机验证海面效果"}
+  ],
+  "pros": [
+    "基于 Tessendorf FFT 与统一波谱生成海浪，起伏与能量分布比正弦波更接近真实海况",
+    "位移图在计算着色器里生成，配合四叉树 CDLOD，远处省三角形且层级过渡平滑",
+    "基础浮力、水下效果、白浪以及反射、折射与次表面散射都提供了可用的起点",
+    "附带可自由飞行的示例场景，用按键切换菜单与相机，方便直接验证海面观感",
+    "采用 MIT 许可，算法基于成熟的 FFT 海洋论文并注明开源移植来源，便于追根溯源"
+  ],
+  "cons": [
+    "作者标注为早期在研项目，插件版本仍是 devel，接口与参数随时可能调整",
+    "待办里还有海岸、船迹、浪花碰撞与多人同步，需要复杂水面交互的项目得自己补",
+    "波谱、细分与材质参数很多却缺少逐步教程，新手不容易调出预期的海面观感"
+  ],
+  "pitfalls": [
+    "计算着色器与四叉树细分开销大，低端 GPU 或移动端要先降分辨率与 LOD 等级",
+    "材质依赖 ReflectionProbe 提供反射，场景里没配或范围不对，海面反射会明显失真难看",
+    "插件版本号仍是 devel，换版本前先备份工程与材质，避免参数变更导致场景失效"
+  ],
+  "bestFor": "需要一片可远眺、可穿行、带基础浮力的 FFT 海面，并且愿意读代码自己调波谱与材质参数的海洋场景开发者、独立项目。",
+  "avoidWhenZh": "要做写实海战、船迹浪花或多人同步，或目标平台是移动端与低端显卡的项目。",
+  "compareTips": {"vs": ["Bonkahe__SunshineClouds2"], "whenZh": "OceanFFT 专做 FFT 海面、浮力与水下效果，SunshineClouds2 专做体积云天空。两者都吃 GPU，但一个管水一个管天；海面选 OceanFFT，天空云层选 SunshineClouds2，按画面主体分配预算。"},
+  "category": "3d-shader",
+  "tags": ["海洋", "FFT", "计算着色器", "浮力", "LOD"],
+  "scores": {"coverage": 4, "usability": 2, "docs": 3, "maintenance": 3, "performance": 3, "stability": 3},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {"claim": "基于 Tessendorf FFT 与 CDLOD 的在研海洋插件", "source": "README.md", "quote": "An early work in progress ocean addon for Godot 4 base on Jerry Tessendorf's FFT method for generating the waves, using compute shaders to generate the displacement map, and a quad tree based continuous distant dependant level of detail (CDLOD) system to dynamically manage the polygon density without popping or snapping between LOD levels."},
+    {"claim": "海浪能量来自统一波谱", "source": "README.md", "quote": "- FFT ocean wave simulation, wave energy derived from Unified Spectrum"},
+    {"claim": "提供基础浮力系统", "source": "README.md", "quote": "- Basic buoyancy system"},
+    {"claim": "要求 Godot 4.3 及以上", "source": "README.md", "quote": "> Requires Godot 4.3+"}
+  ]
+}

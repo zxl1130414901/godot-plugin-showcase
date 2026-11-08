@@ -1,0 +1,35 @@
+{
+  "id": "rayxuln__hastur-operation-plugin",
+  "descriptionZh": "让编码代理带上 token，通过 HTTP 在 Godot 编辑器里远程执行 GDScript 代码片段",
+  "category": "ai-gen",
+  "tags": [
+    "AI代理",
+    "远程执行",
+    "GDScript",
+    "编辑器自动化",
+    "HTTP"
+  ],
+  "prosShort": [
+    "代理免鼠标直接操作编辑器",
+    "broker 负责鉴权与多实例路由分发",
+    "附带代理技能说明，接入流程较快"
+  ],
+  "consShort": [
+    "需要额外运行 Node broker，部署多一步",
+    "无沙箱执行，token 等同最高权限",
+    "0.1 版本接口与约定尚未稳定"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 2
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

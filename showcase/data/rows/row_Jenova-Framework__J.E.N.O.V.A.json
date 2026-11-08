@@ -1,0 +1,14 @@
+{
+  "id": "Jenova-Framework__J.E.N.O.V.A",
+  "descriptionZh": "在 Godot 编辑器里写 C++ 脚本的完整工具链，支持热重载与多种编译器后端，可链接已有 C++ 库。",
+  "category": "visual-script",
+  "tags": ["C++", "脚本后端", "热重载", "工具链"],
+  "prosShort": ["C++ 脚本能导出属性、信号与资源引用", "原生性能高，可直接链接第三方库", "编辑器与运行时都支持热重载"],
+  "consShort": ["仅支持 Windows 与 Linux 的 64 位平台，平台受限", "安装与工具链版本对齐成本高", "组件许可混杂，商用前需逐个确认"],
+  "scores": {"coverage": 5, "usability": 2, "docs": 4, "maintenance": 4, "performance": 5, "stability": 2},
+  "installComplexity": 5,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

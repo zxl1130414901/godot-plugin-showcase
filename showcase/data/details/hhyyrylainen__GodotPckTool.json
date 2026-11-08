@@ -1,0 +1,65 @@
+{
+  "id": "hhyyrylainen__GodotPckTool",
+  "depth": "standard",
+  "taglineZh": "独立命令行工具，解包与打包 Godot .pck 资源文件",
+  "summaryZh": "GodotPckTool 是一个独立的 Godot .pck 资源包处理工具，用命令行即可列出内容、解包到目录或把文件重新打进包，不需要安装 Godot 编辑器。它支持按文件大小做过滤、去掉路径前缀、设置包内声明的 Godot 版本，还能用 JSON 指令精确控制写入路径，仓库另外提供 C# 库供程序内调用。工具以 C++ 编写并可交叉编译，发布页有现成可执行文件，也给出 CMake、Makefile 与容器构建方式。它被 Thrive 等项目用于构建流程，适合把打包步骤接入 CI。",
+  "whatItDoes": "命令行把 .pck 当成一等对象：list 动作读取索引并打印文件清单，extract 把包内文件按原路径写到输出目录，add 则把本地目录或文件按规则写回包或新建包。过滤器可按最小与最大字节数排除文件，JSON 命令能指定源路径、包内路径与是否覆盖。工具同时解析头部里的 Godot 版本字段，可在新建包时写入指定版本，方便游戏正确识别资源。",
+  "useCases": [
+    {"titleZh": "CI 里解包校验", "descZh": "在流水线里解包发布的 .pck，检查资源是否齐全或做差异化比对，不必启动编辑器，流程更快。"},
+    {"titleZh": "资源热更新打包", "descZh": "把新增或修改的资源目录重新写进现有 .pck，配合前缀规则生成正确的 res:// 路径，省去手动操作。"},
+    {"titleZh": "分发包瘦身", "descZh": "用大小过滤器剔除小图标或调试文件，再重新打包，控制最终资源包体积，便于发布并减少体积。"},
+    {"titleZh": "C# 程序内读写", "descZh": "直接引用仓库的 C# 库，在自研工具或构建脚本里读写 .pck，而不依赖外部进程，集成度高，便于自动化。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "可执行命令行工具", "descZh": "发布页提供各平台可执行文件，运行即可列出、解包或打包 .pck，无需额外依赖。"},
+    {"titleZh": "C# 读写库", "descZh": "仓库附带 C# 类库，可在自己的程序里解析与生成 .pck 文件，不必调用外部进程。"},
+    {"titleZh": "可控的资源包", "descZh": "按规则写入路径与版本号，生成游戏能直接加载的资源包，并保留原始目录结构。"}
+  ],
+  "featureCallouts": [
+    {"name": "list 与 extract 动作", "descZh": "一条命令列出包内文件，或把内容按原路径解到指定目录，便于核对。"},
+    {"name": "add 动作与前缀", "descZh": "把本地文件写回包，用 remove-prefix 与 no-res-prefix 精确控制包内路径，避免多余层级。"},
+    {"name": "大小过滤器", "descZh": "按最小或最大字节数筛选文件，只处理关心的那部分资源，加快打包。"},
+    {"name": "JSON 指令", "descZh": "用 JSON 精确指定源路径、包内路径与覆盖策略，适合脚本化与批处理。"},
+    {"name": "C# 类库", "descZh": "除命令行外还提供 C# 库，可在自研工具里直接读写 .pck，复用同一套解析逻辑。"}
+  ],
+  "limitsZh": "它只处理 .pck 资源包，不涉及导出模板、加密密钥或签名，遇到带加密的包需要自己处理密钥。命令行参数较多，第一次用要对照 README 的示例，前缀与路径规则写错会得到 res:// 之外的怪路径。仓库同时维护 C++ 与 C# 两套实现，功能细节可能不完全同步，跨语言使用时要以对应源码为准。工具本身不含图形界面，日常操作对非程序用户不友好。构建需要 C++ 工具链或 .NET，虽然发布页有二进制，但自行编译仍有门槛。",
+  "workflowZh": [
+    {"stepZh": "从发布页下载对应平台的可执行文件，并放到 PATH 或工作目录"},
+    {"stepZh": "运行 godotpcktool 加包路径，先列出包内文件清单核对内容"},
+    {"stepZh": "用 -a e 与 -o 指定输出目录，把包内资源解包到本地"},
+    {"stepZh": "改动资源后，用 -a a 配合 remove-prefix 重新打包写入包内"},
+    {"stepZh": "列出结果确认路径与版本字段是否正确并比对"}
+  ],
+  "pros": [
+    "列出、解包、打包都靠命令行完成，可脚本化，不必打开 Godot 编辑器，效率高",
+    "可用大小过滤挑选文件，并用前缀与 JSON 指令精确控制包内路径，结果可预期",
+    "既有独立的 C++ 可执行文件，也有 C# 类库，可直接嵌进自研构建工具，很灵活",
+    "不依赖 Godot 编辑器与运行时，CI 容器里放一个二进制就能处理资源包，轻量",
+    "项目被 Thrive 等实际使用，发布页提供现成可执行文件，省去自行编译的步骤"
+  ],
+  "cons": [
+    "工具只面向 .pck 资源包，导出模板、加密密钥与签名都不在其职责范围内",
+    "命令行参数不少，remove-prefix 与 res 前缀规则稍不留神就会写出奇怪的包内路径",
+    "仓库同时维护 C++ 与 C# 两套实现，功能细节可能不同步，跨语言时要对照源码"
+  ],
+  "pitfalls": [
+    "remove-prefix 与实际目录不匹配时，文件会被写到错误的 res 路径，打包后难以定位",
+    "包内已有同名路径时 add 会直接替换旧文件，动手前先备份原始 pck 以便回滚",
+    "新建包时别忘了 set-godot-version，版本字段不对可能让游戏读包时出现异常问题"
+  ],
+  "bestFor": "需要在 CI 或构建脚本里批量解包、校验与重新打包 Godot 资源，并希望用现成二进制或 C# 库完成自动化的团队、流水线。",
+  "avoidWhenZh": "需要图形界面操作，或要处理加密资源包、导出模板与签名相关流程的场景、非技术。",
+  "compareTips": {"vs": ["calico-games__react-native-godot"], "whenZh": "GodotPckTool 专注命令行解包与打包资源，react-native-godot 则用它把 Godot 工程转成 pck 嵌进移动应用。单纯处理资源包选前者，做 React Native 宿主集成选后者，按使用位置分工，两者互补。"},
+  "category": "asset-pipeline",
+  "tags": ["pck", "资源打包", "命令行", "CI", "C#"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 4, "performance": 5, "stability": 5},
+  "godotVersion": "unknown",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {"claim": "用于解包与打包 Godot pck 的独立可执行文件", "source": "README.md", "quote": "A standalone executable for unpacking and packing Godot .pck files."},
+    {"claim": "同时提供 C# 代码库读取 pck", "source": "README.md", "quote": "There is also a C# code library in this repo that can be used from C# code to interact with .pck files."},
+    {"claim": "支持解包动作与输出目录", "source": "README.md", "quote": "godotpcktool Thrive.pck -a e -o extracted"},
+    {"claim": "添加文件时会去掉指定前缀", "source": "README.md", "quote": "The files are added with the specified paths on the command line, but with the prefix removed."}
+  ]
+}

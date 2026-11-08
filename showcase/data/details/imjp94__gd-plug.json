@@ -1,0 +1,143 @@
+{
+  "id": "imjp94__gd-plug",
+  "depth": "standard",
+  "taglineZh": "用一份 GDScript 清单管理 Godot 插件依赖版本",
+  "summaryZh": "gd-plug 用一份 GDScript 配置文件管理 Godot 插件依赖：在项目根写 plug.gd 声明仓库、分支或 commit，然后在命令行运行 install，它会把 addons 目录拉取并安装到项目，同时清理未声明的插件。支持并行下载、版本冻结、dev 插件分组与更新钩子，卸载时还能清理 import 残留。它只支持 Godot 4.x，必须安装 git，且存在 autoload 与二进制清理不彻底的已知问题。",
+  "whatItDoes": "在 plug.gd 的 _plugging 中按 plug(src, args) 声明依赖，支持 GitHub 简写、任意 git URL 与本地仓库。命令行动作包括 init、status、install、uninstall、clean、upgrade 与 version，参数可冻结 branch、tag 或 commit，也能标记 dev 并在 production 模式排除。安装时会并行克隆到 .plugged，再按 include 规则复制到 addons，并触发 on_updated 钩子。",
+  "useCases": [
+    {
+      "titleZh": "团队依赖锁定",
+      "descZh": "把插件版本写进 plug.gd 并提交，成员与 CI 跑同一条 install 得到一致环境，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "CI 构建",
+      "descZh": "在 headless 流水线里安装依赖，省去把 addons 目录提交进仓库，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "多插件项目",
+      "descZh": "插件数量多时用一份清单统一升级与清理，避免手工拷贝漏文件，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "开源模板",
+      "descZh": "模板仓库把插件依赖声明化，使用者 init 后一条命令就能装齐，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "依赖清单",
+      "descZh": "plug.gd 中的 plug 调用，记录仓库与版本约束，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "安装结果",
+      "descZh": ".plugged 缓存与 addons 下的插件目录，由命令生成，结构与引擎资源体系保持一致，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "钩子脚本",
+      "descZh": "on_updated 回调，用于安装后做二次处理，可以直接放进项目里使用，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "版本冻结",
+      "descZh": "branch、tag、commit 三种粒度锁定插件版本，调用方式简单不需要额外封装。"
+    },
+    {
+      "name": "并行安装",
+      "descZh": "多个仓库同时下载，缩短首次搭建时间，参数集中在检查器面板。"
+    },
+    {
+      "name": "dev 分组",
+      "descZh": "标记 dev 的插件可在 production 安装时排除或卸载，后续修改起来也不费劲。"
+    },
+    {
+      "name": "干净卸载",
+      "descZh": "uninstall 清理插件文件与部分 import 残留，在编辑器里就能完成配置，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "单脚本",
+      "descZh": "整个管理器只有一个 plug.gd，便于随项目分发，参数集中在检查器面板。"
+    }
+  ],
+  "limitsZh": "只有一份 plug.gd 脚本，没有图形界面，日常操作都在命令行完成，团队需要熟悉 headless 调用。必须预装 git 并加入环境变量，私有仓库还要配 SSH。README 的已知限制列明：卸载不会清理项目设置里的 autoload 引用，部分 import 文件可能删不掉，编辑器打开时二进制也无法移除。配置的 include 与 exclude 不支持通配符，仓库结构特殊时要逐条写路径。它只支持 Godot 4.x，3.x 要切旧分支。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 git 并把 addons/gd-plug 放进项目，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在项目根创建 plug.gd 并声明依赖，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "运行 status 确认待安装清单，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "运行 install 拉取并复制插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在 CI 中复用同一份清单，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "一份 GDScript 清单就能复现插件环境，团队与 CI 的依赖不会漂移，团队新人照着示例就能上手。",
+    "支持 branch、tag 与完整 commit 冻结，回滚版本很直接，出现问题时也更容易定位原因。",
+    "并行下载与单脚本结构，接入不需要额外运行时或包管理器。",
+    "README 把命令、参数、钩子与已知限制都列出，排障有据可查，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "必须依赖 git 与命令行，纯编辑器用户上手有门槛。",
+    "卸载不清理 autoload 引用，二进制在编辑器占用时也删不掉。",
+    "include 与 exclude 不支持通配符，特殊仓库结构要手写路径。"
+  ],
+  "pitfalls": [
+    "卸载插件后项目设置里的 autoload 仍指向已删脚本，启动会报错，要手动清理。",
+    "编辑器开着时无法删除被占用的二进制，先退出编辑器再跑 clean。",
+    "把 addons 整体纳入版本控制会与 gd-plug 的安装结果冲突，需按 README 的 gitignore 方案处理。"
+  ],
+  "bestFor": "插件依赖较多、需要团队与 CI 复现同一套 addons 环境的 Godot 4 项目，在该场景下属于比较稳妥的选择，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目只有一两个插件，或不熟悉命令行与 git 的纯编辑器用户。",
+  "compareTips": {
+    "vs": [
+      "chickensoft-games__GodotEnv"
+    ],
+    "whenZh": "两者都管 Godot 版本与插件；gd-plug 是项目内单脚本依赖清单，GodotEnv 是跨项目的命令行环境管理器。锁定单个项目的 addons 选前者，要统一管理多个引擎版本与全局工具选后者。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "插件管理",
+    "依赖",
+    "命令行",
+    "版本锁定"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "只支持 Godot 4.x",
+      "source": "README.md",
+      "quote": "This version is only compatible with **Godot 4.x**"
+    },
+    {
+      "claim": "除 Godot 与 git 外无依赖",
+      "source": "README.md",
+      "quote": "No dependencies other than Godot and git"
+    },
+    {
+      "claim": "支持按分支标签或提交冻结版本",
+      "source": "README.md",
+      "quote": "Freeze plugins by branch, tag or commit"
+    },
+    {
+      "claim": "卸载不会清理 autoload 引用",
+      "source": "README.md",
+      "quote": "`autoload` script references in project setting are not cleared as plugin uninstalled."
+    }
+  ]
+}

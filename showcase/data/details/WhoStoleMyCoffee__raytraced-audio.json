@@ -1,0 +1,150 @@
+{
+  "id": "WhoStoleMyCoffee__raytraced-audio",
+  "depth": "standard",
+  "taglineZh": "给 3D 场景加射线追踪的混响、环境声与隔墙闷音",
+  "summaryZh": "Raytraced Audio 在 3D 场景里放一个 RaytracedAudioListener 节点，用射线探测房间与开口，实时算出混响强弱和环境声来向，再用两个自动创建的音频总线控制回声与户外声。把普通 AudioStreamPlayer3D 换成 RaytracedAudioPlayer3D 后，墙后的声音会自动变闷，玩家不必手工摆音频区域。插件用纯 GDScript，复制 addons 目录并在项目设置里启用即可，参数集中在 Raytraced Audio 设置页。它还提供两条性能监视器，方便观察射线更新次数与启用播放器数量，调参时有据可依。",
+  "whatItDoes": "监听节点按可配置数量向四周发射射线，统计命中面的距离与朝向，据此调整混响总线的强度与衰减，并按开口方向把户外声搬到环境总线。每个启用的 RaytracedAudioPlayer3D 额外投射一条隔音射线，判断声源与听者之间是否有墙，从而压低音量并加闷。每帧处理量约为射线数乘以二加播放器数，插件在编辑器调试面板里暴露两个性能监视器供观察。",
+  "useCases": [
+    {
+      "titleZh": "室内外混响切换",
+      "descZh": "同一关卡里走廊、房间与广场的混响自然不同，不必为每块区域手摆混响触发器，关卡改结构后也不必重新标注。"
+    },
+    {
+      "titleZh": "隔墙听声变闷",
+      "descZh": "躲在墙后时脚步与枪声自动降低并变闷，玩家能凭听感判断声源方位，省去给每种声音单独写遮挡与衰减配置。"
+    },
+    {
+      "titleZh": "开放场景环境声",
+      "descZh": "只有一个门洞的房间，户外声会从门洞方向传来并随距离逐渐衰减，让封闭空间听起来更像真实房间而不是真空。"
+    },
+    {
+      "titleZh": "关卡快速迭代",
+      "descZh": "改结构后射线立即反映新空间，不必重新标注音频区域或重烘焙混响，原型阶段调声学几乎零等待，改完即可试听。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "监听节点",
+      "descZh": "场景里挂一个即可工作的射线监听器，负责整体声学估算，位置可自动跟随玩家或相机移动。"
+    },
+    {
+      "titleZh": "两条音频总线",
+      "descZh": "自动建立的混响与环境总线，强度由射线结果实时驱动，可在混音器里继续叠加效果与均衡。"
+    },
+    {
+      "titleZh": "带隔音的播放器",
+      "descZh": "替换默认 3D 播放器后，声音会被墙体自动闷住并降低音量，无需额外脚本判断遮挡与距离，省去逐声源手调衰减步骤。"
+    },
+    {
+      "titleZh": "性能监视器",
+      "descZh": "显示射线更新次数与当前启用的播放器数量，便于在画质与开销之间找到那个相对最合适的平衡点，不必反复试跑。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "零区域摆放",
+      "descZh": "不用铺音频区域，节点放好就能得到随空间变化的声学效果，关卡改动也无需返工。"
+    },
+    {
+      "name": "自动隔音",
+      "descZh": "墙后的播放器音量下降并加闷，省去逐个声源单独写遮挡判断与手工调衰减曲线。"
+    },
+    {
+      "name": "环境声定向",
+      "descZh": "户外声按开口方向偏转，离开口越远越轻，方向感比单纯音量衰减更明显一些。"
+    },
+    {
+      "name": "总线可改名",
+      "descZh": "两条总线的名称在项目设置里调整，便于接自己的整套混音布局与效果器链。"
+    },
+    {
+      "name": "调试监视器",
+      "descZh": "内置两条性能监视器，调射线数量与播放器数量时基本有据可依，不必盲猜开销。"
+    }
+  ],
+  "limitsZh": "效果完全依赖射线采样，射线少时混响变化会跳变，射线多时开销迅速上升；每个启用的播放器还要额外一条隔音射线。它只估算混响、环境声与遮挡，不处理声音衍射、反射路径与材质吸音，复杂房间的听感仍不如离线烘焙。插件会固定新增两条音频总线，接入自定义总线布局时要改名对齐。纯 GDScript 每帧做射线查询，大量播放器与高射线数并存时对 CPU 不友好。README 只有一页，参数含义与调参建议要靠试。",
+  "workflowZh": [
+    {
+      "stepZh": "把插件里的 addons/raytraced_audio 整个目录复制进项目的对应 addons 下"
+    },
+    {
+      "stepZh": "在项目设置的插件页里找到并直接启用 Raytraced Audio 插件"
+    },
+    {
+      "stepZh": "在场景中放入 RaytracedAudioListener 节点并挂到玩家的根节点下面"
+    },
+    {
+      "stepZh": "把场景里需要隔音的音频播放器全部逐个换成 RaytracedAudioPlayer3D"
+    },
+    {
+      "stepZh": "逐步调射线数量，同时观察面板里的性能监视器"
+    }
+  ],
+  "pros": [
+    "不用手工铺音频区域，关卡结构一改声学效果跟着变，省去大段标注工作。",
+    "隔墙闷音自动完成，省去重复给每个声源单独写遮挡检测与衰减曲线的麻烦。",
+    "混响与环境声分总线控制，可直接接自己现有的混音流程与整套效果器链。",
+    "纯 GDScript 插件，复制即用，不必编译或额外依赖运行库，省去构建与打包的麻烦。"
+  ],
+  "cons": [
+    "纯射线近似，缺少衍射与材质吸音，复杂空间听感明显有限。",
+    "射线与播放器数量同时直接决定开销，大规模场景非常吃 CPU。",
+    "会自动新增两条总线，接入现有总线布局时需要手动逐一改名。",
+    "文档只有一页，参数调法基本靠反复自行尝试与对照监视器。"
+  ],
+  "pitfalls": [
+    "射线数调得过低时混响会突兀跳变，先按房间尺寸逐步加采样再压性能。",
+    "播放器没换成 RaytracedAudioPlayer3D 就不会有隔墙闷音，容易误判插件失效，甚至以为没装好。",
+    "与自定义总线布局混用时总线名对不上，声音会走到默认总线，结果直接听不出隔音效果。"
+  ],
+  "bestFor": "做第一人称或恐怖类 3D 游戏，想要随房间变化的混响与隔墙听感，又不愿手工摆音频区域的小团队，且偏向室内场景。",
+  "avoidWhenZh": "需要精确声学模拟、复杂材质吸音，或场景里同时有大量 3D 声源的项目，这个插件帮不上忙。",
+  "compareTips": {
+    "vs": [
+      "nathanhoad__godot_sound_manager",
+      "utopia-rise__fmod-gdextension",
+      "alessandrofama__wwise-godot-integration"
+    ],
+    "whenZh": "和 Sound Manager 这类播放调度插件不同，它管的是空间声学而非音频生命周期；接 FMOD 或 Wwise 的项目已有混响与遮挡方案，通常不必再叠一层，需要衍射与材质吸音时得另找方案。"
+  },
+  "category": "audio",
+  "tags": [
+    "空间音频",
+    "混响",
+    "射线检测",
+    "3D音效"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "提供回声、户外环境声与闷音效果",
+      "source": "README.md",
+      "quote": "Adds procedural audio effects to Godot like echo, ambient outdoor sounds, and muffle."
+    },
+    {
+      "claim": "不需要手工维护音频区域",
+      "source": "README.md",
+      "quote": "No need to create and maintain zones while creating levels, just put the `RaytracedAudioListener` node in your scene and most features will be available for you to use!"
+    },
+    {
+      "claim": "墙后声音会自动闷住",
+      "source": "README.md",
+      "quote": "Additionally, by using `RaytracedAudioPlayer3D`s instead of regular `AudioPlayer3D`s, sounds will get automatically muffled behind walls."
+    },
+    {
+      "claim": "射线开销随播放器数量增长",
+      "source": "README.md",
+      "quote": "`rays_count * (2 + n)` where `n` is the number of enabled `RaytracedAudioPlayer3D`s in the scene."
+    }
+  ]
+}

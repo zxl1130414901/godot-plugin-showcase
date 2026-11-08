@@ -1,0 +1,142 @@
+{
+  "id": "Coding-Solo__godot-mcp",
+  "depth": "standard",
+  "taglineZh": "让 AI 助手启动编辑器、跑项目并读调试输出的 MCP 服务",
+  "summaryZh": "Coding-Solo 的 Godot MCP 是发布在 npm 上的 MCP 服务器，把启动编辑器、以调试模式运行项目、抓取控制台输出与错误、启停项目、查询 Godot 版本、在目录里查找工程、分析项目结构等操作暴露为工具。场景管理部分可新建指定根节点类型的场景、向既有场景添加可配属性的节点、给 Sprite2D 加载贴图、把 3D 场景导出为 GridMap 用的 MeshLibrary，并支持以变体方式保存；针对 Godot 4.4 以上还提供 UID 查询与重存资源刷新引用。使用要求系统已装 Godot、Node 18 以上以及支持 MCP 的 AI 客户端，README 给出的最快方式是用 npx 一行命令注册，也提供 Cline 等客户端的配置片段与 GODOT_PATH 环境变量。",
+  "whatItDoes": "以 MCP 协议把 Godot 编辑器与项目的常见操作包装成可被 AI 客户端调用的工具，覆盖启动、运行、停止与日志抓取。提供场景结构的读写能力，可创建场景、挂节点、设置属性并保存，还能把 3D 场景导出成 GridMap 所需资源。支持通过环境变量指定 Godot 可执行文件位置与调试开关，适配多种 MCP 客户端。",
+  "useCases": [
+    {
+      "titleZh": "AI 辅助日常开发",
+      "descZh": "让助手直接启动编辑器、运行工程并读取报错，减少在终端与编辑器之间来回切换。"
+    },
+    {
+      "titleZh": "批量生成场景骨架",
+      "descZh": "用工具调用新建场景并批量挂节点、设属性，把重复的场景搭建交给脚本与助手。"
+    },
+    {
+      "titleZh": "项目结构快速摸清",
+      "descZh": "让助手列出目录下的工程并分析结构，新人接手项目时可先自动梳理一遍。"
+    },
+    {
+      "titleZh": "GridMap 资源准备",
+      "descZh": "把既有的 3D 场景导出为 MeshLibrary，直接用于 GridMap 关卡拼装。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可调用的 Godot 工具集",
+      "descZh": "覆盖编辑器启动、项目运行、日志抓取与场景管理的 MCP 工具。"
+    },
+    {
+      "titleZh": "由 AI 维护的场景",
+      "descZh": "通过工具创建或修改的场景文件，可保存为变体。"
+    },
+    {
+      "titleZh": "可用的调试日志",
+      "descZh": "抓取到的控制台输出与错误信息，供助手分析。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "场景节点增删",
+      "descZh": "可创建带指定根节点的场景，并向其中添加可配属性的节点。"
+    },
+    {
+      "name": "MeshLibrary 导出",
+      "descZh": "把 3D 场景导出为 GridMap 可用的网格库资源。"
+    },
+    {
+      "name": "UID 查询与刷新",
+      "descZh": "面向 Godot 4.4 以上提供 UID 获取与资源重存刷新。"
+    },
+    {
+      "name": "npx 一行接入",
+      "descZh": "通过 npx 直接注册到支持 MCP 的客户端，无需本地构建。"
+    }
+  ],
+  "limitsZh": "工具集以启动、运行、日志与场景结构为主，不具备运行期深度观测：无法像确定性试玩那样冻结时钟、注入输入或读取实体状态，因此 AI 拿不到玩法是否正确的直接证据，仍需人工看画面。使用前提是系统已安装 Godot 并能被进程调用，README 建议用 GODOT_PATH 环境变量指明路径，路径配置错误时工具会静默失败或报模糊错误。它依赖 Node 18 以上与 npm，接入需要在 AI 客户端里登记服务器，部分客户端还需要手动填命令与环境变量，非命令行用户上手有门槛。场景管理虽然能建节点与设属性，但属性类型与复杂资源仍受工具参数限制，精细化编辑还是得回到编辑器。UID 相关能力只对 Godot 4.4 以上有效，且需要重存资源才会刷新引用。仓库版本 0.1.1，功能仍在扩张阶段。",
+  "workflowZh": [
+    {
+      "stepZh": "确认系统已安装 Godot 与 Node 18 以上。"
+    },
+    {
+      "stepZh": "在 AI 客户端里用 npx 注册 godot-mcp 服务器。"
+    },
+    {
+      "stepZh": "按需设置 GODOT_PATH 与 DEBUG 环境变量。"
+    },
+    {
+      "stepZh": "让助手调用工具启动编辑器或运行指定项目。"
+    },
+    {
+      "stepZh": "抓取控制台输出，定位报错与运行结果。"
+    },
+    {
+      "stepZh": "用场景工具生成或修改场景并保存。"
+    }
+  ],
+  "pros": [
+    "把编辑器启动、运行与日志抓取串成一条自动流程。",
+    "npx 一行即可接入，部署门槛低。",
+    "具备场景与节点的程序化创建能力。",
+    "支持多款 MCP 客户端并提供配置示例。"
+  ],
+  "cons": [
+    "缺少运行期状态观测与输入注入能力。",
+    "依赖外部 Godot 可执行文件与路径配置。",
+    "场景编辑深度受工具参数限制。"
+  ],
+  "pitfalls": [
+    "未设置 GODOT_PATH 且 Godot 不在默认位置时，启动项目工具会失败且提示不够明确。",
+    "用它生成场景后忘记保存或误存为变体，可能覆盖原有场景文件。"
+  ],
+  "bestFor": "适合已经用 AI 客户端做开发、希望助手能直接跑起 Godot 项目并读日志处理报错的开发者。",
+  "avoidWhenZh": "需要 AI 验证玩法正确性、或环境无法安装 Node 与 MCP 客户端时，这套工具的能力覆盖不到需求。",
+  "compareTips": {
+    "vs": [
+      "satelliteoflove__godot-mcp"
+    ],
+    "whenZh": "这个版本偏编辑器与进程层的启动、日志与场景生成；satelliteoflove 的版本强调运行期确定性试玩与状态读取，需要 AI 自己判断玩法结果时选后者。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "场景管理",
+    "日志抓取",
+    "编辑器自动化"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "服务器提供启动编辑器、运行项目与抓取调试输出的工具",
+      "source": "package.json",
+      "quote": "\"description\": \"MCP server for interfacing with Godot game engine. Provides tools for launching the editor, running projects, and capturing debug output.\""
+    },
+    {
+      "claim": "场景管理支持建场景、加节点与导出 MeshLibrary",
+      "source": "README.md",
+      "quote": "**Scene Management:** Create new scenes with specified root node types ... Export 3D scenes as MeshLibrary resources for GridMap"
+    },
+    {
+      "claim": "要求 Node.js 18 以上与已安装的 Godot",
+      "source": "README.md",
+      "quote": "- [Godot Engine](https://godotengine.org/download) installed on your system\\n- Node.js (>=18.0.0) and npm"
+    },
+    {
+      "claim": "可用 GODOT_PATH 环境变量指定引擎路径",
+      "source": "README.md",
+      "quote": "claude mcp add godot -e GODOT_PATH=/path/to/godot -e DEBUG=true -- npx @coding-solo/godot-mcp"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "godot-extended-libraries__godot-realistic-water",
+  "descriptionZh": "Godot 4 写实水面演示工程，多组波浪叠加并带折射、焦散与岸边泡沫。",
+  "category": "3d-shader",
+  "tags": [
+    "水面着色器",
+    "海洋渲染",
+    "焦散",
+    "Godot4"
+  ],
+  "prosShort": [
+    "着色器单文件便于阅读移植",
+    "演示场景自带船石模型与贴图",
+    "水色波浪等参数以 uniform 暴露好调"
+  ],
+  "consShort": [
+    "只是演示工程没有插件入口",
+    "文档极薄版本说明自相矛盾",
+    "缺少 LOD 与性能选项不利扩展"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

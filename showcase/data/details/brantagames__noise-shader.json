@@ -1,0 +1,66 @@
+{
+  "id": "brantagames__noise-shader",
+  "depth": "standard",
+  "taglineZh": "给相机叠加四种噪声效果，让画面只在播放时才可见",
+  "summaryZh": "Noise Shader 给 Godot 4 相机加上四种 CompositorEffect 噪声后处理：循环闪烁、整体滑动、按亮度变速滑动与彩色循环。它们会读取相机的颜色输出并据此调整像素，生成的画面只有持续播放时才看得见，像早期的抖动与网点效果。使用时只要把其中一个效果挂到相机的合成器效果列表，再按场景光照调参；作者建议把天空压黑，并用 OmniLight3D 让近处物体更亮以突出层次。整个插件只有几个着色器与一份演示场景，属于轻量的视觉风格工具。",
+  "whatItDoes": "插件在 addons 目录里提供四个 CompositorEffect 资源，挂到相机的合成器效果列表即可生效。它们在渲染管线的后处理阶段读取相机颜色缓冲，按各自规则改写像素：循环噪声按亮度决定刷新速度，滑动噪声每帧平移像素，变量滑动让亮像素走得更快以传达纵深，彩色噪声则用红绿通道分别控制明度与色相。所有参数都暴露在检查器里，包括步数、速度、方向与每帧更新频率，可以直接在编辑器里边看边调。",
+  "useCases": [
+    {"titleZh": "复古显示风格", "descZh": "用循环噪声模拟老式显示器或点阵屏的闪烁与网点，让画面带上年代感，适合复古题材的关卡与过场。"},
+    {"titleZh": "故障与压迫氛围", "descZh": "滑动噪声按方向持续平移像素，配合昏暗光照能制造信号故障与不安感，适合恐怖或悬疑场景。"},
+    {"titleZh": "纵深提示效果", "descZh": "变量滑动的亮像素走得更快，用速度差暗示距离，可当作廉价的景深替代，帮助玩家判断远近。"},
+    {"titleZh": "学习后处理写法", "descZh": "四个效果都是完整的 CompositorEffect 示例，可直接读代码理解后处理如何拿到相机颜色并改写，适合学习。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "四种噪声效果", "descZh": "循环、滑动、变量滑动与彩色循环四个独立资源，可分别挂到相机上组合出不同观感。"},
+    {"titleZh": "可调参数面板", "descZh": "步数、速度、方向、更新频率与亮度指数都能在检查器里改，实时预览调整结果。"},
+    {"titleZh": "演示场景", "descZh": "仓库自带第一人称演示关卡与玩家脚本，可对照看光照和天空如何配合噪声出效果。"}
+  ],
+  "featureCallouts": [
+    {"name": "CompositorEffect 实现", "descZh": "以标准合成器效果接入，挂进相机列表就生效，不用改场景渲染流程。"},
+    {"name": "亮度驱动速度", "descZh": "刷新速度跟随输入像素亮度，亮处变化更快，暗处更慢，层次感来自画面本身。"},
+    {"name": "方向与反相控制", "descZh": "滑动类效果可指定滑动方向并反转参与区域，方便做局部流动或遮挡感。"},
+    {"name": "彩色循环通道", "descZh": "红色通道控制明度、绿色通道控制色相，能做出持续换色的迷幻画面。"},
+    {"name": "参数即时可调", "descZh": "所有参数都在检查器暴露，运行中改数值即可看到变化，调风格无需重启。"}
+  ],
+  "limitsZh": "这类效果强依赖相机颜色缓冲，只能挂在 Camera3D 的合成器效果列表上，普通场景后处理位置用不了。画面观感高度依赖场景明暗：作者明确建议天空压黑，并用点光源让近处物体更亮，否则噪声会与背景混在一起看不清。效果只在持续播放时可见，静态截图会显得随机杂乱，不适合需要稳定静帧的项目。风格锁定在复古与故障方向，做写实或卡通画面时用处有限。仓库自 2025 年初后基本没有更新，参数细节只在 README 与演示里体现，缺少更完整的文档与移动端验证。",
+  "workflowZh": [
+    {"stepZh": "把 addons/noise_shader 目录复制进项目并启用插件"},
+    {"stepZh": "选中相机，在合成器效果列表里添加一个噪声效果资源"},
+    {"stepZh": "把天空背景压黑，并加点光源让近处物体更亮"},
+    {"stepZh": "在检查器里调步数、速度、方向与更新频率观察变化"},
+    {"stepZh": "需要叠加时再加第二个效果，注意顺序对结果的影响"}
+  ],
+  "pros": [
+    "四种效果都做成标准合成器资源，挂到相机列表就能用，接入成本极低且不改场景结构",
+    "亮度驱动速度与方向反相等参数让同一套噪声能变出不同观感，调参空间比想象中大",
+    "仓库自带第一人称演示场景与玩家脚本，能直接对照光照与天空设置，少走弯路",
+    "代码量小且是 GDScript 着色器实现，想改成自己的风格只要改几个参数与公式，容易二次开发"
+  ],
+  "cons": [
+    "必须挂在相机上并配合黑天空与点光源，场景搭不好效果会很难看，前期调试费时",
+    "画面只在播放时可见，静态截图杂乱，做宣传图或需要稳定静帧的项目不适用",
+    "风格限定在复古与故障方向，写实或卡通项目几乎没有用武之地",
+    "2025 年初后基本停更，缺少更完整的文档与移动端验证，遇到问题只能读源码"
+  ],
+  "pitfalls": [
+    "没把天空压黑就把效果挂上去，噪声会和天空混在一起，看起来像画面出故障而非特效",
+    "效果挂错位置到场景环境而非相机上，参数怎么调都没有反应，要先确认挂载对象",
+    "多个效果叠加时不注意顺序，滑动与循环互相覆盖，需要逐层打开确认每个效果的贡献"
+  ],
+  "bestFor": "适合做复古、故障或迷幻风格的 Godot 4 项目，想用现成合成器效果快速给画面加质感的美术与独立开发者。",
+  "avoidWhenZh": "需要写实画面、稳定静帧输出，或者不愿为特效专门调光照与天空的项目。",
+  "compareTips": {"vs": ["Bonkahe__SunshineClouds2"], "whenZh": "两者都是给画面加视觉特效的 Godot 4 插件，但方向不同：Noise Shader 处理屏幕像素，做复古与故障质感；SunshineClouds2 在三维空间里生成体积云。想改屏幕观感选前者，想补天空与云层选后者，也可以同时使用。"},
+  "category": "3d-shader",
+  "tags": ["噪声", "CompositorEffect", "着色器", "相机特效", "复古"],
+  "scores": {"coverage": 2, "usability": 4, "docs": 3, "maintenance": 2, "performance": 4, "stability": 4},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {"claim": "插件提供四个可加到相机上的 CompositorEffect", "source": "README.md", "quote": "This addon adds 4 **CompositorEffect**s that can be added to cameras."},
+    {"claim": "效果读取相机颜色输出并据此调整图像", "source": "README.md", "quote": "These shaders take the color output of the camera and uses it to adjust their images."},
+    {"claim": "生成的画面只在播放时可见", "source": "README.md", "quote": "This creates an image that can only be seen while its playing."},
+    {"claim": "建议把天空设为黑色避免干扰噪声", "source": "README.md", "quote": "I also recommend making the sky black, so it doesn't interfere with the noise."},
+    {"claim": "四种效果分别叫 Cycling、Sliding、VariableSliding 与 Colorful", "source": "README.md", "quote": "add one of the four effects (**CyclingNoiseEffect**, **SlidingNoiseEffect**, **VariableSlidingNoiseEffect**, or **ColorfulNoiseEffect**) to your camera's compositor effects."}
+  ]
+}

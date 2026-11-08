@@ -1,0 +1,35 @@
+{
+  "id": "TinyTakinTeller__TakinGodotTemplate",
+  "descriptionZh": "Godot 4 工程启动模板，预装调试菜单、格式化、静态检查、日志与脚本 IDE 等精选插件及 CI 流程。",
+  "category": "editor-tool",
+  "tags": [
+    "模板",
+    "工程结构",
+    "CI",
+    "插件集成",
+    "GDScript"
+  ],
+  "prosShort": [
+    "插件、导出预设与 CI 全部提前配好",
+    "格式化与静态检查已经接入保存流程",
+    "文档按主题分册，工程目录结构清晰"
+  ],
+  "consShort": [
+    "只提供工程底座，玩法仍要自己写",
+    "插件版本固定，升级只能手工替换验证",
+    "示例资源较多，工程体积也偏大些"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

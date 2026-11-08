@@ -1,0 +1,14 @@
+{
+  "id": "Bonkahe__SunshineClouds2",
+  "descriptionZh": "面向 Godot 4.4 以上的 Compositor 体积云系统，支持程序化生成、编辑器手绘密度与颜色，并有软云与卡通风格选项",
+  "category": "3d-shader",
+  "tags": ["体积云", "Compositor", "程序化", "天空", "3D"],
+  "prosShort": ["基于 Compositor 架构，性能与画面都优于旧版", "可程序化生成，也能手绘密度与颜色", "降分辨率上采样，软云仍可飞行穿越"],
+  "consShort": ["必须搭配世界环境节点才能挂载显示", "屏幕空间阴影与阴影 cookie 尚未补齐", "体积云开销大，低端显卡必须降档"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 2, "maintenance": 4, "performance": 4, "stability": 3},
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,139 @@
+{
+  "id": "AdamKormos__SaveMadeEasy",
+  "depth": "standard",
+  "taglineZh": "用斜杠键路径读写嵌套数据的轻量存档插件",
+  "summaryZh": "Save Made Easy 把存档简化成键路径读写：用 set_var 与 get_var 就能存嵌套字典、数组、向量与资源，不必自己拼 FileAccess 与序列化。数据集中写进一个存档文件，启动时由 AutoLoad 自动读取，可开启加密并用系统唯一 ID 派生密钥，使存档难以在玩家之间互换。适合小体量项目快速接存档。限制是全部数据一次性读写，没有分槽、版本迁移或云同步；键路径规则对数字键不友好，加密默认关闭且密钥写在源码常量里。",
+  "whatItDoes": "插件注册 AutoLoad 单例，提供 set_var、get_var、has、delete、delete_all 与 save。键路径用斜杠表示层级，可读写字典与对象属性；保存时把数据序列化进 user://save_data.sav，启动时自动加载。可选开启加密，并能在编辑器里清空数据。",
+  "useCases": [
+    {
+      "titleZh": "小型游戏存档",
+      "descZh": "把关卡进度、金币数量与音量设置写进同一份存档，调用 set_var 与 get_var 几十行就能接完，不必自己处理文件读写与序列化细节。"
+    },
+    {
+      "titleZh": "原型快速验证",
+      "descZh": "原型阶段先不设计存档结构，随手用键路径存读临时数据，等玩法稳定后再整理键名与类型，避免过早抽象。"
+    },
+    {
+      "titleZh": "设置与偏好保存",
+      "descZh": "把主音量、语言选择与按键映射存进同一份存档，游戏启动时自动加载并立即恢复，省去单独写配置文件的步骤。"
+    },
+    {
+      "titleZh": "防互换的本地记录",
+      "descZh": "开启按系统唯一 ID 派生密钥的加密选项，让存档难以在玩家之间直接复制共享，适合单机排行榜与成就记录。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "单一存档文件",
+      "descZh": "所有键值默认写入 user://save_data.sav，文件名与路径都能改，方便把存档放进自定义目录或做多份备份。"
+    },
+    {
+      "titleZh": "AutoLoad 存档单例",
+      "descZh": "插件注册为全局单例，启动时自动读取存档，其他脚本直接调用静态方法读写，不需要手动持有实例。"
+    },
+    {
+      "titleZh": "可加密的数据块",
+      "descZh": "开启加密后整份数据块按系统唯一标识派生密钥，跨机复制通常读不出内容，能挡住大部分手动替换存档。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "set_var / get_var",
+      "descZh": "用斜杠分隔的键路径读写嵌套字典与数组，支持传入默认值，键不存在时返回默认而不是报错。"
+    },
+    {
+      "name": "has / delete",
+      "descZh": "判断某个键是否存在、删除单个键或一次清空全部数据，方便做重置进度与条件分支。"
+    },
+    {
+      "name": "save / load",
+      "descZh": "显式落盘与读取，可传入自定义路径覆盖默认存档，便于实现多份备份或导出调试数据。"
+    },
+    {
+      "name": "可选加密",
+      "descZh": "按系统唯一 ID 派生密钥，让存档难以跨玩家交换，但换机或重装系统后旧档可能读不出来。"
+    },
+    {
+      "name": "AutoLoad 集成",
+      "descZh": "注册为全局单例并在启动时加载，其余脚本无需初始化即可调用，减少样板代码与加载顺序问题。"
+    }
+  ],
+  "limitsZh": "整份存档一次性读写，数据量大时每次保存都要全量序列化，容易造成卡顿；没有分槽、增量写入或后台线程保存。键路径用字符串表达层级，数字键与以数字开头的键需要额外开关处理，否则读不回来。加密默认关闭，开启后密钥来自源码里的常量与系统 ID，换机或重装系统可能读不出旧档。它不处理存档版本迁移、冲突合并或云同步，也不校验文件完整性，损坏后只能整份丢弃。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/save_system 到项目并在插件列表里启用"
+    },
+    {
+      "stepZh": "把 SaveSystem 单例设为项目里第一个自动加载项，确保依赖它的脚本能读到数据"
+    },
+    {
+      "stepZh": "按需修改存档文件名，或打开加密开关并备份现有旧档"
+    },
+    {
+      "stepZh": "用 set_var 与 get_var 读写关卡进度、金币与设置项，键名统一规划"
+    },
+    {
+      "stepZh": "在检查点、过关结算或退出游戏时调用 save 把当前数据落盘"
+    }
+  ],
+  "pros": [
+    "键路径 API 极简，新手几行代码就能接完存档，几乎不用理解序列化细节",
+    "支持嵌套字典、数组、向量与 Resource，覆盖面足以应付多数中小项目的存档需求",
+    "AutoLoad 启动即加载存档，省去初始化样板代码，其他脚本可直接调用全局方法，接入路径很短",
+    "插件体积小、源码只有几个脚本，遇到特殊需求可以直接改源码，不必等待上游更新",
+    "可选的系统 ID 派生加密能明显降低存档被复制互换的概率，单机项目够用"
+  ],
+  "cons": [
+    "整份存档一次性读写，数据量大时每次保存都要全量序列化，容易造成明显卡顿",
+    "没有分槽、版本迁移、冲突合并或云同步，存档结构一变就要自己写兼容代码",
+    "键路径以数字开头时默认读不回来，需要改开关或改键名，规则不够透明"
+  ],
+  "pitfalls": [
+    "AutoLoad 顺序不对时依赖它的单例会在启动阶段读不到数据，应把它放在列表最前",
+    "加密密钥来自源码里的常量与系统 ID，一旦更换机器或改动常量，旧存档可能全部失效，发布后不要再动",
+    "键路径以数字开头时默认读不回来，需要关闭类型转换开关或统一加前缀，否则数据写进去却读不出来"
+  ],
+  "bestFor": "体量不大、想用类似 PlayerPrefs 的简单接口快速接入存档，并且不需要分槽、版本迁移或云同步的 Godot 4 独立项目与原型。",
+  "avoidWhenZh": "存档体量大、需要多存档位与版本迁移，或要求云同步与防篡改校验的项目，应当另选更完整的存档方案。",
+  "compareTips": {
+    "vs": [
+      "issork__gift"
+    ],
+    "whenZh": "Save Made Easy 是斜杠键路径式的全量存档，缺少分槽与迁移；GIFT 更偏向节点状态与场景序列化。只想用简单键值接口存进度选前者，需要保存运行时对象图或做复杂状态恢复则看后者。"
+  },
+  "category": "save-data",
+  "tags": [
+    "存档",
+    "键值存储",
+    "AutoLoad",
+    "加密"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "受 Unity PlayerPrefs 启发，支持嵌套变量、资源与加密",
+      "source": "README.md",
+      "quote": "An easy to use, versatile Save/Load System inspired by the simplicity of Unity's PlayerPrefs. Supports nested variables, Resources and encryption."
+    },
+    {
+      "claim": "数据写入按系统唯一 ID 编码的加密存档",
+      "source": "README.md",
+      "quote": "This compact plugin stores all the data in an encrypted save file (encoded with the player's unique OS ID"
+    },
+    {
+      "claim": "提供 set_var 写入、get_var 读取与 delete 删除接口",
+      "source": "README.md",
+      "quote": "- `set_var(key_path, value)`: **Use this for storing a variable.**\n- `get_var(key_path, default)`: **Use this for retrieving a variable.** If the variable at `key_path` doesn't exist, `default` is returned.\n- `delete(key_path)`: **Deletes variable at `key_path`.**"
+    }
+  ]
+}

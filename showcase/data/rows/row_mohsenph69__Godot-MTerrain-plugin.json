@@ -1,0 +1,35 @@
+{
+  "id": "mohsenph69__Godot-MTerrain-plugin",
+  "descriptionZh": "面向 Godot 4 的超大地形与植被插件，支持四叉树 LOD、笔刷雕刻与植被碰撞。",
+  "category": "3d-shader",
+  "tags": [
+    "地形系统",
+    "LOD",
+    "植被散布",
+    "笔刷雕刻",
+    "大世界"
+  ],
+  "prosShort": [
+    "支持十公里级地形与四叉树 LOD",
+    "雕刻与植被散布都在编辑器完成",
+    "植被散布可自动生成碰撞体"
+  ],
+  "consShort": [
+    "必须自行编译 C++ 扩展才能用",
+    "绑定 Godot 4.1 升级后可能需改代码",
+    "大面积植被内存开销大需限量"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

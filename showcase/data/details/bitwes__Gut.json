@@ -1,0 +1,164 @@
+{
+  "id": "bitwes__Gut",
+  "depth": "standard",
+  "taglineZh": "在 Godot 里用 GDScript 写 GDScript 单元测试的老牌框架，命令行也能跑",
+  "summaryZh": "GUT 是 Godot 生态里使用最广的单元测试框架，测试脚本本身也用 GDScript 写，继承 GutTest 后每个 test_ 开头的方法就是一条用例。它提供大量断言与工具方法、内部测试类、参数化测试、双击与部分替身、打桩与间谍，并能导出 JUnit XML 给 CI 消费。命令行接口让它可以在无头模式跑整套测试，配合 VSCode 扩展还能单条重跑。它解决的是改动后靠手点场景验证的低效问题，把回归变成可重复的命令。框架本身是纯插件，版本与引擎小版本绑定较紧，老项目需要挑对应发布版。",
+  "whatItDoes": "安装后在编辑器里出现 GUT 面板，可选择测试目录、运行整套或单个脚本，并显示通过失败与耗时。测试脚本继承 GutTest，用 assert_eq、assert_signal_emitted 等方法断言，支持 before_each 与 after_each 钩子。替身系统能对类做全量或部分替换，配合打桩返回值与间谍记录调用。命令行以脚本形式运行，可指定测试目录、输出 JUnit XML 并控制退出码。还提供输入模拟工具，用于给控件喂按键与鼠标事件。",
+  "useCases": [
+    {
+      "titleZh": "核心逻辑回归",
+      "descZh": "把背包、伤害计算与存档读写抽出来写测试，改完跑一遍命令行，确认没有把边界条件改坏，失败时按用例名定位。"
+    },
+    {
+      "titleZh": "CI 里跑测试",
+      "descZh": "在无头模式执行测试脚本并输出 JUnit XML，让流水线直接读结果，失败时按退出码阻断合并，失败信息能直接贴到合并请求。"
+    },
+    {
+      "titleZh": "隔离外部依赖",
+      "descZh": "用替身替换掉网络、文件与音频节点，让测试只验证自己的逻辑，不受环境与资源缺失影响，测试因此不依赖网络与磁盘。"
+    },
+    {
+      "titleZh": "验证信号与交互",
+      "descZh": "用断言检查信号是否按预期发出，并用输入模拟给按钮喂点击，覆盖 UI 与事件链路，信号回调里的分支也能覆盖。"
+    },
+    {
+      "titleZh": "重构前建立基线",
+      "descZh": "在改架构前先补齐现有行为测试，重构时随时比对，避免把隐藏的旧逻辑一并删掉，重构后再跑同一套用例比对。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "测试脚本集",
+      "descZh": "继承 GutTest 的 GDScript 文件，含用例方法与生命周期钩子，可放入测试目录被批量执行，含用例方法与钩子，并按前缀收集。"
+    },
+    {
+      "titleZh": "JUnit 结果文件",
+      "descZh": "命令行跑完后导出的标准 XML，含用例名、耗时与失败信息，供 CI 展示与归档，可输出标准 XML，失败信息可回填报告。"
+    },
+    {
+      "titleZh": "替身与打桩配置",
+      "descZh": "为被依赖类生成的全量或部分替身，以及指定返回值与调用记录的配置，按需替换依赖类，替身可指定返回。"
+    },
+    {
+      "titleZh": "可重复的运行记录",
+      "descZh": "面板与命令行给出的通过失败统计与退出码，作为每次提交前的固定检查项，提交前固定跑一次。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "GutTest",
+      "descZh": "测试脚本基类，提供断言、钩子与生命周期管理，测试方法按命名前缀自动收集。"
+    },
+    {
+      "name": "Doubles / Stubs / Spies",
+      "descZh": "对依赖类做全量或部分替身，指定返回值并记录调用，隔离外部副作用，返回值和调用记录都能查。"
+    },
+    {
+      "name": "Command Line Interface",
+      "descZh": "以命令行方式运行指定目录的测试，可控制退出码，是接入 CI 的主要入口，传目录与退出码即可。"
+    },
+    {
+      "name": "Parameterized Tests",
+      "descZh": "同一用例喂多组参数批量执行，减少为边界值重复抄写测试方法，边界值一次跑完。"
+    },
+    {
+      "name": "JUnit XML Export",
+      "descZh": "把结果导出为标准格式，供流水线与报告工具直接解析与聚合，报告工具可直接读。"
+    }
+  ],
+  "limitsZh": "它是纯 GDScript 框架，测试跑在引擎里，涉及物理与渲染的用例要自己搭场景并等待帧，速度明显慢于纯逻辑测试。版本与引擎小版本绑定很紧，4.7 要用 9.7 分支、4.6 用主线或 9.6、更早版本各有对应发布，装错会出现插件加载失败。替身基于脚本动态生成，对 C# 脚本与原生类支持有限，C# 项目只能测到 GDScript 侧。无头运行需要自己拼命令行参数与场景，官方文档给的是示例，仍需按项目调整。测试目录与测试场景会进版本库，团队要约定命名与清理规则，否则容易和执行环境互相干扰，缺失时会直接判为失败。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/gut 复制进项目并启用插件，重启编辑器"
+    },
+    {
+      "stepZh": "新建 tests 目录，写继承 GutTest 的脚本，先写一条空用例"
+    },
+    {
+      "stepZh": "用断言与钩子覆盖核心逻辑分支，先覆盖边界情况"
+    },
+    {
+      "stepZh": "对网络与文件依赖使用替身与打桩，从最容易隔离的模块开始"
+    },
+    {
+      "stepZh": "在面板或命令行跑整套测试并查看结果"
+    },
+    {
+      "stepZh": "导出 JUnit XML 接入流水线，让失败直接阻断合并"
+    }
+  ],
+  "pros": [
+    "测试与业务代码同语言，写用例不用切技术栈，GDScript 项目接入成本很低，新人也能直接照抄结构。",
+    "断言、替身、打桩与间谍齐全，依赖外部环境的逻辑也能隔离后单独验证，副作用不会漏进断言。",
+    "提供命令行与 JUnit 导出，能直接接进 CI，把回归变成每次提交的固定动作，结果格式通用。",
+    "维护超过九年，文档站按版本存档，老项目也能找到对应版本的说明与下载链接。"
+  ],
+  "cons": [
+    "测试跑在引擎里，涉及帧与物理的用例慢，大量用例时整套跑完要等较久，物理用例尤其费时间。",
+    "版本与引擎小版本强绑定，升级引擎必须同步换 GUT 发布版，升级前先查版本对照表。",
+    "替身对 C# 与原生类支持有限，混合技术栈项目覆盖不完整，原生类只能手写桩。"
+  ],
+  "pitfalls": [
+    "测试脚本放进 res:// 后被主场景误加载，导出包会变大，需用目录规则排除，否则导出包里全是测试资源。",
+    "替身替换掉自动加载单例后忘记还原，后续用例会读到被改过的全局状态，用例之间互相污染。",
+    "命令行参数里的场景路径写错时进程仍返回 0，CI 会误判为全部通过，最容易在本地全绿上线翻车。"
+  ],
+  "bestFor": "以 GDScript 为主、希望把核心逻辑纳入自动回归，并需要 CI 报告的项目，尤其适合长期维护的团队，最好配一条固定的 CI 流程。",
+  "avoidWhenZh": "项目以 C# 为主，或只做一次性原型、没人维护测试时，引入框架的收益有限。",
+  "compareTips": {
+    "vs": [
+      "godot-gdunit-labs__gdUnit4"
+    ],
+    "whenZh": "gdUnit4 提供图形化测试面板、场景测试与更完整的内省能力，界面更现代；GUT 历史更长、文档与社区案例更多、CLI 用法成熟。需要重场景测试与可视化选 gdUnit4，只要稳定的单元测试与 CI 报告选 GUT。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "单元测试",
+    "CI",
+    "GDScript",
+    "自动化"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "是 Godot 的单元测试框架",
+      "source": "README.md",
+      "quote": "is a unit testing framework for the"
+    },
+    {
+      "claim": "测试也用 GDScript 编写",
+      "source": "README.md",
+      "quote": "It allows you to write tests for your gdscript in gdscript."
+    },
+    {
+      "claim": "9.x 版本对应 Godot 4.x",
+      "source": "README.md",
+      "quote": "GUT versions 9.x are for Godot 4.x."
+    },
+    {
+      "claim": "结果可导出为标准 JUnit XML",
+      "source": "README.md",
+      "quote": "in standard JUnit XML format"
+    },
+    {
+      "claim": "提供命令行接口",
+      "source": "README.md",
+      "quote": "Command Line Interface"
+    },
+    {
+      "claim": "安装后需要重启 Godot",
+      "source": "README.md",
+      "quote": "You will need to relaunch Godot."
+    }
+  ]
+}

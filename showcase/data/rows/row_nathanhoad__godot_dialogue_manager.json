@@ -1,0 +1,34 @@
+{
+  "id": "nathanhoad__godot_dialogue_manager",
+  "descriptionZh": "缩进式对话脚本加编辑器与运行时，支持条件分支、跳转、打字机气泡与 CSV 翻译流程。",
+  "category": "visual-script",
+  "tags": [
+    "对话系统",
+    "分支剧情",
+    "本地化",
+    "C#"
+  ],
+  "prosShort": [
+    "语法接近剧本，策划能直接改",
+    "编辑器内报错并高亮跳转关系",
+    "自带打字机气泡与选项菜单"
+  ],
+  "consShort": [
+    "不提供立绘演出与存档系统",
+    "主线锁死 4.6，旧版本要换分支",
+    "状态与存档需要使用者自己维护"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

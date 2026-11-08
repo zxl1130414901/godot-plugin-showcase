@@ -1,0 +1,34 @@
+{
+  "id": "Moonzel__Godot-PerfBullets",
+  "descriptionZh": "面向二维弹幕射击的 GDExtension 插件，用 C++ 逻辑与 MultiMesh 渲染海量子弹，并附带发射器和弹阵管理。",
+  "category": "debug-perf",
+  "tags": [
+    "bullet-hell",
+    "gdextension",
+    "multimesh",
+    "performance"
+  ],
+  "prosShort": [
+    "C++ 逻辑让海量子弹的帧率依旧稳定",
+    "MultiMesh 渲染整体显著降低绘制调用开销",
+    "附带发射器、边界回收与弹阵管理"
+  ],
+  "consShort": [
+    "仅验证 4.1 与 4.2，引擎升级需重测",
+    "仅提供 Windows 预编译库，其他平台需自行编译",
+    "仅能在 Mobile 与 Forward+ 两种渲染器下使用"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 5
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

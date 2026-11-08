@@ -1,0 +1,35 @@
+{
+  "id": "IvanMurzak__Godot-MCP",
+  "descriptionZh": "把 AI 编码代理接入 Godot 编辑器的 MCP 服务端插件，支持脚本场景与运行时工具",
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "C#",
+    "编辑器插件",
+    "自动化"
+  ],
+  "prosShort": [
+    "工具覆盖脚本、场景与运行时",
+    "RQL 查询可一次覆盖多个对象",
+    "自带 CLI 可自动化安装与配置"
+  ],
+  "consShort": [
+    "仅支持 mono/C# 版 Godot 编辑器，团队要提前评估。",
+    "默认强依赖云端账号与服务连接",
+    "安装需手工配置多个 NuGet 包引用"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

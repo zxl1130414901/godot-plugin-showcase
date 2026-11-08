@@ -1,0 +1,141 @@
+{
+  "id": "chickensoft-games__setup-godot",
+  "depth": "standard",
+  "taglineZh": "在 CI 里安装 Godot 与导出模板的 GitHub Action 步骤",
+  "summaryZh": "Setup Godot 是 Chickensoft 做的 GitHub Action，用来在 macOS、Windows 与 Ubuntu 的 CI 运行器上安装 Godot 4.x，可选装导出模板，也支持不带 .NET 的标准版与带 .NET 的 C# 版。它把 Godot 与导出模板的下载结果缓存起来，重复构建时能省下大量等待时间，并自动把 GODOT4 与 GODOT 环境变量写入系统路径，后续步骤可以直接调用 godot 命令。README 给了一份完整的三平台矩阵工作流示例，含 dotnet restore、版本参数与模板开关，可作为 C# 项目状态检查的模板。需要注意它明确不支持 Godot 3.x 及以下版本，版本号必须写全 major、minor、patch。",
+  "whatItDoes": "在 CI 运行器上下载并安装指定版本的 Godot 可执行文件，按开关决定是否同时安装导出模板与 .NET 版本。把安装位置写入 GODOT4 与 GODOT 环境变量，使后续构建与测试步骤无需指定绝对路径。对下载内容做缓存，减少重复运行时的时间开销。",
+  "useCases": [
+    {
+      "titleZh": "自动化测试",
+      "descZh": "流水线里装好无头 Godot，跑单测与场景加载检查，提交后自动反馈，省去在 CI 里手写下载脚本。"
+    },
+    {
+      "titleZh": "多平台构建",
+      "descZh": "在 macOS、Windows 与 Linux runner 上分别安装引擎与模板，产出对应平台包体，矩阵任务共用一套步骤，不必为每个系统写分支。"
+    },
+    {
+      "titleZh": "C# 项目",
+      "descZh": "选带 .NET 的引擎版本，直接跑 C# 测试与导出，不必手装 SDK 组合，也省去版本对齐与路径配置的麻烦。"
+    },
+    {
+      "titleZh": "缓存加速",
+      "descZh": "缓存引擎与模板安装，重复构建省去下载时间，流水线更快，频繁提交也不会排队等下载。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Action 配置",
+      "descZh": "通过输入参数选版本、是否 .NET、是否装模板，一行 uses 即可接入，不必写安装脚本。"
+    },
+    {
+      "titleZh": "安装与缓存",
+      "descZh": "下载对应平台引擎包并解压，命中缓存时直接复用，减少等待与失败重试。"
+    },
+    {
+      "titleZh": "跨平台支持",
+      "descZh": "同一套配置在三种 runner 上工作，矩阵构建不用分支脚本，维护与升级成本都更低。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "版本选择",
+      "descZh": "指定 4.x 版本号，或选稳定与预发布通道，按项目需要锁定，避免每次构建都换引擎。"
+    },
+    {
+      "name": "导出模板",
+      "descZh": "可选安装导出模板，导出任务不必再自己下载，模板版本与引擎自动对齐。"
+    },
+    {
+      "name": ".NET 支持",
+      "descZh": "自动选带 .NET 的构建，C# 项目无需额外步骤，SDK 与引擎版本也一并匹配。"
+    },
+    {
+      "name": "缓存",
+      "descZh": "缓存引擎与模板，重复运行明显更快，命中缓存时几秒就能就绪。"
+    }
+  ],
+  "limitsZh": "这是一个 GitHub Action 而不是 Godot 插件，只能在 GitHub Actions 的运行器上直接使用，GitLab CI、Jenkins 或自建流水线需要参照其安装逻辑自行实现。它只负责安装引擎与导出模板，不提供构建缓存策略、产物上传或版本发布，导出的打包与商店上架仍需另外的步骤。版本不支持 Godot 3.x 及以下，老项目无法直接套用；版本号必须写全 major、minor、patch 三段，只写 4.3 这类简写会报错，预发布标签则是可选项。README 的四千余字符主要围绕示例工作流展开，缺少输入参数的完整表格与常见失败场景（如下载超时、缓存失效）的排查说明。",
+  "workflowZh": [
+    {
+      "stepZh": "在 workflow 的步骤里加一行 uses，引用这个 GitHub Action"
+    },
+    {
+      "stepZh": "设置 godot-version 参数，并决定是否启用 .NET 变体"
+    },
+    {
+      "stepZh": "按需开启导出模板安装与缓存选项"
+    },
+    {
+      "stepZh": "在矩阵里列出 macOS、Windows 与 Linux 三类目标 runner"
+    },
+    {
+      "stepZh": "跑测试或导出步骤，确认引擎路径可用"
+    }
+  ],
+  "pros": [
+    "一行配置就能装好引擎与模板，流水线接入成本低，不必维护安装脚本",
+    "覆盖 macOS、Windows 与 Linux，矩阵构建共用一套步骤，减少分支配置与重复维护",
+    "同时支持带 .NET 与不带 .NET 的版本，C# 项目也能直接用，无需额外步骤",
+    "内置缓存，重复构建省下载时间，反馈更快，频繁提交也不拖慢流水线",
+    "TypeScript 实现并附测试，维护者读源码就能改行为，也便于本地调试"
+  ],
+  "cons": [
+    "只负责装环境，测试与导出步骤仍需自己写，完整流水线要自己拼",
+    "版本号与模板需手动对齐，写错会在导出阶段才失败，排查要多看一眼",
+    "依赖 GitHub Actions 平台，迁移到其他 CI 要重写步骤，不能直接复用"
+  ],
+  "pitfalls": [
+    "引擎版本与模板版本不一致会导致导出报错，先对齐版本号",
+    "缓存键未随版本更新会让旧引擎被复用，改版本时记得清缓存",
+    "未装 .NET 版却跑 C# 测试会直接失败，先确认变体与项目配置是否匹配。"
+  ],
+  "bestFor": "用 GitHub Actions 做 Godot 项目的测试与多平台导出，希望少写环境安装脚本的团队、开源项目与插件作者使用。",
+  "avoidWhenZh": "不用 GitHub Actions，或只在本地手动导出、不打算接入持续集成的项目。",
+  "compareTips": {
+    "vs": [
+      "KoBeWi__Godot-Project-Builds"
+    ],
+    "whenZh": "两者都在 CI 环节：setup-godot 负责在流水线里安装引擎与导出模板；Project Builds 负责编排导出与商店发布任务。装环境选前者，编排流程选后者。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "GitHubAction",
+    "CI构建",
+    "自动安装",
+    "缓存加速",
+    "C#支持"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "在三大平台的 CI 运行器上安装 Godot",
+      "source": "README.md",
+      "quote": "Setup Godot for use with (or without) .NET on macOS, Windows, and Linux CI/CD runners."
+    },
+    {
+      "claim": "不支持 Godot 3.x 及以下",
+      "source": "README.md",
+      "quote": "**Godot 3.x and below are not supported.**"
+    },
+    {
+      "claim": "安装后写入 GODOT4 与 GODOT 环境变量",
+      "source": "README.md",
+      "quote": "Adds environment variables (`GODOT4`, `GODOT`) to the system path."
+    },
+    {
+      "claim": "版本号必须包含主次修订三段",
+      "source": "README.md",
+      "quote": "Version must include major, minor, and patch, and be >= 4.0.0"
+    }
+  ]
+}

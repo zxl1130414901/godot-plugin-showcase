@@ -1,0 +1,65 @@
+{
+  "id": "ToumaKamijou__Yugens-Terrain-Authoring-Toolkit",
+  "depth": "standard",
+  "taglineZh": "用行进方格算法在 Godot 里雕刻风格化 3D 地形",
+  "summaryZh": "Yūgen's Terrain Authoring Toolkit 是基于行进方格算法的 Godot 4 三维地形编辑插件，面向关卡制的中小体量风格化游戏。它能在区块网格上抬高、压低、整平与平滑地形，用两点画线生成桥梁，并支持最多十六张纹理绘制、草地遮罩笔刷与调试信息。全局设置可调墙体纹理、混合模式与草地动画帧率，还能改顶点合并阈值切换更平滑或更块状的观感。安装只需把 addons 目录复制进项目并启用插件。",
+  "whatItDoes": "插件在编辑器里给地形节点提供一套笔刷工具：抬高、压低、整平与平滑都基于区块网格逐格修改高度，桥梁工具用两点连线自动生成跨越结构。纹理模式把最多十六张材质刷到地表，草地模式绘制遮罩决定哪些格子实例化 MultiMesh 草丛。选中格子可查看调试信息，全局面板负责墙体纹理、混合模式、草地帧率与顶点合并阈值等参数。",
+  "useCases": [
+    {"titleZh": "风格化关卡地形", "descZh": "为关卡制的中小型 3D 游戏快速刷出丘陵、台地与断崖，保持统一的低多边形美术风格，再配合草地遮罩铺植被。"},
+    {"titleZh": "桥与路径搭建", "descZh": "用桥梁工具在两点间生成跨越结构，配合整平笔刷做出可通行的道路与连接段，省去单独建模。"},
+    {"titleZh": "多材质地表分区", "descZh": "把草地、泥土、岩石等最多十六张纹理刷到同一地形，用混合模式过渡不同区域，无需拆分网格。"},
+    {"titleZh": "草地实例化点缀", "descZh": "绘制草地遮罩让指定格子生成 MultiMesh 草丛，控制密度与动画帧率来改善画面层次与性能。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "可编辑地形节点", "descZh": "插件生成带高度数据的地形节点，支持在编辑器内逐格修改并实时预览表面。"},
+    {"titleZh": "纹理与草地遮罩", "descZh": "多张地表纹理与草地遮罩写入地形资源，随场景一起保存并可重复使用。"},
+    {"titleZh": "桥梁与整平结果", "descZh": "桥梁与整平操作直接写入地形高度，形成可通行、可复用的连接结构并保存。"}
+  ],
+  "featureCallouts": [
+    {"name": "区块网格与行进方格", "descZh": "以区块为单位存储高度并用行进方格生成表面，改阈值可切换平滑或块状观感。"},
+    {"name": "整平与平滑笔刷", "descZh": "整平把选区压到指定高度，平滑按邻格均值过渡，方便修出平台与缓坡。"},
+    {"name": "桥梁连线工具", "descZh": "在两点之间画线自动生成跨越结构，快速连接被沟壑分开的关卡区域。"},
+    {"name": "纹理与草地遮罩", "descZh": "最多十六张地表纹理可刷，草地遮罩决定哪些格子生成 MultiMesh 草丛。"},
+    {"name": "全局地形设置", "descZh": "统一调整墙体纹理、混合模式、草地帧率与顶点合并阈值等参数。"}
+  ],
+  "limitsZh": "插件面向关卡制的中小体量风格化场景，网格精度受区块划分限制，做超大地形或写实地貌会吃力。README 明确只支持 Forward+ 与有限的 Compatibility 渲染，Mobile 与 Web 渲染暂不支持。已知问题包括某些高低落差边缘的纹理混合会破面、部分设备上 d3d12 无法正确加载地形材质，个别地图进游戏后会变黑或变白。草地依赖 MultiMesh 实例，密度高时仍会带来绘制压力。地形数据按区块保存，跨区块接缝与碰撞体需要自行核对。",
+  "workflowZh": [
+    {"stepZh": "复制 addons 下的地形插件到自己的项目并保持目录结构"},
+    {"stepZh": "在项目设置的插件页勾选启用该插件后重载项目"},
+    {"stepZh": "在场景中新建地形节点并选定区块尺寸与初始高度"},
+    {"stepZh": "用抬高、整平与平滑笔刷塑形再画桥梁连接关卡区域"},
+    {"stepZh": "刷纹理与草地遮罩后保存地形资源供场景复用"}
+  ],
+  "pros": [
+    "抬高、压低、整平、平滑四种笔刷齐全，塑形操作集中在一个地形面板里完成",
+    "桥梁连线、最多十六张纹理与草地遮罩，覆盖关卡搭建的常见地表需求，齐全",
+    "顶点合并阈值可调，在平滑过渡与块状像素风之间切换地形观感，很灵活",
+    "纯 GDScript 实现，复制 addons 目录并在项目设置启用，无需任何编译步骤，上手很快",
+    "仓库自带示例场景与 addon 内的文档文件夹，照着走能快速摸清笔刷用法，易懂"
+  ],
+  "cons": [
+    "渲染管线只支持 Forward+ 与有限的 Compatibility，Mobile 与 Web 渲染不可用，选型受限",
+    "已知问题包括高低落差边缘纹理混合破面，以及部分设备 d3d12 加载材质异常",
+    "部分地图在游戏中会整体变黑或变白，需要逐项排查材质与渲染设置"
+  ],
+  "pitfalls": [
+    "地形按区块保存，跨区块接缝与碰撞体需要单独核对，否则角色容易掉落或卡边",
+    "草地遮罩铺得太满会生成大量 MultiMesh 实例，远处也不会自动剔除，需控制密度",
+    "顶点合并阈值调得太低会产生锯齿碎面，调得太高又会丢细节，需逐档试"
+  ],
+  "bestFor": "用 Godot 4 做关卡制中小体量风格化 3D 游戏，想在内置编辑器里直接刷地形、铺纹理和草地的关卡美术或独立开发者。",
+  "avoidWhenZh": "需要写实大地形、移动端或 Web 导出，或要求稳定商用级地形系统的项目、多人协作。",
+  "compareTips": {"vs": ["TokisanGames__Terrain3D"], "whenZh": "Yūgen 用行进方格做块状风格化地形，适合关卡制小项目；Terrain3D 面向写实大世界与高效裁剪，两者对地形精度的取舍完全不同，风格化选前者，写实开放世界选后者。"},
+  "category": "editor-tool",
+  "tags": ["地形编辑", "行进方格", "风格化", "关卡设计", "3D"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 3, "maintenance": 4, "performance": 2, "stability": 2},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {"claim": "面向 Godot 4.6 的行进方格地形编辑插件", "source": "plugin.cfg", "quote": "description=\"A godot 4.6 3D terrain authoring plugin that utilises the marching squares algorithm."},
+    {"claim": "支持按区块抬高与压低地形", "source": "README.md", "quote": "* Elevate and lower terrain based on cells in a chunk grid"},
+    {"claim": "仅支持 Forward+ 与有限的 Compatibility 渲染", "source": "README.md", "quote": "As of right now the plugin only supports `Forward+` and limited `Compatibility` rendering with both `Mobile` and `Web` rendering not supported."},
+    {"claim": "已知纹理混合在边缘会出错", "source": "README.md", "quote": "1. Smooth texture blending breaks at certain elevated/lowered cell edge cases"}
+  ]
+}

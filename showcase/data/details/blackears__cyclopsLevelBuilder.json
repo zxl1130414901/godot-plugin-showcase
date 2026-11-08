@@ -1,0 +1,167 @@
+{
+  "id": "blackears__cyclopsLevelBuilder",
+  "depth": "standard",
+  "taglineZh": "在 Godot 视口里拖拽搭白盒关卡，自带材质、UV 与碰撞",
+  "summaryZh": "Cyclops Level Builder 把白盒建模搬进 Godot 编辑器视口：拖出一个方块、挤出、切分、合并或用布尔运算挖洞，边拖边看结果，所有块都自带碰撞体，搭完能直接走。材质坞支持把材质拖到面上、按面或按块指定、做三平面 UV 与 UV 布局，也能导出成 glTF 或 Godot 场景交给美术。工具条覆盖选择、缩放、旋转、镜像、吸附、复制与相交，操作走命令栈可以撤销。仓库带 mkdocs 文档站、变更记录与设计说明，另有独立导出格式便于跨版本迁移。它用 LFS 托管演示资源，克隆时必须带 LFS，否则会缺模型。版本与引擎绑定较紧，1.5 需要 4.7 以上。",
+  "whatItDoes": "提供 CyclopsBlocks 节点与配套的编辑器面板，在 3D 视口里用拖拽与工具条创建块体。挤出、切分、合并、相交与相减都能直接作用在选中的块上，结果保持可编辑。材质坞可把材质拖到指定面或整块上，三平面 UV 按世界坐标投影，避免快速搭建时的拉伸。命令栈统一管理所有操作，误操作可撤销。选中内容能导出成 glTF、Godot 场景或 Cyclops 自有格式，自有格式还能再导回继续编辑。",
+  "useCases": [
+    {
+      "titleZh": "灰盒关卡搭建",
+      "descZh": "做关卡前期用拖拽挤出把房间、走廊与高差搭出来，块自带碰撞能立刻试走，玩法定型后再交给美术替换模型。"
+    },
+    {
+      "titleZh": "关卡快速迭代",
+      "descZh": "改布局时直接拖控制点或切分块，撤销栈能回退，比在外部建模软件里改再重导快得多，一天能试十几版结构。"
+    },
+    {
+      "titleZh": "材质与 UV 校对",
+      "descZh": "在视口里把材质拖到面上，用三平面 UV 快速看平铺比例，确认墙地接缝与比例后再交给美术做正式贴图。"
+    },
+    {
+      "titleZh": "导出给美术精修",
+      "descZh": "把灰盒导出成 glTF 或 Godot 场景，美术在 Blender 或引擎里继续细化，关卡结构与碰撞不用重做，改完还能再导回来对照。"
+    },
+    {
+      "titleZh": "教学与空间结构演示",
+      "descZh": "讲关卡动线与视线遮挡时，用块快速搭出体块关系，学生能边看边改，比对着一张平面图讲更直观。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "带碰撞的关卡块",
+      "descZh": "由拖拽与布尔运算生成的块体，自带碰撞与 UV，放进场景即可走，不必再单独摆碰撞体，块与块之间也能合并或拆分。"
+    },
+    {
+      "titleZh": "材质与 UV 布局",
+      "descZh": "按面或按块指定的材质与三平面 UV 布局，导出后仍保留贴图对应关系，减少美术返工，换贴图时不必重新展 UV。"
+    },
+    {
+      "titleZh": "glTF 与场景导出",
+      "descZh": "把选中块导出成通用格式或 Godot 场景文件，供美术精修或拆到别的工程，也可再导回继续编辑，导出范围可以只取选中的一部分。"
+    },
+    {
+      "titleZh": "自有格式关卡存档",
+      "descZh": "导出成 Cyclops 自有格式，便于跨版本迁移与备份，升级插件后可重新导入修复场景，结构不兼容时也能靠它找回内容。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Block Editing",
+      "descZh": "在视口里拖拽创建、挤出、切分与合并块，改形状时直接看结果，所有操作走命令栈可撤销。"
+    },
+    {
+      "name": "Material Dock",
+      "descZh": "把材质拖到面或块上，支持按面指定与批量应用，搭灰盒时不用为每面建材质。"
+    },
+    {
+      "name": "Triplanar UV",
+      "descZh": "按世界坐标投影生成 UV，避免拉伸，适合快速看平铺比例，也可切到手动 UV 布局。"
+    },
+    {
+      "name": "Boolean Ops",
+      "descZh": "对块做相交、相减与合并，挖门洞与走廊时不必手工补面，结果仍是可编辑块体。"
+    },
+    {
+      "name": "Export",
+      "descZh": "把选中内容导出为 glTF、Godot 场景或自有格式，方便交给美术或跨版本迁移，导出前还能只勾选需要的块。"
+    }
+  ],
+  "limitsZh": "它是编辑器里的白盒工具，不是建模软件：曲面、角色与精细雕刻都做不了，块体多了以后视口操作与布尔运算会明显变慢，建议按房间拆分 CyclopsBlocks 节点。版本与引擎绑得很紧，1.5 需要 4.7 以上，1.0.2 对应 4.2，跨版本升级可能破坏已建场景，官方要求升级前备份并用导入导出迁移。仓库用 LFS 托管演示资源，克隆时不带 LFS 会缺模型，CI 上也要单独装 LFS。材质体系只覆盖基础贴图与 UV，想要复杂混合、顶点色或自定义着色器得自己补。导出到 glTF 后块结构会变成静态网格，回导只保证自有格式，别把它当无损往返。",
+  "workflowZh": [
+    {
+      "stepZh": "从 release 下载压缩包，把插件目录复制进项目的 addons"
+    },
+    {
+      "stepZh": "启用插件，确认 CyclopsAutoload 已在全局设置里并处于启用状态"
+    },
+    {
+      "stepZh": "新建 CyclopsBlocks 节点，先拉出一个起始方块作为基准"
+    },
+    {
+      "stepZh": "用挤出、切分与布尔运算把房间与走廊搭出来"
+    },
+    {
+      "stepZh": "把材质拖到面上，检查三平面 UV 的平铺比例"
+    },
+    {
+      "stepZh": "导出成 glTF 或场景，交给美术继续细化"
+    }
+  ],
+  "pros": [
+    "在视口里拖拽就能出块，配合挤出、切分与布尔运算，灰盒搭建速度比来回导模型快得多。",
+    "所有块自带碰撞，搭完直接能试走，关卡动线与跳跃距离可以边搭边验证。",
+    "材质坞支持按面指定与三平面 UV，灰盒阶段就能看出比例问题，减少后期返工。",
+    "带 mkdocs 文档站、变更记录与导出格式，升级与迁移有明确路径，不是一次性脚本堆出来的工具。"
+  ],
+  "cons": [
+    "版本与引擎绑定很紧，跨大版本升级可能破坏已建场景，官方明确要求先备份再迁移。",
+    "块体数量一多，视口操作与布尔运算明显变慢，大关卡必须拆成多个节点管理。",
+    "曲面与精细雕刻做不了，材质只覆盖基础贴图与 UV，复杂效果仍要回建模软件或写着色器。"
+  ],
+  "pitfalls": [
+    "升级插件前没备份，旧 CyclopsConvexBlock 场景打不开，需要先用旧版本的升级按钮转成新块结构。",
+    "克隆仓库时没启用 LFS，演示资源全是占位指针，打开场景缺模型，先装 LFS 再重新拉取。",
+    "导出 glTF 后继续在 Cyclops 里编辑，两边结构不一致，正式资产只保留一个方向的导出流程。"
+  ],
+  "bestFor": "需要快速搭灰盒关卡、验证动线与碰撞，并且主要在 Godot 编辑器里工作的关卡设计与独立开发者，关卡规模以中小型为主。",
+  "avoidWhenZh": "关卡需要曲面雕刻、复杂材质混合，或团队以 Blender 为主建模、只把引擎当最终组装工具时。",
+  "compareTips": {
+    "vs": [
+      "sci-comp__scene-builder",
+      "H2xDev__GodotVMF",
+      "Zylann__godot_voxel"
+    ],
+    "whenZh": "scene-builder 偏 CSG 组合，适合简单体块叠加；GodotVMF 面向从 Source 引擎导入地图；Voxel 管体积地形与破坏。要手搭关卡与 UV 选 Cyclops，要导入现成 VMF 地图选 GodotVMF，要做可破坏地形选 Voxel。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "白盒关卡",
+    "建模",
+    "UV",
+    "碰撞",
+    "编辑器工具"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "在 Godot 视口内快速搭建环境",
+      "source": "README.md",
+      "quote": "lets you quickly build environments in the Godot viewport."
+    },
+    {
+      "claim": "所有块自带碰撞，搭完即可交互",
+      "source": "README.md",
+      "quote": "All blocks have collision, so you will be able to interact with them right away."
+    },
+    {
+      "claim": "部分更新可能破坏已有场景",
+      "source": "README.md",
+      "quote": "Some updates may break previously built scenes."
+    },
+    {
+      "claim": "仓库使用 LFS 管理大文件",
+      "source": "README.md",
+      "quote": "This repository uses LFS to manage large files"
+    },
+    {
+      "claim": "1.5 版本要求 Godot 4.7 以上",
+      "source": "README.md",
+      "quote": "1.5.0 works with Godot version 4.7 and later."
+    },
+    {
+      "claim": "插件当前开发版本号为 1.5.3",
+      "source": "godot/addons/cyclops_level_builder/plugin.cfg",
+      "quote": "version=\"1.5.3_dev\""
+    }
+  ]
+}

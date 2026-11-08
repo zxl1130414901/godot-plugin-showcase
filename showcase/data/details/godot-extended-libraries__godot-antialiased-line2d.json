@@ -1,0 +1,141 @@
+{
+  "id": "godot-extended-libraries__godot-antialiased-line2d",
+  "depth": "standard",
+  "taglineZh": "更高质量、跨渲染器的 Line2D 与 Polygon2D 抗锯齿插件",
+  "summaryZh": "这是 Calinou 维护的 AntialiasedLine2D 插件，用单个 256×256 自制纹理实现高质量、可移植的 Line2D 与 Polygon2D 抗锯齿绘制。它支持任意关节与端点类型、不透明或半透明线条、恒定或沿曲线变化的线宽，并附带 AntialiasedPolygon2D 与 AntialiasedRegularPolygon2D 两个辅助节点，方便画多边形、圆与正六边形。插件在编辑器和运行时都会生效，兼容 GLES3 与 GLES2，覆盖桌面、Android、iOS 与 HTML5，还能把场景里已有的 Line2D 一键转换为抗锯齿版本，免去重画的工作。README 也如实列出了线端不抗锯齿、极细线效果不佳等限制。",
+  "whatItDoes": "以自定义节点替换内置 Line2D 与 Polygon2D，通过在线上平铺一张自制的抗锯齿纹理来获得平滑边缘，渲染开销较低。提供两个辅助节点绘制抗锯齿多边形与正多边形，并让描边与填充保持同步。支持把工程中已有的 Line2D 节点批量转换为抗锯齿版本，保留原有绘制数据。",
+  "useCases": [
+    {
+      "titleZh": "细线 UI 与描边",
+      "descZh": "给面板画细描边与分隔线，边缘平滑不闪烁，缩放与高分屏下也不会出现明显锯齿台阶。"
+    },
+    {
+      "titleZh": "地图与路径",
+      "descZh": "绘制路径、边界与选区，宽线在斜向与曲线段都能保持均匀，地图与界面的整体观感也更专业。"
+    },
+    {
+      "titleZh": "圆形与多边形",
+      "descZh": "用辅助节点直接画圆、正多边形与环形指示，省去自己算顶点与顶点索引，参数只需边数与半径。"
+    },
+    {
+      "titleZh": "兼容性要求高的项目",
+      "descZh": "在兼容、移动与桌面等渲染器下表现一致，导出多平台不用换方案，也减少分支测试与验收。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "抗锯齿 Line2D",
+      "descZh": "替代内置线条节点，用着色方式做边缘平滑，线宽变化时也保持质量，曲线更稳。"
+    },
+    {
+      "titleZh": "抗锯齿 Polygon2D",
+      "descZh": "给多边形填充加边缘处理，斜边不再出现硬锯齿，也能配合描边一起使用。"
+    },
+    {
+      "titleZh": "规则多边形辅助节点",
+      "descZh": "一行参数画出圆与正多边形，常用于准星、范围圈与指示器，省去自算顶点。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "AntialiasedLine2D",
+      "descZh": "支持任意线宽与曲线，边缘用着色平滑，比内置实现更稳定，缩放后依然干净。"
+    },
+    {
+      "name": "AntialiasedPolygon2D",
+      "descZh": "填充加抗锯齿边缘，适合地图区块与遮罩形状，也能单独描边。"
+    },
+    {
+      "name": "RegularPolygon2D",
+      "descZh": "按边数与半径生成圆或多边形，做范围指示很方便，参数一目了然。"
+    },
+    {
+      "name": "全渲染器支持",
+      "descZh": "兼容各渲染后端，移动与桌面表现一致，减少平台分支与反复验收。"
+    }
+  ],
+  "limitsZh": "README 的 Limitations 段落写得很清楚：由于纹理平铺方式，Line2D 的两端不会被抗锯齿处理，只有长边是平滑的，必要时得靠端点样式或可变宽度来掩盖；一到两像素的细线几乎得不到抗锯齿效果，画细线时观感提升有限；线宽超过 256 像素时画面会略显模糊，虽然渲染仍然正确。插件只包含 addon 本体，演示工程放在另一个仓库，想先看效果需要另外克隆 demo。辅助节点只覆盖多边形与正多边形两类形状，复杂的矢量图形仍需自己组织网格。文档以 README 为主，缺少属性级的 API 说明与各参数对性能影响的量化数据。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 里的插件目录整个复制进项目工程"
+    },
+    {
+      "stepZh": "打开项目设置，在插件面板里启用 Antialiased Line2D"
+    },
+    {
+      "stepZh": "用抗锯齿节点替换原有线条与多边形"
+    },
+    {
+      "stepZh": "按线宽与颜色设置参数，在编辑器里观察预览"
+    },
+    {
+      "stepZh": "在多平台导出后核对边缘表现与性能"
+    }
+  ],
+  "pros": [
+    "边缘质量明显优于内置实现，细线与斜线不再出现明显的锯齿台阶",
+    "支持全部渲染器，桌面与移动观感一致，减少平台适配与验收成本",
+    "附规则多边形辅助节点，画圆与范围圈不用自己算顶点数据",
+    "纯 GDScript 实现，接入没有构建步骤，改动与调试都很直接，也便于读源码",
+    "MIT 许可，可直接用于商业项目，源码也能按需裁剪与改造，分发无忧"
+  ],
+  "cons": [
+    "节点替代内置类型，已有场景需要逐个替换，迁移有工作量",
+    "每条线独立绘制，极大量线条时开销高于合批方案",
+    "只做抗锯齿，不含虚线、动画描边等扩展功能，复杂线型仍需自建"
+  ],
+  "pitfalls": [
+    "忘了启用插件时节点不会注册，场景里会提示找不到类型，先查插件列表",
+    "线宽设得过大又叠加抗锯齿，边缘会略糊，按目标尺寸收窄线宽",
+    "大量细线逐个绘制会拖慢 2D 渲染，必要时合并成单条路径再绘制"
+  ],
+  "bestFor": "需要高质量细线、地图路径与圆形指示，并要在多渲染器与多平台保持一致的 Godot 4 2D 项目与 UI 团队。",
+  "avoidWhenZh": "只需少量直线、对边缘要求不高，或已经有成熟自绘合批方案的项目，替换收益有限。",
+  "compareTips": {
+    "vs": [
+      "citizenll__godot-flexbox"
+    ],
+    "whenZh": "两者都在 2D 表现层：Antialiased Line2D 提升线条与多边形的边缘质量，属于渲染辅助；VisualNovelKit 提供对话系统与剧本演出。画线选前者，做叙事选后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "抗锯齿",
+    "2D绘制",
+    "Line2D",
+    "多边形",
+    "轻量"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "定位为比内置实现更高质量的 Line2D 与 Polygon2D 抗锯齿",
+      "source": "README.md",
+      "quote": "Higher-quality, more portable antialiased Line2D and Polygon2D drawing compared to the default Godot implementation."
+    },
+    {
+      "claim": "线端不做抗锯齿，细线效果不佳",
+      "source": "README.md",
+      "quote": "Due to how the texture is tiled, Line2D endings will not be antialiased. Only the long sides are antialiased."
+    },
+    {
+      "claim": "只使用一张 256×256 纹理以保持性能",
+      "source": "README.md",
+      "quote": "High performance, as only a single 256×256 custom texture is used."
+    },
+    {
+      "claim": "插件元信息与版本",
+      "source": "addons/antialiased_line2d/plugin.cfg",
+      "quote": "name=\"Antialiased Line2D\" ... version=\"1.2.0\""
+    }
+  ]
+}

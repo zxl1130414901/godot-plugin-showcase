@@ -1,0 +1,168 @@
+{
+  "id": "dsh0416__godot-cef",
+  "depth": "standard",
+  "taglineZh": "在 Godot 4.6+ 里内嵌 Chromium 网页的 Rust 扩展，开箱即用。",
+  "summaryZh": "godot-cef 用 Rust 把 Chromium Embedded Framework 接进 Godot 4.6+，让网页作为纹理渲染在游戏或工具界面里。CefTexture 继承 TextureRect，支持 GPU 加速离屏渲染与软件回退、动态缩放、多进程、Chrome DevTools 远程调试、CBOR 类型化 IPC 与多订阅 JS 桥。发布包覆盖 Windows、Linux 与 macOS，含 x86_64 与 ARM64。它适合做内置商城、文档、登录页或 Web UI，但预编译包不含 H.264、AAC、MP3 等专有编解码器。",
+  "whatItDoes": "CefTexture 是最小使用面：设置 url 与 enable_accelerated_osr 后 add_child 即可显示网页，通过 load_finished、ipc_message 等信号与 eval() 交互。底层用平台原生图形 API 做离屏渲染，不可用时自动回退软件渲染；多进程结构隔离网页崩溃，DevTools 可远程连入。addons/godot_cef 内按平台列出所需库文件，导出时随包分发。",
+  "useCases": [
+    {
+      "titleZh": "游戏内商城",
+      "descZh": "用 HTML 做活动页或内购界面，复用前端团队与现成组件，改文案不用重新发版，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "内置文档",
+      "descZh": "把帮助中心、更新日志或 Wiki 嵌入启动器，随包离线打开，省去另做一套 UI，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "登录与支付页",
+      "descZh": "需要 OAuth 或第三方支付页面，直接用真实浏览器内核，减少兼容性适配，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "工具型应用",
+      "descZh": "用 Web 技术做编辑器面板、仪表盘，与 Godot 3D 视图并存，适合内部工具，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "远程调试",
+      "descZh": "通过 DevTools 检查游戏内网页的 DOM 与网络请求，定位白屏与脚本错误更快，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "CefTexture 节点",
+      "descZh": "继承 TextureRect，把网页渲染成纹理并处理输入与缩放，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "IPC 桥",
+      "descZh": "CBOR 类型化消息与 JS 监听器，前后端可传二进制与 Variant，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "多平台二进制",
+      "descZh": "发布包按平台组织库文件，放进 addons 即可加载，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "文档站",
+      "descZh": "API、属性、信号与 IME、分发变体都有独立页面说明，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "GPU 加速离屏",
+      "descZh": "走 D3D12、Metal 或 Vulkan 把帧交给 Godot，帧率更高，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "软件回退",
+      "descZh": "加速不可用时自动走 CPU 缓冲，至少保证页面能显示，参数集中在检查器面板。"
+    },
+    {
+      "name": "多进程架构",
+      "descZh": "网页在独立进程，崩溃不易拖垮游戏，稳定性更好，后续修改起来也不费劲。"
+    },
+    {
+      "name": "类型化 IPC",
+      "descZh": "CBOR 传 Variant 与 JS 值，不必手工拼 JSON 字符串，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "DevTools",
+      "descZh": "远程调试端口可直接连 Chrome，排查页面问题方便，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "只支持 Godot 4.6 及以上，旧版本无法加载扩展。预编译包不含 H.264、AAC、MP3 等专有编解码器，MP4 视频与常见音频要转成 WebM、Opus 才能播。GPU 加速依赖平台后端：macOS 只走 Metal，Windows 与 Linux 的 Vulkan 注入仅 x86_64，ARM64 需用完整包。CEF 运行需要多进程与子进程文件齐全，导出配置漏项会出现白屏。包体与内存开销明显高于普通 UI，小工具项目要权衡。",
+  "workflowZh": [
+    {
+      "stepZh": "从 Releases 下载对应平台包，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "解压 addons/godot_cef 到项目，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在场景中添加 CefTexture 节点，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "设置 url 与加速开关，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "连接加载与 IPC 信号，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需开启 DevTools 调试，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "导出时检查子进程文件与库，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "真实 Chromium 内核，现代 CSS 与 JS 基本都能跑，团队新人照着示例就能上手。",
+    "类型化 IPC 与多订阅桥，前后端通信比字符串拼接稳，出现问题时也更容易定位原因。",
+    "多平台预编译包齐全，接入不用自己搭 CEF 构建，对中小团队的时间成本很友好。",
+    "文档站完整，属性、信号与平台差异都写得清楚，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "要求 Godot 4.6+，旧项目无法使用，升级引擎版本时容易卡住。",
+    "预编译包缺专有编解码器，媒体格式受限，定制之前往往要先读源码。",
+    "包体与内存占用大，轻量项目不划算，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "导出时漏带子进程或库文件，运行会白屏，上线前要专门过一遍。",
+    "用 MP4 视频源会黑屏，需转 WebM 或改用 VP9，排查时需要多留一层日志。",
+    "ARM64 设备装精简包会缺库，换完整发布包，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "需要在游戏或工具里嵌入真实网页、并愿意接受较大包体与 Godot 4.6 版本要求的团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只需要简单富文本或 UI，或必须支持 H.264、MP3 等专有格式的项目。",
+  "compareTips": {
+    "vs": [
+      "godotjs__GodotJS"
+    ],
+    "whenZh": "两者都把 Web 技术带进 Godot：godot-cef 用 Chromium 渲染真实网页，GodotJS 用 JS 运行时写游戏逻辑；要现成 HTML UI 选前者，要用 JavaScript 写玩法则后者更贴切。"
+  },
+  "category": "ui",
+  "tags": [
+    "内嵌浏览器",
+    "WebView",
+    "CEF",
+    "UI交互"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "isGDExtension": true,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4.6+ 的 CEF 集成，使用 Rust",
+      "source": "README.md",
+      "quote": "A high-performance Chromium Embedded Framework (CEF) integration for Godot Engine 4.6+, written in Rust."
+    },
+    {
+      "claim": "CefTexture 继承 TextureRect，作为最小使用面",
+      "source": "README.md",
+      "quote": "extends `TextureRect`"
+    },
+    {
+      "claim": "提供软件渲染回退",
+      "source": "README.md",
+      "quote": "Software Rendering Fallback"
+    },
+    {
+      "claim": "预编译包不含专有编解码器",
+      "source": "README.md",
+      "quote": "The prebuilt CEF binaries do not include proprietary codecs (H.264, AAC, MP3)"
+    },
+    {
+      "claim": "提供多平台预编译发布包",
+      "source": "README.md",
+      "quote": "Download the latest pre-built binaries from the [Releases]"
+    },
+    {
+      "claim": "最低兼容 Godot 4.6",
+      "source": "addons/godot_cef/godot_cef.gdextension",
+      "quote": "compatibility_minimum = 4.6"
+    }
+  ]
+}

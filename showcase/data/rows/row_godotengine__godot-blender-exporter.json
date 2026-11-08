@@ -1,0 +1,35 @@
+{
+  "id": "godotengine__godot-blender-exporter",
+  "descriptionZh": "Godot 官方维护的 Blender 导出插件，可把场景直接写成 .escn 文本场景，官方自述实验性且建议改用 glTF。",
+  "category": "asset-pipeline",
+  "tags": [
+    "Blender",
+    "导出器",
+    "escn",
+    "资产管线",
+    "官方"
+  ],
+  "prosShort": [
+    "官方维护，导出格式与引擎同源",
+    "文本场景可读，也方便进版本库 diff",
+    "自带回归测试与参考导出样例"
+  ],
+  "consShort": [
+    "实验性工具，目前仍缺很多特性",
+    "参考导出绑定特定 Blender 与系统版本",
+    "GPL 许可，再分发与闭源集成有约束"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 2,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 2
+  },
+  "installComplexity": 3,
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

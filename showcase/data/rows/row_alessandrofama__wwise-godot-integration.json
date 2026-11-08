@@ -1,0 +1,35 @@
+{
+  "id": "alessandrofama__wwise-godot-integration",
+  "descriptionZh": "把 Audiokinetic Wwise 音频中间件接入 Godot 的 GDExtension 集成，含完整的事件节点、银行生成与多平台导出支持。",
+  "category": "audio",
+  "tags": [
+    "Wwise",
+    "音频中间件",
+    "GDExtension",
+    "空间音频",
+    "多平台"
+  ],
+  "prosShort": [
+    "Wwise 的事件节点与空间音频节点齐全",
+    "在编辑器内即可直接生成所需的 SoundBank",
+    "覆盖桌面、移动端以及实验性的 Web 导出"
+  ],
+  "consShort": [
+    "必须自己准备匹配平台的原生库",
+    "Web 平台支持目前仍属实验性功能",
+    "Wwise 授权与 SDK 版本都需要自行管理"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "unknown",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

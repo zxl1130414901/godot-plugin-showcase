@@ -1,0 +1,35 @@
+{
+  "id": "rsubtil__controller_icons",
+  "descriptionZh": "Godot 4 按键提示插件，随键鼠或手柄自动切换图标，内置多种手柄素材并支持动作映射。",
+  "category": "ui",
+  "tags": [
+    "input",
+    "gamepad",
+    "ui-icons",
+    "remapping",
+    "accessibility"
+  ],
+  "prosShort": [
+    "按键图标会随当前输入设备自动切换",
+    "内置多款主流手柄按键素材可直接用",
+    "接入简单，仓库附带完整使用文档"
+  ],
+  "consShort": [
+    "只负责图标展示，不包含按键重映射",
+    "图标风格固定，换皮需批量替换素材",
+    "C# 项目存在已知缺陷，官方另有分支"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

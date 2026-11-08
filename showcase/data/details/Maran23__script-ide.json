@@ -1,0 +1,146 @@
+{
+  "id": "Maran23__script-ide",
+  "depth": "standard",
+  "taglineZh": "把脚本编辑器变成带多行标签、大纲与快速跳转的 IDE",
+  "summaryZh": "Script IDE 重做的是编辑器里那块写脚本的面板：脚本以多行标签排列，标签可以拆分出一份只读副本对照阅读；大纲不再只列函数，而是把类、常量、信号、导出变量、普通变量、引擎回调与函数按类型配图标全部列出，并可按类型过滤。连按两次 Shift 打开文件快速搜索，Alt 加 Ins 直接从父类挑选方法覆盖。它只改界面与导航，不改写代码内容，所以与多数编辑器插件能共存，但强依赖 Godot 内部脚本编辑器结构，引擎升级后要等适配。",
+  "whatItDoes": "替换脚本编辑面板的标签、大纲与搜索交互，提供多行标签、只读分屏、成员分类大纲、快速打开与父类方法覆盖，全部为编辑器侧界面增强。",
+  "useCases": [
+    {
+      "titleZh": "大型项目跳转",
+      "descZh": "脚本里成员很多时，用分类大纲快速定位信号、导出变量或回调，不必在长文件里滚动查找。"
+    },
+    {
+      "titleZh": "新旧实现对照",
+      "descZh": "把当前脚本拆出只读副本放在旁边，改一处实现时对照另一处旧逻辑，不用来回切标签。"
+    },
+    {
+      "titleZh": "覆盖父类方法",
+      "descZh": "用快捷键从父类挑方法生成覆盖骨架，省去手抄签名与反复猜测参数类型的整段时间。"
+    },
+    {
+      "titleZh": "多文件并行编辑",
+      "descZh": "同时开着多个脚本时用多行标签与快速搜索来回切换，减少在文件系统面板里翻目录。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "多行标签脚本区",
+      "descZh": "把脚本以可换行的标签条呈现，支持拆分只读副本与弹出式的快速切换。"
+    },
+    {
+      "titleZh": "成员分类大纲",
+      "descZh": "按类、常量、信号、变量与函数分类列出脚本成员，并给每一类配上独立图标。"
+    },
+    {
+      "titleZh": "快速搜索与覆盖",
+      "descZh": "双击 Shift 打开文件搜索，Alt 加 Ins 从父类挑选方法并自动生成完整的覆盖骨架。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Multiline Tabs",
+      "descZh": "脚本标签可换行排列，打开十几个文件也不会挤成一条滚动条。"
+    },
+    {
+      "name": "Split Read-only View",
+      "descZh": "把当前脚本拆成只读副本放旁边，便于对照旧实现或参考另一段代码。"
+    },
+    {
+      "name": "Classified Outline",
+      "descZh": "类、常量、信号、变量、回调与函数分类展示，每一类都有独立图标。"
+    },
+    {
+      "name": "Quick Search",
+      "descZh": "连按两次 Shift 唤出文件搜索弹窗，全程键盘即可完成脚本切换。"
+    },
+    {
+      "name": "Override Helper",
+      "descZh": "按 Alt 加 Ins 从父类方法列表里挑选，自动生成完整的覆盖函数骨架。"
+    }
+  ],
+  "limitsZh": "它修改的是 Godot 内置脚本编辑器的布局与行为，作者也说明插件依赖脚本编辑器源码结构，引擎每次调整界面都可能让初始化失败，届时只会打印日志并停止改动。功能集中在导航与展示，不含代码补全、重构、调试或版本控制集成，需要这些还得另找插件。多行标签、分屏与大纲都会占用编辑区域，小屏幕或低分辨率下反而更挤。快捷键与 Godot 默认键位有重叠，团队要先统一键位表。仓库没有发布渠道说明，安装要手动复制目录，升级引擎前建议先在副本验证。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/script-ide 整个目录复制到工程目录里"
+    },
+    {
+      "stepZh": "在项目设置的插件页里勾选并启用 Script IDE"
+    },
+    {
+      "stepZh": "按个人习惯调整大纲位置与过滤项开关"
+    },
+    {
+      "stepZh": "在编辑器设置里逐项核对快捷键冲突"
+    },
+    {
+      "stepZh": "打开多个脚本逐项验证标签与分屏"
+    }
+  ],
+  "pros": [
+    "多行标签与只读分屏让多文件对照阅读舒服很多，减少来回切换。",
+    "大纲覆盖所有成员类型并带图标，找信号与导出变量比原生面板快。",
+    "快速搜索与父类方法覆盖都在键盘上完成，长期编码效率提升明显。",
+    "只在编辑器侧改界面，不写入脚本内容，卸载后代码不受影响。"
+  ],
+  "cons": [
+    "强依赖引擎内部脚本编辑器结构，升级 Godot 后可能要等适配。",
+    "不含补全、重构与调试，只是导航与展示层的增强。",
+    "标签与大纲占用编辑区域，小屏幕下可用空间更紧张。",
+    "需手动复制安装，也没有集中发布页，更新要自己比对版本。"
+  ],
+  "pitfalls": [
+    "引擎小版本升级后插件可能静默失效，先看输出面板有没有初始化日志。",
+    "快捷键与内置键位冲突时不会提示，装好后先在设置里核对一遍。",
+    "大纲过滤被全部关掉后像功能消失，右键恢复全部过滤项即可。"
+  ],
+  "bestFor": "每天要在几十个脚本间跳转、需要大纲导航与分屏对照，并愿意跟随引擎版本更新插件的 Godot 4 开发者。",
+  "avoidWhenZh": "脚本数量少、只用原生大纲就够，或项目锁在旧引擎版本、无法承受插件失效的人。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-syntax-themes",
+      "Scony__godot-gdscript-toolkit"
+    ],
+    "whenZh": "三者都改善编码体验但层面不同：语法主题改配色，gdscript 工具箱做格式化与静态检查，Script IDE 改的是标签、大纲与导航交互。要界面效率选它，要代码质量工具选工具箱。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "脚本编辑器",
+    "多行标签",
+    "代码大纲",
+    "快速跳转",
+    "编辑器增强"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "插件把脚本界面改成 IDE 风格",
+      "source": "README.md",
+      "quote": "Transforms the Script UI into an IDE like UI."
+    },
+    {
+      "claim": "大纲会显示脚本所有成员而非只有方法",
+      "source": "README.md",
+      "quote": "The Outline got an overhaul and showed more than just the methods of the script."
+    },
+    {
+      "claim": "可以快速覆盖父类方法",
+      "source": "README.md",
+      "quote": "You can find and quickly override any method from your super classes"
+    },
+    {
+      "claim": "插件依赖引擎脚本编辑器内部结构",
+      "source": "README.md",
+      "quote": "The plugin code is aware of the structure in 'script_editor_plugin.cpp'"
+    }
+  ]
+}

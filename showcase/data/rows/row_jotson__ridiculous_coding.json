@@ -1,0 +1,34 @@
+{
+  "id": "jotson__ridiculous_coding",
+  "descriptionZh": "给 Godot 脚本编辑器添加敲击抖动与保存爆炸特效的恶搞插件，纯编辑器侧运行。",
+  "category": "editor-tool",
+  "tags": [
+    "编辑器特效",
+    "恶搞趣味",
+    "屏幕震动",
+    "无运行时开销"
+  ],
+  "prosShort": [
+    "复制目录即可启用无需构建",
+    "特效只在编辑器内不占运行时",
+    "抖动与爆炸反馈直观适合录屏"
+  ],
+  "consShort": [
+    "只有装饰没有编码辅助功能",
+    "依赖等宽字体否则特效错位",
+    "引擎改版后可能失效需等适配"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 5,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,144 @@
+{
+  "id": "3ddelano__epic-online-services-godot",
+  "depth": "standard",
+  "taglineZh": "为 Godot 4 提供 Epic 在线服务封装与示例工程",
+  "summaryZh": "它解决的是 Godot 接入 Epic Online Services 的麻烦：把 EOS C SDK 封装成 GDExtension，并提供 HPlatform、HAuth、HAchievements、HFriends、HStats、HLeaderboards、HLobbies、HP2P 等高层类，登录、成就、统计、排行榜、大厅与 P2P 都有现成方法与信号。安装从 Release 下载自带共享库的 addons 目录，启用插件并填入 Product Id、Sandbox Id 等凭据即可。限制是需要 Epic 开发者账号与产品配置，部分平台要自行编译，且项目与 Epic 无官方隶属关系。",
+  "whatItDoes": "分高层与底层两套 API：高层用 HAuth.login、HStats.ingest_stat 一类短方法加信号，底层暴露 EOS 与 IEOS 类供高级用法。覆盖认证、成就、好友、统计、排行榜、大厅、P2P、反作弊、电商与自定义邀请等接口，并带一个可运行的示例工程。示例里有专用服务器、反作弊服务端与手动音频输出等场景。",
+  "useCases": [
+    {
+      "titleZh": "跨平台登录",
+      "descZh": "需要 Epic 账号登录并统一 Windows、Linux、Android、iOS 的玩家身份时，高层 HAuth 可直接用，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "成就与排行榜",
+      "descZh": "给单机或联机游戏加成就、统计与全球排行榜，HAchievements 与 HLeaderboards 已封装，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "大厅与 P2P",
+      "descZh": "做联机大厅、邀请与点对点对战，可参考 HLobbies 与 HP2P 的示例流程，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "专用服务器",
+      "descZh": "示例含 dedicated_server 与反作弊服务端脚本，可作后端接入起点，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "高层 EOS 封装",
+      "descZh": "HAuth、HStats、HLobbies 等类，方法短、信号清晰，适合业务代码直接调用，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "底层 GDExtension",
+      "descZh": "EOS 与 IEOS 类暴露完整 C SDK 接口，供需要精细控制的团队使用，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "示例工程",
+      "descZh": "含登录、商店、大厅、反作弊与专用服务器的可运行场景与脚本，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "HAuth",
+      "descZh": "封装 Epic 账号登录与凭据交换，成功失败都通过信号回调，参数集中在检查器面板。"
+    },
+    {
+      "name": "HLobbies",
+      "descZh": "创建、搜索、加入与修改大厅，附带大厅详情与成员管理，后续修改起来也不费劲。"
+    },
+    {
+      "name": "HP2P",
+      "descZh": "点对点连接与数据包收发，适合小规模联机对战，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "HAchievements",
+      "descZh": "成就解锁、查询与统计写入，覆盖常见平台功能，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "高层与底层",
+      "descZh": "同一插件内两套抽象，新手用 H 类，进阶可落到 EOS 原生接口，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "接入前必须有 Epic 开发者账号、已注册产品与 Client Id、Client Secret 等凭据，缺一项就跑不通登录。项目声明与 Epic Games 无隶属关系，正式发行还要自行处理用户同意、删除数据、隐私政策与商店设计规范。平台支持虽多，但部分库要自己编译：仓库只带源码与 sample，README 的构建流程要求放入 EOS C SDK、初始化子模块并用 scons 编译，非技术团队容易被卡住。高层封装降低了门槛，但错误码与回调仍暴露 EOS 语义，排查要对照官方文档。示例偏功能演示，缺少完整项目结构与最佳实践说明。",
+  "workflowZh": [
+    {
+      "stepZh": "从 Release 页面下载带共享库的 addons 压缩包"
+    },
+    {
+      "stepZh": "把插件目录复制到项目的 addons 并启用"
+    },
+    {
+      "stepZh": "在项目设置里填入 Product Id 与 Sandbox Id 等凭据"
+    },
+    {
+      "stepZh": "运行示例工程验证登录与大厅流程"
+    },
+    {
+      "stepZh": "按目标平台编译或替换对应共享库文件"
+    }
+  ],
+  "pros": [
+    "把登录、成就、统计、排行榜、大厅与 P2P 一并封装，省去大量 C SDK 样板。",
+    "高层 H 类与底层 EOS 类并存，新手与进阶团队都能找到合适抽象。",
+    "自带可运行示例与专用服务器、反作弊服务端脚本，接入路径清楚。",
+    "覆盖 Windows、Linux、Android、macOS 与 iOS，跨平台发行有参考，团队新人照着示例就能上手。"
+  ],
+  "cons": [
+    "必须有 Epic 开发者账号与产品凭据，无法离线或匿名试用。",
+    "部分平台库要自己编译，还需手动放入 EOS C SDK 子模块。",
+    "官方文档在外部站点，仓库内说明偏简，错误排查要对照 EOS 文档。"
+  ],
+  "pitfalls": [
+    "Client Secret 与加密密钥泄露会直接危及账号，务必只放服务端或加密脚本。",
+    "忘记初始化 EOS 或凭据不匹配时，登录只返回泛化错误码，很难定位。",
+    "导出后需要正确放置共享库与 SDK 依赖，漏文件时启动即崩溃。"
+  ],
+  "bestFor": "准备发行带成就、排行榜、大厅或 P2P 的跨平台游戏，并已有 Epic 开发者账号的独立或中小团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只做纯单机、不愿注册 Epic 账号，或无法承担原生库编译与凭据管理成本时。",
+  "compareTips": {
+    "vs": [
+      "IvanMurzak__Godot-MCP"
+    ],
+    "whenZh": "两者都扩展 Godot 4 的能力但方向不同：EOSG 封装 Epic 官方在线服务，含账号、成就、大厅、P2P 与反作弊，适合发行联机游戏；Godot-MCP 是编辑器里的 AI 工具链，不处理运行时联机。要联机选 EOSG，要提效选 MCP。"
+  },
+  "category": "network",
+  "tags": [
+    "Epic",
+    "联机",
+    "成就",
+    "大厅",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "在 Godot 4.2+ 中使用 Epic 在线服务并带示例",
+      "source": "README.md",
+      "quote": "Easiest way to use Epic Online Services in Godot 4.2+ (includes demo project)"
+    },
+    {
+      "claim": "高层 EOS 提供易用的方法与信号",
+      "source": "README.md",
+      "quote": "The High Level Epic Online Services provides easy to use methods and signals to interact with EOS recommended for beginners."
+    },
+    {
+      "claim": "支持多平台 x64 与 arm64",
+      "source": "README.md",
+      "quote": "Supports Windows x64, Linux x64/arm64, Android x64/arm64, MacOS, iOS arm64 (iphone/simulator)"
+    },
+    {
+      "claim": "与 Epic 官方无隶属关系",
+      "source": "README.md",
+      "quote": "This project is NOT affiliated with Epic Games Inc or Godot Engine."
+    }
+  ]
+}

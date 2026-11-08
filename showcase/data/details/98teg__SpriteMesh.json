@@ -1,0 +1,139 @@
+{
+  "id": "98teg__SpriteMesh",
+  "depth": "standard",
+  "taglineZh": "把 2D 精灵图按像素挤出成带厚度的 3D 网格",
+  "summaryZh": "SpriteMesh 把一张精灵图按非透明像素挤出成带厚度的 3D 网格，输出 SpriteMesh 资源与 SpriteMeshInstance 节点，省去为像素角色逐个建模。它可按 alpha 阈值裁边、设置厚度、单双面、轴向与像素尺寸，并支持多帧动画，让每帧对应一个网格。编辑器里改参数会自动重建，运行时建议只在初始化阶段生成。算法追求三角形数量优化但计算偏重，不适合每帧重建，复杂大图也会明显变慢。",
+  "whatItDoes": "读取精灵纹理，按 alpha 阈值判断可见像素，沿指定轴向挤出成闭合或单面的网格，并生成对应材质。结果保存为含多帧网格的 SpriteMesh 资源，SpriteMeshInstance 负责按帧显示；编辑器内改属性会延迟一小段时间后自动重建，代码侧则显式调用更新方法。",
+  "useCases": [
+    {
+      "titleZh": "像素角色转 3D",
+      "descZh": "把横版像素小人挤出成有厚度的模型，保留原画风又能在 3D 场景里转身、移动并接受光照。"
+    },
+    {
+      "titleZh": "2D 素材做 3D 道具",
+      "descZh": "用现成的图标或道具图快速生成可摆放的三维小物件，省去从零建模与贴图对位的时间。"
+    },
+    {
+      "titleZh": "剪纸或纸片风格",
+      "descZh": "统一厚度与双面材质，做纸片马里奥式的场景与角色，转动镜头时不会出现明显破面。"
+    },
+    {
+      "titleZh": "动画帧批量建模",
+      "descZh": "用多帧精灵一次生成整套网格，运行时按帧索引切换，适合逐帧动画的像素角色与特效。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "多帧网格资源",
+      "descZh": "SpriteMesh 资源保存每帧网格与共用材质，可作为模板复制给多个场景实例使用。"
+    },
+    {
+      "titleZh": "可直接摆放的网格节点",
+      "descZh": "SpriteMeshInstance 继承网格实例节点，拖进场景并指定纹理与区域后即可显示挤出结果。"
+    },
+    {
+      "titleZh": "带透明裁边的材质",
+      "descZh": "按 alpha 阈值生成裁边网格并配套标准材质，半透明边缘不会被挤成厚块或悬空。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "alpha_threshold",
+      "descZh": "按透明度阈值剔除边缘像素，避免把半透明的抗锯齿杂边也挤出成厚块。"
+    },
+    {
+      "name": "depth 与 axis",
+      "descZh": "设置挤出厚度与轴向，决定模型在哪个方向上有体积，可做薄片也可做方块。"
+    },
+    {
+      "name": "double_sided",
+      "descZh": "单面省三角形适合背景道具，双面保证从背后观看时不会出现空洞与穿帮。"
+    },
+    {
+      "name": "hframes 与 frame",
+      "descZh": "切换帧索引即可换用不同网格，让每帧精灵都有独立几何，形成逐帧动画。"
+    },
+    {
+      "name": "region 与 pixel_size",
+      "descZh": "支持图集区域取样并用像素尺寸统一世界尺度，避免不同分辨率素材比例失调。"
+    }
+  ],
+  "limitsZh": "网格生成算法按作者说法偏重，不建议频繁执行；运行时翻转请直接旋转模型，而不是改 flip 后重建。它只处理单张精灵的挤出，无法做骨骼、蒙皮或复杂曲面，厚度与轮廓都由像素决定，斜面和圆角会显得块状。多帧动画本质是逐帧换网格，帧数多时内存增长明显。仓库把插件放在 demo/addons 下，直接下载根目录不会得到可启用插件；编辑器重建还有延迟，调参需要等。",
+  "workflowZh": [
+    {
+      "stepZh": "把 demo 目录下的 sprite_mesh 文件夹复制到工程的 addons 下"
+    },
+    {
+      "stepZh": "在项目设置的插件页启用 SpriteMesh，确认编辑器没有报错"
+    },
+    {
+      "stepZh": "在场景里添加 SpriteMeshInstance 节点并指定精灵纹理与区域"
+    },
+    {
+      "stepZh": "按需调整厚度、挤出轴向、alpha 阈值与像素尺寸，观察网格变化"
+    },
+    {
+      "stepZh": "把生成的网格与材质保存为资源，供其他场景与实例直接复用"
+    }
+  ],
+  "pros": [
+    "像素图直接变有厚度的网格，省去手工建模与逐帧对位的时间，改图后还能重新生成",
+    "alpha 阈值、厚度、单双面与轴向等参数覆盖常见纸片风需求，调参就能换风格",
+    "支持多帧精灵，每帧可对应独立网格，直接做逐帧动画而不必另建模型",
+    "生成结果可保存为资源，运行时不必重复计算，切帧也不会触发重建",
+    "README 列出完整类与属性说明，查参数含义与默认值比较方便，改参不必翻源码"
+  ],
+  "cons": [
+    "生成算法偏重，运行时频繁重建会明显卡顿，基本只能当离线生成工具用",
+    "只能做像素挤出，无法骨骼蒙皮、圆角或复杂曲面，轮廓始终块状",
+    "插件藏在 demo 目录，按根目录下载后容易装错路径导致插件不出现"
+  ],
+  "pitfalls": [
+    "运行时改 flip 会触发重建，正确做法是直接旋转模型而不是重新生成网格",
+    "alpha 阈值设得太低会把抗锯齿边缘挤成锯齿厚边，需要逐图调参",
+    "多帧大图会显著增加内存占用，上线前先估算帧数与单帧三角形数量"
+  ],
+  "bestFor": "适合做像素风、纸片风或把 2D 素材转成 3D 的轻量项目，能接受初始化阶段一次性生成网格、之后只切帧播放的开发者。",
+  "avoidWhenZh": "需要骨骼动画与精细曲面，或打算每帧实时重建网格做实时变形的玩法。",
+  "compareTips": {
+    "vs": [
+      "DanTrz__TileMapLayer3D"
+    ],
+    "whenZh": "SpriteMesh 把单张精灵挤出成角色或道具网格，TileMapLayer3D 用图集拼装整张 3D 关卡；前者适合角色与道具，后者适合场景与地形，两者还能在同一项目里共存。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "像素风",
+    "2D转3D",
+    "网格生成",
+    "纸片模型"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "基于精灵生成 3D 网格",
+      "source": "plugin.cfg",
+      "quote": "Allows you to generate 3D meshes based on a sprite."
+    },
+    {
+      "claim": "生成算法开销较大，不建议频繁执行",
+      "source": "README.md",
+      "quote": "The algorithm SpriteMeshInstance uses to generate the meshes is a bit demanding. It is for this reason that I do not recommend executing it frequently."
+    },
+    {
+      "claim": "运行时只有 frame 与 frame_coords 适合频繁修改",
+      "source": "README.md",
+      "quote": "The only properties meant to change frequently at runtime are [`frame`](#int-frame--0) and [`frame_coords`](#vector2i-frame_coords--vector2i0-0)."
+    }
+  ]
+}

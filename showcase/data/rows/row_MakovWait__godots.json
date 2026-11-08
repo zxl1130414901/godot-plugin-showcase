@@ -1,0 +1,35 @@
+{
+  "id": "MakovWait__godots",
+  "descriptionZh": "集中管理多个 Godot 引擎版本与项目的外部桌面启动器，整体接入成本不高。",
+  "category": "editor-tool",
+  "tags": [
+    "版本管理",
+    "启动器",
+    "项目管理",
+    "CLI",
+    "桌面应用"
+  ],
+  "prosShort": [
+    "多版本并存且切换很方便，团队上手也快。",
+    "项目可绑定指定引擎版本，接入成本不高。",
+    "界面接近官方项目管理器，后续扩展方便。"
+  ],
+  "consShort": [
+    "独立应用需额外安装维护，团队要提前评估。",
+    "只记路径不接管资源状态，规模化后更明显。",
+    "下载依赖 GitHub 网络不稳，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

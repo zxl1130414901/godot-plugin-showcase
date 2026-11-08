@@ -1,0 +1,34 @@
+{
+  "id": "H2xDev__GodotVMF",
+  "descriptionZh": "把 Valve Hammer 的 VMF 地图导入 Godot 的插件，支持刷体、位移面、实体以及 MDL、VMT 等源引擎素材与贴图。",
+  "category": "asset-pipeline",
+  "tags": [
+    "vmf",
+    "hammer",
+    "level-import",
+    "source-engine"
+  ],
+  "prosShort": [
+    "可直接导入 Hammer 制作的刷体与地形地图",
+    "完整保留实体属性与输入输出连线",
+    "原生支持 MDL 模型、VMT 材质与 VTF 贴图"
+  ],
+  "consShort": [
+    "VPK 素材无法自动提取，需要手动解包",
+    "部分导入模型的朝向错误，需要手动修正",
+    "README 未明确声明具体兼容的引擎版本范围"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 3,
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

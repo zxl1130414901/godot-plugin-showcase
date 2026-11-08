@@ -1,0 +1,139 @@
+{
+  "id": "YuriSizov__godot-editor-theme-explorer",
+  "depth": "standard",
+  "taglineZh": "浏览编辑器主题并生成取用代码的插件开发工具",
+  "summaryZh": "Editor Theme Explorer 是 Yuri Sizov 写的编辑器工具，帮插件开发者快速查阅当前编辑器 GUI 主题里定义的各种条目与属性。它通过 Project 菜单下的 Tools 打开窗口，按颜色、常量、字体、字号、图标与样式分类列出主题内容，支持在类别内搜索并按主题类型过滤，还能直接给出取用某项所需代码，部分条目附带额外操作。由于 Godot 的主题系统让编辑器内的控件自动继承主题，插件只要知道键名就能获得与编辑器一致的外观与图标，这个工具解决的就是“键名从哪查”的问题。当前版本支持 Godot 4.2 及以上（不含脚本 UID），4.0 与 4.1 请用 4.0 分支。",
+  "whatItDoes": "把当前编辑器主题的全部条目按类型罗列在窗口中，并提供搜索与按主题类型过滤，方便定位具体键名。为选中的条目生成可直接粘贴到脚本里的取用代码，避免手写主题查询语句时拼错名称。对字体等条目提供预览，让开发者在不改代码的情况下确认视觉效果。",
+  "useCases": [
+    {
+      "titleZh": "开发编辑器插件界面",
+      "descZh": "写编辑器扩展时照抄生成的代码取用主题颜色与图标，让界面自动跟随用户主题。"
+    },
+    {
+      "titleZh": "查找未知的图标名",
+      "descZh": "在内置图标清单里按关键词搜索，确认需要的图标键名而不是逐个猜测。"
+    },
+    {
+      "titleZh": "保持插件视觉一致",
+      "descZh": "使用编辑器主题的字体、字号与样式常量，避免自定颜色与编辑器风格冲突。"
+    },
+    {
+      "titleZh": "排查主题覆盖问题",
+      "descZh": "对照清单确认某项在编辑器主题里是否存在，判断样式失效是键名错误还是未定义。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "主题条目浏览器",
+      "descZh": "按类别列出颜色、常量、字体、字号、图标与样式。"
+    },
+    {
+      "titleZh": "可粘贴的取用代码",
+      "descZh": "为选中条目生成主题查询语句。"
+    },
+    {
+      "titleZh": "条目预览",
+      "descZh": "字体等条目可在窗口内直接查看效果。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "按类型过滤",
+      "descZh": "可按主题类型筛选条目，缩小查找范围。"
+    },
+    {
+      "name": "自动生成代码",
+      "descZh": "选中即可获得取用该条目的现成代码片段。"
+    },
+    {
+      "name": "覆盖全部条目类型",
+      "descZh": "颜色、常量、字体、字号、图标与样式都在清单内。"
+    },
+    {
+      "name": "接入编辑器菜单",
+      "descZh": "从 Project 菜单的 Tools 子项打开，位置符合编辑器惯例。"
+    }
+  ],
+  "limitsZh": "工具面向的是插件的编辑器界面开发，对普通游戏项目的运行时 UI 几乎没有帮助，使用场景较窄。当前版本支持 Godot 4.2 以上，但明确注明不含脚本 UID，4.0 与 4.1 的用户必须切到 4.0 分支，装错分支可能直接报错。它只负责“查”和“给代码”，不提供主题编辑、替换或导出功能，想改主题仍需其他手段。README 约四千余字符，功能说明清楚并配有多张截图，但没有完整的快捷键或批量导出说明，也没有列出各条目类型之间差异化的额外操作细节。作为编辑器插件，随 Godot 主题系统变动仍需维护，且对其作者的更新节奏有一定依赖。",
+  "workflowZh": [
+    {
+      "stepZh": "通过 AssetLib 或拷贝 addons 目录安装并启用插件。"
+    },
+    {
+      "stepZh": "从 Project 菜单的 Tools 打开 Editor Theme Explorer。"
+    },
+    {
+      "stepZh": "在左侧类别中切换颜色、图标、字体或样式。"
+    },
+    {
+      "stepZh": "用搜索与主题类型过滤定位目标条目。"
+    },
+    {
+      "stepZh": "复制生成的代码片段到插件脚本中使用。"
+    }
+  ],
+  "pros": [
+    "把编辑器主题条目集中展示，查找键名不再靠猜。",
+    "支持搜索与类型过滤，定位效率高。",
+    "一键生成取用代码，减少拼写错误。",
+    "安装简单，AssetLib 可直接获取。"
+  ],
+  "cons": [
+    "只服务编辑器插件开发，适用面窄。",
+    "4.0 与 4.1 需另切分支，且不含脚本 UID。",
+    "不能编辑或导出主题，只能查阅。"
+  ],
+  "pitfalls": [
+    "在 4.0 或 4.1 工程里使用 master 分支会报不兼容，需改用 4.0 分支。",
+    "把运行时 UI 的主题也按编辑器键名取用，游戏里往往不存在对应定义而取到空值。"
+  ],
+  "bestFor": "适合正在开发 Godot 编辑器插件、希望插件界面与编辑器主题保持一致的工具作者。",
+  "avoidWhenZh": "只做游戏内容、不开发编辑器扩展的项目，装了这个插件几乎用不上。",
+  "compareTips": {
+    "vs": [
+      "godot-extended-libraries__godot-plugin-refresher"
+    ],
+    "whenZh": "两者都是编辑器插件开发者的辅助工具：Explorer 帮你查主题键名与图标，Refresher 帮你快速重载插件代码，日常开发可以一起装。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "编辑器主题",
+    "插件开发",
+    "图标查找",
+    "代码生成",
+    "界面一致性"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "工具帮助插件开发者查阅编辑器主题定义与属性",
+      "source": "README.md",
+      "quote": "Editor Theme Explorer is an editor utility which allows plugin developers to quickly reference various definitions and properties defined in the current editor GUI theme."
+    },
+    {
+      "claim": "支持 Godot 4.2 及以上但不含脚本 UID，旧版需用 4.0 分支",
+      "source": "README.md",
+      "quote": "This version supports Godot 4.2 and later (sans script UIDs). For the version compatible with Godot 4.0/4.1 see the `4.0` branch."
+    },
+    {
+      "claim": "可列举颜色、常量、字体、字号、图标与样式",
+      "source": "README.md",
+      "quote": "List all colors, constants, fonts, font sizes, icons, and styles defined in the current editor theme."
+    },
+    {
+      "claim": "能为条目生成取用代码",
+      "source": "README.md",
+      "quote": "Get code necessary to fetch desired item."
+    }
+  ]
+}

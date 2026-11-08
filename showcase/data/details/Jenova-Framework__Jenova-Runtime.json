@@ -1,0 +1,139 @@
+{
+  "id": "Jenova-Framework__Jenova-Runtime",
+  "depth": "standard",
+  "taglineZh": "在 Godot 编辑器里直接编写 C++ 脚本的运行时后端",
+  "summaryZh": "Jenova Runtime 是一套给 Godot 用的 C++ 脚本后端：把 C++20/23 的编译、脚本对象、脚本实例与解释流程接进编辑器，目标是像写 GDScript 一样直接写 C++，并能调用 OpenCV、CUDA、Vulkan、OpenMP 等原生库。仓库是这个项目组的核心运行时源码，提供构建系统、编译器接口与脚本层，配套 Jenova Builder 下载依赖并编译。它适合要把重计算或原生库深度接入 Godot 的团队。限制很硬：只支持 Windows 与 Linux x64，构建链要 Python、CMake、Ninja 与 MSVC 或 Clang，学习曲线陡。",
+  "whatItDoes": "通过 Jenova Builder 拉取依赖并用 CMake、Ninja 编译出 GDExtension，把 C++ 脚本后端挂进 Godot。编辑器侧获得 C++ 脚本类型与编译流程，运行时可创建脚本实例、调用脚本方法，并与引擎对象交互。仓库按模块拆分构建系统、编译器接口、脚本语言与解释器，便于按需裁剪。",
+  "useCases": [
+    {
+      "titleZh": "C++ 原生重计算",
+      "descZh": "把物理、模拟或图像处理写成 C++ 脚本，绕开 GDScript 的性能瓶颈，让关键路径的帧率稳定下来。"
+    },
+    {
+      "titleZh": "接入第三方原生库",
+      "descZh": "直接在脚本层调用 OpenCV、CUDA 或 Vulkan，减少中间的胶水代码，也省去额外绑定层的维护成本，整体更省事。"
+    },
+    {
+      "titleZh": "C++ 为主的技术栈",
+      "descZh": "团队以 C++ 为主，希望在 Godot 内保持同一语言与工具链，减少在两种语言之间来回切换的成本。"
+    },
+    {
+      "titleZh": "研究脚本后端实现",
+      "descZh": "拆读编译器接口、脚本实例与解释器实现，理解引擎脚本层如何扩展，也便于做二次开发。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "C++ 脚本运行时",
+      "descZh": "含构建系统、编译器接口、脚本对象与解释流程的完整后端，可独立编译并挂进项目。"
+    },
+    {
+      "titleZh": "可加载的 GDExtension",
+      "descZh": "编译产物按 .gdextension 挂进项目，在编辑器内直接提供 C++ 脚本能力，无需改引擎源码。"
+    },
+    {
+      "titleZh": "可对接的原生能力",
+      "descZh": "为 OpenCV、CUDA、Vulkan 与 OpenMP 等库预留直接调用路径，便于把各类原生能力接入脚本层。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "C++ 脚本对象",
+      "descZh": "把 C++ 类型作为脚本挂到节点，参与引擎生命周期与信号系统。"
+    },
+    {
+      "name": "内建构建系统",
+      "descZh": "Jenova Builder 拉取依赖并调用 CMake、Ninja 完成编译，减少手工配置与命令记忆。"
+    },
+    {
+      "name": "编译器接口",
+      "descZh": "在编辑器内触发编译并回传诊断信息，缩短 C++ 的迭代循环，改完就能看到错误。"
+    },
+    {
+      "name": "脚本解释层",
+      "descZh": "提供脚本实例与解释流程，支持运行时创建与调用，便于做热重载与动态逻辑。"
+    },
+    {
+      "name": "原生库直连",
+      "descZh": "面向 OpenCV、CUDA、Vulkan 与 OpenMP 等现代 C++ 能力，在脚本里即可直接调用，无需手写绑定。"
+    }
+  ],
+  "limitsZh": "官方只支持 Windows x64 与 Linux x64，macOS、移动端与 Web 没有构建路径，跨平台项目要另做方案。构建前置很多：Python 3.10、CMake 3.20、Ninja 1.11 与 Python 依赖包，Windows 还要 VS2022 或整套工具链，首次编译时间和磁盘占用都不低。它改变的是脚本编写方式，团队要同时懂 Godot 对象模型与 C++ 内存、编译错误，排障门槛高。文档主要指向外部站点，仓库内只有概览与构建入口；项目仍在演进，接口稳定性需要自行验证。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 Python 3.10、CMake 3.20 与 Ninja 等构建前置工具"
+    },
+    {
+      "stepZh": "准备 MSVC 2022 或 Clang 编译环境，并确认版本满足要求"
+    },
+    {
+      "stepZh": "用 Jenova Builder 拉取依赖并生成可编译的工程"
+    },
+    {
+      "stepZh": "执行编译命令，产出可用的 GDExtension 插件产物"
+    },
+    {
+      "stepZh": "把产物挂进项目，然后开始编写 C++ 脚本"
+    }
+  ],
+  "pros": [
+    "在编辑器内直接编写 C++ 脚本，开发体验接近 GDScript，改完即可编译",
+    "可直连 OpenCV、CUDA、Vulkan 与 OpenMP 等原生库，功能扩展的空间相当大，重计算也能落地",
+    "含构建系统与编译器接口，C++ 的编译与迭代链路相对完整，排障也方便",
+    "面向 C++20 与 23 标准，能直接使用现代语言特性与标准库能力",
+    "模块划分得很清楚，便于按需裁剪功能，也方便后续做二次开发"
+  ],
+  "cons": [
+    "仅支持 Windows 与 Linux x64，macOS 与移动端暂时没有构建路径",
+    "构建前置多，首次编译的耗时与磁盘占用都不低",
+    "文档偏外部站点，仓库内说明有限，排障要靠自己"
+  ],
+  "pitfalls": [
+    "工具链版本不达标时构建会在下载或编译阶段失败，先核对前置",
+    "C++ 编译错误与引擎对象生命周期叠加，排查难度明显高于 GDScript",
+    "换平台发布前先确认是否有对应构建路径，否则要重做整套方案"
+  ],
+  "bestFor": "以 C++ 为主、需要把重计算或原生库深度接进 Godot，并能长期维护完整编译工具链的技术团队与引擎组。",
+  "avoidWhenZh": "需要移动端或 Web 导出，或团队以 GDScript 为主、不想承担编译成本与维护负担的项目。",
+  "compareTips": {
+    "vs": [
+      "gdzig__gdzig"
+    ],
+    "whenZh": "Jenova 在编辑器内提供 C++ 脚本后端，重点是脚本对象与解释流程；gdzig 是把 Zig 绑定到 GDExtension。要 C++ 脚本化选前者，要 Zig 扩展选后者，两者都要求自建编译链。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "C++脚本",
+    "GDExtension",
+    "原生库",
+    "编译工具链"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 5,
+  "evidence": [
+    {
+      "claim": "把完整 C++ 脚本能力带进 Godot 编辑器",
+      "source": "ReadMe.md",
+      "quote": "By bringing fully-featured C++ scripting directly into the Godot Editor"
+    },
+    {
+      "claim": "仅支持 Windows x64 与 Linux x64 构建",
+      "source": "ReadMe.md",
+      "quote": "Jenova Runtime can be built on Windows x64 and Linux x64 using Jenova Builder."
+    },
+    {
+      "claim": "构建需要 Python、CMake 与 Ninja",
+      "source": "ReadMe.md",
+      "quote": "*   Python (3.10+) *   CMake (3.20+) *   Ninja (1.11+)"
+    }
+  ]
+}

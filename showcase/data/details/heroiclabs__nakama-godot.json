@@ -1,0 +1,149 @@
+{
+  "id": "heroiclabs__nakama-godot",
+  "taglineZh": "为 Nakama 服务端提供 GDScript 客户端的官方 SDK",
+  "summaryZh": "Nakama Godot 是 Heroic Labs 官方维护的 GDScript 客户端，覆盖账号、好友、聊天、匹配、实时对战、排行榜、锦标赛与云存档等接口。它把 REST 与 socket 两套能力封装成单例与异步方法，配合自建或云端的 Nakama 服务端即可做联机与后端功能，不需要自己写服务。适合需要账号体系与实时房间的独立团队；代价是必须先部署服务端与数据库，客户端只是半边，版本要与服务端对齐。它把后端能力当成可调用的 API，而不是内置在引擎里的网络层。",
+  "whatItDoes": "提供 Nakama 的 GDScript 客户端单例，封装认证、存储、社交、排行榜与实时 socket，向项目暴露异步请求接口。",
+  "useCases": [
+    {
+      "titleZh": "账号与云存档",
+      "descZh": "独立团队要做账号登录与云存档，用客户端接自建 Nakama，省去写认证服务，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "实时房间对战",
+      "descZh": "实时对战需要房间与匹配，用 socket 接口创建房间并同步状态，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "社交系统",
+      "descZh": "加入好友与聊天功能，用内置社交接口，不必自己设计关系表，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "排行榜与赛季",
+      "descZh": "做排行榜与赛季，用锦标赛接口按周期结算并拉取名次，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Nakama 单例",
+      "descZh": "自动加载的 GDScript 单例，创建 client、认证并持有当前会话，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "REST 封装",
+      "descZh": "账号、存储、好友、排行榜等同步请求的异步方法，返回强类型结果，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "Socket 封装",
+      "descZh": "实时连接、房间、匹配与消息推送，带心跳与重连的基础处理，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "账号体系",
+      "descZh": "邮箱、设备与社交账号认证，自动创建用户并返回会话令牌，参数集中在检查器面板。"
+    },
+    {
+      "name": "云存档",
+      "descZh": "按集合与键读写玩家数据，支持权限与批量操作，后续修改起来也不费劲。"
+    },
+    {
+      "name": "实时对战",
+      "descZh": "socket 房间、匹配与状态同步，适合回合与房间制玩法，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "社交功能",
+      "descZh": "好友、群组与聊天通道，减少自己设计社交模型的工作，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "排行榜与赛季",
+      "descZh": "排行榜、锦标赛与赛季结算接口，可直接做榜单，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "客户端只是半边，必须先部署 Nakama 服务端与 CockroachDB，Docker 之外还要处理域名、TLS 与扩容。版本要与服务端匹配，客户端升级后旧服务端可能缺接口。所有请求都是异步的，错误码与网络异常要逐个分支处理，示例只覆盖主流程。实时 socket 的断线重连、心跳与消息顺序要自己加固。GDScript 动态类型在回调里容易写错字段名，调试要靠打印返回结构。官方文档以服务端为主，Godot 侧示例更新不一定同步。",
+  "workflowZh": [
+    {
+      "stepZh": "用 Docker 启动 Nakama 与数据库，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "下载客户端并放进 addons 目录，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "把 Nakama.gd 注册为自动加载，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "用服务器密钥创建 client 并认证，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按功能调用账号、存储与排行榜接口"
+    },
+    {
+      "stepZh": "需要实时玩法时再建立 socket 连接，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "官方维护，接口与服务端版本同步更新，团队新人照着示例就能上手。",
+    "账号、社交、排行榜与实时房间一套齐全，出现问题时也更容易定位原因。",
+    "纯 GDScript 实现，不需要原生库或额外编译，对中小团队的时间成本很友好。",
+    "异步接口与示例清晰，后端功能接入快，长期维护与升级的压力都比较小。",
+    "服务端开源，可自建也可用托管方案，实际项目落地时省下大量重复工作。"
+  ],
+  "cons": [
+    "必须先部署服务端与数据库，单机项目用不上，升级引擎版本时容易卡住。",
+    "客户端只是半边，版本错配会出现接口缺失，定制之前往往要先读源码。",
+    "错误处理与断线重连要自己补，示例偏主流程，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "客户端与服务端版本不一致，认证能被拒或房间接口缺失，先对齐发布说明。",
+    "把同步接口当成即时返回，没 await 就取结果会拿到空值，上线前要专门过一遍。",
+    "socket 断线后没重连，房间状态会停在旧快照上，排查时需要多留一层日志。"
+  ],
+  "bestFor": "需要账号、云存档、社交与实时房间，且愿意自建或购买 Nakama 托管服务的联机项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "单机或只做简单排行榜的项目，部署服务端与数据库的成本远高于收益。",
+  "compareTips": {
+    "vs": [
+      "GodotNuts__GodotFirebase",
+      "GameFrameX__GameFrameX"
+    ],
+    "whenZh": "三者都提供后端能力：Nakama 客户端接开源游戏服务器，强在房间与匹配；Firebase 版接托管云服务，省运维但绑定 Google；GameFrameX 是自带 .NET 服务端的全栈框架。要实时对战选 Nakama，要快速接云数据库选 Firebase，要整套服务端与运维选 GameFrameX。"
+  },
+  "category": "network",
+  "tags": [
+    "联机",
+    "后端服务",
+    "账号系统",
+    "实时对战",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "GDScript 编写的 Godot 客户端",
+      "source": "README.md",
+      "quote": "Godot client for Nakama server written in GDScript."
+    },
+    {
+      "claim": "支持 Godot 4.0 以上",
+      "source": "README.md",
+      "quote": "It's written in GDScript to support Godot Engine `4.0+`."
+    },
+    {
+      "claim": "客户端实现完整 API 与 socket",
+      "source": "README.md",
+      "quote": "This client implements the full API and socket options with the server."
+    },
+    {
+      "claim": "需要先部署服务端与数据库",
+      "source": "README.md",
+      "quote": "You'll need to setup the server and database before you can connect with the client."
+    }
+  ],
+  "depth": "standard"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "GarrettGunnell__Acerola-Compute",
+  "descriptionZh": "计算着色器封装语言，用自定义 .acompute 语法编写并自动编译调度 GPU 内核。",
+  "category": "3d-shader",
+  "tags": [
+    "计算着色器",
+    "着色器语言",
+    "GPU计算",
+    "RenderingDevice"
+  ],
+  "prosShort": [
+    "封装编译与派发省样板代码",
+    "uniform 缓冲缓存复用可减少显存开销",
+    "示例逐行注释便于快速上手"
+  ],
+  "consShort": [
+    "文档稀少完整教程尚未完成",
+    "仅覆盖 compute 图形管线仍需自己写",
+    "仓库更新停滞接口变动风险"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 2
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

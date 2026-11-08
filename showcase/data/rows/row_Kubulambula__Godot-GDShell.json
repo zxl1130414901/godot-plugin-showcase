@@ -1,0 +1,34 @@
+{
+  "id": "Kubulambula__Godot-GDShell",
+  "descriptionZh": "类 Linux 的游戏内控制台，命令即脚本，支持条件链、管道与后台执行",
+  "category": "debug-perf",
+  "tags": [
+    "游戏内控制台",
+    "调试命令",
+    "作弊码",
+    "命令行"
+  ],
+  "prosShort": [
+    "命令即脚本，扩展时不必改内核",
+    "支持条件链、管道与后台执行",
+    "UI 与解析器模块化，可整体替换"
+  ],
+  "consShort": [
+    "仍在早期开发，接口随时可能变动",
+    "无权限体系，发布版需自行关闭",
+    "命令散落目录，规模大后难管理"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

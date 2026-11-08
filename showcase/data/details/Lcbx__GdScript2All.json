@@ -1,0 +1,144 @@
+{
+  "id": "Lcbx__GdScript2All",
+  "depth": "standard",
+  "taglineZh": "在编辑器里把 GDScript 批量转译成 C# 与 C++ 代码",
+  "summaryZh": "它解决的是把现成 GDScript 迁到 C# 或 C++ 时的重复劳动：用 Python 写的词法、语法分析与类型推断，把 .gd 转成结构接近的 C# 类或 C++ 头文件与实现。既能在编辑器里拖入文件或目录点转换，也能用 main.py -t Cpp 跑命令行，类型会参考 Godot 类文档推断。限制是生成代码不保证可直接编译：模式匹配不支持，解析异常会丢行，C# 与 C++ 仍需人工修正，且必须本机安装 Python 3.12 左右的环境。",
+  "whatItDoes": "提供 GDScript 词法器、解析器与 C#/C++ 后端，按 classData 里的 Godot XML 文档推断变量与方法返回类型。编辑器插件 script_converter_UI 支持从文件系统拖入文件或目录并批量转换，customSaver 负责写盘。命令行入口 addons/gdscript2all/converter/main.py 接受文件或目录与 -t 参数，可扩展新后端。",
+  "useCases": [
+    {
+      "titleZh": "GDScript 迁 C#",
+      "descZh": "准备把原型脚本迁到 C# 项目，可用它先生成骨架再逐文件修正，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "C++ 模块起点",
+      "descZh": "要给 GDExtension 写 C++ 类，先用它把逻辑转成头文件与实现草稿，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "批量脚本清理",
+      "descZh": "项目里有大量小脚本需要统一改写，编辑器批量转换比手抄快，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "教学对照",
+      "descZh": "对比同一段 GDScript 在 C# 与 C++ 下的写法差异，帮助团队理解语义，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "C# 转译结果",
+      "descZh": "生成带 [Export]、[Signal] 与 partial class 的 C# 脚本骨架，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "C++ 头与实现",
+      "descZh": "输出继承 Node 的类、GDCLASS 宏、_bind_methods 与属性访问器，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "批量转换界面",
+      "descZh": "编辑器面板支持拖放文件与目录，转换结果按原结构写盘，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "类型推断",
+      "descZh": "结合 classData 的 Godot XML 推断变量类型与返回值，减少手填，参数集中在检查器面板。"
+    },
+    {
+      "name": "双后端",
+      "descZh": "CSharp.py 与 Cpp.py 两个后端，也可复制后端改造成新语言，后续修改起来也不费劲。"
+    },
+    {
+      "name": "拖放批量",
+      "descZh": "从 FileSystem 面板拖入文件或目录，一次转换整批脚本，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "命令行",
+      "descZh": "main.py 支持文件与目录输入、-t 指定目标语言，便于脚本化，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "预设映射",
+      "descZh": "把 @export、@onready、$节点与 %唯一名映射到目标语言写法，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "README 明确写着生成代码可能需要修正，不能当作无损迁移工具。语法覆盖不完整：模式匹配不支持，解析器遇到意外结构会丢掉当前行并从下一行继续，输出可能被截断或错位。C# 侧要求项目里先手动创建一个 C# 脚本，否则 Godot 不会构建 C#；C++ 侧对指针与引用的判断只是尽力猜测，父类属性访问也不会自动走 getter/setter。运行依赖本机 Python，README 只测试到 3.12.5，环境差异可能带来额外问题。工具以 GPL-3.0 发布，生成的代码归用户，但修改工具本身要回馈源码。",
+  "workflowZh": [
+    {
+      "stepZh": "先确认本机 Python 版本与相关依赖库可用"
+    },
+    {
+      "stepZh": "把 addons/gdscript2all 目录复制进项目并启用插件"
+    },
+    {
+      "stepZh": "在编辑器面板拖入脚本文件或整个目录"
+    },
+    {
+      "stepZh": "选择目标语言为 C# 或 C++ 后执行转换"
+    },
+    {
+      "stepZh": "逐文件修正生成结果的类型与语法问题"
+    }
+  ],
+  "pros": [
+    "把 GDScript 批量转成 C# 或 C++，省去逐行手抄与查 API 的时间，团队新人照着示例就能上手。",
+    "类型推断参考官方类文档，生成的变量与返回值通常比手写更准。",
+    "编辑器拖放与命令行两种入口，既能交互也能进脚本流水线。",
+    "后端可复制扩展，团队能按目标语言补规则而不改核心解析器。"
+  ],
+  "cons": [
+    "生成结果不保证可编译，模式匹配等语法直接缺失。",
+    "解析异常会丢整行，复杂脚本的输出可能错位，升级引擎版本时容易卡住。",
+    "依赖本机 Python 环境，版本不匹配时容易出问题，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "C# 项目要先手动建一个 C# 脚本，否则 Godot 不会触发 C# 构建，上线前要专门过一遍。",
+    "解析器 panic 模式会静默丢行，转换后要逐段 diff 而不是直接覆盖。",
+    "C++ 的指针与引用只是猜测，属性访问不走 getter/setter，需人工核对，排查时需要多留一层日志。"
+  ],
+  "bestFor": "需要把一批 GDScript 迁到 C# 或 C++，并愿意逐文件校对生成结果的技术团队，适合先把核心玩法跑通再扩展。",
+  "avoidWhenZh": "脚本大量使用模式匹配等未支持语法，或需要无损自动化迁移时。",
+  "compareTips": {
+    "vs": [
+      "Cat-Lips__GodotSharp.SourceGenerators"
+    ],
+    "whenZh": "两者都服务 Godot 的 C# 工作流：GdScript2All 做 GDScript 到 C#/C++ 的转译，适合迁移与学习；SourceGenerators 做 C# 编译期代码生成，适合已有 C# 项目。跨语言迁移选前者，C# 强类型化选后者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "GDScript",
+    "转译",
+    "C#",
+    "C++",
+    "Python"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "把 GDScript 转成 C# 与 C++ 并带类型推断",
+      "source": "README.md",
+      "quote": "A tool for converting [Godot](https://github.com/godotengine/godot)'s GdScript to other languages (currently C# and c++) with features like type inference."
+    },
+    {
+      "claim": "需要安装 Python",
+      "source": "README.md",
+      "quote": "Requires [Python installed](https://www.python.org/downloads/) (tested with 3.12.5)."
+    },
+    {
+      "claim": "生成代码可能需要修正",
+      "source": "README.md",
+      "quote": "generated code might need corrections !"
+    },
+    {
+      "claim": "不支持模式匹配",
+      "source": "README.md",
+      "quote": "pattern matching - a complicated form of the match case statement - is not supported"
+    }
+  ]
+}

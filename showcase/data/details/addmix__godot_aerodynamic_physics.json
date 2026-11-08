@@ -1,0 +1,139 @@
+{
+  "id": "addmix__godot_aerodynamic_physics",
+  "depth": "standard",
+  "taglineZh": "给刚体加升力、阻力与螺旋桨的航空物理插件",
+  "summaryZh": "这个插件把空气动力学接进 Godot 3D 刚体：给 AeroBody 挂一个或多个 AeroInfluencer 子节点，就能得到升力面、螺旋桨、喷气推力与飞行辅助，参数可细调，还支持大气与操纵面设计。它面向飞行器、滑翔机与无人机类玩法，附带演示场景和多篇概念文档，从入门到气动设计、控制理论都有说明。适合做飞行模拟原型。限制是纯 GDScript，版本 0.9，大量影响面时性能有上限；C++ 移植已在开发分支上但尚未正式发布，调参需要一定气动与控制基础。",
+  "whatItDoes": "AeroBody 在物理帧里汇总所有子影响面的受力并施加到刚体，AeroSurface 产生升力与阻力，AeroPropeller 与 JetThruster 提供推力，FlightAssist 做姿态稳定与操纵辅助。参数通过检查器调整，EasyLiftCurve 简化升力曲线，演示场景展示完整飞行器配置。",
+  "useCases": [
+    {
+      "titleZh": "飞行器与无人机玩法",
+      "descZh": "给刚体加机翼、螺旋桨与推力，做可操控的飞行模拟，升力面与推力参数可以逐项微调。"
+    },
+    {
+      "titleZh": "滑翔与物理玩具",
+      "descZh": "用升力面做纸飞机、滑翔机或风力装置，手感真实，适合做轻量物理玩具与场景演出效果。"
+    },
+    {
+      "titleZh": "载具原型验证",
+      "descZh": "先用简化气动模型验证操控与镜头，跑通后再决定是否深入气动设计，避免过早调参。"
+    },
+    {
+      "titleZh": "气动与控制教学",
+      "descZh": "借概念文档与演示场景讲升力、阻力与姿态控制，配合参数实验能更直观地理解原理。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "气动刚体",
+      "descZh": "汇总多个影响面的受力，输出升力、阻力与推力，再交给引擎刚体统一解算。"
+    },
+    {
+      "titleZh": "可配置影响面",
+      "descZh": "升力面、螺旋桨与喷气推力节点可以分别调参，组合出不同形态的飞行器。"
+    },
+    {
+      "titleZh": "飞行辅助系统",
+      "descZh": "提供姿态稳定与操纵辅助，降低上手难度，也便于做出偏街机的飞行手感。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "AeroBody3D",
+      "descZh": "气动刚体根节点，汇总子影响面的受力并施加到物理体，是飞行器的核心。"
+    },
+    {
+      "name": "AeroSurface3D",
+      "descZh": "按迎角与速度计算升力与阻力，可调面积、曲线与控制面，模拟不同翼型。"
+    },
+    {
+      "name": "AeroPropeller3D",
+      "descZh": "模拟螺旋桨转速与推力，支持动态转子配置与转速响应，可做变距桨。"
+    },
+    {
+      "name": "JetThruster",
+      "descZh": "提供喷气推力，可与气动面组合做混合动力与矢量推力控制。"
+    },
+    {
+      "name": "FlightAssist",
+      "descZh": "姿态稳定与操纵辅助，帮助玩家维持可控飞行，减少失速与失控。"
+    }
+  ],
+  "limitsZh": "只服务 3D 刚体飞行，2D 与角色移动用不上；所有受力在 GDScript 里逐影响面计算，影响面数量与物理帧率上去后开销明显，官方也把性能列为首要改进方向。版本 0.9，C++ 移植还在分支上，接口与节点命名可能变。气动参数、迎角曲线与控制增益互相耦合，缺少航空背景时要反复试参，调坏了表现为抖动或失控。文档分层较多，入门页之外的概念文章需要一定基础；仓库不含成品飞行器关卡，演示场景只是配置示例。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 安装插件并在项目设置里启用"
+    },
+    {
+      "stepZh": "在场景里添加 AeroBody3D 刚体作为飞行器根节点"
+    },
+    {
+      "stepZh": "挂载升力面、螺旋桨或喷气推力等影响面节点"
+    },
+    {
+      "stepZh": "调气动参数与飞行辅助增益，逐步试飞"
+    },
+    {
+      "stepZh": "对照演示场景验证操控与镜头表现"
+    }
+  ],
+  "pros": [
+    "升力、阻力、螺旋桨与喷气推力覆盖了常见飞行器的主要需求",
+    "参数暴露得很充分，可以精细调整气动特性与操纵手感，试飞时好对齐",
+    "附多篇概念文档，从入门一路讲到控制理论，学习路径比较完整",
+    "演示场景给出完整的飞行器配置参考，照着搭能少走不少弯路",
+    "MIT 许可且仍在活跃开发，路线图公开，便于评估长期维护风险"
+  ],
+  "cons": [
+    "纯 GDScript 逐面计算，影响面数量多时性能会明显受限",
+    "0.9 版本，接口与节点命名仍可能调整，需锁定版本",
+    "气动与控制参数耦合，缺少背景时调参门槛不低"
+  ],
+  "pitfalls": [
+    "影响面数量堆太多会拖慢物理帧，先做减法再谈精度，别急着加面",
+    "控制增益过大容易自激振荡，建议逐项小幅调整，逐步逼近目标",
+    "C++ 分支尚未正式发布，正式项目不要直接依赖它，先做小范围验证"
+  ],
+  "bestFor": "做飞行器、滑翔或无人机玩法，愿意研究气动参数并接受 GDScript 性能上限的 Godot 4 开发者与独立小团队。",
+  "avoidWhenZh": "需要大量飞行器同场、要求开箱即用的成品飞行手感，或只做 2D 项目的团队。",
+  "compareTips": {
+    "vs": [
+      "Brawmario__libsm64-godot"
+    ],
+    "whenZh": "两者都提供角色或载具物理：本插件是空气动力学受力模拟，重点在升力与推力；libsm64 是马里奥角色状态机，重点在动作手感。做飞行选前者，做平台跳跃选后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "空气动力学",
+    "飞行模拟",
+    "刚体物理",
+    "螺旋桨"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "面向刚体的空气动力学模拟插件",
+      "source": "plugin.cfg",
+      "quote": "A plugin for rigid body aerodynamic simulation."
+    },
+    {
+      "claim": "通过给 AeroBody 添加影响面节点配置",
+      "source": "docs/getting_started/getting_familiar_with_aero_nodes.md",
+      "quote": "Aerodynamic forces are calculated using child `AeroInfluencer3D` nodes."
+    },
+    {
+      "claim": "C++ 移植仍在开发分支，尚未正式发布",
+      "source": "README.md",
+      "quote": "The C++ port is currently functional, but further testing and automation is necessary before it's ready for a full release"
+    }
+  ]
+}

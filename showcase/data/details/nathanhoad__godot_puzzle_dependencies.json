@@ -1,0 +1,139 @@
+{
+  "id": "nathanhoad__godot_puzzle_dependencies",
+  "depth": "standard",
+  "taglineZh": "在 Godot 编辑器里画冒险游戏谜题依赖图",
+  "summaryZh": "这个编辑器插件把冒险游戏常用的谜题依赖图搬进 Godot：用多个 Board 管理章节，用 Thing 表示道具、事件或状态，拖拽两侧白点建立依赖，颜色区分类型，支持移动、缩放、右键改类型与断开，撤销重做沿用 Godot 原生操作。它适合策划与设计阶段梳理「先拿到什么才能触发什么」，也能作为团队沟通图。限制是它只做设计与可视化，不与游戏逻辑、任务系统或存档联动，也没有导出格式；图表存在项目里，多人同时编辑仍要靠版本控制协调。",
+  "whatItDoes": "在编辑器里新建 Board，添加 Thing 并输入文字，从节点两侧拖出连线表示前置依赖。右键可改类型、删连线或删节点；顶部设置可增删类型名称与颜色。节点支持拖动与缩放，整个操作走 Godot 的撤销栈，误操作可回退。",
+  "useCases": [
+    {
+      "titleZh": "冒险游戏谜题设计",
+      "descZh": "把钥匙、机关与区域解锁关系画成依赖图，提前发现拿不到道具的死锁与冗余步骤，避免做到一半才发现走不通。"
+    },
+    {
+      "titleZh": "任务链梳理",
+      "descZh": "用不同颜色区分任务、道具与事件，检查前置条件是否闭环，避免设计漏洞，也方便他人快速读懂图意。"
+    },
+    {
+      "titleZh": "团队评审",
+      "descZh": "把图直接放在项目里，程序与策划对着同一张图讨论，减少口头描述与截图来回，评审时也能直接标注。"
+    },
+    {
+      "titleZh": "教学与拆解",
+      "descZh": "用依赖图讲解经典冒险游戏的谜题结构，把抽象流程变成可读的节点关系，适合教学与新成员入门。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "谜题依赖图",
+      "descZh": "由 Board 与 Thing 组成的可视化依赖关系，保存在项目资源里，随版本管理一起走。"
+    },
+    {
+      "titleZh": "类型化节点体系",
+      "descZh": "可自定义类型与颜色，让道具、事件与区域一眼区分，团队看图时理解更快。"
+    },
+    {
+      "titleZh": "可评审的设计稿",
+      "descZh": "图随项目版本管理，团队可对照实现进度，也能作为设计文档长期保留，回头查设计意图很方便。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Board",
+      "descZh": "按章节或区域拆分多张依赖图，避免一张图过大导致阅读困难。"
+    },
+    {
+      "name": "Thing",
+      "descZh": "表示谜题步骤的节点，可输入文字并调整大小，也能右键改类型。"
+    },
+    {
+      "name": "依赖连线",
+      "descZh": "从节点两侧白点拖出关系，表示前置与后续，方向一眼可辨，连线多了也能靠颜色与布局理清。"
+    },
+    {
+      "name": "类型与颜色",
+      "descZh": "设置面板中可增删类型并改色，用于区分任务、道具与事件，团队可以按自己习惯定义分类。"
+    },
+    {
+      "name": "原生撤销重做",
+      "descZh": "操作接入 Godot 撤销栈，误删与误拖可以直接回退，体验与编辑器一致。"
+    }
+  ],
+  "limitsZh": "它是纯设计工具，不会把图变成任务数据、条件检查或运行时逻辑，游戏里仍要另写一套系统。没有导出为图片、JSON 或文档的接口，分享给别人要么给项目、要么截图。图表存在项目资源里，多人同时改同一张图会产生合并冲突，也没有锁或评论功能。节点只承载文字与类型，缺少附件、优先级、完成状态等项目管理字段；依赖连线也没有自动布局或环检测，复杂图仍要手工整理。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 安装插件，并在编辑器的插件列表里启用"
+    },
+    {
+      "stepZh": "新建 Board，并按项目需要设置类型与颜色"
+    },
+    {
+      "stepZh": "添加 Thing 节点，并填写说明文字与所属类型"
+    },
+    {
+      "stepZh": "从节点两侧拖出连线，建立前置与后续关系"
+    },
+    {
+      "stepZh": "用撤销重做与缩放整理布局，检查依赖是否闭环"
+    }
+  ],
+  "pros": [
+    "把谜题依赖图直接放进 Godot，省去外部白板工具与截图搬运，设计稿与项目同步更新",
+    "支持多 Board 与自定义类型颜色，复杂设计也能分层表达，不至于挤在一张图里",
+    "接入原生撤销重做，编辑体验与编辑器一致，误操作可回退，改图时更放心",
+    "MIT 许可，源码可改，能按团队需求补字段或改交互，也能接自己的评审流程",
+    "文档用图文说明建图流程，新手照着做就能上手，不必先读源码摸索"
+  ],
+  "cons": [
+    "只做可视化，不与游戏逻辑、任务系统或存档联动",
+    "无导出格式，分享给别人要么给整个项目，要么只能截图",
+    "多人编辑同一张图容易产生资源合并冲突，也没有锁机制"
+  ],
+  "pitfalls": [
+    "把图当成任务系统数据源，运行时其实读不到任何节点数据，逻辑仍要另写",
+    "复杂图不做分层会挤在一张 Board 上，阅读与评审都很吃力，建议按章节拆分",
+    "多人同时改同一 Board 会产生资源合并冲突，需要约定分工与提交节奏"
+  ],
+  "bestFor": "做冒险、解谜或任务驱动游戏，需要在 Godot 项目内梳理依赖关系并与团队评审的设计者与策划，也适合早期方案讨论。",
+  "avoidWhenZh": "需要图直接驱动游戏逻辑，或要与外部项目管理工具同步、做自动校验的团队。",
+  "compareTips": {
+    "vs": [
+      "LexianDEV__FlowKit"
+    ],
+    "whenZh": "Puzzle Dependencies 画设计依赖图，帮助理清前置关系；FlowKit 用事件表实际驱动游戏逻辑。设计阶段选前者，实现阶段选后者，两者可以前后衔接。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "谜题设计",
+    "依赖图",
+    "冒险游戏",
+    "编辑器插件"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "用于制作谜题依赖图",
+      "source": "README.md",
+      "quote": "A tool for making [puzzle dependency charts](https://www.grumpygamer.com/puzzle_dependency_charts) for adventure games made with [Godot 4](https://godotengine.org/)."
+    },
+    {
+      "claim": "图表由 Board 与 Thing 组成",
+      "source": "docs/Things.md",
+      "quote": "Puzzle dependency charts are made up of \"boards\" and \"things\"."
+    },
+    {
+      "claim": "依赖通过拖拽节点两侧白点建立",
+      "source": "docs/Things.md",
+      "quote": "Dragging out from the white dots on either side of the thing will create a dependency to another thing."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "Godot 4.4 的 3D 关卡摆放与资产浏览插件，带命令面板与网格吸附",
+  "prosShort": [
+    "点选条目即可在视口连续摆放",
+    "表面法线对齐与网格吸附都有",
+    "分类管理模块，团队可共用资产库"
+  ],
+  "consShort": [
+    "只支持 Node3D 场景与碰撞体表面",
+    "Dock 要先建条目资源，空项目不可用",
+    "版本号 0.0，接口仍在调整变动"
+  ],
+  "isGDExtension": false,
+  "id": "sci-comp__scene-builder",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "category": "editor-tool",
+  "tags": [
+    "关卡设计",
+    "3D",
+    "资产浏览",
+    "编辑器插件",
+    "场景摆放"
+  ],
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

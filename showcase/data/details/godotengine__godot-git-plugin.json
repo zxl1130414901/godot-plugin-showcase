@@ -1,0 +1,147 @@
+{
+  "id": "godotengine__godot-git-plugin",
+  "taglineZh": "在编辑器内完成 Git 提交、分支切换与差异查看",
+  "summaryZh": "官方插件用 libgit2 封装 GDExtension 接管版本控制接口，在编辑器面板里提供提交、分支、差异、暂存与推送等常用操作。项目根目录有 .git 时面板自动出现，历史与改动都能在引擎内查看。它由引擎团队维护，与编辑器集成最稳定；代价是必须下载匹配版本的二进制，复杂合并、子模块与凭据问题仍要回到命令行处理。",
+  "whatItDoes": "把 Godot 的版本控制接口接到 libgit2 上，在编辑器底部提供提交、分支、差异与远端同步，让日常 Git 操作不必离开引擎。",
+  "useCases": [
+    {
+      "titleZh": "提交前审阅改动",
+      "descZh": "项目里改了十几处脚本，在编辑器面板逐个查看差异并选择性暂存，提交前不用切到终端确认改动范围。"
+    },
+    {
+      "titleZh": "紧急切分支修 bug",
+      "descZh": "需要临时切到发布分支修一个紧急问题，直接在分支下拉里切换，改完再切回主线继续做功能。"
+    },
+    {
+      "titleZh": "多人协作同步",
+      "descZh": "多人协作时先拉取远端更新再提交，冲突文件在编辑器里能看到标记，减少把冲突代码带进构建的概率。"
+    },
+    {
+      "titleZh": "非程序成员提交资源",
+      "descZh": "把提交与推送放在同一面板，策划与美术也能自己提交资源改动，不必等程序帮忙执行命令。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Git 面板",
+      "descZh": "编辑器底部的版本控制面板，列出改动文件、分支与历史提交，可执行暂存、提交与拉取。"
+    },
+    {
+      "titleZh": "libgit2 运行时",
+      "descZh": "随插件分发的原生库，负责仓库读写与网络传输，不依赖系统安装的 git 可执行文件。"
+    },
+    {
+      "titleZh": "差异查看器",
+      "descZh": "内置的文本差异视图，按行高亮新增与删除，配合暂存区可分块挑选要提交的内容。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "VCS Integration",
+      "descZh": "注册为引擎的版本控制后端，编辑器启动即识别仓库并接管提交入口。"
+    },
+    {
+      "name": "Branch Switching",
+      "descZh": "面板内切换本地与远端分支，切换前提示未提交改动，避免误丢工作区。"
+    },
+    {
+      "name": "Diff & Stage",
+      "descZh": "按文件查看差异并分块暂存，提交前能精确控制哪些改动进入本次记录。"
+    },
+    {
+      "name": "Push / Pull",
+      "descZh": "直接与远端同步，支持 HTTPS 与 SSH 地址，失败时把错误回显在输出面板。"
+    },
+    {
+      "name": "Blame / History",
+      "descZh": "查看文件历史与逐行归属，定位某次改动由谁在哪个提交里引入。"
+    }
+  ],
+  "limitsZh": "它只覆盖编辑器内的常用操作，交互式变基、cherry-pick、复杂冲突解决与子模块管理仍要回到命令行，遇到脏工作区时面板给的提示也比较简略。插件是按引擎版本分发的原生库，升级 Godot 后必须同时换对应二进制，否则加载失败且没有明显报错。凭据依赖系统钥匙串或环境变量，SSH 密钥与双因素认证场景经常需要在外部先登录一次。大仓库的首次状态扫描会占用编辑器主线程，文件数量上万时打开面板有明显卡顿。它也不做 Git LFS 的完整管理，大二进制资源的指针下载与清理仍需手工处理。",
+  "workflowZh": [
+    {
+      "stepZh": "从 Releases 下载与引擎版本匹配的二进制"
+    },
+    {
+      "stepZh": "把 addons 目录复制进项目并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "确认项目根目录存在 .git 仓库，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在编辑器底部打开版本控制面板，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "查看差异、暂存并填写提交信息，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "推送后在面板里确认远端同步状态"
+    }
+  ],
+  "pros": [
+    "引擎官方维护，与编辑器版本和 VCS 接口同步更新，兼容性最有保障。",
+    "不需要安装 git 命令行，开箱即用的面板降低团队上手门槛，团队新人照着示例就能上手。",
+    "差异、暂存、分支与推送集中在一处，日常提交不用离开引擎，出现问题时也更容易定位原因。",
+    "支持 Windows、Linux、macOS 与 Android 编辑器的多平台二进制，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "复杂合并、变基与子模块操作缺失，仍要回到终端处理。",
+    "必须匹配引擎版本换库，升级后容易因二进制不兼容打不开面板。",
+    "大仓库状态扫描会卡编辑器，文件多时首次打开明显变慢。"
+  ],
+  "pitfalls": [
+    "覆盖升级前不核对引擎版本，面板会静默消失，先看 gdextension 里的最低兼容声明。",
+    "提交时只审阅部分改动却用了全量暂存，未检查的调试代码会一起进入历史。",
+    "SSH 远端未配置密钥时推送失败只报认证错误，先在系统终端确认一次再回编辑器。"
+  ],
+  "bestFor": "希望团队在 Godot 编辑器里完成日常提交与分支切换，又不想让美术和策划额外学命令行的中小型项目。",
+  "avoidWhenZh": "需要交互式变基、复杂冲突演练或完整 LFS 流程的团队，直接用命令行更稳。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-vscode-plugin",
+      "JetBrains__godot-support"
+    ],
+    "whenZh": "三者都是官方或半官方的开发配套工具：Git 插件管编辑器内的版本控制，VSCode 与 JetBrains 插件管外部代码编辑体验。日常提交与分支操作用 Git 插件，写代码时再配合后两者，它们互补而非替代。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "版本控制",
+    "Git",
+    "GDExtension",
+    "编辑器集成"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "用 libgit2 作为后端模拟 Git",
+      "source": "README.md",
+      "quote": "as our backend to simulate Git in code"
+    },
+    {
+      "claim": "实现引擎的版本控制接口",
+      "source": "README.md",
+      "quote": "Git implementation of the Godot Engine VCS interface in Godot."
+    },
+    {
+      "claim": "扩展最低兼容 Godot 4.3",
+      "source": "misc/git_plugin.gdextension",
+      "quote": "compatibility_minimum = \"4.3\""
+    },
+    {
+      "claim": "从发布页获取平台二进制",
+      "source": "README.md",
+      "quote": "Grab the platform binaries from the"
+    }
+  ],
+  "depth": "standard"
+}

@@ -1,0 +1,143 @@
+{
+  "id": "chairfull__GodotRichTextLabel2",
+  "depth": "standard",
+  "taglineZh": "给 RichTextLabel 加富文本便利功能与逐字动画的插件",
+  "summaryZh": "RichTextLabel2 在原生 RichTextLabel 之上加了两类节点：RicherTextLabel 用更短的 BBCode 写法做多标签、字号、颜色、表情、上下文变量与管道处理；RichTextAnimation 负责逐字淡入、等待、停顿、书签与点击继续，适合对话与过场。它还能扫描项目字体并自动生成粗斜体变体。功能很多但版本间有破坏性改动，部分动画效果作者自己标注为损坏或未测试，文档只有一份 README。",
+  "whatItDoes": "RicherTextLabel 解析扩展 BBCode，支持 [deep_sky_blue;b] 这类组合标签、整数绝对字号、浮点相对字号、表情短码、自动颜色名、Markdown 替换与花括号表达式，还能通过管道把值传给上下文节点的方法。RichTextAnimation 在文本到达时播放逐字动画，支持 wait、hold、pace、skip、表达式与书签标签，并提供 Click2Continue 定位到最后一个可见字符。",
+  "useCases": [
+    {
+      "titleZh": "对话系统",
+      "descZh": "视觉小说或角色扮演对话需要逐字、停顿与点击继续，直接挂动画节点即可，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "状态化界面",
+      "descZh": "背包或属性面板用变量与表达式直接渲染数值，减少手写字符串拼接，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "富文本提示",
+      "descZh": "物品描述需要多色、图标、粗细混排，用短标签比长 BBCode 可读性更好，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "演出字幕",
+      "descZh": "过场字幕要做抖动、波浪、彩虹等效果，内置标签可直接组合，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "RicherTextLabel",
+      "descZh": "扩展 BBCode 的文本节点，支持表达式管道与自动样式，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "RichTextAnimation",
+      "descZh": "逐字入场与等待、书签、点击继续的动画节点，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "FontHelper",
+      "descZh": "扫描项目字体并生成粗斜体变体的资源，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "短标签",
+      "descZh": "用分号组合颜色、粗体与斜体，方括号统一闭合，参数集中在检查器面板。"
+    },
+    {
+      "name": "相对字号",
+      "descZh": "整数为绝对像素，浮点为相对字号，便于统一缩放，后续修改起来也不费劲。"
+    },
+    {
+      "name": "上下文表达式",
+      "descZh": "美元变量与花括号表达式直接读取节点属性，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "管道",
+      "descZh": "把值依次传给方法，支持自定义格式化与链式处理，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "动画标签",
+      "descZh": "wait、hold、pace、skip 与书签控制演出节奏，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "必须先在项目里创建 FontHelper 资源并点 Update 扫描字体，否则字体下拉为空，这是 README 明确的前置条件。项目只提供 README 作为文档，没有 API 参考，标签与属性只能逐条查表。版本更新包含多次破坏性改名，旧项目升级要对照 Changes 逐项迁移。作者标注 console 与 redact 动画损坏、部分过渡未测试，sin 效果也可能失效。功能堆叠多，低端设备上逐字动画与光标特效可能带来额外开销。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/richtext2 并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "创建 FontHelper 并点 Update 扫描字体，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "用 RicherTextLabel 替换原生节点，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "按需挂 RichTextAnimation 调节奏，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "逐个验证特效并处理升级改名，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "把常用富文本写法压缩成短标签，状态数据可直接插值，减少字符串拼接。",
+    "动画节点覆盖逐字入场、停顿、书签与点击继续，对话场景开箱可用。",
+    "自动扫描字体并生成粗斜体变体，省去手工维护字体资源，团队新人照着示例就能上手。",
+    "管道机制可复用到任意上下文方法，样式与文案能分离，出现问题时也更容易定位原因。"
+  ],
+  "cons": [
+    "必须创建 FontHelper 资源，漏掉前置步骤字体下拉为空，升级引擎版本时容易卡住。",
+    "部分动画效果作者标注损坏或未测试，正式使用要逐个验证。",
+    "只有 README 文档，且版本间多次破坏性改名，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "启用插件后要先创建 FontHelper 并点 Update，否则字体列表不会出现，上线前要专门过一遍。",
+    "升级版本时 is_finished 等接口已改名，旧脚本会编译失败，需对照 Changes 迁移。",
+    "表达式与管道会执行上下文节点的方法，接入玩家可编辑文本前要做白名单过滤。"
+  ],
+  "bestFor": "做对话密集的角色扮演或视觉小说，希望用一套节点同时解决富文本样式与逐字演出的团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只需要原生 RichTextLabel 的基础排版，或无法接受频繁接口变动时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "dialogic-godot__dialogic"
+    ],
+    "whenZh": "两者都能做对话表现；RichTextLabel2 是文本节点与动画组件，dialogic 是完整对话与角色管理系统。只要富文本与逐字效果选前者，要时间轴、分支与角色立绘选后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "富文本",
+    "对话",
+    "逐字动画",
+    "界面"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "提供两个增强节点",
+      "source": "README.md",
+      "quote": "`RicherTextLabel`: Reduce effort needed to display state data and stylize it."
+    },
+    {
+      "claim": "需要创建 FontHelper 并更新字体列表",
+      "source": "README.md",
+      "quote": "You need to create a `FontHelper` somewhere in your project."
+    },
+    {
+      "claim": "部分动画效果损坏或未测试",
+      "source": "README.md",
+      "quote": "7 transition effects. (Some unstable/untested.)"
+    },
+    {
+      "claim": "明确标注两个动画损坏",
+      "source": "README.md",
+      "quote": "|`console`|(Broken) Simulates a computer console.||"
+    }
+  ]
+}

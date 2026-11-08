@@ -1,0 +1,65 @@
+{
+  "id": "Bonkahe__SunshineClouds2",
+  "depth": "standard",
+  "taglineZh": "为 Godot 4 天空生成可穿行的程序化体积云层",
+  "summaryZh": "SunshineClouds2 是面向 Godot 4.4 及以上版本的体积云系统，基于 Compositor 重写，性能和画面比旧版更好。它完全程序化生成，也能用编辑器工具绘制云的密度与颜色，支持软云或卡通风格、分辨率降采样、视距丢弃和 MSAA。安装步骤很短：启用插件、在场景放一个 SunshineCloudsDriverGD 节点、确保有 World Environment，再生成云资源并把方向光拖进跟踪列表。作者还提供了入门与深度讲解视频，方便快速上手。",
+  "whatItDoes": "插件把云的生成与渲染挂在 Compositor 上，驱动节点负责生成云资源并跟场景里的 World Environment 与方向光配合。参数区可调覆盖范围、分辨率与上采样、视距裁剪以及云的颜色和密度，编辑器工具允许把密度与颜色直接画到云贴图上。方向光参与散射计算，雾兼容滑块让云与场景雾过渡自然。生成的资源保存后即可在运行时复用。",
+  "useCases": [
+    {"titleZh": "开放世界天空", "descZh": "给大世界场景铺一层可远眺的体积云，配合视距裁剪控制远处云层开销，保持天际线层次自然。"},
+    {"titleZh": "飞行与空战视角", "descZh": "低分辨率上采样让云保持柔软，飞行穿云时不会出现明显块状或硬边，适合高速移动。"},
+    {"titleZh": "卡通风格关卡", "descZh": "用风格化选项把云调成柔软或卡通风，匹配低多边形或动漫渲染的地图，统一美术调性。"},
+    {"titleZh": "手绘云层分布", "descZh": "用编辑器笔刷把密度与颜色画到贴图上，做出局部厚重或带色偏的云团，不必写噪声图。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "云资源与驱动节点", "descZh": "生成可在场景复用的云资源，并由驱动节点挂到世界环境上参与渲染，稳定。"},
+    {"titleZh": "可绘制的云贴图", "descZh": "在编辑器里把密度与颜色画进云贴图，做出区域化的云形、层次与色偏，好看。"},
+    {"titleZh": "可调的天空参数", "descZh": "覆盖范围、分辨率、视距与软硬风格等参数集中在一处，方便逐项微调与对比。"}
+  ],
+  "featureCallouts": [
+    {"name": "Compositor 架构", "descZh": "基于 Godot 4 的 Compositor 实现，比旧版更省资源、更稳且改善画面与兼容性。"},
+    {"name": "程序化与手绘", "descZh": "既能全程序化生成，也能用编辑器笔刷绘制密度与颜色并实时预览。"},
+    {"name": "分辨率与上采样", "descZh": "降低渲染分辨率再上采样，软云仍可飞行穿越，明显降低显卡压力。"},
+    {"name": "视距丢弃", "descZh": "远处云层按距离丢弃，缩短相机远裁剪面也不影响云的表现。"},
+    {"name": "雾与光照兼容", "descZh": "带雾兼容滑块并跟踪方向光，让云与场景雾和太阳散射衔接。"}
+  ],
+  "limitsZh": "插件要求 Godot 4.4 以上，且场景必须存在 World Environment，驱动节点还要手动把方向光加入跟踪列表，漏配就会缺少受光效果。README 列出的待办包括屏幕空间阴影与阴影 cookie，说明阴影表现还不完整。体积云本身开销不低，分辨率、覆盖范围与视距都直接影响帧率，低端 GPU 需要降档。当前仓库带测试工程与可执行文件，体积较大，首次拉取与导入会比较慢。作者更新节奏稳定，但文档主要靠视频，文字说明偏简略。",
+  "workflowZh": [
+    {"stepZh": "在项目设置的插件页勾选并启用 SunshineClouds2 云插件后重载"},
+    {"stepZh": "在目标场景里添加 SunshineCloudsDriverGD 节点作为云驱动入口并保存"},
+    {"stepZh": "确认场景内已有 World Environment，否则云无法正确挂载显示"},
+    {"stepZh": "在驱动节点面板点 Generate Clouds Resource 按钮生成云资源并保存"},
+    {"stepZh": "把场景中的方向光拖进 Tracked Directional Lights 数组供受光计算"}
+  ],
+  "pros": [
+    "改用 Compositor 架构后画面与性能都比旧版好，运行开销低且效果更稳定可靠",
+    "支持全程序化生成，也能用编辑器笔刷绘制密度与颜色，风格可调柔软或卡通",
+    "分辨率降采样再上采样后，低分辨率下云依然柔软，飞行穿越也不会露馅",
+    "启用插件、放驱动节点、生成云资源三步就能出效果，新手也能按视频照做",
+    "版本从 2.0 持续迭代到 2.7，作者还录了入门教程与三十分钟深度讲解视频"
+  ],
+  "cons": [
+    "云依赖场景内的 World Environment，没有世界环境节点就无法正确挂载与显示",
+    "作者列出的待办里还有屏幕空间阴影和阴影 cookie，说明云的阴影表现尚不完整",
+    "体积云对 GPU 压力明显，低端显卡要降分辨率、缩小覆盖或缩短视距来保住帧率"
+  ],
+  "pitfalls": [
+    "开启视距丢弃后远处云层会被裁掉，做远景截图或长焦镜头时要先调大覆盖范围",
+    "忘记把方向光拖进 Tracked Directional Lights，云会缺少受光而显得发灰发平，需检查",
+    "仓库里带测试工程与可执行文件，体积偏大，首次克隆和导入编辑器都会明显变慢"
+  ],
+  "bestFor": "想在 Godot 4.4 以上的室外或飞行场景里加一层可穿行、可手绘、风格可调的体积云，并能接受手动调参的美术与开发者。",
+  "avoidWhenZh": "项目用 Godot 4.3 及以下版本，或目标设备 GPU 很弱、必须严格控帧的场景、要稳定阴影。",
+  "compareTips": {"vs": ["tessarakkt__godot4-oceanfft"], "whenZh": "SunshineClouds2 专做体积云与天空氛围，OceanFFT 专做 FFT 海面与浮力，两者都是重计算的 3D 环境插件但目标不同，按场景主体取舍：要天空云层选前者，要海洋与浮力选后者。"},
+  "category": "3d-shader",
+  "tags": ["体积云", "Compositor", "程序化", "天空", "3D"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 2, "maintenance": 4, "performance": 4, "stability": 3},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {"claim": "基于 Compositor 的三维体积云系统", "source": "plugin.cfg", "quote": "description=\"Compositor based 3D volumetric clouds system.\""},
+    {"claim": "云可以按参数延伸到很远", "source": "README.md", "quote": "* Fully volumetric clouds, extendable as far from the camera as you want with the correct settings"},
+    {"claim": "既程序化也可用编辑器工具绘制密度与颜色", "source": "README.md", "quote": "* Entirely procedural, or paint in clouds using the editor tools, able to paint in density as well as color to tint clouds differently depending on region"},
+    {"claim": "需要在场景中放置驱动节点", "source": "README.md", "quote": "3. Add a SunshineCloudsDriverGD node to your scene"}
+  ]
+}

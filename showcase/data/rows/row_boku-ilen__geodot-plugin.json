@@ -1,0 +1,35 @@
+{
+  "id": "boku-ilen__geodot-plugin",
+  "descriptionZh": "基于 GDAL 的 Godot GDExtension，可读取 GeoTIFF、Shapefile 与 GeoPackage 等地理数据并支持范围裁剪",
+  "category": "asset-pipeline",
+  "tags": [
+    "地理数据",
+    "GDAL",
+    "GDExtension",
+    "高程图",
+    "GIS"
+  ],
+  "prosShort": [
+    "直接读取常见地理数据格式",
+    "按范围裁剪数据，控制内存与加载时间",
+    "栅格与矢量两类数据都支持"
+  ],
+  "consShort": [
+    "依赖 GDAL 原生库，环境配置麻烦",
+    "编译链复杂，升级要重新构建",
+    "数据预处理仍需借助外部 GIS 工具"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

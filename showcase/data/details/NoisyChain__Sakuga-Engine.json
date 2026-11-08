@@ -1,0 +1,157 @@
+{
+  "id": "NoisyChain__Sakuga-Engine",
+  "depth": "standard",
+  "taglineZh": "面向 2D 动漫格斗游戏的完整 Godot 4 引擎",
+  "summaryZh": "Sakuga Engine 是一个用 C# 写的 2D 1v1 动漫格斗游戏引擎，提供从角色状态机、走位、投射物到回滚联机的整套骨架，官方称联机开箱可用。内置街机、对战、训练、回放与调试模式，附带示例角色与实验性 AI。基本玩法不写代码也能跑，但要做出自己的角色仍需懂 C# 与引擎结构。它把项目当成完整工程而非可插拔插件，适合想直接开工的格斗游戏，不适合 3D 或组队玩法。",
+  "whatItDoes": "仓库是一份完整的 Godot 4 项目：核心是角色状态系统与可组合的 stance、action、projectile 资源，配合确定性随机数与回滚网络同步。场景层提供选人、对战、训练、回放与在线房间流程，示例角色 Kaede 与 Dummy 展示招式配置。开发者主要编写角色资源与招式脚本，UI、输入与联机框架已有默认实现，可按需替换。",
+  "useCases": [
+    {
+      "titleZh": "同人格斗",
+      "descZh": "想做 1v1 动漫风格格斗 demo 或同人作品，直接替换角色资源即可开工，省去从零写状态机的时间。"
+    },
+    {
+      "titleZh": "回滚联机",
+      "descZh": "需要确定性回滚网络的格斗项目，可直接沿用内置在线流程，不必自己啃 GGPO 类同步方案。"
+    },
+    {
+      "titleZh": "教学与试验",
+      "descZh": "学习格斗游戏状态机、输入缓冲与帧数据设计，仓库结构完整，可以当作参考实现来读。"
+    },
+    {
+      "titleZh": "快速原型",
+      "descZh": "用训练模式调招式与平衡，先验证手感再加入美术与剧情，迭代节奏比自研快得多，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "完整工程",
+      "descZh": "可直接用 Godot 4 打开的项目，含场景、角色、UI 与联机流程，运行即可试玩，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "格斗系统",
+      "descZh": "角色状态机、stance、投射物与确定性随机数，构成对战核心逻辑，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "示例内容",
+      "descZh": "Kaede 与 Dummy 两个示例角色，配训练与调试模式便于试招与调数值，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "回滚联机",
+      "descZh": "内置 rollback 网络同步，官方称开箱可用，省去自研确定性同步方案。"
+    },
+    {
+      "name": "状态扩展",
+      "descZh": "角色由资源组合，stance 与 action 可增删，便于做差异化角色，参数集中在检查器面板。"
+    },
+    {
+      "name": "多模式流程",
+      "descZh": "街机、对战、训练、回放、在线与调试模式齐全，菜单流程现成可用。"
+    },
+    {
+      "name": "纯 C#",
+      "descZh": "逻辑全部用 C# 实现，便于 .NET 团队维护，也依赖 .NET 版 Godot，后续修改起来也不费劲。"
+    },
+    {
+      "name": "示例角色",
+      "descZh": "附带可玩角色与 AI 对手，可直接改数值感受手感变化与帧数据差异。"
+    }
+  ],
+  "limitsZh": "它是完整项目而非插件，接入只能整包使用或手工搬代码，已有项目想局部引入成本高。官方明确只面向 2D 1v1 动漫格斗，不做 3D 格斗，也不支持 tag 组队玩法，想扩展要先改核心。依赖 Godot 4.7 .NET 版与 C#，团队要具备 .NET 调试能力；引擎处于活跃开发期，版本间可能有破坏性改动。README 指向外部 wiki，仓库内说明较少，AI 被标为实验性，正式项目需自行补测试。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 Godot 4.7 .NET 版本，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "克隆仓库并用编辑器打开项目，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在选人界面试玩示例角色，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "复制示例角色资源并改名改造，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "调整招式帧数据与判定盒，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "用训练模式验证手感与平衡，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "格斗所需的状态机与帧数据体系已成形，起步省下大量架构工作。",
+    "自带回滚联机与房间流程，联机验证不必另找方案，团队新人照着示例就能上手。",
+    "训练、回放与调试模式齐全，调招式时反馈直观，出现问题时也更容易定位原因。",
+    "示例角色可直接改，学习路径比读文档快，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "只能整包使用，局部移植到既有项目成本高，升级引擎版本时容易卡住。",
+    "限定 2D 1v1，3D 与组队玩法需要自行改造，定制之前往往要先读源码。",
+    "绑定 C# 与特定 Godot 版本，升级节奏受限，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "用标准版 Godot 打开会缺 C# 支持，需确认安装的是 .NET 版，上线前要专门过一遍。",
+    "直接改示例角色资源会影响所有引用处，先复制再改，排查时需要多留一层日志。",
+    "回滚联机对帧率与确定性敏感，调试时不要随意加随机逻辑。"
+  ],
+  "bestFor": "想快速做 2D 1v1 动漫格斗原型或同人作品、并接受整体采用其工程结构的 C# 团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "已有成熟项目只想加格斗模块，或要做 3D、组队乱斗玩法的团队。",
+  "compareTips": {
+    "vs": [
+      "OctoD__godot-gameplay-systems"
+    ],
+    "whenZh": "两者都是玩法框架：Sakuga 专精 2D 格斗并自带回滚联机，OctoD 提供更通用的角色与能力组件；做格斗直接选前者，做多类型动作游戏则后者更灵活。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "格斗游戏",
+    "C#",
+    "回滚联机",
+    "状态机"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "isGDExtension": false,
+  "evidence": [
+    {
+      "claim": "只面向 2D 1v1 动漫格斗",
+      "source": "README.md",
+      "quote": "2D 1v1 anime-style fighting game"
+    },
+    {
+      "claim": "内置回滚联机",
+      "source": "README.md",
+      "quote": "Rollback netcode out of the box"
+    },
+    {
+      "claim": "完全使用 C# 并面向 Godot 4.7 .NET",
+      "source": "README.md",
+      "quote": "Currently using Godot 4.7 .NET"
+    },
+    {
+      "claim": "不支持 3D 格斗玩法",
+      "source": "README.md",
+      "quote": "No, Sakuga Engine is only for 2D traditional fighting games."
+    },
+    {
+      "claim": "不支持 tag 组队玩法",
+      "source": "README.md",
+      "quote": "No, Sakuga Engine is only for 1v1 games at the moment."
+    },
+    {
+      "claim": "AI 仍为实验特性",
+      "source": "README.md",
+      "quote": "AI (experimental)"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "PiCode9560__Godot-4-Concave-Mesh-Slicer",
+  "descriptionZh": "基于 CSG 沿平面把凸、凹或带孔洞网格切成两个 ArrayMesh 的轻量切割插件",
+  "category": "asset-pipeline",
+  "tags": [
+    "网格切割",
+    "CSG",
+    "破坏效果",
+    "运行时工具"
+  ],
+  "prosShort": [
+    "支持凸、凹以及带孔洞模型的切割",
+    "只有一个静态函数，接入成本很低",
+    "切面可单独指定材质，断面处理方便"
+  ],
+  "consShort": [
+    "基于 CSG，开销大只能低频调用",
+    "只返回网格，不处理碰撞体与 UV",
+    "插件目录含空格，引用容易出错"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

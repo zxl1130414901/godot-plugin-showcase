@@ -1,0 +1,148 @@
+{
+  "id": "JekSun97__gdTree3D",
+  "depth": "standard",
+  "taglineZh": "参数化生成带风动效果的 3D 树木 GDExtension",
+  "summaryZh": "基于 proctree 移植的 C++ 扩展，用高度、坡度、分枝数、重力、扭转与细节等参数在编辑器里生成完整 3D 树，支持季节换叶、简化或完整碰撞、顶点色风动与从幼苗长大的生长动画。仓库提供预编译多平台库，开箱可用，但仅支持 Godot 4.5+，尚无自动 LOD 与自定义树叶模型，密林优化要自己做，选型前建议结合团队实际评估。",
+  "whatItDoes": "把原 proctree 的生成算法封装成 Godot 节点，暴露树高、弯曲、分枝层级、枝条长度、重力下垂与扭转等可调参数，生成树干与枝条网格。可按季节开关树叶，并按树干或全枝生成碰撞体；通过顶点色与配套材质着色器实现随风摆动，也能用代码驱动从树苗到成熟树的生长。",
+  "useCases": [
+    {
+      "titleZh": "森林场景填充",
+      "descZh": "程序化批量生成形态各异的树，快速铺满开放世界关卡，避免手工摆放重复模型，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "季节变化效果",
+      "descZh": "通过替换树叶材质颜色，让同一批树在春夏秋冬之间切换，省去多套模型资源，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "生长演出",
+      "descZh": "用代码推进生长参数，做从树苗长成大树的过程动画，适合过场演出或教学，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "碰撞与风动验证",
+      "descZh": "选择树干简化碰撞或全枝精细碰撞，配合风动着色器测试实际表现与开销，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "林间穿行关卡",
+      "descZh": "为森林场景生成带碰撞的树，让角色可以在树干间穿行并被枝条挡住，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "程序化树干网格",
+      "descZh": "带树皮 UV 与分枝层级的 3D 树干枝条网格，可直接替换材质，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "树枝碰撞体",
+      "descZh": "仅树干或包含全部枝条的碰撞形状，可按性能预算切换，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "风动材质",
+      "descZh": "依赖顶点色的 Tree3DUniversalMaterial 风动着色器与示例材质，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Tree3D 节点",
+      "descZh": "在编辑器内实时预览并重建整棵树，改参数可立即看结果，参数集中在检查器面板。"
+    },
+    {
+      "name": "生长接口",
+      "descZh": "按比例推进从幼苗到成熟树的形态，可由脚本逐帧驱动，后续修改起来也不费劲。"
+    },
+    {
+      "name": "风动着色器",
+      "descZh": "用顶点色权重让枝叶随风摆动，不需要逐枝做动画，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "碰撞生成",
+      "descZh": "可选仅树干或全枝的碰撞体，兼顾物理精度与开销，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "季节换叶",
+      "descZh": "通过替换材质控制树叶有无与颜色，实现季节切换，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "生成结果是纯程序化低模树，树皮与树叶依赖示例材质，缺少自动 LOD，密林场景需要自己按距离降面或分块。当前只支持 Godot 4.5+，4.4 及更早版本无法加载；仓库只带 Windows、Linux、macOS 预编译库，其他平台需自备 godot-cpp 与 SCons 编译。路线图里的自定义树叶模型、批量植树工具尚未完成，想做风格化树种仍需改 C++ 源码。",
+  "workflowZh": [
+    {
+      "stepZh": "拷贝 addons 目录并在项目设置中启用扩展"
+    },
+    {
+      "stepZh": "添加 Tree3D 节点并调整高度与分枝参数"
+    },
+    {
+      "stepZh": "指定树皮与树叶材质，按需开启季节切换"
+    },
+    {
+      "stepZh": "选择仅树干或全枝的碰撞生成方式"
+    },
+    {
+      "stepZh": "接入风动着色器或用代码驱动生长"
+    }
+  ],
+  "pros": [
+    "参数覆盖面广，树高、弯曲、分枝与扭转都可细调，形态可复现，团队新人照着示例就能上手。",
+    "自带 Windows、Linux、macOS 预编译库，开箱即可用，出现问题时也更容易定位原因。",
+    "风动与生长接口直接内置，不必再写骨骼或顶点动画，对中小团队的时间成本很友好。",
+    "C++ 实现批量生成大量树时速度快于脚本方案，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "仅支持 Godot 4.5+，可用的项目范围很窄，升级引擎版本时容易卡住。",
+    "没有自动 LOD，密林场景需自行分块与降面优化，定制之前往往要先读源码。",
+    "树叶与树皮素材有限，风格化与自定义树种能力弱"
+  ],
+  "pitfalls": [
+    "树干材质需设为 Cull Front，否则从内部会看穿，上线前要专门过一遍。",
+    "缺少 godot-cpp 时源码编译会直接失败，需按版本文档配置，排查时需要多留一层日志。",
+    "全枝碰撞体数量过多会明显拖慢物理帧，应优先树干碰撞，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "需要快速铺量、且项目已升级到 Godot 4.5 的 3D 关卡、森林或开放世界原型团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "要求高度风格化树种、需要自动 LOD，或项目仍停留在 4.4 及更早版本时。",
+  "compareTips": {
+    "vs": [
+      "Dragonboon__Terrainy"
+    ],
+    "whenZh": "两者都做程序化自然场景：gdTree3D 专注树木形态、风动与生长，产出单个树木节点；Terrainy 侧重地形网格与地表塑造。通常先用 Terrainy 铺地形，再用 gdTree3D 在其上种树。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "程序化生成",
+    "3D树木",
+    "风动",
+    "GDExtension",
+    "碰撞"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "支持程序化生成并控制树形参数",
+      "source": "README.md",
+      "quote": "Procedural tree generation. Control the height, slope, number of branches, branch length, gravity, twist, and detail."
+    },
+    {
+      "claim": "支持生长动画与风动",
+      "source": "README.md",
+      "quote": "Create procedural tree growth from a sapling to a large mature tree using code."
+    },
+    {
+      "claim": "仅支持 Godot 4.5+",
+      "source": "README.md",
+      "quote": "Godot 4.5+ (Windows, Linux, MacOS)"
+    },
+    {
+      "claim": "自动 LOD 尚未实现",
+      "source": "README.md",
+      "quote": "- [ ] Automatic LOD."
+    }
+  ]
+}

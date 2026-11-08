@@ -1,0 +1,34 @@
+{
+  "id": "TokisanGames__Terrain3D",
+  "descriptionZh": "C++ 实现的高性能地形系统，支持区域流式加载、十级 LOD、纹理绘制与植被散布。",
+  "category": "3d-shader",
+  "tags": [
+    "地形",
+    "开放世界",
+    "GDExtension",
+    "LOD"
+  ],
+  "prosShort": [
+    "原生实现让大地形帧率更稳",
+    "世界规模上限远超同类地形插件",
+    "笔刷材质与植被功能都很齐全"
+  ],
+  "consShort": [
+    "必须匹配引擎版本与预编译库",
+    "低端移动设备需要主动降画质",
+    "区域与材质概念很多，上手偏慢"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

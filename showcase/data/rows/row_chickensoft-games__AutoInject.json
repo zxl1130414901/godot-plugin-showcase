@@ -1,0 +1,33 @@
+{
+  "id": "chickensoft-games__AutoInject",
+  "category": "state-logic",
+  "tags": [
+    "依赖注入",
+    "C#",
+    "节点解耦",
+    "生命周期钩子"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "descriptionZh": "C# Godot 的无反射节点依赖注入库，用 Provider 与 Dependent 沿树解析，含生命周期钩子与自动节点绑定",
+  "prosShort": [
+    "沿树解析依赖，脚本耦合明显降低",
+    "源生成器无反射，运行开销更小",
+    "生命周期与绑定统一，样板更少"
+  ],
+  "consShort": [
+    "仅支持 C#，GDScript 项目用不了，团队要提前评估。",
+    "必须重写通知方法，漏写难排查"
+  ],
+  "sampleStatus": "none"
+}

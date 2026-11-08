@@ -1,0 +1,35 @@
+{
+  "id": "Arnklit__Waterways",
+  "descriptionZh": "沿贝塞尔路径生成河流网格与流向、泡沫贴图的 Godot 3 插件，另有全局水系统贴图与让刚体随水面浮动的组件。",
+  "category": "3d-shader",
+  "tags": [
+    "河流",
+    "流向图",
+    "水面着色器",
+    "Godot3",
+    "程序化网格"
+  ],
+  "prosShort": [
+    "河流网格与流向图在引擎内生成",
+    "全局水系统可把多条河合成一张图",
+    "内置 Water 与 Lava 两套现成着色器"
+  ],
+  "consShort": [
+    "只支持 Godot 3，4.x 项目无法直接用",
+    "只做河流，不覆盖湖泊与海洋水面",
+    "版本停在 0.2.1，多年未更新"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

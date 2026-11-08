@@ -1,0 +1,152 @@
+{
+  "taglineZh": "Godot 4 的 Google Play 内购 Android 插件，封装 BillingClient 与其信号",
+  "summaryZh": "这个插件把 Google Play Billing 库封装成 Godot 的 Android 导出插件，GDScript 侧拿到一个 BillingClient 类：调用 start_connection 连上计费服务，再通过 connected、query_product_details_response、on_purchase_updated、consume_purchase_response 等信号拿到异步结果。它支持一次性商品、消耗型商品与订阅，能查询已购、消费与确认订单，也覆盖替换与升级所需的参数。注意它只对上传到 Google Play 的构建生效，本地导出包不能真正完成购买。",
+  "whatItDoes": "导出插件在 Android 导出时把 Kotlin 实现与 Gradle 依赖注入工程，GDScript 侧实例化 BillingClient 并连接信号。query_product_details 查询商品信息，purchase 发起购买，query_purchases 查已购记录，consume_purchase 与 acknowledge_purchase 完成消耗与确认，返回都用 Dictionary 携带 response_code 与 debug_message。方法、信号与枚举在 docs/api 下逐条说明。",
+  "useCases": [
+    {
+      "titleZh": "一次性解锁",
+      "descZh": "卖去广告或完整版这类一次性商品，购买后用 acknowledge_purchase 确认，即可永久解锁功能，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "消耗型道具",
+      "descZh": "卖金币、体力这类可重复购买的道具，用 consume_purchase 消耗，之后才允许玩家再次购买，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "订阅制",
+      "descZh": "订阅服务需要在启动时 query_purchases 检查有效期与续订状态，再决定是否放开对应功能，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "上架合规",
+      "descZh": "要通过 Google Play 审核就必须正确确认与消费订单，插件把这些调用都包装成现成方法，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "自建商店页",
+      "descZh": "自建内购商店页时，用 query_product_details 拿本地化价格与标题，避免把文案硬编码在界面里，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Android 导出插件",
+      "descZh": "把 Kotlin 实现与 Gradle 依赖注入导出流程的插件目录，随 APK 一起打包，不用手改构建脚本。"
+    },
+    {
+      "titleZh": "BillingClient 类",
+      "descZh": "GDScript 侧唯一入口，负责连接、查询、购买、消费与确认，返回值都是 Dictionary，信号里再带错误码。"
+    },
+    {
+      "titleZh": "完整 API 文档",
+      "descZh": "docs 下的 methods、signals、enums 与 Console 配置指南，可离线阅读与逐条检索，查参数不用开浏览器。"
+    },
+    {
+      "titleZh": "IAP 示例工程",
+      "descZh": "官方提供的 Android 内购演示，可对照跑通从连接商品到确认订单的完整闭环。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "信号驱动",
+      "descZh": "所有计费结果通过信号异步返回，Dictionary 里带 response_code 便于分支处理。"
+    },
+    {
+      "name": "订阅与消耗",
+      "descZh": "区分消耗型、一次性与订阅，消费与确认各有独立方法与回调。"
+    },
+    {
+      "name": "替换与升级",
+      "descZh": "支持老订阅替换、按比例计费模式等参数，覆盖升降级与折算场景。"
+    },
+    {
+      "name": "Console 指南",
+      "descZh": "文档从建应用、配商品到测试账号逐项说明，减少上架前的踩坑。"
+    },
+    {
+      "name": "离线文档",
+      "descZh": "docs 目录随仓库发布，包含方法、信号与枚举的逐条说明，不依赖外网。"
+    }
+  ],
+  "limitsZh": "只在 Android 上生效，桌面、iOS 与 Web 导出里 BillingClient 没有可用后端。文档明确只有上传到 Google Play 的构建才能真正完成购买，本地导出包只能验证连接与查询，测试要走内部测试轨道并配好测试账号。工程必须开启 Android 的 gradle build，否则导出时插件注入不生效。master 分支只支持 Godot 4.2 以上，更老的版本要换 1.x 分支；商品与订阅需先在 Play Console 建好，代码里的 ID 必须与后台一致。",
+  "workflowZh": [
+    {
+      "stepZh": "从 Releases 下载插件并解压到 addons/GodotGooglePlayBilling 目录，确认 plugin.cfg 存在。"
+    },
+    {
+      "stepZh": "在项目设置的插件面板启用 GodotGooglePlayBilling 并确认无报错。"
+    },
+    {
+      "stepZh": "打开 Android 导出选项里的 gradle build 开关，否则插件不会注入。"
+    },
+    {
+      "stepZh": "在 Play Console 建商品与订阅，把 ID 填进项目配置。"
+    },
+    {
+      "stepZh": "实例化 BillingClient，连接信号后调用 start_connection 建立会话。"
+    }
+  ],
+  "pros": [
+    "把 Billing 库的连接、查询、购买、消费与确认都封装成 GDScript 方法，省掉自己写 Kotlin 桥接。",
+    "文档站覆盖方法、信号、枚举与 Console 配置，接入路径比多数 Android 插件清晰。",
+    "有官方 IAP 示例工程，购买闭环可以照着跑通再改，减少联调试错。",
+    "3.3.0 版本跟随 Godot 4.2 以上分支维护，Android 导出注入流程比较稳定。"
+  ],
+  "cons": [
+    "只在 Android 与 Google Play 环境可用，其他平台无法测试购买流程",
+    "必须开启 gradle build，导出配置改错就看不到插件，也不报错",
+    "商品 ID 与 Console 配置强耦合，联调与排错成本都不低"
+  ],
+  "pitfalls": [
+    "导出包没上传到 Play 就点购买，只会拿到错误码，常被误判为代码问题。",
+    "忘记开启 gradle build，插件不会被注入，运行时会报类找不到，日志里只有空引用。",
+    "消耗型商品买完没 consume，再次购买会提示已经拥有，需要先补确认。"
+  ],
+  "bestFor": "准备在 Google Play 上架并售卖一次性解锁、消耗型道具或订阅，且能接受 Android 联调流程的独立游戏团队，上线节奏不急。",
+  "avoidWhenZh": "目标是 iOS、Steam 或桌面发行，或只需要站内虚拟经济不需要真实支付时。",
+  "compareTips": {
+    "vs": [
+      "godot-sdk-integrations__godot-play-game-services"
+    ],
+    "whenZh": "同属 Google Play 集成：billing 管内购、订阅、消费与确认，play-game-services 管登录、排行榜、成就与云存档。上架商业游戏通常两者都要装，注意各自对签名与 Console 配置的要求，联调时分开验证。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "Android",
+    "内购",
+    "Google Play",
+    "计费",
+    "Gradle"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "面向 Google Play Billing 库的 Android 插件",
+      "source": "README.md",
+      "quote": "Godot Android plugin for the Google Play Billing library"
+    },
+    {
+      "claim": "master 分支支持 Godot 4.2 以上",
+      "source": "README.md",
+      "quote": "Note: The master branch supports Godot 4.2 and above. For older Godot versions, use the [1.x] branch"
+    },
+    {
+      "claim": "必须开启 Android gradle build",
+      "source": "README.md",
+      "quote": "In Godot, go to: **Project > Export > Android > gradle/use_gradle_build** and enable it."
+    },
+    {
+      "claim": "只有上传到 Play 的构建才能完成购买",
+      "source": "docs/quickstart.md",
+      "quote": "Google Play Billing only works with builds uploaded to the **Google Play Store**."
+    }
+  ],
+  "id": "godot-sdk-integrations__godot-google-play-billing",
+  "depth": "standard"
+}

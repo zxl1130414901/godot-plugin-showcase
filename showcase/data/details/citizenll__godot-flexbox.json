@@ -1,0 +1,137 @@
+{
+  "id": "citizenll__godot-flexbox",
+  "depth": "standard",
+  "taglineZh": "用 Flexbox 布局规则排布 Godot 界面的原生容器插件",
+  "summaryZh": "Godot Flexbox 是 flexbox 布局的 GDExtension 封装，让你用 CSS 里那套 FlexDirection 与子项属性在 Godot 4 中排布界面。2.0 版本针对 Godot 4.1 重做，官方称体验更接近原生组件：往场景里添加 FlexContainer 节点，在检查器里改 FlexDirection 即可看到布局变化，子节点也有对应的检查器属性。仓库保留 4.0 与 3.5 的分支，主分支面向 4.1，AssetLib 上有发布条目，也可以克隆后拷走 addons 目录。README 明确写着项目仍在开发中，只具备基础功能，且测试覆盖仅限 Windows 与 Android，采用前需要自己补做其他平台的验证。",
+  "whatItDoes": "用 GDExtension 把 Yoga/Flexbox 布局能力暴露成 Godot 的容器节点，按主轴方向、换行、对齐与伸缩规则自动排布子控件。以检查器属性替代手写代码，修改方向与子项参数即可实时看到布局结果，交互接近内置容器。",
+  "useCases": [
+    {
+      "titleZh": "响应式界面",
+      "descZh": "按 flex 方向与伸缩比例排布面板，窗口尺寸变化时自动重排，少写锚点、边距与手算尺寸。"
+    },
+    {
+      "titleZh": "复杂工具栏",
+      "descZh": "把按钮与输入框按行或列排布，用对齐与间距规则统一风格，改布局不必动脚本，也不必重算尺寸。"
+    },
+    {
+      "titleZh": "跨分辨率适配",
+      "descZh": "用伸缩与换行规则适配不同宽高比，移动与桌面共用一套布局，减少平台分支与重复调整。"
+    },
+    {
+      "titleZh": "Web 与 CSS 经验迁移",
+      "descZh": "熟悉 flexbox 的开发者可直接套用概念，减少重新学 Godot 容器体系的时间，迁移与排查也更快。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "FlexContainer 节点",
+      "descZh": "在场景里加容器并按 flex 属性排布子节点，方向、换行与对齐都在检查器里可调。"
+    },
+    {
+      "titleZh": "子项布局属性",
+      "descZh": "每个子控件有增长、收缩与对齐等参数，与 CSS flex 概念一一对应，改比例直观。"
+    },
+    {
+      "titleZh": "示例与文档",
+      "descZh": "仓库带演示场景与截图说明，属性含义有对照，接入与调参都能照着来，少走弯路。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "FlexContainer",
+      "descZh": "核心容器节点，负责主轴方向、换行与对齐，替代手写锚点布局。"
+    },
+    {
+      "name": "子项伸缩",
+      "descZh": "按 grow 与 shrink 分配剩余空间，窗口变化时比例稳定，容器不用重排脚本。"
+    },
+    {
+      "name": "检查器属性",
+      "descZh": "布局参数在检查器里直接改，所见即所得，调界面不用写代码。"
+    }
+  ],
+  "limitsZh": "README 直接声明项目处于开发中，只具备基础功能，且仅在 Windows 与 Android 上做过测试，其他平台需要自行验证，macOS 与 iOS 虽在 gdextension 中声明了库路径，实际稳定性未知。Godot 版本被切成多个分支：主分支面向 3.5，4.0 另有单独分支，2.0 版本要求 4.1，clone 下来若分支选错会直接编译失败或接口不匹配。仓库是 GDExtension 工程，包含 godot-cpp 子模块与 SConstruct、build.py，从源码构建需要 C++ 工具链并初始化子模块，只有走 AssetLib 才能绕开编译。文档极简，仅千余字符，主要靠外链两篇 CSS Flexbox 教程，缺少属性对照表与已知问题清单。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆仓库，并用子模块命令初始化 godot-cpp 依赖"
+    },
+    {
+      "stepZh": "按文档用 SCons 构建 GDExtension，再把产物复制到 addons 目录"
+    },
+    {
+      "stepZh": "在场景里添加 FlexContainer 节点，并放入需要排布的子控件"
+    },
+    {
+      "stepZh": "设置主轴方向、对齐方式与子项的伸缩比例"
+    },
+    {
+      "stepZh": "缩放窗口验证换行与比例是否符合预期"
+    }
+  ],
+  "pros": [
+    "直接套用 flexbox 概念，排布复杂界面时比锚点更直观，规则也集中",
+    "布局规则集中在容器与子项属性，改界面不动脚本，调整也快",
+    "以 GDExtension 实现，运行效率优于纯脚本布局，重排开销更低，界面刷新更稳",
+    "文档带动图与属性截图，属性含义有对照，入门路径清楚，调参也有参考",
+    "MIT 许可，可商用，也能按需要改源码与裁剪功能，分发没有额外限制"
+  ],
+  "cons": [
+    "需要自行编译 GDExtension，环境门槛高于纯 GDScript 插件，构建链也要自己维护",
+    "项目仍在开发，边缘属性与异常情况未必覆盖，遇到问题要读源码",
+    "文档以英文截图为主，深入用法仍要读源码与示例工程"
+  ],
+  "pitfalls": [
+    "子模块未初始化会导致构建缺头文件，先跑一次子模块更新",
+    "编译产物与引擎版本不匹配会加载失败，按标签选对应分支",
+    "给子控件同时设锚点与 flex 属性会互相覆盖，布局规则二选一"
+  ],
+  "bestFor": "做复杂 UI 且熟悉 flexbox 思路、愿意自行编译 GDExtension 的 Godot 4 团队，尤其需要响应式与多分辨率布局的项目与工具。",
+  "avoidWhenZh": "需要跨多个平台稳定交付、或不愿承担 GDExtension 编译与分支维护成本的团队，应优先使用内置容器节点。",
+  "compareTips": {
+    "vs": [
+      "don-tnowe__godot-extra-controls"
+    ],
+    "whenZh": "两者都解决 UI 排布：Flexbox 引入 CSS 式弹性布局，适合复杂响应式界面；Extra Controls 补齐拖拽、径向菜单与动画容器等现成交互控件。要布局规则选前者，要现成控件选后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "Flexbox",
+    "布局容器",
+    "GDExtension",
+    "响应式UI",
+    "CSS"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "项目仍在开发中，只在部分平台测试过",
+      "source": "README.md",
+      "quote": "This is a work in progress. It can be used with basic functionality, and has been tested on Windows and Android."
+    },
+    {
+      "claim": "2.0 版本面向 Godot 4.1",
+      "source": "README.md",
+      "quote": "Godot4.1 New Version Support, Enhanced User Experience, Just Like Native Components."
+    },
+    {
+      "claim": "以 GDExtension 形式提供并声明多平台库",
+      "source": "addons/godot-flexbox/flexbox.gdextension",
+      "quote": "entry_symbol = \"flexbox_library_init\"\ncompatibility_minimum = \"4.1\""
+    },
+    {
+      "claim": "插件即 Flexbox 的封装",
+      "source": "addons/godot-flexbox/plugin.cfg",
+      "quote": "description=\"GDNative wrapper for Flexbox (Godot 3.2+), making it possible to use flexbox layout in all your future games.\""
+    }
+  ]
+}

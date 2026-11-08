@@ -1,0 +1,33 @@
+{
+  "id": "ReconWorldLab__godot-gaussian-splatting",
+  "descriptionZh": "Godot 4 实时 3D 高斯泼溅渲染插件，支持双后端重光照与碰撞生成",
+  "category": "3d-shader",
+  "tags": [
+    "3DGS",
+    "渲染",
+    "扫描资产",
+    "重光照"
+  ],
+  "prosShort": [
+    "导入渲染碰撞重光照闭环，团队上手也快。",
+    "双后端可按显存预算切换，接入成本不高。",
+    "文档覆盖架构与限制，后续扩展方便。"
+  ],
+  "consShort": [
+    "Compute 后端限定 Forward Plus，团队要提前评估。",
+    "重光照无法移除烘焙光，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

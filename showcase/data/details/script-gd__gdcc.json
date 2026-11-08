@@ -1,0 +1,142 @@
+{
+  "id": "script-gd__gdcc",
+  "depth": "standard",
+  "taglineZh": "把 GDScript 编译成原生二进制模块的编译器",
+  "summaryZh": "GDCC 是把 GDScript 编译成原生 GDExtension 二进制模块的编译器，目标是让脚本获得接近 C/C++ 模块的安全性与运行性能。它的架构按解析器、语义分析、IR 降级、中间表示、后端生成、交叉编译工具链与编译服务分模块设计；生成的原生模块难以通过反编译还原源码，可从根本上保护代码；调用直接编译为静态 GDExtension 调用，避开兼容层与动态分派；同时兼容大部分弱类型代码，允许项目逐步迁移到强类型以获得更好性能。项目自称接近完整支持 GDScript 特性，要求 Godot 4.5 以上，并提供编辑器内的 Build 按钮做热编译与热重载，官方称三千行左右的增量编译常在 0.2 秒内完成。目前处于 beta 阶段。",
+  "whatItDoes": "读取工程里的 GDScript，经语义分析与中间表示生成原生二进制模块，并替换原有的脚本执行路径。提供编辑器插件与本地编译服务，改完代码点 Build 即可重编译并热重载到运行中的引擎。支持交叉编译与热更新，让同一套脚本产出多个平台的原生模块。",
+  "useCases": [
+    {
+      "titleZh": "发布前保护源码",
+      "descZh": "把核心逻辑编译成原生模块，避免玩家通过反编译拿到可读的 GDScript。"
+    },
+    {
+      "titleZh": "性能敏感的逻辑",
+      "descZh": "把逐帧执行的脚本编译为接近 C/C++ 的原生调用，降低解释执行开销。"
+    },
+    {
+      "titleZh": "渐进式迁移项目",
+      "descZh": "先编译部分脚本，保留解释器可调用编译产物的能力，逐步推进强类型改造。"
+    },
+    {
+      "titleZh": "多平台统一产物",
+      "descZh": "借助交叉编译工具链，在开发机上为多个目标平台生成模块。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "原生脚本模块",
+      "descZh": "由 GDScript 编译得到的 GDExtension 二进制文件。"
+    },
+    {
+      "titleZh": "可热重载的构建",
+      "descZh": "编辑器内一键编译并热更新到运行中的引擎。"
+    },
+    {
+      "titleZh": "跨平台编译产物",
+      "descZh": "经交叉编译工具链生成的各目标平台模块。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "反编译阻力",
+      "descZh": "生成原生二进制模块，从机制上阻止源码通过反编译泄露。"
+    },
+    {
+      "name": "静态调用生成",
+      "descZh": "直接生成高效的静态 GDExtension 调用，避开动态分派开销。"
+    },
+    {
+      "name": "热编译与热重载",
+      "descZh": "编辑器内点 Build 即重编译并热加载进运行中的引擎。"
+    },
+    {
+      "name": "极快增量编译",
+      "descZh": "官方称约三千行代码的增量编译常在 0.2 秒以内。"
+    }
+  ],
+  "limitsZh": "项目明确标注处于 beta，README 建议先在自有工程上评估再投入使用，说明稳定性与边界情况尚未完全验证。工具链不轻：仓库含 Gradle 工程与 build-script，编译器以本地 JSON-RPC 服务的形式运行，意味着需要 JDK 与 Gradle 环境，编辑器插件只是驱动该服务，缺服务时构建不可用。它要求 Godot 4.5 以上，旧版本工程无法使用；虽然宣称接近完整支持 GDScript，但弱类型代码依赖编译器插入的类型检查与转换，行为细节与解释执行可能存在差异，需要逐项验证。产出的原生模块与平台绑定，交叉编译配置不正确时会得到无法加载的库。作为编译型方案，它与热重载、调试器断点等原生工具链的配合方式也需要重新摸索，README 以特性罗列为主，缺少完整的迁移指南与故障排查。",
+  "workflowZh": [
+    {
+      "stepZh": "准备 JDK 与 Gradle 环境，构建本地 gdcc 编译服务。"
+    },
+    {
+      "stepZh": "安装编辑器 addon 并在项目设置中启用 GDCC。"
+    },
+    {
+      "stepZh": "确认工程使用 Godot 4.5 以上版本。"
+    },
+    {
+      "stepZh": "在编辑器内点击 Build，编译选中的脚本模块。"
+    },
+    {
+      "stepZh": "运行工程，验证编译产物与解释器混用的行为。"
+    },
+    {
+      "stepZh": "按需配置交叉编译目标，为其他平台生成模块。"
+    }
+  ],
+  "pros": [
+    "把 GDScript 编译为原生模块，源码保护效果好。",
+    "静态调用生成带来接近原生模块的运行性能。",
+    "支持渐进迁移，可与解释执行共存。",
+    "内置热编译与热重载，迭代速度快。"
+  ],
+  "cons": [
+    "项目处于 beta，稳定性需自行验证。",
+    "需 JDK 与 Gradle 支撑编译服务，环境较重。",
+    "要求 Godot 4.5 以上，旧工程不适用。"
+  ],
+  "pitfalls": [
+    "只装编辑器插件而未启动本地编译服务，Build 会失败且错误信息可能指向连接问题。",
+    "弱类型代码在编译后行为细节可能与解释执行不同，迁移时应先跑对比测试再批量替换。"
+  ],
+  "bestFor": "适合希望保护 GDScript 源码、提升运行性能，并愿意投入环境搭建与逐项验证的 Godot 4.5 以上项目。",
+  "avoidWhenZh": "仍在使用较早 Godot 版本、或团队没有精力承担 beta 风险与编译工具链维护的项目，不应贸然替换执行路径。",
+  "compareTips": {
+    "vs": [
+      "Jenova-Framework__Jenova-Runtime"
+    ],
+    "whenZh": "Jenova Runtime 让 C++ 成为脚本后端，GDCC 则把 GDScript 编译成原生模块；前者要重写逻辑语言，后者保留 GDScript 写法，按团队技术栈取舍。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "GDScript编译",
+    "原生模块",
+    "代码保护",
+    "热重载",
+    "性能优化"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "把 GDScript 编译成原生 GDExtension 二进制模块",
+      "source": "README.md",
+      "quote": "GDCC is a compiler that turns GDScript into native GDExtension binary modules, allowing GDScript to run safely and efficiently through Godot Engine's native binary interface."
+    },
+    {
+      "claim": "兼容 Godot 4.5 以上",
+      "source": "README.md",
+      "quote": "Nearly full `GDScript` feature support, compatible with `Godot >= 4.5.0`"
+    },
+    {
+      "claim": "项目处于 beta 阶段",
+      "source": "README.md",
+      "quote": "GDCC is currently in beta stage. Please evaluate it against your project before use."
+    },
+    {
+      "claim": "增量编译速度极快",
+      "source": "README.md",
+      "quote": "GDCC's incremental compile time for ~3000 lines of GDScript is typically under 0.2 seconds."
+    }
+  ]
+}

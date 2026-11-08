@@ -1,0 +1,144 @@
+{
+  "id": "godotengine__godot-cpp-template",
+  "depth": "standard",
+  "taglineZh": "官方提供的从编译到发布的 Godot C++ 扩展模板",
+  "summaryZh": "godot-cpp-template 是 Godot 官方给出的 GDExtension 起步工程，目标是把 C++ 扩展从编译到发布的一条链路先铺好。仓库含预置的 src 示例类与注册代码、一个用于验证的 Godot 测试工程、以子模块引入的 godot-cpp、Issue 模板、构建配置 SConstruct，以及创建 Release 时自动打包各平台库的 CI 工作流。使用时通过模板按钮复制仓库，初始化子模块，改库名与入口符号，跑 scons 编译，再打开测试工程确认控制台输出。它不替你做绑定设计，只把容易配错的基础设施摆正。",
+  "whatItDoes": "模板给出一个最小可运行的 C++ 扩展：注册入口、示例类与头文件，配合 SConstruct 调 godot-cpp 编译出动态库，测试工程通过 .gdextension 文件按平台加载产物。文档逐步说明改 libname、替换 EXTENSION-NAME 路径、重命名入口符号，并给出用 compile_commands.json 配置 IDE 的方法。CI 在打标签时构建多平台库并打包发布，省去手工各平台编译。它只提供骨架与流程，具体 API 绑定、文档注释与单元测试要自己加。",
+  "useCases": [
+    {
+      "titleZh": "首个 C++ 扩展",
+      "descZh": "想给 Godot 写第一个原生扩展，又不想从空目录摸索 SCons 配置与入口符号，用模板即可一次跑通整套最小可用流程。"
+    },
+    {
+      "titleZh": "移植现有 C++ 库",
+      "descZh": "手上已有现成的 C++ 库要接进 Godot，先把模板改名成自己的扩展，再逐步把库函数逐个包装成可用的类与方法接口。"
+    },
+    {
+      "titleZh": "团队脚手架",
+      "descZh": "工作室需要统一扩展仓库结构与发布流程，直接以这份模板作为起步，CI 与目录约定不必每个仓库都各自重写。"
+    },
+    {
+      "titleZh": "教学演示",
+      "descZh": "讲 GDExtension 时用模板演示注册、编译与加载三个完整环节，学员能在半小时内看到刚刚写的类真正地出现在引擎里。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "扩展源码骨架",
+      "descZh": "含入口注册、示例类与头文件的完整 src 目录，改名后即可写自己的绑定，不必从头手工抄样板。"
+    },
+    {
+      "titleZh": "验证工程",
+      "descZh": "project 目录下自带一个 Godot 工程与 .gdextension 配置文件，用来验证编译出来的动态库能被编辑器正确加载成功。"
+    },
+    {
+      "titleZh": "构建与发布流程",
+      "descZh": "一份 SConstruct、构建配置与 GitHub 工作流，统一负责本地编译以及打标签后的多平台打包与发布的发布工作。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "官方骨架",
+      "descZh": "由 Godot 官方维护，入口符号、目录与构建方式跟随当前 GDExtension 规范，少踩过时教程的坑。"
+    },
+    {
+      "name": "多平台 CI",
+      "descZh": "打标签即触发工作流，为桌面与移动平台构建库文件并打包，发布不必手工逐台机器编译。"
+    },
+    {
+      "name": "文档注释支持",
+      "descZh": "SConstruct 内置现成的文档生成完整样板，配合 doc_classes 可把扩展 API 直接接进编辑器帮助系统。"
+    },
+    {
+      "name": "IDE 集成",
+      "descZh": "可生成 compile_commands.json 编译数据库，主流编辑器能直接补全与跳转 C++ 源码，省去手工配置。"
+    },
+    {
+      "name": "测试工程",
+      "descZh": "自带一个最小的 Godot 项目与示例场景，编译完马上能验证库文件能否加载成功。"
+    }
+  ],
+  "limitsZh": "它只是脚手架，示例类只演示注册与打印，信号、属性、资源类型与编辑器插件接口都要自己写。godot-cpp 以子模块固定版本，升级引擎或绑定时要手动更新子模块并处理 API 变化。构建依赖 SCons、Python 与各平台 C++ 工具链，Windows 上还要装 Visual Studio 生成工具，新手容易卡在环境上。CI 默认面向 GitHub Actions，迁到其他平台需要重写工作流。模板不包含单元测试与热重载配置，复杂扩展的调试体验要另外搭。发布脚本假定使用模板自带命名规则，改目录后要同步修改多处路径。",
+  "workflowZh": [
+    {
+      "stepZh": "用模板复制仓库，克隆后初始化 godot-cpp 子模块并等依赖同步"
+    },
+    {
+      "stepZh": "修改构建脚本里的库名，并同步改扩展文件的入口符号"
+    },
+    {
+      "stepZh": "运行 scons 编译，确认产物路径与扩展文件里的平台配置一致"
+    },
+    {
+      "stepZh": "用 Godot 打开模板的 project 测试工程并确认示例类加载"
+    },
+    {
+      "stepZh": "打发布标签触发 CI，检查各平台库文件是否都打包"
+    }
+  ],
+  "pros": [
+    "官方维护的骨架，入口注册、构建脚本与目录结构跟随现行规范，少走过时教程的弯路。",
+    "自带测试工程与多平台 CI，编译后能立刻验证加载，发布也能一键产出各平台库。",
+    "文档注释与 IDE 配置文件都有样板，扩展开源或团队协作时省去基础设施搭建。",
+    "体量很小，改库名与入口符号即可上手，适合作为长期扩展仓库的起点再逐步长大。"
+  ],
+  "cons": [
+    "只有最小示例，信号、属性、资源与编辑器插件接口得自己写，不能当功能库。",
+    "子模块固定 godot-cpp 版本，升引擎要手动同步绑定并处理 API 变更。",
+    "构建仍依赖 SCons 与各平台 C++ 工具链，Windows 环境配置对新人不友好。"
+  ],
+  "pitfalls": [
+    "只改 SConstruct 的 libname 却忘了替换 gdextension 里的 EXTENSION-NAME，结果是编辑器里根本加载不到这个库。",
+    "入口符号改了 .gdextension 却没改 register_types.cpp 里对应的函数名，启动时直接报找不到符号。",
+    "子模块没初始化就编译，SCons 会报缺头文件，应先跑一遍完整的 submodule update 命令再构建。"
+  ],
+  "bestFor": "准备用 C++ 写 Godot 扩展、需要一套完整且官方维护、带多平台发布的起始仓库的独立开发者与小型工具团队使用。",
+  "avoidWhenZh": "只想用 GDScript 做玩法扩展，或不愿额外配置 C++ 编译环境与长期维护多平台构建时。",
+  "compareTips": {
+    "vs": [
+      "asmaloney__GDExtensionTemplate"
+    ],
+    "whenZh": "两者都是 C++ 扩展模板：官方这份与 godot-cpp 版本同步、样板贴近现行规范，但示例极简；asmaloney 的模板更早、示例与文档更完整。想省规范坑选这里，想要完整示例看后者。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "GDExtension",
+    "C++",
+    "模板",
+    "构建",
+    "CI"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "模板用于 GDExtension 快速起步",
+      "source": "README.md",
+      "quote": "This repository serves as a quickstart template for GDExtension development with Godot 4.0+."
+    },
+    {
+      "claim": "需修改 SConstruct 中的库名",
+      "source": "README.md",
+      "quote": "change the name of the compiled library file inside the [SConstruct](./SConstruct) file by modifying the `libname` string."
+    },
+    {
+      "claim": "编译成功后测试工程会打印类型信息",
+      "source": "README.md",
+      "quote": "You should see it print the following line in the console:"
+    },
+    {
+      "claim": "扩展最低兼容 Godot 4.1",
+      "source": "project/bin/example.gdextension",
+      "quote": "compatibility_minimum = \"4.1\""
+    }
+  ]
+}

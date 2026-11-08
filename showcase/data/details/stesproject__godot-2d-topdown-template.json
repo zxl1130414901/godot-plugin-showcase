@@ -1,0 +1,141 @@
+{
+  "id": "stesproject__godot-2d-topdown-template",
+  "depth": "standard",
+  "taglineZh": "Godot 4 的 2D 俯视角游戏完整模板工程",
+  "summaryZh": "这是一套面向 Godot 4.4 及以上版本的 2D 俯视角游戏模板，作者把角色控制、生命值、交互、状态机、存读档与库存管理等常见系统都做成可复用组件，并配有示范场景。角色控制器覆盖移动、奔跑、跳跃、攻击与受击闪白，血量控制器可选显示血条，交互系统让玩家能对场景物件触发行为。项目按 components、entities、items、scenes 等目录组织，关键属性与函数都有注释。作者建议新建项目时删掉 playground_ 开头的示范场景，再在 start_screen 里设定起始关卡。",
+  "whatItDoes": "提供一套已搭好角色、血量、交互、状态机、存读档与库存的 2D 俯视角工程，可直接在其上开发关卡与玩法。角色控制器内置移动、奔跑、跳跃、攻击与受击闪白，并把这些行为交由状态机切换。示范场景演示各组件如何组合，交互系统统一处理玩家与物件之间的触发逻辑。",
+  "useCases": [
+    {
+      "titleZh": "俯视角原型",
+      "descZh": "克隆模板后直接跑出可走动的角色、可交互物件与基础敌人，省去从空工程搭脚手架的时间。"
+    },
+    {
+      "titleZh": "组件化实体",
+      "descZh": "角色、道具与敌人用组件拼装，移动、生命与交互各自独立，改一类行为不会影响其他实体。"
+    },
+    {
+      "titleZh": "对话与剧情接入",
+      "descZh": "模板已经内置 Dialogue Manager，做 NPC 对话与分支任务时可以直接写剧本，不必再另找对话插件来对接。"
+    },
+    {
+      "titleZh": "学习项目结构",
+      "descZh": "目录按实体、组件与场景分层，适合作为 Godot 4 项目组织的参考范例，从玩家脚本一路读到地图配置。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可玩的起始场景",
+      "descZh": "含地图、玩家角色与摄像机，打开工程即可操作，作为原型基础比从空工程搭起要省很多时间。"
+    },
+    {
+      "titleZh": "组件与实体目录",
+      "descZh": "把移动、交互与战斗拆成可复用组件，实体只负责组合，扩展新玩法的成本更低。"
+    },
+    {
+      "titleZh": "素材与瓦片集",
+      "descZh": "附带图块、粒子与着色器素材，风格统一，能直接沿用或替换成自己的美术。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "玩家与摄像机",
+      "descZh": "带移动、碰撞与跟随相机，手感参数已调好，可直接改成自己的角色。"
+    },
+    {
+      "name": "对话系统",
+      "descZh": "内置 Dialogue Manager，支持分支、条件与变量，NPC 对话开箱即用，剧本改动不必重编场景。"
+    },
+    {
+      "name": "组件结构",
+      "descZh": "生命、交互与移动拆成独立组件，复用与替换都很直接，新增能力只需再挂一个组件。"
+    },
+    {
+      "name": "瓦片与粒子",
+      "descZh": "附图块集与粒子效果，地图拼法与受击反馈都有现成参考，替换美术时也有对照。"
+    }
+  ],
+  "limitsZh": "模板要求 Godot 4.4 或更高版本，因为代码用到了 4.4 才引入的 typed dictionaries，在 4.3 及更早的工程里无法直接运行，需要改类型声明或放弃该特性。它是完整工程而不是可插拔 addon，接入已有项目意味着要手动搬移组件、场景与 autoload 配置，容易与现有目录结构和输入映射冲突。示范内容较多，playground_ 开头的场景与测试资源需要自行清理，否则会一并进入构建。文档主要指向外部文档站，仓库内的说明以注释为主，缺少逐组件的迁移指南与版本升级说明。模板只覆盖 2D 俯视角这一种视角，摄像机、寻路与敌人 AI 等更细的部分仍需自行补完。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆或下载模板工程，用 Godot 4.4 以上打开"
+    },
+    {
+      "stepZh": "运行主场景，先确认移动、碰撞与相机正常"
+    },
+    {
+      "stepZh": "按实体与组件目录替换美术素材与动画"
+    },
+    {
+      "stepZh": "用 Dialogue Manager 写 NPC 对话脚本，并把剧本挂到交互组件上"
+    },
+    {
+      "stepZh": "在瓦片集上改地图，再逐步加自己的玩法"
+    }
+  ],
+  "pros": [
+    "开箱即有可玩场景与角色控制，原型第一天就能跑起来，省去搭脚手架的时间",
+    "组件与实体分层清楚，扩展玩法不用改核心脚本，新增机制也只挂一个组件",
+    "自带对话系统与瓦片素材，叙事与地图都有起点，可以直接进入内容制作",
+    "目录组织规范，适合当 Godot 4 项目结构的参考，接手者能快速找到入口",
+    "文档说明了版本要求与目录用途，接手成本低，升级前也能对照检查"
+  ],
+  "cons": [
+    "模板偏基础，缺少存档、任务与设置等系统，成品度有限",
+    "内置美术素材风格固定，换成自己的美术要花时间对齐",
+    "对话部分依赖 Dialogue Manager 的写法，想换方案需要重新接一遍对话层"
+  ],
+  "pitfalls": [
+    "直接改核心组件会让后续更新难合并，先复制一份再改，避免冲突",
+    "模板版本与引擎版本有绑定，升级 Godot 后要重新验证场景与输入映射",
+    "图块与碰撞层设置相关，改地图时忘记同步碰撞层会卡住角色"
+  ],
+  "bestFor": "适合从零开始做 2D 俯视角游戏、希望跳过角色控制、存档与库存搭建的独立开发者与小组，也适合作为项目结构的参考。",
+  "avoidWhenZh": "已有成熟工程结构、只想补一两个功能，或仍在使用 Godot 4.3 及更早版本时，接入成本高于收益。",
+  "compareTips": {
+    "vs": [
+      "ColormaticStudios__quality-godot-first-person-2"
+    ],
+    "whenZh": "两者都是完整项目模板：这个面向 2D 俯视角并自带库存与交互系统；quality-godot-first-person-2 面向 3D 第一人称射击。按视角与玩法类型二选一即可。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "游戏模板",
+    "2D俯视角",
+    "角色控制",
+    "状态机",
+    "库存系统"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "模板面向 Godot 4.4 及以上版本",
+      "source": "README.md",
+      "quote": "Godot version 4.4 or later is required, as the code utilizes typed dictionaries."
+    },
+    {
+      "claim": "包含角色、血量、交互、状态机、存档与库存等系统",
+      "source": "README.md",
+      "quote": "- **Character Controller** (basic movement + run, jump, attack, flash)"
+    },
+    {
+      "claim": "示范场景可删除，起始关卡在 start_screen 配置",
+      "source": "README.md",
+      "quote": "you can safely remove all scenes that begin with **\"playground_\"** ... set your desired starting level by configuring the `start_level` property in the `start_screen.tscn` scene."
+    },
+    {
+      "claim": "面向 Godot 4 的 2D 俯视角游戏模板",
+      "source": "README.md",
+      "quote": "A comprehensive game template designed for Godot 4, providing everything you need to kickstart your 2D top-down game development journey."
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "id": "chickensoft-games__GodotGame",
+  "depth": "standard",
+  "taglineZh": "用 dotnet 模板生成带测试与覆盖率配置的 C# 工程",
+  "summaryZh": "Chickensoft.GodotGame 是一个面向 Godot 4 的 C# 游戏项目模板，用 dotnet new 一条命令就能生成可编译运行的工程。模板预置了调试启动配置、GoDotTest 测试框架、本地与 CI 的测试流程、代码覆盖率统计、依赖更新检查与拼写检查。测试脚本会被排除在发布构建之外，CI 使用 mesa 软件渲染做无头运行，Renovate 会自动提交引擎版本升级的合并请求。它更像一套工程规范，适合从一开始就想把测试与自动化搭好的团队。",
+  "whatItDoes": "模板把 Godot 4 的 C# 工程骨架、主场景脚本、测试目录、覆盖率脚本、拼写词表与依赖配置一次性铺好。开发者安装模板后按名称生成项目，直接编译即可运行。测试在游戏内执行，命令行可跑本地与 CI；global.json 锁定 SDK 与 GodotSharp 版本，升级由 Renovate 自动跟进，测试用的包不会进入发布构建。",
+  "useCases": [
+    {
+      "titleZh": "新建 C# 项目",
+      "descZh": "准备开一个 Godot 4 的 C# 新项目时，用模板生成完整工程骨架，省去手动配置解决方案与测试目录的大量重复劳动。"
+    },
+    {
+      "titleZh": "团队工程规范",
+      "descZh": "团队想统一 C# 项目的目录结构与测试约定，直接复用模板自带的脚本、词表与编辑器配置，有效减少团队风格分歧。"
+    },
+    {
+      "titleZh": "CI 自动化",
+      "descZh": "需要在持续集成里跑测试与覆盖率，模板已备好命令与无头渲染方案，接上流水线即可产出完整的覆盖率报告。"
+    },
+    {
+      "titleZh": "依赖版本维护",
+      "descZh": "希望引擎与依赖版本能自动跟进，global.json 配合 Renovate 会定期提交升级请求，省去大量手动核对版本与整体升级的时间。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "开箱工程骨架",
+      "descZh": "解决方案、项目文件、主场景与入口脚本会一次完整生成，新工程无需自己从空目录开始搭结构。"
+    },
+    {
+      "titleZh": "测试与覆盖率",
+      "descZh": "内置整套 GoDotTest 示例与覆盖率脚本，在本地和 CI 都能直接运行，测试依赖不会混进最终发布的包。"
+    },
+    {
+      "titleZh": "自动化维护",
+      "descZh": "global.json 锁定 SDK 与 GodotSharp 版本，Renovate 按发布节奏自动提交升级请求，拼写检查同样由统一配置文件约束。"
+    },
+    {
+      "titleZh": "编辑器配置",
+      "descZh": "附带完整的 VSCode 设置，兼顾 Windows 与 macOS 的多种终端环境，并缓解 Omnisharp 的语法着色问题，可按需直接覆盖原有配置。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "dotnet 模板",
+      "descZh": "用 dotnet new install 安装模板后按名称生成工程，命令行即可完成整套初始化与首次编译。"
+    },
+    {
+      "name": "GoDotTest",
+      "descZh": "在游戏进程内运行的 C# 测试框架，支持直接命令行执行、覆盖率收集与断点调试。"
+    },
+    {
+      "name": "无头 CI",
+      "descZh": "CI 上用 mesa 软件渲染模拟显卡设备，没有显示设备也能完整跑自动化视觉测试。"
+    },
+    {
+      "name": "依赖更新",
+      "descZh": "Renovate 会定期读取 global.json，引擎或 SDK 有新版本时自动发起对应的依赖升级合并请求。"
+    },
+    {
+      "name": "拼写检查",
+      "descZh": "cspell 词表随工程一并提供，注释与文档里的拼写问题能在提交前被自动发现并修正。"
+    }
+  ],
+  "limitsZh": "模板绑定 .NET SDK 与 GodotSharp 的具体版本，团队需要按文档把 Godot 与 C# 环境装好，否则调试配置和覆盖率都无法正常工作。它只覆盖工程与自动化部分，游戏框架、场景组织与玩法代码仍要自己写。模板自带的 VSCode 设置可能与现有配置冲突，作者也提醒使用前先核对。仓库主要面向 C# 项目，不涉及 GDScript 侧的约定，迁移已有工程时要逐项比对目录与构建脚本。模板的更新节奏跟随上游，引擎大版本升级后需要同步调整构建脚本与测试配置。",
+  "workflowZh": [
+    {
+      "stepZh": "安装模板并生成项目，确认 dotnet 与 Godot 的 C# 环境版本匹配。"
+    },
+    {
+      "stepZh": "打开解决方案编译一次，运行主场景确认模板可以正常启动。"
+    },
+    {
+      "stepZh": "按示例补上首个测试，用命令行在本地跑通并查看覆盖率。"
+    },
+    {
+      "stepZh": "配置 CI 流水线，接入无头渲染与测试命令，产出覆盖率报告。"
+    },
+    {
+      "stepZh": "启用 Renovate 与拼写检查，按提交的升级请求维护依赖。"
+    }
+  ],
+  "pros": [
+    "模板把工程骨架、测试、覆盖率与 CI 方案一次性完整备齐，新项目起步速度很快。",
+    "测试依赖与发布构建相互隔离，避免测试框架与仅测试用的包被打进最终包体。",
+    "Renovate 与 global.json 配合，引擎和 SDK 版本升级会以合并请求的形式自动提醒并跟进。",
+    "附带编辑器配置与拼写检查，团队协作时的代码风格与命名更容易保持统一。"
+  ],
+  "cons": [
+    "需要安装 .NET SDK 并保证引擎版本匹配无误，环境出错时排查成本高。",
+    "模板不含现成的玩法框架，游戏逻辑层与场景组织仍需自行搭建。",
+    "自带编辑器设置可能与现有配置发生冲突，需要逐项核对后合并。"
+  ],
+  "pitfalls": [
+    "版本不匹配会让调试与覆盖率失效，先按文档对齐 SDK 与引擎再排查模板。",
+    "测试脚本虽被排除在发布构建外，新增测试项目时仍要检查项目文件的排除规则。",
+    "CI 无头运行依赖 mesa，本地能跑通不代表流水线能跑通，要在真实 CI 环境实际验证。"
+  ],
+  "bestFor": "适合准备开新 C# 项目、希望从第一天就有测试、覆盖率与 CI 自动化的团队，用模板省去大量工程配置与重复劳动的时间。",
+  "avoidWhenZh": "只用 GDScript 或不想引入 .NET 工具链的项目不必使用；已有成熟工程也不适合整体套模板。",
+  "compareTips": {
+    "vs": [
+      "crystal-bit__godot-game-template"
+    ],
+    "whenZh": "与 crystal-bit 的 godot-game-template 相比，后者偏向 GDScript 的游戏骨架与玩法示例，本项目专注 C# 工程与测试自动化；需要 C# 测试与 CI 时选它，需要成熟完整的现成玩法框架时选另一边。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "csharp",
+    "template",
+    "testing",
+    "ci",
+    "coverage"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "模板自带调试配置、测试、覆盖率、依赖更新与拼写检查",
+      "source": "README.md",
+      "quote": "C# game template for Godot 4 with debug launch configurations, testing (locally and on CI/CD), code coverage, dependency update checks, and spell check working out-of-the-box!"
+    },
+    {
+      "claim": "通过 dotnet 模板安装并生成项目",
+      "source": "README.md",
+      "quote": "This template allows you to easily create a C# game for Godot 4. Microsoft's `dotnet` tool allows you to easily create, install, and use templates."
+    },
+    {
+      "claim": "CI 用 mesa 软件渲染做无头测试",
+      "source": "README.md",
+      "quote": "On CI/CD, software graphics drivers from [mesa] emulate a virtual graphics device for Godot to render to, allowing you to run visual tests in a headless environment."
+    },
+    {
+      "claim": "测试脚本不会进入发布构建",
+      "source": "README.md",
+      "quote": "The `.csproj` file is already pre-configured to prevent test scripts and test-only package dependencies from being included in release builds of your game!"
+    }
+  ]
+}

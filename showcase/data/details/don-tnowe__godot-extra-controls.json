@@ -1,0 +1,145 @@
+{
+  "id": "don-tnowe__godot-extra-controls",
+  "depth": "standard",
+  "taglineZh": "一批补足 Godot 界面短板的实用控件合集",
+  "summaryZh": "Naddy's Extra Controls 是 Don Tnowe 在 2023 年整理的一组 Control 节点合集，面向游戏与 GUI 工具两类场景。容器类提供可动画重排的 InterpolatedBox/Flow/Free、放射状的饼图菜单、缩放而非重排子项的比例容器、保留最小尺寸的子项变换容器等；工具类包含框选多选的 MultiSelection、保持重复项数量的容器、跨父级的连接线、模拟 RemoteTransform 的矩形变换与拖放信号转发；输入类有从主题取图标的按钮、仿检查器的属性表单与可作位标志使用的选项按钮。仓库附三个示例场景，可直接看到各控件的实际行为。",
+  "whatItDoes": "提供十余种 Control 派生节点，覆盖容器布局、拖拽与缩放、框选、连接线、属性表单等常见界面需求，安装后即可在场景里使用。容器支持子项进入或换序时的平滑动画，并可跨容器拖放排序，减少手写补间的工作。工具节点把一些需要重复实现的小功能（如保持重复项合并、跨层级连线）固化成可复用组件。",
+  "useCases": [
+    {
+      "titleZh": "可拖拽面板",
+      "descZh": "用 Draggable 做可移动可缩放的窗口与卡片，带网格吸附与边界裁剪，适合做浮动工具面板与卡片式布局。"
+    },
+    {
+      "titleZh": "动画式列表",
+      "descZh": "Interpolated 容器在子项进出或换序时平滑过渡，背包与设置列表切换更顺滑，也支持拖拽排序。"
+    },
+    {
+      "titleZh": "径向菜单",
+      "descZh": "Radial Container 做环形快捷菜单，按角度选中项，适合技能轮盘、建筑快捷盘与环形按钮组等交互。"
+    },
+    {
+      "titleZh": "多选与连线",
+      "descZh": "MultiSelection 框选并批量拖动，Connection Line 在节点间画可重连箭头，做节点编辑器与连线编辑能省不少工夫。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "容器控件",
+      "descZh": "含动画盒、流式、自由与缩放容器，覆盖列表、面板与像素级缩放等常见需求。"
+    },
+    {
+      "titleZh": "交互工具",
+      "descZh": "拖拽、缩放、框选与连线等节点，直接用于编辑器式界面，省去从零写交互的工作量。"
+    },
+    {
+      "titleZh": "输入控件",
+      "descZh": "属性表单、图标按钮与选项按钮，补齐常用表单元素，配置界面更快搭出来。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Interpolated 容器",
+      "descZh": "子项进出与换序有补间动画，拖拽排序开箱可用，不用自己写 Tween。"
+    },
+    {
+      "name": "Draggable",
+      "descZh": "可拖动可缩放，支持网格吸附与父级裁剪，做浮动面板很顺手。"
+    },
+    {
+      "name": "Radial Container",
+      "descZh": "按角度排布子项，做轮盘菜单与环形按钮组，选中判定由容器处理。"
+    },
+    {
+      "name": "MultiSelection",
+      "descZh": "框选多个控件并一起移动，适合节点编辑器类界面，批量操作更省力。"
+    },
+    {
+      "name": "Connection Line",
+      "descZh": "在两个控件间画箭头，可拖拽重连并加路径点，做流程图与依赖图很方便。"
+    }
+  ],
+  "limitsZh": "这是一组可复用的 Control 节点，而不是成套 UI 框架，样式与主题仍需项目自己统一。README 以清单形式介绍控件，逐项参数与边界行为缺少详细说明，深入用法要读源码与示例场景。部分控件面向编辑器式交互，例如框选与连线，游戏内 UI 未必用得上。动画容器同时动画大量子项时开销上升，需要限制并发数量。控件依赖主题里的图标名，换主题后可能取不到图标，需要补齐同名资源。项目版本号仍处于早期，接口可能变动。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录里的 extra_controls 整个复制进项目工程"
+    },
+    {
+      "stepZh": "打开项目设置，在插件列表里启用 Extra Controls 插件"
+    },
+    {
+      "stepZh": "按需求添加容器或交互控件到场景"
+    },
+    {
+      "stepZh": "在检查器里调动画时长、吸附与缩放参数"
+    },
+    {
+      "stepZh": "运行示例场景，对照三个示例改自己的界面"
+    }
+  ],
+  "pros": [
+    "控件种类多，拖拽、框选、连线与径向菜单都能直接用，不必自己造轮子",
+    "动画容器自带补间，列表换序的过渡不用自己写，视觉更连贯",
+    "纯 GDScript，接入无构建步骤，改源码也方便，调试成本低，不依赖原生工具链",
+    "附三个示例场景，控件用法有直观参考，照着搭即可，替换素材也快",
+    "MIT 许可，可商用，也能按项目裁剪，只带需要的控件，包体更小，维护也省心"
+  ],
+  "cons": [
+    "文档主要是 README 列表，细节参数缺少逐项说明，深入要靠读源码",
+    "控件风格偏默认，正式项目仍需统一皮肤与主题，视觉一致性要自己做",
+    "部分控件针对编辑器式交互，游戏内 UI 未必都用得上"
+  ],
+  "pitfalls": [
+    "动画容器里放大量子项会频繁补间，注意限制同时动画数量",
+    "拖拽与父级裁剪同时开启时边界处理要测，避免拖出可视区",
+    "控件依赖主题图标名，换主题后图标可能取不到，需补同名资源"
+  ],
+  "bestFor": "适合做工具类应用或界面交互较丰富的游戏，希望用现成控件省去拖拽、连线与表单实现的开发者。",
+  "avoidWhenZh": "只需要少数标准控件、或要求组件有完整 API 文档与稳定版本号的项目，用内置节点自写更可控。",
+  "compareTips": {
+    "vs": [
+      "murikistudio__simple-gui-transitions"
+    ],
+    "whenZh": "两者都在 UI 层：Extra Controls 提供拖拽、径向菜单与动画容器等现成控件；Flexbox 提供 CSS 式弹性布局规则。要现成交互控件选前者，要布局体系选后者，两者也能一起用。"
+  },
+  "category": "ui",
+  "tags": [
+    "控件合集",
+    "容器布局",
+    "拖拽排序",
+    "属性表单",
+    "工具界面"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "定位为可在多种游戏与 GUI 应用中使用控件合集",
+      "source": "README.md",
+      "quote": "A collection of control nodes usable in a variety of games and GUI applications."
+    },
+    {
+      "claim": "容器支持子项动画与拖放重排",
+      "source": "README.md",
+      "quote": "Containers that smoothly animate children when they enter or change order. Drag-and-drop reordering and drag-and-drop to move between containers in all variants."
+    },
+    {
+      "claim": "提供仿检查器的属性表单控件",
+      "source": "README.md",
+      "quote": "**Properties Box**: Form to input values like you'd use the inspector. Strings, bools, numbers (*sliders supported*) and enums."
+    },
+    {
+      "claim": "插件元信息缺少描述且版本为 0.1",
+      "source": "addons/tnowe_extra_controls/plugin.cfg",
+      "quote": "name=\"Extra Controls\"\ndescription=\"\"\nauthor=\"Don Tnowe\"\nversion=\"0.1\""
+    }
+  ]
+}

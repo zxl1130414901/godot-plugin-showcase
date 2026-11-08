@@ -1,0 +1,152 @@
+{
+  "taglineZh": "用 GDScript 代码生成 Godot UI 主题并支持实时预览",
+  "summaryZh": "Godot 自带的主题编辑器更适合少量控件，一旦样式要复用、配色要成套、还要同时维护深色与浅色两套主题，手工点选就会很难对齐。ThemeGen 让你写一个 @tool 脚本继承 ProgrammaticTheme，在 define_theme 里用方法定义字体、字号、样式与语义色，跑脚本就把结果写成 .tres。它还提供 Save Sync 插件，在保存脚本时自动重生成主题，编辑器里的预览即时更新。",
+  "whatItDoes": "编写 @tool extends ProgrammaticTheme 的脚本，在 setup 里用 set_save_path 指定输出 .tres，在 define_theme 里调用 define_default_font、字号与样式方法逐个定义控件外观。通过 File/Run 或 Ctrl+Shift+X 运行生成器，输出面板会给出版本、加载与保存日志。启用 ThemeGen Save Sync 插件后，脚本保存即触发重生成，也能捕捉外部编辑器的改动。",
+  "useCases": [
+    {
+      "titleZh": "深色与浅色双主题",
+      "descZh": "需要两套主题并共享同一套语义色的项目，用代码复用配色与样式，改一处两边同步。"
+    },
+    {
+      "titleZh": "大型 UI",
+      "descZh": "控件数量多、样式重复的复杂界面，把样式抽成函数复用，比主题编辑器逐项点选快，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "设计系统",
+      "descZh": "团队要统一色板与间距时，把语义色与字号集中在一处定义，改一处全局生效，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "版本管理",
+      "descZh": "主题需要进 Git 评审的项目，生成脚本可以 diff，.tres 的二进制差异不再难读，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "换肤",
+      "descZh": "要做皮肤或赛季换色，复制一份生成脚本改配色即可产出新的主题文件，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "生成的主题资源",
+      "descZh": ".tres 主题文件由脚本运行产出，可被 Control 直接引用，换皮肤重新跑一遍即可，不用手改资源。"
+    },
+    {
+      "titleZh": "主题生成脚本",
+      "descZh": "继承 ProgrammaticTheme 的 @tool 脚本，承载配色与样式定义，可在编辑器直接运行，不需要额外插件。"
+    },
+    {
+      "titleZh": "Save Sync 插件",
+      "descZh": "保存脚本即重生成主题的小插件，负责编辑器内的实时预览，外部编辑也能捕捉。"
+    },
+    {
+      "titleZh": "示例与文档",
+      "descZh": "README 逐步演示字体、变体与样式定义，另附代码截图与动图，文档比多数插件细。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "ProgrammaticTheme",
+      "descZh": "以继承类组织主题，setup 与 define_theme 两个入口职责分明，改主题写法不改项目结构。"
+    },
+    {
+      "name": "样式复用",
+      "descZh": "把颜色、字号与 StyleBox 写成变量或函数，多处控件共享同一份定义。"
+    },
+    {
+      "name": "语义色",
+      "descZh": "按 primary、background 之类的语义命名配色，换主题只需改一处变量，深浅两套都复用它。"
+    },
+    {
+      "name": "实时预览",
+      "descZh": "运行脚本即刷新编辑器里的主题实例，Save Sync 保存即重生成，改一行配色马上能看到。"
+    },
+    {
+      "name": "多变体",
+      "descZh": "同一份代码可产出深色与浅色等变体，只需替换配色参数，颜色集中在一处维护。"
+    }
+  ],
+  "limitsZh": "主题是代码生成的产物，每次运行都会覆盖输出 .tres，想手改就得改脚本，否则下次生成会被抹掉。README 也承认编辑器有时不会立刻刷新，需要重新赋值根 Control 的 Theme 或重载编辑器。它不是可视化编辑器，控件类型与属性名仍要查 Godot 文档；Save Sync 是可选插件，不开就没有保存即预览。样式完全靠手写方法调用，项目小的时候反而比主题编辑器费事。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录合并进项目，必要时启用 Save Sync 插件。"
+    },
+    {
+      "stepZh": "新建 @tool 脚本并继承 ProgrammaticTheme，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在 setup 里设置输出路径与共用配色变量。"
+    },
+    {
+      "stepZh": "在 define_theme 里逐项定义字体、字号与样式。"
+    },
+    {
+      "stepZh": "运行脚本或保存触发生成，检查 .tres 与编辑器预览。"
+    }
+  ],
+  "pros": [
+    "样式与配色可以用变量与函数复用，复杂 UI 的主题维护成本明显下降。",
+    "生成脚本可以进版本库评审，配色改动在 diff 里一目了然，评审时能看出改了哪些颜色。",
+    "Save Sync 加上实时预览，改一行配色就能看到界面变化，出现问题时也更容易定位原因。",
+    "同一份代码能产出多套变体，深色与浅色主题不用维护两份资源。"
+  ],
+  "cons": [
+    "主题由代码生成并覆盖写入，不能直接手改 .tres，改样式要回脚本",
+    "需要熟悉 Control 的主题属性名，纯可视化用户上手有门槛",
+    "编辑器偶尔不立即刷新，要手动重载或重新赋值主题"
+  ],
+  "pitfalls": [
+    "把输出文件放进普通资源目录，覆盖后容易误以为自己手改的内容丢了。",
+    "生成后界面没变，先重新给根 Control 赋 Theme 或重载编辑器，再怀疑代码。",
+    "多个生成脚本写同一路径会互相覆盖，变体要各自指定不同输出文件。"
+  ],
+  "bestFor": "UI 控件多、需要深色与浅色两套主题并希望用代码统一配色与样式的 Godot 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只有几个控件的小项目，或团队坚持用可视化主题编辑器时。",
+  "compareTips": {
+    "vs": [
+      "passivestar__godot-minimal-theme"
+    ],
+    "whenZh": "两者名字都带 theme 但作用对象不同：ThemeGen 用代码生成游戏内 UI 主题，minimal-theme 换的是 Godot 编辑器自身外观。做游戏界面主题选前者，只想让编辑器好看选后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "UI主题",
+    "代码生成",
+    "配色",
+    "实时预览",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "用 GDScript 代码创建主题",
+      "source": "README.md",
+      "quote": "ThemeGen is a tool for Godot that allows you to easily create themes using GDScript code."
+    },
+    {
+      "claim": "样式与颜色可复用共享",
+      "source": "README.md",
+      "quote": "you can reuse styles, recombine them, and effortlessly reuse and share colours between components"
+    },
+    {
+      "claim": "脚本改动后主题自动重生成",
+      "source": "README.md",
+      "quote": "the theme is automatically regenerated whenever the input script is modified"
+    },
+    {
+      "claim": "编辑器有时不会立即刷新主题",
+      "source": "README.md",
+      "quote": "Sometimes the Godot editor does not update directly when regenerating the theme."
+    }
+  ],
+  "id": "Inspiaaa__ThemeGen",
+  "depth": "standard"
+}

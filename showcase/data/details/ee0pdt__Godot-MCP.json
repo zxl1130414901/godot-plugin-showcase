@@ -1,0 +1,66 @@
+{
+  "id": "ee0pdt__Godot-MCP",
+  "depth": "standard",
+  "taglineZh": "用 MCP 把 Claude 接入 Godot 工程并直接改场景、脚本与节点",
+  "summaryZh": "Godot MCP 是早期开源的 Model Context Protocol 集成方案，让 Claude Desktop 通过标准输入输出连接到 Godot 编辑器，读取当前场景与脚本，并把 AI 建议的改动直接写回工程。它把能力分成节点、脚本、场景、项目与编辑器几类命令，覆盖创建节点、编辑 GDScript、管理场景结构与项目设置。仓库自带 Node.js 服务器源码、示例工程与多份文档，安装需要克隆仓库、构建服务器并手写客户端配置。项目在 2025 年初后基本停更，适合研究 MCP 原理或自建分支，不建议直接用于长期维护的生产项目。",
+  "whatItDoes": "仓库由两半组成：addons/godot_mcp 是编辑器插件，server 是 TypeScript 服务器。插件在编辑器内接收请求并调用 Godot API 完成节点增删、脚本读写与场景保存；服务器把 MCP 调用转成与插件之间的消息，并以 stdio 暴露给 Claude Desktop。配置好后用户用自然语言发指令，AI 先读取场景或脚本内容，再提交修改。",
+  "useCases": [
+    {"titleZh": "AI 生成基础场景", "descZh": "用自然语言描述关卡结构，让 AI 创建节点、设置变换并保存场景，省去手工摆放的时间，适合原型阶段。"},
+    {"titleZh": "脚本读取与改写", "descZh": "让 AI 读取当前脚本，解释逻辑并直接改写 GDScript，适合学习或快速重构小段代码，减少复制粘贴。"},
+    {"titleZh": "工程结构检查", "descZh": "通过项目命令查看设置、资源与场景树，让 AI 指出缺失依赖或配置错误的位置，快速定位问题。"},
+    {"titleZh": "MCP 方案学习参考", "descZh": "仓库含服务器源码与架构文档，可拆开研究 MCP 与 Godot 的桥接方式并改成自用版本，适合二次开发。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "编辑器插件", "descZh": "addons/godot_mcp 提供编辑器内的命令入口，负责执行节点、脚本与场景操作，并回传执行结果。"},
+    {"titleZh": "TypeScript MCP 服务器", "descZh": "server 目录把 MCP 请求转成与插件通信的消息，需 npm 构建后运行，并处理错误与日志。"},
+    {"titleZh": "示例工程与文档", "descZh": "自带已启用插件的示例项目，以及安装、架构与命令参考等多份文档，便于对照。"}
+  ],
+  "featureCallouts": [
+    {"name": "节点命令", "descZh": "创建、修改与删除节点，调整父子关系与变换，覆盖常见场景搭建操作。"},
+    {"name": "脚本命令", "descZh": "读写与分析 GDScript 文件，可新建脚本或把 AI 建议直接写回工程，减少复制粘贴。"},
+    {"name": "场景与项目命令", "descZh": "操作场景结构，读取项目设置与资源，让 AI 了解工程全貌与依赖关系。"},
+    {"name": "双向通信", "descZh": "AI 可读取工程数据，改动也会立即反映在编辑器里，形成闭环。"},
+    {"name": "stdio 传输", "descZh": "服务器以标准输入输出接入 Claude Desktop，配置简单但需手写路径与绝对地址。"}
+  ],
+  "limitsZh": "项目自 2025 年 3 月后几乎没有提交，Godot 4 后续版本的 API 变化可能让部分命令失效，使用前要自行验证。安装流程不短：克隆仓库、进入 server 执行 npm install 与 build、再手写 Claude Desktop 配置并填绝对路径，任一步出错都连不上。公开文档虽多，但版本较旧，与当前客户端配置方式可能不一致。命令以编辑器操作为主，缺少运行时调试与截图能力。服务器与插件通过自定义消息通信，安全边界有限，只建议在本地可信工程使用。",
+  "workflowZh": [
+    {"stepZh": "克隆仓库并在 Godot 中打开示例工程，确认插件已启用"},
+    {"stepZh": "进入 server 目录，用 npm install 安装服务器依赖并等待完成"},
+    {"stepZh": "执行 npm run build 把 TypeScript 编译成 dist 产物并检查报错"},
+    {"stepZh": "在 Claude Desktop 配置中填入服务器入口与工程绝对路径"},
+    {"stepZh": "重启客户端后用自然语言下达编辑指令并核对结果"}
+  ],
+  "pros": [
+    "命令按节点、脚本、场景、项目与编辑器分组，覆盖工程编辑的主要操作面，很全",
+    "Node.js 服务器与 GDScript 插件源码都在仓库里，可自行修改协议与命令实现，方便",
+    "AI 能读取当前场景与脚本，改完直接写回工程，形成读改验的闭环，很顺畅",
+    "仓库自带已启用插件的示例工程，并附架构、安装与命令参考等多份文档",
+    "采用 MIT 许可，源码可自由研究，适合当作自建 MCP 桥接的起点参考，很实用"
+  ],
+  "cons": [
+    "项目在 2025 年 3 月后几乎停更，Godot 4 后续版本的 API 变动可能导致命令失效",
+    "安装得先克隆仓库、构建 Node.js 服务器，再手写绝对路径配置，漏一步就连不上",
+    "命令集中在编辑器操作，缺少运行时调试、截图与大量 3D 工具，能力不及新版方案"
+  ],
+  "pitfalls": [
+    "忘记执行 npm run build 或配置里路径写错，客户端会启动失败且报错信息不直观",
+    "改完 Claude Desktop 配置必须重启客户端，否则新服务器不会出现在工具列表里可见",
+    "让 AI 直接写回脚本前先提交或备份，避免它覆盖原有逻辑导致难以回滚"
+  ],
+  "bestFor": "想研究 MCP 与 Godot 如何桥接，或需要一份能自己改源码的早期开源参考，并在本地小工程里试验 AI 编辑流程的开发者。",
+  "avoidWhenZh": "要长期维护的生产工程，或需要持续更新、覆盖最新 Godot 版本的 MCP 工具链、稳定支持。",
+  "compareTips": {"vs": ["Coding-Solo__godot-mcp"], "whenZh": "两者都是 Godot 的 MCP 方案：Godot MCP 开源但停在 2025 年初，Coding-Solo 版本更新更活跃、工具更贴近当前客户端。做正式项目优先后者，只想读源码学习桥接再用前者，按活跃度选。"},
+  "category": "ai-gen",
+  "tags": ["MCP", "Claude", "AI编程", "开源", "Node.js"],
+  "scores": {"coverage": 3, "usability": 2, "docs": 3, "maintenance": 2, "performance": 3, "stability": 2},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 4,
+  "evidence": [
+    {"claim": "用 MCP 集成 Godot 与 AI 助手", "source": "README.md", "quote": "A comprehensive integration between Godot Engine and AI assistants using the Model Context Protocol (MCP)."},
+    {"claim": "AI 可访问与修改脚本、场景、节点与资源", "source": "README.md", "quote": "- **Full Godot Project Access**: AI assistants can access and modify scripts, scenes, nodes, and project resources"},
+    {"claim": "支持双向通信并直接应用改动", "source": "README.md", "quote": "- **Two-way Communication**: Send project data to AI and apply suggested changes directly in the editor"},
+    {"claim": "服务器需通过 npm 构建", "source": "README.md", "quote": "npm run build"},
+    {"claim": "插件描述为通过 MCP 接入 Claude", "source": "plugin.cfg", "quote": "description=\"Godot integration with Claude AI via the Model Context Protocol\""}
+  ]
+}

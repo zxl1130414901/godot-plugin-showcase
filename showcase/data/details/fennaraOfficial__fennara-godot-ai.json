@@ -1,0 +1,144 @@
+{
+  "id": "fennaraOfficial__fennara-godot-ai",
+  "depth": "standard",
+  "taglineZh": "带编辑器内聊天面板与 MCP 工具链的 Godot AI 插件",
+  "summaryZh": "它解决的是 AI 助手只能看代码、看不到运行中 Godot 编辑器的问题：装上后新增本地 CLI、MCP 服务端与守护进程，把场景、脚本、截图、运行时报错等能力以工具形式暴露给 Codex、Claude、Cursor 等 MCP 客户端；同时提供可选的编辑器聊天面板。安装脚本会装 addon、CLI 与守护进程，再按客户端执行 mcp-setup。限制是只支持 Godot 4.5 以上与三类桌面系统，聊天面板依赖 WebView 或 CEF，内部结构比普通插件复杂得多。",
+  "whatItDoes": "包含 Godot addon、fennara CLI、本地 MCP 服务端与桥接守护进程。工具面覆盖项目信息、场景树检查、脚本读写、资源操作、编辑器截图、运行时错误与日志，外部 MCP 应用与内置聊天共享同一套工具。设置页可连接模型服务商并为每个 MCP 客户端生成配置。",
+  "useCases": [
+    {
+      "titleZh": "外部代理开发",
+      "descZh": "让 Codex 或 Claude 通过 MCP 读取场景、截图与报错，直接在打开的项目里改代码，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "编辑器内聊天",
+      "descZh": "不想切窗口时用内置聊天面板连模型服务商，边看场景边提问，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "错误复现",
+      "descZh": "让助手拿到运行时错误与截图，减少靠文字描述排查的来回，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "团队统一配置",
+      "descZh": "用 CLI 安装与 mcp-setup 给多名成员生成一致的 MCP 配置，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "MCP 工具服务",
+      "descZh": "本地服务端把 Godot 编辑器能力包装成 MCP 工具，供外部 AI 应用调用，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "编辑器插件",
+      "descZh": "addon 提供聊天面板、设置页与守护进程连接，负责与编辑器交互，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "安装与更新 CLI",
+      "descZh": "fennara 命令负责安装、更新与生成各客户端 MCP 配置，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "场景与截图",
+      "descZh": "工具可读取场景树并截取编辑器画面，让 AI 看到实际布局，参数集中在检查器面板。"
+    },
+    {
+      "name": "运行时错误",
+      "descZh": "把运行中的错误与日志交给助手，定位比纯读源码更快，后续修改起来也不费劲。"
+    },
+    {
+      "name": "聊天面板",
+      "descZh": "可选的内置聊天 dock，桌面端用 WebView，Linux 用 CEF，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "MCP 自动配置",
+      "descZh": "mcp-setup 为 Codex、Claude 等客户端写入配置，省去手改 JSON，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "跨客户端",
+      "descZh": "同一守护进程服务多个 MCP 应用，配置与模型设置相互独立，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "系统要求不低：Godot 4.5 以上，且只支持 Windows x86_64、Linux x86_64 与 macOS arm64，Windows arm64 与 32 位平台都不在列。安装不是单个 addon：要装 CLI、MCP 服务端与本地守护进程，还要为每个外部客户端跑 mcp-setup，链路任何一环失败都连不上。内置聊天依赖平台 WebView，Linux 还要下载 CEF 运行时，企业网络或离线机器容易卡住。守护进程与 MCP 工具能读写项目、截图与日志，安全边界要自行评估，团队应限制可连接的应用。文档分散在 docs 目录多个页面，升级还有 CLI 重装与版本兼容注意事项。",
+  "workflowZh": [
+    {
+      "stepZh": "用安装脚本或 fennara CLI 安装全部所需组件"
+    },
+    {
+      "stepZh": "在项目中启用插件并打开聊天设置"
+    },
+    {
+      "stepZh": "连接模型服务商，或为 MCP 应用生成配置"
+    },
+    {
+      "stepZh": "用 mcp-setup 为 Codex 等目标客户端写入配置"
+    },
+    {
+      "stepZh": "在客户端里调用工具检查场景与报错"
+    }
+  ],
+  "pros": [
+    "把场景、脚本、截图与运行时报错一起交给 AI，排查不再只靠源码。",
+    "同一守护进程服务多个 MCP 客户端，配置与模型可分开管理，团队新人照着示例就能上手。",
+    "CLI 负责安装、更新与客户端配置，团队环境更容易复现，出现问题时也更容易定位原因。",
+    "聊天面板可选，不需要时只暴露 MCP 工具也能工作，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "要求 Godot 4.5 以上与特定桌面平台，覆盖面窄，升级引擎版本时容易卡住。",
+    "CLI、服务端、守护进程多组件安装，失败点比普通插件多。",
+    "Linux 聊天依赖 CEF，离线或受限网络环境部署麻烦，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "Godot 版本低于 4.5 时插件不会启用，先确认引擎版本再装，上线前要专门过一遍。",
+    "mcp-setup 写错客户端配置会导致连接失败，需按文档重跑命令，排查时需要多留一层日志。",
+    "守护进程权限较大，只连接可信 AI 客户端并限制工具范围，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "希望让 Codex、Claude 或 Cursor 直接操作打开中的 Godot 项目，并愿意维护本地守护进程的团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "使用 Godot 4.4 及更早版本，或只在离线、受限网络环境部署时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "IvanMurzak__Godot-MCP"
+    ],
+    "whenZh": "两者都是 Godot 的 MCP 方案：Fennara 自带 CLI、守护进程与可选聊天面板，组件更完整；Godot-MCP 以 C# 插件为核心，工具面偏脚本与场景。要一体化体验选前者，要纯 C# 集成选后者。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "编辑器插件",
+    "CLI",
+    "多客户端"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "要求 Godot 4.5 以上",
+      "source": "README.md",
+      "quote": "Godot 4.5 or newer."
+    },
+    {
+      "claim": "仅支持三种桌面平台",
+      "source": "README.md",
+      "quote": "A supported desktop OS: Windows x86_64, Linux x86_64, or macOS arm64."
+    },
+    {
+      "claim": "安装会新增 CLI、MCP 服务端与守护进程",
+      "source": "README.md",
+      "quote": "a small `fennara` CLI installed in Fennara app data\n- a local MCP server used by AI coding apps\n- a local daemon that bridges MCP/chat requests to the open Godot editor"
+    },
+    {
+      "claim": "在设置页为 MCP 应用一键配置",
+      "source": "README.md",
+      "quote": "Open **Chat Settings > MCP Apps**, find your app, and press **Set Up**."
+    }
+  ]
+}

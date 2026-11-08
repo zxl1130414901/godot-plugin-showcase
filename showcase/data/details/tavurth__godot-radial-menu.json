@@ -1,0 +1,147 @@
+{
+  "id": "tavurth__godot-radial-menu",
+  "depth": "standard",
+  "taglineZh": "用着色器绘制的轻量环形轮盘菜单",
+  "summaryZh": "这个 addon 提供 RadialMenu 节点，把子节点按环形排布，用弧形光标选中并发出 hovered 与 selected 信号。菜单主体由着色器绘制，颜色、内外半径、光标大小、描边与调制都可调，适合触屏或手柄的快捷轮盘。工程基于 Godot 4.4，插件版本停在 0.1，示例仍是旧的信号写法，且缺少键盘导航与自动布局，正式项目需自行补足这些交互细节。",
+  "whatItDoes": "RadialMenu 读取子节点作为菜单项，按角度均匀排布，绘制多层环形背景与可旋转光标。通过 set_snap_enabled 控制是否吸附到单项，set_center_node 可在中心显示当前项。选中或悬停时发出信号，交由上层处理具体动作。",
+  "useCases": [
+    {
+      "titleZh": "触屏快捷轮盘",
+      "descZh": "移动端游戏需要按住屏幕唤出武器或技能轮盘，用现成节点省去自己算角度与命中。"
+    },
+    {
+      "titleZh": "手柄技能选择",
+      "descZh": "手柄玩家需要快速选技能时，可用摇杆方向驱动轮盘并吸附到最近项，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "建造快捷栏",
+      "descZh": "沙盒或策略游戏把常用建筑放在轮盘里，按住快捷键即可快速选取，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "调试面板入口",
+      "descZh": "开发期把常用调试功能放进轮盘，比记快捷键更直观，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "教学演示",
+      "descZh": "需要演示环形菜单交互的项目，可直接参考示例场景与着色器实现，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "环形菜单节点",
+      "descZh": "可直接加入场景的 RadialMenu 与配套光标着色器，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "可调外观",
+      "descZh": "内外半径、颜色、描边与调制参数都可运行时修改，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "选中信号",
+      "descZh": "hovered 与 selected 两个信号，携带被选中的子节点，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "RadialMenu",
+      "descZh": "按环排布子节点并处理光标命中的菜单节点，参数集中在检查器面板。"
+    },
+    {
+      "name": "snap",
+      "descZh": "开启后光标自动吸附到最近的菜单项，减少误选，后续修改起来也不费劲。"
+    },
+    {
+      "name": "center node",
+      "descZh": "在轮盘中心显示当前项或图标，信息更集中，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "着色器绘制",
+      "descZh": "背景与光标由 shader 渲染，开销较低且便于改样式，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "外观参数",
+      "descZh": "内外半径、前景背景色、描边与调制宽度均可调，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "菜单项必须在场景里手工摆成子节点，没有自动布局或数据驱动生成。交互只覆盖鼠标与触摸，键盘与手柄需要自己做方向映射。工程虽在 Godot 4.4 下运行，README 示例仍是旧式 connect 写法，照抄会报错，需要按 4.x 语法改。功能停在基础轮盘层面，展开动画、禁用态与分组都没有实现，插件版本号也停在 0.1。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/radial_menu 拷入项目并启用，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在场景中实例化 RadialMenu 节点，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "把菜单项作为子节点按需排列，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "连接 selected 信号处理具体动作，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "调整半径、颜色与吸附参数，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "着色器绘制，视觉样式改起来方便且开销低，团队新人照着示例就能上手。",
+    "节点结构简单，接入现有工程几乎没有侵入，出现问题时也更容易定位原因。",
+    "自带示例场景与图标，能快速看懂用法，对中小团队的时间成本很友好。",
+    "选中与悬停信号清晰，业务逻辑分离干净，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "基于 Godot 3 写法，迁移到 4.x 需改代码，升级引擎版本时容易卡住。",
+    "菜单项手工摆放，缺少数据驱动生成，定制之前往往要先读源码。",
+    "README 示例仍是旧信号写法，照抄会报错，需要自己改"
+  ],
+  "pitfalls": [
+    "README 的旧式 connect 写法在 4.x 会直接报错，需要按新版文档调整连接方式",
+    "子节点锚点未居中时，环形排布会偏心，排查时需要多留一层日志。",
+    "触屏事件没做去抖，容易连续触发选中，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "需要触屏或手柄轮盘菜单、且能接受少量迁移改造的 Godot 3 项目与小型原型，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目使用 Godot 4 且不愿改代码，或需要键鼠完整导航与动态菜单项时。",
+  "compareTips": {
+    "vs": [
+      "TheWalruzz__godot-questify"
+    ],
+    "whenZh": "两者都在 UI 层：radial-menu 提供环形选单控件，questify 管理任务与目标界面。一个解决输入与选择交互，一个解决任务展示，功能不重叠，可按需组合。"
+  },
+  "category": "ui",
+  "tags": [
+    "环形菜单",
+    "UI控件",
+    "着色器",
+    "触屏"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "菜单主要由着色器渲染",
+      "source": "Readme.md",
+      "quote": "The rendering of the menu is primarily done through shader code and so should be pretty performant."
+    },
+    {
+      "claim": "提供悬停与选中信号",
+      "source": "Readme.md",
+      "quote": "`hovered(child)` ... `selected(child)`"
+    },
+    {
+      "claim": "可控制吸附与中心节点",
+      "source": "Readme.md",
+      "quote": "`set_snap_enabled(true | false)` ... `set_center_node(Node)`"
+    },
+    {
+      "claim": "渲染主要由着色器实现，性能开销较小",
+      "source": "README.md",
+      "quote": "The rendering of the menu is primarily done through shader code and so should be pretty performant."
+    }
+  ]
+}

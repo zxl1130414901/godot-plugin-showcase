@@ -1,0 +1,139 @@
+{
+  "id": "Earewien__godot-traits",
+  "depth": "standard",
+  "taglineZh": "给 Godot 节点加可装卸的行为特性，减少重复代码",
+  "summaryZh": "Godot Traits 在 GDScript 里实现特性系统：把生命、背包、可受伤等行为写成用 @trait 标注的类，运行时用 GTraits 附加到任意节点，插件会为每个特性生成 is_、as_、set_ 工具方法，还能按构造依赖自动带入其他特性。它解决了组合复用写法不一致的问题，适合组件化实体、可复用机制与敌人行为。限制是特性只能挂到节点，卸载时只释放实例、依赖声明仍留在对象上，需要手工清理；生成工具依赖编辑器插件扫描，新增特性后要重启编辑器。",
+  "whatItDoes": "给脚本加 @trait 注释并声明类名，编辑器扫描后生成 GTraits 的访问方法。运行时调用 GTraits.set_damageable(crate) 附加特性，as_damageable 取回实例调用方法，is_damageable 判断存在。特性构造函数声明所需依赖时，附加会自动带入依赖特性；也支持把场景作为特性，承载命中盒、动画等复杂行为。",
+  "useCases": [
+    {
+      "titleZh": "组件化实体",
+      "descZh": "给同一个角色叠加生命、背包与移动特性，按需组合能力，不用为每种搭配写一个继承子类，也能随时卸下。"
+    },
+    {
+      "titleZh": "可复用游戏机制",
+      "descZh": "把受伤、拾取与自毁写成特性，在敌人、道具与场景物件之间共享，改规则只改一处，行为表现也统一。"
+    },
+    {
+      "titleZh": "UI 交互扩展",
+      "descZh": "给界面节点附加拖拽、悬停与提示等可复用交互，做背包格与工具面板时不必重复写输入判断。"
+    },
+    {
+      "titleZh": "插件与框架开发",
+      "descZh": "把通用能力做成特性，让使用方在任意节点上挂载，发布插件时也能减少对项目结构的侵入。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可附加的运行时特性",
+      "descZh": "特性实例挂在节点上，对外提供变量、函数与信号，卸载时实例被移除，节点本身不受影响。"
+    },
+    {
+      "titleZh": "自动生成的访问工具",
+      "descZh": "每个特性都会得到 is_、as_ 与 set_ 三类方法，调用时不必手工查表，类型标注更容易写对，出错也更早知道。"
+    },
+    {
+      "titleZh": "场景化特性",
+      "descZh": "复杂行为可以用场景承载，附带命中盒、动画与子节点，比纯脚本更适合做视觉表现。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "@trait",
+      "descZh": "标注特性类后，插件扫描会生成 GTraits 上的工具方法，新增或改名时需要重启编辑器触发。"
+    },
+    {
+      "name": "GTraits.set_x",
+      "descZh": "给节点附加特性，构造参数里声明的依赖会按顺序自动带入，减少手工装配步骤。"
+    },
+    {
+      "name": "GTraits.as_x",
+      "descZh": "取回特性实例并调用其方法，省去自己维护字典或节点路径，调用点也更清晰。"
+    },
+    {
+      "name": "场景作为特性",
+      "descZh": "用场景承载命中盒、动画与子节点等复杂行为，特性也能拥有可视内容与层级。"
+    },
+    {
+      "name": "依赖注入",
+      "descZh": "特性构造参数声明所需特性，附加时自动满足依赖，避免忘记初始化某个必要条件。"
+    }
+  ],
+  "limitsZh": "特性只能附加到节点，普通 RefCounted 或纯数据对象用不上；卸载特性只移除并释放实例，依赖声明仍留在对象上，反复装卸后需要手工清理，作者也把这点写进限制与路线图。生成工具依赖编辑器扫描 @trait 注释，新增或改名后要重启编辑器，否则 GTraits 上没有对应方法。特性之间通过依赖隐式耦合，依赖链过长会难以追踪谁提供了什么。插件版本 2.0.1，文档很全但高级用法仍要读示例；运行时反射与自动生成也带来少量开销。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 里的 godot-traits 目录复制进项目，并在插件面板启用它"
+    },
+    {
+      "stepZh": "重启编辑器，让插件扫描并生成对应的工具方法"
+    },
+    {
+      "stepZh": "用 @trait 编写特性类，声明变量、函数与依赖"
+    },
+    {
+      "stepZh": "在对象里用 GTraits 的 set 方法给节点附加特性"
+    },
+    {
+      "stepZh": "通过 as 取回实例，调用方法并连接信号"
+    }
+  ],
+  "pros": [
+    "把组合复用统一成特性，代码结构更一致，新成员也容易看懂",
+    "自动生成 is、as 与 set 工具方法，调用更安全，也少了手工维护字典与路径",
+    "支持构造参数声明依赖并自动带入，减少手工装配与初始化遗漏，附加顺序也更可控",
+    "场景也能作为特性，命中盒与动画这类复杂行为同样可复用",
+    "文档覆盖概念、示例、限制与路线图，新成员照着读一遍就能上手"
+  ],
+  "cons": [
+    "特性只能挂在节点上，纯数据对象与 RefCounted 场景不适用，用组合替代继承的思路也会受限",
+    "卸载后依赖声明仍会残留在对象上，反复装卸需要手工清理",
+    "新增或改名特性要重启编辑器才会生成工具，热迭代略慢"
+  ],
+  "pitfalls": [
+    "忘记重启编辑器会导致 GTraits 上找不到新方法，先怀疑工具未生成",
+    "频繁装卸特性会积累残留依赖，需要定期清理并复核对象状态",
+    "特性依赖成环时附加可能递归，设计时要提前避免循环声明并画清依赖图"
+  ],
+  "bestFor": "做组件化实体、需要跨角色复用生命、背包与受伤等机制，并愿意按插件约定组织 GDScript 代码的中型项目与团队。",
+  "avoidWhenZh": "大量使用非节点对象，或希望零反射、零代码生成的性能敏感项目，都不适合引入特性系统。",
+  "compareTips": {
+    "vs": [
+      "TheDuriel__DurielUtilities"
+    ],
+    "whenZh": "Godot Traits 专注可装卸的行为特性与自动访问器，适合组件化架构；DurielUtilities 是零散通用工具合集，覆盖资源、UI 与状态机。要做实体能力组合选前者，要杂项轮子看后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "特性系统",
+    "组合复用",
+    "组件化",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "为 GDScript 引入特性系统",
+      "source": "README.md",
+      "quote": "Godot Traits is an addon that brings the power of traits to GDScript."
+    },
+    {
+      "claim": "特性可附加到任意对象并自动生成工具",
+      "source": "README.md",
+      "quote": "defining trait classes and attaching them to objects, with auto-generated utilities"
+    },
+    {
+      "claim": "卸载特性只释放实例，依赖声明会残留",
+      "source": "README.md",
+      "quote": "When removing a trait, only the trait instance is removed and freed - Trait dependencies remain declared in the object"
+    }
+  ]
+}

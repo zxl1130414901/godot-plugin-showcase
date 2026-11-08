@@ -1,0 +1,148 @@
+{
+  "id": "tugcantopaloglu__godot-mcp",
+  "depth": "standard",
+  "taglineZh": "AI 客户端可用上百个工具直接操控 Godot 引擎",
+  "summaryZh": "Godot MCP - Full Control 是一个 Model Context Protocol 服务端，向上百个工具覆盖网络、2D 与 3D 渲染、UI 控件、音频、动画树、文件读写与运行时脚本执行。它基于 Coding-Solo 的 godot-mcp 扩展而来，工具数从 20 个加到 157 个，补上 C# 项目脚手架、脚本语法校验与运行时节点操作。AI 客户端连上后可以建项目、改场景、跑测试，也能在游戏运行中执行 GDScript 读回结果。仓库带 TypeScript 源码与多组测试，按 README 配置即可接入。工具名与参数都写在文档里，客户端可以按需挑选，不必一次全开。",
+  "whatItDoes": "服务端以标准输入输出与 AI 客户端通信，把工具调用翻译成对 Godot 项目的操作：无头模式跑脚本、改 project.godot、创建场景与节点、导入资源。运行态另起一个交互服务，把 game_eval、属性读写与节点查找发进正在运行的游戏，用请求编号对齐返回。校验类工具会编译目标脚本并收集错误，支持自动加载解析与全项目扫描。",
+  "useCases": [
+    {
+      "titleZh": "AI 自动搭原型",
+      "descZh": "让 AI 客户端直接建项目、生成场景与节点树，原型阶段不必手点编辑器，重复的整套样板搭建交给工具调用完成。"
+    },
+    {
+      "titleZh": "批量改脚本",
+      "descZh": "用校验工具一次性扫一遍全项目的语法与类型错误，再让 AI 按报告直接逐个修，省去手动跑编辑器，改动多的重构任务尤其省时间。"
+    },
+    {
+      "titleZh": "运行中调试",
+      "descZh": "游戏跑起来后仍能执行 GDScript、读节点属性、调方法，用来验证数值与状态，不必重启，改完立刻看到结果，调试循环很短。"
+    },
+    {
+      "titleZh": "C# 项目脚手架",
+      "descZh": "项目用 C# 时可以让工具生成 csproj 与脚本模板，SDK 版本按本机 Godot 对齐，省去在不同机器上反复手工核对项目文件结构。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "MCP 服务端",
+      "descZh": "一个可执行的 TypeScript 服务，按 MCP 协议列出工具并处理调用，注册进客户端的配置文件里即可直接使用。"
+    },
+    {
+      "titleZh": "157 个工具",
+      "descZh": "覆盖 2D、3D、UI、音频、动画、文件读写与运行时代码执行，几乎把编辑器整段常用操作都包了。工具名与调用参数一目了然。"
+    },
+    {
+      "titleZh": "测试与文档",
+      "descZh": "仓库带多组 Vitest 用例，覆盖工具定义、处理器、安全与引擎冒烟测试，README 里逐项列出工具参数与调用方式。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "工具数量多",
+      "descZh": "157 个工具从建项目、改场景一直覆盖到运行时代码执行，常见操作基本不用自己拼命令行。"
+    },
+    {
+      "name": "运行中执行代码",
+      "descZh": "game_eval 能在运行中的游戏里跑任意 GDScript 并拿到返回值，游戏暂停时也能用，还支持 await 的异步写法。"
+    },
+    {
+      "name": "脚本校验",
+      "descZh": "validate_script 先编译脚本再报语法与类型错误，自动加载单例的引用不会再误报为标识符缺失。"
+    },
+    {
+      "name": "C# 项目支持",
+      "descZh": "能生成 csproj 与 C# 脚本，SDK 版本按本机 Godot 对齐，C# 项目也能直接被同一套工具完整管理。"
+    }
+  ],
+  "limitsZh": "工具数量多意味着服务端体量大，初次配置要在客户端里登记命令、路径与 Godot 可执行文件，任何一项错了都只报笼统失败。运行时代码执行等于给 AI 开了任意脚本权限，必须在可信项目里使用，别把端口暴露到外网。仓库以 TypeScript 与 Node 运行，客户端版本与协议支持度不同，部分工具在旧客户端里可能不可见。README 很长，157 个工具的参数散落在各节，检索成本不低。工具覆盖面广但不代表稳定，场景操作与运行时交互在复杂项目里仍可能踩到边界情况，要留测试与回滚。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆仓库，按 README 先在本地跑构建并确认服务端能启动。"
+    },
+    {
+      "stepZh": "在 AI 客户端里登记服务命令与 Godot 可执行文件路径。"
+    },
+    {
+      "stepZh": "用建项目与建场景工具先试着跑通一个最小工程。"
+    },
+    {
+      "stepZh": "让 AI 读取或修改脚本后调用校验工具确认无错。"
+    },
+    {
+      "stepZh": "启动游戏，再用运行时工具读写节点并回到对话里核对结果。"
+    }
+  ],
+  "pros": [
+    "工具覆盖面很广，建项目、改场景、跑脚本与运行时调试都能在对话里完成。",
+    "基于成熟的 godot-mcp 扩展，原有 20 个工具之外补上错误校验、C# 与运行态交互能力。",
+    "game_eval 支持 await 与暂停时执行，直接在运行中的实例上改，验证数值和状态不必反复重启游戏。",
+    "仓库带多组测试与 TypeScript 源码，出问题能对着用例和实现排查，而不只是看文档。"
+  ],
+  "cons": [
+    "初次配置要登记命令、路径与引擎位置，任一项写错都只给出笼统错误。",
+    "运行时代码执行等于给 AI 任意脚本权限，不适合在不可信项目里开着。",
+    "工具参数分散在很长的文档里，查一个参数要来回翻节，检索体验一般。",
+    "覆盖面广不等于稳定，复杂项目的场景操作与运行交互会碰到边界问题。"
+  ],
+  "pitfalls": [
+    "Godot 路径填错时所有工具一起失效，报错却很笼统，先确认版本与可执行文件。",
+    "在不可信项目里开着运行时代码执行，AI 能改任意脚本，风险要提前评估。",
+    "旧客户端未必支持全部工具，发现工具缺失先升级客户端或降级服务端。"
+  ],
+  "bestFor": "已经在用 Trae、Cursor 或 Claude Code 这类支持 MCP 的客户端，想让 AI 直接建项目、改场景并调试 Godot 的个人开发者与小团队，希望少用手点编辑器。",
+  "avoidWhenZh": "需要严格权限隔离、审计每次调用，或团队不接受把任意脚本执行交给 AI 的项目。",
+  "compareTips": {
+    "vs": [
+      "Coding-Solo__godot-mcp",
+      "yurineko73__Godot-MCP-Native",
+      "DaxianLee__godot-mcp"
+    ],
+    "whenZh": "和上游 Coding-Solo 的版本相比，它把工具从 20 个扩到 157 个，并补上校验、C# 与运行态交互；与原生实现的 MCP 相比，它靠 TypeScript 与无头脚本操作，不要求编译插件；项目若只需要少量建场景工具，上游版本更轻。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI",
+    "自动化",
+    "GDScript",
+    "C#"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "提供 157 个工具覆盖引擎多方面能力",
+      "source": "README.md",
+      "quote": "157 tools"
+    },
+    {
+      "claim": "项目基于 Coding-Solo 的 godot-mcp 扩展",
+      "source": "README.md",
+      "quote": "This project is built upon and extends [godot-mcp](https://github.com/Coding-Solo/godot-mcp) by [Solomon Elias (Coding-Solo)](https://github.com/Coding-Solo)."
+    },
+    {
+      "claim": "运行中可执行任意 GDScript 并取得返回值",
+      "source": "README.md",
+      "quote": "Execute arbitrary GDScript code in the running game with return values"
+    },
+    {
+      "claim": "游戏暂停时仍可执行",
+      "source": "README.md",
+      "quote": "Works even when the game is paused (`PROCESS_MODE_ALWAYS`)"
+    },
+    {
+      "claim": "支持 C# 项目与脚本生成",
+      "source": "README.md",
+      "quote": "Scaffold C# projects and generate C# scripts (`create_project` with `dotnet: true`, `create_csharp_script`)"
+    }
+  ]
+}

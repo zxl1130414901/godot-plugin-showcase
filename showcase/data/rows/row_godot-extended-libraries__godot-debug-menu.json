@@ -1,0 +1,14 @@
+{
+  "id": "godot-extended-libraries__godot-debug-menu",
+  "descriptionZh": "在游戏内叠加性能浮层，显示帧率、帧时间曲线与硬件信息的调试插件，导出后也能使用。",
+  "category": "debug-perf",
+  "tags": ["性能监视", "帧时间", "浮层", "硬件信息"],
+  "prosShort": ["帧时间曲线能抓住偶发卡顿", "紧凑与完整两种模式可随时切换", "导出版也能用，便于收集证据"],
+  "consShort": ["只展示不记录，无法导出数据", "部分硬件字段可能缺失不完整", "浮层本身有少量渲染开销，需对照测量"],
+  "scores": {"coverage": 3, "usability": 4, "docs": 4, "maintenance": 2, "performance": 5, "stability": 4},
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

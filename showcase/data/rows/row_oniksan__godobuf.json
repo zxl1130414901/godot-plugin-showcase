@@ -1,0 +1,34 @@
+{
+  "id": "oniksan__godobuf",
+  "descriptionZh": "编辑器插件把 proto 文件编译成纯 GDScript 的 Protobuf 编解码代码，支持 v2、v3 与常见复合类型，无需重编译引擎。",
+  "category": "network",
+  "tags": [
+    "protobuf",
+    "serialization",
+    "codegen",
+    "gdscript"
+  ],
+  "prosShort": [
+    "纯 GDScript 实现，无需重新编译引擎即可使用",
+    "同时支持 v2、v3 与常见复合类型的协议",
+    "在编辑器面板中一键生成可用代码"
+  ],
+  "consShort": [
+    "复杂协议用到的 packages、services 与 Any 均不支持",
+    "主分支仅对应 Godot 4.6，其他版本要切分支",
+    "大型 proto 生成的整体文件体积会明显膨胀"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

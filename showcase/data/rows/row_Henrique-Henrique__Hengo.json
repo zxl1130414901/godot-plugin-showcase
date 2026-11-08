@@ -1,0 +1,34 @@
+{
+  "id": "Henrique-Henrique__Hengo",
+  "descriptionZh": "节点式可视化脚本，把状态机图编译成原生 GDScript 运行，整体接入成本不高。",
+  "category": "visual-script",
+  "tags": [
+    "可视化脚本",
+    "状态机",
+    "节点图",
+    "GDScript"
+  ],
+  "prosShort": [
+    "编译原生脚本无运行开销，团队上手也快。",
+    "状态机结构贴合常见玩法，接入成本不高。",
+    "实时高亮执行流程，后续扩展方便。"
+  ],
+  "consShort": [
+    "仍处 beta 功能与稳定性不足，团队要提前评估。",
+    "要求 Godot 4.7 版本很新，规模化后更明显。",
+    "复杂逻辑仍要写脚本，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 5,
+    "stability": 2
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

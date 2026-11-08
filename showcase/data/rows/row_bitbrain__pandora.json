@@ -1,0 +1,35 @@
+{
+  "id": "bitbrain__pandora",
+  "descriptionZh": "把 RPG 物品、法术、怪物与掉落数据收进专用面板统一编辑管理的 Godot 4 插件。",
+  "category": "state-logic",
+  "tags": [
+    "RPG数据",
+    "道具管理",
+    "法术配置",
+    "实体继承",
+    "数据编辑器"
+  ],
+  "prosShort": [
+    "属性继承让同类数据只改一处",
+    "运行时按 ID 取数不依赖路径",
+    "自带单元测试可做回归验证"
+  ],
+  "consShort": [
+    "仍处 Alpha 不适合临近上线项目",
+    "只做数据层战斗与存档要自写",
+    "实体上千后编辑器加载变慢"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

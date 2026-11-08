@@ -1,0 +1,152 @@
+{
+  "taglineZh": "用 CMake 搭 Godot 4 C++ 扩展的起手模板工程，含 CI",
+  "summaryZh": "写 Godot 的 C++ 扩展时，scons 之外的另一种做法是 CMake，这个模板把 CMake 工程、godot-cpp 子模块、gdextension 生成与打包流程都提前搭好。它会把 support_files 拷进扩展目录、按项目名生成 debug 与 release 的 gdextension 文件，并自动生成带 git 版本号的 Version.h，还能用宏做条件编译。模板本身不是依赖，作者要求复制而非 fork，且当前对齐 Godot 4.2，升级引擎要手动同步 godot-cpp。",
+  "whatItDoes": "CMakeLists 通过 add_subdirectory 链接 godot-cpp 静态库，把 src 下的 C++ 源文件编成共享库，并按 templates 里的模板生成 .gdextension。install target 会按正确结构安装全部文件，clang-format target 统一格式。GitHub Actions 在 Linux、macOS universal 与 Windows 上构建并产出 debug 与 release 包，检测到 ccache 就启用来加速重建。",
+  "useCases": [
+    {
+      "titleZh": "新扩展起步",
+      "descZh": "准备写第一个 Godot 4 C++ 扩展的团队，用模板省掉 CMake 与 godot-cpp 的接线工作，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "CMake 偏好",
+      "descZh": "团队已有 CMake 构建体系与 CI，不想为扩展再引入 scons，可直接沿用这套脚本，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "多平台发布",
+      "descZh": "需要 Linux、macOS 与 Windows 同时出包的扩展，借用现成工作流与 install target，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "版本信息",
+      "descZh": "扩展需要在运行时暴露版本号，模板生成的 Version.h 已包含 git 信息与比较宏，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "教学示例",
+      "descZh": "讲 GDExtension 构建流程时，可用这份模板对照理解注册、导出与打包的每一步，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "CMake 工程骨架",
+      "descZh": "含 CMakeLists、Presets 与 warning、ccache 等模块，克隆后补齐子模块即可编译，无需自己再写构建脚本。"
+    },
+    {
+      "titleZh": "gdextension 生成",
+      "descZh": "按项目名与 target 生成 debug 与 release 两份配置文件，安装时自动带上，不用手写路径。"
+    },
+    {
+      "titleZh": "Version.h",
+      "descZh": "自动写入版本号与 git 修订信息，并暴露给 GDScript 调用，分支切换时会更新，不必手动维护。"
+    },
+    {
+      "titleZh": "CI 工作流",
+      "descZh": "三平台构建、格式检查与打包脚本，提交即产出可分发的 debug 与 release 包，可直接发版。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "godot-cpp 子模块",
+      "descZh": "以子模块方式引入并静态链接，避免手工同步头文件与库文件。"
+    },
+    {
+      "name": "模板生成",
+      "descZh": "templates 目录里的 .gdextension 模板按项目名替换生成，减少手写配置，改项目名后重新配置一次即可。"
+    },
+    {
+      "name": "Version.h",
+      "descZh": "带版本比较宏与 git 描述，可在 C++ 与 GDScript 两侧读取版本，发版时不必再手填版本。"
+    },
+    {
+      "name": "ccache",
+      "descZh": "检测到 ccache 就启用，明显减少重复编译的等待时间，本地重建基本不用等。"
+    },
+    {
+      "name": "CI 打包",
+      "descZh": "GitHub Actions 产出三平台 debug 与 release 包并检查代码格式，提交即可看到构建结果。"
+    }
+  ],
+  "limitsZh": "README 说明它对齐 Godot 4.2，之后的引擎版本要自己切换 godot-cpp 分支并处理 API 变化，模板本身不保证向后兼容。它只是构建骨架，示例里只有一个 Example 类，注册、绑定与业务代码都要自己写。CI 只覆盖 Linux x86_64、macOS universal 与 Windows x86_64，Android、iOS 与 Web 的交叉编译没有现成配置。使用需要 CMake 3.22 以上与支持 C++17 的编译器，环境不齐时第一步就卡住。",
+  "workflowZh": [
+    {
+      "stepZh": "用 Use this template 复制仓库并改名为自己的扩展。"
+    },
+    {
+      "stepZh": "改 CMakeLists 里的项目名与源文件列表，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "初始化 godot-cpp 子模块并确认分支匹配引擎版本。"
+    },
+    {
+      "stepZh": "配置 CMake Preset 并编译出共享库，确认生成路径与文件名正确。"
+    },
+    {
+      "stepZh": "把产物与 .gdextension 拷到工程根目录，再确认扩展已加载。"
+    }
+  ],
+  "pros": [
+    "CMake、godot-cpp、gdextension 生成与 CI 全部预先接好，新建扩展省掉一天的布线工作。",
+    "Version.h 与模板生成都是自动化的，版本号与打包配置不容易写错。",
+    "README 写清前置条件、目录结构与自定义步骤，照着改不容易走偏。",
+    "三平台 CI 与 clang-format 检查齐全，小团队也能维持一致的构建质量。"
+  ],
+  "cons": [
+    "只对齐 Godot 4.2，升级引擎要自己同步 godot-cpp 与 API 变化",
+    "只有构建骨架与一个示例类，业务代码全部要自己写",
+    "不含 Android、iOS 与 Web 的交叉编译配置，需要自己补，工作量不小"
+  ],
+  "pitfalls": [
+    "忘记初始化 godot-cpp 子模块，CMake 配置阶段就会因找不到目录失败。",
+    "改了项目名但没同步模板变量，生成的 .gdextension 里仍是旧名字，加载会失败。",
+    "直接 fork 而不复制模板，后续上游更新会与自己的改动纠缠在一起。"
+  ],
+  "bestFor": "打算用 C++ 与 CMake 写 Godot 4 扩展，希望构建、版本号与多平台打包一次配好的团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只需要 GDScript 插件，或不愿自己同步 godot-cpp 分支与引擎版本时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-cpp-template"
+    ],
+    "whenZh": "两者都是 GDExtension 起手模板：这份走 CMake，附带 ccache、clang-format 与三平台 CI；godot-cpp-template 是官方仓库，走 scons 且更贴近引擎仓库约定。团队已有 CMake 体系选前者，想贴官方路线选后者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "GDExtension",
+    "C++",
+    "CMake",
+    "模板",
+    "构建"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "面向 C++ 与 CMake 的 Godot 4 扩展起手项目",
+      "source": "README.md",
+      "quote": "This project is meant as a starting point for creating new C++/CMake-based Godot 4 extensions."
+    },
+    {
+      "claim": "当前对齐 Godot 4.2",
+      "source": "README.md",
+      "quote": "It is currently set up to work with the **[Godot 4.2](https://github.com/godotengine/godot/releases/tag/4.2-stable)** release"
+    },
+    {
+      "claim": "以子模块引入 godot-cpp 并静态链接",
+      "source": "README.md",
+      "quote": "- includes **[godot-cpp](https://github.com/godotengine/godot-cpp) as a submodule** and links it statically to your shared library"
+    },
+    {
+      "claim": "要求复制而非作为依赖 fork",
+      "source": "README.md",
+      "quote": "This project is not meant to be a dependency. It is intended to be copied (not forked)"
+    }
+  ],
+  "id": "asmaloney__GDExtensionTemplate",
+  "depth": "standard"
+}

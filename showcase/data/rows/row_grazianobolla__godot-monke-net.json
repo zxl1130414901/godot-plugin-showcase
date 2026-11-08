@@ -1,0 +1,33 @@
+{
+  "id": "grazianobolla__godot-monke-net",
+  "category": "network",
+  "tags": [
+    "多人联机",
+    "客户端预测",
+    "状态同步",
+    "C#"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 1,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": false,
+  "descriptionZh": "Godot 4 .NET 的客户端预测网络库，含和解、快照插值与时钟同步，需定制 Godot 分支，适合延迟敏感联机",
+  "prosShort": [
+    "预测与和解完整，移动手感更好",
+    "快照插值与时钟同步已有实现",
+    "C# 结构清晰，便于二次开发，团队上手也快。"
+  ],
+  "consShort": [
+    "依赖定制 Godot 分支，构建成本高",
+    "delta 压缩与延迟补偿未完成，团队要提前评估。"
+  ],
+  "sampleStatus": "none"
+}

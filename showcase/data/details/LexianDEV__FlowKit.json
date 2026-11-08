@@ -1,0 +1,139 @@
+{
+  "id": "LexianDEV__FlowKit",
+  "depth": "standard",
+  "taglineZh": "受 Clickteam 启发的事件表可视化脚本插件",
+  "summaryZh": "FlowKit 把 Clickteam Fusion 与 Construct 的事件表搬进 Godot 4：不用写 GDScript，按事件块组合条件与动作就能驱动场景节点，逻辑保存成 .tres 资源，便于版本管理。它提供目标节点选择、可扩展的 Provider 体系与运行时事件处理，接入后可在编辑器里直接搭玩法。适合非程序背景的策划、原型快速验证与教学。限制是要求 Godot 4.5 以上，复杂逻辑仍然会遇到可视化编程的维护瓶颈；README 也说明项目借助生成式 AI 开发，遇到问题需依赖 Wiki、Discord 与 Issue 反馈。",
+  "whatItDoes": "在编辑器里创建事件表资源，每条事件由条件与动作组成，可指定场景中的目标节点。运行时引擎按事件顺序检测条件并执行动作，自动感知场景变化；Provider 体系允许注册自定义事件、条件与动作，把项目自己的系统接进可视化流程。",
+  "useCases": [
+    {
+      "titleZh": "策划独立搭玩法",
+      "descZh": "不写脚本也能拼出交互与关卡逻辑，减少程序与策划之间的往返沟通，改需求时也更快。"
+    },
+    {
+      "titleZh": "快速玩法原型",
+      "descZh": "用事件块验证规则与反馈，跑通之后再决定是否转成代码，试错成本低，很适合早期原型。"
+    },
+    {
+      "titleZh": "教学与入门",
+      "descZh": "事件表直观展示条件与动作的关系，适合编程启蒙课程与社团教学，学生一眼能看懂。"
+    },
+    {
+      "titleZh": "小型 2D 游戏",
+      "descZh": "平台、解谜与点击类玩法用事件表足以覆盖，不必额外引入状态机或行为树之类的架构。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "事件表资源",
+      "descZh": "条件与动作会保存为 .tres 资源，可随项目一起做版本控制、分支合并与历史回滚。"
+    },
+    {
+      "titleZh": "可运行的游戏逻辑",
+      "descZh": "运行时引擎按事件顺序检测条件并执行动作，直接驱动场景节点，无需手写调度。"
+    },
+    {
+      "titleZh": "自定义事件提供者",
+      "descZh": "把项目自建系统注册成条件与动作，扩展可视化脚本的能力边界，接入已有玩法。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "事件表系统",
+      "descZh": "用事件块组合条件与动作，像 Construct 一样搭逻辑，不用为简单规则写脚本。"
+    },
+    {
+      "name": "节点目标选择",
+      "descZh": "事件可指定场景树中的具体节点，控制粒度比全局脚本更细。"
+    },
+    {
+      "name": "Provider 扩展",
+      "descZh": "注册自定义事件、条件与动作，接入项目自建系统与第三方模块。"
+    },
+    {
+      "name": "运行时事件引擎",
+      "descZh": "游戏运行时顺序检测条件并执行动作，自动感知场景变化，不必手动轮询。"
+    },
+    {
+      "name": "资源化存储",
+      "descZh": "事件表存为 .tres，便于 diff、分支与回滚，多人协作时改动也看得清。"
+    }
+  ],
+  "limitsZh": "要求 Godot 4.5 以上，旧项目无法直接使用；可视化事件表在逻辑规模变大后会迅速变得难读，条件与动作互相引用时尤其如此。它面向事件驱动，复杂的嵌套状态、异步流程与网络同步仍要回到 GDScript。自定义能力依赖 Provider 体系，注册新条件与动作需要懂插件结构与脚本，不是纯策划能独立完成的。README 明确项目借助生成式 AI 开发，虽然作者称功能都经过测试，但边界情况与长期维护仍需社区验证；文档主要靠 Wiki 与 Discord。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/flowkit 目录，并在插件列表里启用"
+    },
+    {
+      "stepZh": "新建事件表资源，并挂到需要驱动的场景节点"
+    },
+    {
+      "stepZh": "选择目标节点，再按顺序添加事件块"
+    },
+    {
+      "stepZh": "组合条件与动作，理清触发顺序与优先级"
+    },
+    {
+      "stepZh": "运行验证效果，并按需扩展自定义 Provider"
+    }
+  ],
+  "pros": [
+    "事件表工作流对非程序人员友好，原型搭建速度明显更快，沟通成本也低",
+    "可以直接指定场景节点，控制粒度比全局脚本更细，定位问题也快",
+    "Provider 体系允许扩展自定义条件与动作，可接入项目自建系统与第三方模块",
+    "事件表存为 .tres，版本控制、分支与回滚都比较方便，协作冲突少",
+    "MIT 许可，改造成本低，可以自由嵌入商业项目，也没有附加限制"
+  ],
+  "cons": [
+    "要求 Godot 4.5 以上，兼容范围窄，旧项目暂时无法直接使用",
+    "复杂逻辑在事件表里难读难维护，规模一大就要拆分",
+    "生成式 AI 参与开发，边界情况仍需社区长期验证"
+  ],
+  "pitfalls": [
+    "事件目标节点改名或移出场景后事件会失效，重构时要同步更新",
+    "条件顺序写反会导致动作永不触发，排查要靠日志与单步观察",
+    "大量事件同帧检测会带来额外开销，需要按场景拆分事件表"
+  ],
+  "bestFor": "策划主导、以事件驱动为主的小型 2D 项目，或想用可视化方式快速验证玩法、暂不写大量代码的 Godot 4.5 团队。",
+  "avoidWhenZh": "逻辑复杂、需要异步与联网，或必须兼容 Godot 4.4 及以下版本的项目。",
+  "compareTips": {
+    "vs": [
+      "kagenash1__godot-behavior-tree"
+    ],
+    "whenZh": "FlowKit 是事件表式可视化脚本，重点在条件与动作的组合；GodotBT 是代码化行为树 AI，重点在决策分支。做关卡与交互逻辑选前者，做敌人决策则看后者。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "可视化脚本",
+    "事件表",
+    "低代码",
+    "原型开发"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "受 Clickteam Fusion 与 Construct 启发的事件表可视化脚本",
+      "source": "README.md",
+      "quote": "A **Clickteam Fusion 2.5/Construct** inspired visual scripting addon for **Godot 4**, enabling event-driven programming through an intuitive event sheet interface."
+    },
+    {
+      "claim": "事件表保存为 .tres 资源",
+      "source": "README.md",
+      "quote": "Resource-Based Storage: Event sheets saved as `.tres` resources for version control friendliness"
+    },
+    {
+      "claim": "要求 Godot 4.5 以上",
+      "source": "README.md",
+      "quote": "Godot 4.5+"
+    }
+  ]
+}

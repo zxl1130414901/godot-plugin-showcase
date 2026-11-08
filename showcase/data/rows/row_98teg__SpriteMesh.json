@@ -1,0 +1,34 @@
+{
+  "id": "98teg__SpriteMesh",
+  "descriptionZh": "把 2D 精灵图按透明度挤出成带厚度、可多帧切换的 3D 网格资源节点",
+  "category": "asset-pipeline",
+  "tags": [
+    "像素风",
+    "2D转3D",
+    "网格生成",
+    "纸片模型"
+  ],
+  "prosShort": [
+    "精灵图按像素直接生成有厚度网格",
+    "厚度、轴向、阈值与单双面均可调",
+    "多帧精灵可逐帧生成各自独立的网格"
+  ],
+  "consShort": [
+    "生成算法偏重，运行时忌频繁重建",
+    "只能挤出，无法骨骼蒙皮与曲面",
+    "插件藏在 demo 目录，安装易搞错路径"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

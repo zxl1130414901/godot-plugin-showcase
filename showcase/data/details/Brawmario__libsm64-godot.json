@@ -1,0 +1,139 @@
+{
+  "id": "Brawmario__libsm64-godot",
+  "depth": "standard",
+  "taglineZh": "把超级马里奥 64 的角色物理接入 Godot 的扩展",
+  "summaryZh": "这个 GDExtension 把 libsm64 绑定到 Godot 4，让超级马里奥 64 的角色控制器、跳跃与碰撞行为直接出现在你的 3D 场景里。它提供两层接口：直接调用 libsm64 的底层 API，以及更 Godot 风格的节点接口，例如马里奥角色与静态碰撞面处理器，并附带演示场景与输入映射说明。发布页已提供 Windows、macOS、Linux 与 Web 的预编译库，也可自行编译 libsm64 再编扩展。硬性前提是必须自备美版超级马里奥 64 ROM，并核对指定哈希；兼容性目前只到 Godot 4.3.x。",
+  "whatItDoes": "把 libsm64 的三角面碰撞与角色状态机包成节点：用静态面处理器登记关卡几何，再加入马里奥节点，就能得到原作式的跑跳、三角跳与抓墙动作。高层节点不满足需求时，可直接调底层 API 读写角色状态与输入。演示工程展示场景搭建、输入映射与镜头跟随。",
+  "useCases": [
+    {
+      "titleZh": "马里奥式 3D 平台游戏",
+      "descZh": "直接获得原作的跑跳、三角跳与抓墙手感，把精力放在关卡设计与玩法编排上，而不是重写角色控制器与碰撞逻辑。"
+    },
+    {
+      "titleZh": "角色控制研究",
+      "descZh": "对照高层节点与底层 API 两种用法，拆解经典 3D 平台角色的状态组织方式，为自己的控制器设计提供参考。"
+    },
+    {
+      "titleZh": "怀旧同人项目",
+      "descZh": "用熟悉的动作手感搭同人关卡，先做出可玩原型再逐步换美术资源，社区已有多个同类项目可以参考。"
+    },
+    {
+      "titleZh": "Web 演示",
+      "descZh": "借发布页提供的 Web 构建，把角色演示直接放进浏览器分享，适合做作品展示或快速收集手感反馈。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可操控的马里奥角色",
+      "descZh": "带完整动作集的角色节点，加入场景并登记碰撞面后即可行走跳跃，输入映射由项目侧配置。"
+    },
+    {
+      "titleZh": "静态碰撞面",
+      "descZh": "把关卡网格登记为 libsm64 可识别的三角面碰撞，角色才能站在地面与墙面上，未登记区域会直接坠落。"
+    },
+    {
+      "titleZh": "跨平台扩展库",
+      "descZh": "发布页提供 Windows、macOS、Linux 与 Web 的预编译产物，Web 还分线程与无线程两种，可直接下载使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "高层节点接口",
+      "descZh": "马里奥角色与静态面处理器以节点形式暴露，按 Godot 习惯搭场景，不必手写底层调用。"
+    },
+    {
+      "name": "底层 libsm64 API",
+      "descZh": "直接读写角色状态与输入，便于实现非标准玩法或做调试可视化，代价是要自己管理内存。"
+    },
+    {
+      "name": "原作动作集",
+      "descZh": "跑跳、三角跳、抓墙与翻滚等动作由 libsm64 状态机驱动，手感与原作非常接近。"
+    },
+    {
+      "name": "Web 构建",
+      "descZh": "提供线程与无线程两种 Web 产物，便于浏览器演示，但线程版对托管环境有额外要求。"
+    },
+    {
+      "name": "演示工程",
+      "descZh": "仓库内含场景、输入映射与镜头设置，可对照搭建自己的第一个可玩场景，少走配置弯路。"
+    }
+  ],
+  "limitsZh": "必须自备美版超级马里奥 64 ROM 并匹配指定 SHA256，仓库不提供也不指导获取，商用与分发存在明确版权风险。兼容性锁定 Godot 4.3.x，升级到 4.4 以上要自行验证甚至重编。自行编译需先构建 libsm64，再准备 Godot 编译工具链与 MinGW，步骤多且平台差异大；虽然发布页有预编译库，但版本与引擎绑定。它只提供角色与碰撞，不含关卡、相机玩法或 UI，Web 构建还受线程支持影响。",
+  "workflowZh": [
+    {
+      "stepZh": "自备美版超级马里奥 64 ROM，并按文档核对 SHA256 哈希值"
+    },
+    {
+      "stepZh": "从发布页下载预编译扩展，或按文档自行编译对应平台版本"
+    },
+    {
+      "stepZh": "把扩展放进项目的 addons 目录，并在插件列表里启用"
+    },
+    {
+      "stepZh": "用静态面节点登记关卡几何，覆盖角色需要站立的区域"
+    },
+    {
+      "stepZh": "添加马里奥节点、配置输入映射并调整镜头参数"
+    }
+  ],
+  "pros": [
+    "直接复用马里奥 64 成熟的角色物理，跑跳与碰撞手感非常接近原作，省去大量调参时间",
+    "同时提供高层节点与底层 API，既能快速搭场景也能改出非标准玩法",
+    "发布页含桌面三平台与 Web 预编译库，省去自行编译工具链的门槛，上手更快",
+    "文档覆盖场景搭建、输入映射与节点添加，配图清楚，首次接入不算难",
+    "社区已有多个同人项目实际使用，可参考的案例与踩坑记录较多，出问题更容易搜到答案"
+  ],
+  "cons": [
+    "必须自备美版 ROM 并匹配哈希，商用与公开分发存在明确的版权风险",
+    "兼容性锁定在 Godot 4.3.x，升级到 4.4 以上需要自行验证甚至重编扩展",
+    "自行编译要先构建 libsm64 再编扩展，跨平台工具链步骤繁琐"
+  ],
+  "pitfalls": [
+    "ROM 哈希不匹配时初始化会直接失败，务必先核对 SHA256 再排查其他问题",
+    "静态碰撞面没有覆盖到的关卡区域会让角色直接坠落，建关卡时要逐块登记",
+    "引擎升级到 4.4 以上可能出现加载失败，需等扩展跟进或自行重编，不要盲目升级"
+  ],
+  "bestFor": "做马里奥式 3D 平台同人项目、能自备合法 ROM，并愿意锁定 Godot 4.3 或自行编译扩展的开发者与小型团队。",
+  "avoidWhenZh": "商业发行项目、无法提供 ROM，或必须跟进最新 Godot 版本与长期维护要求的项目都应避开。",
+  "compareTips": {
+    "vs": [
+      "ColormaticStudios__quality-godot-first-person-2"
+    ],
+    "whenZh": "libsm64-godot 提供经典马里奥角色物理与三角面碰撞，Quality FPS 则是一整套第一人称射击与交互模板。做 3D 平台跳跃与角色手感选前者，做射击玩法、武器与交互框架则看后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "马里奥64",
+    "角色物理",
+    "GDExtension",
+    "3D平台"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "把 libsm64 绑定到 Godot，接入马里奥角色",
+      "source": "README.md",
+      "quote": "Addon that binds libsm64 to Godot via GDExtension, allowing to integrate Mario from the Super Mario 64 engine into any Godot 4 project."
+    },
+    {
+      "claim": "需要美版马里奥 64 ROM 并匹配哈希",
+      "source": "README.md",
+      "quote": "This addon requires a Super Mario 64 (USA) ROM file"
+    },
+    {
+      "claim": "当前兼容 Godot 4.3.x",
+      "source": "README.md",
+      "quote": "Currently compatible with Godot 4.3.x"
+    }
+  ]
+}

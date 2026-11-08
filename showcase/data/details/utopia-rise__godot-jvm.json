@@ -1,0 +1,149 @@
+{
+  "id": "utopia-rise__godot-jvm",
+  "depth": "standard",
+  "taglineZh": "在 Godot 里用 Kotlin、Java 或 Scala 编写游戏逻辑的语言绑定",
+  "summaryZh": "Godot-JVM 给 Godot 4 接上 JVM 生态，让你用 Kotlin、Java 或 Scala 写游戏逻辑，而不是 GDScript 或 C#。它通过 GDExtension 把 JVM 嵌进引擎，脚本类可继承 Godot 的节点与资源类型，注册信号、属性与导出字段，并在编辑器里正常挂载。项目自带 Gradle 构建流程与热重载支持，也能把桌面版打成带内嵌 JRE 的 JAR。代价是工具链更复杂、启动与包体更大，适合已有 Java 团队或需要复用 JVM 库的项目。",
+  "whatItDoes": "把 JVM 嵌入 Godot 运行时，生成可在编辑器里挂载的 Kotlin、Java 与 Scala 脚本类，并提供 Gradle 构建、热重载与打包流程。",
+  "useCases": [
+    {
+      "titleZh": "Java 团队转 Godot",
+      "descZh": "团队已有 Java 或 Kotlin 经验与现成库，用它直接复用语言与工具链，不必先把全部逻辑迁到 GDScript。"
+    },
+    {
+      "titleZh": "复用 JVM 生态库",
+      "descZh": "需要 JSON、网络、数据库或数学库时直接引入 Maven 依赖，省去在 GDScript 里重写轮子的时间，比自己实现解析器省事得多。"
+    },
+    {
+      "titleZh": "大型逻辑分层",
+      "descZh": "把战斗、经济等纯逻辑写成 Kotlin 模块，用单元测试在 JVM 侧跑，再接到场景节点上，逻辑改动可以先用测试验证。"
+    },
+    {
+      "titleZh": "桌面端分发",
+      "descZh": "把游戏打成内嵌 JRE 的 JAR，交给玩家双击运行，不必要求玩家机器预先安装 Java 环境，分发时也少一层环境说明。"
+    },
+    {
+      "titleZh": "渐进式迁移",
+      "descZh": "旧项目可先让新模块用 Kotlin 写，与 GDScript 节点共存，再逐步替换核心逻辑，迁移过程可以按模块逐步推进。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "JVM 运行时桥接",
+      "descZh": "以 GDExtension 形式把 JVM 嵌进引擎，负责对象生命周期管理与类型转换，桥接层由插件自身维护升级。"
+    },
+    {
+      "titleZh": "Kotlin 与 Java 脚本类",
+      "descZh": "可继承节点与资源类型的脚本类，能注册信号、属性与导出字段给编辑器。"
+    },
+    {
+      "titleZh": "Gradle 构建模板",
+      "descZh": "仓库自带 Gradle 工程与任务，负责编译、打包与把产物放进 addons 目录，新手照着重跑即可完成首次构建。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Kotlin Java Scala",
+      "descZh": "三种 JVM 语言都能写脚本类，按团队习惯选择，同一工程里也能混用。"
+    },
+    {
+      "name": "Editor Integration",
+      "descZh": "脚本类会出现在创建节点与资源的列表里，属性与信号照常在检查器编辑。"
+    },
+    {
+      "name": "Gradle Build",
+      "descZh": "用 Gradle 编译与打包，依赖走 Maven 生态，产物自动放进 addons，不必手工搬库文件。"
+    },
+    {
+      "name": "Hot Reload",
+      "descZh": "配合调试流程修改脚本后可重载，减少反复重启编辑器的次数。"
+    },
+    {
+      "name": "Embedded JRE",
+      "descZh": "桌面版可打包成内嵌 JRE 的 JAR，玩家机器无需预装 Java 环境，适合直接交给玩家。"
+    }
+  ],
+  "limitsZh": "它不是官方支持的脚本方案，JVM 嵌入带来的启动时间、内存占用与包体增长都要提前评估，小游戏可能得不偿失。构建链条比 GDScript 长：要装 JDK、跑 Gradle、处理 Kotlin 版本与引擎版本匹配，初次配置最容易卡在环境上。移动与 Web 平台支持有限，桌面端才是主要目标，跨平台项目需要分开维护。编辑器里的 JVM 热重载仍可能残留旧类，复杂改动要重启。文档与示例偏工程化，中文资料很少，出问题要去 Discord 或读构建脚本。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 JDK 17 或更新版本并配置环境变量"
+    },
+    {
+      "stepZh": "克隆示例工程并用 Godot 4 编辑器打开项目"
+    },
+    {
+      "stepZh": "按文档跑 Gradle 任务生成插件产物文件"
+    },
+    {
+      "stepZh": "在编辑器里启用 JVM 插件并挂载脚本"
+    },
+    {
+      "stepZh": "导出桌面版并检查内嵌 JRE 是否可用"
+    }
+  ],
+  "pros": [
+    "能直接用 Kotlin、Java 与 Scala 写 Godot 逻辑，对 JVM 背景团队几乎零语言迁移。",
+    "Gradle 与 Maven 生态成熟，依赖管理与单元测试流程可以直接沿用，测试也跑在 JVM 上。",
+    "脚本类支持信号、属性与导出字段，编辑器体验与原生脚本接近。",
+    "可打包带内嵌 JRE 的桌面版，终端用户不需要预先安装 Java 环境。"
+  ],
+  "cons": [
+    "环境与构建链复杂，JDK、Gradle 与引擎版本不匹配就编译失败。",
+    "启动时间、内存与包体都比 GDScript 方案大，小体量游戏不划算。",
+    "移动与 Web 平台支持有限，跨平台项目要额外维护不同分支。",
+    "热重载可能残留旧类，复杂改动仍需重启编辑器，调试节奏变慢。"
+  ],
+  "pitfalls": [
+    "JDK 版本低于要求时 Gradle 会直接失败，先按 README 核对 17 或以上的版本。",
+    "引擎版本与绑定版本必须对应，混用会出现找不到类或直接崩溃。",
+    "打包后忘记把 JAR 与库文件一起导出，运行时会缺 JRE 或找不到类。"
+  ],
+  "bestFor": "团队已有 Java 或 Kotlin 积累，需要复用 JVM 库并把游戏主要发布在桌面端的 Godot 4 项目，并接受较重的构建链。",
+  "avoidWhenZh": "面向 Web 或移动端的小体量游戏，或不愿意维护 JDK 与 Gradle 构建链的独立开发者。",
+  "compareTips": {
+    "vs": [
+      "godotjs__GodotJS"
+    ],
+    "whenZh": "两者都把非 GDScript 语言接进 Godot：GodotJS 走 TypeScript 与 Web 生态，适合前端背景；Godot-JVM 走 JVM 与 Gradle，适合 Java 与 Kotlin 团队。按团队已有技术栈选，别为了新语言重搭工具链。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "JVM",
+    "Kotlin",
+    "Java",
+    "脚本绑定",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "可以用 Kotlin、Java 或 Scala 编写 Godot 逻辑",
+      "source": "README.md",
+      "quote": "game and application logic in Kotlin, Java, or Scala."
+    },
+    {
+      "claim": "作者声明 1.0.0 版本可用于生产",
+      "source": "README.md",
+      "quote": "Godot-JVM 1.0.0 is production-ready."
+    },
+    {
+      "claim": "对引擎与 JDK 版本有最低要求",
+      "source": "README.md",
+      "quote": "Use Godot 4.7 or newer and JDK 17 or newer."
+    },
+    {
+      "claim": "桌面版可内嵌 JRE 分发",
+      "source": "README.md",
+      "quote": "Distribute desktop games as JARs with an embedded JRE"
+    }
+  ]
+}

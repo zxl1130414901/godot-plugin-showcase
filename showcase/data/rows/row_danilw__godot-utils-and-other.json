@@ -1,0 +1,35 @@
+{
+  "id": "danilw__godot-utils-and-other",
+  "descriptionZh": "作者自用的 Godot 3 着色器与实验工程合集，含天空、反射与描边示例",
+  "category": "3d-shader",
+  "tags": [
+    "着色器",
+    "Godot3",
+    "实验工程",
+    "屏幕效果",
+    "反射"
+  ],
+  "prosShort": [
+    "效果种类丰富可直接运行，团队上手也快。",
+    "部分着色器可单独复制，接入成本不高。",
+    "附带素材来源便于核对，后续扩展方便。"
+  ],
+  "consShort": [
+    "只适用于 Godot 3 迁移困难，团队要提前评估。",
+    "代码偏实验风格缺少注释，规模化后更明显。",
+    "素材授权混杂商用需核查，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 1,
+    "docs": 2,
+    "maintenance": 1,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 3,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "shomykohai__quest-system",
+  "descriptionZh": "Godot 4.4 以上的模块化任务系统，用资源描述任务目标与奖励，支持自定义任务、任务池与本地化。",
+  "category": "state-logic",
+  "tags": [
+    "任务系统",
+    "RPG",
+    "资源化",
+    "本地化",
+    "GDScript"
+  ],
+  "prosShort": [
+    "任务资源化，策划可以自行改内容",
+    "类型安全的 API 并附带完整的单元测试",
+    "任务池与序列化等功能都已内置"
+  ],
+  "consShort": [
+    "不包含任务界面与任务追踪面板",
+    "只能运行在 Godot 4.4 以上的引擎版本",
+    "复杂分支与跨系统联动仍要自己写脚本"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,152 @@
+{
+  "id": "utopia-rise__fmod-gdextension",
+  "taglineZh": "把 FMOD Studio 的音频事件与总线接入 Godot 的扩展",
+  "summaryZh": "这个 GDExtension 把 FMOD Studio 的事件、总线、参数与 3D 定位能力暴露给 GDScript，并附带事件发射器与监听器节点，让游戏逻辑可以直接播放设计师在 FMOD 里调好的音频。它随库分发各平台预编译二进制与 FMOD 动态库，事件变化可实时热更新，适合需要复杂混音与交互式音乐的商业项目。代价是要同时维护引擎与 FMOD 两个版本的匹配，C# 项目无法使用，且 FMOD 本身有商业授权门槛。",
+  "whatItDoes": "将 FMOD Studio API 封装为 GDScript 可调用的节点与单例，负责 bank 加载、事件播放、参数传递与 3D 监听，把音频工程与游戏逻辑分开。",
+  "useCases": [
+    {
+      "titleZh": "3D 定位音效",
+      "descZh": "动作游戏需要按距离衰减的 3D 音效，用发射器节点挂到角色身上，位置与朝向自动交给 FMOD 计算。"
+    },
+    {
+      "titleZh": "交互式音乐",
+      "descZh": "音乐团队在 FMOD Studio 里调好战斗与探索两套总线，程序只需按游戏状态切换参数，不必重写混音逻辑。"
+    },
+    {
+      "titleZh": "上线后调音",
+      "descZh": "上线后想调整某个技能的音效层次，用实时更新把新 bank 推给运行中的编辑器，省去重新打包整包资源。"
+    },
+    {
+      "titleZh": "音频设置菜单",
+      "descZh": "需要把总线路由到不同输出设备，用插件暴露的总线接口做独立音量与静音控制，方便做设置菜单。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "FmodEventEmitter3D",
+      "descZh": "把 FMOD 事件挂在 3D 节点上，自动同步位置、朝向与速度，用于脚步、技能与环境声。"
+    },
+    {
+      "titleZh": "FmodBankLoader",
+      "descZh": "在场景加载时装载 bank 文件并注册事件表，卸载时释放句柄，避免音频资源常驻内存。"
+    },
+    {
+      "titleZh": "总线与参数接口",
+      "descZh": "把 Studio 总线、VCA 与事件参数暴露给脚本，运行时可按游戏状态调整音量与混音效果。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "FMOD Studio 事件",
+      "descZh": "直接播放设计师命名的事件，参数与时间轴由音频团队维护，程序只传上下文。"
+    },
+    {
+      "name": "实时更新",
+      "descZh": "运行中替换 bank 即可听到新版本，调试音频不必反复重启编辑器。"
+    },
+    {
+      "name": "3D 定位",
+      "descZh": "监听器与发射器同步节点变换，距离衰减与遮挡交给 FMOD 引擎计算。"
+    },
+    {
+      "name": "多平台二进制",
+      "descZh": "覆盖桌面、移动与 Web 的预编译库，导出时随插件一起打进包体。"
+    },
+    {
+      "name": "总线控制",
+      "descZh": "按总线或 VCA 调节音量与静音，配合设置菜单做音乐与音效分轨。"
+    }
+  ],
+  "limitsZh": "安装并不只是复制 addons，还要把 FMOD 官方动态库按平台放进 libs 目录，缺失时插件能加载但播放没有声音，排查成本较高。扩展要求 Godot 4.6 以上并把最低兼容写死在 gdextension 里，低版本项目直接无法启用。它只提供 GDScript 入口，C# 项目拿不到绑定，.NET 团队需要额外的胶水层。音频工程与引擎版本必须成对维护，FMOD 大版本升级后 bank 格式可能不兼容。FMOD 本身对商业项目按收入分级收费，预算评估不能只看代码许可证。插件不带音频调试工具，事件名拼错时往往要回 FMOD 里逐个核对。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 FMOD Studio 并导出 bank 文件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把 addons 与各平台动态库复制进项目，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在项目设置里启用插件并指定 bank 目录"
+    },
+    {
+      "stepZh": "给角色挂上事件发射器与监听器节点"
+    },
+    {
+      "stepZh": "在脚本里播放事件并按状态传参数"
+    },
+    {
+      "stepZh": "导出前确认目标平台库齐全并做一次真机试听"
+    }
+  ],
+  "pros": [
+    "大部分 Studio API 都暴露给 GDScript，复杂混音不必自己写原生层，团队新人照着示例就能上手。",
+    "事件与 bank 支持实时更新，音频迭代不用反复重打包，出现问题时也更容易定位原因。",
+    "提供 2D 与 3D 发射器和监听器节点，3D 定位接入成本很低，对中小团队的时间成本很友好。",
+    "各桌面、移动与 Web 平台都有预编译库，跨平台导出门槛低，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "必须同时匹配 Godot 与 FMOD 版本，升级链条较长，升级引擎版本时容易卡住。",
+    "不支持 C#，.NET 项目需要自己补一层调用封装，定制之前往往要先读源码。",
+    "FMOD 商业授权按收入计费，团队要单独评估成本，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "只复制 addons 而漏掉 libs 下的 fmod 动态库，插件能加载但播放无声，先看启动日志的库缺失提示。",
+    "在 4.5 项目里启用会被 gdextension 的最低版本拒绝，升级引擎前不要先换插件。",
+    "bank 未重新导出就改事件名，运行时会报找不到事件，按 FMOD 工程里的路径逐级核对。"
+  ],
+  "bestFor": "需要交互式音乐、复杂总线与 3D 定位音频，并且音频团队已经在用 FMOD Studio 的中大型商业项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "小型项目只用内置播放器，或团队坚持 C# 与纯开源音频栈，引入 FMOD 反而增加负担。",
+  "compareTips": {
+    "vs": [
+      "alessandrofama__wwise-godot-integration"
+    ],
+    "whenZh": "两者都是商业音频中间件的桥接：FMOD 版提供事件、总线与 3D 定位，Wwise 版面向另一套授权与工程体系。已有 FMOD 工程选前者，已用 Wwise 或需要其空间音频特性则选后者，二者不宜混用。"
+  },
+  "category": "audio",
+  "tags": [
+    "音频中间件",
+    "FMOD",
+    "GDExtension",
+    "3D音效",
+    "交互式音乐"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "扩展整合 FMOD Studio API",
+      "source": "README.md",
+      "quote": "Godot 4 GDExtension that integrates with the FMOD Studio API."
+    },
+    {
+      "claim": "事件与 bank 可实时更新",
+      "source": "README.md",
+      "quote": "Live updating works out of the box."
+    },
+    {
+      "claim": "不支持 C# 绑定",
+      "source": "README.md",
+      "quote": "This plugin doesn't provide C# bindings to FMOD."
+    },
+    {
+      "claim": "测试使用 Godot 4.6 起与 FMOD 2.04",
+      "source": "README.md",
+      "quote": "4.6 and later 4.x"
+    },
+    {
+      "claim": "扩展最低兼容 4.6",
+      "source": "demo/addons/fmod/fmod.gdextension",
+      "quote": "compatibility_minimum = 4.6"
+    }
+  ],
+  "depth": "standard"
+}

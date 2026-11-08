@@ -1,0 +1,66 @@
+{
+  "id": "Portponky__better-terrain",
+  "depth": "standard",
+  "taglineZh": "替代 Godot 4 内置地形系统的 2D 自动拼接 TileMap 插件",
+  "summaryZh": "better-terrain 用独立的 Terrains 面板给 TileMap 做自动选块，支持按边匹配、按顶点匹配、类别与装饰四种地形类型，并可以直接沿用现有 TileSet 与 TileMap 资源。面板内提供笔刷、直线、矩形与填充工具，同一套地形规则也能在运行时通过脚本刷格，从而避开内置地形系统运行时 API 难用、速度偏慢的问题。它的限制在于只解决 2D 拼接，地形规则需要手工配置，也不负责关卡设计或美术管线。",
+  "whatItDoes": "在编辑器里新增 Terrains 停靠面板，按地形类型把 TileSet 图块分组并赋予匹配规则。绘制时根据邻居与顶点自动选择图块，支持笔刷、直线、矩形、填充，右键擦除；同一套地形规则还能在运行时通过脚本调用生成。",
+  "useCases": [
+    {"titleZh": "2D 平台或俯视角地图绘制", "descZh": "用规则化地形快速铺草地、道路与墙边，减少手工摆放图块的重复劳动，把精力放在关卡结构上。"},
+    {"titleZh": "需要运行时生成地图", "descZh": "脚本按关卡数据调用地形 API 刷格子，自动处理边缘与转角，适合肉鸽或程序化生成地图。"},
+    {"titleZh": "从 Godot 3 迁移的 TileMap 项目", "descZh": "沿用旧 TileSet 与 3x3 思路，用相近的边角匹配方式把旧地图逐步迁到 Godot 4，重画工作量小，也便于对照新旧拼接结果。"},
+    {"titleZh": "自定义边角规则的美术风格", "descZh": "用类别与装饰类型补充边缘过渡图块，适配非标准十六宫格、需要额外边框的美术素材。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "可复用的地形配置", "descZh": "地形类型与匹配规则存进资源，可随场景与 TileSet 一起复用，不必在每个地图里重复配置。"},
+    {"titleZh": "自动拼接的 TileMap 图层", "descZh": "绘制结果直接落成 TileMap 单元格，导出与运行时都不依赖插件本体，移除插件后地图仍可显示。"},
+    {"titleZh": "运行时刷地形接口", "descZh": "通过脚本调用地形 API，在游戏中动态生成或修改地图，支持分块加载与运行时换肤。"}
+  ],
+  "featureCallouts": [
+    {"name": "四种地形类型", "descZh": "按边匹配、按顶点匹配、类别与装饰，覆盖常见 3x3 与 2x2 自动拼接规则。"},
+    {"name": "独立编辑器面板", "descZh": "选中 TileMap 后出现 Terrains 页签，集中管理地形类型与图块配对关系，可增删、排序与改色。"},
+    {"name": "绘制工具集", "descZh": "笔刷、直线、矩形与填充四种工具，右键即擦除，手感接近原生 TileMap。"},
+    {"name": "运行时 API", "descZh": "地形规则可在代码中复用，支持程序化生成，而不只是编辑器里手动绘制。"}
+  ],
+  "limitsZh": "只面向 Godot 4.x 的 TileMap，Godot 3 以及新版 TileMapLayer 需要自行验证；插件由编辑器工具加运行时脚本组成，超大地图整片重算仍有明显开销。地形规则要手工配置，没有从图集自动推断的能力；多层地形需要拆成多个 TileMap，交叉边缘无法自动处理。README 只覆盖基础用法，类别与装饰等高级规则的上手成本偏高。此外插件不负责碰撞生成与导航烘焙，只决定图块外观；与内置地形系统并存时数据互不相通，迁移前应清空原有地形数据。",
+  "workflowZh": [
+    {"stepZh": "复制 addons 目录，并在项目设置里启用这个插件"},
+    {"stepZh": "重启编辑器后选中任意 TileMap，编辑器底部会出现 Terrains 面板"},
+    {"stepZh": "新建地形类型，并给每个图块分配匹配规则"},
+    {"stepZh": "用笔刷或填充工具绘制，边角会自动拼接"},
+    {"stepZh": "在脚本里调用地形 API 做运行时生成与修改"}
+  ],
+  "pros": [
+    "匹配规则比内置地形更直观，边匹配与顶点匹配覆盖常见 3x3、2x2 需求",
+    "直接复用现有 TileSet 与 TileMap 资源，迁移成本低，不需要重做素材，也不必改关卡结构",
+    "提供笔刷、直线、矩形与填充工具，编辑器内绘制效率明显高于手摆",
+    "同一套规则可在运行时通过代码调用，便于程序化与分块生成地图",
+    "采用 Unlicense 许可，商用与二次分发几乎没有附加约束，改源码也不必开源，适合闭源商业项目"
+  ],
+  "cons": [
+    "地形规则需要手工配置，没有从图集自动推断或批量导入的能力",
+    "仅覆盖 2D 自动拼接，不涉及关卡设计、碰撞或美术导入流程",
+    "维护节奏偏慢，新版 TileMapLayer 的适配需要自行验证，遇到问题只能提 issue 等回复"
+  ],
+  "pitfalls": [
+    "多套地形叠在同一 TileMap 时优先级靠列表顺序，配错会出现边角错乱与空洞",
+    "超大地图整片重绘会卡顿，建议分块或在加载阶段一次性生成再显示",
+    "类别地形本身不写格，只用于判断匹配，误当普通地形会看不到任何图块"
+  ],
+  "bestFor": "做 2D 瓦片地图、希望用规则化自动拼接替代内置地形系统，并愿意手工配置规则，且项目以 TileMap 为主的 Godot 4 开发者。",
+  "avoidWhenZh": "只用 3D、不需要瓦片拼接，或期待插件自动识别图集规则、开箱即用的项目。",
+  "compareTips": {
+    "vs": ["ToumaKamijou__Yugens-Terrain-Authoring-Toolkit"],
+    "whenZh": "两者名字都含地形但方向不同：better-terrain 是 2D TileMap 自动拼接，Yugen 面向 3D 地形雕刻与高度图生成。做 2D 瓦片选前者，需要 3D 地貌再考虑后者。"
+  },
+  "category": "editor-tool",
+  "tags": ["TileMap", "自动拼接", "2D地形", "编辑器插件"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 3, "performance": 4, "stability": 4},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {"claim": "定位为内置地形系统的替代品", "source": "addons/better-terrain/plugin.cfg", "quote": "This is a drop-in replacement for Godot 4's tilemap terrain system, offering more versatile and straightforward autotiling."},
+    {"claim": "可沿用现有 TileMap 与 TileSet，支持编辑器与代码两种用法", "source": "addons/better-terrain/plugin.cfg", "quote": "It can be used with any existing TileMap or TileSet, either through the editor plugin, or directly via code."},
+    {"claim": "作者认为内置地形系统运行时慢且 API 难用", "source": "README.md", "quote": "It's also quite slow, and the API is difficult to use at runtime."}
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "id": "TinyTakinTeller__TakinGodotTemplate",
+  "depth": "standard",
+  "taglineZh": "融合多款精选插件的 Godot 4 游戏项目启动模板",
+  "summaryZh": "Takin 模板面向 Godot 4.4 的 GDScript 游戏项目，把调试菜单、保存时格式化、GDLinter、日志器、资源表格编辑、场景管理与 Script-IDE 等插件预先装好并调通，省去逐个找插件、改配置的时间。仓库里带完整工程目录、导出预设、gdlint 配置与 CI/CD 工作流，文档拆成结构、功能、插件、代码与上手几册，新项目可以直接从这份骨架长出来。它参考 Maaack 的游戏模板思路，但更偏工程化与插件集成，玩法内容仍是空白，需要自己写。",
+  "whatItDoes": "模板提供一份可运行的 Godot 工程：addons 下预装调试菜单、格式化、静态检查、日志、场景切换与脚本 IDE 等插件，root 目录放通用场景与脚本，export_presets.cfg 预先配好导出，GitHub Actions 负责检查与构建。文档把目录结构、插件清单、代码约定与 CI 流程分开说明，照着改项目名与图标即可开工。它不附带玩法、关卡或美术素材，重点是让新仓库一开始就有统一的工具链与目录习惯，减少配置分歧。",
+  "useCases": [
+    {
+      "titleZh": "新项目起步",
+      "descZh": "开新坑时直接复制这份工程，插件、导出预设与 CI 都配好，省下半天装工具的时间，能把精力放在第一个可玩原型上。"
+    },
+    {
+      "titleZh": "团队工具链统一",
+      "descZh": "多人协作时格式化、静态检查与日志规范都写进仓库配置，新人克隆后行为一致，评审时少争论缩进与命名等细节。"
+    },
+    {
+      "titleZh": "学习工程结构",
+      "descZh": "想看一个 Godot 项目如何分目录、如何接 CI、插件配置放哪里，可以照着这份模板逐层读，比空工程更有参照价值，读起来更省力。"
+    },
+    {
+      "titleZh": "快速验证插件",
+      "descZh": "调试菜单、资源表格与 Script-IDE 已经装好并互相兼容，先在这套环境里实际试插件，看兼容性再决定是否搬进正式项目。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "预配置工程",
+      "descZh": "含 addons、root 场景、导出预设与 gdlint 配置的完整 Godot 4.4 工程文件，克隆后可以立刻用编辑器打开运行。"
+    },
+    {
+      "titleZh": "插件组合",
+      "descZh": "调试菜单、保存时格式化、GDLinter、日志、场景管理、资源表格与脚本 IDE 已经一次装齐，版本之间互相咬合。"
+    },
+    {
+      "titleZh": "CI 流程",
+      "descZh": "仓库自带工作流，负责代码检查与导出构建，推送到远端即可自动跑，减少手工打包的重复步骤。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Debug Menu",
+      "descZh": "游戏内调试面板，显示帧率、内存与硬件信息，测试性能时不必再外挂 profiler 或自写统计界面。"
+    },
+    {
+      "name": "Format on Save",
+      "descZh": "保存脚本时自动跑 gdformat，缩进与换行当场统一，团队不必再靠口头约定来维持格式。"
+    },
+    {
+      "name": "GDLinter",
+      "descZh": "保存时执行 gdlint，命名与结构问题在编辑器里就暴露，减少提交后才发现的低级错误。"
+    },
+    {
+      "name": "Script-IDE",
+      "descZh": "把脚本面板改成带标签页的 IDE 布局，大纲列出全部成员与图标，长脚本跳转更快。"
+    },
+    {
+      "name": "Scene Manager",
+      "descZh": "提供场景切换管理，转场与加载流程都有现成的封装，不必每个项目重写一遍。"
+    }
+  ],
+  "limitsZh": "它本质是工程模板而非框架，玩法循环、存档、联网与关卡设计都不提供，需要自己从零搭。预装插件以 GDScript 工具为主，版本固定在仓库里，上游插件更新后不会自动跟进，想升级得手动替换并重新验证兼容性。工程带 34MB 左右的体积，含示例资源与字体，正式项目要清理未用内容。模板锁定 Godot 4.4 的写法，升到更新版本时部分插件可能报弃用警告。CI 工作流假定使用 GitHub，迁到别的平台要重写。文档虽多，但分散在多个 Markdown 文件里，第一次读容易找不到入口。",
+  "workflowZh": [
+    {
+      "stepZh": "在 GitHub 上用模板创建自己的仓库并克隆到本地机器"
+    },
+    {
+      "stepZh": "修改项目名称、图标与导出预设里的包名等标识信息"
+    },
+    {
+      "stepZh": "在项目设置里启用需要的插件，并删掉用不上的示例资源"
+    },
+    {
+      "stepZh": "写一段测试脚本，确认格式化与静态检查在保存时运行"
+    },
+    {
+      "stepZh": "推送首个提交触发 CI，确认构建与导出流程通过"
+    }
+  ],
+  "pros": [
+    "插件、导出预设与 CI 一次配好，新仓库开箱即有统一工具链，起步比空工程快得多。",
+    "格式化与静态检查写进保存流程，团队代码风格自动一致，评审时少纠缩进与命名。",
+    "文档按结构、插件、代码与 CI 分册，想查哪一层都有对应页面，接手成本也更低。",
+    "目录与示例清晰，能当 Godot 工程组织方式的参考，学结构比读零散教程更直观。"
+  ],
+  "cons": [
+    "只给工程底座，玩法、存档与关卡仍需自己实现，别指望直接出可玩版本。",
+    "预装插件版本固定在仓库，上游更新不会自动跟进，升级需手工替换验证。",
+    "工程带示例资源体积偏大，正式项目要花时间清理无用文件。"
+  ],
+  "pitfalls": [
+    "直接改 addons 里的插件源码，后续同步模板更新时会被覆盖，定制应写在外层场景或脚本。",
+    "删示例资源时连插件依赖的默认主题或字体一起删掉，调试菜单与界面运行时会报资源缺失。",
+    "CI 默认走 GitHub Actions，迁到 GitLab 或自建平台后流程不会自动跑，需要整套重新改写。"
+  ],
+  "bestFor": "准备开新 Godot 4 项目、希望一开始就有统一插件与 CI 流程的个人开发者，以及需要让多名成员代码风格一致的小团队。",
+  "avoidWhenZh": "想要开箱即玩的完整游戏框架，或项目必须长期停留在 Godot 4.3 以及更早版本时。",
+  "compareTips": {
+    "vs": [
+      "Maaack__Godot-Game-Template",
+      "Maaack__Godot-Menus-Template"
+    ],
+    "whenZh": "与 Maaack 的游戏模板相比，Takin 更偏工程化：插件种类多、CI 与代码规范齐全，但界面与玩法骨架弱。若你要的是一套能直接跑的菜单与关卡流程，选 Maaack；若想把仓库规范先立起来，再自己长玩法，这套更合适。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "模板",
+    "工程结构",
+    "CI",
+    "插件集成",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "模板面向 Godot 4.4 的 GDScript 项目",
+      "source": "README.md",
+      "quote": "**Godot 4.4** template for game projects (GDScript), inspired by [Maaack's Godot Game Template](https://github.com/Maaack/Godot-Game-Template)."
+    },
+    {
+      "claim": "定位为精选插件与最佳实践的融合",
+      "source": "README.md",
+      "quote": "Fusion of curated plugins, essential features and best practices to kick-start new projects."
+    },
+    {
+      "claim": "预装调试菜单插件显示性能与硬件信息",
+      "source": "godot/addons/debug_menu/plugin.cfg",
+      "quote": "description=\"In-game debug menu displaying performance metrics and hardware information\""
+    },
+    {
+      "claim": "保存时自动格式化脚本",
+      "source": "godot/addons/format_on_save/plugin.cfg",
+      "quote": "description=\"Runs `gdformat` on save to automatically format your GD script as you code.\""
+    }
+  ]
+}

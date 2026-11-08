@@ -1,0 +1,35 @@
+{
+  "id": "PiCode9560__Godot-Inspector-Tabs",
+  "descriptionZh": "把检查器属性按类拆成标签页的编辑器插件，支持横向纵向布局与跨页搜索",
+  "category": "editor-tool",
+  "tags": [
+    "编辑器插件",
+    "检查器",
+    "标签分页",
+    "属性管理",
+    "效率工具"
+  ],
+  "prosShort": [
+    "长属性列表按类分页，查找更快",
+    "横纵布局与滚动模式可自由任选",
+    "跨页搜索与收藏项常驻显示"
+  ],
+  "consShort": [
+    "设置说明简略，缺少效果示例",
+    "依赖编辑器内部实现，升级易失配",
+    "全局设置会影响所有项目偏好"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

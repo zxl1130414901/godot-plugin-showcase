@@ -1,0 +1,34 @@
+{
+  "id": "Zylann__godot_heightmap_plugin",
+  "descriptionZh": "纯 GDScript 的高度图地形插件，支持纹理绘制、上色、挖洞、LOD 与草地，复制目录即可安装使用。",
+  "category": "3d-shader",
+  "tags": [
+    "地形",
+    "高度图",
+    "GDScript",
+    "LOD"
+  ],
+  "prosShort": [
+    "全脚本实现，源码可读也可改",
+    "绘制挖洞与草地都在一个插件里",
+    "复制目录即可用，不需要编译"
+  ],
+  "consShort": [
+    "GDScript 网格生成，大地形编辑会明显卡顿",
+    "只支持高度图，做不了隧道悬空",
+    "已停止开发新功能，只修缺陷"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 2,
+    "performance": 2,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

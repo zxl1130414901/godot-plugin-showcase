@@ -1,0 +1,35 @@
+{
+  "id": "daenvil__MarkdownLabel",
+  "descriptionZh": "继承 RichTextLabel 的节点，用 Markdown 书写并显示富文本内容。",
+  "category": "ui",
+  "tags": [
+    "Markdown",
+    "富文本",
+    "RichTextLabel",
+    "文档展示",
+    "自定义节点"
+  ],
+  "prosShort": [
+    "Markdown 比 BBCode 易维护",
+    "支持表格列表与任务清单",
+    "可直接读取 md 文件且文档详尽含限制"
+  ],
+  "consShort": [
+    "动态文本性能不佳",
+    "部分语法元素不支持",
+    "根 README 过短易误解"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

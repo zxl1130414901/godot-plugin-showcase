@@ -1,0 +1,159 @@
+{
+  "id": "GuilhermeGSousa__godot-motion-matching",
+  "depth": "standard",
+  "taglineZh": "在 Godot 4 中实现运动匹配动画的 GDExtension 插件",
+  "summaryZh": "Motion Matching 把角色移动动画从手工状态机改成数据库检索：先从动画库提取姿态特征，运行时按玩家输入与当前姿态在近邻结构中找最相近的帧并平滑过渡。项目提供 MMAnimationLibrary、MMAnimationNode、MMCharacter 与多种特征、同步器，可直接挂进 AnimationTree。要求动画带 root motion 且根骨位于脚底，制作规范比较严格。它用 SCons 编译 GDExtension，仓库不含预编译库，文档主要在外部 wiki。",
+  "whatItDoes": "核心是动画库资源与 AnimationTree 节点：MMAnimationLibrary 保存姿态数据、特征与近邻结构，MMAnimationNode 在运行时查询并输出播放位置，MMCharacter 封装角色移动与动画同步。特征包括轨迹、骨骼位置与速度，同步器有 Clamp、Mix 与 RootMotion 三种，另有阻尼骨骼修改器处理脚部贴合。编辑器插件提供数据编辑与可视化分页，方便检查数据库覆盖情况。",
+  "useCases": [
+    {
+      "titleZh": "开放世界移动",
+      "descZh": "角色要连续跑跳转向，用数据库检索替代大量 blend 节点，过渡更自然，也少了很多手工连线。"
+    },
+    {
+      "titleZh": "大量移动动画",
+      "descZh": "动画集很大、手工连状态机难以维护时，交给特征匹配自动挑选，后期加动画只需重新建库。"
+    },
+    {
+      "titleZh": "原型验证",
+      "descZh": "快速比较不同动画库的覆盖质量，用可视化页查看轨迹与姿态分布，再决定补哪些片段。"
+    },
+    {
+      "titleZh": "高品质角色",
+      "descZh": "追求脚步与转向细节的项目，可叠加阻尼修改器减少滑步，让贴地表现更稳，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "动画库资源",
+      "descZh": "MMAnimationLibrary 保存姿态特征、动画数据与近邻结构，是检索的数据源，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "运行时节点",
+      "descZh": "MMAnimationNode 接入 AnimationTree，按输入查询并驱动动画播放位置，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "角色封装",
+      "descZh": "MMCharacter 统一处理移动、动画同步与特征输入，减少胶水代码，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "可视化工具",
+      "descZh": "编辑器插件提供数据与可视化分页，便于检查库覆盖与调参，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "数据库检索",
+      "descZh": "用近邻搜索在姿态库里查找，替代手工状态机与 blend 树，参数集中在检查器面板。"
+    },
+    {
+      "name": "多种特征",
+      "descZh": "轨迹与骨骼特征可组合，按角色类型调整匹配侧重点，后续修改起来也不费劲。"
+    },
+    {
+      "name": "同步器",
+      "descZh": "Clamp、Mix 与 RootMotion 三种同步策略，处理动画时长差异，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "编辑器可视化",
+      "descZh": "数据与可视化分页可查看库分布，调库时不必盲猜，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "阻尼修改器",
+      "descZh": "DampedSkeletonModifier 用于脚部稳定，减少滑步与抖动，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "上手门槛高：动画必须带 root motion，根骨要放在脚底，骨骼命名与朝向也要统一，否则特征提取会失真。仓库没有预编译二进制，需要 SCons 与 C++ 工具链自行编译，跨平台打包还要各平台分别构建。文档主要在外部 wiki，README 只给入口；版本要求 Godot 4.4，旧版本需自行适配。调试依赖可视化工具与日志，匹配不理想时往往要回到动画制作环节重做数据，而不是改几行代码。",
+  "workflowZh": [
+    {
+      "stepZh": "准备带 root motion 的动画集，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "初始化 godot-cpp 子模块，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "用 SCons 编译 GDExtension，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "在项目里启用编辑器插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "创建动画库并提取特征，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把 MMAnimationNode 接入 AnimationTree，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在可视化页检查覆盖并调参，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "用检索替代手工状态机，动画量大时维护成本明显下降，团队新人照着示例就能上手。",
+    "特征与同步器可组合，能按角色类型调整匹配策略，出现问题时也更容易定位原因。",
+    "编辑器可视化让调库有依据，不必只靠肉眼反复试，对中小团队的时间成本很友好。",
+    "提供阻尼修改器，脚步稳定效果比纯混合更自然，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "对动画制作规范要求高，资产不合规要先返工，升级引擎版本时容易卡住。",
+    "仓库不含预编译库，必须自行编译，定制之前往往要先读源码。",
+    "文档在外部 wiki，入门资料分散，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "根骨不在脚底会导致特征偏移，匹配结果整体跑偏，上线前要专门过一遍。",
+    "动画库覆盖不足时角色会频繁切换，先补动画而非调参数，排查时需要多留一层日志。",
+    "忘记启用插件就打开可视化页，会看不到调试数据，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "动画集较大、追求自然移动过渡，并具备 C++ 编译能力与规范动画管线的中大型 3D 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "动画量很小、只用少量 blend 节点即可，或团队无法维护 C++ 构建的项目。",
+  "compareTips": {
+    "vs": [
+      "monxa__GodotIK"
+    ],
+    "whenZh": "两者都处理角色动画：GodotIK 用效应器解算局部骨骼姿态，motion-matching 从动画库里挑选整段动作；IK 适合叠加修正，匹配适合大规模移动集，方向不同也可组合使用。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "动画匹配",
+    "AnimationTree",
+    "角色移动",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "isGDExtension": true,
+  "evidence": [
+    {
+      "claim": "用姿态数据库与特征替代混合树",
+      "source": "README.md",
+      "quote": "without requiring any blend trees or state machines."
+    },
+    {
+      "claim": "要求动画带 root motion 且根骨在脚底",
+      "source": "README.md",
+      "quote": "The only requirement for all this to work is to have animations with both root motion, and a root bone at the foot level."
+    },
+    {
+      "claim": "完全集成进 AnimationTree",
+      "source": "README.md",
+      "quote": "This extension is fully integrated into Godot's `AnimationTree` system"
+    },
+    {
+      "claim": "兼容下限为 Godot 4.4",
+      "source": "addons/motion_matching/gdmotionmatching.gdextension",
+      "quote": "compatibility_minimum = \"4.4\""
+    },
+    {
+      "claim": "以 GDExtension 二进制分发，兼容 Godot 4.4",
+      "source": "addons/motion_matching/gdmotionmatching.gdextension",
+      "quote": "compatibility_minimum = \"4.4\""
+    }
+  ]
+}

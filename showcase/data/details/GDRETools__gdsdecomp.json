@@ -1,0 +1,160 @@
+{
+  "id": "GDRETools__gdsdecomp",
+  "depth": "standard",
+  "taglineZh": "完整还原 Godot 工程的提取、反编译与重打包工具集",
+  "summaryZh": "Godot RE Tools 以独立应用和编辑器模块两种形态发布，能读取 APK、PCK 或内嵌 EXE，把脚本、资源与项目配置还原成可打开的工程。核心流程是解包、批量反编译 GDScript 字节码、把导入资源转回原始格式，并重建插件配置。它覆盖 Godot 2.x 到 4.x 的字节码版本，还提供 PCK 创建与补丁。它是目前少数能把工程结构一起还原的开源方案，而不是只导出散装文件。使用前建议先在测试目录验证，避免误覆盖现有工程。官方文档以命令行参数表为主，缺少从零开始的完整教程。",
+  "whatItDoes": "支持完整工程恢复、PCK 提取创建与补丁、GDScript 批量反编译，以及资源文本与二进制互转。命令行以 gdre_tools --headless 加主命令运行，GUI 则提供文件树、资源预览与脚本编辑器。输入可以是 APK、EXE、PCK 或已解包目录，并可用 include 与 exclude 的 glob 筛选。加密项目需提供 64 位十六进制密钥，特殊字节码可加载自定义 JSON 定义。",
+  "useCases": [
+    {
+      "titleZh": "学习与逆向分析",
+      "descZh": "分析商业 Godot 游戏的场景组织、资源引用与脚本写法，作为技术学习参考，而不是直接复用其中的资产。"
+    },
+    {
+      "titleZh": "找回丢失工程",
+      "descZh": "源码仓库丢失但手上还有导出包时，用完整恢复把脚本、场景与资源还原回可编辑工程，再迁回版本库。"
+    },
+    {
+      "titleZh": "本地化补丁",
+      "descZh": "对已发布包做本地化补丁，用 patch-translations 回填 CSV，再重新打包成 PCK 分发给测试玩家，避免二次分发完整包。"
+    },
+    {
+      "titleZh": "资源格式排查",
+      "descZh": "把二进制场景与资源转成文本，定位导入失败、版本迁移或加密导致的资源损坏，并保留可读备份。"
+    },
+    {
+      "titleZh": "教学演示",
+      "descZh": "在课堂或技术分享里展示 Godot 打包结构与字节码版本差异，用工具直观对比文件变化，比口头讲解更直观。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可打开的工程目录",
+      "descZh": "还原后的 project.godot、场景、脚本、插件配置与导入资源，可在对应版本编辑器直接打开，插件配置一并恢复。"
+    },
+    {
+      "titleZh": "反编译脚本",
+      "descZh": "由 GDC 字节码还原的 GDScript 文本，尽量保留函数、类结构、常量、信号连接与继承关系，便于二次阅读、改写与对照。"
+    },
+    {
+      "titleZh": "PCK 包与补丁",
+      "descZh": "从目录重建的 PCK，或只叠加改动文件生成的补丁包，可直接用于分发、热更新与灰度测试，适合小范围更新。"
+    },
+    {
+      "titleZh": "文本化资源",
+      "descZh": "把场景与资源在文本和二进制格式间双向转换，便于 diff、审查、手工修复与版本管理，减少手改二进制。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Full Project Recovery",
+      "descZh": "一次完成解包、反编译、资源还原与工程重建，减少在多个工具之间来回倒文件。"
+    },
+    {
+      "name": "Bytecode Decompiler",
+      "descZh": "按版本表匹配字节码定义，支持 2.x 至 4.x，并可用自定义 JSON 扩展新版本。"
+    },
+    {
+      "name": "PCK Create / Patch",
+      "descZh": "把目录重新打成 PCK，或只追加改动文件生成补丁包，便于本地化与 mod 分发。"
+    },
+    {
+      "name": "Text <-> Binary",
+      "descZh": "场景与资源在文本和二进制格式间批量转换，适合排查与纳入版本管理。"
+    },
+    {
+      "name": "Encryption Key",
+      "descZh": "加密包可传入 64 位十六进制密钥，也可配合自定义解密脚本处理特殊加密方案。"
+    }
+  ],
+  "limitsZh": "反编译结果不保证与原始源码一致，变量名、注释与部分语法糖会丢失，复杂控制流可能还原成难读的结构。加密项目只有拿到密钥才能处理，自定义加密还需自己写解密脚本。工具基于 Godot 分支构建，主线只维护 4.x，3.x 仅保留反编译能力。体积近 30MB，独立版启动加载偏慢。恢复大型项目时内存占用高，资源预览还会缓存贴图。反编译脚本有时会在 await、lambda 与类型推断处产生语法错误，需要人工修补；大包解包还需要预留至少两倍磁盘空间。工具更新节奏与引擎发布不完全同步，新版本导出包可能要等字节码定义。",
+  "workflowZh": [
+    {
+      "stepZh": "下载独立版，或用 SCons 编译编辑器模块"
+    },
+    {
+      "stepZh": "指定 PCK、APK 或 EXE 作为输入，并确认输出目录"
+    },
+    {
+      "stepZh": "选择完整恢复、仅提取脚本或仅列文件"
+    },
+    {
+      "stepZh": "设置 include 规则、exclude 规则与输出目录路径"
+    },
+    {
+      "stepZh": "必要时提供密钥或自定义字节码定义"
+    },
+    {
+      "stepZh": "在匹配版本的编辑器打开还原工程"
+    }
+  ],
+  "pros": [
+    "一条命令完成解包、反编译、资源还原与工程重建，省去大量手工拼装工作。",
+    "覆盖 2.x 到 4.x 的字节码版本，老项目与新版导出包都能处理，不必找旧版工具。",
+    "同时提供 GUI 与 headless 命令行，既能交互排查，也能写进批量处理脚本，覆盖两种使用习惯。",
+    "支持 PCK 创建、补丁与翻译回填，可用于本地化、热更新与 mod 分发场景，省去自己写打包脚本。"
+  ],
+  "cons": [
+    "反编译产物与原始源码差距明显，注释、局部变量名与格式基本无法恢复。",
+    "加密包与自定义字节码需要额外密钥或定义文件，普通用户很容易卡住。",
+    "主线仅维护 4.x，3.x 只保留反编译能力，新特性与修复不再回移。"
+  ],
+  "pitfalls": [
+    "误把恢复出的商业资产直接商用会侵权，使用前必须确认授权与许可范围。",
+    "用错 Godot 版本打开还原工程会触发大量重导入，甚至直接报资源格式错误。",
+    "未加 ignore-checksum-errors 时，MD5 校验失败会让整次提取中止并留下半成品目录，需先释放空间。"
+  ],
+  "bestFor": "需要找回丢失工程、做兼容性排查，或研究 Godot 打包结构与字节码版本的开发者与技术研究者，尤其是接手旧项目的人。",
+  "avoidWhenZh": "只想正常导出游戏，或只想让玩家运行时加载 mod 时，用官方导出流程与 ModLoader 更合适。",
+  "compareTips": {
+    "vs": [
+      "hhyyrylainen__GodotPckTool",
+      "GodotModding__godot-mod-loader"
+    ],
+    "whenZh": "PCKTool 专注包内文件增删与提取，不做脚本反编译；ModLoader 面向运行时加载 mod 与资源替换。要还原完整工程选 gdsdecomp，只改包内文件或做 mod 分发选另外两个，两者都不做字节码还原。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "逆向",
+    "反编译",
+    "PCK",
+    "资源恢复"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "具备完整工程恢复能力",
+      "source": "README.md",
+      "quote": "Full project recovery"
+    },
+    {
+      "claim": "支持 2.x 到 4.x 项目反编译",
+      "source": "README.md",
+      "quote": "This module has support for decompiling Godot 4.x, 3.x, and 2.x projects."
+    },
+    {
+      "claim": "3.x 构建支持已停止",
+      "source": "README.md",
+      "quote": "Support for building on 3.x has been dropped"
+    },
+    {
+      "claim": "命令行提供 recover 主命令",
+      "source": "README.md",
+      "quote": "--recover=<GAME_PCK/EXE/APK/DIR>"
+    },
+    {
+      "claim": "加密项目需要 64 位十六进制密钥",
+      "source": "README.md",
+      "quote": "The Key to use if project is encrypted as a 64-character hex string"
+    }
+  ]
+}

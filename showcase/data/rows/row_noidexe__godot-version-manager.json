@@ -1,0 +1,34 @@
+{
+  "id": "noidexe__godot-version-manager",
+  "descriptionZh": "下载、安装并集中管理多个 Godot 编辑器版本，支持拖入项目按版本启动的独立桌面应用",
+  "category": "editor-tool",
+  "tags": [
+    "版本管理",
+    "Godot安装",
+    "多版本",
+    "桌面工具"
+  ],
+  "prosShort": [
+    "一个窗口集中管理多个 Godot 版本",
+    "拖入项目文件即可按版本启动",
+    "可登记任意路径下已有的编辑器"
+  ],
+  "consShort": [
+    "独立应用，不能作为编辑器插件",
+    "默认落在 AppData，迁移与备份不便",
+    "解压依赖系统工具且无校验"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

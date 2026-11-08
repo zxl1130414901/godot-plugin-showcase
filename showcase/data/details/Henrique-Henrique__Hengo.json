@@ -1,0 +1,147 @@
+{
+  "id": "Henrique-Henrique__Hengo",
+  "depth": "standard",
+  "taglineZh": "把节点图编译成原生 GDScript 的可视化脚本",
+  "summaryZh": "Hengo 在编辑器底部面板提供节点式可视化脚本，把状态机、函数、变量、信号与动作连成图，最终编译成普通 .gd 文件挂到节点上运行。因为不做运行时解释，生成代码零额外开销，删掉插件也能继续跑。当前仍是 beta，要求 Godot 4.7，动作库与边界情况还在补齐，选型前建议结合团队实际评估，更适合作为该品类的专用工具。",
+  "whatItDoes": "以状态机为核心组织脚本，每个状态包含 enter、update、physics、exit 阶段，可拖入 Playmaker 风格动作节点完成常见逻辑。编辑器提供实时调试器，运行时高亮当前状态与执行流。生成的 GDScript 可读，项目也能自定义动作脚本扩展节点库。",
+  "useCases": [
+    {
+      "titleZh": "非程序作者做逻辑",
+      "descZh": "策划或美术想搭交互与关卡逻辑，可用节点图完成而不必学完整 GDScript，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "状态机密集型玩法",
+      "descZh": "敌人 AI、机关与 UI 流程天然适合状态机，可视化维护比散落脚本清晰，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "原型快速迭代",
+      "descZh": "玩法验证阶段用动作节点拼逻辑，改结构只挪线，不用重写代码，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "教学可视化",
+      "descZh": "讲解状态与事件驱动时，节点图与实时高亮能直观展示执行顺序，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "渐进迁移",
+      "descZh": "已有脚本项目中局部用 Hengo，生成的标准 GDScript 可随时手改接管，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "编译后的脚本",
+      "descZh": "由节点图生成的普通 .gd 文件，可挂载运行，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "状态机结构",
+      "descZh": "带 enter、update、physics、exit 阶段的可视状态，生成结果在编辑器与运行时都能复用，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "动作节点库",
+      "descZh": "覆盖常用逻辑的可复用动作脚本，可自行扩展，可以直接放进项目里使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "编译到 GDScript",
+      "descZh": "图直接生成可读脚本，无运行时解释器与额外开销，参数集中在检查器面板。"
+    },
+    {
+      "name": "State Viewer",
+      "descZh": "可视化查看状态流转，运行时高亮当前状态，后续修改起来也不费劲。"
+    },
+    {
+      "name": "动作库",
+      "descZh": "内置常见动作节点，项目可新增自定义动作脚本，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "实时调试",
+      "descZh": "游戏运行中在图上显示执行流，便于定位分支，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "无锁定",
+      "descZh": "移除插件后生成脚本仍可运行，不被工具绑定，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "项目明确标注仍在开发中，功能不完整且可能有 bug，不适合直接承担商业项目核心逻辑。编辑器要求 Godot 4.7，当前多数项目无法升级到该版本。节点图能表达的逻辑受动作库限制，复杂算法仍要落回 GDScript。生成代码虽可读，但调试时需要在图与脚本之间来回对照，团队要接受两套心智模型，版本与维护状态需要提前确认。",
+  "workflowZh": [
+    {
+      "stepZh": "从 release 解压到项目根目录并启用插件"
+    },
+    {
+      "stepZh": "在底部面板新建集合与脚本，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "添加变量并创建起始状态，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在状态卡上添加动作节点连线，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "运行项目并用调试器观察状态流转"
+    }
+  ],
+  "pros": [
+    "编译成原生 GDScript，运行期没有解释开销，团队新人照着示例就能上手。",
+    "状态机与动作节点贴合常见玩法结构，出现问题时也更容易定位原因。",
+    "实时高亮执行流，排查分支比读代码直观，对中小团队的时间成本很友好。",
+    "生成脚本可手改接管，不形成工具锁定，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "仍处 beta，功能缺失与 bug 风险较高，升级引擎版本时容易卡住。",
+    "要求 Godot 4.7，可用项目范围很窄，定制之前往往要先读源码。",
+    "复杂逻辑受动作库限制，仍要写脚本，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "生成的脚本被手改后再回图编辑，改动可能被覆盖，上线前要专门过一遍。",
+    "状态未标记起始状态时，脚本无法正常进入，排查时需要多留一层日志。",
+    "beta 版本升级后旧集合可能需要重建，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "想用可视化状态机快速搭玩法、且项目已能使用 Godot 4.7 的团队与教学场景，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "需要稳定交付的商业项目，或仍停留在 Godot 4.5/4.6 且短期无法升级时。",
+  "compareTips": {
+    "vs": [
+      "Blade67__GATE"
+    ],
+    "whenZh": "两者都降低 GDScript 编写门槛：Hengo 用节点图生成脚本，偏可视化与状态机；GATE 在 GDScript 语法上做扩展，偏语言增强。一个面向非程序作者，一个面向愿意写代码的开发者。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "可视化脚本",
+    "状态机",
+    "节点图",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 5,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "节点图编译为真实 GDScript",
+      "source": "README.md",
+      "quote": "Hengo has no runtime interpreter: it **compiles your graph into real GDScript**"
+    },
+    {
+      "claim": "以状态机为核心",
+      "source": "README.md",
+      "quote": "State machines first. A script is a finite state machine with `enter` / `update` / `physics` / `exit` phases"
+    },
+    {
+      "claim": "要求 Godot 4.7",
+      "source": "README.md",
+      "quote": "**Godot 4.7** (Forward+ or Compatibility). Hengo uses 4.7-era APIs"
+    },
+    {
+      "claim": "仍在开发中",
+      "source": "README.md",
+      "quote": "Hengo is still under development! Expect bugs and incomplete features"
+    }
+  ]
+}

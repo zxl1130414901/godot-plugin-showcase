@@ -1,0 +1,34 @@
+{
+  "id": "TheDuriel__DurielUtilities",
+  "descriptionZh": "含资源提供者、状态机、任务队列、弹窗转场与图层混合等脚本的 Godot 4 通用工具合集",
+  "category": "state-logic",
+  "tags": [
+    "工具库",
+    "状态机",
+    "任务队列",
+    "UI框架"
+  ],
+  "prosShort": [
+    "模块覆盖资源、UI 与状态机等需求",
+    "纯脚本复制即可用，无插件步骤",
+    "MIT 许可可商用，保留署名即可"
+  ],
+  "consShort": [
+    "模块各自为政，缺少统一设计",
+    "按原样提供，不保证支持与迁移",
+    "部分模块与特定场景强耦合"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

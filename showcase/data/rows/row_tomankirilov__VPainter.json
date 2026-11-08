@@ -1,0 +1,34 @@
+{
+  "id": "tomankirilov__VPainter",
+  "descriptionZh": "在 Godot 3D 编辑器里用画笔、填充与模糊直接给网格刷 RGBA 顶点色，支持多网格与重导入保留。",
+  "category": "asset-pipeline",
+  "tags": [
+    "顶点色",
+    "3D",
+    "网格",
+    "编辑器工具"
+  ],
+  "prosShort": [
+    "不必离开 Godot 就能给网格刷顶点色",
+    "RGBA 四个通道可以分开控制各自强度",
+    "重新导入后仍能大体保留原有涂装"
+  ],
+  "consShort": [
+    "只做顶点色，不含贴图与网格变形",
+    "不带着色器，材质没接就看不到效果",
+    "顶点色写进资源，二进制差异难审"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

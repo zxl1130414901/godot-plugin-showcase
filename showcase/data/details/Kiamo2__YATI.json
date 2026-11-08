@@ -1,0 +1,143 @@
+{
+  "id": "Kiamo2__YATI",
+  "depth": "standard",
+  "taglineZh": "在 Godot 4 中完整导入 Tiled 地图与图块的插件",
+  "summaryZh": "YATI 是 Godot 4 的 Tiled 地图导入器，读取 tmx 与 tmj 后生成 TileMapLayer、图块集、对象与碰撞，尽量覆盖 Tiled 的图层、对象、朝向、视差、动画与模板特性。它同时提供 GDScript 与 C# 版本，并自 1.5.2 起附带运行时包，可在游戏里直接加载地图。它只支持 Godot 4，最近版本要求 4.3 以上，导入大量地图时要关掉多线程导入以免编辑器冻结。",
+  "whatItDoes": "插件在导入阶段解析 Tiled 的 XML 或 JSON，建立 Godot 图块集与 TileMapLayer，并按类型生成对象、碰撞、视差与自定义属性。可通过类属性与自定义属性微调输出，运行时包则提供 DataLoader 与 TilemapCreator，在游戏内按需构建地图。C# 与 GDScript 两套运行时目录结构一致，示例与参考文档分开维护。",
+  "useCases": [
+    {
+      "titleZh": "关卡管线",
+      "descZh": "关卡设计师在 Tiled 里搭图，程序在 Godot 里直接导入，省去手工重搭图块，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "像素角色扮演",
+      "descZh": "俯视 RPG 的图层、碰撞与对象标记都能映射，适合频繁增改地图的项目，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "运行时地图",
+      "descZh": "用运行时包在游戏内加载外部 tmj，支持模组或玩家自制关卡，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "管线迁移",
+      "descZh": "从 Tiled 工作流迁到 Godot，先用导入器保留既有地图资产，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "TileMapLayer",
+      "descZh": "按 Tiled 图层生成的 Godot 地图节点与图块集，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "对象与碰撞",
+      "descZh": "矩形、多边形、点对象及图块碰撞的转换结果，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "运行时加载器",
+      "descZh": "DataLoader 与 TilemapCreator，在游戏里构建地图，可以直接放进项目里使用，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "全图层类型",
+      "descZh": "支持图块层、对象层、图像层与分组层，参数集中在检查器面板。"
+    },
+    {
+      "name": "视差与偏移",
+      "descZh": "转换 Tiled 的 parallax、opacity 与 offset 设置，调用方式简单不需要额外封装，后续修改起来也不费劲。"
+    },
+    {
+      "name": "图块动画",
+      "descZh": "把等距排列的帧序列映射为 Godot 动画图块，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "模板支持",
+      "descZh": "读取 tx 与 tj 模板并展开到地图，与原生资源体系兼容良好，参数集中在检查器面板。"
+    },
+    {
+      "name": "双语言",
+      "descZh": "GDScript 与 C# 版本功能对齐，按项目技术栈选择，参数集中在检查器面板。"
+    }
+  ],
+  "limitsZh": "仅支持 Godot 4，3.x 项目无法使用；2.2.x 要求 Godot 4.3 以上，4.2 需退回 1.7.1。Tiled 的椭圆在 Godot 中没有对应形状，只能用胶囊或多边形近似，图块内的点也会被跳过。图块动画要求各帧等距且同向排列，随机帧动画无法映射。C# 版本不支持 zstd 压缩，作者主要在 Windows 验证。README 明确提醒多地图导入时关闭多线程导入，否则可能冻结甚至崩溃。",
+  "workflowZh": [
+    {
+      "stepZh": "下载对应引擎版本的 GDScript 或 C# 包，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把 addon 与 Tiled 资源按目录放进项目，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在插件面板启用 YATI，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "关闭多线程导入并等待首次导入，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需调整类属性与自定义属性，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "Tiled 的图层、对象、朝向、视差与动画覆盖较全，迁移成本低，团队新人照着示例就能上手。",
+    "同时提供 GDScript 与 C# 版本，Mono 项目也能用，出现问题时也更容易定位原因。",
+    "既有编辑器导入也有运行时包，静态关卡与动态地图都能覆盖。",
+    "Reference 与 Runtime 文档分册，参数查证方便，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "仅支持 Godot 4，4.2 与 4.3 以上还要选不同版本，升级引擎版本时容易卡住。",
+    "椭圆、点与随机帧动画存在无法映射的边界，定制之前往往要先读源码。",
+    "多地图导入需关闭多线程，否则编辑器可能冻结。"
+  ],
+  "pitfalls": [
+    "导入前必须保留 Tiled 工程的相对目录结构，否则贴图与模板引用会断。",
+    "多地图项目不关闭多线程导入可能直接卡死，先改设置再导入。",
+    "C# 版本首次要运行一次项目完成编译，否则启用插件会失败。"
+  ],
+  "bestFor": "用 Tiled 做关卡设计、需要把 tmx 或 tmj 稳定导入 Godot 4 的 2D 项目团队，在该场景下属于比较稳妥的选择，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "仍在使用 Godot 3，或关卡完全在编辑器内手工搭建时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "heygleeson__godot-ldtk-importer"
+    ],
+    "whenZh": "两者都是外部关卡工具导入器；YATI 面向 Tiled 的 tmx 与 tmj，LDtk Importer 面向 LDtk 工程。已有 Tiled 资产选前者，准备换用 LDtk 的层级世界格式选后者。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "Tiled",
+    "地图导入",
+    "2D关卡",
+    "图块"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "仅支持 Godot 4",
+      "source": "README.md",
+      "quote": "Please note: This addon is for Godot 4 only and won't work with Godot 3.x"
+    },
+    {
+      "claim": "导入 tmx 与 tmj",
+      "source": "README.md",
+      "quote": "for importing files (.tmx, .tmj)"
+    },
+    {
+      "claim": "最新版要求 Godot 4.3 以上",
+      "source": "README.md",
+      "quote": "Latest version: GDScript 2.2.9 / C# 2.2.10 (needs Godot 4.3.0 or higher)"
+    },
+    {
+      "claim": "多地图导入需关闭多线程",
+      "source": "README.md",
+      "quote": "Untick \"Use multiple threads\" in Project Settings"
+    }
+  ]
+}

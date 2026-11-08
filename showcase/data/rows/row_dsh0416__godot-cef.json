@@ -1,0 +1,33 @@
+{
+  "id": "dsh0416__godot-cef",
+  "category": "ui",
+  "tags": [
+    "内嵌浏览器",
+    "WebView",
+    "CEF",
+    "UI交互"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "descriptionZh": "Godot 4.6+ 的 Chromium 内嵌扩展，把网页渲染成纹理，支持 GPU 加速、IPC 与 DevTools，适合 Web UI",
+  "prosShort": [
+    "真实 Chromium 内核，兼容现代网页，团队上手也快。",
+    "类型化 IPC 与多订阅桥，通信更稳",
+    "多平台预编译包齐全，接入省事"
+  ],
+  "consShort": [
+    "要求 Godot 4.6+，旧项目不可用，团队要提前评估。",
+    "预编译包缺专有编解码器，媒体受限"
+  ],
+  "sampleStatus": "none"
+}

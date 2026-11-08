@@ -1,0 +1,35 @@
+{
+  "id": "JetBrains__godot-support",
+  "descriptionZh": "JetBrains 官方插件合集，为 Rider 等 IDE 提供 C#、GDScript 的补全、导航与断点调试，并含 Godot 编辑器桥梁与设置预设。",
+  "category": "editor-tool",
+  "tags": [
+    "Rider",
+    "JetBrains",
+    "GDScript",
+    "C#",
+    "调试"
+  ],
+  "prosShort": [
+    "Rider 已内置全部插件，装好即可开箱使用",
+    "C# 与 GDScript 都能补全、导航与断点调试",
+    "调试器可查看节点与资源，减少打日志"
+  ],
+  "consShort": [
+    "Rider 之外要自行构建插件，文档待补",
+    "桥接要求 Godot 4.6 以上，老项目得先升级",
+    "仓库混用多套构建系统，体积超 100MB"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

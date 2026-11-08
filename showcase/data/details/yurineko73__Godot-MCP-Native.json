@@ -1,0 +1,150 @@
+{
+  "id": "yurineko73__Godot-MCP-Native",
+  "taglineZh": "在 Godot 内建 MCP 服务端，让 AI 直接读写场景与脚本",
+  "summaryZh": "这个插件在 Godot 编辑器里直接跑一个 MCP 服务端，把节点、脚本、场景、资源与调试能力包装成上百个工具，Claude、Cursor、Trae 等支持 MCP 的 AI 客户端可以连上来读写工程。它不依赖 Node.js，提供 HTTP 与 stdio 两种传输，还附带 gdmcp 命令行让代理按需发现工具，避免把全部工具描述塞进上下文。代价是权限与安全要自己把关，工具数量多、学习成本不低，AI 生成的改动仍要人工复核。它把编辑器当成可被 AI 操作的后端，而不是生成代码后让开发者手工粘贴。",
+  "whatItDoes": "在编辑器进程内启动 MCP 服务，把节点、脚本、场景、调试与项目操作注册为工具，供外部 AI 客户端调用并直接修改工程。",
+  "useCases": [
+    {
+      "titleZh": "批量整理场景",
+      "descZh": "让 AI 读取当前场景树并批量重命名节点，重复的结构整理不必手点，改完再用差异视图核对。"
+    },
+    {
+      "titleZh": "结合日志排错",
+      "descZh": "把脚本报错与运行时日志通过 MCP 暴露给 AI，让它结合堆栈定位问题，减少来回贴日志的沟通。"
+    },
+    {
+      "titleZh": "按需加载工具",
+      "descZh": "用命令行让代理按需查询工具描述，只加载当前任务要用的那几个，避免上下文被上百个工具塞满。"
+    },
+    {
+      "titleZh": "工程健康检查",
+      "descZh": "在本地或 CI 扫描缺失资源、循环依赖与脚本语法错误，把结果直接交给代理生成修复建议。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "MCP 服务端",
+      "descZh": "运行在编辑器进程里的 HTTP 或 stdio 服务，把引擎操作注册成可被 AI 调用的工具。"
+    },
+    {
+      "titleZh": "gdmcp CLI",
+      "descZh": "面向编码代理的命令行入口，按领域分组命令并按需拉取工具描述，减少上下文占用。"
+    },
+    {
+      "titleZh": "调试桥接",
+      "descZh": "把断点、堆栈、运行时节点与性能数据暴露给客户端，AI 可读取运行中游戏的状态。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "155 个工具",
+      "descZh": "节点、脚本、场景、编辑器、调试与项目六类工具覆盖常见编辑器操作。"
+    },
+    {
+      "name": "原生实现",
+      "descZh": "不依赖 Node.js，服务端直接跑在 Godot 内，安装只需复制 addons，参数集中在检查器面板。"
+    },
+    {
+      "name": "双传输模式",
+      "descZh": "HTTP 适合远程客户端，stdio 适合本地代理，端口与鉴权都可配置，后续修改起来也不费劲。"
+    },
+    {
+      "name": "运行时探针",
+      "descZh": "可向运行中的游戏注入探针，读取场景树、性能与动画状态，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "鉴权与多实例",
+      "descZh": "支持 Bearer token 与命令行覆盖端口，方便同时跑多个项目，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "工具数量多意味着权限面很大，AI 能删节点、改脚本、跑导出，生产工程必须开鉴权并限制客户端来源。它依赖编辑器处于打开状态，无头模式虽可用但仍要传项目路径与端口，CI 集成需要额外封装。部分调试工具要往运行中的场景注入探针，正式包不能带；运行时改属性也只对当前会话有效。工具命名与参数较多，代理要花时间理解，gdmcp 的渐进发现能缓解但不能完全避免误调用。项目推荐 Godot 4.5 以上，低版本部分编辑器接口缺失。AI 生成的改动缺少审阅时容易破坏场景引用，建议配合版本控制逐次比对。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 或压缩包安装 addons，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在项目设置里启用插件并打开 MCP 面板"
+    },
+    {
+      "stepZh": "选择 HTTP 或 stdio 传输并配置端口与令牌"
+    },
+    {
+      "stepZh": "在 Claude、Cursor 或 Trae 里填写 MCP 地址，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "从只读查询开始逐步开放写入类工具"
+    },
+    {
+      "stepZh": "每次批量改动后用差异视图复核并提交"
+    }
+  ],
+  "pros": [
+    "原生实现不需要 Node.js，装好插件就能连，依赖链最短，团队新人照着示例就能上手。",
+    "工具覆盖面广，从场景编辑到断点调试都能通过 MCP 调用，出现问题时也更容易定位原因。",
+    "gdmcp 命令行按需发现工具，明显减少代理的上下文压力，对中小团队的时间成本很友好。",
+    "HTTP 与 stdio 都支持，还能用端口参数并行跑多个项目，长期维护与升级的压力都比较小。",
+    "文档给出多种客户端的配置示例，接入成本比自建服务低，实际项目落地时省下大量重复工作。"
+  ],
+  "cons": [
+    "权限面很大，开放写入等于把工程交给 AI，必须做鉴权与复核。",
+    "工具数量多，代理容易选错或传错参数，需要先小范围试用。",
+    "依赖编辑器常驻，CI 与无头场景要额外封装，升级引擎版本时容易卡住。"
+  ],
+  "pitfalls": [
+    "公网暴露 HTTP 端口又没开鉴权，等于把项目文件与执行权限对外开放。",
+    "让 AI 批量改场景后没有逐项审阅，节点引用与 owner 可能被破坏。",
+    "运行时探针留在正式场景里，导出后玩家也能触发调试接口。"
+  ],
+  "bestFor": "愿意用 AI 代理做重复性编辑器操作，并有版本控制兜底与权限意识的 Godot 4 团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "工程含敏感资源、无法接受外部客户端访问，或只需要偶尔改几行代码，直接手改更快。",
+  "compareTips": {
+    "vs": [
+      "Coding-Solo__godot-mcp",
+      "DaxianLee__godot-mcp",
+      "IvanMurzak__Godot-MCP"
+    ],
+    "whenZh": "几款 MCP 插件路线不同：本插件把服务端内建在 Godot 里、工具最全且带 CLI；Coding-Solo 版偏启动编辑器与抓日志；DaxianLee 版强调代理工作流；IvanMurzak 版用 C# 实现。要最多工具与零依赖选本插件，只要简单启动与日志则选轻量方案。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "编辑器自动化",
+    "场景编辑",
+    "原生实现"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "原生实现无需 Node.js",
+      "source": "README.md",
+      "quote": "No Node.js dependency required - runs entirely within Godot"
+    },
+    {
+      "claim": "AI 可读写脚本场景节点与资源",
+      "source": "README.md",
+      "quote": "AI assistants can read and modify scripts, scenes, nodes, and resources"
+    },
+    {
+      "claim": "提供 HTTP 与 stdio 两种传输",
+      "source": "README.md",
+      "quote": "The plugin provides two transport modes"
+    },
+    {
+      "claim": "推荐 Godot 4.5 以上",
+      "source": "README.md",
+      "quote": "Godot Engine 4.x (recommended 4.5 or higher)"
+    }
+  ],
+  "depth": "standard"
+}

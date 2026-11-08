@@ -1,0 +1,34 @@
+{
+  "id": "yannlemos__Signal-Lens",
+  "descriptionZh": "在调试器里把节点信号连接画成关系图，并实时追踪每一次发射",
+  "category": "debug-perf",
+  "tags": [
+    "信号调试",
+    "可视化",
+    "调试器",
+    "编辑器插件"
+  ],
+  "prosShort": [
+    "信号连接可视化排查断链快",
+    "自动加载节点与自定义信号都支持",
+    "可回看历史发射记录，团队上手也快。"
+  ],
+  "consShort": [
+    "只能在运行中的项目里使用",
+    "资源类型信号暂不支持查看",
+    "连接多时关系图会显得拥挤"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

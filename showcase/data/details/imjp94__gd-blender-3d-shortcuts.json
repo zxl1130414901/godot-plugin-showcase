@@ -1,0 +1,145 @@
+{
+  "id": "imjp94__gd-blender-3d-shortcuts",
+  "depth": "standard",
+  "taglineZh": "在 Godot 编辑器里还原 Blender 的 G、R、S 三维变换快捷键",
+  "summaryZh": "这个插件把 Blender 的三维变换习惯搬进 Godot 编辑器视口：按 G、R、S 分别进入移动、旋转与缩放，H 隐藏对象，按住 ALT 再按对应键可反向恢复之前的变换，X 删除。它在视口中可视化当前约束的轴，支持直接输入变换数值，并能与编辑器的本地空间、吸附开关与吸附步长协同工作，Z 键切换视口显示模式。README 给出完整快捷键表，含单轴约束、平面约束、精度模式与全局本地切换。安装可走 AssetLib、手动拷贝或 gd-plug，安装时先清掉冲突的缩放快捷键。",
+  "whatItDoes": "在 Godot 的三维视口里拦截指定按键，把 Blender 风格的即时变换映射到编辑器对象上，并提供反向恢复、轴与平面约束、数值输入与精度模式，让熟悉 Blender 的人不必切换操作习惯。",
+  "useCases": [
+    {
+      "titleZh": "从 Blender 转来的关卡美术",
+      "descZh": "沿用 G、R、S 的操作习惯在 Godot 里摆放场景物件，肌肉记忆不用重学，上手当天就能恢复原有速度。"
+    },
+    {
+      "titleZh": "需要精确数值摆放",
+      "descZh": "变换时直接键入位移或角度数值，配合吸附与网格步长，把物件对齐到指定的坐标与角度。"
+    },
+    {
+      "titleZh": "快速约束到单轴或平面",
+      "descZh": "用 X、Y、Z 与 SHIFT 组合把变换限制在一条轴或一个平面上，摆放贴墙与地面物件时更稳。"
+    },
+    {
+      "titleZh": "反复试摆的关卡搭建",
+      "descZh": "按住 ALT 再按对应键就能回到变换之前的状态，比反复调用撤销更顺手，适合来回比较方案。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Blender 式变换操作",
+      "descZh": "在 Godot 视口中通过单键进入移动、旋转与缩放的交互模式，鼠标移动即实时改变对象。"
+    },
+    {
+      "titleZh": "约束轴可视化",
+      "descZh": "变换过程中用线条与颜色显示当前锁定的轴或平面，让操作者一眼看清限制方向。"
+    },
+    {
+      "titleZh": "快捷键速查表",
+      "descZh": "README 列出全部组合键与对应行为，含移动、旋转、缩放、删除、隐藏与显示模式切换。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "单键进入变换",
+      "descZh": "G、R、S 分别对应移动、旋转与缩放，与 Blender 完全一致，不必记新的组合键。"
+    },
+    {
+      "name": "ALT 反向恢复",
+      "descZh": "按住 ALT 再按对应键即可回到变换之前的状态，试摆失败时不必层层撤销。"
+    },
+    {
+      "name": "数值直接输入",
+      "descZh": "变换过程中可键入具体数值并回车确认，精确摆放不必依赖鼠标拖拽。"
+    },
+    {
+      "name": "与吸附设置协同",
+      "descZh": "兼容编辑器的本地空间、吸附开关与吸附步长，原有对齐习惯继续有效。"
+    },
+    {
+      "name": "显示模式切换",
+      "descZh": "按 Z 在视口显示模式之间循环，ESC 或右键取消，检查模型时切换更快。"
+    }
+  ],
+  "limitsZh": "版本兼容被切成多个分支且要求明确：主线只兼容 Godot 4.6 及以上，4.0 到 4.5 必须切到 4.5 分支，Godot 3 走对应分支，装错分支会直接失效。它与编辑器内置快捷键存在冲突，README 明确要求可选地清除空间编辑器的缩放模式快捷键，否则 R 旋转会与原有缩放快捷键打架，团队统一配置时需要额外沟通。插件只覆盖 3D 视口的变换类操作，2D 视口、资源编辑与场景层级管理都不涉及。README 约一千八百字符，功能与快捷键列得清楚，但缺少各选项设置位置与升级后行为差异的说明。",
+  "workflowZh": [
+    {
+      "stepZh": "选择与当前 Godot 版本匹配的分支或 AssetLib 条目"
+    },
+    {
+      "stepZh": "拷贝 addon 目录到工程根，或在插件页启用插件"
+    },
+    {
+      "stepZh": "按提示清除与旋转冲突的缩放模式快捷键"
+    },
+    {
+      "stepZh": "在三维视口中用 G、R、S 练习变换操作"
+    },
+    {
+      "stepZh": "按需使用轴约束、数值输入与 ALT 反向恢复"
+    }
+  ],
+  "pros": [
+    "完整还原 Blender 的变换习惯，迁移成本低，上手几乎不用重新学习。",
+    "提供 ALT 反向恢复与数值输入，摆放与试摆都更精确，减少重复劳动。",
+    "与编辑器的本地空间和吸附设置协同，不破坏原有对齐流程。",
+    "快捷键表齐全，常见操作都能查到，团队内部传阅与新人上手都方便。",
+    "体积小、无额外依赖，安装只需拷贝目录并在插件页启用，卸载也只需删掉文件夹。"
+  ],
+  "cons": [
+    "与编辑器内置快捷键冲突，需要手动清理缩放模式快捷键。",
+    "版本分支多，装错分支会直接失效，升级引擎要先确认兼容性。",
+    "只覆盖三维视口变换，二维视口与资源编辑不在范围内。"
+  ],
+  "pitfalls": [
+    "未清除空间编辑器的缩放模式快捷键时，按 R 会触发与预期不同的行为。",
+    "把 4.5 的工程直接换成主线分支，会因要求 4.6 以上而无法加载。",
+    "在变换过程中误触鼠标右键会取消操作，连续摆放前先确认没有误按。"
+  ],
+  "bestFor": "从 Blender 转到 Godot、经常在编辑器里摆放三维物件的关卡与场景美术，以及想统一三维操作习惯的小团队。",
+  "avoidWhenZh": "主要做 2D 项目，或不愿调整编辑器既有快捷键配置的团队，装好后反而会打乱现有操作。",
+  "compareTips": {
+    "vs": [
+      "PiCode9560__Godot-Inspector-Tabs"
+    ],
+    "whenZh": "两者都改造编辑器的操作体验：Blender 快捷键插件重塑三维视口里的移动、旋转与缩放方式；Inspector Tabs 重组属性面板，把长表单切成分页。前者服务场景摆放，后者服务属性检查，作用环节不同。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "Blender快捷键",
+    "3D视口",
+    "编辑器增强",
+    "变换操作",
+    "效率工具"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "把 Blender 的 3D 变换快捷键搬到 Godot",
+      "source": "README.md",
+      "quote": "Blender's 3D transforming shortcuts in Godot"
+    },
+    {
+      "claim": "当前版本仅兼容 Godot 4.6 及以上，旧版本需切分支",
+      "source": "README.md",
+      "quote": "This version is only compatible with **Godot 4.6 and onwards**, check out godot4.5(compatible with Godot 4.0 - 4.5) or godot3 branch for older version"
+    },
+    {
+      "claim": "与编辑器缩放模式快捷键存在冲突",
+      "source": "README.md",
+      "quote": "(Optional) Clear spatial editor scale mode shortcut as it conflicts with rotate shortcut"
+    },
+    {
+      "claim": "提供 ALT 反向恢复与约束轴可视化",
+      "source": "README.md",
+      "quote": "- Revert transformation with \"ALT\" modifier\n- Visualize constraint axis"
+    }
+  ]
+}

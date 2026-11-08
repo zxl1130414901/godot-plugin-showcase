@@ -1,0 +1,139 @@
+{
+  "id": "godot-nim__gdext-nim",
+  "depth": "standard",
+  "taglineZh": "用 Nim 编写 Godot 扩展的库与命令行脚手架",
+  "summaryZh": "gdext 把 Godot 4 的 GDExtension 接口封装成 Nim 库，并提供 gdextwiz 命令行脚手架：nimble 安装后一条命令新建扩展、一条命令跑测试。它能访问引擎类与方法，定义继承引擎类的新类型，给扩展加方法、信号、属性与枚举，并允许虚函数在 Nim 与 GDScript 两侧重写。重编译后可热重载，不必重启编辑器。适合喜欢 Nim 表达力、想写紧凑高性能扩展的人。限制是生态小众、需要自建 Nim 与编译环境，文档以在线 Pages 与 DeepWiki 为主。",
+  "whatItDoes": "安装 gdext 包后，gdextwiz new-extension 生成工程骨架与 .gdextension 配置，gdextwiz run 编译并启动测试项目。Nim 代码里可直接调用引擎 API、注册新类与信号，编译器负责生成胶水层。修改后触发热重载，编辑器内的扩展立即更新。仓库另带编辑器与运行时两套测试工程。",
+  "useCases": [
+    {
+      "titleZh": "Nim 高性能扩展",
+      "descZh": "用 Nim 写计算密集逻辑，借编译优化替代 GDScript 热点，减少每帧脚本开销，适合数值模拟与寻路。"
+    },
+    {
+      "titleZh": "扩展类与 API 暴露",
+      "descZh": "把 Nim 类型注册成引擎类，向 GDScript 暴露方法与信号，两种语言可以混写，注册后编辑器可见。"
+    },
+    {
+      "titleZh": "快速迭代扩展开发",
+      "descZh": "借热重载反复改代码，减少重启编辑器的等待，调扩展行为更快，迭代节奏更接近脚本语言。"
+    },
+    {
+      "titleZh": "非 C++ 绑定研究",
+      "descZh": "对照生成胶水层与虚函数机制，学习 GDExtension 的语言接入方式，作为自研绑定参考，少走弯路。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可加载的扩展动态库",
+      "descZh": "Nim 编译产出动态库，按 .gdextension 描述挂进项目，加载后即可使用，无需重启编辑器。"
+    },
+    {
+      "titleZh": "Nim 侧引擎绑定",
+      "descZh": "引擎类、方法、信号与属性映射为 Nim 可调用接口，不必手写 C 层胶水，签名由生成器保证。"
+    },
+    {
+      "titleZh": "脚手架生成的工程",
+      "descZh": "gdextwiz 产出目录结构与配置，含编辑器与运行时示例，直接跑通，省去手搭目录。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "gdextwiz",
+      "descZh": "命令行新建扩展、编译并运行测试工程，减少手工配置与路径错误。"
+    },
+    {
+      "name": "扩展类注册",
+      "descZh": "继承引擎类并暴露方法、信号、属性与枚举给 GDScript，两边可互相调用。"
+    },
+    {
+      "name": "虚函数重写",
+      "descZh": "虚函数可在 Nim 与 GDScript 两侧实现，便于按语言分工，也能只替换个别回调。"
+    },
+    {
+      "name": "热重载",
+      "descZh": "重编译后无需重启编辑器即可加载新扩展，迭代循环更短，调扩展行为更快。"
+    },
+    {
+      "name": "运算符增强",
+      "descZh": "提供更顺手的算术运算符写法，数学与向量代码更紧凑，读起来接近原生。"
+    }
+  ],
+  "limitsZh": "Nim 生态在 Godot 社区属于小众，遇到绑定层问题时能参考的案例远少于 C++ 与 GDScript。使用前要装 Nim、Nimble 与 C 编译器，团队需维护额外工具链；产物仍按平台编译，多平台发布要各自构建。文档主要指向在线 Pages 与 DeepWiki，离线查阅不便，API 覆盖度也要以实际生成的头文件为准。热重载对某些类型与静态状态未必完全干净，复杂扩展仍建议重启验证。",
+  "workflowZh": [
+    {
+      "stepZh": "先装 Nim 与 Nimble，再确认系统里有可用的 C 编译器"
+    },
+    {
+      "stepZh": "执行 nimble install gdext 获取库与 gdextwiz 命令，并确认版本"
+    },
+    {
+      "stepZh": "用 gdextwiz 新建扩展工程，生成目录与配置文件"
+    },
+    {
+      "stepZh": "编写 Nim 扩展代码并编译成动态库，注意导出符号名"
+    },
+    {
+      "stepZh": "在测试项目里加载扩展，验证类注册与信号"
+    }
+  ],
+  "pros": [
+    "把引擎 API 与扩展类完整映射到 Nim，胶水层由工具生成，覆盖常用类与信号",
+    "自带脚手架与测试工程，首次跑通路径短，不必手搭配置，新手也能照文档跑通",
+    "支持热重载，扩展迭代不必反复重启编辑器，调参更快，热重载失败再重启即可",
+    "虚函数可在 Nim 与 GDScript 两侧实现，便于混合开发，减少重写工作量",
+    "Nim 语法紧凑且可编译优化，适合性能敏感逻辑，编译期优化较充分"
+  ],
+  "cons": [
+    "Nim 生态小众，绑定层出问题时能参考的案例很少",
+    "需额外维护 Nim 与 C 编译工具链，团队要接受新语言",
+    "文档以在线站点为主，离线查阅不便，API 覆盖要现查"
+  ],
+  "pitfalls": [
+    "未装 C 编译器时 nimble 构建会失败，先补齐工具链再装包，否则报错信息很难读",
+    "热重载后静态状态可能残留，复杂改动仍应重启编辑器验证",
+    "多平台发布要分别在对应平台编译，不能直接复用桌面产物"
+  ],
+  "bestFor": "熟悉 Nim、想用紧凑语法写高性能 Godot 4 扩展，并能自己维护 Nim 与 C 编译工具链、接受少量踩坑的进阶开发者。",
+  "avoidWhenZh": "团队无人会 Nim、需要成熟稳定的绑定与文档，或不愿引入额外语言工具链的项目。",
+  "compareTips": {
+    "vs": [
+      "gdzig__gdzig"
+    ],
+    "whenZh": "两者都是非 C++ 的 GDExtension 绑定：gdext-nim 提供 Nim 库与 gdextwiz 脚手架，gdzig 面向 Zig 并锁定引擎版本。按团队熟悉的语言选，成熟度都还在早期，试错成本要自己评估。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "Nim",
+    "GDExtension",
+    "语言绑定",
+    "热重载"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "面向 GDExtension 的 Nim 库与命令行工具",
+      "source": "README.md",
+      "quote": "Nim for GDExtension — a pure library and CLI tool."
+    },
+    {
+      "claim": "支持热重载，无需重启编辑器",
+      "source": "README.md",
+      "quote": "Reload recompiled GDExtensions without restarting the editor (Hot Reloading)."
+    },
+    {
+      "claim": "用 gdextwiz 新建扩展",
+      "source": "README.md",
+      "quote": "gdextwiz new-extension MyExtension"
+    }
+  ]
+}

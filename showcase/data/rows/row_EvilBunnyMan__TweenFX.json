@@ -1,0 +1,35 @@
+{
+  "id": "EvilBunnyMan__TweenFX",
+  "descriptionZh": "Godot 4 的轻量补间动画库，一行调用播放抖动、弹入与悬停动效。",
+  "category": "ui",
+  "tags": [
+    "补间动画",
+    "UI动效",
+    "入场动画",
+    "GDScript",
+    "轻量"
+  ],
+  "prosShort": [
+    "五十多种动画，一行调用即可",
+    "支持 await 完成，并按枚举停止动画",
+    "MIT 协议许可，Demo 内附可交互教程"
+  ],
+  "consShort": [
+    "动画偏节点变换，复杂编排要自写",
+    "参数有限，深度定制需改源码",
+    "逐动画说明少，以 README 示例为主"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

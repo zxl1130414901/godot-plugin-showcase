@@ -1,0 +1,33 @@
+{
+  "id": "DesirePathGames__Slay-The-Robot",
+  "descriptionZh": "Godot 4 肉鸽卡牌构筑完整框架，含数据驱动卡牌动作管线与存档模组",
+  "category": "state-logic",
+  "tags": [
+    "肉鸽",
+    "卡牌构筑",
+    "数据驱动",
+    "完整框架"
+  ],
+  "prosShort": [
+    "卡牌遗物到三幕流程齐全，团队上手也快。",
+    "动作校验共用一条管线，接入成本不高。",
+    "MIT 许可且支持模组，后续扩展方便。"
+  ],
+  "consShort": [
+    "完整工程交付不能当插件装",
+    "要求 4.6 较早版本需迁移，团队要提前评估。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

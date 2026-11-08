@@ -1,0 +1,67 @@
+{
+  "id": "GodotVR__godot-xr-tools",
+  "depth": "standard",
+  "taglineZh": "为 Godot 的 AR/VR 项目提供开箱即用的 XR 交互场景与工具",
+  "summaryZh": "godot-xr-tools 把常见的 VR 与 AR 交互打包成可直接复用的场景和脚本，包含移动、传送、抓取、攀爬、滑翔、钩爪、手部与指针交互、震动反馈等模块，并附带一整套 demo 场景用于参考与拆解。它基于 OpenXR 接口，需要先安装 Godot 官方 OpenXR 插件，再按 Godot 版本选择对应分支。它解决的是 XR 基础交互从零搭建成本高的问题，但对非 OpenXR 平台、特殊手柄与自定义交互仍需自己扩展。",
+  "whatItDoes": "在 addons/godot-xr-tools 中提供一组可实例化的 XR 交互场景与节点，覆盖移动、传送、抓取、攀爬、滑翔、钩爪、指针与手部交互、震动反馈等。仓库还附带可运行的 demo 场景与各平台导出预设，可直接在头显或桌面模拟器中验证交互。",
+  "useCases": [
+    {"titleZh": "VR 原型验证与交互探索", "descZh": "用现成场景快速拼出移动、抓取与传送，把时间花在玩法验证而不是基础交互搭建上，修改参数就能调整手感。"},
+    {"titleZh": "一体机商业项目起步", "descZh": "针对 Quest、Pico、Lynx 等 Android 一体机附带导出预设与常用交互模块，起步配置省事，但素材仍需按目标设备裁剪。"},
+    {"titleZh": "教学与 XR 入门", "descZh": "附带大量 demo 场景，可逐个运行并拆解节点，理解 OpenXR 项目的组织方式，比只读文档更快建立心智模型。"},
+    {"titleZh": "需要手部与指针交互的应用", "descZh": "直接复用 poke、pointer 与 pickable 模块，减少手写射线、碰撞与手部姿态逻辑，也能按需替换成自定义交互。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "可实例化的交互场景", "descZh": "把移动、传送、抓取等做成可实例化场景与节点，拖进场景树即可使用，参数都在检查器里调整。"},
+    {"titleZh": "完整 XR demo 工程", "descZh": "附带多个分类演示场景与各平台导出预设，可作为新项目的参考骨架，也能直接改造成自己的测试关卡。"},
+    {"titleZh": "手部与指针交互模块", "descZh": "提供 poke、pointer、pickable 等预制节点，覆盖常见手部交互需求，命名与目录结构也便于继续扩展。"}
+  ],
+  "featureCallouts": [
+    {"name": "移动与传送", "descZh": "支持摇杆移动、瞬移传送、攀爬、滑翔与钩爪等多种位移方式，并按设备提供移动与转向的组合选项。"},
+    {"name": "抓取与可拾取物", "descZh": "提供 world grab 与 pickable 模块，附带手部姿态、抓取点与碰撞处理，可直接套用到自己的可交互物体。"},
+    {"name": "指针与戳击交互", "descZh": "pointer 与 poke 模块可直接用于界面与物体交互，无需自写射线检测与按键状态机。"},
+    {"name": "震动与音频反馈", "descZh": "rumble 与脚步、空间音频模块把触觉与听觉反馈一并打包，省去在多平台手柄上分别调试震动。"},
+    {"name": "着色器预热", "descZh": "附带 VR_Common_Shader_Cache 场景，挂到摄像机下即可预热常用着色器，避免交互时因编译卡顿。"}
+  ],
+  "limitsZh": "依赖 OpenXR 接口，必须先安装 Godot 官方 OpenXR 插件，且不同插件版本对应不同的最低 Godot 版本，例如 4.5.x 需要 4.4 起。仓库以 GDScript 场景为主，并非通用 XR 框架，非 OpenXR 设备、自定义手柄映射与平台特有能力都要自己扩展。demo 资源体积约 80MB，移动端性能仍取决于项目自身优化；部分模块会隐藏再显示物体，首次触发仍可能有着色器编译抖动。",
+  "workflowZh": [
+    {"stepZh": "先安装与当前 Godot 版本匹配的 OpenXR 插件，并确认设备能正常进入 XR 会话"},
+    {"stepZh": "把 addons 目录复制进项目，在插件设置里启用 Godot XR Tools"},
+    {"stepZh": "在 XROrigin3D 节点下实例化需要的交互场景，并调整手部与摄像机位置"},
+    {"stepZh": "把着色器预热场景作为子节点挂到 XRCamera3D 下，让常用着色器提前编译"},
+    {"stepZh": "对照 demo 场景，逐步替换成自己的模型与逻辑"}
+  ],
+  "pros": [
+    "覆盖移动、传送、抓取、攀爬、钩爪等主流 XR 交互，省去从零实现，并把参数暴露在检查器里",
+    "附带十几个可运行 demo 场景，学习与拆解成本明显低于读文档",
+    "提供着色器预热场景，减少首次交互时因编译着色器造成的卡顿",
+    "针对 Quest、Pico、Lynx 等一体机附带导出预设，起步配置省事，省去逐项手填导出参数",
+    "维护活跃，按 Godot 版本分支配对，兼容性说明列得清楚，选版本时不易踩坑"
+  ],
+  "cons": [
+    "强依赖 OpenXR 插件，不在 OpenXR 体系内的平台无法直接使用",
+    "仓库与 demo 资源体积大，移动端需要自行裁剪素材",
+    "以场景与脚本为主，深度定制交互仍要读源码改节点结构"
+  ],
+  "pitfalls": [
+    "忘记安装 OpenXR 插件时 demo 直接无法运行，容易被误判为插件损坏",
+    "不同分支对应不同 Godot 版本，拉错分支会出现大量脚本报错，务必按版本表切分支",
+    "交互模块会动态显隐物体，不挂着色器预热场景会遇到首次卡顿"
+  ],
+  "bestFor": "做 VR 或 AR 项目、使用 OpenXR 设备、希望快速搭出移动抓取等基础交互，并能接受引入较大 demo 资源与学习曲线的团队。",
+  "avoidWhenZh": "目标平台不走 OpenXR，或只需要极轻量单点交互、不想引入大体积 demo 资源的情况。",
+  "compareTips": {
+    "vs": ["V-Sekai__godot-vrm"],
+    "whenZh": "godot-xr-tools 解决交互与移动，godot-vrm 解决虚拟形象加载与骨骼映射，两者互补而非替代。做 VR 交互主体选前者，需要导入 VRM 人物时再叠加后者。"
+  },
+  "category": "platform-export",
+  "tags": ["XR", "VR", "OpenXR", "交互场景"],
+  "scores": {"coverage": 5, "usability": 4, "docs": 4, "maintenance": 4, "performance": 3, "stability": 4},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {"claim": "提供 AR/VR 场景与支持文件", "source": "README.md", "quote": "This repository contains a number of support files and support scenes that can be used together with the various AR and VR interfaces for the Godot game engine."},
+    {"claim": "demo 需额外安装 OpenXR 插件", "source": "README.md", "quote": "After cloning this repository you will need to install the OpenXR plugin for it to work."},
+    {"claim": "版本与最低 Godot 版本绑定", "source": "README.md", "quote": "4.5.x          | 4.4"}
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "id": "jitspoe__godot-console",
+  "depth": "standard",
+  "taglineZh": "按波浪键呼出的游戏内开发者控制台插件",
+  "summaryZh": "这个 addon 在游戏内提供一个可呼出的命令行控制台：启用插件后自动注册 Console 单例，任意脚本都能用 add_command 注册指令、用 add_cvar 注册可读写变量，并支持参数数量校验与多级 Tab 补全。控制台可暂停游戏树、调整字号与配色，cvar 还能持久化到 user://。它没有内置除 quit 之外的命令，C# 绑定无人维护，界面也很朴素，复杂调试台要自己扩展。",
+  "whatItDoes": "Console 单例负责命令解析、历史记录、输出着色与 Tab 补全，add_command 接受函数引用、参数名数组与参数个数。add_cvar 可托管变量或引用其他对象属性，支持 bool、int、float、String 等类型并写入 user://console_cvars.txt。插件在启用时注册 autoload，默认不暂停场景树，可用 pause_enabled 打开时暂停，也可用 font_size 与项目设置调整外观。",
+  "useCases": [
+    {
+      "titleZh": "关卡调试",
+      "descZh": "用 map 指令直接载入关卡并配合补全选择地图，省去反复重启工程的时间，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "数值调参",
+      "descZh": "把移动速度、视野等挂成 cvar，运行时改值并持久化，方便策划自己试手感，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "线上排障",
+      "descZh": "在测试包保留控制台，通过日志与命令复现玩家问题，比加断点更轻，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "作弊沙盒",
+      "descZh": "给沙盒模式暴露刷物品、跳关等命令，正式包默认关闭即可，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Console 单例",
+      "descZh": "插件启用时注册的自动加载节点，承载输入、历史与输出渲染，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "命令与变量表",
+      "descZh": "add_command 与 add_cvar 建立的清单，供补全、帮助与持久化使用，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "可持久化配置",
+      "descZh": "user://console_cvars.txt 保存 cvar，重启游戏后自动恢复，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "add_command",
+      "descZh": "注册带参数数量与补全列表的指令，函数保持普通 GDScript 写法，参数集中在检查器面板。"
+    },
+    {
+      "name": "add_cvar",
+      "descZh": "声明带类型推断的变量，可自动托管或引用其他对象属性，后续修改起来也不费劲。"
+    },
+    {
+      "name": "Tab 补全",
+      "descZh": "按参数位补全候选项，索引从 1 开始，多参数可分别配置，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "pause_enabled",
+      "descZh": "打开控制台时暂停场景树，关闭后恢复，适合单机调试，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "字号与主题",
+      "descZh": "font_size 与项目设置控制外观，发布构建可默认禁用，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "功能边界很窄：只做输入解析、历史与输出显示，没有远程控制、日志分级落盘或脚本热重载。README 没有标注 Godot 版本，也没有版本号说明，接入前要在目标引擎上自测。C# 绑定由社区贡献且作者无法保证可用，Mono 项目需要自行验证。控制台默认不暂停游戏，若在多人或计时场景开启暂停还要处理网络同步。界面只有字号、缩放与少量颜色设置，想做多窗口或结构化日志得改源码。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/console 拷入项目并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在脚本 _ready 里用 add_command 注册调试指令，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "按需注册 cvar 并决定是否持久化，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "按波浪键打开控制台验证命令与补全。"
+    },
+    {
+      "stepZh": "导出前确认发布构建的控制台开关。"
+    }
+  ],
+  "pros": [
+    "命令注册只需一行 add_command，参数数量与补全列表都能声明，接入成本很低。",
+    "内置 cvar 体系，支持引用对象属性并持久化到 user://console_cvars.txt，团队新人照着示例就能上手。",
+    "单文件 addon 结构，无第三方依赖，启用插件即自动注册自动加载项。",
+    "README 覆盖命令、补全、cvars 与 C# 用法，示例可直接复制，出现问题时也更容易定位原因。"
+  ],
+  "cons": [
+    "除 quit 与 exit 外没有内置命令，常用调试指令要自己写。",
+    "界面与日志功能朴素，缺少远程控制与日志落盘。",
+    "README 未标注 Godot 版本，C# 绑定也无人维护，升级引擎版本时容易卡住。"
+  ],
+  "pitfalls": [
+    "启用插件会写入 autoload，禁用时务必走插件面板移除，手工删目录会留下失效单例。",
+    "cvar 引用外部对象属性时要在 _exit_tree 调 remove_cvar，否则对象释放后读取会报错。",
+    "参数个数声明与实际函数不一致时不会报错，只会传空字符串，联调时容易误判。"
+  ],
+  "bestFor": "需要给 Godot 游戏加一个轻量命令台，用来切关卡、改数值、刷道具的独立开发者与小团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "需要远程运维、结构化日志或完整 C# 控制台时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "limbonaut__limbo_console"
+    ],
+    "whenZh": "两者都提供游戏内命令台；console 单文件、cvar 与补全完善，limbo_console 更偏可视化调试面板。只要命令行就选前者，需要常驻调试数据展示再考虑后者。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "控制台",
+    "调试",
+    "命令",
+    "变量"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "启用插件后即可使用 Console",
+      "source": "README.md",
+      "quote": "Simply drop the addons directory into your godot project, go to the project settings, plugins, and enable \"Console\"."
+    },
+    {
+      "claim": "任意类都能注册命令",
+      "source": "README.md",
+      "quote": "After you've done that, you can add console commands from any class."
+    },
+    {
+      "claim": "cvar 可持久化到 user 目录",
+      "source": "README.md",
+      "quote": "persist the value to `user://console_cvars.txt` between sessions"
+    },
+    {
+      "claim": "可选择打开控制台时暂停场景树",
+      "source": "README.md",
+      "quote": "Console will now pause the tree when being opened"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "id": "nathanfranke__gdextension",
+  "depth": "standard",
+  "taglineZh": "把 C++ 扩展自动打包成资产库插件的模板",
+  "summaryZh": "这是一个 GDExtension 工程模板，演示如何用 godot-cpp、SCons 与 GitHub Actions 把 C++ 节点和单例编译成自包含 addon，并产出可直接上传 Godot Asset Library 的压缩包。模板自带示例节点、单例、gdextension 清单与测试工程，克隆后改目录名和 src 就能开工。它只覆盖 Linux、Windows 与 Android 的 4.3 构建，Mac 与 iOS 未验证，使用者仍需自己写业务代码，选型前建议结合团队实际评估。",
+  "whatItDoes": "仓库把 C++ 扩展拆成 src 下的节点、单例与 register_types，SConstruct 负责调用 godot-cpp 生成调试与发布库。project/addons/example 是最终分发目录，example.gdextension 列出各平台库路径，project/demo 用 Label 验证节点与单例调用。GitHub Actions 的 build.yml 自动编译并整理 addon 压缩包，README 还写了上传资产库时选择 Custom 下载链接的步骤。",
+  "useCases": [
+    {
+      "titleZh": "工具扩展",
+      "descZh": "把自有 C++ 算法封装成节点，借助模板的 CI 一次产出多平台库，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "团队脚手架",
+      "descZh": "新项目直接从模板起步，统一注册方式与发布流程，减少踩坑，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "学习 GDExtension",
+      "descZh": "通过最小示例理解 entry_symbol、兼容版本与库路径的对应关系，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "资产库发布",
+      "descZh": "需要按 Asset Library 的自定义下载链接规则出包，模板已写好步骤，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "自包含 addon",
+      "descZh": "project/addons/example 下的 gdextension 与多平台二进制目录，拷贝即用，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "C++ 节点与单例",
+      "descZh": "my_node 与 my_singleton 演示两种注册方式，可直接替换成业务类，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "构建流水线",
+      "descZh": "GitHub Actions 产出压缩包，用于 Release 与资产库下载链接，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "SCons 构建",
+      "descZh": "SConstruct 读取 godot-cpp 并生成调试与发布动态库，参数集中在检查器面板。"
+    },
+    {
+      "name": "register_types",
+      "descZh": "集中注册节点类与单例，是扩展入口的标准写法，后续修改起来也不费劲。"
+    },
+    {
+      "name": "多平台清单",
+      "descZh": "gdextension 同时列出 Linux、Windows、macOS、Android 库路径，调用方式简单不需要额外封装。"
+    },
+    {
+      "name": "Actions 打包",
+      "descZh": "自动编译并整理 addon 压缩包，减少手工拷贝，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "测试工程",
+      "descZh": "project/demo 里用 Label 验证三类调用是否成功，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "模板本身不含任何游戏功能，示例只是打印三行 Hello，业务逻辑要全部自己写。构建依赖 godot-cpp 子模块与 SCons，首次克隆必须带递归子模块参数，否则编译直接失败。平台支持表只勾选 Linux、Windows x86_64 与 Android arm64，Mac 与 iOS 标为未通过，跨平台发布要自行补工具链。项目锁定 Godot 4.3，升级到 4.4 或 4.5 需同步更新 godot-cpp 并回归。Actions 产物会过期，正式发布必须挂到 Release 附件。",
+  "workflowZh": [
+    {
+      "stepZh": "带子模块克隆仓库并初始化 godot-cpp，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "运行 scons 生成当前平台调试库，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "用 Godot 4.3 导入 project 并运行验证，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "重命名 addon 目录并替换 src 代码，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "打 tag 触发 Actions 并上传 Release 附件，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "把编译、打包、上传资产库的链路串成模板，省去自己写 CI 与 gdextension 清单。",
+    "示例同时包含节点与单例注册，能直接照抄 register_types 结构，团队新人照着示例就能上手。",
+    "目录划分清晰，project/addons/example 就是最终分发物，边界明确，出现问题时也更容易定位原因。",
+    "公开领域许可，改造成自有项目没有授权负担，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "Mac 与 iOS 未验证，跨平台项目要自己补构建，升级引擎版本时容易卡住。",
+    "锁定 Godot 4.3，升级需手动同步 godot-cpp，定制之前往往要先读源码。",
+    "示例功能极简，几乎没有可复用的业务代码，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "忘记递归初始化子模块会得到空 godot-cpp 目录，scons 报找不到头文件。",
+    "改 addon 目录名时 gdextension 里的库路径不会自动跟着变，导出后会加载失败。",
+    "直接使用 Actions 临时产物会因过期而 404，发布必须挂到 Release，上线前要专门过一遍。"
+  ],
+  "bestFor": "准备用 C++ 写 GDExtension 并希望一次性搞定多平台构建与资产库发布的工具型作者，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只想写 GDScript 插件，或目标平台包含 Mac 与 iOS 的项目，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-cpp-template"
+    ],
+    "whenZh": "两者都是 GDExtension 起步模板；nathanfranke 版把 CI 打包与资产库发布做成流水线，godot-cpp-template 更贴近官方最小示例。需要自动出包选前者，想跟着官方文档一步步学选后者。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "GDExtension",
+    "C++",
+    "构建模板",
+    "持续集成"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "自动构建成资产库可用的自包含插件",
+      "source": "README.md",
+      "quote": "GDExtension template that automatically builds into a self-contained addon for the Godot Asset Library."
+    },
+    {
+      "claim": "使用 scons 编译当前平台库",
+      "source": "README.md",
+      "quote": "Build a debug binary for the current platform."
+    },
+    {
+      "claim": "测试工程要求 Godot 4.3 以上",
+      "source": "README.md",
+      "quote": "Import and run the test project using Godot Engine 4.3+."
+    },
+    {
+      "claim": "多平台二进制由 GitHub Actions 生成",
+      "source": "README.md",
+      "quote": "This is done automatically by GitHub Actions."
+    }
+  ]
+}

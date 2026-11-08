@@ -1,0 +1,35 @@
+{
+  "id": "KoBeWi__Metroidvania-System",
+  "descriptionZh": "面向类银河恶魔城的工具集，提供网格地图编辑、房间与场景映射、物件唯一 ID 持久化，以及小地图与迷雾组件。",
+  "category": "editor-tool",
+  "tags": [
+    "银河恶魔城",
+    "地图编辑",
+    "房间连接",
+    "存档",
+    "小地图"
+  ],
+  "prosShort": [
+    "地图编辑器集中管理房间与连接",
+    "物件 ID 自动生成，持久状态好存",
+    "组件可拆用，不限于银河恶魔城"
+  ],
+  "consShort": [
+    "只支持方形或矩形的网格房间结构",
+    "要求 4.6 以上，旧版得用老分支",
+    "文档散在 wiki，深入用法要读码"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

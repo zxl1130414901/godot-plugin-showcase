@@ -1,0 +1,35 @@
+{
+  "id": "YuriSizov__godot-editor-theme-explorer",
+  "descriptionZh": "浏览编辑器主题的颜色、图标与字体，并生成取用代码。",
+  "category": "editor-tool",
+  "tags": [
+    "编辑器主题",
+    "插件开发",
+    "图标查找",
+    "代码生成",
+    "界面一致性"
+  ],
+  "prosShort": [
+    "主题条目集中展示且搜索过滤好用",
+    "一键生成取用代码",
+    "AssetLib 安装简单"
+  ],
+  "consShort": [
+    "只服务编辑器插件开发",
+    "旧版需切换分支",
+    "不能编辑或导出主题"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

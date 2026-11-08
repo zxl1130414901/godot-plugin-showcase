@@ -1,0 +1,145 @@
+{
+  "id": "poingstudios__godot-admob-plugin",
+  "depth": "standard",
+  "taglineZh": "为 Godot 手游接入 AdMob 全格式广告，覆盖安卓与 iOS",
+  "summaryZh": "AdMob 插件把 Google Mobile Ads SDK 完整搬进 Godot，覆盖 Android 与 iOS，GDScript 与 C# 两套接口保持一致。它支持横幅、可折叠横幅、插屏、激励视频、原生与开屏等格式，也内置中介适配和 UMP 同意流程，并在编辑器提供模拟广告，方便不接真机就调布局。安装可走 AssetLib 或手动解压，之后按平台指南补齐原生依赖，失败时用菜单手动下载安装包。文档含多语言版本与完整 API 参考，插件版本 5.2.0，已持续维护多年，是手游变现较省心的集成选择。",
+  "whatItDoes": "插件在编辑器侧提供 AdMob Manager 菜单与全局设置，运行时通过单例加载广告并回调结果。开发者用 GDScript 或 C# 创建横幅、插屏、激励、原生等广告对象，填好广告位 ID 后请求加载，再监听加载、展示、点击与收益事件。UMP 同意与中介适配走同一套接口，编辑器模拟广告让布局调整不必上真机。",
+  "useCases": [
+    {
+      "titleZh": "休闲手游变现",
+      "descZh": "在关卡结束或失败时插入插屏与激励视频，用广告收入回收买量成本，开局前再展示横幅，构成稳定的多层广告位组合。"
+    },
+    {
+      "titleZh": "激励视频换奖励",
+      "descZh": "在复活、抽卡或领资源前播放激励视频，用奖励换取观看，提高留存与广告收益，并控制每日观看次数避免体验下降。"
+    },
+    {
+      "titleZh": "原生广告融入列表",
+      "descZh": "把原生广告模板放进商店或排行榜列表，与界面风格保持统一，在滚动中自然露出并提升点击率。"
+    },
+    {
+      "titleZh": "上线前自测广告位",
+      "descZh": "用编辑器模拟广告检查横幅位置、插屏触发时机与安全区，避免上架审核或上线后才暴露遮挡问题。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "多格式广告对象",
+      "descZh": "横幅、可折叠横幅、插屏、激励、原生与开屏都能用同一套接口请求展示与回调。"
+    },
+    {
+      "titleZh": "中介与同意流程",
+      "descZh": "内置中介适配与 UMP 同意弹窗，兼顾多家广告源聚合与地区合规要求，减少自建工作量。"
+    },
+    {
+      "titleZh": "编辑器模拟广告",
+      "descZh": "在 Godot 编辑器内预览广告布局与位置，不必每次打包真机才能验证尺寸是否遮挡。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "GDScript 与 C# 双接口",
+      "descZh": "两套 API 保持一一对应，C# 项目也能直接调用同一组方法与回调。"
+    },
+    {
+      "name": "全广告格式",
+      "descZh": "横幅、插屏、激励、原生与开屏开箱可用，省去逐个补实现与调试。"
+    },
+    {
+      "name": "编辑器模拟广告",
+      "descZh": "编辑器内可预览尺寸与位置，快速排查遮挡与安全区适配问题。"
+    },
+    {
+      "name": "UMP 同意与中介",
+      "descZh": "内置同意管理与中介适配，便于合规上架和多家广告源填充。"
+    },
+    {
+      "name": "AdMob Manager 菜单",
+      "descZh": "可在工具菜单手动下载平台依赖，升级引擎或换平台后重新安装。"
+    }
+  ],
+  "limitsZh": "插件本身是 GDScript 外壳，真正的广告能力来自 Google 原生 SDK，因此离不开 Android 与 iOS 打包流程，桌面与 Web 导出无法使用。首次接入要配置包名、签名、广告位 ID 与隐私清单，Android 还要注意 R8 混淆规则，iOS 需处理暂停与后台行为。中介适配需按平台添加依赖，库体量会明显增大安装包。编辑器模拟广告只用于调布局，收益与填充等真实行为仍要真机测试。广告政策审核在 Google 侧，插件不负责合规判定。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 或发布页下载，并把 addons 目录拷进项目根目录"
+    },
+    {
+      "stepZh": "进入项目设置插件页，勾选启用 AdMob 广告插件后重载编辑器"
+    },
+    {
+      "stepZh": "按平台指南配置 Android 或 iOS 原生依赖，并填写包名与签名信息"
+    },
+    {
+      "stepZh": "在代码中初始化并加载各广告位，监听加载与展示回调"
+    },
+    {
+      "stepZh": "用模拟广告检查布局后，再上真机验证收益与填充"
+    }
+  ],
+  "pros": [
+    "广告格式覆盖横幅、可折叠横幅、插屏、激励、原生与开屏，基本满足常见需求",
+    "GDScript 与 C# 两套 API 一一对应，团队用哪种语言都能直接接入，学习成本低",
+    "编辑器里能预览模拟广告，调横幅位置和插屏时机不必反复打包真机，效率高",
+    "接口结构对齐官方 Google Mobile Ads SDK，遇到问题查官方文档即可迁移排错，效率高",
+    "中英日等多语言文档齐全，版本迭代与引擎适配更新都比较及时，长期可靠"
+  ],
+  "cons": [
+    "真正的广告能力来自原生 SDK，桌面与 Web 导出无法使用，必须打包移动端",
+    "首次接入需配置包名、签名、广告位与隐私清单，新手容易卡在原生环节",
+    "中介适配和各平台原生依赖会被打进包里，安装体积明显增长"
+  ],
+  "pitfalls": [
+    "编辑器模拟广告只用于调布局，真实填充率与收益仍需在真机与后台核对",
+    "Android 开启 R8 混淆时要按文档加保留规则，否则广告 SDK 运行时会崩，务必核对清单",
+    "升级引擎或插件版本后，要重新下载对应平台的原生依赖，否则启动报错"
+  ],
+  "bestFor": "准备在 Android 或 iOS 手游中接入 Google AdMob 变现，需要横幅、插屏、激励、原生广告等成套格式，且团队用 GDScript 或 C# 开发并追求长期可维护的项目。",
+  "avoidWhenZh": "项目只做桌面或 Web 导出、不接入移动平台，也不打算靠广告变现。",
+  "compareTips": {
+    "vs": [
+      "calico-games__react-native-godot"
+    ],
+    "whenZh": "做原生 Godot 手游并需要广告变现时选 AdMob 插件；若要把 Godot 视图嵌进现有 React Native 应用，再考虑 react-native-godot，按目标平台与工作流取舍即可，按需选择。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "AdMob",
+    "广告变现",
+    "移动端",
+    "Android",
+    "iOS"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "面向 Android 与 iOS 的完整 AdMob 方案",
+      "source": "README.md",
+      "quote": "**The complete solution for Google AdMob integration in Godot using GDScript or C#.**"
+    },
+    {
+      "claim": "要求 Godot 4.5 及以上并保持双语言一致",
+      "source": "README.md",
+      "quote": "- **Godot 4.5.0+**: Native support for Android and iOS with full 1:1 GDScript and C# parity."
+    },
+    {
+      "claim": "可在编辑器内测试预览模拟广告",
+      "source": "README.md",
+      "quote": "- **Editor Mock Ads**: Test and preview ad layouts directly inside the Godot Editor."
+    },
+    {
+      "claim": "README 标注 Godot 4.5.0+ 原生支持 Android 与 iOS",
+      "source": "README.md",
+      "quote": "- **Godot 4.5.0+**: Native support for Android and iOS with full 1:1 GDScript and C# parity."
+    }
+  ]
+}

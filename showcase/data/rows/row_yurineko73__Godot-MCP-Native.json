@@ -1,0 +1,35 @@
+{
+  "id": "yurineko73__Godot-MCP-Native",
+  "descriptionZh": "在 Godot 内建 MCP 服务端并让 AI 读写场景脚本的原生插件，整体接入成本不高。",
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "编辑器自动化",
+    "场景编辑",
+    "原生实现"
+  ],
+  "prosShort": [
+    "原生实现，无需 Node.js 依赖，团队上手也快。",
+    "工具覆盖场景脚本与调试，接入成本不高。",
+    "附带 CLI 可按需发现工具，后续扩展方便。"
+  ],
+  "consShort": [
+    "开放写入等于把工程交给 AI",
+    "工具太多容易选错参数，团队要提前评估。",
+    "公网暴露必须自己配鉴权，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

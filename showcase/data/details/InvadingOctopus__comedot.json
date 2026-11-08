@@ -1,0 +1,146 @@
+{
+  "id": "InvadingOctopus__comedot",
+  "depth": "standard",
+  "taglineZh": "把 2D 玩法拆成组件再拼装成实体的游戏框架",
+  "summaryZh": "Comedot 是一个带完整示例工程的意见化 2D 游戏框架与模板。它把角色移动、战斗、拾取、交互、升级等机制做成挂在实体下的组件节点，配好主菜单、选项、输入重映射与暂停覆盖层，还附带图块、字体、着色器与调试工具。装法不是放进已有项目，而是把仓库当模板开新工程，再按组件参数调整手感。作者明确说这是个人向的重型工具箱，适合快速原型与游戏 jam。仓库带大量示例素材，适合边看边改。",
+  "whatItDoes": "框架把每个玩法机制封装成独立组件节点，实体只是普通 Node，按需挂上移动、战斗、生命、拾取等组件并调参数。自托管 Global、UI、SceneManager、Settings 等单例负责场景切换、全局输入、存档偏好与 UI 弹出。仓库本身就是可运行示例工程，含主菜单、选项、输入重映射与调试面板，同时提供一百多个辅助脚本与免费素材。",
+  "useCases": [
+    {
+      "titleZh": "游戏 jam 快速起盘",
+      "descZh": "直接把仓库当模板开新项目，主菜单、选项、暂停与输入重映射已经就位，可以把时间花在玩法上，适合两三天内要出可玩版本的场景。"
+    },
+    {
+      "titleZh": "组件化重构原型",
+      "descZh": "把已有原型里的移动、生命与拾取逻辑改写成组件，挂到实体上逐项调参，便于比较不同手感，组件改坏可回退到旧场景对比。"
+    },
+    {
+      "titleZh": "学习 2D 架构组织",
+      "descZh": "阅读仓库里的组件分类与约定文档，理解如何用组合而非继承组织 Godot 节点树，约定文档里写明了组件命名与目录放置规则。"
+    },
+    {
+      "titleZh": "复用现成 UI 与素材",
+      "descZh": "借用自带的 HUD、技能按钮、图块与字体资源，先做能跑的关卡再逐步替换美术，替换美术时只要保持节点名与资源路径不变。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可复用的组件节点库",
+      "descZh": "覆盖移动、战斗、交互、拾取、回合制等分类的组件场景，可挂到任意实体节点下，组件之间通过信号与共享数据通信。"
+    },
+    {
+      "titleZh": "带菜单的示例工程",
+      "descZh": "从 Logo、主菜单到选项与暂停的完整场景链，可直接改成自己的游戏外壳，改标题与配色就能当自己的菜单用。"
+    },
+    {
+      "titleZh": "全局单例与存档",
+      "descZh": "Settings、GlobalUI、SceneManager 等自动加载脚本，负责偏好保存与场景切换，偏好写入配置文件，下次启动自动读回，不必自己写存读逻辑。"
+    },
+    {
+      "titleZh": "调试与素材包",
+      "descZh": "附带调试组件、着色器、图块与字体，原型阶段可直接取用，示例场景里能看到组件组合后的实际效果。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "组件即节点",
+      "descZh": "机制写成可挂载的组件场景，参数在检查器里调，不必改继承树，参数改动即时生效，不必重启编辑器。"
+    },
+    {
+      "name": "Settings 单例",
+      "descZh": "用 Settings.anyName = 69 的写法把偏好写进配置文件，写入一行即可持久化，读取也只需一行。"
+    },
+    {
+      "name": "模板场景链",
+      "descZh": "主菜单、选项、输入重映射与暂停覆盖层随仓库一同提供，开箱即可跑通完整流程。"
+    },
+    {
+      "name": "全局值绑定",
+      "descZh": "把 monsterColor 这类键绑到节点属性，值变化时自动同步，改一个全局值，所有绑定该键的节点一起更新。"
+    }
+  ],
+  "limitsZh": "它不是能塞进任何项目的轻量插件，而是一整套意见化的工程结构，接入已有项目意味着接受它的单例、目录与命名约定。组件数量庞大但质量参差，部分组件仍在打磨，文档散落在仓库各处，缺少系统教程。所有逻辑用 GDScript 写成，作者只说在 GDScript 允许范围内优化性能，大量实体与组件并存时开销可观。版本号跟随 Godot 4.8，老项目升级要跟着改。仓库还带大量素材，体积不小，多人协作时要先统一约定。",
+  "workflowZh": [
+    {
+      "stepZh": "把仓库克隆或下载为项目模板，先跑通示例场景"
+    },
+    {
+      "stepZh": "在项目设置里启用 Comedot 提供的自定义停靠面板插件"
+    },
+    {
+      "stepZh": "新建实体场景，按玩法需要挂上移动与战斗组件"
+    },
+    {
+      "stepZh": "在检查器里逐项调组件参数，试手感后保存为场景"
+    },
+    {
+      "stepZh": "用 Settings 单例把选项菜单接上偏好保存与读取逻辑"
+    }
+  ],
+  "pros": [
+    "组件覆盖广，移动、战斗、拾取、交互与回合制都有现成实现，单人 jam 也能快速凑出可玩流程。",
+    "自带主菜单、选项、输入重映射与暂停场景，原型起步快，省去反复搭菜单与暂停界面的时间。",
+    "代码注释充分，仓库内附约定文档，便于照葫芦画瓢，照着现有组件改比从零写快很多。",
+    "配套素材、着色器与调试工具齐全，jam 阶段可直接取用各类素材与调试工具。"
+  ],
+  "cons": [
+    "意见化程度高，塞进已有项目要接受一整套目录与单例约定。",
+    "组件质量与完成度不一致，部分机制仍需自己补，部分组件只是半成品。",
+    "文档分散在仓库文件里，缺少成体系的入门教程，入门要自己翻仓库文件。",
+    "纯 GDScript 实现，组件堆多后运行时开销不可忽视，实体一多帧率会明显下滑。"
+  ],
+  "pitfalls": [
+    "直接复制 addons 到已有项目会与现有单例重名，需先改自动加载名，否则单例会互相覆盖。",
+    "组件依赖父实体提供特定节点或组，缺了会静默不生效，排查要看组件源码。",
+    "仓库自带素材与示例场景多，首次导入耗时长，别误以为编辑器卡死，先等导入结束再操作。"
+  ],
+  "bestFor": "准备从零开一个 2D 原型或参加 game jam，愿意接受作者的组件与目录约定，并希望开箱即用的独立开发者与小团队。",
+  "avoidWhenZh": "已有成熟架构、只想补一两个机制的项目，引入整套框架的改造代价过高，也别为小需求背大包袱。",
+  "compareTips": {
+    "vs": [
+      "godothub__godot-ecs",
+      "csprance__gecs",
+      "OctoD__godot-gameplay-systems"
+    ],
+    "whenZh": "和 godothub 的 ECS、gecs 相比，Comedot 不是纯数据驱动 ECS，而是节点组件加模板工程；要轻量 ECS 选前两者，要开箱即用的 2D 模板选它，两套 ECS 更轻，本项目胜在模板与现成 UI。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "2D框架",
+    "组件化",
+    "游戏模板",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "自带完整菜单与输入重映射场景",
+      "source": "README.md",
+      "quote": "* Template scenes for Logo → Main Menu → Options, Input Remapping, Pause Overlay"
+    },
+    {
+      "claim": "用组件挂到实体上组成玩法",
+      "source": "README.md",
+      "quote": "Comedot lets you build scenes by smacking components into entities and tweaking their parameters"
+    },
+    {
+      "claim": "组件数量超过一百个",
+      "source": "README.md",
+      "quote": "* [120+ megatons][allComponents] of components for player movement, combat, collectibles, interactions, upgrades etc."
+    },
+    {
+      "claim": "偏好设置可一行写入配置文件",
+      "source": "README.md",
+      "quote": "* Save/Load player preferences via a config file with just `Settings.anyName = 69`"
+    }
+  ]
+}

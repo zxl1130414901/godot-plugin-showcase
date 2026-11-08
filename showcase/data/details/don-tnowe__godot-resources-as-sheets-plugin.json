@@ -1,0 +1,145 @@
+{
+  "id": "don-tnowe__godot-resources-as-sheets-plugin",
+  "depth": "standard",
+  "taglineZh": "在编辑器中把整个资源文件夹当成表格批量查看与修改",
+  "summaryZh": "Godot Resources as Sheets 给编辑器加了一个表格页签：选中一个文件夹，里面所有同类型资源会按行铺开，列就是资源属性，可以直接像改表格一样改值，并支持完整的撤销重做。列可以按类型强约束，导入 CSV 会校验字段，导出时也能把整张表写回文件。它还提供多选、排序、搜索与列宽调整，适合维护大量配置型资源。插件只处理 Resource 属性，不负责场景、节点或脚本，复杂嵌套结构仍要逐行展开编辑。",
+  "whatItDoes": "把资源文件夹映射成一张可编辑表格，支持按类型约束的列、CSV 导入导出、多选排序搜索与撤销重做，全部在编辑器内完成。",
+  "useCases": [
+    {
+      "titleZh": "批量调整数值",
+      "descZh": "武器、敌人或关卡配置有上百个资源时，在表格里整列修改数值，比逐个双击资源快很多。"
+    },
+    {
+      "titleZh": "策划交接配置",
+      "descZh": "把资源导出成 CSV 交给策划用表格软件调整，收回后再导入，字段类型会做校验，减少程序手动填表。"
+    },
+    {
+      "titleZh": "核对数据一致性",
+      "descZh": "用表格横向对比同类资源的字段，快速发现漏填、数值越界或类型不一致的条目，提前发现配置错误。"
+    },
+    {
+      "titleZh": "重命名与整理",
+      "descZh": "在表格里按列排序与搜索，定位异常条目后再到文件系统里整理命名与目录结构，方便统一命名规范。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "资源表格视图",
+      "descZh": "以文件夹为范围、以资源为行的编辑视图，每一列对应资源的导出属性字段。"
+    },
+    {
+      "titleZh": "CSV 导入导出",
+      "descZh": "把表格写成 CSV 或从 CSV 读回，导入时带字段类型校验与列映射规则，便于外部编辑。"
+    },
+    {
+      "titleZh": "类型约束列",
+      "descZh": "为每一列指定允许的字段类型与格式化规则，减少手误写入非法值的情况。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Folder as Table",
+      "descZh": "选中文件夹即可把所有资源按行铺开，列就是它们共有的属性。"
+    },
+    {
+      "name": "CSV Round-trip",
+      "descZh": "导出 CSV 给外部工具编辑，改完再导入，字段类型会被逐一校验。"
+    },
+    {
+      "name": "Undo and Redo",
+      "descZh": "批量改值也走编辑器撤销栈，改错一步就能整体回退到之前状态。"
+    },
+    {
+      "name": "Strongly Typed Columns",
+      "descZh": "每列限定类型，导入时拒绝不合法值，避免脏数据混入资源文件。"
+    },
+    {
+      "name": "Search and Sort",
+      "descZh": "表格内可按列排序与搜索，快速定位需要修改的那几行数据。"
+    }
+  ],
+  "limitsZh": "表格只覆盖 Resource 的导出属性，嵌套资源与数组通常要展开成子表或手动编辑，场景、节点与脚本不在范围内。列由资源类型推导，同一文件夹混放多种资源时会出现大量空列，最好按类型分目录。CSV 往返依赖字段名与类型完全匹配，改过属性的资源导入会报错，需要先导出新模板。插件打开大文件夹时要一次性读取全部资源，数量上千后编辑器的响应会变慢。功能偏工具向，文档以 README 与截图为主，复杂用法要读源码。",
+  "workflowZh": [
+    {
+      "stepZh": "把插件仓库里的 addons 目录整体复制进工程"
+    },
+    {
+      "stepZh": "在项目设置的插件页里启用 Resources as Sheets"
+    },
+    {
+      "stepZh": "选中目标资源文件夹并切换到表格页签查看"
+    },
+    {
+      "stepZh": "按列直接修改数值，或导出 CSV 到外部编辑"
+    },
+    {
+      "stepZh": "导入 CSV 后检查类型校验与改动结果"
+    }
+  ],
+  "pros": [
+    "把几十上百个资源的同类字段摆在一张表里，批量改数值非常快。",
+    "CSV 往返让策划可以在熟悉的表格软件里编辑，改完再导回工程。",
+    "修改走编辑器撤销栈，批量操作失误也能整体回退到修改前。",
+    "列有类型约束，导入非法值会报错，减少脏数据进入资源文件。"
+  ],
+  "cons": [
+    "只支持 Resource 属性，嵌套结构与场景节点仍要手动处理。",
+    "混放多种资源的文件夹会产生大量空列，需要先整理目录。",
+    "资源数量大时一次性加载变慢，编辑器会明显卡顿。",
+    "文档偏简，复杂用法与边界行为要直接读源码确认。"
+  ],
+  "pitfalls": [
+    "导入 CSV 前要先按当前资源导出模板，字段名不一致会直接失败。",
+    "批量改值不会自动保存资源，改完记得统一保存并检查差异。",
+    "同一文件夹混放类型会让列错位，先按类型拆分目录再建表。"
+  ],
+  "bestFor": "维护大量配置型资源、需要批量调数值，或要让策划用表格软件参与编辑的中小型项目与独立开发者。",
+  "avoidWhenZh": "资源只有十几个、以场景与节点为主，或必须支持复杂嵌套结构编辑的项目。",
+  "compareTips": {
+    "vs": [
+      "derkork__godot-resource-groups",
+      "elliotfontaine__yard-godot"
+    ],
+    "whenZh": "三者都在编辑器里管资源：Resources as Sheets 以表格批量编辑属性；Resource Groups 按组批量操作资源本身；Yard 提供外部表格与资源的同步管线。要临时批量改值选表格，要持续的双向数据管线选 Yard。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "资源编辑",
+    "表格视图",
+    "CSV导入导出",
+    "批量修改"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "插件把文件夹里的多个资源以表格形式呈现",
+      "source": "README.md",
+      "quote": "A plugin for Godot 4 that adds a tab for viewing and editing folders of Resources as data tables, one Resource per row."
+    },
+    {
+      "claim": "支持 CSV 导入导出与类型化列",
+      "source": "README.md",
+      "quote": "CSV support - Import, Export or Edit directly with strongly-typed columns"
+    },
+    {
+      "claim": "修改支持完整撤销重做",
+      "source": "README.md",
+      "quote": "Full Undo/Redo support."
+    },
+    {
+      "claim": "插件描述强调在一个表格里编辑多份资源",
+      "source": "addons/resources_as_sheets/plugin.cfg",
+      "quote": "Edit Many Resources from one Folder as a table."
+    }
+  ]
+}

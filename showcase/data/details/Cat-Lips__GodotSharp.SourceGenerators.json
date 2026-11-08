@@ -1,0 +1,144 @@
+{
+  "id": "Cat-Lips__GodotSharp.SourceGenerators",
+  "depth": "standard",
+  "taglineZh": "用 C# 源生成器为 Godot 场景与资源生成强类型代码",
+  "summaryZh": "它解决的是 Godot C# 项目里字符串路径与魔法名字难维护的问题：用 C# 源生成器在编译期为场景、节点、动画、音频总线、输入动作、项目设置、图层与着色器生成强类型成员。给类加 [SceneTree] 后可用下划线访问场景层级，唯一名节点直接变成属性；[InputMap]、[Autoload]、[TR] 等特性各有对应生成器。装法是引入 NuGet 包，不需要编辑器插件。限制是仅服务 C# 项目，GD3 与 GD4 的支持分版本，部分特性需 partial 类与正确工程配置。",
+  "whatItDoes": "提供 SceneTree、AnimNames、AudioBus、AutoEnum、Autoload、CodeComments、GlobalGroups、GodotOverride、InputMap、Instantiable、LayerNames、Notify、OnImport、OnInstantiate、ResourceTree、Rpc、Shader、ShaderGlobals、Singleton、TR 等特性及生成器。生成逻辑由 Scriban 模板驱动，节点访问会缓存以避免互操作开销，并生成 ISceneTree、IInstantiable 等泛型接口。",
+  "useCases": [
+    {
+      "titleZh": "C# 场景访问",
+      "descZh": "给根节点脚本加 [SceneTree]，用 _.Node1.Node2 访问层级，替代 GetNode 路径字符串，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "输入与图层",
+      "descZh": "用 [InputMap] 与 [LayerNames] 把动作名和层号变成常量，改项目设置时编译期报错，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "本地化",
+      "descZh": "用 [TR] 生成翻译键与 locale 访问器，避免手写字符串键，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "资源与着色器",
+      "descZh": "用 [ResourceTree]、[Shader] 与 [ShaderGlobals] 生成资源路径与 uniform 访问器，原型阶段出效果很快且正式项目也能沿用，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "强类型场景树",
+      "descZh": "带层级属性、唯一名节点访问与 TscnFilePath 的场景包装，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "项目配置常量",
+      "descZh": "输入动作、全局组、图层名、自动加载与项目设置的类型化入口，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "生成器模板",
+      "descZh": "Scriban 模板与特性基类，可据此写项目自己的源生成器，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "[SceneTree]",
+      "descZh": "生成场景层级与唯一名节点属性，节点首次访问后缓存，参数集中在检查器面板。"
+    },
+    {
+      "name": "[InputMap]",
+      "descZh": "把输入动作映射为强类型成员，可替换默认 StringName 处理，后续修改起来也不费劲。"
+    },
+    {
+      "name": "[GodotOverride]",
+      "descZh": "用 On* 方法替代 virtual _* 重写，Godot 4 需 partial 方法声明，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "[TR]",
+      "descZh": "从 CSV 生成 locale 与翻译键访问器，减少硬编码字符串，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "ISceneTree",
+      "descZh": "为泛型提供 TscnFilePath 与 Instantiate，场景切换可类型安全，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "只服务 C# 项目，GDScript 项目完全用不上；安装虽是 NuGet 一行，但生成器依赖正确的 csproj 与 Godot 版本。版本线要看清：1.x 只支持 Godot 3，2.x 同时支持 3 与 4，3.x 将只支持 Godot 4，混用会得到不存在的 API。部分特性需要 partial 类或 partial 属性，旧代码改造要动结构；GodotOverride 在 Godot 4 还要求 partial 方法声明。生成结果依赖场景与项目配置，文件改名或节点路径变化时要重新构建才能同步。文档很长且以英文为主，特性数量多，新团队需要时间建立使用规范。",
+  "workflowZh": [
+    {
+      "stepZh": "在 C# 项目里通过 NuGet 引入源生成器包"
+    },
+    {
+      "stepZh": "给场景根节点脚本加上 SceneTree 特性标记"
+    },
+    {
+      "stepZh": "按需在类上添加 InputMap 与 TR 等对应特性"
+    },
+    {
+      "stepZh": "重新构建 C# 项目以触发生成器运行"
+    },
+    {
+      "stepZh": "检查生成代码并按提示补全 partial 声明"
+    }
+  ],
+  "pros": [
+    "场景层级与唯一名节点变成属性，路径字符串与拼写错误在编译期暴露。",
+    "输入、图层、翻译、着色器 uniform 都有对应生成器，覆盖常用配置，团队新人照着示例就能上手。",
+    "生成代码在编译期完成，运行时无反射开销，节点访问还带缓存。",
+    "提供 Scriban 模板与基类，团队可写自己的项目级生成器，出现问题时也更容易定位原因。"
+  ],
+  "cons": [
+    "仅适用于 C# 项目，GDScript 团队无法使用，升级引擎版本时容易卡住。",
+    "版本线按 Godot 3/4 分开，混用会生成不存在的 API，定制之前往往要先读源码。",
+    "部分特性要求 partial 类与声明，旧工程改造有额外工作量。"
+  ],
+  "pitfalls": [
+    "场景文件改名或节点路径变动后必须重新构建，否则生成成员与场景不一致。",
+    "Godot 4 的 GodotOverride 需要 partial 方法声明，漏写时编译报错指向生成代码，上线前要专门过一遍。",
+    "2.x 与 3.x 的 API 面不同，升级前要按版本线改特性用法，排查时需要多留一层日志。"
+  ],
+  "bestFor": "使用 Godot C# 开发、希望把场景路径与项目配置字符串全部强类型化的中大型项目团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目以 GDScript 为主，或团队不愿引入额外 NuGet 与生成器构建步骤时。",
+  "compareTips": {
+    "vs": [
+      "Lcbx__GdScript2All"
+    ],
+    "whenZh": "两者都服务 C# 工作流：SourceGenerators 在编译期生成场景、输入与资源访问器，减少路径字符串；GdScript2All 把 GDScript 转成 C# 或 C++，属于语言迁移。强类型化选前者，迁移脚本选后者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "C#",
+    "源生成器",
+    "强类型",
+    "场景树",
+    "NuGet"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "为 Godot 提供 C# 源生成器",
+      "source": "README.md",
+      "quote": "C# Source Generators for use with the Godot Game Engine"
+    },
+    {
+      "claim": "通过下划线操作符强类型访问场景层级",
+      "source": "README.md",
+      "quote": "Provides strongly typed access to the scene hierarchy (via `_` operator)"
+    },
+    {
+      "claim": "不同大版本支持的引擎不同",
+      "source": "README.md",
+      "quote": "Version 1.x supports Godot 3 only\n- Version 2.x supports Godot 3 & 4\n- Version 3.x will support Godot 4 only"
+    },
+    {
+      "claim": "通过 NuGet 安装",
+      "source": "README.md",
+      "quote": "Install via [NuGet](https://www.nuget.org/packages/GodotSharp.SourceGenerators)"
+    }
+  ]
+}

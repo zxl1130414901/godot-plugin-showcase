@@ -1,0 +1,35 @@
+{
+  "id": "foxssake__netfox",
+  "descriptionZh": "为 Godot 4 联机游戏提供时间同步、状态插值、客户端预测与延迟补偿的插件套件。",
+  "category": "network",
+  "tags": [
+    "联机同步",
+    "客户端预测",
+    "延迟补偿",
+    "时间同步",
+    "中继连接"
+  ],
+  "prosShort": [
+    "同步链路完整省去自建底层",
+    "拆成多个子插件可按需选用",
+    "文档分步教程加示例很完整"
+  ],
+  "consShort": [
+    "不含匹配房间与断线重连功能",
+    "概念门槛高需先懂权威同步",
+    "中继服务需要自行部署运维"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "把 LDtk 关卡导入成 Godot 4 场景、TileMap 与占位实体的 2D 资源管线插件",
+  "prosShort": [
+    "关卡导入后基本可直接运行",
+    "生成的 TileSet 手工修改会被保留",
+    "四类导入后脚本定制空间足"
+  ],
+  "consShort": [
+    "绑定 Godot 4.1 与 LDtk 1.4.1 两个版本",
+    "EntityRef 等跨关卡引用仍需更多测试",
+    "缺少系统 API 文档与性能说明"
+  ],
+  "isGDExtension": false,
+  "id": "heygleeson__godot-ldtk-importer",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "LDtk",
+    "关卡导入",
+    "TileMap",
+    "2D",
+    "资源管线"
+  ],
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

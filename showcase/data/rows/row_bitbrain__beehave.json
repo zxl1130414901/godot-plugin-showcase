@@ -1,0 +1,34 @@
+{
+  "id": "bitbrain__beehave",
+  "descriptionZh": "在场景树里直接搭行为树的 GDScript 插件，带运行时调试视图与性能监视，适合中小型项目的敌人 AI。",
+  "category": "state-logic",
+  "tags": [
+    "行为树",
+    "AI",
+    "GDScript",
+    "调试"
+  ],
+  "prosShort": [
+    "节点即结构，策划和程序能读同一棵树",
+    "调试视图能看出卡在哪个节点上",
+    "冷却与延迟装饰省去写计时器"
+  ],
+  "consShort": [
+    "只做决策层，感知寻路要另接",
+    "大量单位高频 tick 开销会上来",
+    "版本分支多，装错会报类缺失"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

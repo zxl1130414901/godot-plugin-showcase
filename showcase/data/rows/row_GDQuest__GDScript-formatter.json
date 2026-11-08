@@ -1,0 +1,35 @@
+{
+  "id": "GDQuest__GDScript-formatter",
+  "descriptionZh": "Rust 编写的 GDScript 格式化器，支持折行、重排、风格检查与 CI 只检查模式，另附完整编辑器插件。",
+  "category": "editor-tool",
+  "tags": [
+    "格式化",
+    "GDScript",
+    "Rust",
+    "CLI",
+    "代码规范"
+  ],
+  "prosShort": [
+    "Rust 核心解析，单文件格式化速度极快",
+    "格式化、代码重排与 lint 一体化完成",
+    "支持 editorconfig 配置与 CI 流水线自动检查"
+  ],
+  "consShort": [
+    "仍在快速迭代，边缘语法可能出错",
+    "编辑器插件要求 Godot 4.7 以上版本",
+    "格式化规则与 gdformat 的规则存在差异"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

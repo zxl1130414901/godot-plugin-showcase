@@ -1,0 +1,14 @@
+{
+  "id": "Portponky__better-terrain",
+  "descriptionZh": "给 Godot 4 的 TileMap 提供多种匹配规则的自动拼接面板，可在编辑器绘制也能代码调用。",
+  "category": "editor-tool",
+  "tags": ["TileMap", "自动拼接", "2D地形", "编辑器插件"],
+  "prosShort": ["边匹配与顶点匹配覆盖常见需求", "可直接复用现有 TileSet 与 TileMap 资源", "支持运行时通过脚本动态刷地形"],
+  "consShort": ["地形规则必须手工逐条配置", "只覆盖 2D 瓦片拼接这一种场景", "新版 TileMapLayer 的适配仍待社区验证确认"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 3, "performance": 4, "stability": 4},
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

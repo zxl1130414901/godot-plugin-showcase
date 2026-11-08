@@ -1,0 +1,139 @@
+{
+  "id": "Orama-Interactive__Keychain",
+  "depth": "standard",
+  "taglineZh": "让玩家自由重绑按键、保存多套方案的输入重映射插件",
+  "summaryZh": "Keychain 把输入重映射做成可直接嵌进设置界面的 ShortcutEdit 场景：支持键盘、鼠标、手柄按钮与手柄轴，每个动作可绑多个事件，动作还能分组并区分全局与局部冲突。玩家可切换或新建快捷键方案，改动会存进 user:// 下的资源文件，界面文案可本地化，废弃动作在启动时自动清理。它适合做无障碍与玩家自定义操作。限制是它只改已存在的输入动作，不能新建动作；分组与忽略列表要改 autoload 脚本或外部调用，仍有一点配置成本。",
+  "whatItDoes": "把 ShortcutEdit 场景拖进设置页后，玩家点选某个动作再按新键，插件检测冲突并写入绑定。动作列表、分组与忽略项由 Keychain autoload 的字典控制，方案以 ShortcutProfile 资源保存。启动时读取玩家改动并套用，旧动作若已从项目输入映射删除会被自动清理。",
+  "useCases": [
+    {
+      "titleZh": "玩家自定义按键",
+      "descZh": "在设置页让玩家重绑移动、攻击与手柄按键，兼顾不同操作习惯与无障碍需求，能显著提升可玩性。"
+    },
+    {
+      "titleZh": "多套操作方案",
+      "descZh": "提供默认、左手与手柄等预设，玩家可随时切换并保存自己的方案，适配不同设备与握持习惯。"
+    },
+    {
+      "titleZh": "本地化设置界面",
+      "descZh": "复用插件自带的文案接口，把按键设置界面翻成多语言，比从零写一套设置页省事得多。"
+    },
+    {
+      "titleZh": "动作分组防冲突",
+      "descZh": "把互斥动作放进同一分组，重绑时自动避免重复占用，减少玩家把移动和攻击绑到同一个键。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可嵌入的重映射界面",
+      "descZh": "ShortcutEdit 场景可直接拖进设置页，省去自建列表、弹窗与冲突提示的工作量，几分钟即可接好。"
+    },
+    {
+      "titleZh": "玩家快捷键方案",
+      "descZh": "方案存为资源文件，可切换、导出与随存档保留，重装后也能恢复玩家习惯。"
+    },
+    {
+      "titleZh": "已保存的输入绑定",
+      "descZh": "改动会写回 InputMap，下次启动自动套用，玩家不必每次进游戏都重新设置一遍。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "ShortcutEdit",
+      "descZh": "现成的重映射界面场景，拖进设置页即可用，样式可通过主题替换。"
+    },
+    {
+      "name": "多事件绑定",
+      "descZh": "一个动作可同时绑键盘、鼠标、手柄按钮与轴，覆盖桌面与手柄常见输入。"
+    },
+    {
+      "name": "动作分组",
+      "descZh": "全局事件不可重复占用，局部事件不能与同组冲突，规则可配置。"
+    },
+    {
+      "name": "快捷键方案",
+      "descZh": "内置与自定义方案并存，玩家可新建并保存，切换后立即生效。"
+    },
+    {
+      "name": "自动清理废弃动作",
+      "descZh": "项目删掉旧输入动作后，启动时会自动移除残留绑定，长期维护省心。"
+    }
+  ],
+  "limitsZh": "插件不能创建新的输入动作，所有动作必须先在项目设置的 Input Map 里存在，否则列表里看不到也绑不了。动作分组、忽略列表与方案数组要改 Keychain 的 autoload 脚本，虽然可从外部赋值，但仍需写代码配置。玩家方案存在 user://，换设备不会自动同步，也没有云存档接口。手柄轴与按钮的显示名依赖设备与本地化，跨平台表现可能不同；冲突检测只覆盖插件管理的动作，绕过插件直接改 InputMap 仍会冲突。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/keychain 到项目并在插件列表启用"
+    },
+    {
+      "stepZh": "在项目输入映射里先建好需要用到的动作"
+    },
+    {
+      "stepZh": "把 ShortcutEdit 场景放进设置页，并接好返回与保存按钮"
+    },
+    {
+      "stepZh": "配置动作分组与需要忽略的按键列表"
+    },
+    {
+      "stepZh": "让玩家重绑并保存方案，再验证下次启动是否生效"
+    }
+  ],
+  "pros": [
+    "现成重映射界面，省去自建设置列表与冲突提示，接入成本低，一天内能上线",
+    "键鼠与手柄按钮、轴都能绑，覆盖面广，桌面游戏常见外设基本够用",
+    "支持多套方案与界面本地化，适合面向正式发行的游戏，玩家能长期保留自己的习惯",
+    "分组冲突规则清晰，能有效减少玩家把多个动作绑到同一个事件",
+    "自动清理废弃动作，长期迭代的项目不必手工维护绑定数据"
+  ],
+  "cons": [
+    "不能新建输入动作，必须先手工在项目设置里建好，缺少动态能力",
+    "分组与忽略项仍要改 autoload 脚本或外部赋值，配置有一点代码成本",
+    "玩家方案只存本地，不跨设备同步，也没有云存档接口"
+  ],
+  "pitfalls": [
+    "动作未加入 Input Map 时界面显示为空，容易误判插件坏了，先检查动作列表",
+    "同组动作绑到同一事件会被拒绝，需先解绑旧项，否则玩家会觉得按键没反应",
+    "直接改插件内脚本会被升级覆盖，自定义配置尽量放在外部脚本里"
+  ],
+  "bestFor": "需要给玩家提供按键重映射与多套操作方案、重视无障碍与界面本地化的 Godot 4 桌面游戏与叙事项目。",
+  "avoidWhenZh": "只需要固定按键，或希望玩家能在游戏内新建输入动作、动态扩展操作的项目。",
+  "compareTips": {
+    "vs": [
+      "matjlars__godot-multiplayer-input"
+    ],
+    "whenZh": "Keychain 解决本地按键重映射与方案保存，玩家可自由改键；multiplayer-input 解决多设备输入分配与本地多人槽位。做设置页与无障碍选前者，做同屏多人手柄分配则看后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "按键重映射",
+    "输入设置",
+    "无障碍",
+    "本地化"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "目标是让玩家完全控制输入动作",
+      "source": "plugin.cfg",
+      "quote": "A plugin for the Godot Engine that aims to give the player full control over the input actions of the game."
+    },
+    {
+      "claim": "支持键鼠、手柄按钮与轴，并可分组",
+      "source": "README.md",
+      "quote": "Easy to use shortcut re-mapping system, for all input types, keyboard, mouse, gamepad buttons and gamepad axes."
+    },
+    {
+      "claim": "不能新建输入动作，必须已存在于 Input Map",
+      "source": "README.md",
+      "quote": "Note that you cannot create new input actions this way, they must already exist in the Project Settings' Input Map."
+    }
+  ]
+}

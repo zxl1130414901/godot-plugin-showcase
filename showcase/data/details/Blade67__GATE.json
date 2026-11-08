@@ -1,0 +1,152 @@
+{
+  "taglineZh": "给 GDScript 加上类型系统与结构体的超集语言，可直接编译回 .gd",
+  "summaryZh": "GATE 是 GDScript 的超集，在保留原生语法的前提下补上类型前置声明、可空类型追踪、struct 值语义、接口与 trait、泛型、联合类型与条件编译等能力，并在编辑器里把每个 .gate 文件即时编译成同目录的 .gd。插件随文件变化自动重编译，生成的脚本可直接被场景引用，性能与手写 GDScript 基本持平。它要求 Godot 4.7 以上，语法属于社区扩展而非官方支持，团队需要额外学习成本与调试习惯调整。",
+  "whatItDoes": "插件启用后监视工程内的 .gate 文件，把类型前置声明、struct、interface 与 trait、泛型、联合类型与 @soa 等语法降级为标准 GDScript 输出。可空类型 T? 由流敏感分析追踪，未判空就解引用会直接编译报错。生成文件保留注释与文档注释，@global 类会额外写出带 class_name 的独立脚本，可在编辑器创建节点。",
+  "useCases": [
+    {
+      "titleZh": "大型团队代码规范",
+      "descZh": "多人协作的 GDScript 项目想统一字段声明顺序与命名，用类型前置写法压缩样板代码，也能减少评审时的风格分歧。"
+    },
+    {
+      "titleZh": "空值安全",
+      "descZh": "需要可空安全的中型项目，用 T? 与 ?. 让空引用问题在编译期就暴露出来，不必等崩溃才发现。"
+    },
+    {
+      "titleZh": "数值密集计算",
+      "descZh": "模拟或战斗计算用 struct 值语义避免堆分配，小型 struct 还会被直接映射成 Vector，在循环里开销更低。"
+    },
+    {
+      "titleZh": "旧工程迁移",
+      "descZh": "已有 4.7 工程可以逐个把 .gd 改名为 .gate 试编译，单文件验证通过后再考虑全量替换，风险可控。"
+    },
+    {
+      "titleZh": "编译器教学",
+      "descZh": "语言设计课程可用 SYNTAX.md 与 demo 里的 .gate 文件作为语法降级案例，从词法到输出逐步对照。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "同目录 .gd 脚本",
+      "descZh": "由 .gate 生成的等价 GDScript 脚本，可直接挂到节点或被 ext_resource 引用，无需运行期转换。"
+    },
+    {
+      "titleZh": "全局类脚本",
+      "descZh": "被 @global 标注的类会单独写出成带 class_name 的独立文件，可直接在新节点对话框里选择。"
+    },
+    {
+      "titleZh": "带注释的等价代码",
+      "descZh": "注释与 ## 文档注释随输出保留，便于继续使用编辑器原生调试面板与代码检查工具。"
+    },
+    {
+      "titleZh": "编译错误定位",
+      "descZh": "报错直接指向 .gate 源文件的行号，回改源文件比读生成的代码更快找到问题。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "类型前置声明",
+      "descZh": "int hp = 100 等价于 var hp: int = 100，泛型集合可写 int[][]，比原生类型注解更短更整齐。"
+    },
+    {
+      "name": "可空类型 T?",
+      "descZh": "流敏感分析追踪判空与提前返回，未证明安全的解引用会直接编译报错。"
+    },
+    {
+      "name": "struct 值语义",
+      "descZh": "两到四个同型数值字段自动映射成 Vector，其余情况插入拷贝以保持值语义。"
+    },
+    {
+      "name": "泛型与 trait",
+      "descZh": "泛型按声明文件单态化，接口在编译期检查，trait 成员内联进实现类。"
+    },
+    {
+      "name": "文件监视",
+      "descZh": "插件监视工程内 .gate 变更并即时重编译，uid 保持不变，场景引用不会失效。"
+    }
+  ],
+  "limitsZh": "GATE 只做语法层扩展，运行时仍是普通 GDScript，反射、序列化与第三方工具看到的都是降级后的代码。README 明确要求 Godot 4.7+，4.6 及更早版本无法使用，官方也不提供兼容层。已知限制包括 lambda 与括号内的注释会被丢弃、调试器堆栈显示生成的 .gd 而非 .gate 行号、参数仍需沿用 name: Type 写法。整套语法是社区项目，没有官方支持承诺，团队要接受额外学习成本与升级风险。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/gate 拷入项目并在插件面板启用。"
+    },
+    {
+      "stepZh": "把要改写的 .gd 改名为 .gate 并保留同名 uid 文件。"
+    },
+    {
+      "stepZh": "打开工程等待插件生成对应 .gd，再检查输出面板报错。"
+    },
+    {
+      "stepZh": "按 SYNTAX.md 逐步引入 struct、泛型与可空类型。"
+    },
+    {
+      "stepZh": "提交生成的 .gd 与 .gate，统一团队编译环境版本。"
+    }
+  ],
+  "pros": [
+    "类型前置、struct 与泛型让 GDScript 表达力接近静态语言，大型工程的可读性提升明显。",
+    "编译产物就是原生 GDScript，性能实测与手写代码基本持平，不必担心运行时额外开销。",
+    "生成代码保留注释与文档注释，可继续使用 Godot 自带调试器与代码检查工具。",
+    "README 与 SYNTAX.md 写得极细，含基准数据与已知限制，选型评估时依据充分。"
+  ],
+  "cons": [
+    "要求 Godot 4.7 以上，4.6 及更早项目无法接入，升级节奏被引擎版本绑住",
+    "语法为社区扩展，没有官方背书，团队需承担长期维护与迁移风险",
+    "调试器显示降级后的 .gd，断点与报错行号需要自己对照源文件排查"
+  ],
+  "pitfalls": [
+    "首次打开工程会因生成的 .gd 尚未写出而刷一屏解析错误，属正常现象，不要误判为坏档。",
+    "改名前必须保留 .gd.uid，删除后所有 ext_resource 会退回文本路径并产生警告。",
+    "lambda 与括号内的注释会被丢弃，代码审查前要确认注释是否真的落在输出里。"
+  ],
+  "bestFor": "GDScript 体量已经很大、类型与空值问题频发，愿意接受一套社区语法且工程已稳定在 Godot 4.7 上的中大型团队。",
+  "avoidWhenZh": "项目仍在 Godot 4.6 或更早版本，或团队不接受非官方语法扩展时。",
+  "compareTips": {
+    "vs": [
+      "HinataYoki__YokiFrame"
+    ],
+    "whenZh": "两者都在代码层改善工程结构：GATE 用新语法把类型与空值约束前移到编译期，YokiFrame 用现成 Kit API 提供事件、状态机与资源管理。GDScript 项目选前者，Godot .NET 项目选后者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "GDScript",
+    "语言扩展",
+    "编译器",
+    "类型系统",
+    "编辑器插件"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "GATE 是编译成 GDScript 的超集",
+      "source": "addons/gate/plugin.cfg",
+      "quote": "A GDScript superset that compiles to GDScript."
+    },
+    {
+      "claim": "要求 Godot 4.7 以上",
+      "source": "README.md",
+      "quote": "Requires Godot 4.7+. MIT licensed."
+    },
+    {
+      "claim": "插件监视文件并即时编译",
+      "source": "README.md",
+      "quote": "The plugin watches the filesystem and compiles every `.gate` file to a `.gd` beside it whenever anything changes."
+    },
+    {
+      "claim": "性能与手写代码基本持平",
+      "source": "README.md",
+      "quote": "across 110 benchmarks the median ratio is 0.98, inside a 1.6% noise floor."
+    }
+  ],
+  "id": "Blade67__GATE",
+  "depth": "standard"
+}

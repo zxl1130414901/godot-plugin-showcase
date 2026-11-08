@@ -1,0 +1,33 @@
+{
+  "id": "nathanfranke__gdextension",
+  "descriptionZh": "GDExtension C++ 模板，用 SCons 与 Actions 打包多平台资产库插件，整体接入成本不高。",
+  "category": "platform-export",
+  "tags": [
+    "GDExtension",
+    "C++",
+    "构建模板",
+    "持续集成"
+  ],
+  "prosShort": [
+    "构建与发布链路一条龙，团队上手也快。",
+    "节点单例注册示例可直接抄",
+    "公开领域许可无授权负担，接入成本不高。"
+  ],
+  "consShort": [
+    "Mac 与 iOS 未验证，团队要提前评估。",
+    "锁定 4.3 升级需手动同步，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

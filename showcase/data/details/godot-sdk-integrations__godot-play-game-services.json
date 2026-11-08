@@ -1,0 +1,152 @@
+{
+  "taglineZh": "把 Google Play 游戏服务接入 Godot Android 项目的官方插件",
+  "summaryZh": "Google Play 游戏服务提供登录、排行榜、成就、存档快照与玩家统计，但这些能力只有 Android 原生 SDK 才有。这个插件用 Kotlin 侧封装 Play Games SDK 21.0.0，并在 GDScript 侧提供一组节点：GodotPlayGamesServices 负责初始化，其余节点分别管登录、排行榜、成就与快照，3.0 之后取消了自动登录检查。安装只需把 addons 目录拷进工程并在插件面板启用，但必须先在 Play Console 建游戏、配成就与排行榜，并把签名指纹登记到 Google Cloud 凭据，否则登录会失败。",
+  "whatItDoes": "导出插件在 Android 导出流程里注入 Kotlin 插件与 Gradle 依赖，运行时通过 Godot 的 Android 插件通道调用 Play Games SDK。GDScript 侧提供 GodotPlayGamesServices、登录、排行榜、成就、快照与玩家统计等节点，返回值多为 Dictionary 或信号。仓库自带 demo 工程，演示登录、提交分数与解锁成就的完整流程。",
+  "useCases": [
+    {
+      "titleZh": "Android 排行榜",
+      "descZh": "上架 Google Play 的休闲或竞技游戏需要全球排行榜与成就系统，直接用官方 SDK 封装省去自研工作量。"
+    },
+    {
+      "titleZh": "云存档同步",
+      "descZh": "想用 Play Games 的保存游戏快照做云存档的项目，省掉自建账号体系与同步服务，跨设备读取也统一。"
+    },
+    {
+      "titleZh": "静默登录",
+      "descZh": "已有 Google 账号体系的项目，用静默登录减少玩家注册与输密码的步骤，留存更好，首次进入更快。"
+    },
+    {
+      "titleZh": "导出注入",
+      "descZh": "需要在 Android 导出流程里自动写入依赖的项目，避免手工改 Gradle 配置出错，也不必反复调试构建脚本。"
+    },
+    {
+      "titleZh": "商业化上架",
+      "descZh": "准备上架并要做玩家留存统计的项目，可用玩家统计接口回传进度与事件，便于对照后台报表。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Android 导出插件",
+      "descZh": "一个可启用的 addons 目录，导出时自动注入 Kotlin 实现与 Gradle 依赖，无需手改构建脚本，接入省事。"
+    },
+    {
+      "titleZh": "GDScript 节点组",
+      "descZh": "对应登录、排行榜、成就与快照的一组 GDScript 节点，可挂到场景树按需初始化，不必写单例。"
+    },
+    {
+      "titleZh": "演示工程",
+      "descZh": "带登录、提交分数与解锁成就的 demo 工程，可对照实现自己的功能入口，跑通后再改。"
+    },
+    {
+      "titleZh": "API 文档站点",
+      "descZh": "Kotlin 侧用 Dokka 生成的接口说明，可查参数、回调与枚举取值，字段说明完整，比翻源码更快。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "成就与排行榜",
+      "descZh": "按 ID 解锁成就、提交分数并查询榜单，支持每日与每周时间跨度。"
+    },
+    {
+      "name": "保存游戏",
+      "descZh": "用快照接口上传与读取存档，配合 Play Games 账号做跨设备同步，冲突处理要自己写。"
+    },
+    {
+      "name": "节点化设计",
+      "descZh": "除主节点外各功能都做成 Node，可挂到场景树按需初始化与释放。"
+    },
+    {
+      "name": "手动初始化",
+      "descZh": "3.0 起不再自动认证，登录时机完全由项目自己控制，启动更快。"
+    },
+    {
+      "name": "导出注入",
+      "descZh": "export_plugin.gd 在 Android 导出时写入插件声明与 Gradle 依赖，免去手工配置，流程更稳。"
+    }
+  ],
+  "limitsZh": "只对 Android 导出生效，桌面、iOS 与 Web 导出里这些节点没有实际后端。接入前提在 Google 侧：Play Console 要建 game 类型应用、配好成就与排行榜，Google Cloud 凭据要与 Play 商店和导出用的签名指纹一致，任何一处不匹配都会登录失败，这也是 README 反复强调的最大坑。文档以代码注释与 Dokka 页面为主，缺少中文教程，插件版本跟随 Godot 4.x 分支，跨大版本要换分支。",
+  "workflowZh": [
+    {
+      "stepZh": "从 release 或 Asset Store 取插件，解压后拷到 addons 目录。"
+    },
+    {
+      "stepZh": "在项目设置的插件面板启用 GodotPlayGameServices，确认无报错。"
+    },
+    {
+      "stepZh": "在 Play Console 建游戏并配置成就、排行榜与凭据。"
+    },
+    {
+      "stepZh": "把导出签名的 SHA1 登记到 Google Cloud 的凭据里。"
+    },
+    {
+      "stepZh": "在主场景放置节点并手动调用登录，再验证榜单回读。"
+    }
+  ],
+  "pros": [
+    "登录、排行榜、成就与云存档一次封装完成，省掉自己写 Android 插件的工作量。",
+    "节点化后可按需挂载，登录时机由项目控制，不再强制启动即认证。",
+    "官方组织托管且有 demo 工程，示例能对照跑通登录与提交分数。",
+    "随 Godot 4.x 分支更新，跟踪 Play Games SDK 版本比较及时，兼容性有人维护。"
+  ],
+  "cons": [
+    "只在 Android 生效，其他平台需要另做一套或留空实现",
+    "强依赖 Play Console 与 Google Cloud 凭据配置，排错成本高且提示含糊",
+    "文档以代码注释与 Dokka 为主，缺少系统的接入教程"
+  ],
+  "pitfalls": [
+    "导出用的签名与 Play 商店登记的不一致，登录会一直失败且提示含糊。",
+    "Play Console 里应用类型不是 game，相关游戏服务接口会直接不可用并报错。",
+    "忘记在插件面板启用导出插件，APK 里不会包含 Kotlin 侧实现，登录必然失败。"
+  ],
+  "bestFor": "准备在 Google Play 上架 Android 游戏，需要排行榜、成就与云存档但不想自研账号体系与登录流程，也不想接第三方后端的团队。",
+  "avoidWhenZh": "项目不上 Google Play，或主要面向 iOS、桌面与 Web 平台的项目，装了也用不上。",
+  "compareTips": {
+    "vs": [
+      "godot-sdk-integrations__godot-google-play-billing"
+    ],
+    "whenZh": "同属 Google Play 集成：play-game-services 管登录、排行榜、成就与云存档，google-play-billing 管内购与订阅。上架 Android 商业游戏通常两个都要装，按功能边界分别接入即可。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "Android",
+    "Google Play",
+    "排行榜",
+    "成就",
+    "云存档"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "Godot 4.3+ 的 Google Play 游戏服务插件",
+      "source": "README.md",
+      "quote": "Godot 4.3+ plugin for integration of the latest version of [Google Play Game Services SDK](https://developers.google.com/games/services/android/quickstart)."
+    },
+    {
+      "claim": "3.0 起改为节点化并手动初始化",
+      "source": "README.md",
+      "quote": "the autoloads have been converted to Nodes, except the main `GodotPlayGamesServices` one, which now requires manual initialization"
+    },
+    {
+      "claim": "拷贝 addons 并在插件面板启用即可安装",
+      "source": "README.md",
+      "quote": "Extract and copy the plugin to your project's `addons` folder."
+    },
+    {
+      "claim": "凭据配置是最常见的失败原因",
+      "source": "README.md",
+      "quote": "This is one of the major problems when testing and using the plugin."
+    }
+  ],
+  "id": "godot-sdk-integrations__godot-play-game-services",
+  "depth": "standard"
+}

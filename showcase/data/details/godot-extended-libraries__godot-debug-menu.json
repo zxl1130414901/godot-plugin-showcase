@@ -1,0 +1,65 @@
+{
+  "id": "godot-extended-libraries__godot-debug-menu",
+  "depth": "standard",
+  "taglineZh": "游戏内性能浮层，显示帧率、帧时间与硬件信息",
+  "summaryZh": "godot-debug-menu 在游戏画面上叠加一个 id Tech 风格的性能面板，显示 FPS、帧时间、CPU 与 GPU 耗时曲线，并统计最近一百多帧的最好、最差与平均帧时间，方便定位卡顿。它还能列出显卡驱动版本、项目版本与图形设置，支持 Forward+、Mobile 与 Compatibility 三种渲染方式，2D 与 3D 项目都能用。面板在编辑器运行与导出版本中都可显示，适合让玩家截图反馈性能问题。",
+  "whatItDoes": "插件提供可切换的紧凑与完整两种显示模式，运行时按快捷键开关，数据取自引擎的 Performance 监视器并绘制曲线。完整模式额外显示硬件与软件信息，紧凑模式只保留帧率、帧时间与帧率上限，两者都不依赖编辑器面板。",
+  "useCases": [
+    {"titleZh": "定位偶发卡顿", "descZh": "用最近若干帧的曲线与最差帧时间找出抖动区间，比只看一秒刷新一次的监视器更容易复现问题。"},
+    {"titleZh": "导出版性能验收", "descZh": "在真机或目标平台上开启面板，记录不同场景的帧时间，作为优化前后对比的客观依据。"},
+    {"titleZh": "收集玩家反馈", "descZh": "让玩家截图带面板的画面提交到问题单，能同时看到硬件、驱动与图形设置，排查更快。"},
+    {"titleZh": "演示与教学", "descZh": "向团队展示当前帧率与瓶颈在 CPU 还是 GPU，讨论优化方向时有共同的数据基础，也方便做前后版本对比。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "性能浮层", "descZh": "在游戏画面角落叠加面板，显示帧率、帧时间与曲线，可切换紧凑或完整布局。"},
+    {"titleZh": "硬件与软件信息", "descZh": "列出显卡驱动版本、项目版本与图形设置，方便在问题单里附上运行环境。"},
+    {"titleZh": "帧时间统计", "descZh": "汇总最近若干帧的最好、最差与平均值，用数字辅助判断是否达标，比只看瞬时帧率更可靠。"}
+  ],
+  "featureCallouts": [
+    {"name": "双显示模式", "descZh": "紧凑模式只显示帧率、帧时间与帧率上限，完整模式补齐曲线与环境信息。"},
+    {"name": "帧时间曲线", "descZh": "绘制 FPS、帧时间、CPU 与 GPU 耗时曲线，抖动与尖峰一眼可见，也能看出瓶颈落在哪一侧。"},
+    {"name": "多渲染后端", "descZh": "在 Forward+、Mobile 与 Compatibility 下都能工作，换渲染方式不必换工具，2D 与 3D 项目同样适用。"},
+    {"name": "导出可用", "descZh": "编辑器运行与导出的调试、发布版本都能显示，方便真机与玩家侧收集数据。"}
+  ],
+  "limitsZh": "面板只做展示，不提供录制、导出或自动分析，帧时间统计窗口固定在最近若干帧。硬件信息依赖引擎能取到的字段，部分平台或驱动可能缺失。浮层会占用少量渲染开销，测性能时应与关闭状态对比；窗口尺寸变化会影响渲染耗时，读数需在固定分辨率下比较。仓库只含插件本体，示例在单独的 demo 仓库，文档以 README 为主，没有多语言版本。",
+  "workflowZh": [
+    {"stepZh": "把 addons 目录复制进项目，并在插件页启用 debug menu"},
+    {"stepZh": "运行项目，按快捷键切换浮层的显示与隐藏"},
+    {"stepZh": "在完整模式下查看曲线、硬件信息与项目版本"},
+    {"stepZh": "固定分辨率录制数据，对比优化前后的帧时间"}
+  ],
+  "pros": [
+    "帧时间曲线按最近若干帧统计，能看出抖动与尖峰，比一秒刷新的监视器更适合抓卡顿",
+    "紧凑与完整两种模式覆盖快速查看和详细排查，不占太多画面空间",
+    "导出版也能用，真机与玩家侧都能收集性能证据，技术支持时很实用",
+    "同时显示 CPU 与 GPU 耗时与硬件信息，讨论瓶颈时不用再猜是哪个环节",
+    "安装只需复制插件目录，无运行时依赖，也不影响正式构建的逻辑"
+  ],
+  "cons": [
+    "只展示不记录，无法导出长时间数据或自动生成报告，量化对比要手工截图",
+    "硬件字段依赖引擎能力，部分平台或驱动信息缺失，环境判断可能不完整",
+    "浮层本身有渲染开销，测量极低帧时间时需要与关闭状态对照"
+  ],
+  "pitfalls": [
+    "窗口尺寸与分辨率会显著影响渲染耗时，横向对比必须在相同分辨率下进行",
+    "发布版保留浮层会暴露硬件信息，正式上线前确认是否要关闭或限制开关",
+    "修改项目设置里的版本号才能在面板看到版本，没填时会显示空值"
+  ],
+  "bestFor": "需要在真机或玩家侧观察帧率与帧时间波动、排查卡顿并收集性能证据，且希望零配置接入的 Godot 4 开发者。",
+  "avoidWhenZh": "需要长时间录制、自动分析与报告导出，或要求浮层完全不影响渲染开销的精确测量场景。",
+  "compareTips": {
+    "vs": ["quentincaffeino__godot-console"],
+    "whenZh": "两者都是调试辅助：debug-menu 只读展示性能数据，godot-console 可输入命令并查看日志。要在玩家机器上收集帧率证据、排查卡顿选前者；需要执行调试命令则看后者，且它只支持 Godot 3。"
+  },
+  "category": "debug-perf",
+  "tags": ["性能监视", "帧时间", "浮层", "硬件信息"],
+  "scores": {"coverage": 3, "usability": 4, "docs": 4, "maintenance": 2, "performance": 5, "stability": 4},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {"claim": "在游戏运行期间显示性能信息", "source": "README.md", "quote": "**Displays performance information in a Godot project during gameplay.**"},
+    {"claim": "统计最近约一百五十帧的最好与最差帧时间", "source": "README.md", "quote": "This debug menu accurately displays graphs and best/worst frametime metrics over a period of the last 150 rendered frames"},
+    {"claim": "支持 Forward+、Mobile 与 Compatibility 渲染方式", "source": "README.md", "quote": "Works with the Forward+, Mobile and Compatibility rendering methods."}
+  ]
+}

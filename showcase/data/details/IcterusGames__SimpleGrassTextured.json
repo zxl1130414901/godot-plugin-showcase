@@ -1,0 +1,65 @@
+{
+  "id": "IcterusGames__SimpleGrassTextured",
+  "depth": "standard",
+  "taglineZh": "在 Godot 4 地形上刷草并让玩家角色拨动草丛",
+  "summaryZh": "SimpleGrassTextured 是 Godot 4 的地表植被插件，用 MultiMesh 在 StaticBody3D 地形上按笔刷铺草和植物。只需在场景里放一个 SimpleGrassTextured 节点，就能在编辑器里直接绘制草的范围，适合草地、灌木与碎石点缀。开启交互模式后，带 MeshInstance3D 的角色走近时草丛会被拨开，碰撞检测用第 17 渲染层识别。安装可走 AssetLib 或把 addons 目录复制进项目，升级时要先禁用插件、删除旧目录再装新版并重载编辑器。",
+  "whatItDoes": "插件以地形表面的 StaticBody3D 为绘制对象，编辑器笔刷把草的分布写进节点数据，运行时再用 MultiMesh 批量实例化，避免为每株草建节点。交互模式下 SimpleGrass.set_interactive(true) 打开碰撞检测，角色身上的 MeshInstance3D 只开第 17 渲染层，靠近时对应草丛收起或倾斜。材质与草型由插件自带资源控制，可替换贴图与密度参数来匹配美术风格。",
+  "useCases": [
+    {"titleZh": "开放草地场景", "descZh": "在山坡与平原上铺一层随风摆动的草，让关卡地表不再是一块光秃秃的网格，观感自然且成本可控。"},
+    {"titleZh": "角色拨草反馈", "descZh": "开启交互模式后角色穿过草甸会拨开草叶，走位更有实感，适合探索与冒险场景，沉浸感强。"},
+    {"titleZh": "低成本植被点缀", "descZh": "用笔刷快速点出灌木、碎石与花丛，少量资源就能丰富地表层次，适合小团队，省去建模。"},
+    {"titleZh": "地形插件搭配", "descZh": "把草地节点叠在 Terrain3D 或自带地形上，用 StaticBody3D 作为绘制面，快速补齐植被，组合灵活，还能一次补齐且省事不少。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "MultiMesh 草地", "descZh": "按笔刷分布批量实例化草叶，以少量绘制调用铺满大片地表区域，密度再高也不逐个建节点。"},
+    {"titleZh": "可交互碰撞", "descZh": "角色靠近时草丛响应，靠第 17 渲染层识别需要参与的对象并隐藏草叶，走位反馈更真实。"},
+    {"titleZh": "可替换的草材质", "descZh": "自带草型与材质资源，可换贴图、调密度与摆动参数匹配美术风格，改造成本不高。"}
+  ],
+  "featureCallouts": [
+    {"name": "编辑器笔刷绘制", "descZh": "在编辑器里直接刷草的范围与密度，所见即所得，省去手写坐标。"},
+    {"name": "MultiMesh 实例化", "descZh": "草叶以 MultiMesh 批量渲染，密度高时也比逐节点方案省开销，视野内观感稳定。"},
+    {"name": "交互拨草", "descZh": "开启交互模式后角色经过会拨开草丛，增强穿行草地的实感。"},
+    {"name": "渲染层识别", "descZh": "用第 17 渲染层标记参与碰撞的网格，避免误判其它物体造成误拨。"},
+    {"name": "StaticBody3D 依赖", "descZh": "以地形 StaticBody3D 作为绘制面，保证草叶贴合坡面与高度，不会悬空乱飘。"}
+  ],
+  "limitsZh": "插件要求地形场景里有 StaticBody3D 才能绘制，纯 MeshInstance3D 的地形要先补碰撞体。草叶靠 MultiMesh 渲染，铺得过密或范围过大时 GPU 与填充率压力明显，低端设备要控制密度和视距。交互模式依赖第 17 渲染层的约定，角色网格层设错就不会触发拨草。草型与材质由插件自带资源决定，想要写实或特殊风格需要自己替换素材。升级流程要求先禁用、删除旧目录再重装，直接覆盖容易残留旧文件。",
+  "workflowZh": [
+    {"stepZh": "从 AssetLib 搜索安装后，在项目设置插件页勾选启用它"},
+    {"stepZh": "在地形场景里添加一个 SimpleGrassTextured 节点作为草地载体并保存"},
+    {"stepZh": "确认地形场景中存在 StaticBody3D，插件才能在其表面绘制草"},
+    {"stepZh": "选中节点用笔刷在地形上画出草地范围与密度"},
+    {"stepZh": "需要拨草时打开交互模式并设第 17 渲染层识别"}
+  ],
+  "pros": [
+    "直接在编辑器用笔刷画草地范围与密度，所见即所得，不必写生成脚本，省事",
+    "草叶用 MultiMesh 批量实例化，密度再高也不会为每株草生成节点，开销可控很稳",
+    "打开交互模式后角色经过会拨开草丛，穿行草地时的反馈更真实自然些",
+    "安装可走 AssetLib 或手动复制，README 还写了升级前禁用、删旧目录的完整步骤，清楚",
+    "采用 MIT 许可，版本更新到 2.1.1 并持续适配 Godot 4 新版本，长期可用稳定"
+  ],
+  "cons": [
+    "地形场景必须先有 StaticBody3D，只有 MeshInstance3D 的地形得自己补碰撞体才能用",
+    "草叶密度与覆盖范围直接影响填充率，低端设备与移动端要主动压低密度",
+    "交互拨草依赖第 17 渲染层的约定，角色网格层配错时完全不会触发"
+  ],
+  "pitfalls": [
+    "升级时直接覆盖插件目录容易残留旧文件，应先禁用插件、删除旧目录再装新版并重载",
+    "角色用于检测的 MeshInstance3D 若没只开第 17 渲染层，走近草丛也不会有反应，需核对",
+    "笔刷画到 StaticBody3D 之外时草叶会悬空或埋进坡里，绘制范围要收在地面投影内"
+  ],
+  "bestFor": "用 Godot 4 做户外或探索类场景，想要低成本铺草并让角色拨动草丛，且地形已经带 StaticBody3D 的美术与独立开发者、关卡设计。",
+  "avoidWhenZh": "需要写实级植被、超大开放世界或移动端高性能草地，或地形没有碰撞体的项目。",
+  "compareTips": {"vs": ["TokisanGames__Terrain3D"], "whenZh": "SimpleGrassTextured 负责在地形表面铺草与交互，Terrain3D 负责地形本身的高度与纹理。两者可叠加使用；若只缺植被选草插件，若地形系统还没着落先上 Terrain3D，按缺什么补什么即可。"},
+  "category": "3d-shader",
+  "tags": ["草地", "植被", "MultiMesh", "地形", "交互"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 3, "maintenance": 4, "performance": 3, "stability": 4},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {"claim": "插件用途是创建简单草地", "source": "plugin.cfg", "quote": "description=\"Create simple grass textured\""},
+    {"claim": "可在 Godot 4 场景里简单加入草与植物", "source": "README.md", "quote": "This plugin for Godot 4 allows you to add grass and plants to your scene in a simple way"},
+    {"claim": "地形必须有 StaticBody3D 才能绘制草", "source": "README.md", "quote": "> Your terrain scene must have a StaticBody3D in order to draw grass on top of the terrain"},
+    {"claim": "交互模式通过 set_interactive 开启", "source": "README.md", "quote": "1. In the _ready function of your game scene you must enable the interactive mode by calling the function SimpleGrass.set_interactive(true)"}
+  ]
+}

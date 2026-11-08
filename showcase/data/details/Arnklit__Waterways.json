@@ -1,0 +1,171 @@
+{
+  "id": "Arnklit__Waterways",
+  "depth": "standard",
+  "taglineZh": "沿贝塞尔曲线生成河流网格、流向图与泡沫图的插件",
+  "summaryZh": "Waterways 让河流在 Godot 里直接成形：加一个 River 节点，用贝塞尔路径点控制走向与宽度，插件按曲线生成带 UV 的网格，并把流向图与泡沫图烘成纹理供着色器采样。路径支持吸附到碰撞体、轴向与平面约束，操作方式接近 Blender 的轴锁定快捷键。WaterSystem 节点可以把多条河合成一张全局高度图与流向图，供自定义着色器读取水面高度；Buoyant 节点挂在 RigidBody 下可以让物体随水面浮动。它自带 Water 与 Lava 两套着色器，也能复制出自定义着色器再改。插件面向 Godot 3，仓库体积很大，主要是演示资源。",
+  "whatItDoes": "在场景里加 River 节点后用路径点塑形，按步长与宽度细分生成河流网格并保证 UV 连续。执行生成流与泡沫图后，插件把水流方向、速度与泡沫分布烘成纹理，供内置或自定义着色器采样。WaterSystem 汇总子河流，生成全局高度与流向贴图，并把贴图与坐标矩阵接给 MeshInstance。Buoyant 节点读取全局高度图，让刚体按水面高度浮动。路径支持吸附碰撞体与轴向、平面锁定，也能平滑拐角。",
+  "useCases": [
+    {
+      "titleZh": "河流与溪谷",
+      "descZh": "关卡里需要一条顺着地形走的河时，用路径点勾出走向并吸附到碰撞地面，插件直接生成网格与 UV，美术不必再手工建模。"
+    },
+    {
+      "titleZh": "急流与瀑布",
+      "descZh": "做湍急水流时靠流向图控制贴图偏移方向与速度，泡沫图控制白浪位置，调参数就能从缓流切到急流，不用重画贴图。"
+    },
+    {
+      "titleZh": "漂浮物",
+      "descZh": "需要木箱或船随水面起伏时，在刚体下挂 Buoyant 节点并由 WaterSystem 提供高度图，物体就会按水面高度浮动，适合做简单浮力而不是完整流体模拟。"
+    },
+    {
+      "titleZh": "自定义水面着色",
+      "descZh": "想换水面风格时复制内置着色器改反射、颜色与泡沫阈值，WaterSystem 已把全局贴图与坐标接好，改造起点现成。"
+    },
+    {
+      "titleZh": "水面高度判断",
+      "descZh": "玩法需要知道某点水深或离水面高度时，用 WaterSystem 的全局高度图在着色器或脚本里采样，比逐点射线检测便宜。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "河流网格",
+      "descZh": "沿曲线生成的带 UV 网格，宽度与细分可调，能直接当 MeshInstance 渲染或再导出做碰撞，UV 沿路径连续，拐角处不会拉伸。"
+    },
+    {
+      "titleZh": "流向与泡沫贴图",
+      "descZh": "烘出的流向与泡沫纹理，驱动水面偏移与白浪，参数变化后可重新生成，不必手绘，改水流方向后重新生成即可。"
+    },
+    {
+      "titleZh": "全局水系统贴图",
+      "descZh": "WaterSystem 汇总多条河得到的高度与流向图，附带坐标矩阵，着色器可直接采样水面高度，多段河流共用一张图。"
+    },
+    {
+      "titleZh": "可浮动刚体组件",
+      "descZh": "Buoyant 节点按水面高度驱动刚体上下浮动，适合木箱、浮标与船只的简单浮力表现，浮力参数可调，做船只仍要自己补控制。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "River",
+      "descZh": "河流节点，用路径点塑形并生成网格，宽度、细分与平滑都能在检查器里调。"
+    },
+    {
+      "name": "Flow & Foam Bake",
+      "descZh": "把水流方向与泡沫分布烘成纹理，供着色器采样，改形状后可重新生成，烘焙前先定好路径与宽度。"
+    },
+    {
+      "name": "WaterSystem",
+      "descZh": "汇总子河流的全局高度与流向图，并把贴图与坐标矩阵自动接给指定 MeshInstance。"
+    },
+    {
+      "name": "Buoyant",
+      "descZh": "挂在刚体下读取水面高度，让物体随水面上下浮动，实现最简浮力，只按高度图驱动，不模拟横流与旋转。"
+    },
+    {
+      "name": "Path Constraints",
+      "descZh": "路径点支持吸附碰撞体与轴向、平面锁定，快捷键接近 Blender，塑形时更可控，吸附后仍可微调。"
+    }
+  ],
+  "limitsZh": "它只做河流，不做湖泊、海洋或整片水域，水面范围仍要靠自己补地形与着色器。工程停留在 Godot 3，4.x 项目要么迁移要么放弃。版本号只有 0.2.1，作者多年未做功能级更新，新引擎特性不会跟进。仓库接近 190MB，大部分是演示资源，克隆与导入都慢。生成只产出网格与贴图，碰撞要自己用生成 MeshInstance 的方式再做。着色器效果依赖手写参数，不懂 flowmap 的人调不出好看的水。WaterSystem 的全局图分辨率受贴图尺寸限制，超大水域会出现精度不足，另外水面高度精度由贴图分辨率决定，超大河流会看到台阶状起伏，需要拆成多段分别生成。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/waterways 整个复制进项目并启用插件"
+    },
+    {
+      "stepZh": "加 River 节点，用路径点勾出河流的走向与宽度"
+    },
+    {
+      "stepZh": "调宽度、细分与平滑参数，先确认网格形状"
+    },
+    {
+      "stepZh": "执行生成流向与泡沫图并检查贴图"
+    },
+    {
+      "stepZh": "需要漂浮物时再加 WaterSystem 与 Buoyant 节点并挂到刚体上"
+    },
+    {
+      "stepZh": "把全局贴图接进自定义着色器调水色"
+    }
+  ],
+  "pros": [
+    "河流网格与流向、泡沫贴图都在引擎内生成，不必开外部软件画 flowmap，迭代形状时改路径即可。",
+    "WaterSystem 能把多条河合成全局高度图并自动接给材质，漂浮物与着色器采样都用同一套数据。",
+    "路径约束与轴锁定操作接近 Blender，塑形时不用反复切视角，贴地形也方便，学起来很快。",
+    "带 Water 与 Lava 两套内置着色器，可直接用也能复制改造，省掉从零写水面材质。"
+  ],
+  "cons": [
+    "只支持 Godot 3，4.x 项目无法直接用，迁移工作量与收益不成比例。",
+    "只生成河流，不含湖泊、海洋与整片水面，做大世界水域还要配别的地形与水面方案。",
+    "版本停在 0.2.1 且多年无功能更新，新特性与缺陷修复基本不会再有。"
+  ],
+  "pitfalls": [
+    "改完路径忘了重新烘流向与泡沫图，水面贴图还是旧方向，形状与流动对不上。",
+    "直接拿 River 网格当碰撞，实际需要先执行生成 MeshInstance 再建碰撞形状，否则角色会穿水。",
+    "WaterSystem 的贴图范围没覆盖全部河流，远处水面高度采样错位，先确认系统包围盒包含所有子节点。"
+  ],
+  "bestFor": "仍在 Godot 3、需要一条有形河流与可控水流表现的中小项目，愿意自己调着色器参数与路径点，也能接受没有漂浮以外的物理交互。",
+  "avoidWhenZh": "项目在 Godot 4、需要湖泊海洋等完整水域系统，或不想维护已停止功能更新的老插件时。",
+  "compareTips": {
+    "vs": [
+      "godot-extended-libraries__godot-realistic-water",
+      "TokisanGames__Terrain3D"
+    ],
+    "whenZh": "realistic-water 提供海面与波浪着色器，Terrain3D 提供可雕刻地表但不带河流工具。要沿路径生成河流与流向选 Waterways，要大面积海面选 realistic-water，要地形基础选 Terrain3D；三者可以叠加，但要先确认 Godot 版本一致。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "河流",
+    "流向图",
+    "水面着色器",
+    "Godot3",
+    "程序化网格"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "基于贝塞尔曲线生成河流网格与流向泡沫图",
+      "source": "README.md",
+      "quote": "A tool to generate river meshes with flow and foam maps based on bezier curves."
+    },
+    {
+      "claim": "加一个 River 节点即可开始",
+      "source": "README.md",
+      "quote": "you can simply add a River node to the scene."
+    },
+    {
+      "claim": "可烘焙流向与泡沫贴图",
+      "source": "README.md",
+      "quote": "Generate Flow & Foam Map"
+    },
+    {
+      "claim": "刚体下的 Buoyant 节点可让物体浮动",
+      "source": "README.md",
+      "quote": "will allow the object to float on the river if a"
+    },
+    {
+      "claim": "路径可吸附到碰撞体",
+      "source": "README.md",
+      "quote": "The \"Snap to Colliders\" constraint can be used"
+    },
+    {
+      "claim": "提供 WaterSystem 节点汇总水面数据",
+      "source": "README.md",
+      "quote": "WaterSystem"
+    },
+    {
+      "claim": "插件版本为 0.2.1",
+      "source": "addons/waterways/plugin.cfg",
+      "quote": "version=\"0.2.1\""
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "miskatonicstudio__goat",
+  "descriptionZh": "开箱即用的 Godot 4 冒险游戏模板，预置物品栏、热点交互、语音字幕与分支对话系统。",
+  "category": "state-logic",
+  "tags": [
+    "adventure",
+    "template",
+    "inventory",
+    "dialogue",
+    "3d"
+  ],
+  "prosShort": [
+    "冒险玩法需要的模块基本都已齐全",
+    "自带可玩示例关卡，便于快速上手",
+    "作者仍在活跃维护，已适配 Godot 4 引擎"
+  ],
+  "consShort": [
+    "文档可能落后，需要直接读源码确认",
+    "仅适合冒险玩法，改成别的类型困难",
+    "模板体积较重，依赖固定引擎版本"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

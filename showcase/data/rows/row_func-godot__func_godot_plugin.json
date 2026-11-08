@@ -1,0 +1,35 @@
+{
+  "id": "func-godot__func_godot_plugin",
+  "descriptionZh": "读取 Quake map 与 Valve vmf 并构建成 Godot 场景的关卡插件，整体接入成本不高。",
+  "category": "asset-pipeline",
+  "tags": [
+    "关卡构建",
+    "Quake",
+    "TrenchBroom",
+    "brush",
+    "GDScript"
+  ],
+  "prosShort": [
+    "brush 搭关卡比摆模块快得多，团队上手也快。",
+    "实体定义可复用门与刷怪器",
+    "支持多种 WAD 老纹理资源，接入成本不高。"
+  ],
+  "consShort": [
+    "必须额外引入地图编辑器，团队要提前评估。",
+    "实体定义拼错只报日志，规模化后更明显。",
+    "曲面几何容易破面缺碰撞，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

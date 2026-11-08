@@ -1,0 +1,143 @@
+{
+  "id": "miskatonicstudio__goat",
+  "depth": "standard",
+  "taglineZh": "面向 Godot 4 自带物品栏与对话的冒险游戏模板",
+  "summaryZh": "GOAT 全称 Godot Open Adventure Template，是一套面向三维冒险游戏的项目模板与插件。它把物品栏、与物件和屏幕的交互、带字幕的语音播放、游戏设置菜单等常见模块预先搭好，并内嵌了 Dialogue Manager 处理分支对话，还附带一个可玩的示例关卡。官方文档放在 readthedocs 上，作者也坦言项目刚从 Godot 3 迁到 4 并改成插件，部分说明尚未跟上代码。仓库里既有插件本体，也有完整的 demo 工程、示例素材与安装说明。",
+  "whatItDoes": "它不是一个库，而是一份可直接运行的冒险游戏骨架：场景、输入、界面、存档与对话流程都已连通，你替换美术资源、扩写对话和谜题即可。核心交互是点击物件与屏幕热点推进剧情，物品栏负责收集与使用道具，语音与字幕同步播放，设置面板处理音量与显示选项。",
+  "useCases": [
+    {
+      "titleZh": "短篇叙事冒险",
+      "descZh": "制作一两小时流程的点击式冒险，用现成交互与对话系统，把精力集中在剧本、演出与美术表现上，整体制作节奏更快。"
+    },
+    {
+      "titleZh": "Game Jam 快速起项目",
+      "descZh": "直接在模板上替换场景和对话，几小时内就能交出可玩版本，省掉从零搭建交互、对话与存档框架的大量时间。"
+    },
+    {
+      "titleZh": "冒险玩法教学",
+      "descZh": "把模板当作参考实现，学习物品栏、热点交互与分支对话在 Godot 项目中如何组织与解耦，便于移植到自己的工程。"
+    },
+    {
+      "titleZh": "对话系统原型",
+      "descZh": "借用内嵌的 Dialogue Manager 试写分支剧情，验证叙事节奏与演出效果，再决定是否自研或替换现成的对话系统与演出方案。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可运行的冒险游戏工程",
+      "descZh": "包含示例关卡、素材、界面与配置的完整 Godot 项目，按安装说明导入后即可直接游玩，也能当作新项目的起点。"
+    },
+    {
+      "titleZh": "物品栏与交互系统",
+      "descZh": "预先实现的收集、查看与使用道具流程，以及物件与屏幕热点的点击交互、拾取判定与状态反馈逻辑。"
+    },
+    {
+      "titleZh": "语音字幕与设置菜单",
+      "descZh": "同步播放录音并显示字幕，附带音量、画面等玩家设置的现成界面，并与存档、本地化流程打通。"
+    },
+    {
+      "titleZh": "内嵌对话管理器",
+      "descZh": "集成 Dialogue Manager，可直接编写分支对话脚本并驱动演出，无需额外安装依赖，版本由模板统一管理与测试。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "点击式交互",
+      "descZh": "对物件与屏幕热点做检测并触发脚本，是冒险玩法推进剧情和触发事件的主要方式。"
+    },
+    {
+      "name": "物品栏",
+      "descZh": "提供收集与使用道具的界面和逻辑，可直接扩展新的物品类型、堆叠与组合规则。"
+    },
+    {
+      "name": "语音与字幕",
+      "descZh": "播放录音时同步显示字幕文本，方便做多语言本地化、字幕排版与无障碍阅读体验。"
+    },
+    {
+      "name": "内嵌对话系统",
+      "descZh": "Dialogue Manager 已打包进插件，写分支对话不必另行安装、配置或处理版本冲突，开箱即可上手。"
+    },
+    {
+      "name": "示例关卡",
+      "descZh": "仓库自带可玩 demo，覆盖大部分功能，可对照学习各系统之间的接线方式。"
+    }
+  ],
+  "limitsZh": "GOAT 的定位是模板而非通用框架，目录结构与节点命名都围绕冒险玩法设计，想拿它做动作、射击或策略游戏会处处别扭。README 也提醒项目正处于大幅改动期，刚从 Godot 3 迁移到 Godot 4 并改成插件，文档可能落后于代码，遇到问题时需要读源码。内嵌的 Dialogue Manager 版本被固定，升级节奏受模板牵制。它依赖 Godot 4.3 稳定版，旧版本引擎无法直接使用。另外模板把示例素材一同纳入版本库，首次导入耗时较长，商业使用前应逐项核对素材授权。",
+  "workflowZh": [
+    {
+      "stepZh": "按安装说明把工程导入 Godot 4.3，或复制 addons 到现有项目。"
+    },
+    {
+      "stepZh": "在项目设置里启用 goat 插件，确认内嵌对话管理器可用。"
+    },
+    {
+      "stepZh": "打开 demo 场景跑一遍，对照文档熟悉交互与物品栏。"
+    },
+    {
+      "stepZh": "替换场景、模型与贴图，改写对话脚本与热点逻辑。"
+    },
+    {
+      "stepZh": "调整设置菜单与存档路径，导出目标平台试玩并检查资源缺失。"
+    }
+  ],
+  "pros": [
+    "功能覆盖面广，冒险游戏常见模块几乎都已具备，起步省力，适合快速验证玩法。",
+    "自带完整示例，跑起来就能理解各系统如何协作与接线，省去读散落教程的时间。",
+    "文档站结构清晰，安装、功能与教程分开编排，便于随时查阅与检索。",
+    "仍在活跃维护，已适配 Godot 4 并持续修正迁移过程中的遗留问题与兼容细节。"
+  ],
+  "cons": [
+    "README 明确提示文档可能过时，踩坑时往往要直接读源码定位问题。",
+    "模板绑定冒险玩法，改造成其他游戏类型的成本较高且不划算。",
+    "依赖固定的 Godot 4.3 与内嵌对话库版本，升级节奏不自由，需要自行打补丁。",
+    "示例素材偏重，仓库与工程体积都比较大，克隆与首次导入都耗时。"
+  ],
+  "pitfalls": [
+    "插件化后目录与旧教程不一致，照旧版文档操作时容易找不到菜单入口。",
+    "内嵌 Dialogue Manager 与独立版本混用可能冲突，升级前先备份工程与自定义脚本，避免冲突。"
+  ],
+  "bestFor": "适合想用 Godot 4 做点击式三维冒险的独立开发者与小型团队，尤其是短篇叙事、Game Jam 或教学项目，能直接站在成型的框架上写内容。",
+  "avoidWhenZh": "要做动作、射击或系统复杂的角色扮演游戏时别用，模板的交互模型会限制设计空间。",
+  "compareTips": {
+    "vs": [
+      "dialogic-godot__dialogic"
+    ],
+    "whenZh": "若你主要缺对话与演出系统，Dialogic 更专注也更容易嵌进现有工程；GOAT 提供的是整条冒险玩法流水线，含物品栏与热点交互，更适合从零起项目，两者也可以组合使用。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "adventure",
+    "template",
+    "inventory",
+    "dialogue",
+    "3d"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "模板内置物品栏、交互、语音字幕与设置",
+      "source": "README.md",
+      "quote": "It supports a simple inventory system, interacting with objects and screens, playing voice recordings with subtitles, and changing game settings."
+    },
+    {
+      "claim": "项目刚迁移到 Godot 4，文档可能过时",
+      "source": "README.md",
+      "quote": "GOAT is going through a lot of changes right now. It recently moved to Godot 4, and it became a plugin. Because of that, the documentation might be a bit outdated."
+    },
+    {
+      "claim": "内嵌简化版对话管理器",
+      "source": "README.md",
+      "quote": "For dialogues, GOAT uses an embedded version of [Dialogue Manager](https://github.com/nathanhoad/godot_dialogue_manager) created by [Nathan Hoad](https://nathanhoad.net/)"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "id": "HungryProton__scatter",
+  "depth": "standard",
+  "taglineZh": "用修改器栈把道具程序化、非破坏地撒进 Godot 4 场景",
+  "summaryZh": "ProtonScatter 是一个面向 Godot 4 的编辑器插件，用修改器栈的方式往场景里批量摆放道具。它的结构很像 Blender 的修改器：ProtonScatter 节点保存一串规则，有的规则负责生成点，有的负责改朝向、缩放与投影，再配合 ScatterItem 指定要放的资源、ScatterShape 圈定范围。点在盒体、球体与路径三种形状内生成，形状还能标成负空间来排除区域。整个过程非破坏，改参数即时重算，不必手动摆件。它只解决摆放，实例的渲染与剔除仍交给引擎，数量大时要自己控制可见距离与碰撞开销；仓库主库已迁到 Codeberg。",
+  "whatItDoes": "在检查器里提供修改器栈面板，按顺序叠加点生成与变换类修改器，实时预览结果。ScatterItem 引用场景或 Mesh 资源，决定摆放内容；ScatterShape 提供 Box、Sphere 与 Path 三种区域，可组合并标记负形状挖空。修改器覆盖网格排列、随机分布、沿边缘、投影到碰撞面、旋转与缩放等。摆放结果以 MultiMesh 或场景实例形式生成，可设置随机种子与缓存，保证同一参数得到同一结果。",
+  "useCases": [
+    {
+      "titleZh": "植被与碎石铺设",
+      "descZh": "在关卡地表按区域撒草、石头与树苗，用随机旋转与缩放打散重复感，改密度只需拖一个参数，改完即时看到结果。"
+    },
+    {
+      "titleZh": "废墟与杂物布置",
+      "descZh": "做废墟或室内场景时，用路径与盒体形状沿墙脚、过道撒碎块与道具，比手工摆位快得多，路径形状还能沿墙面走。"
+    },
+    {
+      "titleZh": "沿碰撞面投影",
+      "descZh": "把蘑菇或藤蔓垂直投影到树干与岩壁的碰撞面上，得到贴附表面的分布，而不是悬空摆放，方向可限定为垂直向下。"
+    },
+    {
+      "titleZh": "堆叠结构原型",
+      "descZh": "用两层阵列修改器把砖块逐层堆成塔或拱，快速验证体量关系，再决定是否转成正式模型，层间距与偏移都能调。"
+    },
+    {
+      "titleZh": "关卡迭代",
+      "descZh": "调整密度、种子与排除区域后即时重算，策划可以边看边改，不必每次手工重铺一遍，改一行参数就重算。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "散布实例集",
+      "descZh": "由修改器栈生成的道具实例或多重网格，附带每个点的位置、旋转与缩放，可直接参与渲染与碰撞。"
+    },
+    {
+      "titleZh": "修改器栈配置",
+      "descZh": "保存在 ProtonScatter 节点上的规则序列，含随机种子与参数，可复制到其他场景复用，换场景时整体复制即可。"
+    },
+    {
+      "titleZh": "区域形状组合",
+      "descZh": "由 Box、Sphere、Path 组合出的散布域，支持负形状挖空，形成不规则可撒范围，负形状也能参与组合，组合顺序影响结果。"
+    },
+    {
+      "titleZh": "可复现的随机结果",
+      "descZh": "固定种子后得到的稳定分布，便于多人对比方案，也避免每次打开场景都变样，便于多人对比同一方案。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Modifier Stack",
+      "descZh": "按顺序叠加的规则列表，点生成与变换分开处理，可随时增删与调整顺序。"
+    },
+    {
+      "name": "ScatterShape",
+      "descZh": "Box、Sphere 与 Path 三种散布范围，可组合使用并把某个形状标为负空间，组合时支持标记挖空区域。"
+    },
+    {
+      "name": "ScatterItem",
+      "descZh": "指定要摆放的场景或网格资源，一个节点可引多个资源并按权重分配，多个资源可按权重混撒。"
+    },
+    {
+      "name": "Projection",
+      "descZh": "把生成点沿指定方向投射到碰撞面，让道具贴附岩石与树干表面，投射失败的点会自动丢弃。"
+    },
+    {
+      "name": "Built-in Doc Panel",
+      "descZh": "修改器面板右上角有说明按钮，可就地查看每个修改器的用法与参数含义。"
+    }
+  ],
+  "limitsZh": "它只管摆放，不管可见性剔除与碰撞优化，撒到几千个实例后仍要自己配 LOD、遮挡与碰撞开关，否则帧率会掉。散布结果在编辑器里预览，运行时若需要动态增删要额外写逻辑。形状只有盒体、球体与路径三种，复杂地形边界得靠多个形状拼出来，组合多了面板会很长。随机分布依赖种子，换种子会让整片布局重置，已手工微调的点无法保留。Godot 3 与 4 的插件结构不同，旧 Scatter 对象升级后不兼容，要重做配置。仓库主库迁到 Codeberg，Issue 与更新节奏跟着迁移，文档主要靠面板内置说明与视频，缺少成体系的文字教程。",
+  "workflowZh": [
+    {
+      "stepZh": "把 proton_scatter 目录复制进 addons 并启用，目录名不能改"
+    },
+    {
+      "stepZh": "新建 ProtonScatter 节点并添加散布形状，先框出大致范围"
+    },
+    {
+      "stepZh": "用 ScatterItem 指定要摆放的资源，单节点可引多个资源，先撒少量验证"
+    },
+    {
+      "stepZh": "在修改器栈里叠加点生成与变换规则，按物体类型分批处理"
+    },
+    {
+      "stepZh": "调整密度、随机种子与负空间范围，再决定是否烘焙"
+    },
+    {
+      "stepZh": "运行场景检查实例数量与帧率，并对比开关碰撞前后的开销"
+    }
+  ],
+  "pros": [
+    "修改器栈式操作接近 Blender 习惯，改密度与朝向不用重摆，迭代成本低，调参即可见效。",
+    "非破坏流程保留参数与种子，同一套规则可换资源复用，也能复现同一布局。",
+    "支持投影到碰撞面与负空间挖空，能处理岩壁、树干与镂空区域这类不规则散布。",
+    "面板内置每个修改器的说明，边调边看解释，不依赖外部文档也能上手，改动前先读面板说明再动手。"
+  ],
+  "cons": [
+    "只负责摆放，实例剔除、LOD 与碰撞仍要自己配，数量大时容易掉帧。",
+    "形状类型只有三种，复杂边界靠拼形状，配置会变得冗长，配置一长就不易维护。",
+    "Godot 3 与 4 的数据不兼容，升级项目时旧散布对象要重做，跨版本升级要留出重做时间。"
+  ],
+  "pitfalls": [
+    "插件目录被改名后插件直接失效，安装时不要动 proton_scatter 这层目录名，启用后若报类缺失先查目录层级。",
+    "散播实例默认参与碰撞与阴影，几千个草叶也会计算，先关掉再按距离开放。",
+    "调整随机种子前没记录原值，手工微调过的布局会全部重排且难以还原。"
+  ],
+  "bestFor": "需要在关卡里大量铺植被、碎石与道具，希望用参数化规则反复迭代的美术与关卡设计者，尤其适合开放世界与地牢混排的关卡。",
+  "avoidWhenZh": "只需要摆放几十个物件，或要求运行时动态生成并参与玩法的场景，手工或自写脚本更直接。",
+  "compareTips": {
+    "vs": [
+      "Zylann__godot_voxel",
+      "TokisanGames__Terrain3D",
+      "MakovWait__godots"
+    ],
+    "whenZh": "Terrain3D 与 Voxel 自带植被散布，但绑定在各自地形数据上；ProtonScatter 独立于地形，任何场景节点都能撒。已有地形系统先用内置散布，需要跨模型、室内与道具混排时再加 Scatter。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "散布",
+    "关卡设计",
+    "程序化",
+    "编辑器插件"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "用于自动化摆放场景资源",
+      "source": "README.md",
+      "quote": "This is an add-on for Godot 4, which automates the positioning of assets in a scene."
+    },
+    {
+      "claim": "流程是程序化且非破坏的",
+      "source": "README.md",
+      "quote": "Place anything you want in your scenes, in a procedural, non-destructive way."
+    },
+    {
+      "claim": "修改器面板类似 Blender 的修改器栈",
+      "source": "README.md",
+      "quote": "This panel is very similar to Blender's modifier stack panel."
+    },
+    {
+      "claim": "只提供盒体、球体与路径三种形状",
+      "source": "README.md",
+      "quote": "Scatter currently ships with three shape types: Box, Sphere and Path."
+    },
+    {
+      "claim": "插件目录不能改名",
+      "source": "README.md",
+      "quote": "DO NOT rename the proton_scatter folder, or it won't work."
+    }
+  ]
+}

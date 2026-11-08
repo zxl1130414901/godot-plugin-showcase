@@ -1,0 +1,144 @@
+{
+  "id": "IvanMurzak__Godot-MCP",
+  "depth": "standard",
+  "taglineZh": "把 AI 编程助手接入 Godot 编辑器的 MCP 插件",
+  "summaryZh": "它解决的是 AI 编程助手看不到 Godot 编辑器状态的问题：在编辑器内运行 MCP 服务端，把场景树、脚本、资源、文件系统、控制台与运行时错误暴露成工具，Claude Code、Cursor、Codex 等客户端可直接读写项目并执行 C# 片段。插件还带扩展目录与 RQL 查询层，可用一个查询覆盖多个对象。安装要先准备 Godot mono 4.3 以上、.NET 8，再补六个 NuGet 包与 EmbeddedResource，或用 godot-cli 一键完成。限制是强依赖 C# 工程与云端账号，配置链路长。",
+  "whatItDoes": "提供 script-read/create/update/delete/validate/build/execute、scene 与 node 的增删改查、resource 与 filesystem 操作、console 日志读取，以及 runtime-errors 轮询等 MCP 工具。默认走 Cloud 模式连接 ai-game.dev，也可切 Custom 自建服务；配置可用环境变量覆盖。另有扩展目录把 Animation、Beehave、Dialogic、Terrain3D 等插件接入工具集。",
+  "useCases": [
+    {
+      "titleZh": "AI 辅助开发",
+      "descZh": "让 Claude Code 或 Cursor 直接读场景树、改节点、写脚本并验证编译，减少复制粘贴，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "批量场景整理",
+      "descZh": "用一次 RQL 查询改多个节点属性，比逐个工具调用更快，适合整理遗留场景，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "运行时报错排查",
+      "descZh": "开启 runtime-errors 后让代理轮询游戏内 GDScript 与 C# 异常，定位线上问题，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "CI 与无头流程",
+      "descZh": "用 godot-cli 安装插件、生成 MCP 配置，可在脚本化环境里复现同一套设置，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "MCP 工具集",
+      "descZh": "脚本、场景、资源、文件与编辑器状态的工具族，按权限暴露给 AI 客户端，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "编辑器插件",
+      "descZh": "C# 编写的 EditorPlugin，负责连接服务端、维护工具注册与状态面板，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "扩展目录",
+      "descZh": "extensions.catalog 把多个第三方 Godot 插件包装成可选 AI 工具，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "script-execute",
+      "descZh": "在编辑器里编译并运行 C# 片段，带超时与结果回传，适合快速验证。"
+    },
+    {
+      "name": "RQL 查询",
+      "descZh": "用一个查询跨节点、资源与编辑器状态取数据，替代多个细粒度工具。"
+    },
+    {
+      "name": "Cloud 与 Custom",
+      "descZh": "默认连接 ai-game.dev，也可切自建服务，环境变量可覆盖配置，参数集中在检查器面板。"
+    },
+    {
+      "name": "扩展目录",
+      "descZh": "把 Beehave、Dialogic、Terrain3D 等插件接入工具集，扩展面板不置空，后续修改起来也不费劲。"
+    },
+    {
+      "name": "godot-cli",
+      "descZh": "一条命令完成插件安装、NuGet 引用与 MCP 客户端配置，在编辑器里就能完成配置。"
+    }
+  ],
+  "limitsZh": "硬性前提是 Godot 的 mono/C# 版本与 .NET 8 SDK，标准 GDScript 版编辑器无法编译插件。安装不是拷贝即用：项目 csproj 要加六个 NuGet 引用与扩展目录的 EmbeddedResource，还要保留 EnableDynamicLoading，漏一项就会出现脚本无法实例化或扩展面板空白。默认 Cloud 模式要登录 ai-game.dev 并生成项目凭据，离线或私有环境需改 Custom 模式。插件本体以源码分发，随项目一起编译，首次配置和升级都要重建程序集。工具权限与云端连接带来安全面，团队需要审查代理可调用的写操作。文档很长但以英文为主，中文团队上手要花时间。",
+  "workflowZh": [
+    {
+      "stepZh": "先安装 godot-cli，并准备 Godot mono 与 .NET 8 环境"
+    },
+    {
+      "stepZh": "用 godot-cli 的 install-plugin 写入 addons 目录与 NuGet 引用"
+    },
+    {
+      "stepZh": "在项目设置启用插件并登录云端账号"
+    },
+    {
+      "stepZh": "用 setup-mcp 命令为所选 AI 客户端生成配置"
+    },
+    {
+      "stepZh": "在编辑器里调用工具并检查输出面板"
+    }
+  ],
+  "pros": [
+    "把场景、脚本、资源与运行时错误都暴露成 MCP 工具，代理不必猜项目状态。",
+    "RQL 一次查询可跨多对象，批量改场景比逐个工具调用更高效。",
+    "提供 godot-cli 自动化安装与客户端配置，重复搭建可脚本化，团队新人照着示例就能上手。",
+    "扩展目录接入多个第三方插件，工具面随项目需要增长，出现问题时也更容易定位原因。"
+  ],
+  "cons": [
+    "只支持 mono/C# 版 Godot，且必须配置多个 NuGet 包，升级引擎版本时容易卡住。",
+    "默认依赖云端账号与服务，离线与私有环境要额外改配置。",
+    "插件以源码随项目编译，升级与排错都要处理程序集。"
+  ],
+  "pitfalls": [
+    "漏掉 EnableDynamicLoading 时所有 C# 脚本都无法实例化，报错指向类型解析，上线前要专门过一遍。",
+    "扩展目录的 EmbeddedResource 缺失会让扩展面板空白，但不会有明显警告，排查时需要多留一层日志。",
+    "代理拥有写权限，未限制工具范围时可能批量改坏场景，需先做权限分级。"
+  ],
+  "bestFor": "已使用 Godot C# 项目、希望让 Claude Code 或 Cursor 直接操作编辑器与运行时的开发团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目是纯 GDScript 版 Godot，或无法使用云端服务与 .NET 8 的离线环境，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "FlamxGames__godot-ai-assistant-hub"
+    ],
+    "whenZh": "两者都是 Godot 里的 AI 工具链：Godot-MCP 以 MCP 服务端为核心，强调脚本、场景与运行时错误的结构化工具；AI Assistant Hub 内置聊天面板，强调本地模型与工具权限。要接外部编码代理选前者，要在编辑器里聊天选后者。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "C#",
+    "编辑器插件",
+    "自动化"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "只支持 mono/C# 版 Godot",
+      "source": "README.md",
+      "quote": "Godot-MCP requires the **mono (C#/.NET)** build of Godot — the standard (GDScript-only) build cannot compile the addon."
+    },
+    {
+      "claim": "最低 Godot.NET.Sdk 4.3.0",
+      "source": "README.md",
+      "quote": "the addon csproj pins `Godot.NET.Sdk/4.3.0` as its minimum floor"
+    },
+    {
+      "claim": "需要六个 NuGet 引用与扩展目录嵌入资源",
+      "source": "README.md",
+      "quote": "Add the six `PackageReference`s **and** the extension-catalog `<EmbeddedResource>` to your project's `.csproj`"
+    },
+    {
+      "claim": "默认连接 ai-game.dev 云端",
+      "source": "README.md",
+      "quote": "In **Cloud** mode the plugin connects to the hosted backend at `https://ai-game.dev`"
+    }
+  ]
+}

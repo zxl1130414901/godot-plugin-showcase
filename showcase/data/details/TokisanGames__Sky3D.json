@@ -1,0 +1,154 @@
+{
+  "id": "TokisanGames__Sky3D",
+  "taglineZh": "用纯 GDScript 驱动太阳、月亮、星空与雾云的昼夜循环",
+  "summaryZh": "Sky3D 把昼夜循环打包成一个可直接替换 WorldEnvironment 的节点，太阳、月亮与星空按时间自动旋转，大气、雾和云的颜色与密度也随时间渐变。它还统一管理曝光、光能和时间流速，脚本只需读当前时刻或设置一天长度就能驱动玩法。相比自己拼天空材质与环境光，它把天文参数、月相和渲染器差异都封装好，代价是只支持 Godot 4.3 以上，且兼容渲染器要手动调两个参数。它把时间当作一条可配置的轴，白天夜晚的灯光与天空都在同一条曲线上过渡。",
+  "whatItDoes": "提供一个 Sky3D 节点，用时间驱动太阳、月亮、星空、大气与雾的参数，并接管环境光、曝光与昼夜状态查询。",
+  "useCases": [
+    {
+      "titleZh": "开放世界昼夜",
+      "descZh": "开放世界要按游戏内时间改变光照，用节点设置一天时长，日出日落与月光自动过渡，省去手写插值。"
+    },
+    {
+      "titleZh": "夜间生存玩法",
+      "descZh": "生存玩法需要在夜间变暗并让月光参与导航，插件自带月相与夜间环境光，直接读取昼夜状态判断。"
+    },
+    {
+      "titleZh": "宣传截图",
+      "descZh": "做截图或宣传片时想快速换时段，拖动时间轴即可看到黄昏与黎明，不必逐个调整灯光参数。"
+    },
+    {
+      "titleZh": "低端设备兼容",
+      "descZh": "兼容渲染器项目也要类似效果，按说明调天空贡献与雾密度，能在低端设备上保留昼夜变化。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Sky3D 节点",
+      "descZh": "替代 WorldEnvironment 的场景节点，内含环境、天空穹顶、太阳与月亮子节点，统一驱动整套天空。"
+    },
+    {
+      "titleZh": "TimeOfDay 控制器",
+      "descZh": "维护当前时间、一天长度与昼夜状态，脚本可读取并设置时间流速来驱动玩法。"
+    },
+    {
+      "titleZh": "程序化天空材质",
+      "descZh": "随太阳角度变化的天空、雾与云参数，不需要手工烘焙多套环境贴图，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "自动天体旋转",
+      "descZh": "太阳、月亮与星空按时间推进，月相随日期变化，无需动画曲线。"
+    },
+    {
+      "name": "动态大气与雾",
+      "descZh": "天空颜色、雾密度与云量随昼夜渐变，黄昏与黎明有明显过渡。"
+    },
+    {
+      "name": "统一曝光控制",
+      "descZh": "集中管理环境光、太阳光与相机曝光，避免多个节点互相覆盖。"
+    },
+    {
+      "name": "时间管理",
+      "descZh": "读取当前时刻、设置一天时长，并查询当前是白天还是夜晚，参数集中在检查器面板。"
+    },
+    {
+      "name": "三种渲染器",
+      "descZh": "Forward、Mobile 与 Compatibility 都可运行，兼容渲染器需按说明调参，后续修改起来也不费劲。"
+    }
+  ],
+  "limitsZh": "它只支持 Godot 4.3 及以上，4.2 项目无法启用；兼容渲染器还要手动把天空贡献调到 0.75、雾密度调到 0.01，否则画面与 Vulkan 差异明显。节点必须替换场景里原有的 WorldEnvironment，重复添加会出现两套环境互相覆盖。太阳与月光的能量、颜色和角度由插件接管，直接在灯光节点上改会被时间更新重置。云与雾是程序化近似，不支持体积云或随天气系统联动的复杂效果。插件不负责多人时间同步，联机项目要自己广播游戏时间。文档以检查器提示为主，缺少参数曲线说明，调出满意效果需要反复试。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons 目录并在插件页启用，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "删除场景里原有的 WorldEnvironment 节点，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "新建 Sky3D 节点并选择渲染器预设，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "设置一天长度、起始时间与时间流速"
+    },
+    {
+      "stepZh": "按需调整天空穹顶、太阳与月亮的参数"
+    },
+    {
+      "stepZh": "在脚本里读取昼夜状态或修改当前时间"
+    }
+  ],
+  "pros": [
+    "纯 GDScript 实现，不用编译，复制即可在 4.3 以上项目运行，团队新人照着示例就能上手。",
+    "太阳、月亮、星空与月相都自动推进，省去大量手写动画，出现问题时也更容易定位原因。",
+    "大气、雾和云随时间变化，黄昏与夜晚的氛围过渡自然，对中小团队的时间成本很友好。",
+    "统一管理曝光与光能，避免多个环境节点互相打架，长期维护与升级的压力都比较小。",
+    "三种渲染器都有说明与调参建议，低端设备也能用，实际项目落地时省下大量重复工作。"
+  ],
+  "cons": [
+    "只支持 4.3 以上，旧项目要先升级引擎才能用，升级引擎版本时容易卡住。",
+    "兼容渲染器需要手动调两个参数，否则画面偏亮偏灰。",
+    "程序化云与雾是近似效果，做不出体积云或天气联动。"
+  ],
+  "pitfalls": [
+    "场景里保留旧的 WorldEnvironment 会导致环境设置被覆盖，先删掉再建节点。",
+    "直接改太阳光或月光的能量会被时间更新重置，统一在 Sky3D 节点上调。",
+    "兼容渲染器未调天空贡献与雾密度，白天会过曝，先按 README 的两个数值对齐。"
+  ],
+  "bestFor": "需要昼夜循环、月光与动态天空，且使用 Godot 4.3 以上、愿意接受纯 GDScript 方案的中小 3D 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目锁在 Godot 4.2，或需要体积云、天气系统与真实天文级精度，这个包不够用。",
+  "compareTips": {
+    "vs": [
+      "gdquest-demos__godot-4-stylized-sky",
+      "Dimev__Realistic-Atmosphere-Godot-and-UE4"
+    ],
+    "whenZh": "Sky3D 是完整的昼夜循环系统；stylized-sky 只给天空着色器，需要自己接时间与光照；Realistic-Atmosphere 偏大气散射的物理效果。要开箱即用的昼夜玩法选 Sky3D，要自定义天空风格或用物理大气则选后两者。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "昼夜循环",
+    "天空",
+    "环境光",
+    "GDScript",
+    "开放世界"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "支持 4.3 以上与三种渲染器",
+      "source": "README.md",
+      "quote": "Supports Godot 4.3+, Forward, Mobile, and Compatibility renderers"
+    },
+    {
+      "claim": "太阳月亮星空自动旋转并带月相",
+      "source": "README.md",
+      "quote": "Automatically rotating sun, moon, and stars, with moon phases"
+    },
+    {
+      "claim": "大气、雾与云随昼夜变化",
+      "source": "README.md",
+      "quote": "Dynamic atmosphere, fog, and clouds that change with the day cycle"
+    },
+    {
+      "claim": "插件描述为大气昼夜循环",
+      "source": "addons/sky_3d/plugin.cfg",
+      "quote": "Atmospheric Day/Night Cycle"
+    },
+    {
+      "claim": "必须替换原有 WorldEnvironment",
+      "source": "README.md",
+      "quote": "Remove any existing WorldEnvironment node."
+    }
+  ],
+  "depth": "standard"
+}

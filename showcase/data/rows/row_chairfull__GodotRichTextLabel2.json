@@ -1,0 +1,33 @@
+{
+  "id": "chairfull__GodotRichTextLabel2",
+  "descriptionZh": "RichTextLabel 增强插件，提供短标签上下文表达式与逐字动画节点，整体接入成本不高。",
+  "category": "ui",
+  "tags": [
+    "富文本",
+    "对话",
+    "逐字动画",
+    "界面"
+  ],
+  "prosShort": [
+    "短标签与状态插值省拼串，团队上手也快。",
+    "逐字动画对话开箱可用，接入成本不高。",
+    "自动扫描字体生成粗斜体，后续扩展方便。"
+  ],
+  "consShort": [
+    "必须先创建 FontHelper 资源，团队要提前评估。",
+    "部分动画作者标注损坏，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

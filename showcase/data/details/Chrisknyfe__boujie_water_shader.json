@@ -1,0 +1,133 @@
+{
+  "id": "Chrisknyfe__boujie_water_shader",
+  "depth": "standard",
+  "taglineZh": "基于 Gerstner 波的高级水面着色器与无限海洋工具",
+  "summaryZh": "Boujie Water Shader 是 Zach Bernal 从 Godot 3 移植到 Godot 4.1 的水面方案，源自 MrMinimal 的水着色器与英伟达教程。它由顶点着色器驱动，把多条参数各异的 Gerstner 波取平均后让水面顶点起伏，并叠加镜面、粗糙度、反照率、折射、菲涅耳、斯涅尔窗、海沫、岸边泡沫、深度雾与距离淡出等效果。除着色器外还配了三个工具节点：Ocean 在运行时用 SurfaceTool 生成多级 LOD 网格并延伸至地平线的远景平面，CameraFollower3D 让水面跟随相机造成无限海洋错觉，WaterMaterialDesigner 依据波资源与相机远裁剪自动同步参数。",
+  "whatItDoes": "提供一套可调参数的水面材质，以及围绕它构建无限海洋的三件套节点：程序化生成带 LOD 的水面网格、让网格跟随相机移动并按格子吸附位置、把波资源与相机参数自动写入着色器。开发者用预制场景或预制材质即可铺出一片海洋，再按需调整波的方向、频率与振幅。",
+  "useCases": [
+    {
+      "titleZh": "海洋与湖泊场景",
+      "descZh": "给开放世界或航海游戏铺一片可无限延伸的海面，相机移动时水面自动跟随，远处始终有地平线。"
+    },
+    {
+      "titleZh": "风格化水体",
+      "descZh": "用冰与黑曜石等预制材质做奇幻水面，换材质即可切换观感，也能套到已有物体上使用。"
+    },
+    {
+      "titleZh": "性能分级",
+      "descZh": "按目标平台关掉不需要的 #define 特性，在中低端设备上也能跑，性能与画质可以逐项取舍。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "海面网格",
+      "descZh": "运行时用 SurfaceTool 生成多级 LOD 网格，并在外围补一张延伸到地平线的远景面，近处密远处疏。"
+    },
+    {
+      "titleZh": "水体着色器",
+      "descZh": "多条 Gerstner 波叠加驱动顶点起伏，含反射、折射、菲涅尔与水深雾，水面层次更完整。"
+    },
+    {
+      "titleZh": "相机跟随节点",
+      "descZh": "把水面网格跟随相机移动，并按网格单位吸附，形成无限海面的错觉，无需手搭大范围网格。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Gerstner 波",
+      "descZh": "多组波参数叠加，浪形自然，远近视距可分别淡出，避免远处出现规则重复的花纹。"
+    },
+    {
+      "name": "折射与菲涅尔",
+      "descZh": "水下与水面过渡更真实，斯涅尔窗效果也能看到，潜水视角下不会一片糊。"
+    },
+    {
+      "name": "泡沫",
+      "descZh": "海浪泡沫与物体周围的海岸泡沫，由波形调制，船体与礁石边缘会有自然白沫。"
+    }
+  ],
+  "limitsZh": "README 标注面向 Godot 4.1 以上并在 4.1.1 上测试，更新版本虽大概率可用，但作者没有给出 4.2 之后版本的兼容性承诺，遇到渲染管线调整需自行验证。性能优化方式是手动注释着色器里的 #define 行，属于改源码式调优，没有运行时开关或质量档位。预制场景改参数需要先 Make Local 或开启 Editable Children，接手项目的成员若不清楚这一步，会误以为材质无法编辑。TODO 里还列着水面焦散、GDScript 与着色器时间同步、伪浮力波高计算与 SDF 水域挖洞等未完成项，说明相关能力仍需自研。文档以 README 示意图与参数说明为主，缺少着色器与节点之间的完整接线清单。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 里的插件目录复制进项目并启用插件"
+    },
+    {
+      "stepZh": "在场景里实例化 prefabs 下的海洋预制体"
+    },
+    {
+      "stepZh": "按需要改材质与波浪参数，或用 Make Local 深改"
+    },
+    {
+      "stepZh": "添加 CameraFollower3D 节点，让海面网格跟随相机移动"
+    },
+    {
+      "stepZh": "在低端目标上注释掉多余 #define 再压测"
+    }
+  ],
+  "pros": [
+    "开箱即用的海面预制体，几分钟就能看到完整海洋效果，不必从零写着色器",
+    "Gerstner 波、折射、菲涅尔与泡沫齐全，观感接近商业水体，默认参数就能用",
+    "多级 LOD 加远景面，兼顾近处细节与远处地平线，也不会露出海面边界",
+    "相机跟随节点让海面看似无限，省去手搭海量网格与手工对齐接缝",
+    "以 #define 开关特性，能按平台裁剪性能开销，低端设备也有可用档位"
+  ],
+  "cons": [
+    "着色器分支多，移动端全开时开销仍然偏高，需要逐项关掉特效",
+    "只做海面表现，不含浮力、船舶物理与水下后处理",
+    "参数集中在材质与着色器常量，多材质调参要逐个同步"
+  ],
+  "pitfalls": [
+    "忘记加 CameraFollower3D 会在远处看到海面边界，先确认跟随节点已挂上并处于启用状态",
+    "LOD 与远景面接缝处参数不匹配会出现明显断裂，需对齐高度",
+    "波浪振幅设得过大时近处模型会穿出水面，按场景尺度调整并压测"
+  ],
+  "bestFor": "适合做海洋、湖泊等大面积水体，希望快速获得接近成品的动态水面与无限海洋效果的 3D 项目使用。",
+  "avoidWhenZh": "只需要一小块静水面，或对性能极度敏感、要求可运行时切换画质档位的项目，用简化着色器更划算。",
+  "compareTips": {
+    "vs": [
+      "GarrettGunnell__Godot-PSX"
+    ],
+    "whenZh": "两者都改 3D 观感：Boujie Water Shader 提供海面着色器与无限海面工具；Godot-PSX 复刻 PS1 的低保真风格。做水体选前者，做复古渲染选后者，两者也能叠加使用。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "水面着色器",
+    "Gerstner波",
+    "无限海洋",
+    "LOD网格",
+    "折射"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4.1 以上并在 4.1.1 上测试",
+      "source": "README.md",
+      "quote": "This is a fancy water shader for Godot Engine 4.1+, plus tools to build your own infinite ocean. Tested with: Godot_v4.1.1-stable_win64"
+    },
+    {
+      "claim": "顶点运动由多条 Gerstner 波取平均驱动",
+      "source": "README.md",
+      "quote": "The movement consists of the average of multiple Gerstner Waves each with slightly different values."
+    },
+    {
+      "claim": "性能优化通过注释 #define 关闭效果",
+      "source": "README.md",
+      "quote": "You can optimize shader performance by copying the shader code and commenting-out any of the #define lines to disable features you don't need."
+    },
+    {
+      "claim": "海洋网格在运行时用 SurfaceTool 生成多级 LOD",
+      "source": "README.md",
+      "quote": "Several meshes are generated using the SurfaceTool class, giving you multiple levels of detail (LODs)"
+    }
+  ]
+}

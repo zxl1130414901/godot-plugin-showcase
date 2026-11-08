@@ -1,0 +1,35 @@
+{
+  "id": "blackears__cyclopsLevelBuilder",
+  "descriptionZh": "在 Godot 视口拖拽搭白盒关卡，支持挤出、切分与布尔运算，材质与三平面 UV 齐备，所有块自带碰撞并可导出。",
+  "category": "editor-tool",
+  "tags": [
+    "白盒关卡",
+    "建模",
+    "UV",
+    "碰撞",
+    "编辑器工具"
+  ],
+  "prosShort": [
+    "在视口里拖拽就能快速搭出关卡块",
+    "所有块自带碰撞，搭完就能试走",
+    "关卡可导出成 glTF 或 Godot 场景继续精修"
+  ],
+  "consShort": [
+    "版本与引擎绑定紧，升级易坏场景",
+    "块一多，视口操作与布尔运算变慢",
+    "曲面与精细雕刻这类需求做不了"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

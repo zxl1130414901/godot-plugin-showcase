@@ -1,0 +1,153 @@
+{
+  "id": "gilzoide__lua-gdextension",
+  "depth": "standard",
+  "taglineZh": "用 Lua 编写 Godot 对象并创建轻量模组沙箱的扩展",
+  "summaryZh": "Lua GDExtension 把 Lua 接进 Godot 4.5 以上：注册脚本语言后，节点与资源可以直接用 Lua 脚本，作为 GDScript 与 C# 之外的第三种选择；也能按需创建多个隔离的 Lua State，用于外部模组与玩家脚本。它提供 LuaScript、LuaState、LuaTable、LuaFunction、LuaCoroutine 等类型，可从 GDScript 或 C# 侧管理 Lua 值，并能按 State 选择开放哪些 Lua 库与 Godot API，便于做沙箱。插件还带一个 Lua REPL 编辑器面板，可选 Lua 5.4 或 LuaJIT 运行时，两者以不同资产分别发布，Web 平台固定使用 Lua 5.4。",
+  "whatItDoes": "扩展注册 ScriptLanguageExtension，使 .lua 文件能作为脚本挂到节点与资源上；脚本需返回一张元数据表，声明基类、属性、方法与信号。运行时可创建任意数量 LuaState，每个 State 单独配置可用库与宿主 API，包括 Variant 操作、实例化对象、单例访问与全局枚举。GDScript 侧能读写 Lua 表、调用函数、驱动协程；编辑器侧提供 REPL 标签页，输入片段即可执行。资源加载器把 res:// 与 user:// 路径映射进 Lua 的 require 与 dofile，示例覆盖主要接口。",
+  "useCases": [
+    {
+      "titleZh": "Lua 玩法脚本",
+      "descZh": "团队已有 Lua 经验，直接用 Lua 写关卡逻辑与 UI 行为，不必让所有人先学 GDScript，团队迁移成本更低，也能复用已有工具链。"
+    },
+    {
+      "titleZh": "玩家模组沙箱",
+      "descZh": "为每个模组创建独立 LuaState，只开放必要库与 API，玩家脚本互相隔离，出问题也只影响自己的 State，不会拖垮主程序运行。"
+    },
+    {
+      "titleZh": "热更新逻辑",
+      "descZh": "把可调参数与规则放在 Lua 脚本里，配合可重载的扩展与外部加载，改玩法时少走一次完整重编译，迭代速度明显提升。"
+    },
+    {
+      "titleZh": "REPL 里调试",
+      "descZh": "在编辑器里打开 Lua REPL，临时验证表操作、API 调用与小段逻辑，不必每次都写测试场景跑一遍，验证起来效率高很多。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Lua 脚本资源",
+      "descZh": "以 LuaScript 形式挂到节点或资源，脚本返回元数据表后即可拥有属性、方法与信号，并可被编辑器识别。"
+    },
+    {
+      "titleZh": "Lua 沙箱状态",
+      "descZh": "LuaState 实例可按需创建多个，每个 State 各自独立配置库与 Godot API，用于隔离外部模组，彼此完全互不影响。"
+    },
+    {
+      "titleZh": "编辑器 REPL",
+      "descZh": "编辑器内提供的 REPL 标签页，可即时执行 Lua 片段，查看返回值、打印输出与报错，调试小段逻辑很方便。"
+    },
+    {
+      "titleZh": "接口文档",
+      "descZh": "内置 doc_classes 覆盖脚本、状态、表、函数、协程与语法高亮等类型，便于快速查阅 API，编辑器里可直接查看接口说明与参数。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "LuaScript",
+      "descZh": "注册脚本语言后，.lua 文件可像 GDScript 一样挂到节点，返回元数据表即可声明属性与成员。"
+    },
+    {
+      "name": "多 State 沙箱",
+      "descZh": "模组各自持有独立的 LuaState，库与 API 都按 State 单独授权，天然形成清晰可靠的隔离边界。"
+    },
+    {
+      "name": "库与 API 裁剪",
+      "descZh": "可只开放 base、package 等白名单 Lua 库，以及必要的 Godot API 接口，减少暴露面与潜在的误用风险。"
+    },
+    {
+      "name": "LuaJIT 选项",
+      "descZh": "提供 Lua 5.4 与 LuaJIT 两套发行版，性能敏感的项目可以换成 JIT 运行时跑更快的逻辑。"
+    },
+    {
+      "name": "编辑器 REPL",
+      "descZh": "内置 Lua REPL 标签页，写片段、调用函数、看返回值都在编辑器里直接完成，不必另开终端。"
+    }
+  ],
+  "limitsZh": "扩展要求 Godot 4.5 以上，旧版项目无法使用；自己编译需要 C++ 工具链与 SCons，官方发行包也要与平台匹配。Lua 脚本必须返回元数据表才能被当作节点脚本，写法与普通 Lua 模块不同，新手容易在入口结构上卡住。类型安全弱于 GDScript，属性与信号拼错往往到运行时才暴露，缺少编译期检查。LuaJIT 不支持 WebAssembly，Web 平台只能用 Lua 5.4，跨平台行为可能不一致。调试体验不如 GDScript 原生，断点与调用栈支持有限，复杂逻辑仍要靠日志。文档以 README 与 doc_classes 为主，缺少系统教程，沙箱权限组合要自己试。",
+  "workflowZh": [
+    {
+      "stepZh": "从资产库安装 Lua 5.4 或 LuaJIT 版本的插件包到项目里"
+    },
+    {
+      "stepZh": "在项目设置里启用插件，确认 GDExtension 扩展库已正确加载"
+    },
+    {
+      "stepZh": "写一个返回元数据表的 .lua 脚本，并挂到场景节点上"
+    },
+    {
+      "stepZh": "需要模组支持时创建独立 LuaState 并按需配置可用库与 API"
+    },
+    {
+      "stepZh": "用编辑器的 Lua REPL 验证表操作、函数调用与协程的返回值"
+    }
+  ],
+  "pros": [
+    "直接把 Lua 当脚本语言用，节点与资源都能挂 .lua，给团队多一种熟悉的选择。",
+    "可按需创建多个 LuaState，并按 State 裁剪库与 API，做模组沙箱比自己造隔离层省事。",
+    "提供 Lua 5.4 与 LuaJIT 两套运行时，性能敏感场景有 JIT 选项，Web 平台也有可用版本。",
+    "编辑器内 REPL 与完整 doc_classes，试写片段和查接口都方便，接入门槛比纯 C++ 扩展低。"
+  ],
+  "cons": [
+    "要求 Godot 4.5 以上，旧项目无法直接用，升级引擎才谈得上接入。",
+    "Lua 脚本要返回元数据表，入口写法特殊，属性与信号缺乏编译期检查。",
+    "LuaJIT 不支持 Web，跨平台只能退回 Lua 5.4，运行时行为可能不一致。"
+  ],
+  "pitfalls": [
+    "脚本忘了返回元数据表，挂到节点后没有任何成员，表现为脚本静默失效。",
+    "给模组 State 开放了 io 或 package 等库，沙箱边界被绕过，外部脚本仍能直接读写文件。",
+    "在 Web 导出里用了 LuaJIT 发行版，平台不支持 JIT，运行时会直接报错或回退失败。"
+  ],
+  "bestFor": "已有 Lua 技术栈、想在 Godot 4.5 以上项目中复用 Lua 逻辑，或需要给玩家模组提供隔离脚本环境与权限控制的团队。",
+  "avoidWhenZh": "项目停留在 Godot 4.4 及更早版本，或团队更看重类型安全与原生调试体验的项目时。",
+  "compareTips": {
+    "vs": [
+      "libriscv__godot-sandbox"
+    ],
+    "whenZh": "与 Godot Sandbox 相比，两者都能隔离外部脚本：这边用成熟 Lua 生态与 JIT，适合已有 Lua 团队；那边用接近 GDScript 的 SafeGDScript，迁移现有逻辑更顺手。选语言栈熟悉度，而不是只看功能表。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "Lua",
+    "脚本语言",
+    "模组",
+    "GDExtension",
+    "REPL"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "扩展面向 Godot 4.5 以上",
+      "source": "README.md",
+      "quote": "Extension for using the [Lua programming language](https://www.lua.org/) in Godot 4.5+"
+    },
+    {
+      "claim": "可直接用 Lua 编写游戏逻辑",
+      "source": "README.md",
+      "quote": "With this addon, you can program your game or application directly in Lua."
+    },
+    {
+      "claim": "可创建任意数量的沙箱 LuaState",
+      "source": "README.md",
+      "quote": "You can also create sandboxed Lua states for external modding/scripting support, as many as necessary."
+    },
+    {
+      "claim": "LuaJIT 不支持 WebAssembly",
+      "source": "README.md",
+      "quote": "Note: LuaJIT does not support WebAssebly, so Lua 5.4 is always used in Web platform"
+    },
+    {
+      "claim": "扩展最低兼容 Godot 4.5",
+      "source": "addons/lua-gdextension/luagdextension.gdextension",
+      "quote": "compatibility_minimum = \"4.5\""
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "id": "GDQuest__zed-gdscript",
+  "depth": "standard",
+  "taglineZh": "在 Zed 编辑器里写 GDScript 并复用 Godot 语言服务",
+  "summaryZh": "这是 Zed 编辑器的 GDScript 扩展，不是 Godot 内的插件：它通过 netcat 与 Godot 编辑器内置的语言服务器通信，在 Zed 里提供补全、跳转与项目级错误检查，并带调试适配器，让 GDScript 文件可以脱离 Godot 编辑器来写。配置上要装 nc 或 ncat、在 Godot 里开启外部编辑器，再用命令重启语言服务器。它适合喜欢 Zed 速度、又不想放弃 Godot 类型信息的开发者。限制是语言服务器依赖 Godot 编辑器实际打开项目，调试与断点能力也不如原生编辑器完整。",
+  "whatItDoes": "扩展注册 GDScript 语法高亮、语言服务器与调试适配器。Zed 通过标准输入输出与 netcat 转发到 Godot 的 LSP 端口，获得补全、定义跳转与诊断；在 Godot 设置外部编辑器后，点报错可直接在 Zed 跳到对应行。调试适配器按 schema 与 Godot 调试协议通信。",
+  "useCases": [
+    {
+      "titleZh": "Zed 写 GDScript",
+      "descZh": "在轻量编辑器里写脚本，同时保留补全、跳转与项目级诊断，不必为了查类型频繁切回 Godot。"
+    },
+    {
+      "titleZh": "多语言项目混编",
+      "descZh": "同一编辑器处理 GDScript、JSON 与着色器，减少来回切窗口，适合脚本与配置混杂的中大型项目。"
+    },
+    {
+      "titleZh": "跳转与错误定位",
+      "descZh": "借外部编辑器配置，从 Godot 报错直接跳到 Zed 的行列，定位问题时不用再手动搜索文件名。"
+    },
+    {
+      "titleZh": "远程或低配环境开发",
+      "descZh": "Zed 启动与输入延迟较低，适合在性能有限的机器上编辑大型脚本项目，也方便远程开发。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Zed 内的 GDScript 支持",
+      "descZh": "语法高亮、补全、跳转与诊断一体的编辑体验，接近 Godot 内置编辑器的可用度。"
+    },
+    {
+      "titleZh": "Godot 与 Zed 的桥接",
+      "descZh": "通过 netcat 连接语言服务器，复用 Godot 的项目上下文与类型信息，补全结果更贴近真实项目。"
+    },
+    {
+      "titleZh": "调试适配配置",
+      "descZh": "附带 Godot 调试协议 schema，可配置断点式调试，支持查看变量、调用栈与断点管理。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "语言服务器桥接",
+      "descZh": "借 netcat 连到 Godot 内置 LSP，获得项目级补全与跨文件诊断，配置一次即可长期使用。"
+    },
+    {
+      "name": "外部编辑器跳转",
+      "descZh": "Godot 报错可带行列参数直接在 Zed 打开对应位置，省去手动搜索。"
+    },
+    {
+      "name": "调试适配器",
+      "descZh": "按 Godot 调试协议接入断点与变量查看，覆盖常见的脚本调试场景。"
+    },
+    {
+      "name": "语法与片段",
+      "descZh": "提供 GDScript 与着色器语法支持，减少误标红与格式问题，日常编辑更顺手。"
+    },
+    {
+      "name": "项目诊断",
+      "descZh": "复用 Godot 的解析结果，未打开项目时能力会退化，需保持项目在编辑器中。"
+    }
+  ],
+  "limitsZh": "必须先装 nc 或 ncat，Windows 还要装 Nmap 套件，环境准备比普通编辑器扩展麻烦。语言服务器寄生在 Godot 编辑器里，项目不打开就得不到完整补全与项目诊断，等于仍然依赖 Godot。它只服务 Zed，换 VS Code 或 JetBrains 要另找扩展；调试适配器的能力也受 Godot 协议限制，复杂断点与远程调试未必顺滑。扩展本身用 Rust 编写，出问题时要能看懂日志与 LSP 握手信息，普通用户排查门槛偏高。",
+  "workflowZh": [
+    {
+      "stepZh": "在 Zed 扩展市场里搜索并安装 GDScript 扩展"
+    },
+    {
+      "stepZh": "安装 nc 或 ncat，并确保它能在 PATH 中直接调用"
+    },
+    {
+      "stepZh": "用 Godot 打开目标项目，并保持编辑器运行"
+    },
+    {
+      "stepZh": "在 Zed 里重启语言服务器并验证补全"
+    },
+    {
+      "stepZh": "按需配置外部编辑器参数与调试启动项"
+    }
+  ],
+  "pros": [
+    "把 Godot 语言服务器复用到 Zed，补全贴近项目上下文与类型信息",
+    "支持从 Godot 报错直接跳到 Zed 的对应行列，定位脚本问题更顺手",
+    "附带调试适配器与协议 schema，能力不止语法高亮，可做断点调试",
+    "Zed 启动与输入延迟低，适合大项目的日常编辑与快速跳读，长时间使用也不累",
+    "文档把各平台的 netcat 安装步骤写清楚，首次配置有据可循，不容易卡在环境上"
+  ],
+  "cons": [
+    "强依赖 netcat，Windows 上还要装 Nmap 套件，环境准备相当繁琐",
+    "必须开着 Godot 才有完整语言服务，未打开项目时能力大幅退化",
+    "仅支持 Zed，编辑器选择被绑定，换 VS Code 要另找扩展"
+  ],
+  "pitfalls": [
+    "PATH 里找不到 nc 或 ncat 时语言服务器不会启动，先验证命令可用",
+    "Godot 项目未打开时补全与诊断会大面积缺失，不要误判为扩展失效",
+    "Windows 上只装 Nmap 而未装 Ncat 时语言服务仍不可用，需单独确认 Ncat 组件是否安装"
+  ],
+  "bestFor": "日常使用 Zed、希望保留 Godot 项目级补全与诊断，并愿意配好 netcat 与外部编辑器参数的 GDScript 开发者与小团队。",
+  "avoidWhenZh": "不愿安装额外命令行工具，或主要在 Godot 内置编辑器里写脚本、不需要外部编辑器支持的用户。",
+  "compareTips": {
+    "vs": [
+      "godothub__godot-minigame"
+    ],
+    "whenZh": "zed-gdscript 是外部编辑器的语言支持，重点在补全与调试；godot-minigame 是引擎内的小游戏运行环境。一个改善写代码体验，一个改变运行时形态，方向完全不同。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "Zed",
+    "GDScript",
+    "语言服务器",
+    "编辑器扩展"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "为 Zed 编辑器增加 GDScript 支持",
+      "source": "README.md",
+      "quote": "This extension adds support for GDScript ... to the Zed editor."
+    },
+    {
+      "claim": "需要系统 PATH 中有 nc 或 ncat",
+      "source": "README.md",
+      "quote": "The program `nc` or `ncat` is available in your system PATH."
+    },
+    {
+      "claim": "语言服务器属于 Godot 编辑器，需打开项目",
+      "source": "README.md",
+      "quote": "Godot's language server is part of the Godot editor."
+    }
+  ]
+}

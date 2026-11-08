@@ -1,0 +1,148 @@
+{
+  "id": "ClarkThyLord__Voxel-Core",
+  "depth": "standard",
+  "taglineZh": "Godot 3 内置完整体素编辑器的实时运行时插件",
+  "summaryZh": "Voxel-Core 是 Godot 3 的体素插件，用 GDScript 写成，提供 VoxelObject 网格节点、VoxelSet 资源与完整的编辑器内创作工具。VoxelObject 能内嵌自动维护的静态碰撞体，自动完成 UV 映射，并在朴素网格与贪心网格两种模式间切换；VoxelSet 像 TileSet 一样存放体素、贴图与材质，可给单个面指定颜色与材质。VoxelObjectEditor 与 VoxelSetEditor 支持增删、填充、镜像与导入，带撤销重做快捷键。配套 Reader 能把外部文件导入成静态或动态体素内容。作者说明它只在 Godot 3 可用，后续不再更新，Godot 4 请换 Voxly-Core。",
+  "whatItDoes": "插件注册 VoxelObject 与 VoxelSet 两种核心类型，前者负责显示与碰撞，后者保存体素定义与外观。运行时可读写体素内容，配合自动 UV 与逐面材质做出带贴图的模型；编辑器侧提供两个专用面板，能在场景里雕刻、替换与填充，并支持按区域、按面与挤出操作。导入 Reader 识别外部体素文件，转成可编辑场景或运行时数据。插件不依赖原生库，Godot 支持的桌面、网页与移动平台都能带上。",
+  "useCases": [
+    {
+      "titleZh": "体素道具与角色",
+      "descZh": "用体素做低模道具、怪物或角色，靠自动 UV 与逐面材质省掉手摆 UV 的时间，碰撞体也能随模型一起同步自动维护。"
+    },
+    {
+      "titleZh": "场景内搭关卡",
+      "descZh": "在编辑器里直接雕刻地形与建筑，配合填充、镜像和撤销重做，迭代速度比外部建模再导入快得多也省事很多。"
+    },
+    {
+      "titleZh": "体素世界原型",
+      "descZh": "验证体素玩法是否成立时，先用现成节点与资源跑通编辑、存档与碰撞，再决定要不要换更底层的自研的方案。"
+    },
+    {
+      "titleZh": "教学演示",
+      "descZh": "讲体素网格、贪心合并与 UV 映射时，讲课时用可视化编辑器现场改模型，学员能直接看到网格面数与结构变化。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "体素网格节点",
+      "descZh": "VoxelObject 作为一种全新的网格节点实例类型，负责显示体素内容并内嵌可自动维护的静态碰撞体。"
+    },
+    {
+      "titleZh": "体素资源",
+      "descZh": "VoxelSet 类似 TileSet 的资源，集中保存同一套体素定义、贴图、材质以及逐面外观配置，可供多个模型复用。"
+    },
+    {
+      "titleZh": "编辑器面板",
+      "descZh": "两个编辑器面板分别负责模型与资源：提供雕刻、填充、镜像与实时预览，并带快捷键与撤销重做。"
+    },
+    {
+      "titleZh": "导入工具",
+      "descZh": "专用导入器 Reader 负责把外部体素文件读成静态场景或动态内容，快速接入已有的美术生产流程。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "贪心网格",
+      "descZh": "可在朴素网格与贪心网格之间切换，后者合并同材质面，减少面数与绘制开销。"
+    },
+    {
+      "name": "自动 UV",
+      "descZh": "贴图坐标由插件自动生成，做带纹理的体素模型时不必再逐个面手工展开 UV。"
+    },
+    {
+      "name": "逐面材质",
+      "descZh": "颜色、贴图与材质能按单个体素甚至单个面设置，细节表现比整块同色更灵活。"
+    },
+    {
+      "name": "内置编辑器",
+      "descZh": "增删、替换、填充、按区域与按面操作都在场景里直接完成，并支持随时撤销重做。"
+    },
+    {
+      "name": "跨平台运行",
+      "descZh": "纯 GDScript 实现，不依赖任何原生库，Godot 引擎所支持的桌面、网页与移动端平台都能跑。"
+    }
+  ],
+  "limitsZh": "它只支持 Godot 3，作者已明确表示未来不再提供支持与更新，Godot 4 项目要用另一套 Voxly-Core，两者资源不通用。纯 GDScript 的网格生成与编辑在大体积世界上开销明显，区块数量一多就容易掉帧，需要自己再做分块与异步。仓库文档以 README 为主，缺少系统教程与 API 参考，复杂用法得读源码与示例场景。插件不提供地形流式加载与无限世界管理，开放世界级别的体素场景要另写调度。示例工程与美术资源占了不少体积，正式项目要清理。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录里的 voxel-core 插件目录完整复制进自己的项目"
+    },
+    {
+      "stepZh": "在项目设置里启用插件，并重新加载当前的工程"
+    },
+    {
+      "stepZh": "新建一份 VoxelSet 资源，配置好体素、贴图、颜色与逐面材质"
+    },
+    {
+      "stepZh": "在场景里添加 VoxelObject 节点，用编辑器面板直接雕刻内容"
+    },
+    {
+      "stepZh": "需要外部模型时用 Reader 导入，并检查生成的碰撞与 UV"
+    }
+  ],
+  "pros": [
+    "体素编辑、碰撞与 UV 都打包在插件里，做体素道具或关卡时不用自己写网格生成。",
+    "两个编辑器面板覆盖雕刻、填充与镜像，配合撤销重做，场景内迭代很顺手。",
+    "纯 GDScript 不依赖任何原生库，桌面、网页与移动端都能直接打包带上，分发省心。",
+    "VoxelSet 把外观与数据集中统一管理，逐面材质让低模体素也能做出较细的质感。"
+  ],
+  "cons": [
+    "只支持 Godot 3，作者已停止更新，Godot 4 项目无法直接使用，迁移要换插件。",
+    "GDScript 生成大范围体素时性能有限，区块一多需要自己做分块与异步优化。",
+    "文档只有 README 与示例，缺少系统教程与 API 参考，复杂定制得读源码。"
+  ],
+  "pitfalls": [
+    "把 Godot 4 工程直接装上这份插件，编辑器会报脚本语法错误，必须先确认引擎大版本。",
+    "体素模型改完忘了保存 VoxelSet 资源，重开场景后外观回到旧值，白做一轮雕刻。",
+    "一次性生成过大的体素对象，网格构建卡住主线程，表现为编辑器长时间无响应。"
+  ],
+  "bestFor": "仍在维护 Godot 3 项目、需要体素道具或小型体素关卡，并希望整套都使用 GDScript、不引入任何原生库的独立小开发者。",
+  "avoidWhenZh": "项目已经使用 Godot 4，或需要大规模流式体素世界与长期持续稳定的官方支持时。",
+  "compareTips": {
+    "vs": [
+      "Zylann__godot_voxel"
+    ],
+    "whenZh": "Zylann 的 godot_voxel 面向 Godot 4、持续维护且体素功能更完整；Voxel-Core 只适合 Godot 3 存量项目。引擎若是 4.x，直接看 godot_voxel，别在停更插件上继续投入新功能。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "体素",
+    "Godot3",
+    "关卡编辑",
+    "GDScript",
+    "资源"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "插件用 GDScript 实现并提供引擎内编辑器",
+      "source": "README.md",
+      "quote": "Voxel-Core is a voxel plugin for the [Godot](https://github.com/godotengine/godot) game engine made with GDScript, created as the ‘core’ for my other project [Voxly](https://github.com/ClarkThyLord/Voxly), offering various voxel features, utilities and fully fledged in-engine editors."
+    },
+    {
+      "claim": "仅支持 Godot 3 且后续不再更新",
+      "source": "README.md",
+      "quote": "This plugin is functional for Godot 3; however, any future support / updates are unlikely."
+    },
+    {
+      "claim": "VoxelObject 是用于显示体素的网格实例类型",
+      "source": "README.md",
+      "quote": "VoxelObject, is a new MeshInstance type that is used to visualize voxel content"
+    },
+    {
+      "claim": "插件版本为 3.0.0",
+      "source": "addons/voxel-core/plugin.cfg",
+      "quote": "version=\"3.0.0\""
+    }
+  ]
+}

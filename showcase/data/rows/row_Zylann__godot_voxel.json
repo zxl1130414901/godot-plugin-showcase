@@ -1,0 +1,35 @@
+{
+  "id": "Zylann__godot_voxel",
+  "descriptionZh": "用 C++ 模块实现的体素地形系统，支持运行时挖掘、隧道、区块流式加载与 Transvoxel LOD，安装需自行编译引擎。",
+  "category": "3d-shader",
+  "tags": [
+    "体素",
+    "地形",
+    "GDExtension",
+    "程序化生成",
+    "C++"
+  ],
+  "prosShort": [
+    "运行时挖掘与建造能力完整",
+    "区块流式加载撑起无限世界",
+    "方块与平滑地形共用一套数据"
+  ],
+  "consShort": [
+    "必须自己编译引擎才能安装",
+    "体素转网格很吃 CPU，参数不当易卡顿",
+    "GDExtension 与多人同步尚未实现，分发也受限"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 5,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

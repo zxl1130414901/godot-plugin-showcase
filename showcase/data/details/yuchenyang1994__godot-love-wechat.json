@@ -1,0 +1,143 @@
+{
+  "id": "yuchenyang1994__godot-love-wechat",
+  "depth": "standard",
+  "taglineZh": "把 Godot 4.3 Web 导出转成微信小游戏的打包工具",
+  "summaryZh": "针对 Godot Web 导出在微信小游戏环境中缺音频、缺持久文件系统的问题，这个工具重新编译 WASM 模板，恢复了被废弃的 ScriptProcessor 音频方案，并用 Python 图形界面把项目打包成小游戏。支持多项目登记、模板选择与分包管理，但工具链锁死在 Godot 4.3、运行端只验证 Windows 11，作者也已明确停止维护，适合短期上线验证而不是长期管线。",
+  "whatItDoes": "提供桌面图形界面，登记 Godot 项目路径与引擎、微信开发者工具路径后，一键把 Web 导出转换为小游戏工程目录。转换时替换为自行编译的 4.3 WASM 模板，重新启用 ScriptProcessor 音频并裁剪 webrtc、webxr 等模块。另外把 WASM 内存文件系统每 5 秒同步到小游戏沙箱，支持主包与子包划分。",
+  "useCases": [
+    {
+      "titleZh": "微信小游戏移植",
+      "descZh": "已有 Godot 4.3 Web 版项目，想低成本发布到微信小游戏，复用现有玩法与美术资源，避免重写渲染与输入层。"
+    },
+    {
+      "titleZh": "小游戏音频修复",
+      "descZh": "Web 导出在微信环境完全没有声音时，换用定制模板让音频重新走 Godot 音频总线，恢复背景音乐与音效。"
+    },
+    {
+      "titleZh": "首包超限分包",
+      "descZh": "首包体积超过平台限制的项目，用分包配置把大贴图和音频拆到子包按需加载，压低首次启动下载量。"
+    },
+    {
+      "titleZh": "内部快速试玩",
+      "descZh": "团队需要把原型快速发给策划在微信里点开验证，不必走完整发行流程，反馈周期明显更短。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "小游戏工程目录",
+      "descZh": "可直接导入微信开发者工具的 minigame 项目结构，包含配置、启动脚本与资源目录。"
+    },
+    {
+      "titleZh": "定制 WASM 模板",
+      "descZh": "保留音频模块、裁剪 webrtc 与 webxr 的 Godot 4.3 导出模板，附带配套 wasm 文件，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "导出预设脚本",
+      "descZh": "随工具附带的 GDScript 预设，统一项目导出参数，减少每次手工填写，可以直接放进项目里使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "项目列表",
+      "descZh": "在一个工具里登记多个 Godot 项目，分别保存路径与导出设置，切换项目不用重配。"
+    },
+    {
+      "name": "定时文件同步",
+      "descZh": "每 5 秒把内存文件系统写入小游戏沙箱，启动时反向载入，缓解没有 indexeddb 的问题。"
+    },
+    {
+      "name": "分包管理",
+      "descZh": "按资源划分主包与子包，把大贴图和音频移出首包，降低首包体积。"
+    },
+    {
+      "name": "模板选择",
+      "descZh": "内置 2D、3D、Jolt 等多套 minigame 导出模板，按项目类型选择，参数集中在检查器面板。"
+    },
+    {
+      "name": "一键预览",
+      "descZh": "开启开发者工具服务端口后，可从工具直接唤起预览，省去手动导入步骤。"
+    }
+  ],
+  "limitsZh": "上限非常明确：作者已声明停止维护，工具链锁死在 Godot 4.3 与配套 WASM 模板，升级到 4.4/4.5 需要自己改源码重编。运行端只验证 Windows 11，依赖 WebView2，macOS 未完成。文件同步是 5 秒轮询而非实时，存档类写入必须手动调用 syncfs，异常退出可能丢档。PCK 的 brotli 压缩加载仍停在路线图，大型项目首包体积与加载时间依旧是硬约束。",
+  "workflowZh": [
+    {
+      "stepZh": "在 Godot 中添加 Web 导出预设并排除多余文件"
+    },
+    {
+      "stepZh": "工具中设置引擎路径与开发者工具路径"
+    },
+    {
+      "stepZh": "导入项目列表并选择 2D 或 3D 导出模板"
+    },
+    {
+      "stepZh": "执行转换并在需要时配置主包与分包"
+    },
+    {
+      "stepZh": "导入微信开发者工具开启服务端口预览"
+    }
+  ],
+  "pros": [
+    "界面流程完整，从项目登记到导出预览都有对应步骤，按提示即可走通",
+    "音频方案有实际验证，恢复 ScriptProcessor 后可受 Godot 音频总线控制，团队新人照着示例就能上手。",
+    "模板与 GDScript 全部开源，可按需裁剪引擎模块并自行重编，出现问题时也更容易定位原因。",
+    "中文 README 配大量截图，环境配置与常见问题说明具体，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "作者已停止维护，Godot 版本升级后基本无法直接使用",
+    "运行端仅支持 Windows 11，跨平台团队无法统一使用，升级引擎版本时容易卡住。",
+    "绑定 4.3 导出模板，项目升级引擎即需重做适配，无法平滑迁移"
+  ],
+  "pitfalls": [
+    "需手动改开发者工具 package.json 添加 wasm-eh 参数，否则无法预览小游戏",
+    "存档后不主动调用 syncfs 会丢档，5 秒轮询窗口内退出同样有风险",
+    "新版开发者工具曾导致预览失败，需要临时降级版本再升级回来"
+  ],
+  "bestFor": "预算有限、引擎仍停在 Godot 4.3，需要把现成 Web 项目尽快搬上微信小游戏做短期验证的独立开发者或小团队。",
+  "avoidWhenZh": "项目已升级到 4.4/4.5，或需要长期维护、持续跟进微信平台规则变化时。",
+  "compareTips": {
+    "vs": [
+      "shipth-is__cli"
+    ],
+    "whenZh": "两者都做平台发布：本项目面向微信小游戏，依赖定制 WASM 模板且已停更；shipth-is/cli 面向 App Store 与 Google Play 的移动端打包，走云端构建，不处理小游戏运行时差异。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "微信小游戏",
+    "Web导出",
+    "音频修复",
+    "Python工具"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 1,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "项目定位是把 Godot 4.3 Web 适配为微信小游戏",
+      "source": "README.md",
+      "quote": "这是一个将Godot4.3 将WEB适配为微信小游戏的小工具"
+    },
+    {
+      "claim": "音频使用重新加回的 ScriptProcessor 方案",
+      "source": "README.md",
+      "quote": "将ScriptProcessor的音频废案代码重新添加回来，使得在微信小游戏当中能够播放声音"
+    },
+    {
+      "claim": "文件系统每 5 秒同步一次",
+      "source": "README.md",
+      "quote": "用户文件下的会定时每5秒同步到微信小游戏的文件系统"
+    },
+    {
+      "claim": "作者已停止维护",
+      "source": "README.md",
+      "quote": "本人已不研究微信小游戏了，也无力维护和更新本项目"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "YuriSizov__gdsion",
+  "descriptionZh": "基于 SiON 的 Godot 软件合成器，支持 MML 与 API 驱动并内置六百多种音色预设",
+  "category": "audio",
+  "tags": [
+    "软件合成器",
+    "MML",
+    "程序化音乐",
+    "GDExtension",
+    "芯片音色"
+  ],
+  "prosShort": [
+    "运行时合成声音，省素材体积",
+    "支持 MML 与直接 API 两种写法，试听与精调都方便",
+    "内置六百多种音色预设，芯片与复古音效都能用"
+  ],
+  "consShort": [
+    "全局只允许存在一个驱动，多场景发声受限",
+    "音色偏复古，真实乐器仍靠采样",
+    "仍在 beta 阶段，接口与行为可能随版本调整"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

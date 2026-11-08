@@ -1,0 +1,34 @@
+{
+  "id": "godotengine__godot-git-plugin",
+  "descriptionZh": "在编辑器内完成 Git 提交、分支切换与差异查看的官方版本控制插件",
+  "category": "editor-tool",
+  "tags": [
+    "版本控制",
+    "Git",
+    "GDExtension",
+    "编辑器集成"
+  ],
+  "prosShort": [
+    "提交分支差异都在编辑器里完成",
+    "官方维护，版本兼容最稳，团队上手也快。",
+    "无需安装 git 命令行，接入成本不高。"
+  ],
+  "consShort": [
+    "复杂合并与子模块仍要回终端",
+    "升级引擎必须换对应二进制",
+    "大仓库首次扫描会卡编辑器"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

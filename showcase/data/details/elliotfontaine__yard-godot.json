@@ -1,0 +1,147 @@
+{
+  "id": "elliotfontaine__yard-godot",
+  "depth": "standard",
+  "taglineZh": "用表格管理资源注册表并在运行时按 ID 查询",
+  "summaryZh": "YARD 在 Godot 资源系统上再加一层注册表：编辑器里以表格形式管理一组资源，注册表本身只存稳定字符串 ID，不强制加载资源。运行时可按属性过滤条目而不加载任何文件，也能在检查器下拉里选注册表条目。适合道具、敌人、卡牌等数据表管理，但不负责资源导入与打包，选型前建议结合团队实际评估。",
+  "whatItDoes": "在编辑器新增 Registry 标签页，可创建注册表并限定资源子类，指定扫描目录后随文件增删自动同步。表格可浏览、编辑条目属性，脚本通过 Registry API 按 ID 取用。支持 @export_custom 在检查器生成条目下拉，并提供运行时按属性筛选的查询接口。",
+  "useCases": [
+    {
+      "titleZh": "道具与装备表",
+      "descZh": "RPG 的道具、装备、掉落表需要集中管理，用注册表按 ID 引用比散落路径可靠，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "敌人图鉴",
+      "descZh": "把敌人配置资源登记到注册表，生成关卡时按 ID 拉取并实例化，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "卡牌数据池",
+      "descZh": "卡牌游戏需要按稀有度、费用过滤卡池，运行时筛选不必加载全部卡面，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "关卡资源索引",
+      "descZh": "关卡、场景与音乐资源用注册表做统一索引，换目录不用改脚本路径，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "团队内容协作",
+      "descZh": "策划在编辑器表格里维护条目，程序只按稳定 ID 读，降低互相踩文件的风险，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "注册表资源",
+      "descZh": "只存 ID 的 .tres 注册表，可按类限制允许的资源类型，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "编辑器表格视图",
+      "descZh": "在 Godot 内浏览与编辑条目的类电子表格界面，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "运行时查询接口",
+      "descZh": "按 ID 取资源、按属性过滤条目的轻量 API，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Registry 标签页",
+      "descZh": "编辑器内以表格管理注册表，支持新建与编辑条目，参数集中在检查器面板。"
+    },
+    {
+      "name": "稳定字符串 ID",
+      "descZh": "用 ID 而非文件路径引用资源，移动文件不破坏引用，后续修改起来也不费劲。"
+    },
+    {
+      "name": "类限制",
+      "descZh": "注册表只接受指定 Resource 子类，避免混入错误类型，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "目录同步",
+      "descZh": "扫描指定目录，文件增删时自动更新注册表条目，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "属性过滤",
+      "descZh": "运行时按属性筛选条目，不需要先加载资源本体，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "它管理的是资源索引，不是导入管线：贴图、模型仍需按 Godot 常规流程导入，注册表不会替你处理压缩与平台变体。表格视图适合中小规模数据，条目非常多时编辑与筛选体验会下降。资源按 ID 延迟加载，意味着运行时缺文件只会在真正取用时才暴露，需要自己加校验。插件当前面向 Godot 4.4+，更早版本无法启用。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/yard 拷入项目并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在 Registry 标签页新建注册表，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "设置资源类限制与扫描目录，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "在表格中维护条目与属性，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "脚本按 ID 取用或按属性过滤，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "用稳定 ID 替代路径引用，重构目录时引用不易断，团队新人照着示例就能上手。",
+    "编辑器表格视图直观，策划可独立维护数据，出现问题时也更容易定位原因。",
+    "运行时过滤不加载资源，查询开销可控，对中小团队的时间成本很友好。",
+    "目录同步减少手工登记条目，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "只做索引，不参与资源导入与打包流程，升级引擎版本时容易卡住。",
+    "条目规模很大时表格编辑效率一般，定制之前往往要先读源码。",
+    "延迟加载让缺失资源更晚才暴露，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "扫描目录里混入非目标类资源会被注册表拒绝，上线前要专门过一遍。",
+    "移动资源后未同步注册表会导致运行时取不到，排查时需要多留一层日志。",
+    "把注册表当成资源加载器会在首帧触发大量 IO，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "需要集中管理道具、敌人、卡牌等资源表，并希望策划与程序分工维护的中大型 Godot 4 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "资源数量很少、直接用路径引用即可，或需要完整资产导入管线时。",
+  "compareTips": {
+    "vs": [
+      "derkork__godot-resource-groups"
+    ],
+    "whenZh": "两者都围绕资源组织：YARD 用注册表与稳定 ID 管理集合，偏数据表与查询；resource-groups 更偏把资源分组加载与切换。一个解决引用与检索，一个解决批量加载策略，可搭配使用。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "资源管理",
+    "注册表",
+    "编辑器插件",
+    "数据表"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "注册表只存 ID 不加载资源",
+      "source": "addons/yard/README.md",
+      "quote": "collections of resources backed by a small `.tres` file that stores only IDs, not the resources themselves"
+    },
+    {
+      "claim": "编辑器内以表格形式管理",
+      "source": "addons/yard/README.md",
+      "quote": "Browse and edit resources as entries in a spreadsheet-like table, right in the editor"
+    },
+    {
+      "claim": "可按属性过滤而不加载资源",
+      "source": "addons/yard/README.md",
+      "quote": "Filter entries by property value at runtime, without loading a single resource"
+    },
+    {
+      "claim": "要求 Godot 4.4+",
+      "source": "addons/yard/README.md",
+      "quote": "Godot v4.4+"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "script-gd__gdcc",
+  "descriptionZh": "把 GDScript 编译成原生 GDExtension 模块，兼顾源码保护与性能。",
+  "category": "editor-tool",
+  "tags": [
+    "GDScript编译",
+    "原生模块",
+    "代码保护",
+    "热重载",
+    "性能优化"
+  ],
+  "prosShort": [
+    "编译为原生模块保护源码",
+    "静态调用接近 C/C++ 性能",
+    "支持渐进迁移并可热编译热重载"
+  ],
+  "consShort": [
+    "项目仍处于 beta 阶段",
+    "需 JDK 与 Gradle 环境",
+    "要求 Godot 4.5 以上"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

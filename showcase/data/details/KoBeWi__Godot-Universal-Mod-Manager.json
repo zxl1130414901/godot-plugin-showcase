@@ -1,0 +1,141 @@
+{
+  "id": "KoBeWi__Godot-Universal-Mod-Manager",
+  "depth": "standard",
+  "taglineZh": "不改游戏文件也能加载模组，用 override.cfg 注入资源",
+  "summaryZh": "Universal Mod Manager 是一个独立的模组管理应用，用导出预设打包成可执行程序后即可为任意 Godot 游戏创建与加载模组，不需要改动游戏本身的文件，兼容 Godot 2、3 与 4。原理有两条：一是 override.cfg 可以覆盖任意项目设置，二是 Resource.take_over_path() 能让资源接管指定路径，此后所有 load 调用都会读到模组里的版本。借助这两点可以替换主场景、注入新资源或覆盖已有资源。仓库本身也是一个工程，包含管理器界面、示例模组与用于自动写版本号的编辑器插件。",
+  "whatItDoes": "把模组制作与安装流程做成图形界面应用：为游戏建立描述符、编写或导入模组、选择要覆盖的资源与主场景，最终生成可被游戏加载的覆盖配置。通过 override.cfg 与 take_over_path 的组合，在不触碰原始资源文件的前提下改变游戏的行为与内容。",
+  "useCases": [
+    {
+      "titleZh": "为成品游戏做模组",
+      "descZh": "给已经发布、无法改源码的游戏加内容包，用管理器打包成可执行程序后随游戏目录一起加载。"
+    },
+    {
+      "titleZh": "资源替换与注入",
+      "descZh": "改贴图、换音乐或替换场景，只要在模组里放同名资源，加载时就会接管原路径并生效。"
+    },
+    {
+      "titleZh": "多版本共存",
+      "descZh": "同一个模组工程可以按引擎版本分别维护资源与清单，Godot 2、3、4 各自加载对应内容，切换目标工程时无需重新打包，玩家侧也只看到与当前版本匹配的模组条目。"
+    },
+    {
+      "titleZh": "社区分发生态",
+      "descZh": "玩家把模组压缩包丢进目录，管理器负责解包与启用，作者只需维护资源与清单文件。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "管理器应用",
+      "descZh": "独立的管理器程序负责扫描模组目录、安装与启用或停用模组，提供可点击的界面，玩家不必手动修改配置文件与清单。"
+    },
+    {
+      "titleZh": "模组格式",
+      "descZh": "模组是带有清单文件的目录或压缩包，内含要注入的资源与配置项，管理器读取清单后按顺序挂载，并据此判断哪些条目对当前版本生效。"
+    },
+    {
+      "titleZh": "注入机制",
+      "descZh": "通过 override.cfg 覆盖项目设置并让主场景指向模组入口，再用 take_over_path 让模组资源接管原路径，游戏代码无需感知也能读到新内容。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "override.cfg",
+      "descZh": "覆盖任意项目设置，把主场景指向模组给出的入口场景，游戏启动即生效，不必改动原始工程文件。"
+    },
+    {
+      "name": "take_over_path",
+      "descZh": "让模组里的资源接管原始路径，此后所有 load 调用都会拿到模组版本，替换贴图、音频与场景都不必改代码。"
+    },
+    {
+      "name": "管理器界面",
+      "descZh": "扫描模组目录、勾选启用或停用、查看清单内容与冲突提示，玩家侧的安装与切换操作都集中在一个窗口里完成。"
+    },
+    {
+      "name": "自动版本插件",
+      "descZh": "AutoExportVersion 在导出时把版本号写入文件，模组可以据此校验游戏版本并提示不兼容，减少加载后静默失效的情况。"
+    }
+  ],
+  "limitsZh": "这套方案的边界来自它的两条原理：只能覆盖项目设置与资源路径，无法注入脚本逻辑、拦截函数调用或做运行时权限控制，适合做内容型模组而不适合做玩法改造。模组之间没有依赖解析与冲突检测，同名资源谁先生效取决于清单顺序，需要作者自己约定规则并在文档里写清楚。管理器是外部程序，需要和游戏一起分发，玩家侧多一步启动流程，无法做成游戏内的模组菜单。override.cfg 写错键名或路径时不会报错，只会静默失效，排查要靠对比原始工程。仓库以工程形式提供，未在 Asset Library 上架，升级要手动拉取。",
+  "workflowZh": [
+    {
+      "stepZh": "下载管理器发布包，放到游戏目录旁边"
+    },
+    {
+      "stepZh": "把模组文件夹或压缩包放进模组目录"
+    },
+    {
+      "stepZh": "打开管理器，扫描并勾选要启用的模组"
+    },
+    {
+      "stepZh": "启动游戏，确认主场景与资源已被替换"
+    },
+    {
+      "stepZh": "出现冲突时调整清单里的加载顺序与优先级"
+    }
+  ],
+  "pros": [
+    "不需要改游戏源码，已发布的成品也能加模组，适用范围比内置资源包方案更广",
+    "override.cfg 负责覆盖项目设置，take_over_path 负责让资源接管路径，两者组合能替换主场景与任意资源，内容型模组几乎都能做。",
+    "自带图形界面的管理器，扫描、安装、启用与停用都是点选操作，玩家不必手动编辑配置文件或记忆目录结构。",
+    "兼容 Godot 2、3 与 4 三个大版本，老项目升级或停留在旧版本时都能复用同一套覆盖与接管思路，迁移成本低。",
+    "以 MIT 许可发布，可以商用，也能删掉多余功能后改造成某个项目专用的模组管理器，二次开发没有授权负担。"
+  ],
+  "cons": [
+    "本质是外部程序加文件覆盖，无法做细粒度权限与沙箱",
+    "模组之间没有依赖解析与冲突检测，同名资源谁先生效取决于清单顺序，需要作者自己约定规则。",
+    "只能覆盖项目设置与资源路径，无法注入脚本逻辑或做运行时权限控制，玩法改造力不从心。"
+  ],
+  "pitfalls": [
+    "override.cfg 里的键名或路径写错时不会报错，只会静默失效，建议先用一个只改主场景的最小模组验证整条链路。",
+    "只有放进模组且路径完全一致的同名资源才会接管，漏放或路径拼错时会静默读回原版资源，替换前逐个核对路径。",
+    "导出后的游戏目录与编辑器内结构不同，模组与清单的相对路径要按发布包重新配置，否则管理器扫描不到条目。"
+  ],
+  "bestFor": "想给已发布 Godot 游戏加模组支持、又不想改源码的开发者与模组作者，尤其需要跨 2、3、4 版本兼容的项目。",
+  "avoidWhenZh": "项目本身仍在开发、可以直接改源码，或游戏资源经过加密且无 GDScript 模块时，这套覆盖方案收益很低。",
+  "compareTips": {
+    "vs": [
+      "KoBeWi__Godot-Project-Builds"
+    ],
+    "whenZh": "两者都服务于发布环节：Universal Mod Manager 靠 override.cfg 与资源接管给成品游戏加模组；Godot Project Builds 则编排导出预设、版本号与商店上传流程。要做内容模组选前者，要做构建流水线选后者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "模组管理",
+    "资源覆盖",
+    "独立应用",
+    "跨版本",
+    "社区分发"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "为任意 Godot 游戏管理模组且无需修改游戏文件，兼容 2、3、4",
+      "source": "README.md",
+      "quote": "App for managing and creating mods for any Godot game, without needing to modify any of its files. Works with Godot 2, 3 and 4."
+    },
+    {
+      "claim": "原理是 override.cfg 与 take_over_path 的组合",
+      "source": "README.md",
+      "quote": "`Resource.take_over_path()` will make the resource literally take over the given path, so any `load()` calls will load it instead"
+    },
+    {
+      "claim": "游戏没有 GDScript 模块时工具失效",
+      "source": "README.md",
+      "quote": "in worst case, the game has no GDScript module, which makes this manager useless"
+    },
+    {
+      "claim": "非资源文件无法通过 ResourceLoader 替换",
+      "source": "README.md",
+      "quote": "if the game uses non-resource files, like `json` or `txt`, you won't be able to replace them with ResourceLoader"
+    }
+  ]
+}

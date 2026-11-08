@@ -1,0 +1,35 @@
+{
+  "id": "FlamxGames__godot-ai-assistant-hub",
+  "descriptionZh": "在 Godot 编辑器内嵌聊天面板并支持本地模型工具调用的 AI 助手插件",
+  "category": "ai-gen",
+  "tags": [
+    "AI助手",
+    "Ollama",
+    "编辑器插件",
+    "工具调用",
+    "本地模型"
+  ],
+  "prosShort": [
+    "聊天面板直接嵌在编辑器内",
+    "工具权限可细分到每次调用",
+    "支持多助手与远程模型连接"
+  ],
+  "consShort": [
+    "不附带模型需自行部署服务",
+    "多数第三方服务不支持工具调用",
+    "批量写操作审批成本较明显"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

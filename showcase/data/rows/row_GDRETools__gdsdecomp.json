@@ -1,0 +1,34 @@
+{
+  "id": "GDRETools__gdsdecomp",
+  "descriptionZh": "从 PCK、APK 或 EXE 还原完整 Godot 工程，包含脚本反编译、资源还原与 PCK 重打包能力。",
+  "category": "asset-pipeline",
+  "tags": [
+    "逆向",
+    "反编译",
+    "PCK",
+    "资源恢复"
+  ],
+  "prosShort": [
+    "一条命令即可还原完整工程",
+    "覆盖 2.x 至 4.x 全部字节码",
+    "同时提供 GUI 和命令行两种界面"
+  ],
+  "consShort": [
+    "反编译源码结构与命名不完整",
+    "加密包需额外密钥或解密脚本",
+    "3.x 只保留反编译且不再维护"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

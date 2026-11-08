@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "Godot 官方的非 HTML 平台 WebRTC 原生实现，用 libdatachannel 补齐 P2P 传输与数据通道",
+  "prosShort": [
+    "官方维护且与 WebRTC 抽象层对齐",
+    "依赖静态编进单库，部署简单",
+    "覆盖桌面、Android 与 iOS 等多个平台"
+  ],
+  "consShort": [
+    "只有编译说明，缺少 API 示例与信令指南",
+    "每个导出平台都要自行构建",
+    "不含匹配与中继需自建信令"
+  ],
+  "isGDExtension": true,
+  "id": "godotengine__webrtc-native",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 2,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "category": "network",
+  "tags": [
+    "WebRTC",
+    "P2P联机",
+    "GDExtension",
+    "原生扩展",
+    "网络传输"
+  ],
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

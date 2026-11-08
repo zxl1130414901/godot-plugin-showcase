@@ -1,0 +1,35 @@
+{
+  "id": "GameFrameX__GameFrameX",
+  "descriptionZh": "含 .NET 服务端、Godot C# 客户端与部署工具的全栈游戏框架，整体接入成本不高。",
+  "category": "network",
+  "tags": [
+    "全栈框架",
+    "服务端",
+    "热更新",
+    "联机",
+    "C#"
+  ],
+  "prosShort": [
+    "客户端服务端运维一站式，团队上手也快。",
+    "自带配置工具与管理后台，接入成本不高。",
+    "多引擎共用同一套协议，后续扩展方便。"
+  ],
+  "consShort": [
+    "整体体量大落地成本高，团队要提前评估。",
+    "Godot 端必须用 C#，规模化后更明显。",
+    "服务端运维门槛不低，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

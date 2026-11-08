@@ -1,0 +1,33 @@
+{
+  "id": "SpyrexDE__SmoothScroll",
+  "category": "ui",
+  "tags": [
+    "滚动容器",
+    "平滑滚动",
+    "UI控件",
+    "移动端触控"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "descriptionZh": "带惯性与越界回弹的平滑滚动容器，支持焦点跟随与滚动条淡出，改节点类型即可替换原生 ScrollContainer",
+  "prosShort": [
+    "惯性加回弹接近原生手感，团队上手也快。",
+    "阻尼可换，能按项目调曲线，接入成本不高。",
+    "改节点类型即可，迁移成本低"
+  ],
+  "consShort": [
+    "需关闭像素对齐，像素风要权衡",
+    "嵌套滚动与手势冲突需手动调"
+  ],
+  "sampleStatus": "none"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "habamax__vim-godot",
+  "descriptionZh": "面向 Vim 与 Neovim 的 Godot 开发插件，提供 GDScript 与 GSL 高亮、折叠以及运行当前或自选场景的命令等",
+  "category": "editor-tool",
+  "tags": ["Vim", "GDScript", "语法高亮", "运行场景", "Neovim"],
+  "prosShort": ["高亮、折叠与运行命令集成在一个插件", "四条运行命令覆盖多种启动方式", "纯 Vim 脚本实现，不依赖二进制文件"],
+  "consShort": ["不含补全与调试，要另装插件补齐", "运行依赖 godot 在 PATH 中，换机器易失效", "无默认键位映射，新手得先写配置"],
+  "scores": {"coverage": 3, "usability": 3, "docs": 3, "maintenance": 3, "performance": 5, "stability": 4},
+  "installComplexity": 1,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

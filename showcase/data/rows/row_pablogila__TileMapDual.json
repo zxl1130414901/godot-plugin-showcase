@@ -1,0 +1,35 @@
+{
+  "id": "pablogila__TileMapDual",
+  "descriptionZh": "实时双网格瓦片自动拼接插件，用 15 张瓦片代替 47 张，支持方形、等距与六边形地图，多地形靠图层叠加。",
+  "category": "editor-tool",
+  "tags": [
+    "瓦片地图",
+    "自动拼接",
+    "双网格",
+    "等距",
+    "六边形"
+  ],
+  "prosShort": [
+    "瓦片数量从 47 张压缩到 15 张",
+    "方形、等距与六边形都能拼接",
+    "编辑器内画一格就即时刷新"
+  ],
+  "consShort": [
+    "不支持替代瓦片与随机变体",
+    "单层只能处理两种地形状态",
+    "等距与六边形切图要求严格"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "MizunagiKB__gd_cubism",
+  "descriptionZh": "非官方 Live2D Cubism GDExtension，支持模型参数动作与呼吸眨眼效果，整体接入成本不高。",
+  "category": "3d-shader",
+  "tags": [
+    "Live2D",
+    "角色动画",
+    "Cubism",
+    "GDExtension"
+  ],
+  "prosShort": [
+    "Live2D 模型参数与效果已封装，团队上手也快。",
+    "GDScript 与 C# 双封装，接入成本不高。",
+    "直接渲染比 SubViewport 省显存，后续扩展方便。"
+  ],
+  "consShort": [
+    "需自行编译并准备 Cubism SDK，团队要提前评估。",
+    "Live2D 授权独立限制较多，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

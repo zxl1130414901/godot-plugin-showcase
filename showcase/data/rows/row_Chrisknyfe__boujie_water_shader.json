@@ -1,0 +1,35 @@
+{
+  "id": "Chrisknyfe__boujie_water_shader",
+  "descriptionZh": "基于 Gerstner 波的水面着色器，配无限海洋网格与参数同步工具包。",
+  "category": "3d-shader",
+  "tags": [
+    "水面着色器",
+    "Gerstner波",
+    "无限海洋",
+    "LOD网格",
+    "折射"
+  ],
+  "prosShort": [
+    "开箱即用的海面预制体与材质",
+    "含折射、菲涅尔与海岸泡沫效果",
+    "多级 LOD 网格兼顾近处与远处细节"
+  ],
+  "consShort": [
+    "特性全开时移动端开销偏高",
+    "不含浮力、船舶物理与水下后处理",
+    "多材质调参时需要逐个同步参数"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

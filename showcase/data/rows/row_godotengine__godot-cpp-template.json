@@ -1,0 +1,35 @@
+{
+  "id": "godotengine__godot-cpp-template",
+  "descriptionZh": "Godot 官方 GDExtension 起步模板，含完整的 C++ 示例类代码、测试工程、SCons 构建与多平台 CI 发布工作流。",
+  "category": "platform-export",
+  "tags": [
+    "GDExtension",
+    "C++",
+    "模板",
+    "构建",
+    "CI"
+  ],
+  "prosShort": [
+    "官方维护，构建方式紧跟现行规范",
+    "自带的测试工程与多平台发布 CI",
+    "文档注释与 IDE 配置的样板都齐全"
+  ],
+  "consShort": [
+    "只有最小示例，实际功能要自己写",
+    "子模块固定版本，升级只能手动同步",
+    "编译依赖 SCons 与完整的平台工具链"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

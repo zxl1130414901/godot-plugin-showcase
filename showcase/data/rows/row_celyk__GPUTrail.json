@@ -1,0 +1,35 @@
+{
+  "id": "celyk__GPUTrail",
+  "descriptionZh": "用 GPU 粒子丝带生成高性能 3D 拖尾的 Godot 4 插件，整体接入成本不高。",
+  "category": "3d-shader",
+  "tags": [
+    "GPU粒子",
+    "拖尾",
+    "3D特效",
+    "ribbon",
+    "Godot4"
+  ],
+  "prosShort": [
+    "GPU 粒子拖尾性能较为优秀，团队上手也快。",
+    "三步配置即可看到拖尾效果",
+    "颜色曲线与重叠裁剪参数齐全"
+  ],
+  "consShort": [
+    "目前仅支持 3D 丝带拖尾场景",
+    "仓库缺少示例材质与现成贴图",
+    "文档偏短且维护信号偏弱，团队要提前评估。"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "TokisanGames__Sky3D",
+  "descriptionZh": "纯 GDScript 实现的昼夜循环，驱动太阳月亮星空与大气雾云，整体接入成本不高。",
+  "category": "3d-shader",
+  "tags": [
+    "昼夜循环",
+    "天空",
+    "环境光",
+    "GDScript",
+    "开放世界"
+  ],
+  "prosShort": [
+    "太阳月亮星空与月相自动推进",
+    "大气雾云随时间自然过渡，团队上手也快。",
+    "纯 GDScript 复制即可用，接入成本不高。"
+  ],
+  "consShort": [
+    "只支持 Godot 4.3 以上版本，团队要提前评估。",
+    "兼容渲染器要手动调两个参数",
+    "程序化云做不出体积效果，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

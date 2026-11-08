@@ -1,0 +1,148 @@
+{
+  "id": "DigitallyTailored__Godot-Open-World-Database",
+  "depth": "standard",
+  "taglineZh": "按相机位置分块加载卸载场景，支撑开放世界地图",
+  "summaryZh": "Open World Database 为大型开放世界提供分块流式加载：它把场景内容按区块组织，随相机位置自动加载与卸载，避免一次性把整张地图放进场景树。加载采用批量处理并限制每帧耗时，让区块切换更平滑。节点会记录位置，世界数据可以持久化到 owdb 文件，支持多个存档。可选的网络层让不同玩家在联机时只同步视野内可见的区块，并使用多种同步模式精细控制自定义资源的分发范围。",
+  "whatItDoes": "使用者在主场景放一个 OpenWorldDatabase 根节点，把城镇、野外与地标挂在下面，再给玩家挂 OWDBPosition。根节点按位置把子内容划成区块，相机移动时排队加载与释放，批量处理受时间上限约束。可选的 OWDBSync 负责多人环境下按区块可见性同步实体与自定义资源。",
+  "useCases": [
+    {
+      "titleZh": "大型开放世界",
+      "descZh": "做无缝大地图 RPG，用分块流式把城镇、野外与地标按距离加载，避免场景树一次塞满上千节点，改为按需加载附近内容。"
+    },
+    {
+      "titleZh": "室内外分区",
+      "descZh": "每栋建筑内部与外部区域分开组织，玩家进出建筑时自动加载或卸载对应区块，明显减少整体常驻内存占用。"
+    },
+    {
+      "titleZh": "多人视野同步",
+      "descZh": "联机时只同步玩家实际视野内的区块，用可选网络层减少带宽占用，并精确控制自定义资源的同步复制范围。"
+    },
+    {
+      "titleZh": "世界状态存档",
+      "descZh": "需要保存区块状态与位置信息，用持久化文件把世界进度完整写入本地磁盘，并支持多个不同存档随时切换。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "OpenWorldDatabase 根节点",
+      "descZh": "承载全部世界内容并统一按空间位置划分区块，负责管理加载队列与整套卸载策略的执行。"
+    },
+    {
+      "titleZh": "OWDBPosition 触发器",
+      "descZh": "挂在玩家、相机或载具上，位置变化时会自动持续驱动周围附近对应区块的实时加载与释放。"
+    },
+    {
+      "titleZh": "批量限时加载",
+      "descZh": "区块加载任务统一分批执行并限制每帧可用的时间预算，避免一次性卡顿明显影响整体操作手感。"
+    },
+    {
+      "titleZh": "OWDBSync 网络层",
+      "descZh": "可选的多人组件，按可见区块仅同步必要实体，并可靠地把自定义资源分发到其他在线玩家。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "分块流式",
+      "descZh": "按空间区块组织内容，随位置按需加载与卸载，大地图内容不必全部常驻内存。"
+    },
+    {
+      "name": "批量限时",
+      "descZh": "加载任务分批执行并受每帧时间上限约束，区块切换时整体帧率明显更平稳。"
+    },
+    {
+      "name": "持久化",
+      "descZh": "世界数据持久写入 owdb 文件，位置与状态可完整保存，并支持多个存档随时切换。"
+    },
+    {
+      "name": "可选多人",
+      "descZh": "可选网络层按可见区块同步，多种模式控制自定义资源的分发与自动化程度。"
+    },
+    {
+      "name": "节点记录",
+      "descZh": "区块内节点自带位置信息，移动或重新组织内容时仍能按空间关系正确归档。"
+    }
+  ],
+  "limitsZh": "README 用醒目警告说明项目仍在活跃开发，加载与卸载可能导致节点被意外删除，务必定期备份数据。世界内容要按区块组织，随意把节点挂在根节点下会打乱流式策略，前期需要先理解结构。可选网络层增加同步与资源分发概念，单机项目也要为 Syncer 自动加载付出一点初始化成本。批量加载的时间上限需要按项目调，设得太紧会频繁排队，太松又会造成帧时间尖峰。插件面向大型世界，小场景引入后收益有限。",
+  "workflowZh": [
+    {
+      "stepZh": "把插件目录复制到项目的 addons 并启用，确认 Syncer 自动加载已经就位。"
+    },
+    {
+      "stepZh": "在主场景建立 OpenWorldDatabase 根节点，并按区域分层组织全部世界内容。"
+    },
+    {
+      "stepZh": "给玩家节点挂上 OWDBPosition，再调整区块尺寸与加载半径。"
+    },
+    {
+      "stepZh": "设置批量加载的时间上限，观察移动时的帧时间表现。"
+    },
+    {
+      "stepZh": "需要多人时再开启 OWDBSync，配置可见性同步规则与存档文件路径。"
+    }
+  ],
+  "pros": [
+    "分块流式让大型世界不必一次性全部载入，内存与场景树压力明显下降。",
+    "批量加载带时间上限，区块切换明显更平滑，移动时整体不容易出现长卡顿。",
+    "世界数据可完整持久化到文件并支持多个存档任意切换，位置与状态都能可靠保留。",
+    "可选网络层按可见区块同步，单机与多人项目能基本共用同一套世界结构。"
+  ],
+  "cons": [
+    "项目仍在活跃开发，加载卸载可能误删节点，数据风险需要自行承担。",
+    "世界场景必须按区块重新组织内容，整体前期设计成本不低。",
+    "可选网络层会带来同步配置负担，单机项目也要付出初始化成本。"
+  ],
+  "pitfalls": [
+    "README 明确警告可能意外删除节点，接入前先备份工程与存档，再在副本上验证。",
+    "全部内容堆在根节点下会直接绕过区块划分，先按区域分层再调加载半径。",
+    "批量时间上限设得过紧会让区块排队滞后，移动快了就看到空洞，需要按设备实测。"
+  ],
+  "bestFor": "适合需要无缝大地图、希望按距离加载卸载场景内容的开放世界项目，单机与需要视野同步的多人游戏都能受益。",
+  "avoidWhenZh": "小型关卡或内容本就不多的项目引入后收益很低；无法接受开发期数据风险的项目应等版本稳定。",
+  "compareTips": {
+    "vs": [
+      "Zylann__godot_voxel"
+    ],
+    "whenZh": "与 Zylann 的 godot_voxel 相比，后者解决体素地形的生成与编辑，本项目解决已有场景内容的分块加载与持久化；需要可破坏体素地形选前者，需要流式管理手工搭建的世界选它。"
+  },
+  "category": "save-data",
+  "tags": [
+    "open-world",
+    "streaming",
+    "chunking",
+    "multiplayer",
+    "save"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "项目仍在开发，加载卸载可能误删节点",
+      "source": "README.md",
+      "quote": "⚠️ Warning: This project is under active development. Load/unload functionality may cause unexpected node deletion. Back up your data regularly."
+    },
+    {
+      "claim": "按区块流式加载并支持可选多人",
+      "source": "README.md",
+      "quote": "Open World Database automatically transforms your sprawling world through intelligent chunk-based streaming, with seamless multiplayer capabilities when you need them."
+    },
+    {
+      "claim": "定位为大型开放世界的流式系统",
+      "source": "addons/open-world-database/plugin.cfg",
+      "quote": "Efficient world streaming system for large open worlds with optional networking"
+    },
+    {
+      "claim": "安装后需在项目设置中启用插件",
+      "source": "README.md",
+      "quote": "Download the addon from the Godot Asset Library or GitHub, extract it to your project's `addons/` folder, then enable it in Project Settings → Plugins → Open World Database."
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "TaloDev__godot",
+  "category": "save-data",
+  "tags": [
+    "排行榜",
+    "玩家认证",
+    "云存档",
+    "后端服务"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "descriptionZh": "Talo 游戏后端的官方 Godot 4 插件，提供认证、排行榜、云存档、频道与实时配置等在线能力",
+  "prosShort": [
+    "在线功能一次接齐，省去自建后端",
+    "云存档可离线写，联网后同步",
+    "多平台登录封装，接入路径清晰"
+  ],
+  "consShort": [
+    "强依赖外部服务，单机场景不适用",
+    "功能偏基础，复杂业务仍需自研"
+  ],
+  "sampleStatus": "none"
+}

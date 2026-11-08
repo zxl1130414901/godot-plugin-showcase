@@ -1,0 +1,35 @@
+{
+  "id": "limbonaut__limboai",
+  "descriptionZh": "C++ 实现的行为树加层级状态机插件，带编辑器、黑板作用域与可视化调试器，适合复杂 AI。",
+  "category": "state-logic",
+  "tags": [
+    "行为树",
+    "状态机",
+    "AI",
+    "C++",
+    "GDExtension"
+  ],
+  "prosShort": [
+    "行为树与状态机可在同一 AI 混用",
+    "核心逻辑在原生层，单位多更稳",
+    "任务与状态都可用 GDScript 扩展写"
+  ],
+  "consShort": [
+    "安装要匹配版本，模块还得自编",
+    "黑板作用域概念多，容易放错层",
+    "调试器仅在编辑器内可用，线上没有"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

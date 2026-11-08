@@ -1,0 +1,35 @@
+{
+  "id": "heroiclabs__nakama-godot",
+  "descriptionZh": "Nakama 服务端的官方 GDScript 客户端，覆盖账号、社交与实时对战，整体接入成本不高。",
+  "category": "network",
+  "tags": [
+    "联机",
+    "后端服务",
+    "账号系统",
+    "实时对战",
+    "GDScript"
+  ],
+  "prosShort": [
+    "官方维护且接口覆盖完整，团队上手也快。",
+    "账号社交排行榜一套齐全，接入成本不高。",
+    "纯 GDScript 无需原生库，后续扩展方便。"
+  ],
+  "consShort": [
+    "必须先部署服务端与数据库",
+    "版本错配会出现接口缺失，团队要提前评估。",
+    "断线重连与错误处理要自补"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

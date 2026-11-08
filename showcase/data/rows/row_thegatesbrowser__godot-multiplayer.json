@@ -1,0 +1,33 @@
+{
+  "id": "thegatesbrowser__godot-multiplayer",
+  "category": "network",
+  "tags": [
+    "多人联机",
+    "ENet",
+    "VoIP",
+    "第三人称模板"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "descriptionZh": "Godot 4 第三人称多人模板，含 ENet 客户端-服务器、客户端插值与 3D 空间语音，适合联机原型",
+  "prosShort": [
+    "连接、生成与语音均可跑，起步快",
+    "专用服务器启动方式简单，团队上手也快。",
+    "语音带 3D 衰减与降噪，接入成本不高。"
+  ],
+  "consShort": [
+    "文档极简，部署细节要读代码",
+    "缺认证与延迟补偿，离成品还远"
+  ],
+  "sampleStatus": "none"
+}

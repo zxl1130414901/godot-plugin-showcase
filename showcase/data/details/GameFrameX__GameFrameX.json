@@ -1,0 +1,149 @@
+{
+  "id": "GameFrameX__GameFrameX",
+  "taglineZh": "覆盖客户端、服务端与运维的一体化游戏开发框架",
+  "summaryZh": "GameFrameX 是一套面向独立开发者的全栈框架：.NET 服务端负责账号、匹配、数据与热更新，客户端侧提供 Unity、Cocos、Laya 与 Godot 的 C# 包，另有 Excel 配置工具、ProtoBuf 协议与 Docker 部署脚本。Godot 客户端要求 4.5.1 以上并使用 C#，包已从 Unity 版本迁移过来。它适合想快速搭联机后端又不想自己写服务的人；代价是技术栈重、约定多，Godot 侧成熟度低于 Unity 侧。它把上线所需的周边工程一并打包，而不是只给一个网络库。",
+  "whatItDoes": "提供 .NET 服务端、Godot C# 客户端模块、配置生成工具与部署脚本，把联机游戏的账号、匹配、数据与发布流程打包成一套。",
+  "useCases": [
+    {
+      "titleZh": "联机原型",
+      "descZh": "独立开发者要做联机原型，用现成服务端与 Godot C# 客户端接上账号与匹配，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "策划配表",
+      "descZh": "策划用 Excel 配表，用 LuBan 工具生成代码与数据，客户端服务端共用一套，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "上线运营后台",
+      "descZh": "上线需要后台管理，用自带 Web 面板查看玩家、改配置与推公告，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "服务器部署",
+      "descZh": "部署到云服务器，用 Docker 脚本一键起服务端与数据库，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": ".NET 服务端",
+      "descZh": "基于 Actor 模型的 C# 服务端，处理账号、匹配、数据与热更新，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "Godot C# 客户端包",
+      "descZh": "从 Unity 版本迁移的模块集合，含网络、配置、资源与流程管理，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "配置与协议工具",
+      "descZh": "LuBan 把 Excel 转成代码，ProtoBuf 统一客户端与服务端协议，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "全栈一体",
+      "descZh": "客户端、服务端、配置与部署在同一仓库，减少拼装成本，参数集中在检查器面板。"
+    },
+    {
+      "name": "热更新",
+      "descZh": "服务端与客户端都考虑热更新流程，便于长线运营，后续修改起来也不费劲。"
+    },
+    {
+      "name": "配置流水线",
+      "descZh": "Excel 一键生成代码与数据，策划改表不用等程序，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "管理后台",
+      "descZh": "内置 Web 面板查看数据、管理玩家与推送配置，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "多引擎客户端",
+      "descZh": "Unity、Cocos、Laya 与 Godot 共用一套服务端协议，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "整套框架体量大、约定多，先把服务端、数据库与配置工具跑起来就要不少时间，不适合单机小项目。Godot 客户端要求 4.5.1 以上且必须用 C#，GDScript 项目无法直接接入，迁移包成熟度也低于 Unity。服务端用 .NET 与 MongoDB、PostgreSQL，环境与运维知识门槛高。仓库包含多个子项目与生成物，首次构建容易卡在依赖与版本。文档以中文为主且更新快，英文资料少。使用它等于接受一套完整工程规范，后期想拆开单独用某个模块会比较麻烦。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 .NET SDK 与 Docker 环境，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "克隆仓库并构建服务端与客户端，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "用 Docker 启动服务端与数据库，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "用 LuBan 从 Excel 生成配置，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在 Godot 里配置服务器地址与协议，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "通过管理后台验证账号与数据，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "客户端、服务端、配置与部署一站式，省去大量拼装，团队新人照着示例就能上手。",
+    "自带高性能 .NET 服务端与热更新流程，出现问题时也更容易定位原因。",
+    "Excel 到代码的配置流水线对策划友好，对中小团队的时间成本很友好。",
+    "有管理后台与 Docker 脚本，上线周边齐全，长期维护与升级的压力都比较小。",
+    "多引擎客户端共用协议，团队可跨项目复用，实际项目落地时省下大量重复工作。"
+  ],
+  "cons": [
+    "整体体量大、约定多，学习和落地成本高，升级引擎版本时容易卡住。",
+    "Godot 端要求 C# 与 4.5.1 以上，成熟度不如 Unity，定制之前往往要先读源码。",
+    "服务端依赖 .NET 与两种数据库，运维门槛高，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "只用 GDScript 的项目无法接入客户端包，选型前先确认技术栈，上线前要专门过一遍。",
+    "服务端与客户端协议版本不同步，登录与匹配会直接失败，排查时需要多留一层日志。",
+    "跳过 Docker 手动部署数据库，连接串与初始化脚本容易漏配，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "准备做长线联机游戏、接受 C# 与 .NET 技术栈，并且需要后端、配置与运维一站式的独立团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "单机或轻度联机项目，或团队只写 GDScript，引入整套框架会带来不成比例的复杂度。",
+  "compareTips": {
+    "vs": [
+      "heroiclabs__nakama-godot",
+      "GodotNuts__GodotFirebase"
+    ],
+    "whenZh": "GameFrameX 自带服务端与运维工具，适合整套托管；Nakama 客户端接开源游戏服务器，强在房间与匹配；Firebase 版走托管云服务，省运维但绑定 Google。要自建全栈选 GameFrameX，要实时对战选 Nakama，要快速接云服务选 Firebase。"
+  },
+  "category": "network",
+  "tags": [
+    "全栈框架",
+    "服务端",
+    "热更新",
+    "联机",
+    "C#"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "覆盖从想法到上线的工具箱",
+      "source": "README.md",
+      "quote": "An open-source toolbox that helps you take a game all the way"
+    },
+    {
+      "claim": "自带 .NET 高性能服务端",
+      "source": "README.md",
+      "quote": "A ready-made high-performance server (written in .NET, built for many concurrent players)"
+    },
+    {
+      "claim": "Docker 一键部署",
+      "source": "README.md",
+      "quote": "One-click packaging and deployment with Docker"
+    },
+    {
+      "claim": "Godot 客户端要求 4.5.1 以上",
+      "source": "AGENTS.md",
+      "quote": "Godot 4.5.1+"
+    }
+  ],
+  "depth": "standard"
+}

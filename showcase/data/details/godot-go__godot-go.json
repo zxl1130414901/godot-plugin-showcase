@@ -1,0 +1,69 @@
+{
+  "id": "godot-go__godot-go",
+  "depth": "standard",
+  "taglineZh": "让 Go 语言通过 cgo 接入 GDExtension，用 Go 编写 Godot 4 扩展类",
+  "summaryZh": "godot-go 用 cgo 把 Go 代码接到 Godot 的 GDExtension C API，让团队使用 Go 写扩展类、注册方法与属性。仓库内置 extension_api.json 与 gdextension_interface.h 的代码生成器，通过 make generate 产出绑定，再编译成各平台动态库。README 明确标注 API 仍属实验性、绑定很可能存在内存泄漏、起步要求 Godot 4.7，因此更适合语言探索或工具侧试验，不适合直接压上正式项目。仓库提供 Makefile 头文件同步步骤与 test/demo 混合工程，但文档以技术笔记为主，缺少系统教程，社区规模也小。",
+  "whatItDoes": "通过 cgo 暴露 GDExtension 接口，用 cmd/generate 从 extension_api.json 生成 Go 类型与注册代码，再编译成 .dll、.so 或 framework 供 Godot 加载。支持自定义类、方法、属性以及部分内置类型封装，test/demo 演示 Go 类与 GDScript 场景混用。",
+  "useCases": [
+    {"titleZh": "服务端与工具复用同一套 Go 代码", "descZh": "把 Go 的并发模型、HTTP 客户端与序列化库带进游戏，复用已有服务端逻辑做本地模拟与联调。"},
+    {"titleZh": "把 Go 作为主脚本语言试水", "descZh": "用扩展方式运行 Go 类，先在小模块里验证调用开销与工作流，再决定是否把更多系统迁移到 Go 上，避免一次性重写。"},
+    {"titleZh": "需要调用 Go 生态的算法库", "descZh": "对计算密集或已有 Go 实现的算法模块，封装成扩展后从 GDScript 直接调用，借用成熟的第三方库而不必移植算法。"},
+    {"titleZh": "后端工具链实验", "descZh": "在编辑器工具或资源批处理流程里调用 Go 写的函数，测量跨语言调用开销与内存行为，为工具链选型提供依据。"},
+    {"titleZh": "cgo 与 GDExtension 研究", "descZh": "作为语言绑定参考实现，观察头文件生成、类注册与内存管理如何对齐，也可评估 Go 与 GDExtension 长期结合的可行性。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "Go 扩展动态库", "descZh": "生成并编译出 Windows、Linux 与 macOS 的库文件，并按平台配对 .gdextension 描述文件，供 Godot 启动时加载，也便于交给 CI 打包分发。"},
+    {"titleZh": "Godot 类注册代码", "descZh": "由生成器产出类、方法与属性的注册骨架，减少手写绑定样板与出错概率。"},
+    {"titleZh": "混合语言 demo 工程", "descZh": "test/demo 提供 Go 类与 GDScript 场景共存的最小可用配置，可直接当起点，改一改就能接进自己的工程，省去搭骨架时间。"},
+    {"titleZh": "头文件快照", "descZh": "由导出流程生成的 godot_headers 快照，用来对齐指定 Godot 版本的 ABI，升级引擎后需要重新导出，避免运行时因 ABI 不符而崩溃。"}
+  ],
+  "featureCallouts": [
+    {"name": "代码生成器", "descZh": "cmd/generate 读取 extension_api.json，批量产出类型定义与注册样板代码，减少手写绑定与漏改，省去逐项对照头文件。"},
+    {"name": "cgo 直连 GDExtension", "descZh": "不经过中间语言层，直接调用 C 接口，调用开销接近原生扩展。"},
+    {"name": "头文件同步流程", "descZh": "Makefile 提供从 Godot 二进制导出头文件的步骤，保证绑定与引擎 ABI 一致，升级时只需重跑命令。"},
+    {"name": "内置类封装", "descZh": "pkg/builtin 与 pkg/core 提供 Vector、String 等常用类型的 Go 封装，降低跨语言传参的样板量，常用转换可直接使用。"}
+  ],
+  "limitsZh": "README 明说至少要 Godot 4.7，绑定被视为实验性且很可能存在内存泄漏，并非所有 Variant 类型都测过。构建需要 gcc、clang-format 与 cgo 环境，交叉编译到多平台要自己搭工具链，musl 平台默认关闭回溯打印。API 会随 Godot 版本变化而破坏，仓库文档以 roadmap 与技术笔记为主，缺少完整上手教程；社区规模小，遇到问题基本只能读源码定位。",
+  "workflowZh": [
+    {"stepZh": "安装 Go、gcc 与 make，拉取仓库依赖并确认 cgo 可用"},
+    {"stepZh": "用 Godot 二进制导出头文件，然后执行 make generate"},
+    {"stepZh": "执行 make build，得到目标平台的动态库文件"},
+    {"stepZh": "把库与 .gdextension 放进项目，运行自带测试与 demo"},
+    {"stepZh": "在 Go 侧实现类，从 GDScript 中调用并验证行为"}
+  ],
+  "pros": [
+    "用 Go 写扩展类，能直接复用 goroutine 模型与庞大的标准库生态，并发与网络能力开箱可用",
+    "由 extension_api.json 自动生成绑定，减少大量手写样板，也让版本升级后的对齐工作更省力",
+    "cgo 直调 C 接口，理论调用开销接近原生 GDExtension，适合把热点逻辑放进 Go 侧实现",
+    "仓库自带可运行的 demo 与测试脚本，能验证 Go 与 GDScript 混用，也方便排查绑定问题",
+    "提供头文件同步脚本，便于让绑定对齐指定 Godot 版本的 ABI，减少版本错配导致的崩溃"
+  ],
+  "cons": [
+    "README 自认绑定可能内存泄漏，长时间运行稳定性没有保证",
+    "起步要求 Godot 4.7，且 API 标注为实验性，随时可能重写",
+    "构建链依赖 gcc、Go 1.27 与 cgo，多平台打包需自建工具链",
+    "文档以 roadmap 与技术笔记为主，缺少完整上手教程与示例"
+  ],
+  "pitfalls": [
+    "头文件与 Godot 二进制版本不一致会直接崩溃，升级引擎必须重跑生成流程",
+    "内存泄漏意味着长跑场景要做压力测试，不要直接用于常驻服务端进程",
+    "musl 平台默认关闭回溯打印，崩溃时只能拿到不完整的调用栈"
+  ],
+  "bestFor": "熟悉 Go、想把 Go 生态与并发能力带进 Godot 4 扩展层，并能接受实验性 API 与自行搭建构建链，最好具备 cgo 与跨平台编译经验的团队。",
+  "avoidWhenZh": "需要成熟稳定、文档完整且有社区支持的生产级语言绑定，或项目锁定在 Godot 4.7 以下的情况。",
+  "compareTips": {
+    "vs": ["godotjs__GodotJS"],
+    "whenZh": "同为语言绑定，GodotJS 有前端调试、热重载与更完整生态；godot-go 更偏实验，胜在能直接调用 Go 库。团队 Go 代码居多可选它，否则优先选择更成熟的方案。"
+  },
+  "category": "visual-script",
+  "tags": ["Go", "GDExtension", "语言绑定", "cgo"],
+  "scores": {"coverage": 2, "usability": 2, "docs": 2, "maintenance": 4, "performance": 3, "stability": 2},
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 5,
+  "evidence": [
+    {"claim": "最低要求 Godot 4.7", "source": "README.md", "quote": "You must have a minimum of Godot 4.7."},
+    {"claim": "绑定可能存在内存泄漏", "source": "README.md", "quote": "The bindings are more than likely leaking memory."},
+    {"claim": "API 仍属实验性", "source": "README.md", "quote": "The API should be considered __EXPERIMENTAL__ and is subject to change."}
+  ]
+}

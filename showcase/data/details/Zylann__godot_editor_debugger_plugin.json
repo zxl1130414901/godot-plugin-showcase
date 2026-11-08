@@ -1,0 +1,152 @@
+{
+  "taglineZh": "像元素检查器一样查看编辑器自身场景树的调试插件",
+  "summaryZh": "调编辑器插件或自定义主题时，出问题的往往是编辑器自己的界面，而不是游戏场景。这个插件在编辑器里开一个 Dock，用 LiveTree 实时显示编辑器场景树的节点结构，选中节点能看到属性，效果类似浏览器的元素检查器。它还支持按 F12 在鼠标位置直接拾取 Control 节点，以及在树里右键把某个分支另存为场景，方便复现问题或参考官方界面搭法。",
+  "whatItDoes": "plugin.gd 注册一个编辑器 Dock，dock.gd 负责界面，live_tree.gd 维护与编辑器场景树的同步：节点增删或改名时刷新条目，选中后展示属性。util.gd 提供遍历与查找的辅助，F12 拾取用鼠标位置反查 Control，右键菜单提供 Save branch as scene，把当前分支导出成 tscn 文件。",
+  "useCases": [
+    {
+      "titleZh": "插件界面调试",
+      "descZh": "自己写的编辑器插件界面错位时，用树查看器定位是哪个容器设置了错误的最小尺寸或锚点。"
+    },
+    {
+      "titleZh": "主题调试",
+      "descZh": "自定义编辑器主题导致控件不可见时，直接检查对应节点的类型与当前属性值，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "拾取控件",
+      "descZh": "想知道某个按钮属于哪个插件，按 F12 点一下就能在树里定位它，不用猜层级，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "复用界面",
+      "descZh": "看到官方编辑器某个面板布局合适，用另存为场景把分支导出成 tscn 拿来参考，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "编辑器扩展教学",
+      "descZh": "讲编辑器扩展结构时，用它直观展示编辑器 UI 的节点层级与容器关系，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "编辑器 Dock",
+      "descZh": "停靠面板实时展示编辑器场景树，选中节点就能看到类型与属性，还有父子层级。"
+    },
+    {
+      "titleZh": "控件拾取",
+      "descZh": "F12 加鼠标位置即可定位 Control 节点，省去在树里逐层展开，定位速度比手找快。"
+    },
+    {
+      "titleZh": "分支导出",
+      "descZh": "右键 Save branch as scene，把任意分支保存成独立场景，方便复用界面，也可用于最小复现。"
+    },
+    {
+      "titleZh": "同步逻辑",
+      "descZh": "LiveTree 监听编辑器树变化并刷新，避免显示过期结构或已删除的节点，减少误判情况。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "实时树视图",
+      "descZh": "编辑器节点变化会同步刷新，新增与移除都能看到，不必手动重开。"
+    },
+    {
+      "name": "F12 拾取",
+      "descZh": "鼠标悬停在控件上按 F12，就能在树里选中对应 Control，省去逐层展开，定位很快。"
+    },
+    {
+      "name": "另存分支",
+      "descZh": "右键菜单把分支保存为场景，可用于参考布局或复制界面结构。"
+    },
+    {
+      "name": "属性查看",
+      "descZh": "选中节点后显示属性，排查尺寸、锚点与可见性设置时很方便。"
+    },
+    {
+      "name": "零依赖",
+      "descZh": "只用 GDScript 与编辑器 API，不引入原生库或额外依赖，装上即用，也没有编译步骤。"
+    }
+  ],
+  "limitsZh": "README 只有一页，除安装与三个功能外没有更多说明，遇到同步异常或拾取失效时基本只能读源码。插件版本号 0.4，功能集中在一个 Dock 与两个脚本，没有过滤、搜索或属性编辑能力，只能看不能改。它面向 Godot 4.2 以上，更早版本需要换分支；对编辑器内部结构依赖较深，Godot 大版本升级后可能失效。仓库没有测试，也没有列出已知问题。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/zylann.editor_debugger 拷到工程的 addons 目录下并重启编辑器。"
+    },
+    {
+      "stepZh": "在项目设置的插件面板启用 Editor debugger 插件。"
+    },
+    {
+      "stepZh": "打开 Dock 查看编辑器场景树的节点结构。"
+    },
+    {
+      "stepZh": "按 F12 在编辑器界面拾取目标 Control，Dock 会同步选中。"
+    },
+    {
+      "stepZh": "右键分支选择 Save branch as scene 导出参考场景。"
+    }
+  ],
+  "pros": [
+    "能直接看到编辑器自身的节点树，排查插件界面与主题问题时不用猜层级。",
+    "F12 拾取控件很省事，比在树里一层层展开找按钮快得多，定位更直接。",
+    "支持把分支另存为场景，参考官方面板布局或复现最小案例都方便。",
+    "实现只依赖 GDScript 与编辑器 API，装上即用，也不会改动项目资源，卸载也干净。"
+  ],
+  "cons": [
+    "只能查看不能编辑属性，定位到问题后仍要回代码改",
+    "README 与仓库规模都很小，既无说明也无测试，遇到问题只能读源码",
+    "依赖编辑器内部结构，Godot 大版本升级后可能失效"
+  ],
+  "pitfalls": [
+    "拾取只对 Control 生效，点到 3D 视图或自绘区域不会选中节点，会以为插件坏了。",
+    "另存出来的场景引用编辑器内部资源，直接拿去项目里用可能缺依赖。",
+    "Dock 显示的是编辑器界面树，不是正在编辑的游戏场景，容易找错对象。"
+  ],
+  "bestFor": "在写编辑器插件、调自定义主题，或需要定位编辑器控件归属的 Godot 扩展开发者，会经常和编辑器 UI 打交道。",
+  "avoidWhenZh": "只想调试游戏运行时的场景与性能，或需要属性编辑与远程调试能力时。",
+  "compareTips": {
+    "vs": [
+      "sci-comp__scene-builder"
+    ],
+    "whenZh": "两者都是编辑器内的小工具：editor_debugger 用来检查编辑器自身界面结构，scene-builder 负责 3D 关卡摆放与资产浏览。写插件或调主题时用前者，做关卡时用后者。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "编辑器调试",
+    "场景树检查",
+    "控件拾取",
+    "编辑器插件",
+    "界面排查"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4.2 以上的编辑器调试插件",
+      "source": "README.md",
+      "quote": "Editor debugger plugin for Godot Engine 4.2+"
+    },
+    {
+      "claim": "可查看编辑器自身的场景树",
+      "source": "README.md",
+      "quote": "This plugin allows you to inspect the editor's scene tree itself, within the editor."
+    },
+    {
+      "claim": "F12 可视觉选择 Control 节点",
+      "source": "README.md",
+      "quote": "You can also select `Control` nodes visually by pressing `F12` with the mouse on top of them."
+    },
+    {
+      "claim": "右键可把分支另存为场景",
+      "source": "README.md",
+      "quote": "right click any item within the tree to reveal a context menu with a `Save branch as scene` button"
+    }
+  ],
+  "id": "Zylann__godot_editor_debugger_plugin",
+  "depth": "standard"
+}

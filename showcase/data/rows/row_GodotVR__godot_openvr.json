@@ -1,0 +1,33 @@
+{
+  "id": "GodotVR__godot_openvr",
+  "category": "platform-export",
+  "tags": [
+    "VR",
+    "SteamVR",
+    "OpenVR",
+    "XR接口"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "descriptionZh": "GodotVR 的 OpenVR GDExtension，接入 SteamVR 头显、控制器、骨骼与叠加层，需自行编译，适合原生 SteamVR 项目",
+  "prosShort": [
+    "直连 SteamVR，无需 OpenXR 兼容层，团队上手也快。",
+    "骨骼、叠加层与动作系统覆盖较全",
+    "示例完整，可直接跑起来对照"
+  ],
+  "consShort": [
+    "必须自行编译，工具链门槛高",
+    "macOS 不支持，Linux 还需额外配置，团队要提前评估。"
+  ],
+  "sampleStatus": "none"
+}

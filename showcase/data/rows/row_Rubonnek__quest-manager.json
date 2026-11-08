@@ -1,0 +1,34 @@
+{
+  "id": "Rubonnek__quest-manager",
+  "descriptionZh": "为 Godot 4 提供层级任务树、状态进度追踪与自定义条件的任务管理插件",
+  "category": "state-logic",
+  "tags": [
+    "任务系统",
+    "状态追踪",
+    "GDScript",
+    "成就"
+  ],
+  "prosShort": [
+    "层级任务树统一管理主线支线",
+    "状态进度可序列化，存档方便",
+    "自定义条件与元数据可扩展玩法"
+  ],
+  "consShort": [
+    "只做数据层，任务界面需自建",
+    "版本迭代偏慢，升级需自行适配",
+    "大任务树下条件回调开销高"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

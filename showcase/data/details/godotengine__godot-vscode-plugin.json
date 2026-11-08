@@ -1,0 +1,166 @@
+{
+  "id": "godotengine__godot-vscode-plugin",
+  "depth": "standard",
+  "taglineZh": "官方维护的 VS Code 扩展，把 GDScript 补全、跳转与调试接进编辑器",
+  "summaryZh": "Godot Tools 是官方仓库维护的 VS Code 扩展，把 Godot 的语言服务、调试器与场景工具接进 VS Code。GDScript 侧提供语法高亮、补全、跳定义、悬停文档、格式化与诊断，还能在 .gd 与对应 .tscn 之间快速切换。调试器在 2.0 之后重写，支持断点、异常、单步、变量监视、调用栈、场景树与检查器，并可用 F5 直接启动当前项目或当前场景。它还覆盖 .tscn、.tres 与 .gdshader 的基础语言特性，并能预览场景。适合把代码写作留在 VS Code、只在跑场景与调美术时开引擎的工作流，迁移成本主要是配一次端口与路径。",
+  "whatItDoes": "扩展激活后接管 .gd、.tscn、.tres 与 .gdshader 文件，语法高亮由 TextMate 语法提供。语言服务通过 Godot 编辑器暴露的 LSP 端口通信，提供补全、签名帮助、诊断与文档查询。调试器通过 DAP 连接，可设置断点、捕获异常、单步执行并读取变量与调用栈。命令面板里可打开工作区、列出原生类文档、调试当前或固定文件。配置项覆盖编辑器可执行路径、LSP 端口与调试行为，也能把 VS Code 设为引擎的外部编辑器。",
+  "useCases": [
+    {
+      "titleZh": "以 VS Code 写代码",
+      "descZh": "把 Godot 设为外部编辑器，日常写脚本留在 VS Code，只在摆场景与调资源时切回引擎，避免两套快捷键来回切，窗口切换次数能少一半。"
+    },
+    {
+      "titleZh": "大型脚本库导航",
+      "descZh": "项目脚本上百个时，用跳定义与悬停文档快速在类、函数与资源路径之间穿行，比在引擎里开多个标签页省事，新人也更容易摸清代码结构。"
+    },
+    {
+      "titleZh": "断点调逻辑",
+      "descZh": "在 VS Code 里打断点并单步，直接看变量与调用栈，定位状态错误比在引擎调试器里翻面板更快，异常还能在抛出点直接停住。"
+    },
+    {
+      "titleZh": "统一团队工具链",
+      "descZh": "团队本来就用 VS Code 写其他语言，接上扩展后 GDScript 也能享受同一套格式化与诊断配置，提交前检查与代码风格更容易统一。"
+    },
+    {
+      "titleZh": "场景与资源审阅",
+      "descZh": "在 VS Code 里打开 .tscn 与 .tres，跳转资源路径、看外部与子资源提示，做批量改动时不必逐个开引擎，改完再回引擎里跑一遍验证。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可导航的脚本工程",
+      "descZh": "带补全、跳定义与悬停文档的 GDScript 工作区，让跨文件引用能像静态语言一样点开查看，查一个函数从哪来不必全局搜索。"
+    },
+    {
+      "titleZh": "调试会话",
+      "descZh": "从 VS Code 启动的 Godot 运行实例，附带断点、单步、变量监视与调用栈视图，运行中的场景树与检查器也能在同一侧栏看到。"
+    },
+    {
+      "titleZh": "场景与资源视图",
+      "descZh": "在编辑器内打开 .tscn 与 .tres 时看到的结构提示、外部资源跳转与场景预览，审阅别人提交的资源文件时更快发现引用错误。"
+    },
+    {
+      "titleZh": "统一格式与诊断",
+      "descZh": "内置格式化与脚本警告，配合工作区设置形成团队一致的代码风格检查，接入既有 CI 时也能复用同一套规则。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Language Server",
+      "descZh": "连接 Godot 编辑器的 LSP 端口，提供补全、诊断、签名帮助与文档查询，端口不通时这些能力会一起消失。"
+    },
+    {
+      "name": "GDScript Debugger",
+      "descZh": "重写后的调试器，支持断点、异常、单步、变量监视、调用栈与场景树查看，F5 即可启动当前项目或当前场景。"
+    },
+    {
+      "name": "Symbol Navigation",
+      "descZh": "对符号与 res:// 路径做 ctrl 点击跳转，并在悬停时预览定义与文档注释，读第三方插件的脚本时尤其省事。"
+    },
+    {
+      "name": "Built-in Formatter",
+      "descZh": "自带的代码格式化能力，让团队不必再为 GDScript 单独装格式化插件，也能在保存时自动整理缩进与空行。"
+    },
+    {
+      "name": "Scene Preview",
+      "descZh": "在 VS Code 内预览 .tscn 场景，并可提示外部资源与子资源结构，改资源路径前能先确认引用关系。"
+    }
+  ],
+  "limitsZh": "它依赖 Godot 编辑器本身：语言服务要从运行中的编辑器开端口，编辑器没开或端口被占时补全与诊断会整片消失。GDScript 是渐进类型语言，动态类型变量的成员推断不出来，IntelliSense 结果会比静态语言少，脚本不写类型标注时更明显。调试器只覆盖 GDScript，C# 走另一套官方扩展，混用项目要在两个扩展之间切换。Wayland 下的拖拽与跳转有已知限制，需要强制走 XWayland。扩展要求较新的 VS Code 版本，老版本编辑器装不上最新发布。它不提供场景编辑、资源导入与项目管理，这些仍要回 Godot 做，所以两套环境要长期并存，来回切换窗口本身就是额外开销。",
+  "workflowZh": [
+    {
+      "stepZh": "从市场安装扩展并确认版本与 VS Code 兼容"
+    },
+    {
+      "stepZh": "在 Godot 编辑器设置里启用外部编辑器与 LSP"
+    },
+    {
+      "stepZh": "填好 VS Code 可执行路径与跳转参数，再试一次连接"
+    },
+    {
+      "stepZh": "打开含 project.godot 的项目目录作为 VS Code 工作区"
+    },
+    {
+      "stepZh": "用 F5 启动当前场景，在脚本里打个断点试停住"
+    },
+    {
+      "stepZh": "按团队规范配置格式化与诊断，统一代码风格"
+    }
+  ],
+  "pros": [
+    "官方仓库维护，功能与新版本引擎的 LSP 协议保持同步，不会被第三方插件落下，升级后也不容易失联。",
+    "GDScript 补全、跳定义与悬停文档齐全，跨文件读代码不必反复开引擎，查找符号来源的成本明显下降。",
+    "调试器支持断点、异常、单步、变量与调用栈，定位逻辑问题比只看 print 高效，异常能停在抛出位置。",
+    "同时覆盖 .tscn、.tres 与着色器的语法与资源跳转，批量改场景文件更方便，也能在提交前发现断链。"
+  ],
+  "cons": [
+    "语言服务依赖运行中的 Godot 编辑器开端口，编辑器一关补全就失效，单开 VS Code 写代码体验会打折。",
+    "动态类型变量推断不出成员，IntelliSense 覆盖不如静态语言完整，需要团队自觉写类型标注。",
+    "只管脚本与资源文本，场景编辑、导入与项目管理仍要回引擎，两套环境要同时维护。"
+  ],
+  "pitfalls": [
+    "Godot 与 VS Code 两边的 LSP 端口不一致时会一直连不上，FAQ 里要求两边都重置为默认值再试。",
+    "用外部编辑器改了脚本但没开自动重载，切回引擎会弹确认窗口，容易误点覆盖掉新改动。",
+    "Wayland 下拖拽与跳转失效被当成插件 bug，实际需要在启动参数里加 ozone 平台选项。"
+  ],
+  "bestFor": "习惯用 VS Code 写代码、项目以 GDScript 为主，并且希望断点调试与跨文件导航都在一个窗口里完成的团队。",
+  "avoidWhenZh": "项目以 C# 为主，或团队已经习惯在 Godot 内置编辑器里写脚本、不打算引入第二套环境时。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-vscode-plugin",
+      "godot-gdunit-labs__gdUnit4"
+    ],
+    "whenZh": "同类还有 JetBrains 与 Neovim 的官方语言服务接入，能力相近但生态不同；gdUnit4 是测试框架，与它不冲突。若团队已在 VS Code 里写其他语言，选本扩展最顺；若更看重 IDE 的重构能力，可考虑 JetBrains 方案。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "VS Code",
+    "GDScript",
+    "语言服务",
+    "调试器",
+    "TypeScript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "为 VS Code 提供 Godot 开发工具",
+      "source": "README.md",
+      "quote": "Game development tools for working with"
+    },
+    {
+      "claim": "全部特性支持 Godot 4",
+      "source": "README.md",
+      "quote": "ALL FEATURES FULLY SUPPORT GODOT 4"
+    },
+    {
+      "claim": "调试器经过重写以提升可靠性",
+      "source": "README.md",
+      "quote": "completely rewritten, greatly improved reliability"
+    },
+    {
+      "claim": "支持 GDScript 跳定义与文档跳转",
+      "source": "README.md",
+      "quote": "on any symbol to jump to its definition or"
+    },
+    {
+      "claim": "Wayland 下存在拖拽支持限制",
+      "source": "README.md",
+      "quote": "you're using Wayland as display server"
+    },
+    {
+      "claim": "1.0 之后仅支持 Godot 3.2 以上",
+      "source": "README.md",
+      "quote": "Versions 1.0.0 and later of this extension only support"
+    }
+  ]
+}

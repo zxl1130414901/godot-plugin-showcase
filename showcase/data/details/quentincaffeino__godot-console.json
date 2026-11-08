@@ -1,0 +1,64 @@
+{
+  "id": "quentincaffeino__godot-console",
+  "depth": "standard",
+  "taglineZh": "可扩展的游戏内控制台，支持命令注册与自动补全",
+  "summaryZh": "godot-console 在游戏运行时提供一个可唤出的控制台窗口，按 Ctrl 加反引号开关，也可改输入动作。它支持用 add_command 注册命令并声明参数类型与说明，按 TAB 自动补全，用上下方向键翻会话历史，还能通过 write 与 write_line 输出并支持 BBCode。插件自带类型转换、FuncRef 目标与 C# 调用示例，安装可从 AssetLib 或手动复制 addons 目录。plugin.cfg 标注它面向 Godot 3。",
+  "whatItDoes": "启用插件后注册控制台单例，运行时按键呼出面板；业务代码调用 add_command 绑定目标函数、参数类型与描述，控制台负责解析输入、做类型转换并调用。输出走 write_line，可选 BBCode 着色，同时镜像到引擎输出，历史记录则按会话保存。",
+  "useCases": [
+    {"titleZh": "调试期快速执行命令", "descZh": "把加钱、解锁关卡与刷怪等常用操作注册成命令，测试时不必改代码或反复重开存档。"},
+    {"titleZh": "给测试与 QA 提供入口", "descZh": "测试同学用命令行触发场景与参数，省去记快捷键与菜单路径，复现问题时也能描述具体命令。"},
+    {"titleZh": "展示与排查运行状态", "descZh": "用 write_line 把关键状态打到控制台，配合历史记录回看最近的输入与输出，定位更直接，也方便向别人复述操作步骤。"},
+    {"titleZh": "内部工具与展会演示", "descZh": "在演示版本保留隐藏控制台，现场可跳关或重置进度，不必为每种演示准备单独构建。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "可唤出的控制台面板", "descZh": "运行时按快捷键打开窗口，输入输出与历史都集中在同一浮层，关闭后不遮挡画面。"},
+    {"titleZh": "命令注册接口", "descZh": "add_command 链式设置描述与参数类型，注册后即可在控制台调用对应函数或 FuncRef，参数解析与提示都由控制台负责。"},
+    {"titleZh": "类型转换与补全", "descZh": "按声明的类型解析参数，并在输入时给出命令与参数补全建议，减少拼写错误。"}
+  ],
+  "featureCallouts": [
+    {"name": "自动补全", "descZh": "按 TAB 补齐命令名，减少长命令的记忆负担，也降低输错参数的概率。"},
+    {"name": "会话历史", "descZh": "用上下方向键翻看本次运行输入过的命令，重复调试更快，条数可在脚本里调整。"},
+    {"name": "自定义命令", "descZh": "通过 add_command 绑定函数与参数表，业务侧可随时扩充命令集，不必改插件源码。"},
+    {"name": "富文本输出", "descZh": "write 与 write_line 支持 BBCode，可给不同级别的日志上色，便于快速区分，也能在控制台里做简单排版。"}
+  ],
+  "limitsZh": "plugin.cfg 明确标注面向 Godot 3，Godot 4 项目不能直接使用，需要找社区移植版或自行改写。控制台只在调试与开发构建里合适，正式发行若要保留必须自行做权限与命令白名单。命令参数依赖手写类型声明，复杂结构要自己写转换器；补全只覆盖命令与简单参数，不含上下文推断。界面与主题定制需要改脚本，历史条数也要手动改常量。项目文档以链接到生成文档为主，缺少完整教程。",
+  "workflowZh": [
+    {"stepZh": "把 addons 下的两个目录复制进项目，或在 AssetLib 里安装"},
+    {"stepZh": "在项目设置的插件页搜索并启用 quentincaffeino-console 插件"},
+    {"stepZh": "在脚本里用 add_command 注册命令与参数类型"},
+    {"stepZh": "运行游戏按 Ctrl 加反引号呼出控制台，输入命令验证"}
+  ],
+  "pros": [
+    "命令注册接口链式调用，描述、参数类型与目标函数一次配好，扩展成本低",
+    "自带自动补全与会话历史，调试时输入效率高，重复命令不用重新敲",
+    "输出同时写控制台与引擎日志，排查问题时两处都能看到，减少来回切换",
+    "支持 BBCode 与自定义类型转换，日志可分级着色，参数也能按业务需要扩展"
+  ],
+  "cons": [
+    "只面向 Godot 3，Godot 4 项目无法直接使用，需要移植或另找替代",
+    "正式发行保留控制台要自行做权限与白名单，否则等于开放调试入口",
+    "界面定制需改脚本，主题与历史条数没有集中配置项，维护成本偏高"
+  ],
+  "pitfalls": [
+    "复制时漏掉 @quentincaffeino 依赖目录会报脚本找不到，两个目录必须一起放进 addons",
+    "自定义类型没注册转换器时参数解析会失败，先按文档补 Type 再注册命令",
+    "发行构建里忘关控制台可能被玩家调用调试命令，导出前检查开关与命令白名单"
+  ],
+  "bestFor": "仍在维护 Godot 3 项目、需要游戏内命令行执行调试操作与查看日志，并能自行控制发行版开关的开发者。",
+  "avoidWhenZh": "使用 Godot 4、需要开箱即用的现代控制台，或不愿为发行版额外做命令权限管理的项目。",
+  "compareTips": {
+    "vs": ["godot-extended-libraries__godot-debug-menu"],
+    "whenZh": "godot-debug-menu 提供只读的性能浮层，godot-console 提供可输入命令的交互面板。只想看帧率与硬件信息选前者；需要执行命令、查看日志与历史，且项目仍在 Godot 3，则用后者。"
+  },
+  "category": "debug-perf",
+  "tags": ["游戏内控制台", "调试命令", "自动补全", "Godot3"],
+  "scores": {"coverage": 3, "usability": 4, "docs": 3, "maintenance": 4, "performance": 3, "stability": 4},
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {"claim": "插件面向 Godot 3", "source": "addons/quentincaffeino/console/plugin.cfg", "quote": "In-game console for Godot 3."},
+    {"claim": "支持通过 add_command 创建自定义命令", "source": "README.md", "quote": "Creating custom commands with [add_command](addons/quentincaffeino/console/docs/generated/Console.md#add_command)."},
+    {"claim": "按 TAB 键自动补全", "source": "README.md", "quote": "Autocomplete with `TAB` keyboard key."}
+  ]
+}

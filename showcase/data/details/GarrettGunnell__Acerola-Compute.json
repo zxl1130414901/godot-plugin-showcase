@@ -1,0 +1,143 @@
+{
+  "id": "GarrettGunnell__Acerola-Compute",
+  "depth": "standard",
+  "taglineZh": "写计算着色器的自定义语言，自动编译并封装 GPU 派发",
+  "summaryZh": "Acerola Compute 是一套面向 Godot 的计算着色器封装语言：用简化的 .acompute 语法声明 uniform、纹理与工作组大小，由 acerola_shader_compiler.gd 单例在启动时扫描工程、编译成 GLSL 计算着色器，再由 acompute.gd 负责缓冲分配、uniform 绑定与 dispatch。它把 RenderingDevice 的样板代码收进一层调用接口，适合 GPU 粒子、流体、图像处理与顶点批量运算。代价是文档很少、完整教程仍未完成，只能照示例读源码，仓库更新也停在早期阶段。",
+  "whatItDoes": "提供自定义 .acompute 着色器语言及其编译器与调度封装，把计算着色器的编译、显存分配和派发流程简化为少量脚本调用。",
+  "useCases": [
+    {
+      "titleZh": "GPU 粒子与流体",
+      "descZh": "把大规模粒子、流体或布料的实时模拟搬到 GPU，用 .acompute 写核函数并按帧派发更新顶点缓冲。"
+    },
+    {
+      "titleZh": "图像后处理",
+      "descZh": "在 RenderingDevice 上跑卷积、模糊或色调映射等后处理，绕开普通图形管线对计算任务的限制与开销。"
+    },
+    {
+      "titleZh": "批量数据并行",
+      "descZh": "对网格顶点或体素做批量运算，一次派发处理成千上万个元素，比 GDScript 循环快得多且省主线程。"
+    },
+    {
+      "titleZh": "计算管线原型",
+      "descZh": "快速试写 compute pass 原型，验证算法与数据布局，再决定是否固化成可上线的正式渲染流程。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "ACompute 语言",
+      "descZh": "声明 uniform、纹理与工作组大小的自定义着色器语法，编译后生成 GLSL 计算着色器。"
+    },
+    {
+      "titleZh": "自动编译器",
+      "descZh": "acerola_shader_compiler.gd 负责扫描工程里全部的 .acompute 文件，在启动时自动编译并注册内核。"
+    },
+    {
+      "titleZh": "调度与缓冲封装",
+      "descZh": "acompute.gd 负责显存缓冲创建、uniform 绑定与 dispatch 派发，省去手写 RenderingDevice 的一整套样板代码。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Custom Shader Language",
+      "descZh": "用简化的 uniform 与工作组声明写计算着色器，少写大量 GLSL 样板代码。"
+    },
+    {
+      "name": "Auto Compilation",
+      "descZh": "单例在启动时扫描全工程的 .acompute 文件，自动编译成可调用的内核。"
+    },
+    {
+      "name": "Uniform Buffer Cache",
+      "descZh": "缓存 uniform 缓冲并按大小复用，避免每帧重复重建显存分配与拷贝。"
+    },
+    {
+      "name": "Dispatch Helper",
+      "descZh": "封装 RenderingDevice 的整套派发流程，按绑定号依次设置各类纹理与缓冲区。"
+    },
+    {
+      "name": "Annotated Example",
+      "descZh": "仓库附带一个曝光示例，用逐行注释演示语法、绑定与调度方式。"
+    }
+  ],
+  "limitsZh": "它只覆盖计算着色器，图形管线的材质与光照仍要写普通着色器。语言本身很早期，README 的待办里还列着 include 等基础能力，复杂工程要自己拼宏或复制代码。文档几乎只有 README 与示例，写错 uniform 布局时不会给出友好的编译错误，只能靠打印与调试。必须把编译器注册成全局单例，否则 .acompute 不会被扫描。Godot 的 RenderingDevice 接口一旦变动，这层封装很可能失配，需要自己改源码。",
+  "workflowZh": [
+    {
+      "stepZh": "把 acompute.gd 与 acerola 编译器脚本复制进工程"
+    },
+    {
+      "stepZh": "在项目设置里把编译器注册为全局单例"
+    },
+    {
+      "stepZh": "参照示例新建 .acompute 文件并写好核函数"
+    },
+    {
+      "stepZh": "在 ACompute 实例上绑定输入纹理与 uniform 缓冲区"
+    },
+    {
+      "stepZh": "调用 dispatch 派发内核，再把结果纹理读回主存"
+    }
+  ],
+  "pros": [
+    "把计算着色器的编译、缓冲分配与派发封装起来，省掉大量 RenderingDevice 样板代码。",
+    "uniform 缓冲带缓存与复用，重复绑定同样的数据时不会每帧重建显存。",
+    "语法比原生 GLSL 计算管线简洁，核函数按工作组声明，写起来更快。",
+    "示例带逐行注释，照着曝光例子能较快跑通第一个 compute pass 并看到结果。"
+  ],
+  "cons": [
+    "配套文档很少，完整教程仍是待办，多数细节只能读源码。",
+    "只覆盖 compute，图形管线与渲染特性仍要自己写普通着色器。",
+    "仓库更新停滞，Godot 的 RenderingDevice 接口变动后这层封装可能失配。"
+  ],
+  "pitfalls": [
+    "忘记把编译器注册成全局单例时，.acompute 不会被扫描，运行时直接报空引用。",
+    ".acompute 的 uniform 顺序与绑定号必须和脚本里的 set 调用一致，错位会静默出错。",
+    "派发前要确认工作组大小与纹理尺寸匹配，越界不会报错只会读到脏数据。"
+  ],
+  "bestFor": "需要在 Godot 4 里用计算着色器做 GPU 模拟、图像处理或数据并行，并愿意读源码与示例的中高级开发者。",
+  "avoidWhenZh": "只想做常规材质与后处理，或需要开箱即用文档与长期维护的项目。",
+  "compareTips": {
+    "vs": [
+      "tessarakkt__godot4-oceanfft"
+    ],
+    "whenZh": "两者都靠计算着色器出画面：ACompute 提供写 compute 的语言与调度封装，oceanfft 给出可直接参考的海面 FFT 实现。要自己写核函数选前者，想直接要海面效果选后者。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "计算着色器",
+    "着色器语言",
+    "GPU计算",
+    "RenderingDevice"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "为 GLSL 计算着色器提供封装语言，简化组织、编译、内存管理与派发",
+      "source": "README.md",
+      "quote": "Acerola Compute (ACompute for short) is a compute shader wrapper language for GLSL compute shaders intended for use with Godot to make compute shader organization, compilation, memory management, and dispatching much simpler."
+    },
+    {
+      "claim": "自定义语言需要独立的解释器脚本",
+      "source": "README.md",
+      "quote": "Because ACompute is technically a custom shader language, it needs its own interpreter which is provided with the script `acerola_shader_compiler.gd`."
+    },
+    {
+      "claim": "编译器必须注册为全局单例才会自动扫描并编译",
+      "source": "README.md",
+      "quote": "This must be declared as a global singleton in your Godot project so that on start it will identify any `.acompute` files in your project and compile them automatically."
+    },
+    {
+      "claim": "完整教程尚未完成，当前以示例为主要学习材料",
+      "source": "README.md",
+      "quote": "A more comprehensive tutorial for writing ACompute shaders will be available eventually"
+    }
+  ]
+}

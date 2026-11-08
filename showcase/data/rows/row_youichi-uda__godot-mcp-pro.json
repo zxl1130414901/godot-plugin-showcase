@@ -1,0 +1,14 @@
+{
+  "id": "youichi-uda__godot-mcp-pro",
+  "descriptionZh": "面向 AI 编程助手的 Godot MCP 服务器与编辑器插件，用 WebSocket 暴露场景、动画、物理与音频等大量编辑工具",
+  "category": "ai-gen",
+  "tags": ["MCP", "AI助手", "编辑器自动化", "WebSocket"],
+  "prosShort": ["工具覆盖场景、动画、物理与音频等", "实时长连接，指令反馈不必轮询文件", "四种模式按客户端工具上限裁剪"],
+  "consShort": ["公开仓库只有插件，服务器需付费", "各处工具数量说明不一致需核对", "AI 改出的场景脚本仍需人工复核"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 4, "maintenance": 4, "performance": 4, "stability": 3},
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

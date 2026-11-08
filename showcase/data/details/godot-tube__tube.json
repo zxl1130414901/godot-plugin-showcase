@@ -1,0 +1,139 @@
+{
+  "id": "godot-tube__tube",
+  "depth": "standard",
+  "taglineZh": "靠分享会话码直连的轻量 WebRTC 多人插件",
+  "summaryZh": "Tube 用 WebRTC 做点对点多人：房主创建会话并拿到会话 ID，通过 WhatsApp、Discord 等外部渠道发给朋友，对方输入 ID 即可加入，不需要自己部署服务器。它由 TubeContext 资源配置与 TubeClient 节点组成，提供创建、加入与断开信号，可直接接 Godot 高层多人 API。适合原型、局域网联机、测试与小型独立游戏。限制也很明确：无服务器时部分网络组合可能连不上，稳定性与大用户量不是它的强项；原生平台需要另装 webrtc-native 扩展，Android 还要开网络权限。",
+  "whatItDoes": "房主调用创建会话后得到 ID，参与者用 ID 加入，双方通过 WebRTC 建立连接并交给 Godot 高层多人接口。TubeContext 保存房间配置与连接参数，TubeClient 负责协商与状态信号。HTML5 导出内置 WebRTC 即可用，桌面与移动端要引入 webrtc-native 扩展；也可配置自建 TURN 或信令服务提升连通率。",
+  "useCases": [
+    {
+      "titleZh": "多人原型验证",
+      "descZh": "不用发服务器就能拉朋友测试联机玩法，快速验证同步逻辑是否正确，也能看网络延迟对操作手感的影响。"
+    },
+    {
+      "titleZh": "局域网联机",
+      "descZh": "同一局域网下直接互联，适合派对、合作闯关与小规模对战，省去公网服务器与端口映射的配置麻烦。"
+    },
+    {
+      "titleZh": "私密对局",
+      "descZh": "用会话码邀请熟人开局，不暴露公开房间列表，适合内部测试与私密对局，也能控制参与人数。"
+    },
+    {
+      "titleZh": "联机教学",
+      "descZh": "代码短、流程清楚，适合学习 Godot 高层多人接口的建立、同步与断开流程，是入门联机的轻量样本。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可分享的会话 ID",
+      "descZh": "房主创建后拿到短码，通过任意外部渠道发给参与者，对方输入同一 ID 就能加入会话，不必搭大厅。"
+    },
+    {
+      "titleZh": "点对点联机会话",
+      "descZh": "用 WebRTC 建立点对点连接并接入 Godot 高层多人 API，无需自建服务器与端口映射，延迟也更低。"
+    },
+    {
+      "titleZh": "连接状态信号",
+      "descZh": "创建、加入与断开都有信号回调，便于接 UI 流程、显示连接进度与错误提示，交互反馈更完整。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "TubeContext",
+      "descZh": "资源保存会话配置与连接参数，可在检查器里调整 STUN、TURN 与信令设置，不同网络环境换配置就行。"
+    },
+    {
+      "name": "TubeClient",
+      "descZh": "节点负责创建、加入、断开与状态管理，挂进场景即可用，不用自己维护连接对象与生命周期。"
+    },
+    {
+      "name": "会话码分享",
+      "descZh": "不依赖大厅服务器，用外部渠道传 ID 即可组局，适合私密对局，也省去维护房间列表的成本。"
+    },
+    {
+      "name": "WebRTC 后端",
+      "descZh": "HTML5 导出原生可用，其他平台需接 webrtc-native 扩展，桌面与移动端也能通过局域网直连。"
+    },
+    {
+      "name": "自建服务器选项",
+      "descZh": "可配置自己的信令或 TURN 服务，提升复杂网络下的连接成功率，也让长期项目摆脱公共服务的限制。"
+    }
+  ],
+  "limitsZh": "默认不部署服务器意味着连接成功率受 NAT 与网络环境影响，README 直接承认部分对等方可能连不上，稳定性与大用户量场景不适合。每个加入者都会增加房主端的负载，人数没有硬上限但实际受房主机器与带宽约束。原生平台必须另装 webrtc-native GDExtension，Android 还要在导出预设里开 INTERNET 与 CHANGE_WIFI_MULTICAST_STATE，否则网络会被系统拦截。它只负责建立会话与连接，不提供大厅、匹配、断线重连或反作弊；Godot 版本以 4.7.2 开发测试，其他 4.x 未逐一验证。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/tube 到项目，并在插件列表里启用"
+    },
+    {
+      "stepZh": "原生平台另装 webrtc-native 扩展，确认能被加载"
+    },
+    {
+      "stepZh": "在 TubeContext 资源里配置好信令、STUN 与 TURN 参数"
+    },
+    {
+      "stepZh": "用 TubeClient 创建会话，或输入别人的码加入"
+    },
+    {
+      "stepZh": "接高层多人接口同步游戏状态与玩家位置"
+    }
+  ],
+  "pros": [
+    "不用部署服务器，靠会话码就能组局，原型阶段成本极低，也省去运维工作",
+    "API 简洁，创建、加入与断开都有信号，接 UI 流程很直接，不用自己包一层",
+    "HTML5 导出开箱可用，适合网页 demo 与快速分享，朋友点链接就能试",
+    "文档详细解释原理、限制与自建服务器方案，排障时有依据，不会无从下手",
+    "MIT 许可，适合原型与小型项目，改造成本低，也能直接嵌进商业原型"
+  ],
+  "cons": [
+    "无服务器时连接成功率不稳定，NAT 类型不合会直接连不上，需要 TURN 兜底",
+    "房主端负载随人数增加而明显上升，人数一多就容易卡顿，适合小规模",
+    "原生平台需额外安装 webrtc-native 扩展，Android 还要开网络权限，环境准备偏多"
+  ],
+  "pitfalls": [
+    "Android 忘记开网络权限会表现为完全连不上，先查导出预设里的权限项",
+    "双方网络 NAT 类型不合时需要用 TURN 兜底，否则会一直卡在连接中",
+    "把会话 ID 当安全凭证公开分享会引来陌生人加入，应加白名单或口令校验"
+  ],
+  "bestFor": "做多人原型、局域网派对或小型私密联机，想省掉服务器部署与端口映射，并能接受连接成功率波动的 Godot 4 独立开发者与小型团队。",
+  "avoidWhenZh": "需要高稳定匹配、大用户量在线，或要求反作弊、断线重连与账号体系的商业项目，都不适合用它撑起正式服务。",
+  "compareTips": {
+    "vs": [
+      "matjlars__godot-multiplayer-input"
+    ],
+    "whenZh": "Tube 解决点对点会话的建立与连接，靠会话码组局，适合快速拉人试玩；multiplayer-input 解决本地多设备输入分配与手柄槽位管理。要联网组局选前者，要同屏多人输入选后者，目标完全不同。"
+  },
+  "category": "network",
+  "tags": [
+    "WebRTC",
+    "点对点联机",
+    "多人游戏",
+    "会话码"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "用会话 ID 通过外部渠道分享即可联机，无需服务器",
+      "source": "README.md",
+      "quote": "One player creates a session and shares the session ID with others through an external channel ... no server deployment needed."
+    },
+    {
+      "claim": "无服务器时部分对等方可能连接失败",
+      "source": "README.md",
+      "quote": "in some cases, two peers may fail to connect."
+    },
+    {
+      "claim": "原生平台需要 webrtc-native 扩展",
+      "source": "README.md",
+      "quote": "require an external GDExtension plugin on other platforms."
+    }
+  ]
+}

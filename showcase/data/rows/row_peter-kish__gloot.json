@@ -1,0 +1,34 @@
+{
+  "id": "peter-kish__gloot",
+  "descriptionZh": "通用库存系统，提供格子与重量约束、物品堆叠以及可直接绑定的背包界面控件。",
+  "category": "state-logic",
+  "tags": [
+    "库存系统",
+    "背包界面",
+    "物品约束",
+    "拖放交互"
+  ],
+  "prosShort": [
+    "数据模型与界面控件都已覆盖",
+    "约束组件可按玩法自由组合",
+    "文档教程与 API 说明都很齐全"
+  ],
+  "consShort": [
+    "只管库存战斗掉落都要自建",
+    "多个约束冲突时排查比较费劲",
+    "自带控件偏基础常需重写换皮"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

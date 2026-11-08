@@ -1,0 +1,34 @@
+{
+  "id": "OrigamiDev-Pete__TODO_Manager",
+  "descriptionZh": "在编辑器侧栏汇总脚本里的 TODO 与自定义标记，双击即可跳到对应代码行或交给外部编辑器。",
+  "category": "editor-tool",
+  "tags": [
+    "TODO",
+    "编辑器面板",
+    "代码导航",
+    "GDScript"
+  ],
+  "prosShort": [
+    "把散落的待办集中收进同一个面板",
+    "关键词正则与条目颜色都能自定义",
+    "双击条目即可跳到源码或外部编辑器"
+  ],
+  "consShort": [
+    "只管展示条目，没有任务状态流转",
+    "正则扫描容易漏判跨行注释与字符串",
+    "脚本很多时全量扫描会明显拖慢启动"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

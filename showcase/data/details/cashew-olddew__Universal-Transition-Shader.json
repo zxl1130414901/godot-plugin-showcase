@@ -1,0 +1,146 @@
+{
+  "id": "cashew-olddew__Universal-Transition-Shader",
+  "depth": "standard",
+  "taglineZh": "一个着色器就能拼出擦除、溶解与光圈等常见转场",
+  "summaryZh": "Universal Transition Shader 把常见转场收进一个 CanvasItem 着色器：方向擦除、钟表式旋转、多扇形、任意边数的多边形光圈、溶解、淡入淡出与滑动，都能靠统一参数组合出来。使用时把 transition.gdshader 挂到任意 CanvasItem 材质上，调 progress 从零到一触发转场，再按需改 transition_type、grid_size、position 与旋转角。仓库带一份完整示例工程与多组配方，照着参数组合就能复现效果。着色器以 CC0 发布，可直接用于商业项目。它只依赖一个着色器文件，既不需要额外脚本，也不必注册成编辑器插件。",
+  "whatItDoes": "着色器以 progress 为主输入，按 transition_type 选择基础网格、时钟或多边形遮罩算法，再用 grid_size 决定每格的方向与密度、position 指定中心、feather 控制边缘羽化。材质挂在 Sprite2D 或 TextureRect 上后，改变 progress 就会逐步揭开或遮住画面。示例工程把常用组合写成配方，标注每个效果只需哪几个参数，方便边看边抄。滑动类效果则同时平移整张纹理。",
+  "useCases": [
+    {
+      "titleZh": "场景切换转场",
+      "descZh": "在换场景时用遮罩擦除覆盖全屏，progress 动画播完再切场景，节奏完全可控；还能选择从中心或角落揭开，让过场更贴合剧情气氛。"
+    },
+    {
+      "titleZh": "UI 弹窗出现",
+      "descZh": "面板用光圈或淡入展开，收起时反向播 progress，比默认 Tween 更有辨识度；多边形边数、中心位置与羽化都能调整，可贴合不同界面风格。"
+    },
+    {
+      "titleZh": "Boss 战或关卡演出",
+      "descZh": "溶解与多边形遮罩用于血条出现、区域封锁等演出，参数组合能做出多种风格，配合网格密度还能做成逐格点亮的效果。"
+    },
+    {
+      "titleZh": "快速比较转场风格",
+      "descZh": "同一份材质只改 transition_type 与网格参数，就能一次试完多种方案再定稿，示例工程里每张对比图都标注了所用配方，照着改数值即可复现。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "转场材质",
+      "descZh": "挂在 Sprite2D 或 TextureRect 上的 ShaderMaterial，调 progress 从零到一能看到遮罩逐步揭开画面并切换颜色，适合全屏过场或局部面板。"
+    },
+    {
+      "titleZh": "参数配方表",
+      "descZh": "README 用配方表列出淡出、方向擦除、角落擦除、百叶窗与网格揭示等现成组合，每组只标出最少必要参数。"
+    },
+    {
+      "titleZh": "示例工程",
+      "descZh": "作者附带一份可直接运行的演示工程，里面放着白天与夜晚两张图，方便逐项对比同一个转场的实际效果。"
+    },
+    {
+      "titleZh": "可复用着色器文件",
+      "descZh": "整份效果都写在一个 gdshader 文件里，复制进项目后建个材质就能引用，不依赖脚本、插件或外部贴图。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "多种转场类型",
+      "descZh": "方向擦除、时钟旋转、多边形光圈、溶解、淡出与滑动合并在同一份着色器里，切换类型只改一个枚举值。"
+    },
+    {
+      "name": "单参数驱动",
+      "descZh": "progress 从零补到一就能播放完整转场，播放速度与缓动曲线交给 Tween 处理，着色器只管遮罩形状。"
+    },
+    {
+      "name": "网格与羽化",
+      "descZh": "用 grid_size 决定格子数量与方向，再用 feather 把边缘调软，百叶窗、棋盘与软边光圈都由此而来。"
+    },
+    {
+      "name": "CC0 授权",
+      "descZh": "以公共领域授权发布，商用项目可以直接改参数甚至改源码，不必署名也没有附加限制。"
+    }
+  ],
+  "limitsZh": "它只做画面遮罩式转场，不处理场景加载、音频淡出与输入锁定，这些要自己用代码编排。效果以网格与遮罩为主，缺少液体、粒子与三维翻页这类高级过渡，想做得更花哨得改着色器。参数组合多但缺少可视化预设面板，调效果要在检查器里逐项试。着色器依赖 CanvasItem 材质，用在 3D 场景需要额外全屏 Quad 或后处理设置。文档虽长，配方之外的理论说明不多，异常效果只能靠试。转场进行时若节点尺寸变化，遮罩比例也会跟着走形，需要重新计算网格。",
+  "workflowZh": [
+    {
+      "stepZh": "把仓库里的 transition.gdshader 复制进项目目录，再在材质中引用这个文件。"
+    },
+    {
+      "stepZh": "给需要转场的 Sprite2D 或 TextureRect 新建材质，并把着色器挂上去。"
+    },
+    {
+      "stepZh": "在检查器里先选 transition_type，再按配方填 grid_size、position 与羽化数值。"
+    },
+    {
+      "stepZh": "用 Tween 或 AnimationPlayer 把 progress 从零平滑补到一，并在结束时切换场景。"
+    },
+    {
+      "stepZh": "对照示例配方微调羽化、中心位置与旋转角，多试几组再定稿。"
+    }
+  ],
+  "pros": [
+    "一个着色器覆盖绝大多数常用转场，只要换参数就能得到新效果，不必为每种效果另找素材。",
+    "只要把 progress 从零补到一就能播放完整转场，接入 Tween 非常直接，不必额外写状态机。",
+    "README 按效果列出大量参数配方，说明哪些参数是必需项，照抄数值基本就能复现同一效果。",
+    "以 CC0 公共领域授权发布，商用项目与二次修改都没有额外限制，也不必在致谢里标注来源。"
+  ],
+  "cons": [
+    "只做画面遮罩，场景加载、音频淡出与输入锁定仍要靠自己写代码编排。",
+    "缺少粒子、液体与三维翻页这类过渡，想要更花哨的效果得自己改着色器。",
+    "没有可视化预设面板，换一种风格要在检查器里逐项改参数慢慢试。",
+    "它依赖 CanvasItem 材质，用在 3D 场景时还得自己搭全屏 Quad 或做后处理才行。"
+  ],
+  "pitfalls": [
+    "忘记把 progress 归零会导致转场直接停在终点，画面始终被遮住，看起来像插件完全没有生效。",
+    "grid_size 设为零向量时会退化成纯淡出，想调百叶窗效果却看不到格子，容易误判成参数写错。",
+    "材质挂在 Control 上时遮罩范围受节点尺寸限制，节点没铺满屏幕只能转一半，做全屏过场先撑满界面。"
+  ],
+  "bestFor": "做 2D 游戏时常用到场景切换、弹窗与关卡演出转场，希望只用一个着色器文件解决遮罩效果，不想额外引入插件。",
+  "avoidWhenZh": "想要粒子级、液体或三维翻页这类转场，或者需要现成的可视化转场编辑器与预设库时。",
+  "compareTips": {
+    "vs": [
+      "murikistudio__simple-gui-transitions",
+      "glass-brick__Scene-Manager",
+      "gdquest-demos__godot-shaders"
+    ],
+    "whenZh": "和 Godot Shaders 里的零散转场片段相比，它把参数收敛到一套并附配方；与 GUI 转场插件相比，它不绑定控件动画流程，需要自己用 Tween 编排；它也不提供场景管理层，切场景的时机仍由项目自己决定。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "着色器",
+    "转场",
+    "UI动画",
+    "2D"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "定位是用于视觉元素之间的动画转场",
+      "source": "README.md",
+      "quote": "This shader provides a flexible and highly customizable system for creating animated transitions between visual elements in a Godot project."
+    },
+    {
+      "claim": "支持方向擦除等转场类型",
+      "source": "README.md",
+      "quote": "**Directional Wipes**: (left, right, top, bottom, diagonal)"
+    },
+    {
+      "claim": "可挂到任意 CanvasItem 上",
+      "source": "README.md",
+      "quote": "1. Attach the shader to any `CanvasItem` (like a `Sprite2D` or `TextureRect`)."
+    },
+    {
+      "claim": "progress 是触发转场的主参数",
+      "source": "README.md",
+      "quote": "3. Adjust the `progress` value to trigger a transition."
+    }
+  ]
+}

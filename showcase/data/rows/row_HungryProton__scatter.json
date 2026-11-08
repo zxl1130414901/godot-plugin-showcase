@@ -1,0 +1,34 @@
+{
+  "id": "HungryProton__scatter",
+  "descriptionZh": "用修改器栈在 Godot 4 场景里程序化摆放道具与植被，支持区域形状、投影与负空间，非破坏可复现。",
+  "category": "editor-tool",
+  "tags": [
+    "散布",
+    "关卡设计",
+    "程序化",
+    "编辑器插件"
+  ],
+  "prosShort": [
+    "改密度与朝向不用重新摆一遍",
+    "非破坏配置可复现同一布局",
+    "支持投影贴面与负空间挖空"
+  ],
+  "consShort": [
+    "只管摆放，剔除与碰撞要自配",
+    "形状只有三种，复杂边界靠拼",
+    "主库迁到 Codeberg，缺少文字教程，只能看视频"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

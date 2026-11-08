@@ -1,0 +1,145 @@
+{
+  "id": "rakugoteam__VisualNovelKit",
+  "depth": "standard",
+  "taglineZh": "仿 Ren'Py 的视觉小说套件，含对话系统与高级文本",
+  "summaryZh": "Visual Novel Kit 是一套面向视觉小说的 Godot 项目模板，由多个 addon 组合而成：Rakugo 提供剧情脚本语言内核，advanced-text 负责富文本排版，icons-fonts 提供图标字体，visualnovelkit 则是主菜单、暂停菜单、设置、历史记录与存读档的 UI 层。脚本语言支持通知、节点翻译、动画与音频指令，历史面板会记录 Say、Ask、Menu、Notify 四类语句，并允许通过 add_history_log 注册自定义条目。作者说明项目“可用但仍缺若干功能”，存读档部分标注为 WIP，适合想快速搭起视觉小说骨架的团队，用现成模板替换美术与文本即可。",
+  "whatItDoes": "提供 Ren'Py 式的对白脚本语法与配套运行时，把 Say、Ask、Menu、Notify 等语句解释为逐句推进的演出流程。内置一套仿 Ren'Py 的界面模板，包含主菜单、暂停菜单、设置、历史记录与存读档页面。通过 AdvancedText 让对白与菜单文字支持 Markdown、Ren'Py Markup 与 BBCode 混排。",
+  "useCases": [
+    {
+      "titleZh": "视觉小说原型",
+      "descZh": "套用模板后直接写剧本，对话、选项与分支演出都有现成节点，几天内能跑出可玩的开头。"
+    },
+    {
+      "titleZh": "对话与分支剧情",
+      "descZh": "用 Rakugo 对话系统管理说话人、台词与分支跳转，分支按标记推进，剧本改动不必重新编译场景，写长剧情也不易乱。"
+    },
+    {
+      "titleZh": "富文本对白",
+      "descZh": "AdvancedText 支持逐字显示、表情标签与内联特效，做演出感更强的对白与旁白，也能给关键词加动画。"
+    },
+    {
+      "titleZh": "编剧协作",
+      "descZh": "剧本文件独立于场景，编剧改台词不用碰程序，版本对比更清楚，多人协作时冲突也更少。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "完整模板工程",
+      "descZh": "仓库自带可运行的项目模板，含主菜单、对话框与存档骨架，克隆后直接换成自己的素材。"
+    },
+    {
+      "titleZh": "Rakugo 对话框架",
+      "descZh": "负责剧本解析、说话人管理与分支跳转，运行时提供信号供界面响应，存档变量也由它维护。"
+    },
+    {
+      "titleZh": "AdvancedText 节点",
+      "descZh": "控制逐字速度、标签解析与富文本效果，能嵌表情与内联动画，也支持自定义解析器。"
+    },
+    {
+      "titleZh": "剧本语法高亮",
+      "descZh": "RakuScript 配色插件让剧本在编辑器里可读，说话人与指令分色显示，减少语法笔误。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Rakugo 插件",
+      "descZh": "解析剧本并驱动对话流程，含存档变量与分支标记，是整套系统的核心。"
+    },
+    {
+      "name": "AdvancedText",
+      "descZh": "富文本渲染节点，支持逐字、标签与内联效果，演出表现更细，也能接管打字音效。"
+    },
+    {
+      "name": "剧本高亮",
+      "descZh": "给剧本文件上色，标出说话人与指令，写长剧本时更不容易看错。"
+    },
+    {
+      "name": "模板场景",
+      "descZh": "主菜单、对话框与设置页现成可用，改素材与配色就能换成自己的风格。"
+    }
+  ],
+  "limitsZh": "作者在 README 顶部明确标注项目“Stable, but still WIP, missing few features”，存读档模块仍写着 WIP，说明这条主线并未完全收尾，生产项目需要自己补齐存档序列化与槽位管理。安装方式相当原始：官方建议直接下载整仓源码解包后在 Godot 中导入编辑，没有提供 AssetLib 条目或可单独拷贝的插件包，想并入已有工程需要手动挑出 addons 下的多个子目录并逐个启用。仓库内并存 Rakugo、rakugo-nodes、visualnovelkit、advanced-text 等六七个 addon，版本号与职责边界需要自行梳理，升级时容易出现依赖错配。文档主要靠 README 与外链的 Rakugo 文档站，缺少 API 级别的参考与迁移说明。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆或下载仓库，直接用模板工程打开"
+    },
+    {
+      "stepZh": "在项目设置里启用 Rakugo 与 AdvancedText 等插件并重启编辑器"
+    },
+    {
+      "stepZh": "在 addons 目录里写剧本文件并定义角色与变量"
+    },
+    {
+      "stepZh": "把剧本挂到对话节点，接好选项与跳转"
+    },
+    {
+      "stepZh": "替换美术素材，调整主题与字体后试玩"
+    }
+  ],
+  "pros": [
+    "对话、富文本与剧本高亮一次给齐，省去逐个找插件拼装的时间",
+    "模板工程开箱可跑，主菜单与对话框都有，原型起步非常快，改动素材即可换风格",
+    "剧本与场景分离，编剧改台词不用碰程序，协作更顺，版本对比也更清楚",
+    "受 Ren'Py 启发，写法接近成熟视觉小说工具，上手门槛低，编剧也容易迁移",
+    "MIT 许可，代码可改，能按自己的演出需求扩展，也能拆出单个插件复用"
+  ],
+  "cons": [
+    "项目仍在开发中，部分功能缺失，复杂演出要自己补实现",
+    "文档偏薄，多数细节靠读示例与源码，排障成本高",
+    "依赖多个插件协同，版本不一致时容易出错，升级前要一起核对"
+  ],
+  "pitfalls": [
+    "只启用 Rakugo 而漏装 AdvancedText，富文本标签不会生效，界面会显示原始标记",
+    "剧本语法错误会在运行时才报，先从小段剧本逐步验证，再拼完整章节",
+    "直接改模板场景里的对话节点可能破坏信号连接，改前先备份"
+  ],
+  "bestFor": "做视觉小说、文字冒险或对话驱动的叙事游戏，希望快速出可玩原型、并能接受少量自行补功能的 Godot 4 团队与个人作者。",
+  "avoidWhenZh": "需要成熟稳定、文档完备的商业级对话工具链，或要做重演出与全语音的项目，应选更成熟的方案。",
+  "compareTips": {
+    "vs": [
+      "dialogic-godot__dialogic"
+    ],
+    "whenZh": "两者都面向叙事：VisualNovelKit 提供视觉小说模板、对话系统与富文本，覆盖整套演出；Quest Manager 只管任务树与状态。做小说选前者，做任务系统选后者。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "视觉小说",
+    "对话脚本",
+    "UI模板",
+    "Ren'Py风格",
+    "富文本"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "项目自述可用但仍缺功能，存读档为 WIP",
+      "source": "README.md",
+      "quote": "Project is Stable, but still WIP, as it missing few features!"
+    },
+    {
+      "claim": "历史记录支持自定义标签扩展",
+      "source": "README.md",
+      "quote": "You can easy add your own stuff to history like this: `VisualNovelKit.add_history_log([\"tag\", any_data])`."
+    },
+    {
+      "claim": "安装方式是整仓下载后在 Godot 中导入",
+      "source": "README.md",
+      "quote": "For now just download source code. Unpack it, than import and start to editing it in Godot Engine."
+    },
+    {
+      "claim": "提供类 Ren'Py 的视觉小说 UI 模板",
+      "source": "README.md",
+      "quote": "UI game template for Visual Novel a'la Ren'Py"
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "id": "Maaack__Godot-Game-Template",
+  "depth": "standard",
+  "taglineZh": "十五分钟配好主菜单、设置、暂停与转场的 Godot 游戏启动模板",
+  "summaryZh": "Maaack 的 Game Template 把一款游戏开场前需要的界面一次备齐：主菜单、设置项、暂停菜单、制作名单、转场加载与示例关卡。它既可作为新项目模板，也能作为插件塞进现有工程，安装后跑一个设置向导，把示例场景从 addons 复制到项目根目录再改。设置项覆盖音量、分辨率、输入映射与辅助功能，转场带进度条与错误处理，音乐与按钮音效各有独立控制器，能跨场景续播。它不预设玩法，2D 与 3D 都能用，分辨率从 640x360 到 4k 有对应配置。结构清晰、文档齐全，适合赶 jam 或需要一套可扩展的菜单底座。",
+  "whatItDoes": "插件提供 MainMenu、Options、Pause、Credits 等场景，配 AppSettings 与 GameState 单例保存设置与关卡状态。设置向导把示例场景与脚本复制到项目目录，改完即成为项目自己的场景。SceneLoader 负责带进度条的异步切换，MusicController 跨场景保持播放并混合曲目，UISoundController 自动给按钮、滑条与输入框挂音效。LevelManager 记录关卡进度与解锁状态，输入映射界面能列出动作并允许玩家改键。",
+  "useCases": [
+    {
+      "titleZh": "Jam 项目起步",
+      "descZh": "把菜单、设置与暂停一次配好，时间全花在玩法上，交稿前不必再赶一套能看的界面，也省掉为设置项写弹窗的晚上。"
+    },
+    {
+      "titleZh": "给存量项目补菜单",
+      "descZh": "已有玩法但界面是临时拼的，用插件方式装进现有工程，跑向导生成菜单场景后接上自己的关卡，不必改动已有脚本结构。"
+    },
+    {
+      "titleZh": "辅助功能适配",
+      "descZh": "设置项里带上音量、字幕与显示相关选项，让作品满足基本的可访问性要求，少做一轮玩家反馈修补，也更容易过平台审核。"
+    },
+    {
+      "titleZh": "多分辨率发布",
+      "descZh": "同一套界面在 640x360 与 4k 之间切换，用模板给的分辨率配置减少手动调锚点的工作，移植到掌机与桌面时压力更小。"
+    },
+    {
+      "titleZh": "教学与团队规范",
+      "descZh": "把菜单、设置与转场的组织方式当范例，新人照着目录结构写场景，团队少走弯路，代码评审也有共同参照。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "菜单场景集",
+      "descZh": "主菜单、设置、暂停与制作名单等场景，复制出 addons 后可直接改名与换图，成为项目自己的界面，不必受插件更新影响。"
+    },
+    {
+      "titleZh": "设置与存档单例",
+      "descZh": "AppSettings 与 GameState 组成的全局状态，保存音量、分辨率、按键与关卡进度，换场景时不会丢失，重启游戏后仍能读回设置。"
+    },
+    {
+      "titleZh": "带进度转场",
+      "descZh": "SceneLoader 生成的加载场景，含进度条、淡入淡出与错误提示，切换到重资源关卡时玩家能看到进度，不至于盯着黑屏。"
+    },
+    {
+      "titleZh": "音频控制器",
+      "descZh": "跨场景续播的音乐控制器与自动挂音的界面音效控制器，两者都是独立插件，可以只装需要的那一个。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Setup Wizard",
+      "descZh": "在项目工具菜单里启动，把示例场景复制到项目目录并完成基础配置，复制路径与冲突项都会列出来。"
+    },
+    {
+      "name": "AppSettings",
+      "descZh": "集中管理音量、分辨率、输入与辅助选项，设置结果可持久化，换场景后不会被重置。"
+    },
+    {
+      "name": "SceneLoader",
+      "descZh": "异步加载场景并显示进度条，带淡入淡出与失败提示，切关卡时不会出现黑屏等待。"
+    },
+    {
+      "name": "LevelManager",
+      "descZh": "记录关卡进度、解锁状态与当前关卡，配合 GameState 做流程控制，关卡列表可直接由它驱动。"
+    },
+    {
+      "name": "MusicController",
+      "descZh": "跨场景保持音乐播放并混合曲目，切换关卡时不打断背景乐，淡入淡出参数可调。"
+    }
+  ],
+  "limitsZh": "它是启动模板而不是完整框架，玩法层、存档格式、成就与设置云同步都要自己补。默认面向 Godot 4.7，旧版本只能靠 4.4 以上的兼容性，更早的 4.x 需要取旧发布。复制示例场景会带进较多演示资源与占位图，正式项目要逐个替换，否则包体与风格都会被拖住。设置项覆盖常见需求，但布局与美术风格仍要改，直接上线会显得像同一批模板作品。插件套件包含更新器与清理工具，误开更新器可能改动 addons 内容，团队要约定哪些插件启用。文档很长但章节分散，第一次装完容易在向导复制路径上选错目录。",
+  "workflowZh": [
+    {
+      "stepZh": "从资产库或商店安装模板或插件版本"
+    },
+    {
+      "stepZh": "在项目工具菜单里运行设置向导并确认路径"
+    },
+    {
+      "stepZh": "确认示例场景被复制到的目标目录是否正确"
+    },
+    {
+      "stepZh": "替换图标、字体与示例里的占位美术"
+    },
+    {
+      "stepZh": "在设置项里接上项目的音量总线与按键映射"
+    },
+    {
+      "stepZh": "把自建关卡挂进 LevelManager，再试一次转场加载"
+    }
+  ],
+  "pros": [
+    "主菜单、设置、暂停、名单与转场一次备齐，十几分钟就能有一版可玩的流程，jam 项目最省时间。",
+    "模板与插件两种形态并存，新项目开箱即用，老项目也能只补界面层，不必重排现有场景结构。",
+    "音乐与界面音效各有独立控制器，跨场景续播与按钮音效不用自己写，音频逻辑少一半工作量。",
+    "文档按功能拆章，还列出同系列模板差异，选型时能直接对照，也便于判断该装模板还是精简版。"
+  ],
+  "cons": [
+    "只覆盖开场与流程，玩法、存档与成就仍要自己实现，别把它当完整框架。",
+    "复制进项目的示例资源较多，替换占位图要花一轮清理时间，包体也会先胖一圈。",
+    "默认绑定较新的 Godot 版本，老引擎要退回旧发布，兼容分支维护成本不低。"
+  ],
+  "pitfalls": [
+    "向导复制目录选错后会生成两套菜单场景，改一套忘另一套，运行起来仍是旧界面。",
+    "开着插件更新器又手改了 addons 内容，更新时改动被覆盖，自定义只应写在复制出来的场景里。",
+    "切换关卡没走 SceneLoader 而是直接 change_scene，音乐与设置单例会重复初始化，表现为音乐叠放。"
+  ],
+  "bestFor": "赶 jam、做小体量商业作品，或已有玩法但缺一套像样菜单与设置层的独立开发者与小团队，尤其适合两周内要出可玩版本的项目。",
+  "avoidWhenZh": "需要完整框架级能力（存档、成就、联网），或项目锁定在 Godot 4.3 及更早版本时。",
+  "compareTips": {
+    "vs": [
+      "nezvers__Godot-GameTemplate",
+      "crystal-bit__godot-game-template",
+      "Maaack__Godot-Game-Template"
+    ],
+    "whenZh": "crystal-bit 的模板偏代码结构与状态机，nezvers 的更极简、偏基础设置；Maaack 的界面层最完整、附带音频与转场控制器。主要缺菜单与设置选 Maaack，要更轻的工程骨架看另外两个。"
+  },
+  "category": "ui",
+  "tags": [
+    "模板",
+    "菜单",
+    "设置",
+    "转场",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "模板自带菜单、暂停、名单、转场与示例场景",
+      "source": "README.md",
+      "quote": "This template has a main menu, options menus, pause menu, credits, scene loader, extra tools, and an example game scene."
+    },
+    {
+      "claim": "目标是十五分钟内完成菜单与辅助功能",
+      "source": "README.md",
+      "quote": "Setup menus and accessibility features in about 15 minutes."
+    },
+    {
+      "claim": "不绑定玩法类型并支持多分辨率",
+      "source": "README.md",
+      "quote": "It is game agnostic (2D or 3D) and can work with multiple target resolutions, up to 4k and down to 640x360."
+    },
+    {
+      "claim": "同时提供模板与插件两种形态",
+      "source": "README.md",
+      "quote": "It is available as both a template and a plugin"
+    },
+    {
+      "claim": "示例场景由向导复制出 addons",
+      "source": "README.md",
+      "quote": "As part of setup, example scenes are copied out of `/addons/` into a desired folder (project root by default)."
+    },
+    {
+      "claim": "插件版本为 1.7.1",
+      "source": "addons/maaacks_game_template/plugin.cfg",
+      "quote": "version=\"1.7.1\""
+    }
+  ]
+}

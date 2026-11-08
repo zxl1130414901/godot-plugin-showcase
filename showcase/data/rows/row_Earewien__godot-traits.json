@@ -1,0 +1,34 @@
+{
+  "id": "Earewien__godot-traits",
+  "descriptionZh": "为 GDScript 提供 @trait 特性系统，可给节点附加可装卸行为并自动生成访问工具方法",
+  "category": "state-logic",
+  "tags": [
+    "特性系统",
+    "组合复用",
+    "组件化",
+    "GDScript"
+  ],
+  "prosShort": [
+    "组合复用统一成特性，结构更清晰",
+    "自动生成 is、as、set 三类访问方法",
+    "支持依赖自动带入与场景特性"
+  ],
+  "consShort": [
+    "只能挂节点，纯数据对象不适用",
+    "卸载后依赖声明残留，需要清理",
+    "新增特性需重启编辑器才生成"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

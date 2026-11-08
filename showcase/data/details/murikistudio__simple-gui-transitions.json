@@ -1,0 +1,139 @@
+{
+  "id": "murikistudio__simple-gui-transitions",
+  "depth": "standard",
+  "taglineZh": "给菜单切换加淡入淡出、滑动与缩放过渡",
+  "summaryZh": "这个插件提供 GuiTransition 节点，用淡入淡出、滑动与缩放等效果在多个 GUI 布局之间切换，不用给每个菜单手写动画。配置 Layout、Controls 或 Group 后即可按顺序播放，全局单例还提供统一的过渡方法、信号与项目级默认参数，适合主菜单、设置页与暂停界面。它面向静态界面设计，文档把属性与限制写得比较清楚。限制是不能在运行时改 Controls 或 Group，容器内的子控件也不支持滑动，布局动画依赖锚点；复杂过场仍要自己写动画。",
+  "whatItDoes": "把 Layout 指定为当前界面根节点，Controls 或 Group 指定要依次动画的控件，调用单例方法即可切换到目标布局。过渡用着色器处理可见控件、用锚点补间处理布局，支持淡入淡出、滑动与缩放，可设延时与顺序。项目设置里可覆盖全局默认时长与曲线。",
+  "useCases": [
+    {
+      "titleZh": "主菜单与设置页",
+      "descZh": "在开始菜单、设置页与制作人员名单之间切换时，用统一的淡入与滑动效果过渡，避免画面生硬跳变，也让整体风格保持一致。"
+    },
+    {
+      "titleZh": "暂停与结算界面",
+      "descZh": "用淡入与滑动切换暂停与结算覆盖层，减少生硬弹出，让玩家在打断与恢复之间过渡得更自然。"
+    },
+    {
+      "titleZh": "叙事式菜单",
+      "descZh": "给每个章节菜单配不同过渡，用滑动与缩放强化氛围与章节差异，也让叙事节奏更清楚。"
+    },
+    {
+      "titleZh": "UI 原型",
+      "descZh": "先套现成过渡验证节奏与时长，再决定是否自定义动画，省下重复写 Tween 的时间，也少踩状态机坑。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可切换的菜单布局",
+      "descZh": "多个界面根节点由 GuiTransition 统一管理显隐，切换时按配置播放过渡，不必给每个菜单写一套逻辑。"
+    },
+    {
+      "titleZh": "序列化控件动画",
+      "descZh": "按钮、标题等控件按顺序淡入、滑动或缩放，形成有层次的入场效果，视觉上比同时出现更耐看。"
+    },
+    {
+      "titleZh": "全局过渡配置",
+      "descZh": "项目级默认时长与曲线可统一覆盖节点设置，风格调整只改一处，整个项目的菜单节奏也能保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "GuiTransition 节点",
+      "descZh": "配置 Layout、Controls、Group 与过渡参数，节点挂进菜单即可工作，不用额外写驱动脚本。"
+    },
+    {
+      "name": "GuiTransitions 单例",
+      "descZh": "提供切换方法、信号与全局查询接口，切换逻辑集中管理，其他脚本调用也很直接。"
+    },
+    {
+      "name": "滑动过渡",
+      "descZh": "可见控件走着色器滑动，布局按锚点补间移动，效果比纯淡入更有动感，适合横向切换。"
+    },
+    {
+      "name": "顺序动画",
+      "descZh": "Controls 或 Group 中的子控件按顺序依次进入，可调间隔形成节奏，列表与按钮组都能用。"
+    },
+    {
+      "name": "项目级默认值",
+      "descZh": "在项目设置里统一调速度与曲线，覆盖节点默认，方便全项目统一手感，也让新菜单少配参数。"
+    }
+  ],
+  "limitsZh": "官方限制写得很直白：不支持运行时修改属性，Controls 与 Group 不能在运行中增删，改其他属性会产生未知副作用，因此只适合静态菜单。容器内的子控件不支持滑动，因为滑动靠着色器实现，无法动画容器子级；布局动画依赖锚点补间，布局没用锚点时切换会错位。它只做界面间的过渡，不管理场景加载、输入焦点或返回栈，复杂导航仍要自己搭。节点属性较多，配错 Layout 或 ID 会导致目标界面找不到。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 安装插件，并在项目的插件列表里启用"
+    },
+    {
+      "stepZh": "在菜单场景里添加一个 GuiTransition 节点并命名"
+    },
+    {
+      "stepZh": "先指定 Layout 节点，再挑选用 Controls 还是用 Group"
+    },
+    {
+      "stepZh": "调过渡类型、时长、延时以及缓动曲线"
+    },
+    {
+      "stepZh": "用单例方法触发切换，验证多个菜单的衔接"
+    }
+  ],
+  "pros": [
+    "节点化配置，菜单过渡几乎不用写动画代码，接入很快，美术也能自己调参数",
+    "单例提供统一方法与信号，切换逻辑集中，便于统一管理与复用",
+    "项目级默认值可统一调整全项目节奏，风格一致，新菜单不用重复配",
+    "文档完整列出属性、方法与已知限制，踩坑前能先看到，排查也有依据",
+    "AssetLib 可装，接入步骤简单，小项目也能快速用上，不必自建框架，学习成本低"
+  ],
+  "cons": [
+    "不支持运行时改 Controls 或 Group，界面必须预先固定，动态菜单做不了",
+    "容器子控件无法滑动，布局方式受限，复杂列表与滚动区域做不了",
+    "只做过渡，不管场景加载、导航与输入焦点，仍要自己搭一套流程"
+  ],
+  "pitfalls": [
+    "Layout 未使用锚点时滑动会错位，布局要先按锚点规范搭，再套过渡",
+    "运行时增删控件会产生未知副作用，应预先固定控件列表，别在过渡中改结构",
+    "同时设置 Controls 与 Group 时 Group 会被忽略，二者只留一个，配置时先确认"
+  ],
+  "bestFor": "菜单结构固定的桌面或主机游戏，想用现成节点快速获得统一、可调界面过渡效果的美术与程序协作者，也适合小团队快速出原型。",
+  "avoidWhenZh": "界面控件需要动态增删，或要求容器内子控件逐个滑动入场、需要复杂过场编排的项目，都不适合直接套用。",
+  "compareTips": {
+    "vs": [
+      "TheDuriel__DurielUtilities"
+    ],
+    "whenZh": "Simple GUI Transitions 专做菜单之间的过渡，节点化配置、开箱即用；DurielUtilities 的 ScreenTransition 偏通用屏幕切换框架，可扩展性更强。要菜单淡入滑动选前者，要自建转场体系看后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "界面过渡",
+    "菜单",
+    "动画",
+    "UI插件"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "提供 GuiTransition 节点切换多个 GUI 布局",
+      "source": "README.md",
+      "quote": "This plugin gives access to the `GuiTransition` node which allows to transition multiple GUI layouts easily."
+    },
+    {
+      "claim": "不支持运行时修改 Controls 与 Group",
+      "source": "README.md",
+      "quote": "No support for changing properties at runtime."
+    },
+    {
+      "claim": "容器子控件不支持滑动动画",
+      "source": "README.md",
+      "quote": "No support for slide animations on containers."
+    }
+  ]
+}

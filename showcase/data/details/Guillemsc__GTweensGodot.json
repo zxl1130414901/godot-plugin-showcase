@@ -1,0 +1,139 @@
+{
+  "id": "Guillemsc__GTweensGodot",
+  "depth": "standard",
+  "taglineZh": "面向 C# 的不依赖节点属性路径的补间动画库",
+  "summaryZh": "GTweens-Godot 是面向 C# 的补间动画库，和 Godot 自带 Tween 最大的区别是不靠节点里的字符串属性路径：直接对目标对象调扩展方法，如 TweenPosition 或 TweenScale，就能生成补间。它支持序列编排、并行 Join、延时、回调、循环、自定义缓动曲线与 async 等待，适合把 UI 与过场动画写成可组合的 C# 代码。安装可从 Release 或 NuGet 取包，Godot 4.0 至 4.4 都有标注。限制是只服务 C# 项目，没有可视化编辑器，团队要熟悉 C# 异步写法。",
+  "whatItDoes": "用扩展方法为节点属性创建 GTween，可链式加缓动、循环、延时与回调；GTweenSequenceBuilder 把多个补间串成时间线，支持 Append、Join 与 AppendTime。补间可 await，放在 async 方法里按完成顺序继续逻辑。缓动既能用内置枚举，也能传 Curve 资源，便于美术调曲线。",
+  "useCases": [
+    {
+      "titleZh": "UI 弹出与收起",
+      "descZh": "用序列编排缩放、位移与透明度，写出可复用的面板动效，不必为每个界面重复搭节点。"
+    },
+    {
+      "titleZh": "过场与镜头动画",
+      "descZh": "把多个相机与节点的补间并行 Join，做一段完整过场演出，时间点集中一处，改分镜只动一个文件。"
+    },
+    {
+      "titleZh": "需要 await 的游戏流程",
+      "descZh": "在 async 逻辑里等动画结束再继续，避免回调嵌套，加载与开场流程能写成顺序代码，读起来像同步脚本。"
+    },
+    {
+      "titleZh": "C# 项目统一动画写法",
+      "descZh": "用同一套 API 替代散落的 Tween 节点与属性字符串，重构改名时不会静默失效，也能统一缓动与时长规范。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可复用的补间对象",
+      "descZh": "GTween 对象可在代码里保存、暂停、循环与组合，适合挂到成员变量，避免被回收导致动画中断。"
+    },
+    {
+      "titleZh": "时间线序列",
+      "descZh": "序列构建器把多个动画拼成一条可整体播放的轨道，顺序与并行都能显式声明。"
+    },
+    {
+      "titleZh": "自定义缓动曲线",
+      "descZh": "内置枚举之外还能直接传 Curve 资源，让美术用曲线编辑器定节奏，导出数值再交给程序。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "扩展方法 API",
+      "descZh": "Target.TweenPosition、TweenScale 等扩展方法直接建补间，不必再写属性名字符串，IDE 还能补全。"
+    },
+    {
+      "name": "GTweenSequenceBuilder",
+      "descZh": "Append、Join 与 AppendTime 组合顺序、并行与等待，序列结构在代码里一目了然。"
+    },
+    {
+      "name": "async 支持",
+      "descZh": "补间可 await，把动画节点嵌进 C# 异步流程，避免层层回调，加载链能顺序书写。"
+    },
+    {
+      "name": "Curve 缓动",
+      "descZh": "除内置 Easing 外可直接传 Curve 资源做自定义曲线，手感更贴美术预期。"
+    },
+    {
+      "name": "NuGet 分发",
+      "descZh": "同时提供 NuGet 包与 GitHub Release 包，可按项目习惯选接入方式，CI 里也能直接还原。"
+    }
+  ],
+  "limitsZh": "只支持 C#，GDScript 项目完全用不上；需要项目已启用 .NET 版本，并接受 C# 编译与程序集加载流程。它不提供可视化时间线编辑器，动画全写在代码里，策划与美术难以独立调整。与 Godot 原生 Tween 并存时容易出现两套动画体系混用，团队需要约定规范。库本身封装属性插值，复杂路径、骨骼或材质参数动画仍要自己写自定义插值；README 示例多但缺少完整项目模板。",
+  "workflowZh": [
+    {
+      "stepZh": "确认项目使用 Godot 的 .NET 版本，并装好对应的 SDK"
+    },
+    {
+      "stepZh": "从 Release 或 NuGet 引入 GTweensGodot 包，并让 IDE 恢复依赖"
+    },
+    {
+      "stepZh": "在 C# 脚本里引用补间扩展方法，直接对目标对象建补间"
+    },
+    {
+      "stepZh": "链式设置缓动、循环次数、延时与完成回调"
+    },
+    {
+      "stepZh": "用序列构建器把多段补间拼成时间线，或直接 await 依次播放"
+    }
+  ],
+  "pros": [
+    "不用字符串属性路径，重构改名时不会静默失效，出错更早暴露",
+    "链式 API 与序列构建器表达力强，复杂编排能读成一条时间线",
+    "支持 await，能自然嵌入 C# 异步流程，加载、过场与战斗演出都不必回调嵌套",
+    "可用 Curve 资源做自定义缓动，便于美术按曲线调节奏，程序不必反复改系数",
+    "同时提供 Release 与 NuGet，接入方式灵活，CI 里也能直接还原依赖包与版本锁定"
+  ],
+  "cons": [
+    "只服务 C#，GDScript 项目完全用不上，团队技能栈是硬门槛",
+    "没有可视化时间线，动画只能写代码，策划与美术难以独立调整",
+    "与原生 Tween 并用时容易形成两套体系，团队要约定统一规范"
+  ],
+  "pitfalls": [
+    "项目未启用 .NET 版 Godot 时包无法加载，先确认编辑器版本与已装 SDK",
+    "忘记保存 GTween 引用会被回收，动画可能中途中断，应存为成员变量",
+    "await 补间时节点已释放会抛异常，恢复前先判断实例是否仍然有效"
+  ],
+  "bestFor": "使用 Godot 4 .NET、希望用 C# 的链式与 async 写法统一管理 UI、过场与镜头动画，并且团队以程序员为主的团队。",
+  "avoidWhenZh": "纯 GDScript 项目，或需要策划与美术在编辑器里可视化编排动画、不希望写代码的团队。",
+  "compareTips": {
+    "vs": [
+      "EvilBunnyMan__TweenFX"
+    ],
+    "whenZh": "GTweens 是 C# 代码驱动的补间库，用扩展方法避免属性字符串；TweenFX 偏编辑器内可视化特效与补间节点。想把动画写进代码逻辑选前者，想在编辑器里摆效果、由美术调参选后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "补间动画",
+    "C#",
+    "缓动",
+    "序列动画"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "不依赖节点与字符串属性路径",
+      "source": "README.md",
+      "quote": "Unlike the default Godot tweening engine, which relies on nodes and their string properties to create animations, this tweening engine doesn't require the use of nodes."
+    },
+    {
+      "claim": "提供 NuGet 包",
+      "source": "README.md",
+      "quote": "https://www.nuget.org/packages/GTweensGodot"
+    },
+    {
+      "claim": "支持 C# async 任务",
+      "source": "README.md",
+      "quote": "Async support: GTweens uses the full power of C# and async tasks"
+    }
+  ]
+}

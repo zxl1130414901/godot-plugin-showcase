@@ -1,0 +1,35 @@
+{
+  "id": "anthonyec__godot_little_camera_preview",
+  "descriptionZh": "在编辑器里为选中的 2D 或 3D 相机显示画中画预览的小插件",
+  "category": "editor-tool",
+  "tags": [
+    "相机预览",
+    "编辑器插件",
+    "画中画",
+    "构图调试",
+    "GDScript"
+  ],
+  "prosShort": [
+    "选中相机即可看到实时构图",
+    "2D、3D 与 UI 相机都支持，团队上手也快。",
+    "只在编辑器生效不影响导出"
+  ],
+  "consShort": [
+    "复杂场景会拖慢编辑器，团队要提前评估。",
+    "小屏幕浮窗容易遮挡，规模化后更明显。",
+    "不能多相机同屏对比，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "GDQuest__zed-gdscript",
+  "descriptionZh": "给 Zed 编辑器提供 GDScript 高亮、补全、跳转与调试的语言扩展，经 netcat 连接 Godot 语言服务器",
+  "category": "editor-tool",
+  "tags": [
+    "Zed",
+    "GDScript",
+    "语言服务器",
+    "编辑器扩展"
+  ],
+  "prosShort": [
+    "复用 Godot 语言服务器获得项目级补全",
+    "Godot 报错可直接跳到对应行列",
+    "附带调试适配器与协议 schema 文件"
+  ],
+  "consShort": [
+    "强依赖 netcat，Windows 上环境配置繁琐",
+    "必须开着 Godot 才有完整语言服务",
+    "仅支持 Zed，编辑器选择被绑定"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

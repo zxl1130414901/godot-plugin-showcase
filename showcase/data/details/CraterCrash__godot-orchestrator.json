@@ -1,0 +1,166 @@
+{
+  "id": "CraterCrash__godot-orchestrator",
+  "depth": "standard",
+  "taglineZh": "给 Godot 4 补上节点式可视化脚本，可直接挂在节点上",
+  "summaryZh": "Orchestrator 用 GDExtension 给 Godot 4 加了一门可视化脚本语言：把编排脚本 OScript 像 GDScript 一样挂到任意节点上，在图形编辑器里连线搭逻辑，运行期由 C++ 侧解释执行。节点库按流程控制、逻辑、数学、变量、场景、资源等分类，内置数百个节点，支持拖拽场景节点与属性进图、自定义函数、信号收发与数组字典等复杂类型，也能用来编排 NPC 对话。工程按引擎版本分支持续维护，主分支对应 4.8，2.5 分支对应 4.7，更早的 4.2 到 4.5 各有最后一个可用版本。仓库里有 CMake 构建、测试与 doc_classes，发布包通过 AssetLib 分发。",
+  "whatItDoes": "提供可视化脚本资源 OScript 与图形编辑器，把节点与连线保存成资源并随场景加载。运行期扩展按图解释执行，条件分支、循环、数学运算与变量读写都由节点完成。场景节点、属性与资源能从场景树直接拖进图里引用，信号可以在图中发送与接收。自定义函数把重复逻辑封装成子图，供其他图复用。扩展本体是 C++ 编译出的 GDExtension 库，编辑器与发布版各有一份二进制，按平台分发。",
+  "useCases": [
+    {
+      "titleZh": "策划自建逻辑",
+      "descZh": "关卡策划想改怪物行为又不想碰代码，用节点图连出巡逻、追击与攻击流程，改完直接在编辑器里跑，不用等程序排期。"
+    },
+    {
+      "titleZh": "原型期流程搭建",
+      "descZh": "验证玩法循环时用节点图快速连出状态与条件分支，比写脚本更快看到结果，方案否掉时删掉图即可，不留代码债。"
+    },
+    {
+      "titleZh": "对话与剧情编排",
+      "descZh": "README 提到可做 NPC 对话，把分支、条件与事件连成一张图，剧情改动不必改脚本，也方便策划直接维护，条件分支还能在图上逐个检查。"
+    },
+    {
+      "titleZh": "混合脚本项目",
+      "descZh": "项目主体是 GDScript，但某些节点需要可视化调试时，把 OScript 挂上去只做那部分逻辑，两种脚本可以并存，不必整体迁移脚本。"
+    },
+    {
+      "titleZh": "教学可视化编程",
+      "descZh": "讲事件驱动与流程控制时用节点图展示执行路径，学生能顺着连线看状态怎么变，比读脚本更容易建立直觉。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "OScript 脚本资源",
+      "descZh": "挂在节点上的可视化脚本资源，像 GDScript 一样随场景保存，运行期由扩展解释执行，节点引用也随场景一起序列化。"
+    },
+    {
+      "titleZh": "自定义函数图",
+      "descZh": "把重复逻辑封成函数图，在别的图里复用，改一处就全部生效，适合沉淀项目通用流程，函数签名在图里也能直接查到。"
+    },
+    {
+      "titleZh": "信号连接图",
+      "descZh": "在图里收发 Godot 信号，把节点事件接到流程上，不必在脚本里手写 connect，连接关系在图上直接可见，也方便逐条核对。"
+    },
+    {
+      "titleZh": "对话与流程编排",
+      "descZh": "用分支与条件节点拼出的对话或任务流程，策划可直接改图，不必等程序改脚本，分支条件改完立刻生效。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "OScript",
+      "descZh": "可视化的脚本资源，可挂到任意场景节点上，与 GDScript 或 C# 并列使用，运行期由扩展解释。"
+    },
+    {
+      "name": "Node Library",
+      "descZh": "按流程控制、逻辑、数学、变量与场景资源分类的数百个节点，常见逻辑不必自己封装。"
+    },
+    {
+      "name": "Custom Functions",
+      "descZh": "把重复逻辑抽成函数图供多处复用，改一处即全项目生效，适合沉淀通用流程。"
+    },
+    {
+      "name": "Signal Support",
+      "descZh": "在图内发送与接收 Godot 信号，把节点事件接进流程，省去手写 connect 与回调，接线关系在图上直接可见。"
+    },
+    {
+      "name": "Complex Types",
+      "descZh": "支持数组、字典等复杂类型与场景引用，拖拽属性进图即可直接读写，数组与字典还能逐项取值。"
+    }
+  ],
+  "limitsZh": "最大风险是版本绑定：官方表格写明用错版本会行为异常甚至崩溃，主分支对应 4.8，2.5 对应 4.7，4.2 到 4.5 各自停在最后一个发布，引擎一升级就得换整套扩展并回归测试。GDExtension 库按平台与编辑器、发布版分别编译，缺哪个平台的二进制就跑不起来，CI 也要自己备齐。可视化的代价是文本 diff 与合并能力弱，多人同时改同一张图容易冲突，代码评审也更难逐行看。节点虽多，复杂逻辑连成大片图后阅读成本上升，调试仍以运行日志与断点为主，定位出错节点比读脚本慢，建议先在分支上小范围试点。",
+  "workflowZh": [
+    {
+      "stepZh": "先按引擎版本表下载对应的 Orchestrator 发布包"
+    },
+    {
+      "stepZh": "把 addons/orchestrator 复制进项目，在项目设置里启用扩展"
+    },
+    {
+      "stepZh": "新建 OScript 资源，再挂到目标场景节点上"
+    },
+    {
+      "stepZh": "在图形编辑器里连出第一条流程并运行验证"
+    },
+    {
+      "stepZh": "把重复逻辑抽成函数图，接到主图里复用"
+    },
+    {
+      "stepZh": "连上信号与场景节点引用，跑完整关卡回归"
+    }
+  ],
+  "pros": [
+    "把可视化脚本做成一等公民，OScript 能像 GDScript 一样挂在任意节点上，不局限于自建框架。",
+    "节点库按流程、逻辑、数学、变量、场景与资源分类，内置数百个节点，常见逻辑不必自己封装。",
+    "支持拖拽场景节点与属性进图、自定义函数、信号收发与数组字典等复杂类型，复杂玩法也能表达。",
+    "按引擎版本分支持续维护，发布包与变更记录齐全，版本对应关系在 README 里写得很清楚。"
+  ],
+  "cons": [
+    "与引擎版本强绑定，版本用错会异常甚至崩溃，升级引擎必须同步换扩展并做完整回归。",
+    "扩展不支持热重载，改扩展或换版本都要重启编辑器，调试节奏被打断。",
+    "可视化图缺少文本 diff，多人协作改同一张图容易冲突，代码评审也很难逐行看。"
+  ],
+  "pitfalls": [
+    "拿 2.5 分支配 4.8 引擎，编辑器一打开就崩或节点丢失，先照 README 的版本表对齐分支。",
+    "只复制了发布版库没带编辑器库，编辑器里看不到图形界面，检查 gdextension 里 editor 那一行是否指向正确文件。",
+    "把大段逻辑全塞进一张图，出现问题时只能靠日志找节点，按功能拆成函数图更好定位。"
+  ],
+  "bestFor": "想给策划或非程序成员一套可视化逻辑工具，并且能接受按引擎版本维护扩展的 Godot 4 团队，愿意按版本表定期升级扩展。",
+  "avoidWhenZh": "项目需要频繁升级引擎、多人并行改同一份逻辑，或团队更看重文本 diff 与代码评审时。",
+  "compareTips": {
+    "vs": [
+      "jotson__ridiculous_coding",
+      "endlessm__godot-block-coding"
+    ],
+    "whenZh": "ridiculous_coding 与 block-coding 都是偏教学或积木式的可视化编程，节点与运行时能力不如 Orchestrator 完整。要做正式玩法逻辑选 Orchestrator，要做教学演示或轻量积木脚本可选另外两个。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "可视化脚本",
+    "节点图",
+    "GDExtension",
+    "C++",
+    "信号"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "OScript 可像 GDScript 一样挂到任意节点",
+      "source": "README.md",
+      "quote": "Attach an Orchestration Script (OScript) to any Godot scene node just like GDScript or CSharp."
+    },
+    {
+      "claim": "内置数百个分类节点",
+      "source": "README.md",
+      "quote": "Hundreds of nodes in dozens of categories"
+    },
+    {
+      "claim": "支持自定义函数复用逻辑",
+      "source": "README.md",
+      "quote": "Build reusable code with custom functions."
+    },
+    {
+      "claim": "版本不匹配会导致异常或崩溃",
+      "source": "README.md",
+      "quote": "Using the wrong version of Orchestrator with the Godot editor may result in unexpected behavior or crashes."
+    },
+    {
+      "claim": "扩展最低要求引擎 4.7",
+      "source": "project/addons/orchestrator/orchestrator.gdextension",
+      "quote": "compatibility_minimum=\"4.7\""
+    },
+    {
+      "claim": "扩展不可热重载",
+      "source": "project/addons/orchestrator/orchestrator.gdextension",
+      "quote": "reloadable = false"
+    }
+  ]
+}

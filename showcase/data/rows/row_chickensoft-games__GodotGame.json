@@ -1,0 +1,35 @@
+{
+  "id": "chickensoft-games__GodotGame",
+  "descriptionZh": "面向 Godot 4 的 C# 游戏工程模板，预置测试、覆盖率统计、依赖更新与拼写检查等一整套自动化配置。",
+  "category": "debug-perf",
+  "tags": [
+    "csharp",
+    "template",
+    "testing",
+    "ci",
+    "coverage"
+  ],
+  "prosShort": [
+    "一条命令就能生成完整的 C# 工程",
+    "本地与 CI 的测试及覆盖率都已现成配好",
+    "Renovate 定期自动提交引擎与 SDK 升级请求"
+  ],
+  "consShort": [
+    "需要安装 .NET SDK 并保证引擎版本匹配无误",
+    "不含现成玩法框架，仍需搭建游戏逻辑层",
+    "自带编辑器设置可能与现有配置发生冲突"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

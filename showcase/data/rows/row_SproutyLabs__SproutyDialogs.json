@@ -1,0 +1,35 @@
+{
+  "id": "SproutyLabs__SproutyDialogs",
+  "descriptionZh": "基于节点图的 Godot 对话系统插件，含分支、角色立绘、变量与本地化工具",
+  "category": "visual-script",
+  "tags": [
+    "对话系统",
+    "节点图",
+    "可视化编辑",
+    "多语言",
+    "剧情分支"
+  ],
+  "prosShort": [
+    "节点图搭分支，策划也能直接改",
+    "内置角色、文本与本地化工具",
+    "编辑器内可直接预览对话走向"
+  ],
+  "consShort": [
+    "要求 Godot 4.5 以上，旧工程用不了",
+    "未验证 C# 项目的类型与信号对接",
+    "路线图仍有多个节点未完成"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

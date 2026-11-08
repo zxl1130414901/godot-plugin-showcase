@@ -1,0 +1,162 @@
+{
+  "id": "godot-gdunit-labs__gdUnit4",
+  "depth": "standard",
+  "taglineZh": "跑在 Godot 编辑器内的 GDScript 与 C# 单元测试框架，含模拟、场景输入与 CI 报告",
+  "summaryZh": "GdUnit4 是嵌入 Godot 编辑器的单元测试框架，用例可以用 GDScript 或 C# 写，测试会被自动发现并显示在专属 Inspector 里，也能从文件系统与脚本编辑器右键运行。断言采用链式写法，覆盖参数匹配、可变参数与 Unicode 文本；进阶能力包括 mock/spy、场景运行器、参数化测试、模糊测试、会话钩子与孤立节点检测。命令行工具可以在无编辑器环境中跑测试，输出 JUnit XML 与 HTML 报告供 CI 使用。和 GUT 相比它的模拟与场景输入更完整、C# 支持更正式，但框架体量大、学习曲线更陡，且每个大版本只适配固定的 Godot 版本区间。",
+  "whatItDoes": "它在 addons/gdUnit4 里提供测试运行时、断言库、mock 生成器与一个可停靠的测试面板。写好的测试套件会被扫描进 Inspector，可整套或单用例执行，失败会带调用栈与差异输出。场景运行器能实例化场景并模拟鼠标、键盘、触摸与自定义输入，还能等待信号或返回值后再断言。命令行入口 gdunit4 支持按目录或套件过滤，生成 JUnit XML 与 HTML 报告，并可在失败时返回非零退出码。它不生成测试替身以外的任何产物，也不负责覆盖率统计，覆盖率要靠外部工具另行接入。测试结束后会列出未释放的孤立节点并附堆栈；插件作者也可在发布前用场景运行器与 mock 自测编辑器交互与信号回调，减少只在用户侧暴露的版本兼容问题。",
+  "useCases": [
+    {
+      "titleZh": "战斗与数值回归",
+      "descZh": "把伤害公式、状态叠加与冷却逻辑写成参数化用例，改数值表后跑一遍就知道哪些组合被改坏，比手工进游戏试快得多。"
+    },
+    {
+      "titleZh": "场景与输入测试",
+      "descZh": "用场景运行器实例化玩家场景并模拟按键、点击与触摸，验证移动、交互与 UI 状态切换，覆盖纯逻辑测不到的输入链路。"
+    },
+    {
+      "titleZh": "CI 流水线守门",
+      "descZh": "在合并请求里用命令行跑全量测试并输出 JUnit XML，失败即阻断合并，配合 HTML 报告让非程序员也能看懂哪里坏了。"
+    },
+    {
+      "titleZh": "重构前的安全网",
+      "descZh": "准备重写存档、背包或战斗系统前先补一层用例，重构过程中随时回归，避免靠手动存档对比来确认行为没有跑偏。"
+    },
+    {
+      "titleZh": "C# 项目统一测试",
+      "descZh": "C# 与 GDScript 混用的项目可以在同一个面板里同时跑两套用例，不必再维护 NUnit 与 Godot 两套独立的测试入口。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "测试套件脚本",
+      "descZh": "按模板生成的 GdUnit4 测试脚本文件，含生命周期钩子与链式断言，可直接在 Inspector 或命令行执行，也能被 CI 调用。"
+    },
+    {
+      "titleZh": "模拟与间谍对象",
+      "descZh": "由框架生成的 mock 与 spy 替身类，能替换真实依赖并校验调用参数，用于隔离信号、网络与文件读写等多种依赖。"
+    },
+    {
+      "titleZh": "场景驱动用例",
+      "descZh": "用场景运行器加载真实场景并注入各类输入事件，产出一组可复现的交互测试，覆盖 UI 与物理回调。"
+    },
+    {
+      "titleZh": "CI 测试报告",
+      "descZh": "命令行运行后生成的 JUnit XML 与 HTML 报告文件，含套件耗时、失败堆栈与重试记录，可直接挂到流水线页面。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Fluent Assertions",
+      "descZh": "链式断言接口，覆盖值比较、信号、异常与集合，失败信息带实际值与期望值对照。"
+    },
+    {
+      "name": "Mock & Spy",
+      "descZh": "为类与场景生成替身，可设定返回值并验证调用参数，隔离外部依赖后再测目标逻辑。"
+    },
+    {
+      "name": "Scene Runner",
+      "descZh": "实例化场景并模拟鼠标、键盘、触摸与自定义输入，还能等待信号或返回值后再断言。"
+    },
+    {
+      "name": "Test Fuzzing",
+      "descZh": "自动生成随机输入覆盖边界情况，配合参数化用例能快速撞出空值与越界问题。"
+    },
+    {
+      "name": "Command Line Runner",
+      "descZh": "在无编辑器环境执行测试，生成 JUnit XML 与 HTML 报告，失败时会返回非零退出码。"
+    }
+  ],
+  "limitsZh": "版本绑定很紧，官方兼容表按大版本列出可用的 Godot 区间，master 只支持 4.7 与 4.8 开发版，跨版本升级要同步换插件版本。框架本身是纯 GDScript，体量不小，测试多时编辑器内执行会明显变慢，全量跑建议放命令行。场景运行器模拟的是输入与等待，不覆盖真实渲染、音频输出与多线程竞态，输入时序写错会出现偶发失败，需要靠重试与 flaky 标记兜底。C# 支持依赖 .NET 与项目配置，纯 GDScript 项目引入 C# 测试会多一层构建负担。mock 生成需要读取脚本结构，动态拼接的类或运行时生成的节点无法直接替身，接入前先看兼容表。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/gdUnit4 目录复制进项目并启用测试插件"
+    },
+    {
+      "stepZh": "在设置里指定测试目录与扫描规则"
+    },
+    {
+      "stepZh": "右键脚本里的函数即可生成 TestCase 测试骨架"
+    },
+    {
+      "stepZh": "补断言与 mock，先让单套件在面板里跑通"
+    },
+    {
+      "stepZh": "给关键场景加场景运行器输入用例"
+    },
+    {
+      "stepZh": "在 CI 里用命令行跑全量并收集 JUnit 报告"
+    }
+  ],
+  "pros": [
+    "测试发现、执行与结果查看都在编辑器内完成，右键即可生成骨架，接入成本比自建测试脚手架低得多。",
+    "mock、spy 与场景运行器覆盖了依赖隔离和输入模拟，能测到信号回调与 UI 交互这类纯逻辑测试碰不到的部分。",
+    "命令行入口与 JUnit XML、HTML 报告齐全，接 GitHub Actions 或 GitLab CI 不需要自己写解析脚本，产物可直接归档。",
+    "孤立节点检测与失败重试把两类常见噪声问题显式化，长期维护的测试集不容易被偶发失败拖垮。",
+    "同时支持 GDScript 与 C# 两套语言，混用语言的项目可以共用一套测试面板与报告格式。"
+  ],
+  "cons": [
+    "版本适配表很严格，升级 Godot 往往要同步换插件大版本，老项目迁到新引擎时测试代码也要跟着改。",
+    "框架体量大且全用 GDScript，测试套件多时编辑器内执行偏慢，全量回归必须挪到命令行。",
+    "场景运行器模拟不到真实渲染、音频与多线程时序，涉及这些部分的用例容易偶发失败。",
+    "mock 依赖对脚本结构的静态读取，动态生成的类与运行时拼装的节点无法直接生成替身。"
+  ],
+  "pitfalls": [
+    "把测试文件放在插件目录里，升级 addon 时整目录被替换导致用例丢失，测试应放在独立的 tests 目录。",
+    "场景运行器里忘了 await 信号就断言，拿到的是上一帧状态，先等信号或等帧再检查节点属性。",
+    "跨版本升级只换了插件版本没看兼容表，编辑器能开但测试运行器报 API 变化，升级前先对照 README 的版本矩阵。"
+  ],
+  "bestFor": "有持续迭代的中大型 Godot 项目、需要覆盖信号与 UI 交互、并且已经在用 CI 做合并守门的团队，C# 与 GDScript 混用也合适。",
+  "avoidWhenZh": "只是做一两周的小型原型、没人维护测试，或项目锁死在旧 Godot 版本又不愿迁插件版本时。",
+  "compareTips": {
+    "vs": [
+      "bitwes__Gut"
+    ],
+    "whenZh": "GUT 更轻、上手快，断言与钩子够用，适合小项目与刚接触测试的团队；GdUnit4 在 mock、场景输入模拟、C# 支持与 CI 报告上更完整，但体量大、版本绑定更紧。已有 GUT 测试集且运行稳定就没必要迁移，新项目要做交互级测试直接选 GdUnit4。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "单元测试",
+    "TDD",
+    "Mock",
+    "场景测试",
+    "CI"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "支持测试 GDScript、C# 与场景",
+      "source": "README.md",
+      "quote": "embedded unit testing framework designed for testing Gd scripts, C# scripts, and scenes"
+    },
+    {
+      "claim": "可对场景做 mock 与 spy",
+      "source": "README.md",
+      "quote": "Mock or spy on scenes to simulate behavior and verify function calls"
+    },
+    {
+      "claim": "提供命令行运行器供 CI 使用",
+      "source": "README.md",
+      "quote": "Run tests outside the Godot editor for CI/CD pipelines"
+    },
+    {
+      "claim": "可检测孤立节点并输出堆栈",
+      "source": "README.md",
+      "quote": "Detect orphan nodes, listed with stack traces and detailed info"
+    },
+    {
+      "claim": "当前插件版本为 7.0.0",
+      "source": "addons/gdUnit4/plugin.cfg",
+      "quote": "version=\"7.0.0\""
+    }
+  ]
+}

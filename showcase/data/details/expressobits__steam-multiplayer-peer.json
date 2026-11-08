@@ -1,0 +1,146 @@
+{
+  "id": "expressobits__steam-multiplayer-peer",
+  "depth": "standard",
+  "taglineZh": "把 ENet 联机主机换成 Steam 的点对点传输层，改动很小",
+  "summaryZh": "Steam Multiplayer Peer 给 Godot 4 补上一个基于 Steam 网络的 MultiplayerPeer 实现：底层用 Steam Sockets，接口与 ENet 接近，把现有主机与客户端代码里的 ENetMultiplayerPeer 换掉即可跑在 Steam 上。它是 C++ 写的 GDExtension，AssetLib 提供编译好的版本，项目不必依赖 GodotSteam 也能建立连接，示例分支才用 GodotSteam 处理大厅。仓库附带分支说明、与 GodotSteam 版本的差异表以及常见问题文档。作者在 2025 年 12 月宣布暂停开发，建议改用 GodotSteam。它把连接建立、封包收发与断线处理都包在 Godot 的 MultiplayerAPI 之下，上层 RPC 与场景同步逻辑不用改。",
+  "whatItDoes": "插件注册 SteamMultiplayerPeer 等类型，初始化 Steam 客户端后把对等方编号与连接句柄交给 Godot 的多人接口。主机侧调用 create_host 创建大厅式房间，客户端用 create_client 连到指定 Steam ID，收发走 Steam Sockets 通道。上层仍用 MultiplayerAPI 的 RPC 与同步机制，因此现有 ENet 代码主要替换对等体对象与启动流程。连接状态、点对点握手与大厅编号都由 Steam 侧接管，不需要自建中继服务器。",
+  "useCases": [
+    {
+      "titleZh": "Steam 联机对战",
+      "descZh": "原本用 ENet 的联机原型可以直接换成 Steam 连接，玩家通过好友列表或大厅互相邀请，不必再自己搭专门的中继服务器。"
+    },
+    {
+      "titleZh": "好友邀请进局",
+      "descZh": "Steam 好友列表里点邀请就能进同一局，省去输入 IP 与端口，测试时也不用记对方地址；连接建立后由 Steam 负责穿透，跨网段也能直接连上。"
+    },
+    {
+      "titleZh": "小型合作游戏",
+      "descZh": "两人或四人的合作小游戏不需要专用服务器，主机玩家即服务端，其余人通过同一个 Steam 大厅加入房间，进入后由主机统一同步世界。"
+    },
+    {
+      "titleZh": "局域网替代",
+      "descZh": "把原来的局域网直连改成 Steam 连接，适合已上架 Steam、想统一走平台网络的项目，这样好友、邀请与服务器列表都由平台托管。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Steam 对等体",
+      "descZh": "提供 SteamMultiplayerPeer 类型，创建主机或客户端后直接交给 MultiplayerAPI 使用，上层现有 RPC 与场景同步逻辑几乎不用重写。"
+    },
+    {
+      "titleZh": "编译好的库",
+      "descZh": "AssetLib 分发的 GDExtension 二进制覆盖 Windows、Linux、macOS、Android 与 iOS 等常见平台，装进项目即可直接使用，不必自己编译源码。"
+    },
+    {
+      "titleZh": "差异与问题文档",
+      "descZh": "仓库附一份与 GodotSteam 版本的对比表和常见问题说明，文档里还写了通道支持等已知限制，避免踩到坑。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "换对等体即可",
+      "descZh": "把项目里现有的 ENetMultiplayerPeer 替换成 Steam 版本，其余 RPC、场景同步与多人节点代码写法基本保持不变。"
+    },
+    {
+      "name": "Steam Sockets 底层",
+      "descZh": "底层走 Steam Sockets，行为接近 ENet，延迟与封包语义符合多数同步方案，熟悉 ENet 的人不用重新理解传输模型。"
+    },
+    {
+      "name": "不依赖 GodotSteam",
+      "descZh": "建连不依赖 GodotSteam，只有示例分支用它的接口处理大厅，所以项目可以只装这一个扩展，不必换引擎版本。"
+    },
+    {
+      "name": "跨平台库",
+      "descZh": "仓库按平台分出 Windows、Linux、macOS、Android 与 iOS 的预编译库，AssetLib 包里已经带好这些二进制，省去搭 C++ 编译环境。"
+    }
+  ],
+  "limitsZh": "它把多人传输交给 Steam，因此项目必须接入 Steamworks 并保证玩家已登录，否则连不上。插件在 2025 年 12 月已暂停开发，作者建议改用 GodotSteam，后续引擎版本适配要自己维护。README 说明目前不支持通道，需要按通道分流可靠与不可靠数据的方案用不了这个实现。文档以分支说明和差异表为主，API 细节与排错案例较少。C++ 源码加 godot-cpp，仓库体积接近 58MB，自行编译要配好工具链。连接与大厅仍要靠 Steamworks 侧的接口配合，插件本身不含大厅浏览器。对只做小规模联机的项目，排错成本会高于收益。",
+  "workflowZh": [
+    {
+      "stepZh": "先在项目里配置好 Steamworks 的正式 AppID，并让客户端完成登录。"
+    },
+    {
+      "stepZh": "从 AssetLib 或 addon 分支取编译好的库，解压后放进项目对应目录。"
+    },
+    {
+      "stepZh": "把主菜单与联机脚本里的 ENetMultiplayerPeer 全部换成 SteamMultiplayerPeer 并改初始化顺序。"
+    },
+    {
+      "stepZh": "在启动流程里先初始化 Steam，再建立主机或加入房间。"
+    },
+    {
+      "stepZh": "用好友邀请或大厅流程把玩家凑齐，再交给 MultiplayerAPI 同步。"
+    }
+  ],
+  "pros": [
+    "接口接近 ENet，原有联机代码替换对等体后基本能直接跑，网络迁移成本很低。",
+    "不需要 GodotSteam 也可以建连，项目不必替换引擎版本或装模块，AssetLib 里直接拿编译好的二进制。",
+    "底层走 Steam Sockets，接近 ENet 的连接模型，封包语义容易理解，排查问题时也少一层封装。",
+    "仓库提供与 GodotSteam 版本的差异表，选型时能看清两边取舍，示例分支还能直接对照。"
+  ],
+  "cons": [
+    "作者已暂停开发，2025 年 12 月后不再修补，新版本引擎适配要自己扛。",
+    "目前不支持通道，无法按自定义通道分流可靠与不可靠数据。",
+    "接入前必须配好 Steamworks 的 AppID 与登录流程，否则连接根本建不起来。"
+  ],
+  "pitfalls": [
+    "只换对等体却忘了先登录 Steam，连接会一直失败且报错信息很少，容易误判成代码问题。",
+    "项目里若同时装了 GodotSteam 的同名对等体，类型名冲突会让加载失败，先理清用哪一个再启用。",
+    "大厅与好友邀请不在插件范围内，直接调 SteamMultiplayerPeer 会缺房号来源，得自己先用 Steamworks 建大厅再取房号。"
+  ],
+  "bestFor": "已上架或准备上架 Steam，想把现有 ENet 联机快速换成 Steam 点对点连接，又不想替换引擎版本的独立开发者与小团队。",
+  "avoidWhenZh": "需要长期维护、依赖通道分流，或不愿接入 Steamworks 与平台登录的项目，应改用仍在维护的方案。",
+  "compareTips": {
+    "vs": [
+      "foxssake__netfox",
+      "godotengine__webrtc-native"
+    ],
+    "whenZh": "和 netfox 这类回滚同步框架不同，它只提供 Steam 传输层，不替你解决状态同步与延迟补偿；与 WebRTC 这类跨平台传输相比，它绑定 Steam 平台，换来好友与大厅生态；项目若不想接入 Steam，应优先考虑 WebRTC 或 ENet 方案。"
+  },
+  "category": "network",
+  "tags": [
+    "Steam",
+    "联机",
+    "GDExtension",
+    "点对点",
+    "传输层"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "可以方便地把 ENet 对等体换成 Steam 对等体",
+      "source": "README.md",
+      "quote": "Easily change ENet peer to Steam Peer"
+    },
+    {
+      "claim": "以 GDExtension 形式分发",
+      "source": "README.md",
+      "quote": "GDExtension (Easy to add your project)"
+    },
+    {
+      "claim": "与 GodotSteam 无依赖关系",
+      "source": "README.md",
+      "quote": "No dependency with GodotSteam, but demo uses GodotSteam to handle connections with lobbies"
+    },
+    {
+      "claim": "作者已暂停开发",
+      "source": "README.md",
+      "quote": "I have paused development on this plugin; please try using GodotSteam if possible."
+    },
+    {
+      "claim": "最低兼容 Godot 4.2",
+      "source": "steam-multiplayer-peer.gdextension",
+      "quote": "compatibility_minimum = 4.2"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "godotengine__godot-syntax-themes",
+  "descriptionZh": "收录三十余款适配 Godot 4.x 脚本编辑器的语法配色主题，明暗齐全，复制文件即可使用。",
+  "category": "editor-tool",
+  "tags": [
+    "主题",
+    "配色",
+    "脚本编辑器",
+    "GDScript",
+    "资源包"
+  ],
+  "prosShort": [
+    "三十余款主题可选，明暗配色齐全",
+    "纯静态资源文件，不用启用任何插件",
+    "文档写明各平台对应的主题目录路径"
+  ],
+  "consShort": [
+    "只能改脚本编辑器的语法高亮配色",
+    "主题文件不随项目一起版本控制",
+    "主分支只支持 4.x，旧版要切分支"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 5
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

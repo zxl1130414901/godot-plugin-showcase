@@ -1,0 +1,35 @@
+{
+  "id": "nobodywho-ooo__nobodywho",
+  "descriptionZh": "本地运行的 LLM 推理引擎，支持 GGUF 模型、工具调用、语音转写与合成，无需 API Key，桌面与 Android 可用。",
+  "category": "ai-gen",
+  "tags": [
+    "本地LLM",
+    "语音合成",
+    "离线AI",
+    "Rust",
+    "GDExtension"
+  ],
+  "prosShort": [
+    "完全离线运行，不需要任何 API Key",
+    "工具调用语法可从函数签名自动生成",
+    "自带语音转写与三条本地合成后端"
+  ],
+  "consShort": [
+    "内存至少是模型体积的 1.5 倍",
+    "Godot 侧没有 iOS 与 Web 两个导出目标",
+    "大模型在消费级显卡上跑不动"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

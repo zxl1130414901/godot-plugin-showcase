@@ -1,0 +1,147 @@
+{
+  "id": "spicylobstergames__shotcaller-godot",
+  "depth": "standard",
+  "taglineZh": "带 GOAP 自主单位的 2D 俯视 RTS 原型工程",
+  "summaryZh": "这是一个可运行的 2D 俯视 RTS/MOBA 原型，展示 Spicy Lobster 对可模组化 RTS 引擎的探索：单位由 GOAP 规划器驱动，配合四叉树碰撞、A 星与跳点寻路、技能与物品资源、小地图和命令面板。prototype/addons/gui 只是界面子插件，主体逻辑分散在 unit、goap、map、skills 等目录。它没有安装文档，只能整体拷贝工程再裁剪，且代码许可是非商业，选型前建议结合团队实际评估。",
+  "whatItDoes": "仓库以完整 Godot 工程形式提供 RTS 玩法骨架：goap 目录内含规划器、目标与动作注册表，单位通过世界状态选择行为；map 目录实现网格、堆与跳点寻路；skills 与 item 用 Resource 描述主动、被动技能与商店物品；ui 提供命令面板、小地图、计分板与作弊控制台。prototype/tests 下另有测试场景与单元脚本。",
+  "useCases": [
+    {
+      "titleZh": "RTS 原型验证",
+      "descZh": "想快速验证采集、造兵与自动交战循环，可先跑现成原型再决定自研范围，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "GOAP 行为参考",
+      "descZh": "观察自主单位如何按目标与动作代价规划，为自己的 AI 架构提供对照实现，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "MOBA 玩法试验",
+      "descZh": "三路地图、领袖技能与装备商店已具备，可改造为小型 MOBA 或塔防玩法，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "工程结构学习",
+      "descZh": "按 goap、map、skills、ui 的分层阅读中大型 GDScript 项目如何组织，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "GOAP 单位 AI",
+      "descZh": "规划器、动作契约与目标注册表，让单位自主选目标并执行动作，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "地图与寻路",
+      "descZh": "网格地图、四叉树碰撞、A 星与跳点寻路组成移动与视野基础，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "技能物品系统",
+      "descZh": "Resource 驱动的主动、被动技能与装备商店，可直接扩展数值，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "完整 RTS 界面",
+      "descZh": "小地图、命令面板、计分板、领袖选择与作弊控制台，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "GOAP 规划",
+      "descZh": "按世界状态与动作代价搜索行为序列，单位能自己决定进攻或撤退。"
+    },
+    {
+      "name": "跳点寻路",
+      "descZh": "基于网格的 JPS 寻路配合堆优化，适合大量单位同时移动，参数集中在检查器面板。"
+    },
+    {
+      "name": "四叉树碰撞",
+      "descZh": "批量单位间距与选中检测走四叉树，减少两两比较开销，后续修改起来也不费劲。"
+    },
+    {
+      "name": "技能 Resource",
+      "descZh": "主动与被动技能用资源描述，改数值不必动脚本，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "原型测试",
+      "descZh": "tests 目录提供规划器、导航、碰撞等独立测试场景，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "它不是可直接安装的 addon：仓库没有安装说明，也没有打包好的插件目录，只能整体拷贝 prototype 工程再删改。代码许可为 PolyForm 非商业，商用项目不能直接使用。README 仅介绍愿景，GOAP 与网络同步没有文档，Godot 版本未标注，测试虽存在但覆盖有限。界面与美术资源是原型水准，正式项目要整体替换，且工程内混有示例地图与领袖资源，拆分成本不低。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆仓库并用 Godot 打开 prototype 工程，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "运行 game.tscn 观察单位与战斗流程，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "从 goap 目录读规划器与动作契约，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "按需替换地图、技能与界面资源，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "先核对 LICENSE 再决定能否商用，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "提供从 GOAP、寻路到技能物品的完整 RTS 结构，可作为架构参考省去从零设计。",
+    "自带可运行原型与单元测试目录，能直接观察单位行为与战斗流程，便于评估设计。",
+    "代码分层清晰，goap、map、skills、ui 各自独立，改造时容易定位模块边界。",
+    "跳点寻路与四叉树碰撞已实现，大量单位场景有可复用的性能基础。"
+  ],
+  "cons": [
+    "非商业许可限制商用，团队要提前评估，升级引擎版本时容易卡住。",
+    "没有插件化安装方式，接入需整体搬运工程，定制之前往往要先读源码。",
+    "README 与设计文档偏少，GOAP 调参只能读源码，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "许可证与 README 里 MIT 的说法不一致，商用前必须核对 LICENSE.md，否则会有法务风险。",
+    "工程是原型而非成品，直接沿用会带上大量示例资源与场景依赖，需要先做裁剪。",
+    "Godot 版本未标注，用新版编辑器打开可能出现属性或 API 迁移报错。"
+  ],
+  "bestFor": "想研究或二次开发 RTS/MOBA 玩法原型，且项目不涉及商业发行的独立开发者与学习团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "需要直接安装的插件、商业授权或完整文档的生产项目，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "NoisyChain__Sakuga-Engine"
+    ],
+    "whenZh": "两者都是特定品类的完整工程原型；shotcaller 聚焦 RTS 与 GOAP 自主单位，Sakuga-Engine 聚焦格斗。前者适合策略玩法研究，后者适合格斗框架参考，二者都不宜直接当插件接入。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "RTS",
+    "GOAP",
+    "寻路",
+    "原型工程"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 2,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "目标是可模组化的俯视 RTS 引擎",
+      "source": "README.md",
+      "quote": "we are re-making this type of top-down strategy-adventure engine (on top of Godot)"
+    },
+    {
+      "claim": "代码采用非商业许可",
+      "source": "LICENSE.md",
+      "quote": "licensed as [PolyForm NonCommercial v1.0]"
+    },
+    {
+      "claim": "README 声称引擎层将采用 MIT 或类似许可",
+      "source": "README.md",
+      "quote": "The shared engine-layer for all these games will be licensed as MIT or similar."
+    },
+    {
+      "claim": "仓库本身是可运行原型",
+      "source": "README.md",
+      "quote": "This prototype was made with Godot Engine."
+    }
+  ]
+}

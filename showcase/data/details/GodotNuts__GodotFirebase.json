@@ -1,0 +1,65 @@
+{
+  "id": "GodotNuts__GodotFirebase",
+  "depth": "standard",
+  "taglineZh": "用 GDScript 接入 Firebase 认证、数据库、存储与云函数的 SDK",
+  "summaryZh": "GodotFirebase 把 Google Firebase 的常用服务封装成 GDScript 实现，包含账号认证、实时数据库、Firestore、云函数与云存储，另附一个基于 HTTPClient 的 SSE 客户端，用来接收服务端推送。项目通过 REST 与流式接口工作，不需要原生 SDK，因此桌面与移动平台都能用；README 提醒 4.x 已成为主分支，3.x 独立维护，旧的手动下载需要重新拉取。详细安装与用法放在 wiki，仓库本身只保留代码与入口说明。服务端只要按 Firebase 规则配置好，客户端就能直接用接口通信。",
+  "whatItDoes": "以插件形式提供 Firebase 服务的 GDScript 封装：认证负责登录与令牌，数据库与 Firestore 负责读写文档，云函数负责调用后端逻辑，存储负责上传下载文件。配套的 HTTPSSEClient 用 HTTPClient 保持长连接，把实时数据库的变更推送到游戏侧。调用结果通过信号或回调返回，业务代码只需处理成功与失败两个分支。",
+  "useCases": [
+    {"titleZh": "账号登录与游客绑定", "descZh": "接入匿名、邮箱或第三方登录，拿到用户标识后再关联云存档与排行榜数据，避免自建账号体系与密码存储。"},
+    {"titleZh": "实时数据库推送", "descZh": "用 SSE 长连接接收服务端变更，做聊天、协作或实时排行榜，不必按固定间隔轮询，流量也更容易控制。"},
+    {"titleZh": "云存档与文件上传", "descZh": "把存档、截图与自定义内容放到云存储，换设备后凭账号恢复进度，减少本地文件迁移与兼容处理。"},
+    {"titleZh": "云函数承载敏感逻辑", "descZh": "把发奖、校验与结算放到云函数，客户端只传参数，降低被篡改与刷接口的风险，也便于统一改规则。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "Firebase 服务封装", "descZh": "一组 GDScript 类与节点，覆盖认证、数据库、Firestore、函数与存储，接口风格保持一致，调用前先初始化单例，失败会通过信号返回。"},
+    {"titleZh": "SSE 推送连接", "descZh": "HTTPSSEClient 插件维持长连接，把服务端事件转成信号供游戏监听，断线后需要自行重连。"},
+    {"titleZh": "iOS 依赖目录", "descZh": "附带 ios_plugins 目录，处理 iOS 端需要的原生依赖与配置，打包前要按说明接入，否则登录与存储调用会失败。"}
+  ],
+  "featureCallouts": [
+    {"name": "多服务覆盖", "descZh": "认证、数据库、Firestore、云函数与存储都在同一套代码里，减少拼装成本与风格差异。"},
+    {"name": "SSE 推送", "descZh": "用服务端事件流替代轮询，实时数据库的变更可以更快到达客户端，适合轻量实时场景。"},
+    {"name": "纯 GDScript 实现", "descZh": "不依赖原生 SDK，桌面、Android 与 iOS 共用同一套调用方式，调试链路也更统一。"},
+    {"name": "双版本分支", "descZh": "4.x 为主分支，3.x 单独维护，老项目仍能按分支取用，迁移时有明确路径。"}
+  ],
+  "limitsZh": "实现走 REST 与 SSE，延迟和流量都高于官方原生 SDK，高频写入或大数据量场景需要自行压测。所有服务都要先在 Firebase 控制台建项目、配规则与密钥，配置错误只能在运行时看到失败回调。文档主要放在 wiki，仓库内说明很少，新版本改动也要靠 wiki 与 issue 追踪。iOS 端需要额外原生插件，签名与打包流程更复杂；安全规则不配好，客户端密钥仍可能被滥用。SSE 连接断开后不会自动恢复，业务侧要自己写重连与补偿逻辑。",
+  "workflowZh": [
+    {"stepZh": "在 Firebase 控制台创建项目，并启用需要的认证与数据库服务"},
+    {"stepZh": "复制 addons 目录，在项目设置里启用 firebase 与 http-sse-client 插件"},
+    {"stepZh": "填入项目配置与密钥，初始化认证或数据库单例对象"},
+    {"stepZh": "调用对应服务接口，监听回调或 SSE 信号处理返回结果"}
+  ],
+  "pros": [
+    "一套 GDScript 覆盖认证、数据库、Firestore、函数与存储，常用后端能力接入面较全，省去多家服务拼装",
+    "纯脚本实现，桌面与移动端共用同一套代码，不需要为每个平台编译原生库",
+    "附带 SSE 客户端，实时数据库可以推送而不是轮询，流量与延迟更可控",
+    "4.x 与 3.x 分分支维护，老项目迁移时有明确取用路径，升级风险可评估",
+    "MIT 许可，商用项目改代码与分发都没有额外限制，适合快速接后端并验证玩法"
+  ],
+  "cons": [
+    "基于 REST 与 SSE，延迟与流量高于原生 SDK，重负载场景需自行优化",
+    "文档集中在外部 wiki，仓库内缺少完整示例，上手要跨站查资料",
+    "iOS 端依赖原生插件与额外配置，打包链路比桌面复杂，调试也更麻烦"
+  ],
+  "pitfalls": [
+    "4.x 已改为主分支，旧的手动下载需要按 README 重新拉取，否则分支指向错误",
+    "安全规则与密钥配置不当会让客户端直接暴露，务必在控制台收紧读写权限",
+    "SSE 长连接要处理断线与重连，否则切后台或网络抖动后会收不到推送"
+  ],
+  "bestFor": "用 Godot 做带账号、云存档或实时数据的项目，希望以纯 GDScript 接入 Firebase、且能自行配置控制台规则与重连逻辑的团队。",
+  "avoidWhenZh": "对延迟和流量极敏感、需要官方原生 SDK 全部能力，或不愿维护云端安全规则与 iOS 打包链路的项目。",
+  "compareTips": {
+    "vs": ["heroiclabs__nakama-godot"],
+    "whenZh": "Firebase 提供托管式后端服务，开箱有认证、数据库与存储；Nakama 更偏自建游戏服务器与匹配房间。需要最快接云存档与登录选前者；要做权威对战、赛季与房间匹配，且愿意自建服务器则看后者。"
+  },
+  "category": "network",
+  "tags": ["Firebase", "账号认证", "云存档", "实时数据库", "SSE"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 3, "maintenance": 4, "performance": 2, "stability": 3},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {"claim": "面向 Godot 4.x 的 GDScript Firebase SDK", "source": "addons/godot-firebase/plugin.cfg", "quote": "Google Firebase SDK written in GDScript for use in Godot Engine 4.x projects."},
+    {"claim": "SSE 客户端让 Godot 支持服务端推送", "source": "addons/http-sse-client/plugin.cfg", "quote": "An HTTPClient-based implementation that supports server-sent events, effectively enabling push notifications in Godot, using GDScript."},
+    {"claim": "4.x 已成为主分支，旧下载需要重新拉取", "source": "README.md", "quote": "NOTICE THAT 4.X IS THE NEW MAIN BRANCH, AND 3.X IS ITS OWN, SEPARATE BRANCH NOW."}
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "id": "alessandrofama__wwise-godot-integration",
+  "depth": "standard",
+  "taglineZh": "把 Audiokinetic Wwise 音频中间件完整接入 Godot 项目的原生扩展",
+  "summaryZh": "这份集成把 Audiokinetic 的 Wwise 音频中间件接进 Godot：以 GDExtension 包装 Wwise 库，覆盖 Windows、macOS、Linux、Android、iOS 与实验性的 Web，桌面侧用 SCons 构建，Android 走 Gradle 与 CMake。它提供 AkEvent、AkBank、AkListener、AkState、AkSwitch、AkEnvironment、AkGeometry、AkRoom、AkPortal 与早期反射等自定义节点，以及事件、总线、银行、RTPC、状态、开关与触发器等资源类型。编辑器内还有 Wwise Browser，可查询已集成的 Wwise 工程并直接生成 SoundBank，另带 ID 生成、逐平台配置与引擎内文档入口。它还提供 Wwise Profiler 联调支持，并附带示例工程供对照。",
+  "whatItDoes": "安装后把 Wwise 原生库与节点注册进引擎，场景里用 AkEvent2D/3D 播放事件，AkBank 加载音频银行，AkListener 绑定听者位置，环境与空间节点负责混响、房间和门户。事件回调以信号暴露，GDScript 可以连接播放结束或标记回调。编辑器侧读取 Wwise 工程结构，列出事件与银行并生成 SoundBank，ID 生成器把名称映射成数值。项目设置里按平台配置 Wwise 路径与初始化参数，导出插件会把所需原生库与银行打进包体。",
+  "useCases": [
+    {
+      "titleZh": "中大型游戏音频",
+      "descZh": "项目已用 Wwise 做混音、总线与互动音乐，需要把事件、RTPC 与银行接进 Godot，让音频团队继续沿用原有的工程与工作流。"
+    },
+    {
+      "titleZh": "多平台发行",
+      "descZh": "同一套音频设计要上桌面、移动与网页，用逐平台构建与导出插件把对应原生库打进包，减少各平台单独维护音频层。"
+    },
+    {
+      "titleZh": "空间音频场景",
+      "descZh": "做室内探索或射击时，用房间、门户、几何与早期反射节点处理遮挡和混响，比纯引擎音频节点更接近中间件效果。"
+    },
+    {
+      "titleZh": "音频调试",
+      "descZh": "在 profile 构建里连上 Wwise Profiler，查看事件触发、总线电平与内存占用，定位声音不响、音量叠加或资源泄漏的问题，排查效率高。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Wwise 节点集",
+      "descZh": "AkEvent、AkBank、AkListener、环境、几何、房间、门户与早期反射等节点，覆盖播放、加载、空间处理与早期反射等完整环节。"
+    },
+    {
+      "titleZh": "Wwise 资源类型",
+      "descZh": "事件、银行、总线、RTPC、状态、开关与触发器等资源，可在检查器里直接选择并引用 Wwise 工程的音频对象。"
+    },
+    {
+      "titleZh": "生成好的 SoundBank",
+      "descZh": "通过编辑器内的 Wwise Browser 查询工程并生成银行，生成的产物随项目一起进入导出流程并被打进包体。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Wwise Browser",
+      "descZh": "在编辑器里直接查询已集成的 Wwise 工程，浏览事件与银行并直接生成所需的 SoundBank，省去外部工具切换。"
+    },
+    {
+      "name": "原生包装库",
+      "descZh": "GDExtension 封装 Wwise，桌面端用 SCons、Android 用 Gradle 与 CMake 构建，并提供现成的 VS 2022 工程方案，构建链路完整。"
+    },
+    {
+      "name": "事件信号",
+      "descZh": "AkEvent 节点把 Wwise 回调暴露成 Godot 信号，播放结束等时机的回调能在脚本里直接接住，无需轮询。"
+    },
+    {
+      "name": "逐平台配置",
+      "descZh": "项目设置里按平台配置 Wwise 路径与初始化参数，导出时会自动带上对应平台的库与银行。"
+    },
+    {
+      "name": "Profiler 连接",
+      "descZh": "debug 与 profile 构建可连上 Wwise Profiler，查看事件触发、总线电平与内存占用的实时数据，调音更准。"
+    }
+  ],
+  "limitsZh": "必须自己编译或下载与平台匹配的原生库，完整仓库约 282MB，含 Wwise SDK 与测试工程，首次接入的环境成本很高。扩展最低要求 Godot 4.3，更早版本不能用；Web 支持仍是实验性，线上项目要预留回退方案。Wwise 本身是商业中间件，授权与版本要和 Audiokinetic 对齐，升级 SDK 往往要重新编译包装库。流管理默认用阻塞式 IO，想换自定义 IO 设备要改原生代码。文档主要在 wiki，仓库里只有概览，离线查阅不便；许可证标注为 NOASSERTION，商用前要逐项确认。移动端插件检测与导出的组合较多，配错平台会打包失败。",
+  "workflowZh": [
+    {
+      "stepZh": "从发布页下载集成包，或按 wiki 说明自行编译原生库"
+    },
+    {
+      "stepZh": "把 addons 里的 Wwise 插件目录完整复制进 Godot 项目根目录"
+    },
+    {
+      "stepZh": "在项目设置里按平台填写 Wwise 的路径与初始化参数"
+    },
+    {
+      "stepZh": "用编辑器里的 Wwise Browser 查询工程并生成所需的全部 SoundBank"
+    },
+    {
+      "stepZh": "在场景摆 AkEvent 与 AkListener，导出后确认库与银行已打进包体"
+    }
+  ],
+  "pros": [
+    "把 Wwise 的事件、银行、RTPC 与空间音频节点完整带进 Godot，音频团队能沿用原有工程。",
+    "覆盖桌面、移动与实验性 Web，配逐平台构建与导出流程，多平台发行时少维护一套音频层。",
+    "编辑器内的 Wwise Browser 能查询工程并生成银行，省去在外部工具与引擎之间来回搬文件。",
+    "Profiler 连接、事件信号与引擎内文档入口都在，调试音频问题时比纯日志更直观。"
+  ],
+  "cons": [
+    "必须准备匹配平台的原生库，仓库与 SDK 体积巨大，首次接入环境成本很高。",
+    "Web 支持仍实验性，商业项目要留回退方案，不能把它当稳定目标平台。",
+    "Wwise 是商业中间件，授权与 SDK 版本要和厂商对齐，升级后常需重新编译。"
+  ],
+  "pitfalls": [
+    "只复制 addons 却没在项目设置填 Wwise 路径，运行时报初始化失败，声音完全不响。",
+    "改了 Wwise 工程后忘了在编辑器重新生成银行，游戏里播放的是旧事件或直接找不到 ID。",
+    "导出前没检查平台原生库，移动端包体缺对应 so 或 aar，启动即崩溃在音频初始化。"
+  ],
+  "bestFor": "已经使用 Wwise、需要把互动音乐与空间音频接进 Godot 的中大型团队，并且有专人负责维护原生构建与音频资产管线。",
+  "avoidWhenZh": "小团队只用简单音效、不想承担商业授权与原生编译成本，或目标平台以实验性 Web 为主时。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-cpp-template"
+    ],
+    "whenZh": "官方 C++ 模板教你从零写 GDExtension，但不含任何音频功能；这份集成是已经写完的 Wwise 包装与编辑器工具。若目标是接 Wwise，直接用集成；若想自己封其他中间件，才需要从模板起步并参考它的多平台构建方式。"
+  },
+  "category": "audio",
+  "tags": [
+    "Wwise",
+    "音频中间件",
+    "GDExtension",
+    "空间音频",
+    "多平台"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "unknown",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "把 Wwise 音频中间件集成进 Godot",
+      "source": "README.md",
+      "quote": "This repository provides an integration of [Audiokinetic's Wwise audio middleware](https://www.audiokinetic.com/products/wwise/) with the [Godot Engine](https://godotengine.org)."
+    },
+    {
+      "claim": "提供多平台的构建脚本",
+      "source": "README.md",
+      "quote": "Multi-platform builds with SCons (Windows, macOS, Linux, iOS, Web) and Gradle/CMake (Android)."
+    },
+    {
+      "claim": "编辑器内可查询 Wwise 工程并生成 SoundBank",
+      "source": "README.md",
+      "quote": "Wwise Browser: Query the integrated Wwise project and generate SoundBanks directly in the editor."
+    },
+    {
+      "claim": "扩展最低兼容 Godot 4.3",
+      "source": "addons/Wwise/native/wwise.gdextension",
+      "quote": "compatibility_minimum = \"4.3\""
+    }
+  ]
+}

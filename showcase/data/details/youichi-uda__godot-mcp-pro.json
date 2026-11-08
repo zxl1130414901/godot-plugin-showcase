@@ -1,0 +1,64 @@
+{
+  "id": "youichi-uda__godot-mcp-pro",
+  "depth": "standard",
+  "taglineZh": "把 Godot 编辑器变成 AI 可直接操作的 187 件工具",
+  "summaryZh": "Godot MCP Pro 是一套面向 AI 编程助手的 MCP 服务器加编辑器插件，通过 WebSocket 把 Claude、Cursor 等客户端接到 Godot 编辑器，公开版插件宣称提供 187 个工具，覆盖场景、动画、3D、物理、粒子、音频、着色器、输入模拟、运行时分析与导航。它支持 UndoRedo 与场景树，可按客户端工具上限切换 Full、3D、Lite、Minimal 四种模式。需要注意的是，公开仓库只包含免费的 Godot 插件，真正负责连接的 Node.js 服务器在付费包里。",
+  "whatItDoes": "插件在 Godot 编辑器内启动 WebSocket 服务，把编辑器的场景树、属性与 UndoRedo 接口包装成 JSON-RPC 2.0 方法。付费包里的 Node.js 服务器再以 stdio 把这些方法暴露给 MCP 客户端，AI 于是能创建节点、改场景、调属性、模拟输入、截图并分析运行时。四种模式按工具数量裁剪，工具上限较小的客户端用精简模式仍能完成核心编辑。",
+  "useCases": [
+    {"titleZh": "AI 批量搭场景", "descZh": "让 AI 按描述批量创建节点、摆放模型并设置材质，省去大量重复的场景搭建点击，再交给人工微调。"},
+    {"titleZh": "自动化 UI 与动画调整", "descZh": "用工具批量改控件锚点、播放动画并截图核对，适合需要反复试版的界面调优与尺寸对齐。"},
+    {"titleZh": "运行时问题排查", "descZh": "让 AI 读取运行时状态、抓截图与输出日志，快速定位场景加载或脚本报错并给出修复建议。"},
+    {"titleZh": "小工具上限客户端适配", "descZh": "在 Windsurf 或本地小模型等限制工具数的客户端里改用 Lite 或 Minimal 模式，仍可保留核心编辑与场景操作能力。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "MCP 工具服务", "descZh": "把编辑器能力包装成一百多个 MCP 工具，供 AI 客户端按需调用、组合成完整工作流。"},
+    {"titleZh": "四种工具集模式", "descZh": "按 Full、3D、Lite、Minimal 裁剪工具数量，适配不同客户端上限并避免超出限制与上下文。"},
+    {"titleZh": "可回退的编辑操作", "descZh": "借助 UndoRedo，AI 的改动可在编辑器里逐步撤销，降低误操作与调试成本，更省心。"}
+  ],
+  "featureCallouts": [
+    {"name": "WebSocket 实时连接", "descZh": "服务器与编辑器保持长连接，指令即时返回，不必轮询工程文件。"},
+    {"name": "UndoRedo 集成", "descZh": "AI 修改走编辑器撤销栈，出错可以一键回退到之前状态并重做。"},
+    {"name": "四档工具模式", "descZh": "Full 187 件、3D 100 件、Lite 88 件、Minimal 35 件，按客户端上限选择，模式可切换。"},
+    {"name": "输入模拟与截图", "descZh": "可模拟点击按键并抓取编辑器或游戏画面，便于自动验证界面。"}
+  ],
+  "limitsZh": "公开仓库只放免费的 Godot 插件，连接 AI 所需的 Node.js 服务器要另购付费包，克隆仓库看不到 server 目录属于正常现象。工具数量在 README 与 plugin.cfg 里写成 187，描述里另有一处旧数字，选购前最好以最新说明为准。插件依赖编辑器 API，Godot 版本升级后个别工具可能失效。四种模式是静态裁剪，3D 模式会去掉部分 UID、截图对比与脚本控制工具。AI 生成的改动质量仍取决于提示与模型，重要场景建议先备份再让 AI 操作。",
+  "workflowZh": [
+    {"stepZh": "把 addons/godot_mcp 复制进项目，启用插件并确认监听端口 6505"},
+    {"stepZh": "从付费包解压 server 目录，安装依赖并执行构建脚本"},
+    {"stepZh": "在 .mcp.json 里配置 node 与服务器入口路径，并设置端口环境变量"},
+    {"stepZh": "按客户端工具上限选择 Full、3D、Lite 或 Minimal 模式启动服务器"},
+    {"stepZh": "重载编辑器后让 AI 先读工程结构再动手，并保留备份"}
+  ],
+  "pros": [
+    "工具覆盖场景、动画、物理、粒子、音频、着色器与导航，编辑器操作面很广，齐全",
+    "通过 WebSocket 长连接直接操作编辑器，指令反馈即时，不必轮询工程文件变化，更稳",
+    "修改走编辑器自带的 UndoRedo 撤销栈，AI 误操作也能在面板里逐步回退，安全可靠",
+    "四种模式按客户端工具上限裁剪，兼容小模型与限制客户端，选型灵活",
+    "README 有多语言版本，从安装插件到配置客户端与模式选择都写得很细，清楚"
+  ],
+  "cons": [
+    "公开仓库只有免费插件，缺少 Node.js 服务器，实际使用必须购买付费包",
+    "README 与 plugin.cfg 里的工具数字不完全一致，选购前要核对最新版本说明",
+    "工具再全也要靠模型理解，AI 改出的场景与脚本仍需人工复核后才算完成"
+  ],
+  "pitfalls": [
+    "在 GitHub 克隆的仓库本来就没有 server 目录，需要从 itch.io 或赞助页获取完整付费包",
+    "Godot 大版本升级后编辑器 API 会变，个别工具可能失效，先在小场景试跑再全量用",
+    "输入模拟会向编辑器发送点击与按键，自动化运行期间别手动抢焦点，以免结果错乱"
+  ],
+  "bestFor": "已经在用 Claude Code、Cursor 或 Cline 等 MCP 客户端，愿意为完整服务器付费，并希望 AI 深度操作 Godot 编辑器做原型或批量改场景的团队。",
+  "avoidWhenZh": "不愿意付费购买服务器，或只想要轻量、可自行审计全部代码的开源方案、可离线使用。",
+  "compareTips": {"vs": ["Coding-Solo__godot-mcp"], "whenZh": "Godot MCP Pro 工具更多且分模式，但服务器要付费；Coding-Solo 的 godot-mcp 开源免费、功能更聚焦，按预算和维护方式权衡：预算充足选前者，想省钱或自行改代码选后者。"},
+  "category": "ai-gen",
+  "tags": ["MCP", "AI助手", "编辑器自动化", "WebSocket"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 4, "maintenance": 4, "performance": 4, "stability": 3},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 4,
+  "evidence": [
+    {"claim": "宣称提供 187 个 AI 工具", "source": "README.md", "quote": "Premium MCP (Model Context Protocol) server for AI-powered Godot game development. Connects AI assistants like Claude directly to your Godot editor with **187 powerful tools**."},
+    {"claim": "公开仓库只含免费插件，服务器属付费包", "source": "README.md", "quote": "The paid zip includes the addon, the `server/` directory with pre-built JavaScript, `INSTALL.md`, and AI-client instructions. If you cloned this repo and don't see a `server/` folder, **that's expected** — grab the full package from one of the links above."},
+    {"claim": "通过 WebSocket 暴露编辑器工具", "source": "plugin.cfg", "quote": "description=\"Premium MCP server for AI-powered Godot development. Connects via WebSocket to expose 187 editor tools.\""},
+    {"claim": "提供精简模式适配小上下文客户端", "source": "README.md", "quote": "| **Minimal** (`--minimal`) | 35 | OpenCode, local LLMs with small context |"}
+  ]
+}

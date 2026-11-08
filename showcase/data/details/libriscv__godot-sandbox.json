@@ -1,0 +1,148 @@
+{
+  "id": "libriscv__godot-sandbox",
+  "depth": "standard",
+  "taglineZh": "低延迟的 Godot 玩家脚本沙箱与模组运行扩展",
+  "summaryZh": "Godot Sandbox 让玩家提交的代码在受限沙箱里运行：默认语言 SafeGDScript 是 GDScript 的同语法方言，额外支持结构体与 trait，脚本在内存安全的虚拟机中执行，可设内存上限与执行超时，未授权的宿主接口一律不可见。它适合加载模组、用户生成内容与教学沙箱，还提供模组加载器与 CPP、Rust、Zig、ELF 等原生脚本资源的读写支持。扩展以 GDExtension 形式分发，可从资产库安装，要求 Godot 4.4 以上，自己编译则需要 Rust 与 C++ 工具链。",
+  "whatItDoes": "安装后注册多种脚本语言与资源加载器，SafeGDScript 脚本可以像 GDScript 一样挂到节点，但运行在沙箱虚拟机内，宿主对象只在白名单内暴露。开发者可为每个沙箱设置内存、指令数与超时，脚本越界或死循环会被中断而不拖垮游戏。模组加载器负责扫描、加载与卸载外部模组，示例目录给出异步、模组与测试用法；原生脚本资源让 C++、Rust、Zig 或预编译 ELF 以脚本形式接入，仍受同样约束。",
+  "useCases": [
+    {
+      "titleZh": "玩家模组系统",
+      "descZh": "让玩家用 SafeGDScript 写关卡逻辑或道具效果，出错只会被沙箱终止，不会把主进程带崩，也挡住了任意文件的读写访问。"
+    },
+    {
+      "titleZh": "用户生成内容",
+      "descZh": "玩家上传的小游戏或脚本在独立沙箱里跑，按需授予节点访问权限，审核压力小，恶意代码难以触碰宿主资源。"
+    },
+    {
+      "titleZh": "教学与竞赛",
+      "descZh": "编程课或 game jam 里让学员提交脚本，统一在受限环境评测，超时与内存上限能防止一段死循环拖垮整台服务器。"
+    },
+    {
+      "titleZh": "第三方插件隔离",
+      "descZh": "从外部下载的第三方逻辑先放进沙箱验证，确认行为可控之后才考虑并入正式代码，降低整体供应链的风险。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "沙箱脚本",
+      "descZh": "以 .sgd 结尾的 SafeGDScript 脚本文件，语法接近 GDScript，另带结构体与 trait 等扩展能力，可直接挂到节点上运行使用。"
+    },
+    {
+      "titleZh": "受限运行环境",
+      "descZh": "由扩展创建的 Sandbox 实例，带内存上限、执行超时与接口白名单，脚本运行时无法越权访问任何宿主资源。"
+    },
+    {
+      "titleZh": "模组加载链路",
+      "descZh": "SgdModLoader 负责扫描目录、发现与装载外部模组，配套的示例展示异步加载、卸载和错误处理的完整流程。"
+    },
+    {
+      "titleZh": "多语言脚本资源",
+      "descZh": "CPPScript、RustScript、ZigScript 与 ELFScript 四种脚本资源类型，让原生编译的代码内容也必须严格遵循同一套沙箱权限模型。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "SafeGDScript",
+      "descZh": "与 GDScript 同语法的沙箱方言，额外提供结构体与 trait，迁移现有脚本时整体改动较小。"
+    },
+    {
+      "name": "资源限额",
+      "descZh": "每个沙箱可设内存与执行时间上限，脚本失控时被强制中断，主进程仍能继续运行。"
+    },
+    {
+      "name": "接口白名单",
+      "descZh": "只有显式授权的宿主接口才可见，文件、网络与节点访问默认关闭，适合加载不可信内容。"
+    },
+    {
+      "name": "原生脚本",
+      "descZh": "除解释型方言外，还能以脚本资源形式加载 C++、Rust、Zig 与 ELF 模块，兼顾性能与模块复用。"
+    },
+    {
+      "name": "模组加载器",
+      "descZh": "内置 SgdModLoader 和完整模组示例，外部内容的发现、加载与卸载都有可直接照搬的现成路径。"
+    }
+  ],
+  "limitsZh": "它不是通用 GDScript 替代品：SafeGDScript 少了部分反射与动态特性，依赖完整 GDScript 行为的旧脚本迁进来要改。沙箱带来额外开销，计算密集逻辑比原生慢，热路径仍应放在引擎侧。扩展需要编译产物，官方发行版覆盖桌面平台，冷门架构或自编译要准备 Rust 与 C++ 工具链，构建脚本按平台分开。主机接口需要逐个授权，模组能用什么完全取决于你暴露的范围，设计权限表本身是额外工作。文档大量指向 libriscv 的外部站点，离线查阅不便。",
+  "workflowZh": [
+    {
+      "stepZh": "在 Godot 资产库里搜索 Godot Sandbox 并安装到当前项目里即可"
+    },
+    {
+      "stepZh": "新建 SafeGDScript 脚本文件，用方言语法写游戏逻辑并保存"
+    },
+    {
+      "stepZh": "在场景中创建 Sandbox 实例，把刚写的脚本挂上去并设入口"
+    },
+    {
+      "stepZh": "在脚本里为沙箱配置内存上限、执行超时与接口白名单"
+    },
+    {
+      "stepZh": "用示例模组跑一次加载与卸载流程，确认限额生效"
+    }
+  ],
+  "pros": [
+    "SafeGDScript 语法贴近 GDScript，现有脚本迁入时整体改动小，学习成本比自造脚本语言低。",
+    "沙箱带内存上限与执行超时，玩家脚本死循环也只影响自己，宿主进程不会被拖死。",
+    "接口默认关闭、按需授权，加载外部模组时能明确控制可见范围，安全边界清晰。",
+    "除方言外还支持 C++、Rust、Zig 与 ELF 原生脚本，性能敏感的部分也留有升级路径。"
+  ],
+  "cons": [
+    "需要编译产物与平台对应，官方包之外的架构得自己搭 Rust 与 C++ 工具链。",
+    "SafeGDScript 不是完整 GDScript，反射与部分动态写法缺失，迁移要逐处验证。",
+    "沙箱执行比原生慢，计算密集逻辑放进去会明显掉帧，热路径仍需改写。"
+  ],
+  "pitfalls": [
+    "把宿主对象整个塞进沙箱白名单，等于绕开隔离，玩家脚本仍能改存档或删节点。",
+    "脚本里申请超大数组却不设内存上限，沙箱被拖到卡顿甚至触发整体超时。",
+    "原生脚本资源按平台编译，只打包了桌面产物就发 Web 或移动端，运行时会找不到库。"
+  ],
+  "bestFor": "要做玩家模组、关卡编辑器或用户生成内容，需要在不信任脚本的前提下保留脚本能力的 Godot 4.4 以上项目团队。",
+  "avoidWhenZh": "只需要内部可信脚本，或项目无法接受 GDExtension 编译流程与额外的平台适配成本时。",
+  "compareTips": {
+    "vs": [
+      "gilzoide__lua-gdextension"
+    ],
+    "whenZh": "与 Lua GDExtension 相比，两者都能隔离外部脚本，但那边用成熟 Lua 生态、适合已有 Lua 团队；这边用接近 GDScript 的方言，迁移现有逻辑更顺手，且内置更明确的资源限额与接口授权。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "沙箱",
+    "模组",
+    "脚本语言",
+    "GDExtension",
+    "安全"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "沙箱用于安全运行不可信代码",
+      "source": "README.md",
+      "quote": "Godot Sandbox lets players run untrusted code safely."
+    },
+    {
+      "claim": "SafeGDScript 是默认沙箱语言",
+      "source": "README.md",
+      "quote": "SafeGDScript (`.sgd`) is the default language for sandboxed code."
+    },
+    {
+      "claim": "仅显式授权的宿主接口可见",
+      "source": "README.md",
+      "quote": "Restricted programs cannot access the host beyond what you explicitly allow"
+    },
+    {
+      "claim": "扩展最低兼容 Godot 4.4",
+      "source": "bin/addons/godot_sandbox/bin/godot-riscv.gdextension",
+      "quote": "compatibility_minimum = \"4.4\""
+    }
+  ]
+}

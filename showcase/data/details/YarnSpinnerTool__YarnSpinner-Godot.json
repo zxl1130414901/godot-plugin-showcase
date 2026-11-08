@@ -1,0 +1,140 @@
+{
+  "id": "YarnSpinnerTool__YarnSpinner-Godot",
+  "depth": "standard",
+  "taglineZh": "把 Yarn 对话语言接进 Godot 4 C# 项目，含编译与本地化流程",
+  "summaryZh": "这个插件把 Yarn Spinner 的对话语言接进 Godot 4 的 C# 项目：用工具菜单创建 .yarnproject，在自定义检查器里管理项目，Yarn 脚本改动后自动重新导入并整包编译，产出程序、错误列表、行元数据与字符串表。运行时提供对话运行器、命令与函数，附示例行视图与选项视图，还能导出带上下文的 CSV 并转成 Godot 翻译。适合做分支叙事与本地化。限制是官方标注仍在开发、不提供正式支持，且只服务 C# 版本。",
+  "whatItDoes": "在项目工具菜单创建 Yarn 项目资源后，关联的 .yarn 脚本改动会触发重新导入与编译。运行时用 DialogueRunner 加载编译结果，按行推进对话，遇到选项时弹出选项视图；命令与函数可调用游戏逻辑。字符串表与 CSV 导出为本地化提供基础，MarkupPalette 资源可给对话片段上色。",
+  "useCases": [
+    {
+      "titleZh": "分支剧情对话",
+      "descZh": "用 Yarn 脚本写节点、选项与跳转，运行器负责推进与显示，剧情改动不必重新编译游戏逻辑。"
+    },
+    {
+      "titleZh": "对话本地化",
+      "descZh": "导出带说话人与行号上下文的 CSV，翻译后转成 Godot 翻译资源，比手工整理字符串表省事得多。"
+    },
+    {
+      "titleZh": "剧情驱动的小型 RPG",
+      "descZh": "把任务对话、选项后果与变量判断集中到 Yarn 脚本里，策划可以直接改文本而不用碰 C#。"
+    },
+    {
+      "titleZh": "C# 项目统一叙事层",
+      "descZh": "对话里的命令与函数直接调用 C# 游戏逻辑，叙事与代码边界清晰，便于程序与策划多人协作。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "编译后的 Yarn 程序",
+      "descZh": "编译产出程序、错误列表、行元数据与字符串表，运行器按需加载，出错时能定位到具体行。"
+    },
+    {
+      "titleZh": "可运行的对话节点",
+      "descZh": "附带示例行视图与选项视图，可直接替换成项目 UI，省去从零搭建对话界面的时间。"
+    },
+    {
+      "titleZh": "本地化 CSV",
+      "descZh": "导出的 CSV 带有说话人、行号与上下文信息，转成 Godot 翻译资源后可按语言切换。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": ".yarnproject",
+      "descZh": "用工具菜单创建项目资源，集中管理关联的 Yarn 脚本与编译设置。"
+    },
+    {
+      "name": "自动重导入",
+      "descZh": "Yarn 脚本改动后自动重新导入并编译整个项目，迭代时不用手动点编译。"
+    },
+    {
+      "name": "DialogueRunner",
+      "descZh": "运行时加载编译结果，按行推进、触发选项与命令，是对话流程的核心节点。"
+    },
+    {
+      "name": "命令与函数",
+      "descZh": "在 Yarn 脚本里调用 C# 逻辑，读写游戏状态，或触发动画、音效与镜头演出。"
+    },
+    {
+      "name": "MarkupPalette",
+      "descZh": "用自定义资源给对话片段着色，做强调与情绪表达，不必改 UI 代码。"
+    }
+  ],
+  "limitsZh": "README 开头就写明是进行中的项目、官方不提供支持，版本号 0.3.x，接口与行为可能变。只支持 C# 版 Godot，GDScript 项目要另找同作者的 GDScript 版本，两者能力并不同步。使用要启用 .NET、维护 C# 工程与 Yarn 项目资源，首次配置步骤比纯 GDScript 插件多。导出 CSV 不是 Godot 原生格式，需要额外转换；文档主要指向外部站点，仓库内只有安装、用法与编译说明。",
+  "workflowZh": [
+    {
+      "stepZh": "启用 Godot .NET 版本并复制 addons 目录到项目"
+    },
+    {
+      "stepZh": "从编辑器的工具菜单里创建 .yarnproject 资源文件"
+    },
+    {
+      "stepZh": "编写 .yarn 脚本文件并关联进新建的项目资源"
+    },
+    {
+      "stepZh": "在场景里挂接对话运行器与行视图"
+    },
+    {
+      "stepZh": "运行验证对话，按需导出 CSV 做本地化"
+    }
+  ],
+  "pros": [
+    "完整接入 Yarn Spinner 语言与编译流程，分支叙事表达力强，适合文本量大的项目",
+    "脚本改动后自动重导入并编译，写作与验证的迭代过程非常顺畅",
+    "提供对话运行器、命令、函数与示例视图，基本不用从零搭框架",
+    "导出的 CSV 带更多上下文字段，本地化信息明显比 Godot 原生 CSV 完整",
+    "MarkupPalette 让对话着色无需改动 UI 代码，情绪表达扩展的成本非常低"
+  ],
+  "cons": [
+    "官方标注仍在开发中且不提供正式支持，接口与行为可能变动",
+    "只支持 C# 版 Godot，GDScript 项目需要换用能力并不同步的另一版本",
+    "需要维护 .NET 工程与 Yarn 项目资源，首次配置比纯 GDScript 插件重"
+  ],
+  "pitfalls": [
+    "Yarn 脚本没有关联进项目资源时不会编译，运行器加载结果为空，先检查关联列表",
+    "Godot 未启用 .NET 版时插件脚本无法编译，项目创建阶段就要选对版本",
+    "导出的 CSV 不是 Godot 原生格式，直接导入翻译会缺字段，需要先做转换"
+  ],
+  "bestFor": "使用 Godot 4 .NET、想用 Yarn 写分支叙事，并能接受开发中版本与外部文档的叙事游戏团队与独立开发者。",
+  "avoidWhenZh": "纯 GDScript 项目，或要求官方支持、稳定接口与长期维护承诺的商业项目应避开。",
+  "compareTips": {
+    "vs": [
+      "nathanhoad__godot_dialogue_manager"
+    ],
+    "whenZh": "YarnSpinner-Godot 用 Yarn 语言与编译流程，配套完整的运行器与本地化导出；Dialogue Manager 用 GDScript 写对话并深度集成 Godot 编辑器。C# 项目且团队熟悉 Yarn 选前者，纯 GDScript 项目则看后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "对话系统",
+    "Yarn",
+    "C#",
+    "分支叙事",
+    "本地化"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "基于 Yarn 语言的 Godot 对话插件",
+      "source": "plugin.cfg",
+      "quote": "Yarn language based dialogue system plugin for Godot"
+    },
+    {
+      "claim": "项目仍在开发，官方不提供支持",
+      "source": "README.md",
+      "quote": "Yarn Spinner for Godot is a work-in-progress project. We don't currently offer any official support for it."
+    },
+    {
+      "claim": "Yarn 脚本改动会自动重导入并编译",
+      "source": "README.md",
+      "quote": "Yarn scripts will re-import on change, triggering a compilation of all yarn scripts in the associated project"
+    }
+  ]
+}

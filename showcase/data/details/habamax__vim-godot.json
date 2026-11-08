@@ -1,0 +1,65 @@
+{
+  "id": "habamax__vim-godot",
+  "depth": "standard",
+  "taglineZh": "在 Vim 或 Neovim 里高亮 GDScript 并一键运行当前 Godot 场景",
+  "summaryZh": "Godot + Vim 是给 Vim 与 Neovim 用户的 Godot 开发辅助插件，核心是 GDScript 与 GSL 的语法高亮、代码折叠，以及一组运行命令。你可以在缓冲区里用 :GodotRun 按 Tab 补全选择场景并启动，也能 :GodotRunCurrent 运行当前场景、:GodotRunLast 重跑上次的场景，装了 FZF 还能用 :GodotRunFZF 快速挑场景。运行依赖 godot 在 PATH 中，或用 g:godot_executable 指定路径；异步运行可配合 vim-dispatch 或 asyncrun。补全不内置，作者推荐 YouCompleteMe 或 coc.nvim。",
+  "whatItDoes": "插件为 .gd 与 GSL 缓冲区加载语法高亮、缩进与折叠规则，命令通过 autoload/godot.vim 调起外部 godot 可执行文件并运行选中场景。:GodotRun 用 Vim 自带补全列出工程里的场景，:GodotRunFZF 则交给 FZF 选择，:GodotRunLast 记录上次运行结果便于反复调试。所有命令只在 gdscript 或 gsl 缓冲区生效，作者不提供默认键位，需要自己在 after/ftplugin 里映射。",
+  "useCases": [
+    {"titleZh": "Vim 内写 GDScript", "descZh": "在终端编辑 .gd 脚本时获得语法高亮、缩进与折叠，减少关键字拼错与层级混乱，读代码更顺。"},
+    {"titleZh": "一键运行当前场景", "descZh": "写完关卡脚本后用 :GodotRunCurrent 直接启动当前场景，省去切到 Godot 编辑器点运行，调试更快，也不用记启动参数。"},
+    {"titleZh": "按名挑选场景运行", "descZh": "用 :GodotRun 加 Tab 补全或在装了 FZF 时用 :GodotRunFZF，快速定位要测的场景，减少输入路径与拼写错误，省时。"},
+    {"titleZh": "反复重跑上次场景", "descZh": "把 :GodotRunLast 映射到功能键，改完脚本立刻重跑上次场景，形成短循环调试，手感连贯，不必重新选场景。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "语法与折叠规则", "descZh": "为 GDScript 与 GSL 提供高亮、缩进与表达式折叠，贴合 Vim 编辑习惯与配色主题，读起来舒服。"},
+    {"titleZh": "场景运行命令", "descZh": "四条命令分别运行当前、上次或自选场景，并支持 FZF 选择，可在缓冲区里直接调用。"},
+    {"titleZh": "可配置的执行入口", "descZh": "通过 g:godot_executable 指定引擎路径，兼容不同平台的安装位置，也方便切换版本与打包通道。"}
+  ],
+  "featureCallouts": [
+    {"name": "GDScript 与 GSL 高亮", "descZh": "脚本与着色器语言都有语法文件，关键字、内建与注释正确着色。"},
+    {"name": "代码折叠", "descZh": "用表达式折叠按语法层级收起函数与代码块，长脚本阅读更清爽。"},
+    {"name": "四条运行命令", "descZh": "GodotRunCurrent、GodotRunLast、GodotRun 与 GodotRunFZF 覆盖常见启动方式，当前、上次与自选各有入口可用。"},
+    {"name": "缓冲区局部命令", "descZh": "命令只在 gdscript 或 gsl 缓冲可用，不会污染其它文件类型的键位与自动命令。"},
+    {"name": "异步运行支持", "descZh": "配合 vim-dispatch 或 asyncrun 可后台跑场景，不阻塞编辑器，改完立刻能继续写码。"}
+  ],
+  "limitsZh": "插件只覆盖高亮、折叠与运行，不提供补全、跳转定义或调试，作者明确建议另装 YouCompleteMe 或 coc.nvim 才有接近 IDE 的体验。运行命令要求 godot 在 PATH 中，否则要用 g:godot_executable 写死绝对路径，换机器或换版本时容易失效。它没有默认键位映射，新用户必须自己写 ftplugin 配置才能顺手。命令只在 gdscript 与 gsl 缓冲区生效，放在其它文件里会提示不可用。项目更新节奏较慢，主要跟随 Godot 语法变动做维护。",
+  "workflowZh": [
+    {"stepZh": "用插件管理器安装，或把目录复制进 Vim 运行目录"},
+    {"stepZh": "确认 godot 可在终端直接运行，否则用 g:godot_executable 写绝对路径"},
+    {"stepZh": "打开脚本后在 gdscript 缓冲区执行 :GodotRun 并用 Tab 补全选场景"},
+    {"stepZh": "把常用运行命令映射到 F4 与 F5 等键位方便"},
+    {"stepZh": "改脚本后按映射重跑上次场景即时验证改动效果"}
+  ],
+  "pros": [
+    "语法高亮、代码折叠与场景运行命令集成在一个插件里，终端开发流程基本够用",
+    "GodotRunCurrent、GodotRunLast、GodotRun 与 GodotRunFZF 覆盖当前、上次和自选场景，四条命令各司其职启动",
+    "所有运行命令只在 gdscript 或 gsl 缓冲区生效，不会污染其它文件类型的键位与命令",
+    "不提供默认键位映射，反而方便按个人习惯在 after/ftplugin 里自由绑定功能键",
+    "全部由 Vim 脚本实现，没有二进制依赖，复制到运行目录或用插件管理器即可装好"
+  ],
+  "cons": [
+    "插件不含补全、跳转定义与调试，想要接近 IDE 的体验必须另装 YouCompleteMe 或 coc.nvim",
+    "运行依赖 godot 可执行文件在 PATH 中，换机器或升级引擎后需要重新确认路径",
+    "默认不提供任何键位映射，新手得先写 after/ftplugin 配置，否则命令用起来并不顺手"
+  ],
+  "pitfalls": [
+    "运行命令只对 gdscript 与 gsl 缓冲区生效，在其它文件里执行会提示不可用，先切对缓冲区",
+    "godot 不在 PATH 又没有设置 g:godot_executable 时，运行命令会失败且提示很少，先自查路径",
+    "想让场景后台运行得先装 vim-dispatch 或 asyncrun，否则命令会占住当前 Vim 会话，体验差"
+  ],
+  "bestFor": "长期在 Vim 或 Neovim 里写代码，希望用同一套终端工作流写 GDScript 并直接启动 Godot 场景来调试的开发者、独立游戏、小团队。",
+  "avoidWhenZh": "需要补全、跳转定义或图形化调试，或者不熟悉 Vim 配置的新手、可视化编辑、懒得折腾。",
+  "compareTips": {"vs": ["Coding-Solo__godot-mcp"], "whenZh": "Godot + Vim 补的是编辑器里的高亮、折叠与场景运行，Coding-Solo 的 godot-mcp 则把 AI 接进 Godot 编辑器。想在终端保持 Vim 工作流选前者，想让 AI 参与 Godot 编辑选后者，按习惯选。"},
+  "category": "editor-tool",
+  "tags": ["Vim", "GDScript", "语法高亮", "运行场景", "Neovim"],
+  "scores": {"coverage": 3, "usability": 3, "docs": 3, "maintenance": 3, "performance": 5, "stability": 4},
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {"claim": "提供 GDScript 与 GSL 语法高亮", "source": "README.adoc", "quote": "* GDScript and GSL syntax highlighing"},
+    {"claim": "可运行当前场景", "source": "README.adoc", "quote": "** Run current scene: `:GodotRunCurrent`"},
+    {"claim": "命令假设 godot 在 PATH 中", "source": "README.adoc", "quote": "Note that commands assume godot executable is on your `PATH`, i.e. you can run `godot` from your terminal."},
+    {"claim": "补全建议另装 YouCompleteMe 或 coc.nvim", "source": "README.adoc", "quote": "For IDE-like completion I suggest to try https://github.com/ycm-core/YouCompleteMe[YouCompleteMe] or https://github.com/neoclide/coc.nvim[coc.nvim] plugin."}
+  ]
+}

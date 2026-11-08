@@ -1,0 +1,34 @@
+{
+  "id": "tavurth__godot-radial-menu",
+  "descriptionZh": "着色器绘制的环形轮盘菜单，按环形排布子节点并发出选中信号",
+  "category": "ui",
+  "tags": [
+    "环形菜单",
+    "UI控件",
+    "着色器",
+    "触屏"
+  ],
+  "prosShort": [
+    "着色器绘制样式好改，团队上手也快。",
+    "节点结构简单侵入性低，接入成本不高。",
+    "选中与悬停信号清晰，后续扩展方便。"
+  ],
+  "consShort": [
+    "基于 Godot 3 写法迁移麻烦，团队要提前评估。",
+    "菜单项需手工摆放无数据驱动",
+    "缺少键盘与手柄导航，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

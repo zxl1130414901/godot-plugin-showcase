@@ -1,0 +1,143 @@
+{
+  "id": "MizunagiKB__gd_cubism",
+  "depth": "standard",
+  "taglineZh": "在 Godot 4 中播放 Live2D Cubism 模型的非官方扩展",
+  "summaryZh": "GDCubism 是 Live2D Cubism SDK 的非官方 GDExtension，让 GDScript 与 C# 项目直接加载 Live2D 模型，支持参数、部件透明度、动作队列、呼吸、眨眼、视线跟随与命中区域等效果。0.9 起改为直接渲染，GDCubismUserModel 不再是 SubViewport，显存与开销明显下降。它要求 Godot 4.3 以上，模型与 Cubism SDK 授权另算，二进制需要自行编译，文档以日文站为主，选型前建议结合团队实际评估。",
+  "whatItDoes": "核心节点 GDCubismUserModel 负责加载 moc3 模型、驱动参数与动作队列，GDCubismEffect 系列提供呼吸、眨眼、视线与命中区域效果，GDCubismParameter 与 GDCubismPartOpacity 暴露可读写值。C# 与 GDScript 各有封装，demo 目录含 viewer、fade、transparent 与自定义效果示例。",
+  "useCases": [
+    {
+      "titleZh": "虚拟主播",
+      "descZh": "桌面宠物或虚拟主播需要口型、眨眼与视线跟随，用现成参数与效果节点快速接入，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "对话立绘",
+      "descZh": "视觉小说用 Live2D 立绘做表情切换，按剧情改参数比换整张贴图更自然，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "游戏角色",
+      "descZh": "卡牌或养成游戏用 Live2D 做主界面角色，呼吸与待机动作能提升观感，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "模型预览",
+      "descZh": "做 Live2D 资源检查工具，用 viewer 示例快速浏览 moc3 与动作，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "模型节点",
+      "descZh": "GDCubismUserModel，加载 moc3 并驱动参数与动作，生成结果在编辑器与运行时都能复用，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "效果组件",
+      "descZh": "呼吸、眨眼、视线跟随与命中区域等可叠加效果，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "参数桥接",
+      "descZh": "GDCubismParameter 与部件透明度节点，供脚本读写，结构与引擎资源体系保持一致，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "直接渲染",
+      "descZh": "0.9 起不再走 SubViewport，降低 GPU 内存与合成开销，参数集中在检查器面板。"
+    },
+    {
+      "name": "动作队列",
+      "descZh": "按条目排队播放 motion，可查询剩余与结束状态，后续修改起来也不费劲。"
+    },
+    {
+      "name": "自动眨眼",
+      "descZh": "GDCubismEffectEyeBlink 按参数阈值触发眨眼，调用方式简单不需要额外封装，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "视线跟随",
+      "descZh": "TargetPoint 效果把模型视线指向目标坐标，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "命中区域",
+      "descZh": "HitArea 效果把点击区域映射回模型部件，参数集中在检查器面板。"
+    }
+  ],
+  "limitsZh": "依赖 Live2D 的 Cubism Native Framework，模型与 SDK 的授权条件独立于插件本身，商用发行前必须核对 Live2D 许可。仓库没有预编译二进制，bin 是空目录，需要 SCons 与 Cubism SDK 才能构建。README 以日文为主，英文页仍有日文标题残留，接入细节指向外部文档站。平台表里 iOS 与 Android 标注 experimental，桌面以外要自行验证。0.9 的渲染方式变更破坏了旧用法，旧项目迁移要改节点层级。",
+  "workflowZh": [
+    {
+      "stepZh": "准备 Cubism SDK 并编译对应平台库，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把 gd_cubism 目录与二进制放进项目，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "新建 GDCubismUserModel 并加载 moc3，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "挂呼吸眨眼与视线效果节点，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "用参数节点驱动表情与动作，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "把 Live2D 的模型、参数、动作与常用效果都封装成节点，省去直接调原生 SDK。",
+    "同时提供 GDScript 与 C# 封装，两种技术栈都能接入，团队新人照着示例就能上手。",
+    "直接渲染方案比 SubViewport 省显存，多个角色同屏压力更小，出现问题时也更容易定位原因。",
+    "demo 覆盖淡入淡出、透明与自定义效果，可作为接入参照，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "没有预编译库，必须自行编译并准备 Cubism SDK，升级引擎版本时容易卡住。",
+    "Live2D 授权独立且限制较多，商用前要逐条核对，定制之前往往要先读源码。",
+    "文档以日文为主，英文页信息不完整，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "0.9 后 GDCubismUserModel 不再是 SubViewport，照旧教程嵌套会得到空白或错位，上线前要专门过一遍。",
+    "缺少 Cubism SDK 或未编译 bin 时，插件加载只会报库缺失，编辑器不会提示授权问题。",
+    "动作与参数名必须与 moc3 内一致，拼写错误不会报错，只会静默不动。"
+  ],
+  "bestFor": "要做 Live2D 角色或虚拟主播，并且能接受自行编译与独立授权的 Godot 4.3 以上项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只需要序列帧或 Spine 动画，或不愿承担 Live2D 授权与构建成本时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "V-Sekai__godot-vrm"
+    ],
+    "whenZh": "两者都面向角色表现；gd_cubism 专注 Live2D 的二维参数动画与表情，godot-vrm 面向三维 VRM 虚拟形象与 MToon 材质。需要二维立绘选前者，需要三维虚拟形象选后者。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "Live2D",
+    "角色动画",
+    "Cubism",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "非官方 Live2D Cubism GDExtension",
+      "source": "README.en.adoc",
+      "quote": "This software (GDCubism) is an **unofficial** GDExtension that makes the link:https://www.live2d.com/download/cubism-sdk/[Live2D Cubism SDK] accessible from GDScript or C#"
+    },
+    {
+      "claim": "要求 Godot 4.3 以上",
+      "source": "README.en.adoc",
+      "quote": "This GDExtension is available for use with Godot Engine 4.3 and above."
+    },
+    {
+      "claim": "0.9 起改为直接渲染且不再是 SubViewport",
+      "source": "README.en.adoc",
+      "quote": "the most notable change is that _GDCubismUserModel_ is no longer a _SubViewport_."
+    },
+    {
+      "claim": "依赖外部库导致许可条件不同",
+      "source": "README.en.adoc",
+      "quote": "GDCubism, when linked with dependent external libraries, results in licenses with different usage conditions."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "hhyyrylainen__GodotPckTool",
+  "descriptionZh": "独立命令行工具，可列出、解包与重新打包 Godot 的 .pck 资源文件，并支持前缀、大小过滤与 C# 库调用",
+  "category": "asset-pipeline",
+  "tags": ["pck", "资源打包", "命令行", "CI", "C#"],
+  "prosShort": ["列出、解包与打包都能用一条命令完成", "支持大小过滤并可控制包内路径前缀", "既有 C++ 工具，也提供 C# 读写类库可用"],
+  "consShort": ["只处理 pck，加密与签名相关都不管", "参数较多，前缀与路径规则易写错", "C++ 与 C# 两套实现的细节未必同步"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 4, "performance": 5, "stability": 5},
+  "installComplexity": 3,
+  "godotVersion": "unknown",
+  "needCompile": true,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

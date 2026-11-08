@@ -1,0 +1,145 @@
+{
+  "id": "nklbdev__godot-4-importality",
+  "depth": "standard",
+  "taglineZh": "把 Aseprite 与 Krita 等绘图源文件直接导入 Godot 精灵图集",
+  "summaryZh": "Importality 把 Aseprite、LibreSprite、Krita、Pencil2D、Piskel 与 Pixelorama 的源文件注册成 Godot 可导入的图形格式，导入时可选择产出精灵图集、SpriteFrames 资源，或直接生成带 AnimatedSprite2D、Sprite3D 的现成场景。它支持网格与打包两种排布，提供多种规避精灵边缘杂色的处理方式，动画既可用 SpriteFrames 也可交给 AnimationPlayer 驱动。除内置格式外，还能调用外部命令行工具把其他图片转成普通贴图。插件本身是纯 GDScript，不需要额外编译，美术换帧后重新导入即可，场景引用不必改动。",
+  "whatItDoes": "插件在编辑器里为绘图源文件添加导入器，识别后按设置生成贴图与元数据。产出可以是含帧矩形信息的图集、供 AnimatedSprite2D 使用的 SpriteFrames，或已挂好节点与动画的场景。图层、帧标签与循环设置从源文件读取，排布支持规则网格与紧凑打包，边缘处理有裁剪、外扩等选项。遇到不认识的格式时，可配置外部命令先转成 PNG 再按普通图片导入。",
+  "useCases": [
+    {
+      "titleZh": "像素动画直接进引擎",
+      "descZh": "美术在 Aseprite 里画好帧与标签，导出源文件后由导入器生成 SpriteFrames，省去逐帧切图，帧标签与循环设置也会一并带进资源。"
+    },
+    {
+      "titleZh": "多工具混用的团队",
+      "descZh": "有人用 Krita、有人用 Pixelorama，统一走同一套导入设置，减少格式差异带来的返工，统一配置后新同事接手也只需装一次插件。"
+    },
+    {
+      "titleZh": "需要可编辑图集的项目",
+      "descZh": "选打包排布生成图集与元数据，后续换帧只需重新导入，节点引用保持不变，图集尺寸变化时元数据会跟着重算。"
+    },
+    {
+      "titleZh": "批量替换旧素材",
+      "descZh": "在导入设置里统一调边缘处理与动画策略，一次性把整批源文件重新生成，重导期间不要同时打开同名资源，以免冲突。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "SpriteFrames 动画资源",
+      "descZh": "含帧矩形与循环设置的资源，可直接挂到 AnimatedSprite2D 或 3D 节点，默认的循环设置与帧时长也会一起写进去。"
+    },
+    {
+      "titleZh": "现成动画场景",
+      "descZh": "直接生成已挂好 AnimatedSprite2D 与 AnimationPlayer 的 PackedScene，打开场景就能播放动画，省去大量反复搭节点与连动画的工作。"
+    },
+    {
+      "titleZh": "图集与元数据",
+      "descZh": "按网格或打包排布的贴图，附每帧位置尺寸，便于自建渲染逻辑，换帧后坐标会随图集重排自动更新。"
+    },
+    {
+      "titleZh": "批量导入设置",
+      "descZh": "随源文件保存的导入参数，换素材后可复用同一套配置，改完只需重新导入，不必再逐项填参数。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "多格式识别",
+      "descZh": "内置多款常见绘图工具的导入器，覆盖像素画与手绘两类工作流，并支持帧标签读取。"
+    },
+    {
+      "name": "三种产出形态",
+      "descZh": "图集、SpriteFrames 与现成场景三种产出任选，按项目现有渲染方式与具体节点类型决定。"
+    },
+    {
+      "name": "边缘杂色规避",
+      "descZh": "提供逐帧裁剪与外扩等多种常见边缘处理方式，减少精灵边缘出现背景色残留。"
+    },
+    {
+      "name": "外部命令兜底",
+      "descZh": "未支持的格式可先调用外部命令行工具转成普通贴图，然后按常规图片导入。"
+    }
+  ],
+  "limitsZh": "支持的格式清单有限，遇到新工具或私有格式仍要自己写导入器；README 也把更多格式列为未来计划。动画导入默认只取第一帧作为普通图片，想要完整动画必须选 SpriteFrames 或场景产出，理解这点前容易以为导入失败。Krita 在 Linux 与 macOS 上运行时可能卡住导入，README 把相关脚本列入待办。插件面向 2D 精灵流程，3D 骨骼动画与序列帧视频不在范围内。导入参数改动后会触发整批重导，大项目里等待时间明显。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 搜索 Importality，安装后在项目设置的插件页启用它"
+    },
+    {
+      "stepZh": "把 Aseprite 或 Krita 源文件放进项目里对应的图片子目录"
+    },
+    {
+      "stepZh": "在导入面板里选择目标产出：图集、SpriteFrames 或现成场景"
+    },
+    {
+      "stepZh": "调整排布、边缘处理与动画驱动方式后重新导入"
+    },
+    {
+      "stepZh": "把生成的资源挂到对应节点，换帧时重复导入即可"
+    }
+  ],
+  "pros": [
+    "一次导入就能拿到图集、SpriteFrames 或现成场景，省去大量繁琐的手工切图与逐帧对齐。",
+    "覆盖多种主流像素绘图工具，团队工具链不必强行统一，不必强迫团队换工具。",
+    "边缘处理与排布选项较细，能缓解精灵边缘杂色问题，省去逐张图手动修边。",
+    "导入参数随资源保存，换素材后可复用同一套配置，换素材后不必重新配一遍。"
+  ],
+  "cons": [
+    "支持格式仍有限，遇到新工具需要等更新或自己扩展导入器。",
+    "Krita 在部分系统上会卡住导入，缺少官方现成可用的绕行脚本。",
+    "只处理 2D 精灵与序列帧，3D 模型与视频素材不在覆盖范围。"
+  ],
+  "pitfalls": [
+    "普通图片导入模式只保留第一帧，误用它导入动画会以为源文件整段损坏。",
+    "修改导入参数会触发整批重导，大图集项目里要留出足够长的等待时间。",
+    "外部命令模式依赖本机安装的转换工具，路径配错时报错信息通常不直观。"
+  ],
+  "bestFor": "用 Aseprite、Krita 等工具做 2D 像素或手绘动画，希望把源文件直接导入 Godot 并自动生成动画资源的小团队与个人开发者。",
+  "avoidWhenZh": "项目主要用 3D 骨骼动画、Spine 或视频序列，或需要导入私有格式且不愿维护导入器时。",
+  "compareTips": {
+    "vs": [
+      "viniciusgerevini__godot-aseprite-wizard",
+      "98teg__SpriteMesh"
+    ],
+    "whenZh": "和 Aseprite Wizard 相比，Importality 覆盖更多绘图工具与产出形态，但向导式流程与逐帧可控性弱一些；只在 Aseprite 上做动画的项目用 Wizard 更省心，团队只用 Aseprite 时，前者的向导流程更贴合。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "素材导入",
+    "Aseprite",
+    "Krita",
+    "精灵图集",
+    "动画"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "支持多种绘图源文件格式",
+      "source": "README.md",
+      "quote": "Support for Aseprite (and LibreSprite), Krita, Pencil2D, Piskel and Pixelorama files. Other formats may be supported in the future."
+    },
+    {
+      "claim": "其他格式可借外部命令行工具导入",
+      "source": "README.md",
+      "quote": "Importing any other graphics formats as regular images with external command line utilities."
+    },
+    {
+      "claim": "图集支持网格与打包两种排布",
+      "source": "README.md",
+      "quote": "Grid-based and packaged layout options for sprite sheets."
+    },
+    {
+      "claim": "插件描述标明是通用位图与动画导入包",
+      "source": "plugin.cfg",
+      "quote": "description=\"Universal raster graphics and animations importers pack\""
+    }
+  ]
+}

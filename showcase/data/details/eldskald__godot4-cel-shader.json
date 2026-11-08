@@ -1,0 +1,144 @@
+{
+  "id": "eldskald__godot4-cel-shader",
+  "depth": "standard",
+  "taglineZh": "功能完整的 Godot 4 卡通渲染着色器与描边方案",
+  "summaryZh": "它解决的是 Godot 4 缺少开箱即用卡通渲染的问题：提供一套 cel shader，含可调漫反射曲线、描边 next_pass、高光、菲涅尔与环境反射，并把法线、高度、发光、反射、折射、透明拆成独立 include。用法是把 src 与 include 目录复制进项目，给材质挂 spatial shader 并设置全局 uniform。它附带演示场景与步骤说明。限制是它不是插件，没有一键安装，全局 uniform 要在项目设置里手动添加，高级效果需要改 defines。",
+  "whatItDoes": "提供 cel shader 主体、outline 与多个 include：normal、height、emission、reflection、refraction、transparency 等。着色器用全局 uniform 控制描边颜色与阈值、高光强度、菲涅尔、环境反射与环境光，演示场景展示不同光照与材质组合。README 给出从下载到挂载材质的逐步操作。",
+  "useCases": [
+    {
+      "titleZh": "卡通角色",
+      "descZh": "做二次元或漫画风角色，需要分级明暗与描边时可直接套用现成 shader，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "风格化场景",
+      "descZh": "整场景统一卡通光照，用全局 uniform 调描边与高光，不必逐材质改代码，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "描边方案",
+      "descZh": "研究 next_pass 描边与法线、高度偏移差异，可对照 include 改自己的实现，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "快速原型",
+      "descZh": "原型阶段想试卡通渲染，自带演示场景与参数说明能省下调研时间，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "cel 主体着色器",
+      "descZh": "分级漫反射、高光、菲涅尔与环境反射组合的 spatial shader，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "描边 next_pass",
+      "descZh": "用背面扩张生成描边，颜色与宽度由全局 uniform 控制，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "效果 include",
+      "descZh": "法线、高度、发光、反射、折射与透明拆成独立片段，按需组合，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "漫反射曲线",
+      "descZh": "把光照切成有限层级，曲线参数控制明暗过渡的软硬，参数集中在检查器面板。"
+    },
+    {
+      "name": "描边",
+      "descZh": "next_pass 背面扩张，支持按法线或高度调整宽度，后续修改起来也不费劲。"
+    },
+    {
+      "name": "全局 uniform",
+      "descZh": "描边色、阈值、高光等集中到项目全局设置，一处修改全场景生效。"
+    },
+    {
+      "name": "演示场景",
+      "descZh": "自带可运行示例，展示不同材质与光照下的最终效果，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "模块化 include",
+      "descZh": "把效果拆成 include，可只启用需要的部分，减少无用分支，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "安装不是插件流程：要手动复制 src 与 include 目录，再给每个材质替换 shader，无法一键批量启用。全局 uniform 需要自行在项目设置里逐项添加，漏项时着色器会取默认值或报错，README 虽列出清单但操作仍偏手工。高级效果通过 defines 开关，改 include 里的宏会影响所有引用材质，团队要约定版本。透明、折射与反射分支会增加开销，移动端要按需裁剪，仓库没有性能档位或 LOD 方案。文档以步骤与参数说明为主，缺少与 Godot 内置 StandardMaterial3D 的逐项对照。",
+  "workflowZh": [
+    {
+      "stepZh": "下载仓库并把 src 与 include 目录复制进项目"
+    },
+    {
+      "stepZh": "在项目设置里添加所需的全部全局 uniform"
+    },
+    {
+      "stepZh": "给材质新建 spatial 着色器并选用 cel 主体"
+    },
+    {
+      "stepZh": "按需打开 defines 并配置描边 next_pass 宽度参数"
+    },
+    {
+      "stepZh": "运行演示场景逐项核对参数与效果"
+    }
+  ],
+  "pros": [
+    "一套 shader 覆盖漫反射、描边、高光、菲涅尔与反射，省去从零搭卡通渲染。",
+    "效果拆成 include，可按材质启用透明、折射或发光，组合灵活，团队新人照着示例就能上手。",
+    "全局 uniform 集中控制描边与光照，整场景调参不必逐个材质改，出现问题时也更容易定位原因。",
+    "自带演示场景与逐步说明，初次接入能对照效果，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "不是插件，复制目录与替换材质都要手工完成，升级引擎版本时容易卡住。",
+    "全局 uniform 需逐项添加，漏配时效果异常且不易定位。",
+    "高级分支增加开销，仓库没有性能档位或移动端裁剪建议。"
+  ],
+  "pitfalls": [
+    "全局 uniform 名称拼错或漏加时，描边与高光会取默认值，画面只是变淡。",
+    "改 include 里的 define 会影响所有引用材质，升级前要记录改动的宏，上线前要专门过一遍。",
+    "给透明材质直接套用不透明分支会出现排序问题，要改用透明变体。"
+  ],
+  "bestFor": "要做卡通或漫画风格 3D 游戏，需要一套可调描边与分级光照，并能接受手工接材质的独立团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目需要一键安装或批量材质管理，或目标平台性能预算极紧时。",
+  "compareTips": {
+    "vs": [
+      "Zorochase__ultimate-retro-shader-collection"
+    ],
+    "whenZh": "两者都提供 Godot 4 的 3D 着色器方案：cel-shader 专注卡通光照与描边，适合二次元角色；URSC 专注 PS1/N64 复古观感，适合低模怀旧风。卡通渲染选前者，复古像素风选后者。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "卡通渲染",
+    "描边",
+    "着色器",
+    "Godot4",
+    "风格化"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "为 Godot 4 提供 Cel Shader",
+      "source": "README.md",
+      "quote": "This project is a demo of my Cel Shader for Godot 4."
+    },
+    {
+      "claim": "需要把 src 目录内容放入项目",
+      "source": "README.md",
+      "quote": "You need to put everything on the [src](src) folder on your project, on the same folder."
+    },
+    {
+      "claim": "需在 Shader Globals 中设置全局参数",
+      "source": "README.md",
+      "quote": "go to Project Settings > Shader Globals and set the following:"
+    },
+    {
+      "claim": "描边通过 next_pass 实现",
+      "source": "README.md",
+      "quote": "Make another material with the [outline.gdshader](src/outline.gdshader) shader. Put this material on the `next_pass` property of the material."
+    }
+  ]
+}

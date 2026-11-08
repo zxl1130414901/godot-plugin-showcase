@@ -1,0 +1,166 @@
+{
+  "id": "Zylann__godot_heightmap_plugin",
+  "depth": "standard",
+  "taglineZh": "纯 GDScript 写的高度图地形，支持绘制纹理、上色、挖洞、LOD 与草地",
+  "summaryZh": "Heightmap Terrain 是 Zylann 早期做的高度图地形插件，用一张高度图加若干图层描述地表，提供纹理绘制、颜色绘制、挖洞、LOD 与草地散布。它填的是 Godot 3D 没有地形系统的空档：整个插件写在 GDScript 里，便于阅读与修改，也不依赖预编译库。地形数据按区块切分，网格器按 LOD 生成面片，纹理集定义不同地表材质与混合规则。安装只需把 addons 目录复制进项目，示例场景另从独立仓库下载。作者已声明不再开发新功能、只做缺陷修复，也没有转 GDExtension 的计划，所以更适合当稳定工具或学习素材。",
+  "whatItDoes": "提供 HTerrain 节点，挂上高度图与纹理集后在编辑器里直接拉高、压低与平滑地形。纹理绘制用一组通道在贴图上刷材质，颜色绘制单独存一层顶点色或贴图色。挖洞用遮罩把指定区域从碰撞与渲染里剔除，LOD 由网格器按区块与距离切分。草地用 HTerrainDetailLayer 记录密度与分布，运行时按距离补齐。地图数据由 HTerrainData 管理，可保存到磁盘并重新载入，纹理与高度图都按区块分页处理。",
+  "useCases": [
+    {
+      "titleZh": "开放世界地表",
+      "descZh": "做中等规模的户外场景时，用高度图加纹理绘制铺出山谷、道路与坡地，配合 LOD 让远处区块少算面片，省去自己写网格生成与区块调度的一整套逻辑。"
+    },
+    {
+      "titleZh": "快速验证地形构想",
+      "descZh": "原型阶段直接在编辑器里刷高度与材质，几分钟就能看到可行走的地形，不必先做美术资源或写地形着色器，方案不合适时删掉节点即可重来。"
+    },
+    {
+      "titleZh": "洞穴入口与断崖",
+      "descZh": "用挖洞功能在山体上开口，做出洞穴入口、隧道口或断崖缺口，避免为每个开口单独建模，挖完渲染与碰撞会同时开洞，角色不会撞上看不见的墙。"
+    },
+    {
+      "titleZh": "草地与低矮植被",
+      "descZh": "用细节层在地表撒草与碎石，按距离控制显示密度，比手工摆件更容易覆盖大面积区域，远处减少实例后整体开销也随之下降。"
+    },
+    {
+      "titleZh": "学习地形实现",
+      "descZh": "整个插件是 GDScript，网格生成、区块管理与编辑器工具都能直接读，适合研究地形系统怎么写，也可以照着改出自己需要的地形节点。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可编辑地形节点",
+      "descZh": "HTerrain 节点及其高度图数据，放进场景即可渲染与碰撞，编辑器里可直接刷地形与材质，改完保存场景就带上全部数据。"
+    },
+    {
+      "titleZh": "地形数据存档",
+      "descZh": "由 HTerrainData 管理的区块化高度图与纹理层，可保存到磁盘并在下次打开时完整恢复，适合把手工刷过的地形直接交付。"
+    },
+    {
+      "titleZh": "纹理集资源",
+      "descZh": "HTerrainTextureSet 定义的地表材质集合与混合规则，决定不同高度与坡度上显示什么贴图，一份资源可被多个地形节点共用。"
+    },
+    {
+      "titleZh": "草地分布层",
+      "descZh": "HTerrainDetailLayer 记录的草与碎石分布，运行时按距离补齐，形成大面积低矮植被，密度与显示半径都能单独调，也能按区域单独关闭。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "HTerrain",
+      "descZh": "地形主节点，负责渲染、碰撞与编辑器笔刷交互，高度与纹理都挂在它下面，换场景时随场景一起保存。"
+    },
+    {
+      "name": "HTerrainTextureSet",
+      "descZh": "集中定义地表材质与混合规则，按高度、坡度与绘制通道决定显示哪张贴图，避免在地表上出现突兀的接缝。"
+    },
+    {
+      "name": "Holes",
+      "descZh": "用遮罩在渲染与碰撞上同时挖空指定区域，做出洞穴入口与断崖缺口，不必额外建洞体模型。"
+    },
+    {
+      "name": "LOD Meshing",
+      "descZh": "按区块与相机距离生成不同精度的网格，远处减少面片，避免整张地形全精度绘制，镜头拉远时开销会明显下降。"
+    },
+    {
+      "name": "Detail Layers",
+      "descZh": "记录草与碎石的分布密度，运行时按距离补齐实例，覆盖大面积低矮植被，也能按区域单独关闭。"
+    }
+  ],
+  "limitsZh": "性能是最大限制：网格生成与纹理混合都在 GDScript 里做，地形尺寸一大或编辑半径一宽，编辑器就会明显卡顿，运行时的区块重建也可能掉帧。它只支持高度图，做不了悬空、隧道与真正的体素破坏，挖洞只是遮罩式剔除。项目已进入只修 bug 的状态，新功能不会再有，遇到引擎大版本变更时适配也可能滞后。仓库体积很大，克隆与首次导入都慢。文档在 readthedocs 上分成多个章节，但部分截图与说明停留在旧版本。纹理集与绘制通道的配置概念较多，第一次接通常见的结果是地表全糊成一种材质。没有 GDExtension 版本，也没有主机平台的特殊优化。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/zylann.hterrain 进项目并启用插件，重启编辑器确认面板出现"
+    },
+    {
+      "stepZh": "新建 HTerrain 节点并导入高度图，先设好分辨率与区块尺寸"
+    },
+    {
+      "stepZh": "配置纹理集与材质混合规则，确认地表能分出材质层"
+    },
+    {
+      "stepZh": "在编辑器里刷高度、材质与颜色，先用小笔刷试手感"
+    },
+    {
+      "stepZh": "设置区块尺寸与 LOD 距离，再到远景处看接缝"
+    },
+    {
+      "stepZh": "运行场景检查碰撞与帧率，必要时缩小可见半径"
+    }
+  ],
+  "pros": [
+    "全 GDScript 实现，源码可读可改，遇到不符合项目需求的地方能直接动逻辑，不必等上游发版。",
+    "纹理绘制、上色、挖洞、LOD 与草地都在一个插件里，中小型户外场景够用，不必拼多个工具。",
+    "安装只是复制目录并启用，不需要编译，团队里谁都能装，换机器也不用重配环境。",
+    "文档站按主题分章，作者也长期回答地形相关问题，遇到坑有据可查，社区案例积累了很多年。"
+  ],
+  "cons": [
+    "网格生成与纹理混合跑在 GDScript 上，大地形与宽笔刷明显卡顿，编辑体验不如原生实现。",
+    "只支持高度图，做不了隧道、悬空与运行时破坏，地形形态被限制在起伏地表。",
+    "项目已停止开发新功能，长期适配与性能优化都不会再有，遇到引擎变更只能等修 bug。"
+  ],
+  "pitfalls": [
+    "纹理集通道配错时地表会整片糊成一种材质，看起来像贴图丢失而不是配置问题，先查通道顺序。",
+    "高度图分辨率与区块尺寸不匹配会在区块边界出现接缝，改参数后要重新导入数据才对齐。",
+    "在大地形上用宽笔刷连续刷会触发全区块重建，编辑器卡住时先缩小笔刷再操作。"
+  ],
+  "bestFor": "需要中等规模户外地形、愿意接受纯 GDScript 的性能上限，且项目还停留在 Godot 4.6 附近的独立开发者与小团队。",
+  "avoidWhenZh": "需要隧道与可破坏地形，或对大地形帧率有硬要求时，应改用体素方案或 GDExtension 地形。",
+  "compareTips": {
+    "vs": [
+      "TokisanGames__Terrain3D",
+      "Zylann__godot_voxel",
+      "mohsenph69__Godot-MTerrain-plugin"
+    ],
+    "whenZh": "Terrain3D 用 C++ 与预编译库，大地形性能强得多；Voxel 支持挖掘与悬空但安装要编引擎。只要高度图且不想编译选本项目最省事，追求性能选 Terrain3D，需要破坏地形选 Voxel。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "地形",
+    "高度图",
+    "GDScript",
+    "LOD"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 2,
+    "performance": 2,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4.6 以上的高度图地形",
+      "source": "README.md",
+      "quote": "Heightmap-based terrain for Godot 4.6+."
+    },
+    {
+      "claim": "支持纹理绘制、上色、挖洞、LOD 与草地",
+      "source": "README.md",
+      "quote": "It supports texture painting, colouring, holes, level of detail and grass, while still targetting the Godot API."
+    },
+    {
+      "claim": "全部用 GDScript 实现且没有 GDExtension 计划",
+      "source": "README.md",
+      "quote": "The plugin is fully implemented in GDScript, mainly for ease of change and compatibility. There is no plan to implement a GDExtension part."
+    },
+    {
+      "claim": "插件已不再积极开发",
+      "source": "README.md",
+      "quote": "This plugin is not in \"active\" development."
+    },
+    {
+      "claim": "作者只做缺陷修复",
+      "source": "README.md",
+      "quote": "I no longer work on features, and only do bug fixes these days."
+    },
+    {
+      "claim": "安装方式是复制目录并启用",
+      "source": "README.md",
+      "quote": "Copy the contents of `addons/zylann.hterrain` into the same folder in your project, and activate it in your project settings."
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "id": "gilzoide__godot-lua-pluginscript",
+  "depth": "standard",
+  "taglineZh": "让 Godot 3 项目用 Lua 编写游戏脚本的 GDNative 扩展",
+  "summaryZh": "它解决的是 Godot 3 只能用 GDScript 写逻辑的问题：通过 GDNative 与 PluginScript 注册 Lua 语言，让 Lua 脚本能访问节点、单例与自定义对象，并与 GDScript、C#、Visual Script 互调。用法是把编译好的库与 lua_pluginscript.gdnlib 放进 res://addons/godot-lua-pluginscript，重启编辑器即可新建 Lua 脚本。限制很明确：不支持 Godot 4，只支持 LuaJIT，Lua 脚本不能继承其他脚本，编辑器内改脚本不会热重载。",
+  "whatItDoes": "提供 PluginScript 语言实现与 GDNative 库，Lua 侧通过 godot_* 包装模块访问 Vector、Color、NodePath 等类型与引擎单例。附带 Lua REPL 编辑器面板与导出插件，可在导出时压缩 Lua 源码。源码内还有 luaunit 测试与 C 模块示例，方便扩展绑定。",
+  "useCases": [
+    {
+      "titleZh": "Lua 逻辑脚本",
+      "descZh": "已有 Lua 代码或团队更熟 Lua，想在 Godot 3 项目里复用技能与库，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "脚本语言研究",
+      "descZh": "研究 PluginScript 与 GDNative 如何把第三方语言接进引擎，仓库有设计与实现文章，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "编辑器内调试",
+      "descZh": "需要边写 Lua 边执行时，可用自带 REPL 面板验证调用与对象访问，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "混合语言项目",
+      "descZh": "GDScript 管场景、Lua 管配置或 AI 逻辑，两者可互调信号与方法，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Lua 脚本语言",
+      "descZh": "注册进 ScriptServer 的 PluginScript 实现，可在编辑器新建 .lua 脚本并挂到节点，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "GDNative 库",
+      "descZh": "lua_pluginscript.gdnlib 描述各平台库文件，随项目分发无需重编引擎，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "REPL 与导出插件",
+      "descZh": "编辑器 REPL 面板和导出时的 Lua 压缩插件，方便调试与发布，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "跨语言互调",
+      "descZh": "Lua 可调用 GDScript/C# 的方法与属性，反向也能被调用，信号同样可用。"
+    },
+    {
+      "name": "FFI 绑定",
+      "descZh": "基于 LuaJIT FFI 直接调用 Godot 对象模型，省去逐类手写绑定，参数集中在检查器面板。"
+    },
+    {
+      "name": "Lua REPL",
+      "descZh": "编辑器底部提供 REPL 页签，可即时执行片段并查看返回值，后续修改起来也不费劲。"
+    },
+    {
+      "name": "导出压缩",
+      "descZh": "export_plugin.lua 在导出阶段用 luasrcdiet 压缩脚本，减少包体，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "类型包装",
+      "descZh": "godot_array、godot_dictionary、godot_color 等模块把引擎类型映射到 Lua 表，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "最大限制是引擎版本：README 开头即声明不支持 Godot 4，因为依赖仅存在于 Godot 3 的 GDNative，4.x 项目应改用同作者的 Lua GDExtension。运行时有明确约束：只支持 LuaJIT，标准 Lua 5.x 不可用；Lua 脚本不能继承其他脚本，连 Lua 继承 Lua 都不行；后台线程调用 Lua 可能破坏状态，因为 Lua 引擎非线程安全。编辑器体验也受限，PluginScript 实例在脚本修改后不会重载，导出的属性变化与 tool 脚本要重开项目才生效。仓库提供预编译库，但自行构建需要 SCons 与各平台工具链，文档以英文为主。",
+  "workflowZh": [
+    {
+      "stepZh": "从发布页下载预编译库并解压到 addons 目录"
+    },
+    {
+      "stepZh": "确认 gdnlib 配置文件位于 addons 目录并重启编辑器"
+    },
+    {
+      "stepZh": "把整个库目录放到 res 下的 addons/godot-lua-pluginscript"
+    },
+    {
+      "stepZh": "在编辑器里新建 lua 脚本并挂到节点上"
+    },
+    {
+      "stepZh": "用自带的 REPL 面板测试对象与信号访问"
+    }
+  ],
+  "pros": [
+    "Lua 与 GDScript、C# 可双向调用，混合语言项目不必二选一，团队新人照着示例就能上手。",
+    "基于 LuaJIT FFI 绑定，运行性能接近原生，且不必重编引擎，出现问题时也更容易定位原因。",
+    "附带 REPL 面板与导出压缩插件，日常调试与发布都有现成工具。",
+    "仓库含设计文章、限制说明与测试用例，实现思路可追溯，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "完全不支持 Godot 4，选型前必须先确认引擎版本，升级引擎版本时容易卡住。",
+    "只兼容 LuaJIT，不能继承脚本，编辑器内也不热重载，定制之前往往要先读源码。",
+    "文档以英文为主，中文资料少，新手上手要读源码。"
+  ],
+  "pitfalls": [
+    "在后台线程调用 Lua 可能直接破坏解释器状态，异步逻辑要走主线程。",
+    "改动导出属性或 tool 脚本后必须重开项目才生效，别误判为插件失效。",
+    "把库目录放错层级时 gdnlib 找不到库文件，编辑器只报一句加载失败。"
+  ],
+  "bestFor": "仍维护 Godot 3 项目、团队已有 Lua 代码或需要把 Lua 逻辑接进引擎的中大型项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目使用 Godot 4，或需要脚本继承与编辑器热重载时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "niklas2902__py4godot"
+    ],
+    "whenZh": "两者都是给 Godot 加第三方脚本语言：Lua PluginScript 面向 Godot 3，依赖 GDNative 与 LuaJIT；py4godot 面向 Godot 4，用 Cython 绑定 Python。老项目补 Lua 选前者，新项目用 Python 选后者。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "Lua",
+    "脚本语言",
+    "GDNative",
+    "Godot3",
+    "LuaJIT"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "为 Godot 3 增加 Lua 脚本支持",
+      "source": "README.md",
+      "quote": "GDNative + PluginScript library that adds support for [Lua](https://www.lua.org/) as a scripting language in [Godot](https://godotengine.org/) 3."
+    },
+    {
+      "claim": "不支持 Godot 4",
+      "source": "README.md",
+      "quote": "This does not work with Godot 4, since it relies on GDNative, a Godot 3 only technology."
+    },
+    {
+      "claim": "仅支持 LuaJIT",
+      "source": "README.md",
+      "quote": "Currently, only LuaJIT is supported, since the implementation is based on its [FFI](https://luajit.org/ext_ffi.html) library."
+    },
+    {
+      "claim": "Lua 脚本不能继承其他脚本",
+      "source": "extras/docs/limitations.md",
+      "quote": "Lua scripts cannot inherit other scripts, not even other Lua scripts at the moment."
+    }
+  ]
+}

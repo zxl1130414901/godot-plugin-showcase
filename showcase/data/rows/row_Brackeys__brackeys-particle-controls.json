@@ -1,0 +1,33 @@
+{
+  "id": "Brackeys__brackeys-particle-controls",
+  "descriptionZh": "编辑器粒子预览插件，可播放暂停拖时间轴并同时预览相邻或子级粒子",
+  "category": "editor-tool",
+  "tags": [
+    "粒子",
+    "编辑器",
+    "预览",
+    "特效"
+  ],
+  "prosShort": [
+    "场景视图直接拖时间轴，团队上手也快。",
+    "相邻与子级粒子可同预览，接入成本不高。",
+    "副本预览不修改原节点，后续扩展方便。"
+  ],
+  "consShort": [
+    "只在编辑器生效无运行时接口",
+    "重特效预览会翻倍开销，团队要提前评估。"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

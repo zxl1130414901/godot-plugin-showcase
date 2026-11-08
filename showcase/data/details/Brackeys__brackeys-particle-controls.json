@@ -1,0 +1,143 @@
+{
+  "id": "Brackeys__brackeys-particle-controls",
+  "depth": "standard",
+  "taglineZh": "在编辑器里播放暂停与拖拽预览粒子效果的插件",
+  "summaryZh": "Brackeys 粒子控制是一个编辑器插件，在场景视图加一条控制栏，让你直接播放、暂停、停止和拖动时间轴预览粒子，不必反复运行游戏或临时改单次播放属性。它还能同时预览相邻或子级粒子节点，方便组合多个系统看整体效果。实现方式是复制一份粒子用于预览，不会改动原节点。它只在编辑器生效，且预览副本会增加开销。",
+  "whatItDoes": "插件在进入场景树时把 BrackeysParticleControlsUI 场景挂到编辑器主屏幕，连接开始、暂停、停止、循环、影响相邻节点与影响子节点按钮，并用 BPC_PreviewDirector 管理预览副本的状态与逐帧推进。选中粒子节点后即可在场景视图拖动时间轴，预览会复制目标粒子并在编辑器视口里播放。",
+  "useCases": [
+    {
+      "titleZh": "特效调参",
+      "descZh": "做爆炸、火焰或魔法粒子时反复看节奏，直接拖时间轴比运行游戏快，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "组合预览",
+      "descZh": "武器特效由多个粒子节点叠加，开启子节点预览可同时看整体层次，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "教学演示",
+      "descZh": "讲粒子生命周期时现场暂停在某一帧，比口头描述直观，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "避免误改",
+      "descZh": "不想为了预览改单次播放或自动播放属性，用副本预览可保持场景干净，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "场景控制栏",
+      "descZh": "挂在编辑器主屏幕的播放、暂停、停止、循环与时间轴控件，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "预览副本",
+      "descZh": "复制选中粒子生成的临时预览实例，不改动原节点，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "预览调度器",
+      "descZh": "BPC_PreviewDirector 推进时间并同步多个粒子的状态，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "时间轴拖动",
+      "descZh": "拖动进度条定位到任意时刻，观察粒子生成与消散，参数集中在检查器面板。"
+    },
+    {
+      "name": "循环预览",
+      "descZh": "开启循环后持续播放，便于调持续型特效，后续修改起来也不费劲。"
+    },
+    {
+      "name": "相邻与子级",
+      "descZh": "同时预览邻近或子节点粒子，组合效果一次看全，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "四类节点",
+      "descZh": "覆盖 GPU 与 CPU 的 2D、3D 粒子节点，调用方式简单不需要额外封装。"
+    },
+    {
+      "name": "非侵入",
+      "descZh": "只操作副本，不写回场景里的粒子属性，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "插件只服务编辑器预览，运行时没有任何接口或节点，导出游戏不会带上控制栏。预览通过复制粒子实现，粒子数量大或嵌套深时编辑器会明显变卡，关闭面板后才恢复。README 只有一页，未说明各按钮的细节与兼容边界，最后测试版本是 Godot 4.4.1，更新引擎后要自测。它不修改粒子属性，因此无法替代材质或曲线调参，也不提供批量导出或预设管理。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons 目录并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在 3D 场景里选中粒子节点，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "用控制栏开始或暂停预览，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "拖动时间轴定位关键帧，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需开启相邻或子级预览，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "直接在场景视图播放与拖时间轴，调粒子节奏比反复运行游戏快得多。",
+    "支持相邻与子级粒子同时预览，组合特效不用逐个开，团队新人照着示例就能上手。",
+    "用副本预览且不修改原节点，不会把临时属性带进提交，出现问题时也更容易定位原因。",
+    "安装只需拷贝 addons 目录，启用插件即出现控制栏，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "只在编辑器生效，运行时没有对应接口，升级引擎版本时容易卡住。",
+    "预览副本会翻倍粒子开销，重特效场景容易卡顿。",
+    "文档很短，兼容边界只标注到 4.4.1，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "粒子数量很大时开预览会让编辑器明显掉帧，调完记得关掉控制栏。",
+    "复制预览不继承运行时脚本对粒子的修改，看到的效果可能与游戏内不同。",
+    "升级 Godot 后编辑器接口可能变化，插件未更新时按钮会失效，先在空项目验证。"
+  ],
+  "bestFor": "频繁调整粒子特效节奏与组合，希望在不运行游戏的情况下逐帧预览的 Godot 特效美术，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "需要运行时粒子控制，或项目仍使用 Godot 3.x 时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "anthonyec__godot_little_camera_preview"
+    ],
+    "whenZh": "两者都是编辑器预览工具；Brackeys 粒子控制针对粒子播放与时间轴，little camera preview 针对相机画中画。调特效选前者，调镜头构图选后者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "粒子",
+    "编辑器",
+    "预览",
+    "特效"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "在场景视图加粒子控制面板",
+      "source": "README.md",
+      "quote": "This plugin adds a control panel to the scene view for easily previewing your VFX in the Editor."
+    },
+    {
+      "claim": "覆盖四类粒子节点",
+      "source": "README.md",
+      "quote": "Works for all particle nodes (GPUParticles3D, GPUParticles2D, CPUParticles3D, CPUParticles2D)."
+    },
+    {
+      "claim": "通过复制粒子预览不改原节点",
+      "source": "README.md",
+      "quote": "Works by creating a duplicate of the particles for previewing. It never touches your nodes!"
+    },
+    {
+      "claim": "最后测试于 Godot 4.4.1",
+      "source": "README.md",
+      "quote": "Last tested with Godot 4.4.1."
+    }
+  ]
+}

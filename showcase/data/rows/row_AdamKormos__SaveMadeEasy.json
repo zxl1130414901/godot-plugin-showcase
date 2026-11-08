@@ -1,0 +1,34 @@
+{
+  "id": "AdamKormos__SaveMadeEasy",
+  "descriptionZh": "用斜杠键路径读写嵌套数据，支持可选加密与启动自动加载的轻量存档插件，适合小项目快速接存档",
+  "category": "save-data",
+  "tags": [
+    "存档",
+    "键值存储",
+    "AutoLoad",
+    "加密"
+  ],
+  "prosShort": [
+    "键路径 API 极简，几行代码即可接入",
+    "支持嵌套字典、数组、向量与资源",
+    "AutoLoad 启动时自动加载整份存档"
+  ],
+  "consShort": [
+    "全量读写，数据大时保存会卡顿",
+    "不支持分槽、版本迁移与云同步",
+    "数字开头的键路径默认读不回来"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

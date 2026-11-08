@@ -1,0 +1,143 @@
+{
+  "id": "gdquest-demos__godot-4-stylized-sky",
+  "depth": "standard",
+  "taglineZh": "一个着色器搞定风格化天空与体积云",
+  "summaryZh": "这个仓库提供一个 Godot 4 天空着色器，用三色渐变搭底、叠加闪烁星空、滚动体积云、按主方向光定位的天体贴图以及从天顶落下的流星。把 sky 目录里的 gdshader 挂到 Sky 资源上即可，附带白天与夜晚两个示例预设可对照。它只是渲染素材，不含昼夜循环、天气切换或云层参数面板，体积云采样也有性能成本。",
+  "whatItDoes": "核心文件是 sky/stylized_sky.gdshader，向 Sky 材质提供三色渐变、星点闪烁、滚动体积云、天体贴图与流星五组 uniform。示例 day_sky.tres 与 night_sky.tres 给出可直接套用的参数组合，sky.tscn 展示完整 WorldEnvironment 配置。README 另外说明两项优化：去掉 TIME 让天空静止，或降低云采样换取帧率。",
+  "useCases": [
+    {
+      "titleZh": "风格化关卡",
+      "descZh": "给卡通或低多边形场景加渐变天空、星星与体积云，统一美术气质且无需额外插件，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "夜景过场",
+      "descZh": "用星空与流星营造夜晚氛围，配合方向光做月亮定位，适合短片式过场，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "天空盒替代",
+      "descZh": "不想做传统立方体贴图时，用程序化天空省掉素材制作与接缝处理，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "着色器学习",
+      "descZh": "通过一个可运行示例学习天空 shader 的 UV、方向光与体积云采样写法，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "天空着色器",
+      "descZh": "stylized_sky.gdshader，含渐变、星空、云与流星的可调 uniform，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "昼夜示例",
+      "descZh": "day_sky.tres 与 night_sky.tres 两套预设，直接挂到 WorldEnvironment，结构与引擎资源体系保持一致，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "演示场景",
+      "descZh": "sky.tscn 展示完整天空设置，可作接入参照，可以直接放进项目里使用，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "三色渐变",
+      "descZh": "用三个颜色输入定义天顶到地平线，改色即可换整体氛围，参数集中在检查器面板。"
+    },
+    {
+      "name": "闪烁星空",
+      "descZh": "背景星点带亮度抖动，适合夜间与太空场景，后续修改起来也不费劲。"
+    },
+    {
+      "name": "体积云",
+      "descZh": "滚动的屏幕空间云层，随时间平移形成流动感，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "天体定位",
+      "descZh": "按主 DirectionalLight3D 方向放置贴图，月亮会跟着光源走，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "流星",
+      "descZh": "从天顶随机落下的亮线，为夜空增加短暂动势，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "它不是一个插件，没有 plugin.cfg，也没有编辑器面板，只能手动复制 sky 目录并创建 Sky 材质。功能全靠 shader uniform 控制，README 只列出五项特性，没有逐项参数说明，调参需要读着色器。云层是体积采样，移动端与集成显卡上开销明显，官方建议减少采样或移除 TIME 做静态天空。仓库没有昼夜时间驱动与天气状态机，想随游戏时间变化要自己写脚本改 uniform。",
+  "workflowZh": [
+    {
+      "stepZh": "把 sky 目录复制到项目并新建 Sky 资源。"
+    },
+    {
+      "stepZh": "给 Sky 指定 stylized_sky.gdshader 材质，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "参考 day_sky.tres 调三色渐变与云参数，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "把 Sky 挂到 WorldEnvironment 并加方向光，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "按目标平台降低云采样或去掉 TIME，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "单个 gdshader 文件即可接入，附昼夜两套示例，试效果几乎零成本，团队新人照着示例就能上手。",
+    "星空、体积云、天体与流星都在一个 shader 内，风格统一且省绘制调用。",
+    "README 给出静态天空与采样数两项优化方向，便于按平台降档，出现问题时也更容易定位原因。",
+    "GDQuest 示例工程可直接打开对照，参数含义能边看边调，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "没有插件封装与编辑器面板，所有参数要在材质里手填。",
+    "缺少昼夜循环与天气系统，动态天空要自行驱动。",
+    "参数文档很少，云层调优依赖读源码，升级引擎版本时容易卡住。"
+  ],
+  "pitfalls": [
+    "Sky 材质要设到 WorldEnvironment 的 sky 上，只挂节点不会显示，上线前要专门过一遍。",
+    "体积云采样过高会让低端 GPU 掉帧，发布前需按目标机型压采样。",
+    "移除 TIME 虽能提速，但星空与云会完全静止，动态场景别直接用。"
+  ],
+  "bestFor": "想用一套现成着色器快速做出风格化天空，并接受手工调参的小型 3D 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "需要动态昼夜、天气切换或移动端极限性能时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "TokisanGames__Sky3D"
+    ],
+    "whenZh": "两者都能做天空；stylized-sky 是单文件着色器，轻量但功能固定，Sky3D 提供完整昼夜大气循环与可调参数。要风格化贴图选前者，要时间驱动的天空选后者。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "天空",
+    "着色器",
+    "体积云",
+    "风格化"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4 的风格化天空着色器",
+      "source": "README.md",
+      "quote": "An open-source shader for creating stylized skies. Compatible with Godot game engine version 4."
+    },
+    {
+      "claim": "云层为滚动体积云",
+      "source": "README.md",
+      "quote": "| Clouds  | Displays scrolling animated volumetric clouds.  |"
+    },
+    {
+      "claim": "流星从天顶落下",
+      "source": "README.md",
+      "quote": "| Shooting stars | Add shooting stars falling from the top of the skybox. |"
+    },
+    {
+      "claim": "移除 TIME 可优化静态天空",
+      "source": "README.md",
+      "quote": "Enhance performance by making the sky static by removing the `TIME` variable."
+    }
+  ]
+}

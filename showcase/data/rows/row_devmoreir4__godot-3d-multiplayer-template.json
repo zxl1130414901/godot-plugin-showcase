@@ -1,0 +1,35 @@
+{
+  "id": "devmoreir4__godot-3d-multiplayer-template",
+  "descriptionZh": "Godot 4.7 的三维多人起步工程，含角色控制器、服务器权威库存与专用服务器",
+  "category": "network",
+  "tags": [
+    "多人模板",
+    "专用服务器",
+    "服务端权威",
+    "库存系统",
+    "3D角色"
+  ],
+  "prosShort": [
+    "联机、库存与聊天等系统开箱即用",
+    "服务器权威库存，状态更一致",
+    "支持无头专用服务器，部署路径现成"
+  ],
+  "consShort": [
+    "基于 Godot 4.7，旧项目无法直接打开",
+    "玩法仅演示级，战斗与存档都缺",
+    "公网部署与反作弊要自己做"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

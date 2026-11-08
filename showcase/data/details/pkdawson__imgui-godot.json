@@ -1,0 +1,148 @@
+{
+  "id": "pkdawson__imgui-godot",
+  "taglineZh": "在 Godot 里用 Dear ImGui 快速搭调试面板与编辑器工具",
+  "summaryZh": "这个插件把 Dear ImGui 的即时模式 UI 接进 Godot 4，支持 C#、C++ 与 GDScript 三种调用方式。它适合做性能面板、关卡编辑器和内部调试窗口，代码里写几行 Begin、Text 与 End 就能出界面，不必搭场景树与主题。完整包内含 GDExtension 二进制，C# 侧依赖 ImGui.NET 并需要版本对齐；纯 C# 基础功能可以用更轻的 csharp-only 包。它面向工具而不是玩家界面，样式与输入焦点都要自行处理。",
+  "whatItDoes": "把 Dear ImGui 的绘制与输入接到 Godot 视口，通过 GDExtension 与 C# 绑定向上暴露 Begin、控件与 End 接口。",
+  "useCases": [
+    {
+      "titleZh": "关卡参数面板",
+      "descZh": "给关卡编辑器做一个实时参数面板，策划拖动滑条就能改刷怪率，不必等程序做正式 UI。"
+    },
+    {
+      "titleZh": "战斗数值调试",
+      "descZh": "调试战斗数值时把血量、状态机与帧时间显示在悬浮窗里，改代码后立刻看到变化，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "内部地图工具",
+      "descZh": "做内部地图工具，用 ImGui 的表与树控件列出资源，配合 GDScript 直接调用引擎接口，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "复用 C# 工具",
+      "descZh": "C# 项目已有 ImGui.NET 工具链，复用现有调试窗口代码，减少在 Godot 里重写一套，对独立开发者尤其友好且后续扩展方便。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "ImGui 运行时",
+      "descZh": "把 Dear ImGui 的绘制与输入接入 Godot 视口，让即时模式界面能显示在游戏窗口里。"
+    },
+    {
+      "titleZh": "GDExtension 二进制",
+      "descZh": "随发布包提供的原生库，承担 ImGui 渲染与平台适配，避免每个项目自行编译。"
+    },
+    {
+      "titleZh": "C# 绑定层",
+      "descZh": "通过 ImGui.NET 暴露同一套 API，C# 脚本可直接写 Begin、Text 与 End 调用，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "即时模式 UI",
+      "descZh": "每帧重建界面，状态留在代码里，调试工具改起来比场景树更快。"
+    },
+    {
+      "name": "三语言支持",
+      "descZh": "C#、C++ 与 GDScript 都能调用，团队可按模块选择实现语言，参数集中在检查器面板。"
+    },
+    {
+      "name": "完整与轻量包",
+      "descZh": "完整包带原生二进制，csharp-only 包只含 C# 支持，按需求选择，后续修改起来也不费劲。"
+    },
+    {
+      "name": "输入转发",
+      "descZh": "把键鼠与文本输入交给 ImGui，窗口获得焦点时不会漏掉快捷键。"
+    },
+    {
+      "name": "多窗口",
+      "descZh": "可同时开多个调试窗口，按模块拆分，避免一个面板塞满所有参数。"
+    }
+  ],
+  "limitsZh": "它面向开发期工具，不是给玩家看的正式界面：没有主题系统、动画与本地化流程，排版也要自己算位置。C# 侧必须让 ImGui.NET 版本与 GDExtension 编译时使用的版本一致，否则运行时报入口缺失。插件按 Godot 4.2 到 4.4 验证，引擎升级后原生库可能不匹配，需要等新版本发布。即时模式每帧重建，控件多时 CPU 开销明显，不适合放进正式玩法循环。GDScript 侧只能使用完整包，且部分高级控件与 C# 示例不完全对应。它也不接管编辑器自身的停靠布局，窗口层级与鼠标捕获要和游戏输入协调。",
+  "workflowZh": [
+    {
+      "stepZh": "下载完整包或 csharp-only 包并复制 addons，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "C# 项目创建解决方案并安装匹配版本的 ImGui.NET"
+    },
+    {
+      "stepZh": "在项目设置里启用 imgui-godot 插件，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在脚本的 _process 里写 Begin 与 End 绘制窗口，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "把参数绑定到节点或资源做实时调节"
+    },
+    {
+      "stepZh": "发布前移除或屏蔽调试窗口，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "几行代码就能出调试界面，做内部工具的速度远快于场景树。",
+    "同一套 API 覆盖 C#、C++ 与 GDScript，团队分工灵活，团队新人照着示例就能上手。",
+    "完整包自带原生库，Windows、Linux 与 macOS 都有预编译版本，出现问题时也更容易定位原因。",
+    "即时模式不依赖节点树，临时面板用完即删，不留场景垃圾，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "样式与交互偏工具风，不适合当玩家界面，定制成本高。",
+    "C# 必须严格对齐 ImGui.NET 与扩展版本，版本错配直接崩。",
+    "原生库只验证到 4.4，引擎升级后要等新包，升级引擎版本时容易卡住。"
+  ],
+  "pitfalls": [
+    "ImGui.NET 版本高于扩展编译版本会报找不到入口，按发布说明锁定版本。",
+    "在 _process 里创建窗口却忘了 End，下一帧会断言失败并中断渲染，上线前要专门过一遍。",
+    "正式包忘记关闭调试窗口，玩家能看到内部参数甚至改数值。"
+  ],
+  "bestFor": "需要给策划、美术或测试做实时调试面板与关卡工具，且能接受工具风界面的 Godot 4 团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "要做面向玩家的 HUD、菜单或需要美术定制的界面，用 Control 节点与主题系统更合适。",
+  "compareTips": {
+    "vs": [
+      "Ark2000__PankuConsole",
+      "limbonaut__limbo_console"
+    ],
+    "whenZh": "三者都是开发期界面：ImGui 提供通用控件与多语言绑定，适合自建复杂工具；PankuConsole 与 limbo_console 是开箱即用的控制台，偏日志与命令。要做定制面板选 ImGui，只想快速加控制台则选后两者。"
+  },
+  "category": "ui",
+  "tags": [
+    "调试界面",
+    "ImGui",
+    "GDExtension",
+    "C#",
+    "编辑器工具"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "插件让 Godot 可用 ImGui",
+      "source": "README.md",
+      "quote": "This plugin allows you to use ImGui in Godot with C#"
+    },
+    {
+      "claim": "ImGui 适合快速搭调试工具",
+      "source": "README.md",
+      "quote": "a popular library for rapidly building tools for debugging and development"
+    },
+    {
+      "claim": "C# 需匹配扩展使用的 ImGui.NET 版本",
+      "source": "README.md",
+      "quote": "you must use a version of ImGui.NET which matches the version that the GDExtension was built with"
+    },
+    {
+      "claim": "插件版本 6.3.2",
+      "source": "addons/imgui-godot/plugin.cfg",
+      "quote": "version=\"6.3.2\""
+    }
+  ],
+  "depth": "standard"
+}

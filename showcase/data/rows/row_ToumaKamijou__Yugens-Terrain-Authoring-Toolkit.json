@@ -1,0 +1,14 @@
+{
+  "id": "ToumaKamijou__Yugens-Terrain-Authoring-Toolkit",
+  "descriptionZh": "面向关卡制风格化 3D 游戏的 Godot 4 地形编辑插件，用行进方格与笔刷完成塑形、铺纹理和种草",
+  "category": "editor-tool",
+  "tags": ["地形编辑", "行进方格", "风格化", "关卡设计", "3D"],
+  "prosShort": ["四种塑形笔刷集中在一个面板", "桥梁连线与十六张纹理俱全", "纯 GDScript 实现，复制目录即可启用"],
+  "consShort": ["渲染只支持 Forward+ 与有限兼容模式", "纹理混合与 d3d12 材质有已知问题", "部分地图进游戏会变黑或变白"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 3, "maintenance": 4, "performance": 2, "stability": 2},
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

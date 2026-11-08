@@ -1,0 +1,35 @@
+{
+  "id": "kanimaru__twitcher",
+  "descriptionZh": "为 Godot 提供 Twitch OAuth 授权、聊天与 EventSub 事件订阅的完整接入库与示例工程",
+  "category": "network",
+  "tags": [
+    "Twitch",
+    "直播互动",
+    "OAuth",
+    "聊天指令",
+    "EventSub"
+  ],
+  "prosShort": [
+    "封装授权、聊天与事件订阅链路",
+    "编辑器内可配置应用与令牌",
+    "附示例工程与可运行游戏模板"
+  ],
+  "consShort": [
+    "依赖 Twitch 审核与应用作用域配置",
+    "连接异常主要靠日志排查，缺少状态面板",
+    "平台接口变动需自行适配升级"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

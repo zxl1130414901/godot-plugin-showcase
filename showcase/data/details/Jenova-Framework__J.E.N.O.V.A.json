@@ -1,0 +1,64 @@
+{
+  "id": "Jenova-Framework__J.E.N.O.V.A",
+  "depth": "standard",
+  "taglineZh": "在 Godot 编辑器里直接编写现代 C++ 脚本的完整工具链",
+  "summaryZh": "Projekt J.E.N.O.V.A 在 Godot 里实现一套 C++ 脚本后端，让 C++ 脚本像 GDScript 一样挂到节点、导出属性与信号，并支持运行时与编辑器内热重载。它由运行时、SDK、Carbon 转译器与多个可选组件组成，附带包管理、调试配置与 IDE 集成，可把 OpenCV、CUDA、Vulkan 等库直接带进项目。README 说明支持 Godot 4.2+ 的 Windows 与 Linux x64，Mac 与 Web 仍在计划中。工具链面向希望把原生性能与现有 C++ 资产带进 Godot 的团队。",
+  "whatItDoes": "安装运行时后，编辑器可识别 C++ 脚本并提供语法高亮、模板与热重载；脚本经编译器接口编译为原生模块，通过脚本实例接入引擎。SDK 提供热重载与全局分配的辅助接口，Carbon 则把带注解的 C++ 转译成可热重载的原生脚本。调试配置会自动生成，方便附加到编辑器或运行实例。",
+  "useCases": [
+    {"titleZh": "高性能玩法与模拟", "descZh": "把寻路、物理或大规模实体计算放进 C++ 脚本，利用原生性能而不是靠 GDScript 反复优化，帧率更稳定。"},
+    {"titleZh": "复用已有 C++ 库", "descZh": "直接链接 OpenCV、CUDA 或自研中间件，省去为引擎另写一层绑定与胶水代码，也减少跨语言数据拷贝。"},
+    {"titleZh": "频繁改动的 C++ 模块", "descZh": "借助运行时热重载，改脚本后不必重启编辑器就能验证结果，缩短原生代码的迭代周期与调试时间。"},
+    {"titleZh": "引擎扩展与工具开发", "descZh": "用 C++ 写编辑器工具与自定义节点，配合生成的调试配置排查原生层问题，也便于封装内部框架。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "C++ 脚本资源", "descZh": "脚本文件可挂到节点，导出属性、信号与资源引用，行为接近 GDScript，编辑器里能直接检查。"},
+    {"titleZh": "热重载运行时", "descZh": "编译后按脚本变更检测重载模块，保留场景状态继续验证，减少反复启动的成本。"},
+    {"titleZh": "调试与 IDE 配置", "descZh": "自动生成 Visual Studio 或 VS Code 调试配置，便于附加到编辑器或运行实例，断点可直接生效。"}
+  ],
+  "featureCallouts": [
+    {"name": "C++ 脚本后端", "descZh": "实现脚本语言接口，C++ 文件可作为正式脚本使用，并参与信号与属性系统，像内置语言一样挂节点。"},
+    {"name": "热重载", "descZh": "编辑器与运行时都支持按脚本重载，缩短原生代码的迭代周期，改一行不必整包重建。"},
+    {"name": "多编译器支持", "descZh": "MSVC、Clang、MinGW 与 GCC 都可作为后端，按平台选择工具链，便于接入现有构建环境。"},
+    {"name": "Carbon 转译", "descZh": "把注解驱动的 C++ 转成可热重载脚本，省去手写绑定与生命周期管理，适合快速试验。"}
+  ],
+  "limitsZh": "平台目前只覆盖 Windows 7 至 11 与 Linux 的 x64，Mac 与 Web 仍属计划，跨平台项目要另找方案。安装需要编译器、运行时与包管理配合，首次配置步骤多，版本不匹配容易失败。工具链中 Carbon、RTX、Fibers 等组件许可与归属不同，商用前要逐个确认。功能列表很长但英文文档偏概念，遇到具体报错仍要靠社区与源码；生态规模小，长期维护依赖单一作者。此外 C++ 脚本与 GDScript 的调试体验仍有差距，断点与变量查看需要额外配置。",
+  "workflowZh": [
+    {"stepZh": "从文档安装运行时与编译器包，确认版本与 Godot 匹配"},
+    {"stepZh": "在编辑器启用 C++ 脚本支持，新建或导入脚本文件"},
+    {"stepZh": "编写 C++ 类并导出属性与信号，编译后挂到场景节点"},
+    {"stepZh": "按需开启热重载，用生成的调试配置附加并排查问题"}
+  ],
+  "pros": [
+    "让 C++ 具备接近 GDScript 的脚本体验，属性、信号与资源引用都能直接导出，学习成本可控",
+    "原生执行性能高，适合计算密集或需要链接第三方 C++ 库的项目，热点逻辑收益明显",
+    "编辑器与运行时都支持热重载，明显缩短原生代码迭代时间，调参不必反复重启",
+    "内置包管理与多 IDE 调试配置，减少手工搭工具链的重复劳动，新成员上手更快"
+  ],
+  "cons": [
+    "仅支持 Windows 与 Linux x64，Mac 与 Web 尚未落地，平台选择受限，跨平台发行要另做准备",
+    "安装与工具链配置偏重，编译器、运行时与版本都要对齐，出错时排查成本高",
+    "组件许可混杂且部分为专有，商用前需要逐个确认授权，法务流程更长"
+  ],
+  "pitfalls": [
+    "运行时、SDK 与编译器版本不一致会直接编译失败，升级时要成套替换并重编",
+    "热重载只针对脚本层，改了链接库或工程配置仍需完整重建，否则行为与代码不符",
+    "Carbon 与旧版 C++ 脚本的写法不同，混用时先确认当前后端再查文档，避免照旧例出错"
+  ],
+  "bestFor": "需要在 Godot 里写高性能 C++ 脚本、复用现有 C++ 库，并能在 Windows 或 Linux 上维护完整编译与调试工具链的团队。",
+  "avoidWhenZh": "目标平台包含 macOS 或 Web，或希望零配置上手、不愿维护编译器版本与许可确认流程的项目。",
+  "compareTips": {
+    "vs": ["libriscv__godot-sandbox"],
+    "whenZh": "两者都做原生脚本，但路径不同：J.E.N.O.V.A 用自带编译器与运行时直接跑 C++；godot-sandbox 基于沙箱解释器，平台覆盖更广。Windows 与 Linux 上追求 C++ 原生性能选前者，需要 macOS 支持或更强隔离则看后者。"
+  },
+  "category": "visual-script",
+  "tags": ["C++", "脚本后端", "热重载", "工具链"],
+  "scores": {"coverage": 5, "usability": 2, "docs": 4, "maintenance": 4, "performance": 5, "stability": 2},
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 5,
+  "evidence": [
+    {"claim": "在 Godot 编辑器内提供完整 C++ 脚本能力", "source": "README.md", "quote": "It introduces fully-featured C++ scripting within the Godot Editor and allows the use of modern C++ 20/23 standards within the Godot Engine, similar to GDScript/C#."},
+    {"claim": "支持 Windows 与 Linux x64，Mac 与 Web 仍在计划", "source": "README.md", "quote": "Jenova Supports Godot 4.2+, Windows 7 to 11 x64 and Linux x64, Mac and Web support is planned."},
+    {"claim": "C++ 脚本可像 GDScript 一样使用", "source": "README.md", "quote": "C++ Scripts can be used exactly like GDScripts"}
+  ]
+}

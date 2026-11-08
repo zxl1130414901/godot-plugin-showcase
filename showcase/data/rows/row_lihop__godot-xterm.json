@@ -1,0 +1,34 @@
+{
+  "id": "lihop__godot-xterm",
+  "descriptionZh": "用 libtsm、libuv 与 node-pty 构建的 GDExtension 终端模拟器，可在游戏中渲染 ANSI 并运行本机 shell",
+  "category": "debug-perf",
+  "tags": [
+    "终端模拟",
+    "GDExtension",
+    "shell",
+    "开发者工具"
+  ],
+  "prosShort": [
+    "真实 VT 解析，完整支持 ANSI 转义序列",
+    "Terminal 与 Pty 两个节点可以拆开使用",
+    "主题与示例齐全，改造终端很快"
+  ],
+  "consShort": [
+    "需自行编译 GDExtension，工具链门槛偏高",
+    "Pty 暴露本机 shell，发布版存在安全风险",
+    "HTML5 仅部分支持，平台能力不对等"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

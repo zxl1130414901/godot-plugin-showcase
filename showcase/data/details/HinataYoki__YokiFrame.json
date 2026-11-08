@@ -1,0 +1,152 @@
+{
+  "taglineZh": "面向 Unity 与 Godot .NET 的跨引擎 C# 游戏框架，按 Kit 拆分",
+  "summaryZh": "YokiFrame 把游戏开发里的常见基础能力拆成一组可以单独取用的 Kit：事件、日志、状态机、动作编排、对象池、资源加载、音频、存档、本地化与 Unity UI。业务规则写在纯 C# 的 Core 层，引擎相关的生命周期与默认后端交给 Unity 或 Godot 的 Adapter。安装后不需要写启动器，第一次调用时才创建默认后端。Godot 侧只支持 4.x .NET，安装需构建 Runtime 并走 Installer，比其他 addon 麻烦。",
+  "whatItDoes": "提供 EventKit、LogKit、FsmKit、ActionKit、PoolKit、ResKit、AudioKit、SaveKit、LocalizationKit、UIKit 与 TableKit 等 Kit API，统一以 Kit 结尾命名，可直接静态调用。Architecture 用于组织多个业务服务，第一次访问 Interface 时才初始化。宿主 Adapter 分别适配 Unity 与 Godot .NET，另有 Avalonia Workbench、yoki CLI 与 FileBridge 命令协议用于观测和脚本化操作。",
+  "useCases": [
+    {
+      "titleZh": "双端并行小团队",
+      "descZh": "Unity 与 Godot 双端并行的小团队，把玩法逻辑放在纯 C# Core，用 Adapter 隔离引擎差异，减少两端各写一遍的工作。"
+    },
+    {
+      "titleZh": "缺基础轮子",
+      "descZh": "需要事件总线、状态机与对象池但不想自己造轮子的中型项目，直接调用现成 Kit API，接入后不必再写管理器样板。"
+    },
+    {
+      "titleZh": "Godot .NET 项目",
+      "descZh": "用 Godot .NET 做工具或独立游戏，希望存档、本地化与音频有统一入口，跨场景调用也不用到处找单例。"
+    },
+    {
+      "titleZh": "运行时观测",
+      "descZh": "需要可视化观测运行状态时，用 Workbench 查看事件与遥测，配合命令行做自动化脚本，排查事件顺序时尤其省事。"
+    },
+    {
+      "titleZh": "AI 辅助接入",
+      "descZh": "按 AI-Install 指引把仓库地址交给助手，让它完成编译、安装计划与结果校验，省掉逐条查文档的时间。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "纯 C# Kit API",
+      "descZh": "一组覆盖事件、日志、流程与资源的基础接口，不依赖第三方库，Kit 名称即用途。"
+    },
+    {
+      "titleZh": "两套宿主 Adapter",
+      "descZh": "Unity 与 Godot .NET 各自的宿主程序集，承接引擎生命周期与默认后端实现，业务层不感知差异。"
+    },
+    {
+      "titleZh": "Workbench 观测工具",
+      "descZh": "Avalonia 桌面工具，通过共享内存与 FileBridge 命令协议读取运行时遥测，可视化事件流与状态。"
+    },
+    {
+      "titleZh": "Installer 安装界面",
+      "descZh": "图形化生成安装计划并校验结果，减少手工改工程配置的漏项与返工，安装后可直接确认结果。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "EventKit",
+      "descZh": "类型化事件发送与订阅，订阅返回 LinkUnRegister，模块停用时调用 UnRegister 注销。"
+    },
+    {
+      "name": "ActionKit",
+      "descZh": "声明式编排延迟、回调与序列动作，返回控制器可由创建者随时取消，不必手写协程。"
+    },
+    {
+      "name": "FsmKit",
+      "descZh": "值状态机与行为状态机分离，状态切换规则写在纯 C# 里便于单测覆盖。"
+    },
+    {
+      "name": "跨引擎 Adapter",
+      "descZh": "同一套业务代码可在 Unity 与 Godot .NET 编译，引擎差异被适配层吞掉。"
+    },
+    {
+      "name": "Workbench",
+      "descZh": "Avalonia 桌面工具通过 FileBridge 与共享内存读取遥测，可视化排查运行时。"
+    }
+  ],
+  "limitsZh": "Godot 侧只支持 4.x .NET 版本，非 .NET 版 Godot 完全不可用，用 GDScript 的项目无法接入。安装不是拷 addon：要先构建 Runtime，再运行 Installer 生成计划并 apply，工具链要求 .NET 10 SDK，在 CI 里复现这套流程成本不低。框架体量大、模块多，文档分散在 Documentation~ 与各 Kit 目录，新手容易不知道从哪个入口开始。跨引擎抽象也意味着 Unity 侧的 YooAsset、Luban、UniTask 宏在 Godot 侧没有对应实现，迁移时要逐项确认。",
+  "workflowZh": [
+    {
+      "stepZh": "在 Unity 用 Package Manager 加 git URL，或准备 Godot .NET 工程。"
+    },
+    {
+      "stepZh": "Godot 侧运行 install-godot 脚本构建 Runtime 并打开 Installer。"
+    },
+    {
+      "stepZh": "在 Installer 选择 Godot local，确认 plan 后执行 apply 并等待结果。"
+    },
+    {
+      "stepZh": "重启编辑器让 Godot 重新扫描托管程序集。"
+    },
+    {
+      "stepZh": "直接调用 LogKit、EventKit 与 ActionKit，需要分层时再接入 Architecture。"
+    }
+  ],
+  "pros": [
+    "事件、状态机、对象池与存档等基础能力一次性备齐，中小团队能省下自研框架的时间。",
+    "Core 与 Adapter 分层清晰，同一套 C# 业务代码可在 Unity 与 Godot .NET 之间复用。",
+    "不需要启动器与全局初始化，第一次调用才创建后端，接入心智负担较小。",
+    "自带 Workbench 与 CLI，运行时可观测性比多数纯代码框架更好，排查问题更快。"
+  ],
+  "cons": [
+    "只支持 Godot 4.x .NET，GDScript 项目与非 .NET 版本完全用不上",
+    "安装依赖 .NET 10 SDK 与 Installer 流程，比拷贝 addon 复杂得多，CI 里还要复现",
+    "框架体量大、模块多，文档分散，选型与上手都要额外投入"
+  ],
+  "pitfalls": [
+    "Godot 侧必须关闭并重开工程，否则新生成的托管程序集不会被扫描到。",
+    "订阅事件后忘记 UnRegister 会导致模块停用后仍被回调，排查时优先看这里。",
+    "Unity 侧的宏自动探测在 Godot 不生效，异步与资源 API 行为会有差异。"
+  ],
+  "bestFor": "已经在用 Godot .NET 或 Unity、想用一套跨引擎 C# 框架统一事件、状态机与资源管理的中型团队，并且愿意接受 .NET 构建链。",
+  "avoidWhenZh": "项目用 GDScript 或非 .NET 版 Godot，或团队不愿引入 .NET 构建链与 Installer 流程时。",
+  "compareTips": {
+    "vs": [
+      "LiGameAcademy__godot_core_system"
+    ],
+    "whenZh": "两者都提供事件总线、状态机与存档：YokiFrame 走 C# 跨引擎路线，要 .NET 工具链与 Installer；core_system 是纯 GDScript 插件，拷进项目即可用，但只在 Godot 内生效。按语言栈与团队规模取舍。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "C#框架",
+    "跨引擎",
+    "事件总线",
+    "状态机",
+    "对象池"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "面向 Unity 与 Godot .NET 的跨引擎 C# 框架",
+      "source": "README.md",
+      "quote": "面向 Unity 与 Godot .NET 的跨引擎 C# 游戏框架"
+    },
+    {
+      "claim": "不支持非 .NET 版 Godot",
+      "source": "README.md",
+      "quote": "Godot | 4.x .NET（当前开发与验证基线为 4.7，不支持非 .NET Godot）"
+    },
+    {
+      "claim": "安装需要构建 Runtime 并走 Installer",
+      "source": "README.md",
+      "quote": "脚本会构建 Runtime 并打开 Installer 图形界面，在 Installer 中选择 **Godot local**、确认 plan 并执行 apply 即可。"
+    },
+    {
+      "claim": "业务代码为纯 C#，引擎差异由 Adapter 隔离",
+      "source": "README.md",
+      "quote": "业务规则写在纯 C# Core 中，引擎 API、生命周期与默认后端由各自的宿主 Adapter 提供"
+    }
+  ],
+  "id": "HinataYoki__YokiFrame",
+  "depth": "standard"
+}

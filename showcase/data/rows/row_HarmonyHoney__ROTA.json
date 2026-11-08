@@ -1,0 +1,34 @@
+{
+  "id": "HarmonyHoney__ROTA",
+  "descriptionZh": "完整开源的 Godot 3 重力翻转解谜平台游戏，含 Steam 接入，整体接入成本不高。",
+  "category": "state-logic",
+  "tags": [
+    "完整游戏",
+    "重力解谜",
+    "Godot3",
+    "Steam接入",
+    "2D平台"
+  ],
+  "prosShort": [
+    "完整可玩且已上架 Steam 发行，团队上手也快。",
+    "目录按系统职责拆分较清晰",
+    "含多平台导出预设与打包脚本"
+  ],
+  "consShort": [
+    "仅支持 Godot 3.6.1 无法直接升到 4",
+    "几乎没有 API 文档需通读源码"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

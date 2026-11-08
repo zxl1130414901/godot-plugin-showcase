@@ -1,0 +1,35 @@
+{
+  "id": "Maran23__script-ide",
+  "descriptionZh": "把 Godot 脚本编辑面板改造成带多行标签、分类大纲与快速跳转的 IDE 式界面。",
+  "category": "editor-tool",
+  "tags": [
+    "脚本编辑器",
+    "多行标签",
+    "代码大纲",
+    "快速跳转",
+    "编辑器增强"
+  ],
+  "prosShort": [
+    "多行标签加只读分屏便于对照",
+    "分类大纲让找信号变量更快",
+    "快速搜索与覆盖全键盘操作"
+  ],
+  "consShort": [
+    "强依赖引擎内部结构易失效",
+    "只增强导航不含补全与调试",
+    "小屏幕下标签会挤占编辑区"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

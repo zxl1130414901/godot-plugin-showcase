@@ -1,0 +1,148 @@
+{
+  "id": "func-godot__func_godot_plugin",
+  "taglineZh": "把 Quake 与 Half-Life 的 map 文件直接构建成 Godot 场景",
+  "summaryZh": "FuncGodot 读取 TrenchBroom 等编辑器产出的 Quake .map 与 Valve .vmf 文件，把 brush 几何转成网格、碰撞与材质，并按实体定义生成节点。它继承 Qodot 的思路并重写，支持 WAD 纹理、FGD 导出与 TrenchBroom 的 GameConfig，使关卡可以在传统地图编辑器里搭建再进引擎。它适合复古射击与箱庭关卡，代价是必须引入外部编辑器与实体定义流程，复杂光照和材质仍需在 Godot 侧补。",
+  "whatItDoes": "解析 map 与 vmf 文件，把 brush 几何与实体键值转换成 Godot 网格、碰撞和场景节点，并生成地图编辑器所需的配置。",
+  "useCases": [
+    {
+      "titleZh": "复古射击关卡",
+      "descZh": "做复古射击关卡，美术在 TrenchBroom 里用 brush 搭房间，导入后直接得到网格与碰撞，迭代速度快，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "模块化房间",
+      "descZh": "关卡需要大量模块化房间，用实体定义把门、传送点与刷怪器映射成场景，避免手工摆节点。"
+    },
+    {
+      "titleZh": "复用旧地图",
+      "descZh": "已有 Quake 地图资源想复用，读取 map 与 WAD 纹理生成可跑场景，省去重新建模，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "策划与程序分工",
+      "descZh": "团队分工明确，关卡设计师只碰地图编辑器，程序维护实体定义与构建参数，对独立开发者尤其友好且后续扩展方便。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "FuncGodotMap 节点",
+      "descZh": "挂在场景里的构建入口，指定 map 文件与材质后生成网格、碰撞和实体节点。"
+    },
+    {
+      "titleZh": "实体定义资源",
+      "descZh": "描述 classname 对应的节点类型、属性和显示模型，让地图实体在导入时变成可用场景。"
+    },
+    {
+      "titleZh": "WAD 材质集",
+      "descZh": "从 WAD2、WAD3 与 Quake2 wal 读取纹理，转成引擎材质并保留 UV 与表面属性，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Brush 转网格",
+      "descZh": "把 map 里的凸多面体转成网格与凸凹碰撞，房间与楼梯无需重新建模。"
+    },
+    {
+      "name": "实体映射",
+      "descZh": "按 classname 生成点实体与 brush 实体，可绑定脚本、打包场景或节点，参数集中在检查器面板。"
+    },
+    {
+      "name": "TrenchBroom 集成",
+      "descZh": "导出 GameConfig 与 FGD，让编辑器识别纹理、实体和构建选项，后续修改起来也不费劲。"
+    },
+    {
+      "name": "纹理格式支持",
+      "descZh": "兼容 WAD2、WAD3、wal 与 lmp 调色板，老资源可以直接复用，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "构建参数",
+      "descZh": "按地图或全局设置光照、碰撞与材质选项，构建失败会列出具体实体。"
+    }
+  ],
+  "limitsZh": "工作流强依赖外部地图编辑器，团队必须先学会 TrenchBroom 或 Hammer 的基本操作，纯 Godot 用户会觉得绕。实体定义需要手写 FGD 与资源映射，classname 拼错时构建只会跳过该实体，排查要靠日志。brush 几何不支持所有建模操作，曲面、薄面与复杂布尔容易出破面或碰撞缺口。材质仍要准备 WAD 或贴图目录，路径大小写在不同平台表现不一致。光照与反射探针要在 Godot 侧补，地图编辑器里的光照预览只是近似。构建是离线步骤，改地图后需重新导入，运行时不能直接编辑 brush。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 TrenchBroom 并配置 GameConfig，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把 addons 复制进项目并启用插件，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "新建 FuncGodotMap 节点并指定 map 文件，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "准备实体定义与 WAD 材质资源，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "点击构建并检查网格、碰撞与实体，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在地图编辑器继续改动并重复构建"
+    }
+  ],
+  "pros": [
+    "用熟悉的 brush 流程搭关卡，比在引擎里逐个摆模块快很多，团队新人照着示例就能上手。",
+    "实体定义把门、刷怪与逻辑映射成场景，关卡可复用，出现问题时也更容易定位原因。",
+    "支持多种 WAD 与 wal 纹理，老资源迁移成本低，对中小团队的时间成本很友好。",
+    "与 TrenchBroom、Hammer、JACK 等编辑器都有集成说明，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "必须引入外部地图编辑器，纯引擎团队上手曲线陡。",
+    "实体定义与 FGD 要手工维护，拼错只会在构建日志里提示。",
+    "曲面与复杂布尔几何容易破面，碰撞需要单独检查。"
+  ],
+  "pitfalls": [
+    "map 文件路径大小写在 Linux 与 Windows 表现不同，导出前统一小写，上线前要专门过一遍。",
+    "实体 classname 与 FGD 不一致时会被静默跳过，先看构建日志再查定义。",
+    "纹理目录未随项目打包，运行时会丢失材质变成白模，排查时需要多留一层日志。"
+  ],
+  "bestFor": "做复古射击、箱庭关卡或已有 Quake 地图资产，团队愿意用 TrenchBroom 搭关卡的 Godot 4 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "全流程都在 Godot 里建模，或需要曲面与雕刻式地形，brush 工作流会拖慢而不是加速。",
+  "compareTips": {
+    "vs": [
+      "blackears__cyclopsLevelBuilder",
+      "DanTrz__TileMapLayer3D"
+    ],
+    "whenZh": "FuncGodot 走外部地图编辑器加 brush 构建；Cyclops Level Builder 在引擎里直接拉体块与 UV；TileMapLayer3D 面向方块化关卡。已有 Quake 资产或喜欢 TrenchBroom 选前者，想在 Godot 内即时搭建选后者。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "关卡构建",
+    "Quake",
+    "TrenchBroom",
+    "brush",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "支持 map 与 vmf 两种地图格式",
+      "source": "README.md",
+      "quote": "Supports Quake `map` and Hammer `vmf`"
+    },
+    {
+      "claim": "可从 brush 几何生成网格",
+      "source": "README.md",
+      "quote": "Meshes from `map` brush geometry"
+    },
+    {
+      "claim": "支持 WAD2、wal 与 WAD3 纹理",
+      "source": "README.md",
+      "quote": "Supports Quake WAD2, Quake 2 `wal`, Half-Life WAD3, and `lmp` palette formats"
+    },
+    {
+      "claim": "插件描述为 Quake map 支持",
+      "source": "addons/func_godot/plugin.cfg",
+      "quote": "Quake .map and Half-Life .vmf file support for Godot."
+    }
+  ],
+  "depth": "standard"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "catppuccin__godot",
+  "category": "ui",
+  "tags": [
+    "编辑器主题",
+    "配色方案",
+    "Catppuccin",
+    "界面美化"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 5
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "descriptionZh": "Godot 4 编辑器的 Catppuccin 四风味配色主题，含语法高亮与界面色值，适合夜间编码与团队统一风格",
+  "prosShort": [
+    "四种风味覆盖浅色与深色场景",
+    "官方维护且配色数值统一，更新稳定",
+    "安装只需放文件再选主题，上手简单"
+  ],
+  "consShort": [
+    "只改编辑器，游戏内 UI 仍需另配",
+    "界面色值要手动填写，较繁琐"
+  ],
+  "sampleStatus": "none"
+}

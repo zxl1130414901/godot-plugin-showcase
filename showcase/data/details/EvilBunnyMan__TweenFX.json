@@ -1,0 +1,145 @@
+{
+  "id": "EvilBunnyMan__TweenFX",
+  "depth": "standard",
+  "taglineZh": "一行调用即可播放入场抖动等活泼补间动画",
+  "summaryZh": "TweenFX 是面向 Godot 4 的轻量补间动画库，把常见的界面动效封装成静态方法，调用 TweenFX.shake(node) 或 pop_in(node) 就能播放。它区分一次性与循环动画：抖动、弹入、淡入等播完即止，浮动等循环动画会一直运行直到显式停止；可通过 await 等待 finished 信号，也可用 stop 与 stop_all 中断。源码里的 Animations 枚举列出了 POP_IN、PUNCH_IN、FADE_IN、DROP_IN、JUMP_SCARE、SPIN 等成对的入场与出场动画，另提供 PlayState 的 FULL、ENTER、EXIT 三态，方便做可交互的按钮悬停与离开效果。动画由 TweenManager 统一跟踪，可查询播放状态。",
+  "whatItDoes": "把常用界面动效封装成可通过类名直接调用的静态方法，作用对象是 CanvasItem，支持一次性与循环两类播放。提供 PlayState 三态与成对的入场出场动画，让按钮等控件在悬停、点击、离开时平滑切换状态。统一记录正在播放的动画，支持按类型或全部停止，并可查询某个动画是否在播放。",
+  "useCases": [
+    {
+      "titleZh": "UI 反馈",
+      "descZh": "按钮点按用 snap、图标用 pop_in，几行代码就有弹性反馈，不必逐个调曲线与时长，原型阶段非常省事。"
+    },
+    {
+      "titleZh": "受击与提示",
+      "descZh": "用 shake、punch 与 flash 等一类动画表现受击，配合 await 等待动画播放结束再结算伤害，时序不会错乱。"
+    },
+    {
+      "titleZh": "循环待机",
+      "descZh": "float_bob、pulsate 与 breathe 三种循环动画做待机呼吸感，循环播放到手动停止为止，适合挂机与提示状态。"
+    },
+    {
+      "titleZh": "氛围演出",
+      "descZh": "glitch、tv_shutdown 与 black_hole 等夸张动画可以用来做场景转场与镜头切换，省去手写着色器与复杂 Tween，效果也稳定。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "静态调用接口",
+      "descZh": "TweenFX.xxx(node) 直接播放，参数可选时长、幅度与次数，返回的 Tween 对象支持 await 等待完成。"
+    },
+    {
+      "titleZh": "动画枚举",
+      "descZh": "约五十多种动画分门别类，按名称停止或重播，状态管理清楚，不必自己记 Tween 引用。"
+    },
+    {
+      "titleZh": "管理器与示例",
+      "descZh": "TweenManager 负责调度与停止，官方 demo 带互动教程，逐个动画都能点开看效果，学起来直观。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "一行调用",
+      "descZh": "TweenFX.shake(node) 即可播放，参数有默认值，原型阶段不必先研究缓动曲线。"
+    },
+    {
+      "name": "await 完成",
+      "descZh": "返回 Tween，可 await finished 再做后续逻辑，动画与结算的时序很容易排，不必用计时器。"
+    },
+    {
+      "name": "停止控制",
+      "descZh": "按动画枚举单独停止或 stop_all，避免动画叠加，切换界面时也能一键清空。"
+    },
+    {
+      "name": "PlayState",
+      "descZh": "区分进入与退出状态，做交互式 UI 更自然，按钮悬停与点击可以各用一套。"
+    },
+    {
+      "name": "循环动画",
+      "descZh": "float_bob 等循环播放，直到手动停止，适合待机表现与持续提示，停止后不会残留。"
+    }
+  ],
+  "limitsZh": "这是一组补间动画的静态方法封装，而非完整动画系统，动画以节点变换为主，复杂路径与多属性编排仍需自己组合 Tween。约五十多种动画的参数有限，想要更细的曲线或自定义节奏只能改源码。同一节点叠加多个动画会互相覆盖，需要先 stop 再播新的；循环动画若不手动停止会持续占用 Tween，切场景前要清理。对已释放节点调用会报错，销毁回调里要先判空。文档以 README 示例为主，逐动画说明较少，参数范围需要自己试出来。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录里的 TweenFX 文件夹复制进项目工程"
+    },
+    {
+      "stepZh": "打开项目设置，在插件列表里启用 TweenFX"
+    },
+    {
+      "stepZh": "在脚本里直接调用 TweenFX.shake 等静态动画方法"
+    },
+    {
+      "stepZh": "需要时序控制时 await 返回 Tween 的 finished 信号"
+    },
+    {
+      "stepZh": "按动画枚举停止，避免同一节点重复叠加"
+    }
+  ],
+  "pros": [
+    "五十多种动画开箱可用，做手感反馈不必逐个调曲线，表现也能统一",
+    "一行调用带默认参数，原型阶段接入成本极低，改几个数就能微调",
+    "返回 Tween 支持 await，动画与逻辑时序容易排，结算不会抢跑，也便于串接多段动画",
+    "可按枚举停止或全部停止，避免动画叠加与卡状态，切场景也好清理",
+    "MIT 许可，可商用，Demo 还带互动教程，照着点一遍就能理解各动画的用法与参数"
+  ],
+  "cons": [
+    "动画以节点变换为主，复杂路径与多属性编排仍需自己写 Tween",
+    "数量多但参数有限，深度定制要改源码或另写动画",
+    "文档以 README 示例为主，逐动画说明较少，参数范围要靠试"
+  ],
+  "pitfalls": [
+    "同一节点叠加多个动画会互相覆盖，先 stop 再播新的，避免争抢属性",
+    "循环动画忘记停止会持续占用 Tween，切场景前清理，避免空转与状态残留",
+    "对已释放节点播放动画会报错，先判空再调用，尤其是销毁回调里"
+  ],
+  "bestFor": "做 2D UI 与手感反馈，希望用现成动画快速提升表现力、又不想手写大量 Tween 的 Godot 4 开发者与独立团队。",
+  "avoidWhenZh": "需要精确编排多属性时间轴，或项目已有成熟动画系统与统一规范的团队。",
+  "compareTips": {
+    "vs": [
+      "Guillemsc__GTweensGodot"
+    ],
+    "whenZh": "两者都提升表现力：TweenFX 提供即用型 UI 补间动画，一行调用即可；Boujie Water Shader 提供 3D 海面效果。做界面反馈选前者，做水体选后者，两者可同时用在同一个项目里。"
+  },
+  "category": "ui",
+  "tags": [
+    "补间动画",
+    "UI动效",
+    "入场动画",
+    "GDScript",
+    "轻量"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "库定位为 Godot 4 的补间动画库",
+      "source": "README.md",
+      "quote": "A simple, juicy tween animation library for Godot 4."
+    },
+    {
+      "claim": "提供直接调用与等待完成的用法",
+      "source": "README.md",
+      "quote": "await TweenFX.pop_in(node).finished"
+    },
+    {
+      "claim": "循环动画需显式停止",
+      "source": "README.md",
+      "quote": "# Looping animations run until stopped"
+    },
+    {
+      "claim": "通过 PlayState 枚举控制交互 UI 状态",
+      "source": "README.md",
+      "quote": "TweenFX.snap(node, 0.1, Vector2.ONE * 1.2, TweenFX.PlayState.ENTER)"
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "id": "abarichello__godot-ci",
+  "depth": "standard",
+  "taglineZh": "把 Godot 无头导出与发布塞进 Docker 的 CI 镜像，附 GitLab 与 GitHub Actions 模板",
+  "summaryZh": "godot-ci 提供一个预装 Godot 与导出模板的 Docker 镜像，按引擎版本打 tag，另有 mono 变体给 C# 项目。仓库里附带 GitLab CI 与 GitHub Actions 模板，覆盖导出、发布到 GitLab Pages、GitHub Pages 与 itch.io（通过 butler）。Android 签名通过 Base64 编码的 keystore 存进 CI 变量，模板里给了可直接套用的 job。它不解决 iOS 自动化，README 明说不支持；自定义模块与 GDNative 需要先用别的方案编译出带模块的编辑器。典型坑是 export_presets.cfg 没入库、预设名大小写不一致与密钥泄漏。对独立开发者来说，它把导出环境一次性固定下来，省掉在每台机器上装模板与对齐版本的重复工作。",
+  "whatItDoes": "镜像里预装某个 Godot 版本的可执行文件与对应导出模板，容器启动后可直接用 godot --headless 执行导入与导出。用户把项目挂进容器，按模板里的 job 调导出命令，产物作为 artifact 上传或由 butler 推送。镜像按引擎版本与 mono 后缀分 tag，升级引擎就是换 image tag。模板同时给出环境变量约定，例如 butler 的 API key 与 Android keystore 的三个变量。它不负责编辑器内的导入缓存生成，首次导出仍需在容器里先跑一次导入步骤。",
+  "useCases": [
+    {
+      "titleZh": "每次提交自动导出",
+      "descZh": "在合并请求或主干推送时跑一次无头导出，尽早发现资源缺失、脚本报错与导出预设失效，而不是等发版前才发现打不出包。"
+    },
+    {
+      "titleZh": "多平台产物矩阵",
+      "descZh": "用同一套 job 分别导出 Windows、Linux、Web 与 Android 各平台产物，产物统一命名并作为 artifact 留存，方便测试同学按平台取包。"
+    },
+    {
+      "titleZh": "自动发布到 itch.io",
+      "descZh": "打 tag 时用 butler 把 Web 或桌面包直接推到 itch.io 页面，省掉手工上传与版本号维护，适合频繁发 demo 的小团队。"
+    },
+    {
+      "titleZh": "Pages 试玩版本",
+      "descZh": "把 Web 导出推到 GitHub Pages 或 GitLab Pages 页面上，策划与外部反馈者点链接就能直接试玩最新构建，不必传大文件。"
+    },
+    {
+      "titleZh": "Android 签名导出",
+      "descZh": "把 release keystore 以 Base64 编码存进受保护变量，CI 里解码后再按模板导出签名 APK，避免把密钥文件提交进仓库。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Docker 导出镜像",
+      "descZh": "按 Godot 版本打 tag 的 Docker 镜像文件，内含编辑器可执行文件与导出模板，另有 mono 变体供 C# 项目直接使用。"
+    },
+    {
+      "titleZh": "CI 模板配置",
+      "descZh": "可直接抄用的 .gitlab-ci.yml 与 GitHub Actions 工作流文件，含导入、导出、发布各阶段的 job 与完整变量约定示例配置。"
+    },
+    {
+      "titleZh": "平台安装包",
+      "descZh": "无头导出的 Windows、Linux、Web 与 Android 各平台最终安装包产物，按 job 命名上传为可下载的 artifact 或推送到发布渠道。"
+    },
+    {
+      "titleZh": "Pages 与 itch.io 部署",
+      "descZh": "配合 butler 与 Pages 分支策略把构建产物直接发布成可访问的线上链接，产出物带版本号便于回滚与对比。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Prebuilt Export Templates",
+      "descZh": "镜像内已装好对应版本的导出模板，省去在 CI 里下载与解压模板的步骤，直接就能导出。"
+    },
+    {
+      "name": "Mono Variant",
+      "descZh": "mono 镜像 tag 预装 .NET 与对应导出模板，C# 项目只需换 image tag 与模板目录名即可构建。"
+    },
+    {
+      "name": "GitHub Actions Template",
+      "descZh": "仓库自带完整的 GitHub Actions 工作流示例，含导出、Pages 与 itch.io 发布 job，复制到项目即可改。"
+    },
+    {
+      "name": "Butler Deploy",
+      "descZh": "通过 itch.io 的 butler 命令行工具推送构建产物，凭 API key 认证，可指定渠道与版本号。"
+    },
+    {
+      "name": "Android Keystore Vars",
+      "descZh": "用 Base64 与账号密码三个 CI 变量注入签名信息，密钥不落仓库，模板给了现成 job。"
+    }
+  ],
+  "limitsZh": "README 明确 iOS 自动化尚不可用，需要 Xcode 工程的项目仍得手工打包或自建 macOS runner。镜像只提供引擎与模板，自定义模块与 GDNative 需要先用别的方案编译带模块的编辑器，再把自定义构建塞进镜像流程。导出依赖 export_presets.cfg 已提交且预设名与脚本完全一致，预设名有空格还要加引号，任何一处不符都会在 CI 里失败。首次无头导出前必须先跑导入，否则资源未导入会导出空包。镜像体积大、拉取慢，私有 runner 缓存不足时每次构建都要等。密钥虽然走变量，但泄漏后 keystore 与 butler key 都无法撤销。镜像 tag 与引擎版本同步发布，旧 tag 可能缺少新平台的导出模板。",
+  "workflowZh": [
+    {
+      "stepZh": "按引擎版本选好镜像 tag，C# 项目改用 mono tag"
+    },
+    {
+      "stepZh": "把 export_presets.cfg 提交进仓库并核对预设名称"
+    },
+    {
+      "stepZh": "复制对应 CI 模板到 .github 目录或 .gitlab-ci.yml 里"
+    },
+    {
+      "stepZh": "配置 butler 与 Android 签名所需的环境变量值"
+    },
+    {
+      "stepZh": "先在容器里跑一次导入，再执行导出 job"
+    },
+    {
+      "stepZh": "确认 artifact 与 Pages、itch.io 的最终发布结果链接"
+    }
+  ],
+  "pros": [
+    "镜像预装引擎与导出模板，CI 里不用自己下载模板与解压，导出脚本能压到几条命令。",
+    "同时提供 GitLab CI 与 GitHub Actions 两套模板，Pages 与 itch.io 发布都有现成 job，接管线成本低。",
+    "mono 变体与 Android 签名变量方案都在 README 里写清，C# 与移动端项目不必自己摸索镜像细节。",
+    "按 Godot 版本打 tag，升级引擎只需换 image tag，回滚也简单，方便多项目共用同一套流水线。",
+    "MIT 许可且 Dockerfile 公开，镜像里缺什么可以自己加层，不锁定在官方镜像能力范围内。"
+  ],
+  "cons": [
+    "完全不支持 iOS 自动化，需要 Xcode 的项目只能手工打包或另建 macOS runner。",
+    "自定义模块与 GDNative 不覆盖，必须自己先编译带模块的编辑器，再改造镜像流程。",
+    "导出强依赖 export_presets.cfg 与预设名精确匹配，配置疏漏会在 CI 里以晦涩错误暴露。",
+    "镜像体积大，冷缓存拉取慢，自建 runner 带宽不足时构建等待时间明显。"
+  ],
+  "pitfalls": [
+    "export_presets.cfg 被写进 .gitignore，CI 里找不到预设会直接失败，先确认它已提交且未被忽略。",
+    "预设名含空格却没加引号，命令被拆成多个参数导致导出失败，脚本里统一用引号包裹预设名。",
+    "首次导出前漏掉导入步骤，产物缺资源或体积异常，job 里先跑一次 headless 导入再导出。"
+  ],
+  "bestFor": "用 GitLab 或 GitHub 托管、需要多平台自动导出并发布到 Pages 或 itch.io 的中小规模 Godot 团队，C# 与 Android 项目同样适用。",
+  "avoidWhenZh": "主要目标是 iOS 上架、项目依赖自定义引擎模块，或团队还没有可用的 CI runner 与密钥管理流程时。",
+  "compareTips": {
+    "vs": [
+      "KoBeWi__Godot-Project-Builds"
+    ],
+    "whenZh": "Godot-Project-Builds 是桌面端的图形化打包与发布工具，适合不写 CI、只在本地手工出包的独立开发者；godot-ci 走容器与流水线，适合每次提交都要出包并自动发布的团队。本地偶尔发版用前者更省事，持续交付与多平台矩阵则必须用后者。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "CI",
+    "Docker",
+    "自动导出",
+    "发布",
+    "GitHub Actions"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "提供 Docker 镜像用于导出并部署",
+      "source": "README.md",
+      "quote": "Docker image to export Godot Engine games and deploy to GitLab/GitHub Pages and Itch.io"
+    },
+    {
+      "claim": "iOS 自动化尚不可用",
+      "source": "README.md",
+      "quote": "Not available yet. Automating Xcode projects is doable but not trivial"
+    },
+    {
+      "claim": "C# 项目需换 mono 镜像 tag",
+      "source": "README.md",
+      "quote": "Change the container's `image` tag from `barichello/godot-ci:VERSION` to `barichello/godot-ci:mono-VERSION`"
+    },
+    {
+      "claim": "export_presets.cfg 必须提交到版本库",
+      "source": "README.md",
+      "quote": "Check that the export presets file (`export_presets.cfg`) is committed to version control."
+    },
+    {
+      "claim": "自定义模块需先自行编译 Godot",
+      "source": "README.md",
+      "quote": "You have to compile Godot with the modules included first."
+    }
+  ]
+}

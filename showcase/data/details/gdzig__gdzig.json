@@ -1,0 +1,139 @@
+{
+  "id": "gdzig__gdzig",
+  "depth": "standard",
+  "taglineZh": "Zig 语言编写的 Godot 4 GDExtension 扩展绑定库与示例工程",
+  "summaryZh": "gdzig 为 Godot 4 提供地道的 Zig 绑定：能直接调用引擎类与方法，也能定义继承引擎类的新扩展类并暴露给编辑器和 GDScript。项目自带示例工程、测试工程与 WebAssembly 目标，还支持在编译期指定兼容的最低 Godot 版本，把版本判断折进二进制。它适合愿意用 Zig 写高性能扩展、并能接受快速迭代的人。限制很硬：绑定的 Zig 与 Godot 版本被精确锁定，README 明说仍在重构、缺功能属预期，尚无稳定版。",
+  "whatItDoes": "通过 build.zig 引入依赖，按示例工程配置 .gdextension 与入口文件，即可编译出动态库供 Godot 加载。绑定覆盖引擎类、方法、信号与属性，并允许扩展类暴露新方法给 GDScript。构建时可传 godot_compatibility_minimum，让版本门槛在编译期确定；也能交叉编译到 wasm32-emscripten。",
+  "useCases": [
+    {
+      "titleZh": "Zig 高性能扩展",
+      "descZh": "用 Zig 写热点逻辑，替代 GDScript 或 C++ 扩展的性能瓶颈，内存分配也能自己控制，适合每帧大量计算的场景。"
+    },
+    {
+      "titleZh": "WebAssembly 导出实验",
+      "descZh": "按示例配置 Emscripten 目标，把扩展带进浏览器版本，验证 Web 导出的可行性与加载链路是否完整。"
+    },
+    {
+      "titleZh": "研究绑定生成方式",
+      "descZh": "阅读生成代码与版本门控实现，学习引擎 API 如何映射到其他语言，为自研绑定做参考。"
+    },
+    {
+      "titleZh": "小工具链验证",
+      "descZh": "先在示例工程跑通编译与加载，再决定是否接入正式项目，降低试错成本，也便于评估团队能否维护工具链。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可加载的 GDExtension",
+      "descZh": "编译出动态库并按 .gdextension 描述文件挂进项目，加载后即可在场景里使用，无需额外脚本。"
+    },
+    {
+      "titleZh": "Zig 侧引擎绑定",
+      "descZh": "把引擎类、方法与信号映射成 Zig 可调用接口，省去手写 C 层胶水，调用风格接近原生。"
+    },
+    {
+      "titleZh": "版本门控的产物",
+      "descZh": "编译期折叠版本判断，生成只面向指定最低版本的二进制，减少运行时分支。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "引擎 API 绑定",
+      "descZh": "直接调用 Godot 类与方法，不必手写 C 接口胶水，调用形式贴近 Zig 习惯。"
+    },
+    {
+      "name": "扩展类定义",
+      "descZh": "继承引擎类并暴露方法、信号、属性与枚举给 GDScript，两边可互相调用。"
+    },
+    {
+      "name": "编译期版本下限",
+      "descZh": "用 -Dgodot_compatibility_minimum 把兼容判断折进构建，产物自带最低版本声明，避免运行时再判断。"
+    },
+    {
+      "name": "WebAssembly 目标",
+      "descZh": "支持 wasm32-emscripten，示例含浏览器导出配置，可自行扩展，适合把扩展带到网页版 Demo。"
+    },
+    {
+      "name": "示例与测试工程",
+      "descZh": "仓库带 example 与 compatibility_minimum 工程，可直接跑通验证，省去从零搭工程与配置。"
+    }
+  ],
+  "limitsZh": "README 给出精确前置条件：Zig 0.17.0 与 Godot 4.7.2，版本不匹配就可能编译或加载失败，升级引擎要等绑定跟进。作者明确说库仍在快速开发与重构，缺功能与 bug 属预期，没有稳定版承诺。文档以示例、CLAUDE.md 与零散指南为主，缺少系统 API 参考；Zig 生态本身小众，遇到问题可求助的人少。编译产物与平台、架构绑定，团队要维护多平台构建矩阵，WebAssembly 也仍有额外限制。",
+  "workflowZh": [
+    {
+      "stepZh": "安装与 README 精确匹配的 Zig 0.17.0 与 Godot 4.7.2，不要用发行版自带版本"
+    },
+    {
+      "stepZh": "在 build.zig 里引入 gdzig 依赖，并锁定对应提交版本"
+    },
+    {
+      "stepZh": "参考 example 工程配置 .gdextension 描述与导出入口"
+    },
+    {
+      "stepZh": "执行 zig build 编译，把产物挂进项目并加载验证"
+    },
+    {
+      "stepZh": "按需设置兼容下限或 wasm 目标，重新构建产物"
+    }
+  ],
+  "pros": [
+    "提供完整引擎 API 与扩展类绑定，不必手写胶水层，覆盖常用类",
+    "支持编译期版本门控，产物可明确声明最低引擎版本，发布时少踩运行时坑",
+    "仓库带示例、测试与 wasm 导出配置，验证路径清楚，照着跑就能确认环境可用",
+    "Zig 无 GC 与手动内存控制，适合性能敏感扩展，也便于做确定性延迟控制",
+    "项目近期仍在活跃提交，问题修复与新绑定跟进较快，遇到坑可在 issue 里找到线索"
+  ],
+  "cons": [
+    "Zig 与 Godot 版本精确锁定，升级引擎要等绑定同步跟进",
+    "仍在快速重构，缺功能与接口变动属于常态，不要把关键系统押在上面",
+    "文档偏示例与零散指南，缺少系统的 API 参考，查函数签名只能看生成的源码"
+  ],
+  "pitfalls": [
+    "Zig 版本差一个小版本就可能编译失败，先按 README 对齐工具链，用固定版本管理更稳",
+    "Godot 4.7.2 之外的版本可能加载报错，勿直接在正式项目升级引擎",
+    "wasm 目标需要 Emscripten 环境，普通桌面构建不会自动安装，导出前先单独验证"
+  ],
+  "bestFor": "熟悉 Zig、追求扩展运行性能，并且能接受绑定库快速重构、愿意自己维护编译与版本对齐的 Godot 4 进阶开发者。",
+  "avoidWhenZh": "需要稳定 API 与长期维护保证、团队无人会 Zig，或必须在多个 Godot 版本上工作的项目。",
+  "compareTips": {
+    "vs": [
+      "godot-nim__gdext-nim"
+    ],
+    "whenZh": "两者都是非 C++ 的 GDExtension 绑定：gdzig 面向 Zig 并锁定引擎版本，gdext-nim 提供 Nim 库与 gdextwiz 脚手架。按团队熟悉语言选，功能面与成熟度都还在早期。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "Zig",
+    "GDExtension",
+    "语言绑定",
+    "WebAssembly"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4 的 Zig 绑定",
+      "source": "README.md",
+      "quote": "Idiomatic Zig bindings for Godot 4."
+    },
+    {
+      "claim": "锁定 Zig 0.17.0 与 Godot 4.7.2",
+      "source": "README.md",
+      "quote": "gdzig currently targets these exact Zig and Godot releases."
+    },
+    {
+      "claim": "仍在快速开发，缺功能属预期",
+      "source": "README.md",
+      "quote": "This library is currently undergoing rapid development and refactoring ... Bugs and missing features are expected until a stable version is released."
+    }
+  ]
+}

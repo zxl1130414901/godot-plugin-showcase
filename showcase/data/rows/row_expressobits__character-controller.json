@@ -1,0 +1,35 @@
+{
+  "id": "expressobits__character-controller",
+  "descriptionZh": "Godot 4 模块化角色控制器，走跑蹲跳冲刺飞行游泳按需自由组合，并带第一人称头部晃动。",
+  "category": "state-logic",
+  "tags": [
+    "character-controller",
+    "fps",
+    "modular",
+    "gdscript",
+    "godot4"
+  ],
+  "prosShort": [
+    "移动能力拆成独立脚本，组合灵活",
+    "自带第一人称版本与头部晃动效果",
+    "参数全在检查器，调整手感很方便"
+  ],
+  "consShort": [
+    "游泳能力在文档里仍标注未完成",
+    "缺少动画状态机与联网同步支持",
+    "仓库文档偏少，排查问题成本较高"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

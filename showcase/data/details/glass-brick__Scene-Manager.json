@@ -1,0 +1,132 @@
+{
+  "id": "glass-brick__Scene-Manager",
+  "depth": "standard",
+  "taglineZh": "带图案淡入淡出与后台加载的场景切换管理器",
+  "summaryZh": "Godot Scene Manager 以自动加载单例 SceneManager 取代 change_scene_to_file，提供带图案的淡入淡出、可等待的切换流程与后台线程加载。它内置 fade、circle、curtains、diagonal、radial 等九种动画图案，可挂载自定义 AnimationPlayer 覆盖默认效果；大场景可在淡出期间并行加载，并可选择显示带进度条的加载界面。默认参数集中在项目设置的 Scene Manager 面板，也可逐次传入选项覆盖。",
+  "whatItDoes": "单例统一处理切场景的淡出、卸载、加载与淡入，并发出开始、完成与加载进度等信号。切换函数接受选项字典，按需开启后台加载、加载界面与最短等待时间；调用可 await，转场结束后再继续逻辑，失败时也会淡回而不是卡在黑屏。",
+  "useCases": [
+    {
+      "titleZh": "关卡之间平滑切换",
+      "descZh": "用图案淡出遮住加载过程，避免直接切场景造成的闪屏，也能按关卡选择不同转场风格。"
+    },
+    {
+      "titleZh": "大场景后台加载",
+      "descZh": "在淡出动画播放时用线程加载目标场景，让读盘与转场重叠，减少等待时的黑屏时间。"
+    },
+    {
+      "titleZh": "带进度条的加载界面",
+      "descZh": "开启加载界面后显示进度条与最短停留时间，让玩家知道仍在加载而不是误以为卡死。"
+    },
+    {
+      "titleZh": "统一转场与引用管理",
+      "descZh": "用信号监听卸载与加载完成，在固定时机清理节点与保存状态，避免跨场景引用悬空。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "自动加载单例",
+      "descZh": "SceneManager 作为 Autoload 常驻，任何脚本都能直接调用，不必预加载或传引用，也可共享同一转场状态。"
+    },
+    {
+      "titleZh": "多种转场图案",
+      "descZh": "内置淡入淡出、圆形、幕布、对角与径向等图案，按项目风格选择或自定义着色器。"
+    },
+    {
+      "titleZh": "加载界面场景",
+      "descZh": "附带带进度条的默认加载界面，也可换成自己的场景，配合最短加载时间控制节奏。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "即插即用替换",
+      "descZh": "调用方式接近 change_scene_to_file，迁移旧代码只需替换函数名与少量选项，学习成本低。"
+    },
+    {
+      "name": "后台线程加载",
+      "descZh": "大场景在主线程之外读取，转场动画继续播放，减少读盘造成的停顿。"
+    },
+    {
+      "name": "可等待切换",
+      "descZh": "切换函数可 await，转场结束后再执行后续逻辑，避免动画与业务抢时序。"
+    },
+    {
+      "name": "项目级默认值",
+      "descZh": "速度、颜色、图案与等待时间集中在项目设置，单次调用只需覆盖差异项。"
+    }
+  ],
+  "limitsZh": "插件只负责场景切换的转场与加载编排，不管理关卡内对象池或存档，跨场景的节点引用仍要自己保存。内置图案依赖着色器与 CanvasLayer，叠加在自定义渲染管线上时可能出现层级或混合问题，需要按项目调整。后台加载使用线程与 ResourceLoader，资源格式与缓存模式设置不当会重复加载或占用内存。文档主要放在 wiki，仓库 README 已迁走说明，离线查阅不便。",
+  "workflowZh": [
+    {
+      "stepZh": "安装插件并确认 SceneManager 已注册为 Autoload，旧项目里通常要手动添加"
+    },
+    {
+      "stepZh": "在项目设置的 Scene Manager 页调整默认图案、速度与颜色"
+    },
+    {
+      "stepZh": "用 SceneManager.change_scene 替换原有切场景调用，并传入需要的选项"
+    },
+    {
+      "stepZh": "按需开启后台加载与加载界面，并用信号处理后续逻辑"
+    }
+  ],
+  "pros": [
+    "以单例替换内置切场景方法，旧项目迁移改动小，转场效果却能明显提升",
+    "内置九种图案并支持自定义 AnimationPlayer，视觉风格可按项目自由调整",
+    "后台线程加载与可等待切换配合，读盘与动画重叠，等待感更短",
+    "加载界面、最短停留时间与失败回退都有现成实现，边界情况考虑较全",
+    "所有默认值集中在项目设置，逐次调用可覆盖，团队协作时配置更统一"
+  ],
+  "cons": [
+    "文档迁到 wiki，仓库内几乎没有说明，离线或断网时查阅不便",
+    "只处理场景级转场，不管关卡内对象与存档，跨场景引用仍要自己维护",
+    "着色器图案与自定义渲染管线叠加时可能需要调整层级，接入有额外调试"
+  ],
+  "pitfalls": [
+    "忘记注册 Autoload 会直接报单例不存在，安装后先在项目设置里确认",
+    "连续点击触发两次切换会叠加转场，调用前检查 is_transitioning 状态，或在按钮上先禁用交互",
+    "加载失败会淡回原场景，若业务没监听失败信号，玩家可能以为按钮没响应"
+  ],
+  "bestFor": "需要统一关卡切换体验、加入图案转场与加载界面，并愿意按 wiki 文档维护跨场景引用与加载状态的 Godot 4 项目。",
+  "avoidWhenZh": "只需要最简切场景、不想引入单例与着色器依赖，或完全无法联网查阅 wiki 文档的项目。",
+  "compareTips": {
+    "vs": [
+      "imjp94__gd-YAFSM"
+    ],
+    "whenZh": "两者都管流程：Scene-Manager 负责场景之间的转场与加载，gd-YAFSM 负责单个场景内的状态跳转。要做关卡切换与加载界面选前者；要在角色或界面内部维护状态机、并需要运行中检视则看后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "场景切换",
+    "转场动画",
+    "加载界面",
+    "后台加载"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "用于管理场景转场与节点引用，并可选加载界面",
+      "source": "README.md",
+      "quote": "Plugin for managing transitions and Node references between scenes, with optional loading screens!"
+    },
+    {
+      "claim": "管理场景切换与节点引用，可选加载界面",
+      "source": "README.md",
+      "quote": "Plugin for managing transitions and Node references between scenes, with optional loading screens!"
+    },
+    {
+      "claim": "提供着色器实现的淡入淡出过渡",
+      "source": "README.md",
+      "quote": "Demonstration of Shader Fades"
+    }
+  ]
+}

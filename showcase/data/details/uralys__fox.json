@@ -1,0 +1,142 @@
+{
+  "id": "uralys__fox",
+  "depth": "standard",
+  "taglineZh": "从首个场景到商店上架的一体化 Godot 游戏骨架",
+  "summaryZh": "Fox 是 uralys 在自己多款商业作品中沉淀出的 Godot 开发工具链，由一个运行时插件与一个 CLI 组成。运行时提供的是可挂接的工程骨架：一个根场景、一个 Router 与若干 Screen，Router 让导航变成一次 Router.openHome({level = 3}) 调用，并自带转场、加载器与导航状态恢复；Screen 继承 FoxScreen 后随窗口尺寸自动重排，兼顾 Steam Deck 与桌面分辨率。此外还提供 Animate、Motion、Sound、HTTP、Controls、Steam、Leaderboard、Gesture 等 autoload 与工具库，覆盖补间、闲置动效、输入、排行榜与应用内购买。CLI 提供 run:game 带热重载运行、export 导出预设包、publish steam release 上传发布等命令，跨 macOS、Linux 与 Windows 一致。",
+  "whatItDoes": "在 Godot 工程里注入一套约定式的应用骨架，包括根场景、路由与屏幕基类，并注册所需 autoload。把导航、转场、加载与响应式重排做成基础设施，让每个屏幕只需关心自身内容。提供命令行工具，把运行、导出、版本升级与商店发布串成统一命令，简化发行阶段的操作。",
+  "useCases": [
+    {
+      "titleZh": "多屏幕的菜单型游戏",
+      "descZh": "用 Router 组织主菜单、设置与关卡选择，导航自带转场与状态恢复。"
+    },
+    {
+      "titleZh": "需要适配掌机与桌面",
+      "descZh": "屏幕基类在窗口变化时自动重排，Steam Deck 与桌面共用一套界面代码。"
+    },
+    {
+      "titleZh": "要上 Steam 或 itch.io 的项目",
+      "descZh": "用 CLI 的 export 与 publish 命令完成打包与上传，减少手工步骤。"
+    },
+    {
+      "titleZh": "希望少写样板代码",
+      "descZh": "直接调用内置的音效、补间、HTTP 与手势等工具库，避免重复实现。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "约定式工程骨架",
+      "descZh": "含 app.tscn、router.gd 与 screens 目录的项目结构。"
+    },
+    {
+      "titleZh": "导航与屏幕基类",
+      "descZh": "带转场、加载器与响应式布局的路由与 Screen 基类。"
+    },
+    {
+      "titleZh": "运行与发布命令",
+      "descZh": "run:game、export、publish 等 CLI 指令与配置文件。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "单行导航",
+      "descZh": "Router.openHome 即可切换屏幕，并携带参数与导航状态。"
+    },
+    {
+      "name": "响应式屏幕",
+      "descZh": "FoxScreen 在窗口尺寸变化时触发重排方法。"
+    },
+    {
+      "name": "热重载运行",
+      "descZh": "fox run:game 边写代码边运行，缩短验证循环。"
+    },
+    {
+      "name": "内置商业功能",
+      "descZh": "提供 Steam、排行榜与应用内购买等常用能力。"
+    }
+  ],
+  "limitsZh": "Fox 是一套带强约定的框架：工程要按它的目录结构组织，根场景、Router 与 Screen 基类都有固定写法，接入既有项目意味着重构导航与场景层级，而不是简单装个插件。CLI 需要 Node 26 以上，版本要求相当激进，虽然插件本身只依赖 Godot、不装 CLI 也能用，但导出发布与热重载等便利就享受不到。运行时插件需在项目设置里启用一次，会注册 G、DEBUG 与 Gesture 三个 autoload，若与工程已有的同名全局变量冲突需自行处理。CLI 的 publish 依赖 Steam 与 itch.io 各自的凭据与工具配置，商店侧仍需人工准备。文档分散在 docs 目录的多个文件里，README 只是索引，缺少把整套流程走一遍的端到端教程；2.0 还把运行时路径从 res://fox 迁到 res://addons/fox，升级时需按发布说明迁移。",
+  "workflowZh": [
+    {
+      "stepZh": "在工程目录执行安装脚本，获取运行时与 CLI。"
+    },
+    {
+      "stepZh": "在项目设置中启用 Fox 插件并确认 autoload 已注册。"
+    },
+    {
+      "stepZh": "按骨架结构建立 app.tscn、router.gd 与 screens。"
+    },
+    {
+      "stepZh": "在 Router 里登记屏幕，用单行调用完成导航。"
+    },
+    {
+      "stepZh": "屏幕继承 FoxScreen 并实现重排方法。"
+    },
+    {
+      "stepZh": "用 CLI 运行、导出并按需发布到商店。"
+    }
+  ],
+  "pros": [
+    "导航、转场与响应式布局开箱可用，省去大量样板。",
+    "内置音效、补间、HTTP 与 Steam 等常用能力。",
+    "CLI 把运行、导出与发布统一成一致命令。",
+    "来自真实商业项目的沉淀，附多款作品佐证。"
+  ],
+  "cons": [
+    "强约定式结构，接入既有工程需重构。",
+    "CLI 要求 Node 26 以上，版本门槛激进。",
+    "会注册多个 autoload，可能与现有全局命名冲突。"
+  ],
+  "pitfalls": [
+    "从 1.x 升级时未按发布说明迁移运行时路径，插件会找不到 addons/fox 下的资源。",
+    "未配置 Steam 凭据就执行 publish，会在上传阶段失败且错误信息来自外部工具。"
+  ],
+  "bestFor": "适合新开 Godot 项目、希望直接获得导航、响应式界面、常用工具库与发布 CLI 的独立开发者与小团队。",
+  "avoidWhenZh": "已有成熟工程结构、不愿按框架约定重构，或无法安装新版 Node 的项目，应只借鉴其思路而非整体接入。",
+  "compareTips": {
+    "vs": [
+      "KoBeWi__Godot-Project-Builds"
+    ],
+    "whenZh": "Project Builder 用图形界面编排导出与商店上传，Fox 用命令行把运行、导出、发布统一起来，且额外提供运行时骨架；偏命令行与新项目起步选 Fox。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "游戏框架",
+    "路由导航",
+    "CLI工具",
+    "响应式界面",
+    "商店发布"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "提供骨架、GDScript 库与运行导出发布的 CLI",
+      "source": "readme.md",
+      "quote": "a skeleton to hang your game on, GDScript libs that spare you the boilerplate, and one CLI to run, export and publish on Steam and itch.io."
+    },
+    {
+      "claim": "CLI 需要 Node 26 以上，但可选",
+      "source": "readme.md",
+      "quote": "The CLI is optional, and needs NodeJS >= 26: without it the addon is mounted all the same, since it needs nothing but Godot."
+    },
+    {
+      "claim": "启用插件会注册三个 autoload",
+      "source": "readme.md",
+      "quote": "it registers the `G`, `DEBUG` and `Gesture` autoloads, and leaves alone any autoload your game already declares."
+    },
+    {
+      "claim": "CLI 提供运行、导出与发布命令",
+      "source": "readme.md",
+      "quote": "fox run:game                # run your game, hot reloading as you code\\nfox export                  # export a bundle for one of your presets\\nfox publish steam release"
+    }
+  ]
+}

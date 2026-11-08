@@ -1,0 +1,14 @@
+{
+  "id": "calico-games__react-native-godot",
+  "descriptionZh": "把 Godot 引擎作为原生模块嵌进 React Native，用 GodotView 承载 3D 画面，目前 iOS 可用而安卓仍在开发。",
+  "category": "platform-export",
+  "tags": ["React Native", "嵌入", "iOS", "JSI", "3D", "移动端"],
+  "prosShort": ["原生 JSI 直连引擎，交互响应明显更快", "GodotView 可嵌进现有页面，界面与 3D 共存", "开发期能动态编译脚本，改动不必重新出包"],
+  "consShort": ["安卓支持仍在开发，iOS 模拟器也不可用", "要自行编译 C++ 原生层，纯前端团队门槛高", "必须升级到 Godot 4.5 与 RN 0.80 以上版本"],
+  "scores": {"coverage": 4, "usability": 2, "docs": 3, "maintenance": 3, "performance": 4, "stability": 2},
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

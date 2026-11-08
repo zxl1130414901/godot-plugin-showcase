@@ -1,0 +1,160 @@
+{
+  "id": "TheWalruzz__godot-questify",
+  "depth": "standard",
+  "taglineZh": "用节点图编辑与管理 Godot 4 任务流程的插件",
+  "summaryZh": "Questify 把任务定义成一张有向图：Start 与 End 之间安排目标、条件与分支节点，编辑器里可以像画流程图一样拖拽连线，并支持撤销重做。运行时通过 Questify 单例启动任务实例，目标推进与完成通过信号回调，条件判定则由插件发出查询请求、由项目侧回答。任务状态可序列化为字典存盘。适合任务链较复杂的 RPG，但它自带轮询式条件检查，默认 0.5 秒一次，需要按项目改配置或手动触发更新。",
+  "whatItDoes": "提供 QuestResource 资源与 Questify 自动加载单例，任务由 Start、End、Objective、Condition/Any Condition/Not Condition、Any Previous、Exclusive Branch Connector、Conditional Branch 等节点组成。运行时发出 quest_started、quest_objective_added/completed、quest_completed 信号，条件通过 condition_query_requested 交给项目判定。支持参数化任务、POT 翻译提取插件与 C# 包装层，并能 serialize/deserialize 全部任务状态。",
+  "useCases": [
+    {
+      "titleZh": "剧情 RPG",
+      "descZh": "主线与支线交织的 RPG 用图编辑器梳理任务链，分支与可选目标能在同一张图里看清。"
+    },
+    {
+      "titleZh": "教程关卡",
+      "descZh": "新手引导按条件逐步推进，用条件节点判定玩家是否完成操作，省去散落各处的 if 判断。"
+    },
+    {
+      "titleZh": "任务存档",
+      "descZh": "需要保存玩家任务进度并支持读档的项目，可以直接调用序列化接口存成字典，读档后可继续推进。"
+    },
+    {
+      "titleZh": "多语言任务文本",
+      "descZh": "借助随附的翻译解析插件把任务描述抽成 POT，再交给既有本地化流程处理，不必手工复制任务文本。"
+    },
+    {
+      "titleZh": "策划协作",
+      "descZh": "策划自己拉任务图，程序只处理条件查询与任务 UI，职责划分更清楚，减少两边反复确认条件的时间。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "任务图资源",
+      "descZh": "QuestResource 及其节点图，Start 到 End 之间串联目标、条件与分支节点，一张图即是一条完整任务链。"
+    },
+    {
+      "titleZh": "运行时单例",
+      "descZh": "Questify 自动加载单例，负责启动、推进任务并在目标变化时广播状态信号，是运行时入口。"
+    },
+    {
+      "titleZh": "翻译解析插件",
+      "descZh": "QuestResourceTranslationParser 把任务文本抽到 POT 文件，需要 Godot 4.4 以上版本支持，随插件单独启用，注意版本。"
+    },
+    {
+      "titleZh": "C# 包装",
+      "descZh": "Questify.cs 提供实例化、条件完成与资源路径获取的封装方法，供 .NET 项目直接调用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "图编辑器",
+      "descZh": "在编辑器顶部打开 Questify 面板，拖拽节点与连线，支持撤销重做，操作接近流程图工具。"
+    },
+    {
+      "name": "条件查询信号",
+      "descZh": "插件不绑定具体数据结构，条件判定交给项目回答，易接自有存档。"
+    },
+    {
+      "name": "可选与分支",
+      "descZh": "Optional 目标、Any Previous 与 Exclusive Branch 支持并行与互斥路线，可表达多结局分支。"
+    },
+    {
+      "name": "序列化接口",
+      "descZh": "Questify.serialize 与 deserialize 一次存取全部任务状态，存档接口不用自己拼字段。"
+    },
+    {
+      "name": "翻译支持",
+      "descZh": "独立插件把任务里的可翻译文本抽成 POT，方便接入既有本地化流程，也支持参数化任务。"
+    }
+  ],
+  "limitsZh": "图编辑器与运行时都依赖 Questify 单例，项目需要启用自动加载并接受其全局状态。条件判定采用轮询，默认每 0.5 秒查询一次，任务与条件很多时会带来额外开销，需关闭轮询改为手动 update_quests。翻译解析插件要求 Godot 4.4 以上，与其它处理 .tres 的解析器可能冲突。文档虽长但偏 API 说明，缺少完整示例项目；分支图复杂后调试只能靠信号与日志。任务数据仍是 Resource，团队并行编辑同一文件容易冲突。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/questify 目录拷入项目 addons 文件夹，目录名保持 questify。"
+    },
+    {
+      "stepZh": "在项目设置里启用插件并重启编辑器。"
+    },
+    {
+      "stepZh": "在 Questify 面板点击新建，创建任务图资源。"
+    },
+    {
+      "stepZh": "摆放目标、条件与分支节点并连线，注意 Start 与 End 各一个。"
+    },
+    {
+      "stepZh": "在脚本里启动任务并处理查询信号。"
+    },
+    {
+      "stepZh": "用序列化接口保存任务进度到存档。"
+    }
+  ],
+  "pros": [
+    "任务链可视化，策划可直接编辑图，减少与程序之间的来回沟通。",
+    "条件判定解耦成信号，接入任意数据层都不必改动插件本身。",
+    "提供序列化与 C# 包装，存档与 .NET 项目都能覆盖，覆盖面较完整。",
+    "README 对节点类型与信号说明详细，查 API 时比较省事，减少翻源码。"
+  ],
+  "cons": [
+    "条件轮询默认 0.5 秒，任务多时会带来额外开销。",
+    "编辑器与运行时强依赖单例，接入需调整项目结构。",
+    "缺少完整示例工程，复杂分支调试成本高，新分支容易踩坑。"
+  ],
+  "pitfalls": [
+    "任务必须有且仅有一个 Start 与 End，否则流程不会正常结束，建图时先补齐端点。",
+    "忘记实例化 QuestResource 会改到原始资源，读档后数据可能错乱，改前先 instantiate。",
+    "轮询关闭后未手动触发 update_quests，条件永远不会完成，注意切换设置的时机。"
+  ],
+  "bestFor": "任务链有分支、可选目标与多语言需求，且愿意按信号架构接入的中大型 RPG 项目，策划与程序需要分工协作时更明显。",
+  "avoidWhenZh": "只需要线性任务提示，或不想引入全局单例的小型项目，轻量脚本即可满足需求。",
+  "compareTips": {
+    "vs": [
+      "YarnSpinnerTool__YarnSpinner-Godot"
+    ],
+    "whenZh": "两者都承载剧情内容：Questify 用节点图管理任务目标与分支，Yarn Spinner 用脚本语言写对白；任务推进与对话演出常需同时存在，可按项目更缺任务结构还是对白编排来选。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "任务系统",
+    "节点图",
+    "RPG",
+    "存档序列化"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "isGDExtension": false,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4 的图式任务编辑器与管理器",
+      "source": "README.md",
+      "quote": "A graph-based quest editor and manager for Godot 4."
+    },
+    {
+      "claim": "通过单例信号观察任务状态",
+      "source": "README.md",
+      "quote": "Questify singleton exposes several signals to keep track of active quests."
+    },
+    {
+      "claim": "条件检查默认轮询 0.5 秒",
+      "source": "README.md",
+      "quote": "Check interval is 0.5 seconds by default"
+    },
+    {
+      "claim": "提供任务状态序列化",
+      "source": "README.md",
+      "quote": "Questify.serialize() # returns Array"
+    },
+    {
+      "claim": "翻译解析插件要求 Godot 4.4+",
+      "source": "README.md",
+      "quote": "NOTE: this plugin is compatible with Godot 4.4+ due to API differences in EditorTranslationParserPlugin"
+    }
+  ]
+}

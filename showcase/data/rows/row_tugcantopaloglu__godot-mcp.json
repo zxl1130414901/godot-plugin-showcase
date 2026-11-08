@@ -1,0 +1,35 @@
+{
+  "id": "tugcantopaloglu__godot-mcp",
+  "descriptionZh": "面向 Godot 的 MCP 服务端，提供 157 个工具，让 AI 客户端直接建项目、改场景并执行运行时代码。",
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI",
+    "自动化",
+    "GDScript",
+    "C#"
+  ],
+  "prosShort": [
+    "工具覆盖建项目到运行时调试的全流程",
+    "支持 C# 项目生成与脚本语法校验",
+    "运行中可直接执行代码并读回结果"
+  ],
+  "consShort": [
+    "初次配置命令与引擎路径容易出错",
+    "运行时代码执行等于放开脚本权限",
+    "工具参数分散，长文档检索成本高"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

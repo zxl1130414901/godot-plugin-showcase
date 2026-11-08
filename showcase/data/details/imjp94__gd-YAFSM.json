@@ -1,0 +1,65 @@
+{
+  "id": "imjp94__gd-YAFSM",
+  "depth": "standard",
+  "taglineZh": "用流程图编辑器设计状态机，并支持远程调试",
+  "summaryZh": "gd-YAFSM 是一套面向设计师的有限状态机插件，把 StateMachine 做成 Resource，在流程图式编辑器里添加状态与转移，运行时由 StateMachinePlayer 驱动。它支持嵌套状态机、参数检查与远程调试，可在运行中高亮当前状态并查看变量，工作流接近 AnimationTree，不需要继承自定义类。README 说明此分支只兼容 Godot 4.x，Godot 3 需切到 godot3 分支，安装可通过 AssetLib、手动复制或 gd-plug。",
+  "whatItDoes": "插件在编辑器中为 StateMachinePlayer 提供图形编辑器，右键加状态、Shift 拖拽连转移；状态机作为资源保存，可在多个场景复用。运行时玩家节点按输入与条件切换状态，远程调试面板显示当前状态与参数值，便于验证跳转是否符合预期。",
+  "useCases": [
+    {"titleZh": "界面与流程状态", "descZh": "把主菜单、设置、游戏与暂停做成状态，用转移条件控制进入退出，改流程只需调整图与参数。"},
+    {"titleZh": "角色状态管理", "descZh": "用状态机管理待机、移动、受击与死亡，避免在脚本里堆大量布尔标记与条件分支，切换与条件集中在一处。"},
+    {"titleZh": "可复用的状态机资源", "descZh": "同一份 StateMachine 资源交给不同 StateMachinePlayer 使用，按输入产生不同结果，减少重复搭建，改一处即可影响全部实例。"},
+    {"titleZh": "运行中验证状态流", "descZh": "开启远程调试查看当前状态与参数，确认转移条件是否按预期触发，定位逻辑问题时更直观。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "状态机资源", "descZh": "StateMachine 以资源形式保存，包含状态、转移与参数，可在多个场景与角色之间复用。"},
+    {"titleZh": "图形编辑器界面", "descZh": "选中 StateMachinePlayer 后出现流程图编辑器，右键加状态、Shift 拖拽连线，布局直观且连线可随时重连。"},
+    {"titleZh": "远程调试视图", "descZh": "运行时高亮当前状态并展示参数值，配合日志确认转移路径，便于排查卡在某个状态的问题。"}
+  ],
+  "featureCallouts": [
+    {"name": "流程图编辑", "descZh": "状态与转移以图形方式编辑，结构一眼可见，设计师不必读脚本也能理解流程。"},
+    {"name": "嵌套状态机", "descZh": "子状态机可嵌进状态里，复杂流程能分层拆解，避免一张图画满所有分支。"},
+    {"name": "零继承接入", "descZh": "不需要继承自定义类，挂上 StateMachinePlayer 即可使用，迁移旧项目成本低，也不必改动既有脚本。"},
+    {"name": "资源化复用", "descZh": "状态机作为资源可重复使用，同一套流程在不同角色上产生不同结果，便于做变体。"}
+  ],
+  "limitsZh": "状态机是资源，跨场景复用方便，但状态内的具体逻辑仍要写在脚本或节点上，插件只负责跳转与参数。远程调试需要游戏以调试模式运行并开启对应设置，发布版不可用。复杂状态机的图会变得拥挤，编辑器内布局要手工整理；参数与转移条件缺少类型校验。文档分在仓库与 addons 内 README，示例靠 demo 仓库；2025 年后更新停滞，Godot 新版兼容性需自行验证。",
+  "workflowZh": [
+    {"stepZh": "安装插件并在项目设置的插件页启用 imjp94.yafsm"},
+    {"stepZh": "把 StateMachinePlayer 节点加到场景，打开流程图编辑器"},
+    {"stepZh": "创建 StateMachine，右键加状态并用 Shift 拖拽连接转移"},
+    {"stepZh": "给状态挂脚本处理进入与退出，再开启远程调试验证流程"}
+  ],
+  "pros": [
+    "流程图编辑器直观，设计师与程序可以共用同一份状态机，沟通成本低",
+    "状态机做成资源，可在多个角色与场景复用，做变体时不必复制整棵逻辑",
+    "不需要继承自定义类，挂节点即用，接入旧项目与混合架构都比较轻松",
+    "远程调试能实时显示当前状态与参数，验证转移条件时比加打印更快",
+    "支持嵌套状态机，复杂流程可以分层组织，避免单张图失控，子状态机还能单独复用"
+  ],
+  "cons": [
+    "状态内逻辑仍要自己写脚本，插件只解决跳转与参数，复杂行为仍需架构设计",
+    "2025 年后更新停滞，Godot 新版兼容性与问题修复需要自行承担",
+    "文档分散在仓库与 addons 目录，缺少系统教程，新手上手要拼信息"
+  ],
+  "pitfalls": [
+    "StateMachine 是资源，误改共享实例会同时影响所有使用者，做变体前先复制资源",
+    "转移条件依赖参数名，改名后旧连线不会自动更新，重构时逐条核对",
+    "远程调试只在调试运行下可用，导出后看不到状态高亮，别拿发布版验证流程"
+  ],
+  "bestFor": "用 Godot 4 做界面流程或角色状态管理、希望以流程图维护状态机，并能接受更新停滞与自行承担兼容性验证的开发者。",
+  "avoidWhenZh": "需要长期维护与及时修复、要求强类型条件校验，或希望状态内逻辑也能可视化编排的项目。",
+  "compareTips": {
+    "vs": ["ThePat02__BehaviourToolkit"],
+    "whenZh": "两者都做状态机，gd-YAFSM 以资源与流程图为中心，并带远程调试；BehaviourToolkit 把状态机与行为树放在一起。需要纯状态机与运行中检视选前者；要行为树、黑板共享数据或互相嵌套则看后者。"
+  },
+  "category": "state-logic",
+  "tags": ["状态机", "流程图", "远程调试", "资源复用"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 2, "performance": 4, "stability": 4},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {"claim": "当前版本只兼容 Godot 4.x", "source": "README.md", "quote": "This version is only compatible with **Godot 4.x**, check out [godot3](https://github.com/imjp94/gd-YAFSM/tree/godot3) branch for older version"},
+    {"claim": "在流程图式编辑器中设计状态机", "source": "README.md", "quote": "Design `StateMachine` in a flowchart-like editor"},
+    {"claim": "支持远程调试查看状态流与参数", "source": "README.md", "quote": "Visualize flow of `StateMachine` & inspect parameters in realtime"}
+  ]
+}

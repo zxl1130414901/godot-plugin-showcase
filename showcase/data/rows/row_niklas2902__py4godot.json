@@ -1,0 +1,35 @@
+{
+  "id": "niklas2902__py4godot",
+  "descriptionZh": "实验性 GDExtension 插件，让 Python 脚本直接挂载到 Godot 节点，整体接入成本不高。",
+  "category": "visual-script",
+  "tags": [
+    "Python",
+    "GDExtension",
+    "脚本语言",
+    "Cython",
+    "实验性"
+  ],
+  "prosShort": [
+    "可直接复用成熟的 Python 生态库",
+    "示例覆盖类、信号与导出属性",
+    "预编译包覆盖三大主流桌面平台"
+  ],
+  "consShort": [
+    "早期项目不建议用于正式产品",
+    "仅支持三个桌面 64 位平台，团队要提前评估。",
+    "强依赖本机 Python 运行环境，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 2
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

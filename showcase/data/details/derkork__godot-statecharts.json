@@ -1,0 +1,167 @@
+{
+  "id": "derkork__godot-statecharts",
+  "depth": "standard",
+  "taglineZh": "把状态图搬进 Godot 4，用节点与信号写分层状态机",
+  "summaryZh": "Godot State Charts 把 statecharts 那套分层状态机搬进 Godot 4：状态、转换、守卫与并行区域都是节点，转换条件可以写成声明式守卫表达式，也能用计时器做冷却与延时。代码侧只接触 StateChart 一个类，调用触发转换与设置属性两个方法，不需要继承或实现接口，因此接入现有工程或中途移除都很轻。它支持 GDScript 与 C#，编辑器里会做静态检查与警告，运行时有调试视图可看当前激活状态。非激活状态不逐帧更新，暂停时状态图也跟着暂停。文档站有完整手册与带注释示例，仓库里还带 GUT 测试。",
+  "whatItDoes": "提供 StateChart 节点树，用 CompoundState 表达层级、ParallelState 表达并行区域，转换写成 Transition 节点并挂上 Guard 条件。条件支持表达式、全部满足、任一满足与取反等组合，也能设置延时再触发。脚本调用 trigger 与 set 两个方法即可驱动整张图，不必继承基类。编辑器会检查悬空转换、重复状态与表达式错误并给出警告。运行时调试视图显示当前激活路径与最近转换，非激活状态不参与逐帧更新。",
+  "useCases": [
+    {
+      "titleZh": "角色状态机",
+      "descZh": "角色要处理待机、移动、跳跃、受击与死亡时，用分层状态图把公共逻辑放进父状态，子状态只写差异，避免状态数量爆炸。"
+    },
+    {
+      "titleZh": "UI 与流程控制",
+      "descZh": "菜单、加载、暂停与结算这些互斥界面用状态图管流转，转换条件集中在一处，新增页面时不必在多个脚本里补判断。"
+    },
+    {
+      "titleZh": "技能冷却与连招",
+      "descZh": "用延时转换表达冷却与连招窗口，条件满足才进入下一段，能把时间相关的规则写在图里而不是散落在计时器回调中。"
+    },
+    {
+      "titleZh": "并行状态处理",
+      "descZh": "移动与攻击这类可以同时存在的逻辑拆进并行区域，各自管理自己的状态，避免把两套状态硬塞进一个枚举里互相干扰。"
+    },
+    {
+      "titleZh": "运行期排查状态",
+      "descZh": "行为不对时打开调试视图，看当前激活的是哪条分支、最近一次转换由谁触发，比在代码里加 print 更快定位。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "状态图资源",
+      "descZh": "由状态、转换与守卫节点组成的状态图，随场景保存，也可做成独立资源在多个角色或界面之间复用。"
+    },
+    {
+      "titleZh": "分层与并行结构",
+      "descZh": "用父状态收纳公共转换、用并行区域拆分互不干扰的逻辑，状态数量随功能增长时仍能保持可读。"
+    },
+    {
+      "titleZh": "声明式守卫条件",
+      "descZh": "表达式守卫与组合守卫写出的转换条件，改规则只改图不写代码，策划也能读懂状态是怎么切换的。"
+    },
+    {
+      "titleZh": "可调试的运行视图",
+      "descZh": "运行时调试面板展示激活路径与转换记录，配合编辑器警告可在发布前发现悬空状态与不可达分支。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "StateChart",
+      "descZh": "唯一需要打交道的类，提供触发转换与设置属性两个方法，脚本侧几乎不用为状态机写样板代码。"
+    },
+    {
+      "name": "Guards",
+      "descZh": "转换条件用表达式或组合守卫声明，支持全部满足、任一满足与取反，复杂条件不必写成一串 if。"
+    },
+    {
+      "name": "ParallelState",
+      "descZh": "把互不干扰的状态逻辑放进并行区域，移动与战斗各自流转，避免状态枚举互相覆盖。"
+    },
+    {
+      "name": "HistoryState",
+      "descZh": "记录进入子状态前的历史，返回父状态时能回到上次位置，适合暂停菜单与被打断的连招。"
+    },
+    {
+      "name": "Debug View",
+      "descZh": "运行中查看激活状态与转换记录，配合编辑器警告排查悬空转换与不可达分支。"
+    }
+  ],
+  "limitsZh": "它解决的是状态组织问题，不提供行为树的任务调度、寻路或感知，复杂 AI 仍要另配。状态图以节点与检查器编辑，不是独立图形画布，状态一多时在场景树里翻找会比图编辑器慢。表达式守卫的语法受 Godot 表达式限制，不能直接调用任意复杂逻辑，复杂判断仍要回到脚本设置属性。只支持 GDScript 与 C#，其他语言绑定用不了。调试视图只在运行时生效，无法离线静态验证所有转换组合。仓库自带 GUT 测试与示例，但版本仍在 0.x，接口细节可能随更新调整，切换场景时也要确认状态图随节点正确重建，避免残留旧状态。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/godot_state_charts 复制进项目，并在项目设置里启用"
+    },
+    {
+      "stepZh": "建 StateChart 节点，先画待机与移动两个状态"
+    },
+    {
+      "stepZh": "给转换加表达式守卫，确认条件能正确触发"
+    },
+    {
+      "stepZh": "把公共转换收进父状态，减少重复连线"
+    },
+    {
+      "stepZh": "在脚本里调用触发方法，接上角色输入"
+    },
+    {
+      "stepZh": "开调试视图跑一遍，检查有没有卡死状态"
+    }
+  ],
+  "pros": [
+    "分层与并行结构能压住状态数量，角色功能变多时不必把逻辑塞进一个巨大的枚举与 match。",
+    "代码侧只碰一个类与两个方法，接入现有工程成本很低，不满意时删掉插件也不会留下继承负担。",
+    "守卫用声明式表达式写，规则集中在图里，策划与程序看同一处，改条件不必翻脚本。",
+    "带编辑器静态检查与运行时调试视图，悬空转换与不可达分支能在开发期就暴露出来。"
+  ],
+  "cons": [
+    "状态在场景树与检查器里编辑，没有独立图形画布，状态多时定位与整体阅读比专用图编辑器费劲。",
+    "表达式守卫能力受引擎表达式限制，复杂条件仍要写脚本，图与代码的边界需要团队自己约定。",
+    "只覆盖状态组织，行为树的任务调度、感知与寻路都要另配，不能当完整 AI 框架用。"
+  ],
+  "pitfalls": [
+    "转换条件同时满足又没设优先级，状态会在两处来回抖动，先用调试视图确认哪条转换先触发。",
+    "把暂停菜单状态图挂在会被暂停的节点下，暂停后菜单也停住，需要按暂停模式调整节点归属。",
+    "守卫里引用还没初始化的属性，第一帧转换直接失败，初始化顺序要先于状态图启动。"
+  ],
+  "bestFor": "角色或界面状态开始膨胀、需要分层与并行表达，并且希望规则尽量留在编辑器里的 Godot 4 团队，愿意按节点方式组织逻辑。",
+  "avoidWhenZh": "需要完整行为树、感知与寻路能力，或团队更习惯用纯代码枚举管理状态、不想引入节点结构时。",
+  "compareTips": {
+    "vs": [
+      "bitbrain__beehave",
+      "limbonaut__limboai",
+      "imjp94__gd-YAFSM"
+    ],
+    "whenZh": "beehave 与 limboai 是行为树，适合任务分解与优先级选择；YAFSM 是轻量有限状态机。状态图强在层级与并行，行为树强在任务调度，简单状态机最轻。要表达互斥状态与并行逻辑选本插件，要 AI 决策选行为树。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "状态机",
+    "状态图",
+    "分层",
+    "GDScript",
+    "C#"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "提供比有限状态机更强的状态图",
+      "source": "README.md",
+      "quote": "State Charts are similar to finite state machines, but they are more powerful"
+    },
+    {
+      "claim": "代码只与 StateChart 一个类交互",
+      "source": "README.md",
+      "quote": "Your code only interacts with a single class"
+    },
+    {
+      "claim": "非激活状态不逐帧更新",
+      "source": "README.md",
+      "quote": "Inactive states will not update every frame for improved performance."
+    },
+    {
+      "claim": "内置运行期调试视图",
+      "source": "README.md",
+      "quote": "Built-in debug view allows you to inspect your state charts in the game while they are running."
+    },
+    {
+      "claim": "同时支持 GDScript 与 C#",
+      "source": "README.md",
+      "quote": "Supports both GDScript and C#."
+    },
+    {
+      "claim": "插件版本为 0.22.5",
+      "source": "addons/godot_state_charts/plugin.cfg",
+      "quote": "version=\"0.22.5\""
+    }
+  ]
+}

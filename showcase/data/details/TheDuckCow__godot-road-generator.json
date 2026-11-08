@@ -1,0 +1,163 @@
+{
+  "id": "TheDuckCow__godot-road-generator",
+  "depth": "standard",
+  "taglineZh": "点选绘制路网并生成车道网格，附带沿车道行驶的交通代理与交叉口",
+  "summaryZh": "Road Generator 用 RoadPoint 的横截面参数插值出连续道路几何，支持任意车道数、路肩与多段过渡，Editor 里点选即可拉出路径，再用原生 3D gizmo 微调。RoadContainer 把同组路点收进一个场景容器，容器之间可以吸附拼接，交叉口由 IntersectionNGon 生成连接面。每个路点带车道数据，交通代理 RoadLaneAgent 能沿车道行驶并换道，因此同一份路网既能做静态关卡也能驱动运行时交通。它明确标注尚未完成，主要风险在交叉口形态与复杂路网的性能。路点数据同时驱动几何与交通，因此改路网即可让 AI 跟着变，不必再单独维护导航数据。",
+  "whatItDoes": "插件把道路抽象成一串 RoadPoint，每个点记录车道数、车道宽度、路肩与横截面，点与点之间按曲线插值生成网格，车道数变化时自动做过渡。RoadContainer 负责把兄弟路点组织成一个路网容器，容器可另存为场景并与其他容器吸附拼接。IntersectionNGon 与 RoadIntersection 处理交叉口的连接与车道映射。车道信息同时用于编辑器可视化与运行时查询，RoadLaneAgent 读取当前车道与目标路点后沿曲线移动，可做基础的跟车与换道。另有 RoadTerrain3DConnector 用于把路网贴合 Terrain3D 地形。",
+  "useCases": [
+    {
+      "titleZh": "开放世界道路铺设",
+      "descZh": "在编辑器里沿地形点选拉出高速与街区道路，车道数与路肩按段落调整，改完立刻看到网格与车道线，适合边做地图边定路网。"
+    },
+    {
+      "titleZh": "竞速关卡原型",
+      "descZh": "用路点快速围出赛道走向，再在弯道加宽车道或收窄路肩，验证手感与镜头后再决定是否精修美术，省掉反复建模导出的循环。"
+    },
+    {
+      "titleZh": "程序化生成城市",
+      "descZh": "运行时按街区布局生成路点与容器，插件会即时出网格，适合做随机城市、无尽公路这类每次开局都不同的场景。"
+    },
+    {
+      "titleZh": "交通 AI 验证",
+      "descZh": "用 RoadLaneAgent 在生成好的路网里跑车流，观察换道与路口通行是否顺畅，先在白模阶段调好参数再替换车辆模型。"
+    },
+    {
+      "titleZh": "与地形系统配合",
+      "descZh": "通过 Terrain3D 连接器把路网贴合现有地形高度，避免道路悬空或插进山体，适合已有地形资产的项目补路网。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "连续道路网格",
+      "descZh": "由路点横截面插值出的路面几何，含车道、路肩与过渡段，随路点改动即时重建，可直接用于碰撞与渲染。"
+    },
+    {
+      "titleZh": "车道与路点数据",
+      "descZh": "每个 RoadPoint 携带车道数、宽度与连接关系，运行时可查询所在车道与相邻路点，供交通与导航逻辑使用。"
+    },
+    {
+      "titleZh": "可复用路网容器",
+      "descZh": "把一组路点存成 RoadContainer 场景资源，可在其他关卡实例化并吸附拼接，适合做模块化的街区与路口资产。"
+    },
+    {
+      "titleZh": "沿车道行驶的代理",
+      "descZh": "RoadLaneAgent 按车道曲线移动并处理换道与路口转向，产出可直接观察的实时交通流，用于验证路网连通性。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Cross-section RoadPoint",
+      "descZh": "每个路点定义车道数、宽度与路肩，相邻点之间平滑插值，支持车道数渐变。"
+    },
+    {
+      "name": "Click-to-Draw",
+      "descZh": "在视口里点选即可拉出道路，随后可用原生 3D gizmo 快速微调位置、高度与朝向。"
+    },
+    {
+      "name": "Lane Gizmo",
+      "descZh": "拖拽手柄即可改车道数与宽度，按住 Shift 可一次改整个容器内的所有路点。"
+    },
+    {
+      "name": "RoadContainer",
+      "descZh": "把路点收进场景容器，容器可另存复用，也能与其他容器吸附拼接成更大路网。"
+    },
+    {
+      "name": "IntersectionNGon",
+      "descZh": "为多条道路交汇生成连接面并映射车道，减少手工摆放路口几何的工作量。"
+    }
+  ],
+  "limitsZh": "README 开头就标注项目尚未功能完整，交叉口与复杂路网的形态仍会随版本变化，不能按稳定成品预期。只支持 Godot 4.4 以上，Godot 3 分支停在 0.6.0 且不再跟进新特性。全部是 GDScript，路点密集或同时生成多条道路时，编辑器重建网格会明显卡顿，程序化大规模生成要控制每帧生成量。交通代理只是基础的车道跟随，不含红绿灯、让行、拥堵避让与多车道博弈，复杂交通要自己补逻辑。贴合地形依赖 Terrain3D 连接器，用其他地形方案要自己写高度采样。生成的网格是即时结果，美术细节、路面材质与标线仍要另外处理。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/road-generator 目录复制进项目并在插件面板启用"
+    },
+    {
+      "stepZh": "新建 RoadContainer 容器并放置首个 RoadPoint 作为道路开端"
+    },
+    {
+      "stepZh": "在视口点选延伸路点，拉出主干走向"
+    },
+    {
+      "stepZh": "用车道手柄调每段的车道数与路肩宽度"
+    },
+    {
+      "stepZh": "在交汇处放交叉口并检查车道映射"
+    },
+    {
+      "stepZh": "加 RoadLaneAgent 跑一遍并观察换道与车流通行"
+    }
+  ],
+  "pros": [
+    "按横截面插值生成道路，车道数可以从单车道渐变到多车道，不用为每种组合单独准备模型。",
+    "点选绘制加原生 gizmo 微调，编辑器内改路点即时重建网格，迭代路网比在建模软件里改快得多。",
+    "同一份路点同时供几何生成与交通代理使用，静态关卡与程序化路网不必维护两套道路数据。",
+    "RoadContainer 可另存为场景并互相吸附，街区与路口能做成可复用模块，大型地图可以拆分协作。",
+    "MIT 许可、纯 GDScript，路点与容器结构清晰，接入自定义车辆或导航逻辑时改源码门槛低。"
+  ],
+  "cons": [
+    "官方明确尚未功能完整，交叉口形态与部分路网组合仍在变动，升级版本可能要重调已有路点。",
+    "只支持 Godot 4.4 以上，老项目或 Godot 3 分支无法享受新特性，迁移成本高。",
+    "全 GDScript 且每次改动重建网格，路点密集的大地图在编辑器里会卡，程序化生成也要限流。",
+    "交通代理只做基础车道跟随，红绿灯、让行与拥堵处理都要自己实现。"
+  ],
+  "pitfalls": [
+    "路点顺序接错导致道路自交或折返，生成网格出现翻面，画长路时先用示例场景确认连接方向。",
+    "路点密度过高又频繁改车道数，编辑器每次重建都卡顿，把路点抽稀到能表达曲率的最小数量。",
+    "交叉口两侧车道数不匹配，连接面出现缝隙或车道错位，先统一两侧车道数再放交叉口。"
+  ],
+  "bestFor": "需要可编辑三维路网、又要让交通 AI 沿路行驶的 3D 项目，尤其是开放世界、竞速与程序化城市原型。",
+  "avoidWhenZh": "要求开箱即用的完整交通系统、项目仍停留在 Godot 4.3 以下，或路网只做一次性静态模型时。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-blender-exporter",
+      "TokisanGames__Terrain3D"
+    ],
+    "whenZh": "在 Blender 里手工建模再导出适合一次性、形态固定的赛道，改一次就要重走导出流程；本插件在编辑器里直接改路点并即时生成，适合反复迭代与程序化。Terrain3D 只解决地形与地表，道路仍要另外生成，两者常配合使用而不是互相替代。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "道路生成",
+    "程序化",
+    "路网",
+    "交通模拟",
+    "3D"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "项目尚未功能完整",
+      "source": "README.md",
+      "quote": "This project is not feature complete yet"
+    },
+    {
+      "claim": "主分支支持 Godot 4.4 以上",
+      "source": "README.md",
+      "quote": "4.4+"
+    },
+    {
+      "claim": "支持点选绘制与车道手柄",
+      "source": "README.md",
+      "quote": "Click-to-draw with snapping"
+    },
+    {
+      "claim": "路点横截面参数在相邻点间插值",
+      "source": "README.md",
+      "quote": "The many settings of RoadPoints smoothly interpolate from one point to the next"
+    },
+    {
+      "claim": "插件版本为 0.9.5",
+      "source": "addons/road-generator/plugin.cfg",
+      "quote": "version=\"0.9.5\""
+    }
+  ]
+}

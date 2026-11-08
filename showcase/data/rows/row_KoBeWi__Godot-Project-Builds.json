@@ -1,0 +1,35 @@
+{
+  "id": "KoBeWi__Godot-Project-Builds",
+  "descriptionZh": "用例程与任务编排 Godot 项目导出、商店发布与文件整理的自动化构建工具",
+  "category": "platform-export",
+  "tags": [
+    "构建自动化",
+    "导出发布",
+    "商店上传",
+    "可视化任务",
+    "独立工具"
+  ],
+  "prosShort": [
+    "例程编排多平台导出与商店发布任务",
+    "内置 Steam、GOG、Epic 与 itch.io 商店上传任务",
+    "图形化配置，便于交接与跨项目复用"
+  ],
+  "consShort": [
+    "依赖各商店 CLI，环境容易缺件",
+    "配置存工程内，跨项目复用麻烦",
+    "出错时仍需读脚本与日志排查"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

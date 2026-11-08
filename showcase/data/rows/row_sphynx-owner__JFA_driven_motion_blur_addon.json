@@ -1,0 +1,33 @@
+{
+  "id": "sphynx-owner__JFA_driven_motion_blur_addon",
+  "descriptionZh": "基于跳跃泛洪的 Godot 4 运动模糊工具包，含调试视图与径向模糊",
+  "category": "3d-shader",
+  "tags": [
+    "运动模糊",
+    "后处理",
+    "跳跃泛洪",
+    "相机效果"
+  ],
+  "prosShort": [
+    "三种模糊实现可按需对比选型",
+    "附带调试视图与径向模糊工具",
+    "纯资源插件拷贝即可接入，团队上手也快。"
+  ],
+  "consShort": [
+    "与 MSAA 和透明物体存在明显冲突",
+    "版本分支分散维护成本偏高"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

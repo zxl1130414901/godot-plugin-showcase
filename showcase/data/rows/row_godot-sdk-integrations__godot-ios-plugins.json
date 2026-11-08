@@ -1,0 +1,34 @@
+{
+  "id": "godot-sdk-integrations__godot-ios-plugins",
+  "descriptionZh": "Godot 官方 iOS 原生插件源码与构建脚本集合，可编译 XCFramework 接入内购、ARKit 与 GameCenter",
+  "category": "platform-export",
+  "tags": [
+    "iOS",
+    "原生插件",
+    "XCFramework",
+    "内购"
+  ],
+  "prosShort": [
+    "官方维护，插件接口与 iOS 导出一致",
+    "覆盖内购、ARKit、GameCenter 与相机音频等能力",
+    "头文件、打包与发布脚本齐全"
+  ],
+  "consShort": [
+    "必须 macOS 与 Xcode 环境，构建门槛偏高",
+    "插件只在 iOS 生效，编辑器内无法调试",
+    "升级引擎要重切子模块并重编"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 5,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

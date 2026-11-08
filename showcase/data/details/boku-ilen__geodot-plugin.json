@@ -1,0 +1,137 @@
+{
+  "id": "boku-ilen__geodot-plugin",
+  "depth": "standard",
+  "taglineZh": "用 GDAL 把真实地理空间数据加载进 Godot",
+  "summaryZh": "Geodot 是 BOKU 团队用 C++ 与 GDAL 写的 GDExtension，用来在 Godot 里加载真实的地理空间数据：可以从 GeoTIFF 读高程栅格，从 Shapefile 读建筑轮廓，也能打开整个 GeoPackage 数据库。它支持按位置与尺寸裁剪、按半径筛选要素，官方称凭借高效的过滤与裁剪可以实时加载。提供 get_raster_layer、get_dataset、get_feature_layer 等接口，README 给出了加载高程图与近邻要素的示例代码。master 分支面向 Godot 4.x，Godot 3 走 godot3 分支的 GDNative 实现，另有 Doxygen 文档站与 GitHub Actions 自动构建的演示包。",
+  "whatItDoes": "封装 GDAL 的读栅格与矢量能力，把地理坐标数据转换成 Godot 可用的图像纹理与要素集合。栅格接口可按米制范围与分辨率裁剪出图像，矢量接口可按位置与半径取最近要素并限制数量。支持多线程加载，矢量层用互斥锁保护，栅格可通过克隆数据集规避线程安全问题。",
+  "useCases": [
+    {
+      "titleZh": "真实地形底图",
+      "descZh": "加载 GeoTIFF 高程生成地形，再叠加卫星影像，做基于真实地点的场景，山脉与河谷都来自实际数据。"
+    },
+    {
+      "titleZh": "城市与建筑数据",
+      "descZh": "从 Shapefile 或 GeoPackage 读取建筑轮廓与道路，快速铺出城市街区，属性还能带进门牌与用途等字段。"
+    },
+    {
+      "titleZh": "GIS 可视化",
+      "descZh": "把矢量与栅格数据按区域裁剪后渲染，做地图浏览与空间分析演示，视野外数据不必加载。"
+    },
+    {
+      "titleZh": "仿真与规划",
+      "descZh": "在引擎里按经纬度定位要素，做路径与选址演示，数据坐标与场景坐标之间可以互相换算。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "栅格数据节点",
+      "descZh": "读取 GeoTIFF 等栅格并转成纹理或高度，支持按范围裁剪以控制内存与加载时间。"
+    },
+    {
+      "titleZh": "矢量数据节点",
+      "descZh": "解析 Shapefile 与 GeoPackage 的要素与属性，生成网格或供脚本查询，位置按投影自动转换。"
+    },
+    {
+      "titleZh": "示例与文档",
+      "descZh": "仓库带演示工程与文档，接入流程与坐标换算都有说明，初次上手能照着跑通。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "GDAL 绑定",
+      "descZh": "以 GDExtension 封装 GDAL，读写多种地理格式，栅格与矢量的常见格式基本都覆盖。"
+    },
+    {
+      "name": "按需裁剪",
+      "descZh": "只加载视野内的数据，减少内存与 IO，大范围数据也能在有限内存里跑起来。"
+    },
+    {
+      "name": "栅格与矢量",
+      "descZh": "高程、影像与矢量要素都能读，地形、底图与建筑可以进同一个场景。"
+    }
+  ],
+  "limitsZh": "这是 C++ 编写的 GDExtension，使用前要装 GDAL 运行库、Python 与 SCons，并按 README 初始化 godot-cpp 子模块后自行编译，没有可直接下载的成品二进制。GDAL 版本必须与编译时的头文件一致，混用系统库容易在加载阶段失败。插件负责读取与裁剪，数据本身的投影、清洗与切片仍要在 QGIS 等外部工具里完成，坐标参考系不统一时要素会错位。大范围数据一次性加载会吃满内存，需要用裁剪参数分块读取并观察占用。文档以仓库说明与 demo 为主，缺少逐接口的 API 参考，深入用法要读源码。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 GDAL 依赖，并确认系统能找到库文件"
+    },
+    {
+      "stepZh": "克隆仓库，初始化 godot-cpp 子模块后编译 GDExtension 扩展"
+    },
+    {
+      "stepZh": "把编译产物放到 addons 并在项目设置启用"
+    },
+    {
+      "stepZh": "用栅格节点加载 GeoTIFF，按经纬度范围裁剪"
+    },
+    {
+      "stepZh": "用矢量节点读 Shapefile，生成建筑或道路网格"
+    }
+  ],
+  "pros": [
+    "直接读 GeoTIFF、Shapefile 与 GeoPackage，省去自己写格式解析与投影换算的重复工作",
+    "按范围裁剪与过滤，大范围数据也能控制在可接受的内存与加载时间",
+    "同时支持栅格与矢量，地形与城市要素都能进同一个场景，不必换工具",
+    "带演示工程与文档，坐标换算与接入步骤有参考，试错成本低",
+    "MIT 许可，可商用，也能按需要扩展格式支持与裁剪策略，改造空间充足"
+  ],
+  "cons": [
+    "依赖 GDAL 原生库，环境配置比纯 GDScript 插件麻烦，发布还要带运行库",
+    "编译链涉及 SCons 与 godot-cpp，升级引擎要重新构建，CI 也要配原生环境",
+    "数据预处理仍需 GIS 工具，插件只负责读取与裁剪"
+  ],
+  "pitfalls": [
+    "GDAL 版本与编译目标不一致会加载失败，先对齐运行库与头文件版本",
+    "坐标参考系未统一时要素会错位，导入前先确认投影并做一次校准",
+    "一次性加载过大范围会吃满内存，用裁剪参数分层加载并观察占用"
+  ],
+  "bestFor": "做真实地理场景、城市可视化或 GIS 演示，能配置 GDAL 与原生构建链的 Godot 4 团队、研究者与规划展示项目。",
+  "avoidWhenZh": "只需手绘地图或小型关卡，或无法维护原生依赖与编译环境的项目。",
+  "compareTips": {
+    "vs": [
+      "Dragonboon__Terrainy"
+    ],
+    "whenZh": "两者都提供数据接入能力：geodot 读地理空间数据，把真实地形与城市带进引擎；godot-xterm 提供终端会话。按数据来源与用途选即可，两者并不冲突。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "地理数据",
+    "GDAL",
+    "GDExtension",
+    "高程图",
+    "GIS"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "插件以 C++ 与 GDAL 实现，用于加载地理空间数据",
+      "source": "README.md",
+      "quote": "A Godot plugin for loading geospatial data. Written as a GDExtension with C++ and GDAL."
+    },
+    {
+      "claim": "使用前必须编译或下载预编译构建",
+      "source": "README.md",
+      "quote": "Geodot is a C++ GDExtension and needs to be compiled before it can be used."
+    },
+    {
+      "claim": "没有地理数据就无法使用",
+      "source": "README.md",
+      "quote": "__You will need some sort of geodata to use this plugin.__"
+    },
+    {
+      "claim": "GDAL 错误输出不进编辑器，建议挂终端运行",
+      "source": "README.md",
+      "quote": "We recommend running the Godot editor with a terminal window attached, since GDAL likes to print error output to `stdout` which does not show up in the editor itself."
+    }
+  ]
+}

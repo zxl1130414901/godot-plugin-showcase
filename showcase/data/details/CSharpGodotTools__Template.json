@@ -1,0 +1,145 @@
+{
+  "id": "CSharpGodotTools__Template",
+  "depth": "standard",
+  "taglineZh": "带 ENet 联机、可视化调试与代码生成的 Godot 4 C# 模板",
+  "summaryZh": "C# Godot Tools Template 是一个面向 Godot 4 的 C# 项目脚手架，把联机、调试、代码生成与测试这些通常要自己搭的部分预先配好。模板提供最小 2D、最小 3D 与 FPS 三个示例场景，打开工程点 Run Setup 就会完成初始化。内置 ENet 多人框架与 PacketGen 包生成器，配置类由 OptionsGen 从脚本生成；运行期有控制台命令、指标浮层与可视化调试；测试直接接 GDUnit4。README 还给出集中式组件脚本的写法，并引用实测数据说明在大量节点下能带来明显性能收益。",
+  "whatItDoes": "提供一套已接好 C# 工具链的 Godot 工程骨架，涵盖场景模板、调试、测试与联网基础设施。安装插件会自动完成工程配置、依赖恢复与编辑器重启，减少手工配置步骤。把集中式组件管理与调试浮层做成可复用模块，直接用于性能敏感与需要频繁观测的项目。",
+  "useCases": [
+    {
+      "titleZh": "联机原型",
+      "descZh": "模板内置 ENet 多人框架与包生成流程，开房间、同步角色状态与处理断线都有现成骨架，原型阶段省下大量基础设施时间。"
+    },
+    {
+      "titleZh": "C# 项目脚手架",
+      "descZh": "集中式组件、服务定位器与选项生成都已配好，新项目不必重复搭输入、配置与网络层，起步就能写玩法逻辑。"
+    },
+    {
+      "titleZh": "调试与观测",
+      "descZh": "内置控制台命令、指标浮层与可视化调试，运行中就能查看帧率、内存与网络状态，也能改参数而不必重新编译。"
+    },
+    {
+      "titleZh": "测试接入",
+      "descZh": "工程已接 GDUnit4，可以写 C# 单元测试与场景测试来覆盖网络包与组件逻辑，回归时不必手工点场景验证。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "项目模板",
+      "descZh": "包含最小 2D 与 3D 场景以及一个 FPS 示例，打开工程点 Run Setup 就会完成初始化并生成可直接运行的项目。"
+    },
+    {
+      "titleZh": "代码生成器",
+      "descZh": "PacketGen 与 OptionsGen 从脚本定义生成网络包与配置类，减少手写样板代码，改动定义后重新生成即可。"
+    },
+    {
+      "titleZh": "调试工具",
+      "descZh": "控制台命令、指标浮层与可视化调试共同组成运行期观测体系，帮助定位性能瓶颈与逻辑错误。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "ENet 联机",
+      "descZh": "内置多人同步骨架与包定义流程，客户端连接、状态同步与断线处理都有示例，联机原型起步更快。"
+    },
+    {
+      "name": "控制台命令",
+      "descZh": "运行中执行命令修改参数、切换状态或打印信息，测试玩法不必反复重新编译与重启工程。"
+    },
+    {
+      "name": "指标浮层",
+      "descZh": "帧率、内存与网络指标直接叠在画面上，性能问题出现时能立刻看到数值变化，定位更快。"
+    },
+    {
+      "name": "可视化调试",
+      "descZh": "把碰撞体、射线与状态机画在场景里，排查物理与逻辑问题时不必只靠日志推断。"
+    },
+    {
+      "name": "GDUnit4",
+      "descZh": "已接入 GDUnit4 测试框架，写好的 C# 用例可以直接运行，覆盖网络包解析与组件行为等关键路径。"
+    }
+  ],
+  "limitsZh": "模板只面向 C#，要求 .NET 10 SDK 与较新的 Godot C# 版本，GDScript 项目无法直接套用，老项目迁移也要改语言与工程结构。功能多意味着体积与学习曲线都比极简模板大，新成员需要先读 Setup、网络与调试几节才能上手。代码生成器在包定义或配置变更后必须重新生成，忘记这一步会出现编译缺失或联机解析失败。控制台与指标浮层在发布包里仍有开销，需要手动关闭。ENet 方案面向房间式联机，匹配、回滚与大规模同步仍要自己扩展。文档虽分节详细，但集中在 README，缺少独立示例仓库。",
+  "workflowZh": [
+    {
+      "stepZh": "先安装 .NET 10 SDK 与对应的 Godot C# 版本，确认命令行能构建项目"
+    },
+    {
+      "stepZh": "下载模板发布包，打开工程后点 Run Setup 完成初始化"
+    },
+    {
+      "stepZh": "按项目类型选择最小 2D、最小 3D 或 FPS 示例场景作为起点"
+    },
+    {
+      "stepZh": "改动包定义或配置后，用 PacketGen 与 OptionsGen 重新生成对应代码"
+    },
+    {
+      "stepZh": "运行 GDUnit4 用例确认测试环境与网络模拟都正常工作"
+    }
+  ],
+  "pros": [
+    "联机、调试、代码生成与测试一次给齐，省去搭基础设施的时间",
+    "集中式组件脚本把逻辑集中到少量节点，在大量节点场景里带来明显性能收益，实测数据已在文档给出。",
+    "控制台命令与指标浮层让运行期排错更快，参数能现场修改，不必反复加日志再重新编译部署。",
+    "已接入 GDUnit4 测试框架与包生成器，代码生成与测试流程都已成型，工程化程度明显高于一般脚手架。",
+    "README 按 Setup、网络、调试与测试分节说明，还附性能对比数据与联机入门指引，上手路径清晰。"
+  ],
+  "cons": [
+    "模板只面向 C#，纯 GDScript 项目无法直接套用，改用 C# 也意味着重写脚本与调整工程结构。",
+    "依赖 .NET 10 SDK 与较新的 Godot C# 版本，停留在旧引擎的项目升级要同时处理运行时与 API 变化。",
+    "功能多意味着模板体积与学习曲线比极简模板大，新成员要先读完 Setup、网络与调试几节才能上手。"
+  ],
+  "pitfalls": [
+    "Run Setup 未完成就运行会缺少生成的包与配置类，编译报错，先等初始化结束再打开示例场景。",
+    "包定义改动后忘记重新生成代码，客户端与服务端会因结构不一致而解析失败，改完立刻重跑生成器。",
+    "控制台与指标浮层在发布包里仍会产生开销并暴露调试信息，出包前应在设置里关闭或裁剪。"
+  ],
+  "bestFor": "用 C# 做 Godot 4 联机游戏，希望从自带网络同步、运行期调试与单元测试的完整脚手架起步的独立开发者与小型团队。",
+  "avoidWhenZh": "使用 GDScript 或无法升级到 .NET 10 的项目，以及只想在既有工程里补一两个功能的场景，都不适合整模板接入。",
+  "compareTips": {
+    "vs": [
+      "devmoreir4__godot-3d-multiplayer-template"
+    ],
+    "whenZh": "两者都提供项目起点：C# Template 面向 C# 联机游戏，自带 ENet 网络、代码生成与调试工具；2D Top-Down Template 面向 GDScript 俯视角游戏。按语言与玩法类型选即可。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "C#模板",
+    "工程基建",
+    "调试工具",
+    "联网起始",
+    "GDUnit4"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "前置条件为 .NET 10 SDK 与最新 Godot C# 版本",
+      "source": "README.md",
+      "quote": "- [.NET 10 SDK](https://dotnet.microsoft.com/download)\\n- [Latest Godot C# Release](https://godotengine.org/)"
+    },
+    {
+      "claim": "安装方式是打开工程并点击 Run Setup",
+      "source": "README.md",
+      "quote": "Download the latest release and open `project.godot`. Click `Run Setup` to restart Godot with your template ready to go."
+    },
+    {
+      "claim": "集中式组件脚本在万级节点场景下有约 3.5 倍性能提升",
+      "source": "README.md",
+      "quote": "If we use a centralized component manager that handles all processes we notice a 3.5x increase in perf"
+    },
+    {
+      "claim": "模板内置 Setup 插件负责安装流程界面",
+      "source": "Template/addons/SetupPlugin/plugin.cfg",
+      "quote": "description=\"Adds UI controls to start the setup process.\""
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "id": "oniksan__godobuf",
+  "depth": "standard",
+  "taglineZh": "用插件把 proto 文件编译成纯 GDScript 的 Protobuf 编解码代码",
+  "summaryZh": "Godobuf 是一个把 proto 描述文件编译成 GDScript 的编辑器插件，生成结果包含用户定义的消息类与一套核心序列化代码。它支持 Protobuf v2 与 v3，覆盖嵌套消息、常用标量类型、oneof、map、repeated、packed 字段以及带 public 修饰的 import。插件本身用 GDScript 编写，不需要重新编译 Godot 引擎，启用后在编辑器面板选择 proto 文件即可生成。面向网络协议或存档交换的项目可以把生成代码直接放进工程使用，并在出错时返回结果码。",
+  "whatItDoes": "插件在编辑器里提供面板，读取 proto 文件后按类型映射生成 gd 文件：消息定义变成内部类，字段读写、序列化与反序列化由附带的核心代码完成。生成的类可以直接在项目里实例化、填值，再打包成字节数组用于网络或文件；解包失败会返回结果码，方便调用方区分错误。",
+  "useCases": [
+    {
+      "titleZh": "网络协议编解码",
+      "descZh": "客户端与服务端需要共享同一份消息格式，用 proto 定义协议并自动生成 GDScript 类，收发时直接快速高效序列化二进制。"
+    },
+    {
+      "titleZh": "存档与数据交换",
+      "descZh": "存档或工具链之间要交换结构化数据，用同一份 proto 描述字段并生成稳定代码，避免大量重复手写易错的解析逻辑。"
+    },
+    {
+      "titleZh": "跨语言对接",
+      "descZh": "服务端或其他工具已用现有 Protobuf，客户端直接用生成的 GDScript 类对接同一份完整 proto，双方语言差异不影响具体协议。"
+    },
+    {
+      "titleZh": "协议版本演进",
+      "descZh": "协议版本经常增删字段，可以依靠 proto 的编号与类型规则平滑管理变化，再自动重新生成代码保持两端同步一致。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "消息类生成",
+      "descZh": "每个 proto 消息都会生成对应的 GDScript 内部类，字段可以直接以属性形式访问，支持嵌套与互相复用。"
+    },
+    {
+      "titleZh": "序列化核心",
+      "descZh": "附带完整打包与解包实现，支持标量、枚举、数组与映射类型，调用方无需自己手动拼底层字节。"
+    },
+    {
+      "titleZh": "编辑器面板",
+      "descZh": "在 Godot 编辑器里直接选择 proto 文件并一键生成 gd 文件，省去整套外部命令行工具与额外构建繁琐步骤。"
+    },
+    {
+      "titleZh": "调试字符串",
+      "descZh": "消息类可直接输出可读的调试字符串，打印完整字段内容时比裸字节明显更容易排查问题。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "纯 GDScript",
+      "descZh": "插件与运行时代码都用纯 GDScript 编写，不需要重编译引擎，也不依赖任何外部编译器。"
+    },
+    {
+      "name": "v2 与 v3",
+      "descZh": "同时完整支持两代 Protobuf 语法，既有旧协议与新项目可以直接共用同一套生成流程。"
+    },
+    {
+      "name": "复合类型",
+      "descZh": "oneof、map、repeated 与 packed 字段都会生成一套完整对应结构，覆盖大部分完整常见协议写法。"
+    },
+    {
+      "name": "导入支持",
+      "descZh": "完整支持 proto 之间的 import 与 public 修饰，公共定义可以单独拆分到独立文件随时复用。"
+    },
+    {
+      "name": "结果码",
+      "descZh": "解包会直接返回明确的结果码，调用方可以区分数据损坏、类型不符与字段缺失。"
+    }
+  ],
+  "limitsZh": "不支持列表需要提前确认：packages、reserved、services、Any 类型与字段默认值都不在支持范围，用到这些特性的协议要改结构或自行补实现。主分支对应 Godot 4.6，其他引擎版本要切到对应标签分支，版本错配时生成或运行都可能失败。生成的代码把消息与核心逻辑放在同一文件，大型 proto 会产出体积可观的脚本，编辑与加载都要花时间。插件不提供服务端 stub 或 RPC 框架，传输层与连接管理仍要自己搭。默认值选项缺失意味着字段缺省行为要按生成规则手动处理。",
+  "workflowZh": [
+    {
+      "stepZh": "把 godobuf 目录复制到项目的 addons 文件夹，并在项目设置中启用插件。"
+    },
+    {
+      "stepZh": "在 Godot 编辑器的 Godobuf 面板选择 proto 文件与目标输出位置。"
+    },
+    {
+      "stepZh": "点击生成，得到包含消息类与核心逻辑的 gd 文件。"
+    },
+    {
+      "stepZh": "在项目里实例化消息类，填值后调用打包得到字节数组。"
+    },
+    {
+      "stepZh": "接收端调用解包并按结果码处理错误，再接上传输层。"
+    }
+  ],
+  "pros": [
+    "纯 GDScript 实现，不需要额外编译引擎也不需安装 protoc，整体接入门槛非常低，几乎没有额外依赖。",
+    "同时覆盖 v2 与 v3 及 oneof、map、repeated 等常用结构，日常常见协议表达已经基本够用。",
+    "编辑器面板一键生成，生成后的类可方便地在项目里实例化并立刻使用。",
+    "解包会直接提供结果码与完整调试字符串，排查协议问题时信息相对比较清楚。"
+  ],
+  "cons": [
+    "原型、服务与 Any 等特性缺失，复杂协议只能改结构或自己补。",
+    "主分支绑定 Godot 4.6，其他版本要切分支，版本管理容易出错。",
+    "大型 proto 生成的文件体积明显膨胀，脚本加载与编辑器响应都会变慢。"
+  ],
+  "pitfalls": [
+    "引擎版本与插件分支必须对应，4.6 之外的版本先切到匹配标签再生成代码。",
+    "proto 里用了 packages 或默认值选项时生成结果不会如预期，先按支持列表裁剪定义。",
+    "解包失败不会抛异常而是返回结果码，调用方必须显式检查，否则坏数据会静默流入逻辑。"
+  ],
+  "bestFor": "适合用 Protobuf 定义网络协议或数据格式、希望客户端直接保持纯 GDScript 的 Godot 项目，尤其是中小型、协议结构相对常规的团队。",
+  "avoidWhenZh": "依赖 packages、services 或 Any 类型的协议不适合；需要成熟 RPC 框架与传输层的项目应另配方案。",
+  "compareTips": {
+    "vs": [
+      "foxssake__netfox"
+    ],
+    "whenZh": "与 foxssake 的 netfox 相比，后者是完整的网络回滚与同步框架，协议只是其中一环；Godobuf 专注 proto 到 GDScript 的编解码生成，已有协议定义、只想补序列化层、不打算自己实现整套网络同步时选它。"
+  },
+  "category": "network",
+  "tags": [
+    "protobuf",
+    "serialization",
+    "codegen",
+    "gdscript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "把 proto 文件编译为 GDScript 输出文件",
+      "source": "README.md",
+      "quote": "Godobuf is a Google Protocol Buffers compiler from a `.proto` file description to a GDScript output file."
+    },
+    {
+      "claim": "纯 GDScript 实现，无需重编译引擎",
+      "source": "README.md",
+      "quote": "Godobuf is easy to use and does not require rebuilding the Godot engine because it is written in GDScript. All you need is to start the plugin."
+    },
+    {
+      "claim": "不支持 packages、services、Any 与默认值",
+      "source": "README.md",
+      "quote": "- Packages\n- Reserved statements\n- Services\n- `Any` types\n- Default values option for fields"
+    },
+    {
+      "claim": "插件版本对应 Godot 4.6",
+      "source": "addons/godobuf/plugin.cfg",
+      "quote": "0.7.0 for Godot 4.6"
+    }
+  ]
+}

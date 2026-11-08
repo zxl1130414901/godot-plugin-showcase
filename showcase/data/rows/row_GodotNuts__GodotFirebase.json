@@ -1,0 +1,14 @@
+{
+  "id": "GodotNuts__GodotFirebase",
+  "descriptionZh": "用纯 GDScript 接入 Firebase 认证、实时数据库、Firestore、存储与云函数的 SDK，覆盖登录到文件上传的常见需求。",
+  "category": "network",
+  "tags": ["Firebase", "账号认证", "云存档", "实时数据库", "SSE"],
+  "prosShort": ["认证、数据库与存储覆盖比较全", "纯脚本实现，桌面与移动端共用", "附带 SSE 客户端，支持服务端推送"],
+  "consShort": ["REST 实现延迟与流量高于原生 SDK", "文档放在外部 wiki，仓库内说明很少", "iOS 端需额外原生插件与配置"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 3, "maintenance": 4, "performance": 2, "stability": 3},
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

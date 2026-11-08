@@ -1,0 +1,33 @@
+{
+  "id": "NoisyChain__Sakuga-Engine",
+  "category": "state-logic",
+  "tags": [
+    "格斗游戏",
+    "C#",
+    "回滚联机",
+    "状态机"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 2
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "descriptionZh": "用 C# 写的 2D 1v1 动漫格斗游戏引擎，含状态机、角色示例与回滚联机，适合直接开工做格斗原型",
+  "prosShort": [
+    "状态机与帧数据体系已成，起步省事",
+    "自带回滚联机与房间流程，团队上手也快。",
+    "训练与调试模式齐全，调招直观"
+  ],
+  "consShort": [
+    "只能整包使用，局部移植成本高",
+    "限定 2D 1v1，3D 与组队需改造，团队要提前评估。"
+  ],
+  "sampleStatus": "none"
+}

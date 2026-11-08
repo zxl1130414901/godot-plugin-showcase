@@ -1,0 +1,145 @@
+{
+  "id": "OrigamiDev-Pete__TODO_Manager",
+  "depth": "standard",
+  "taglineZh": "在编辑器停靠面板里汇总代码中的 TODO 与备注",
+  "summaryZh": "TODO Manager 在 Godot 编辑器加一个停靠面板，扫描项目脚本里的 TODO、FIXME 与自定义注释，把条目集中列出来，点一下就能跳到对应行或交给外部编辑器打开。语法比较宽松，注释风格不限，正则模式可以自己加，颜色也能按类型配置。它支持 GDScript、C# 与 GDNative，仓库还带简体中文 README。安装走 AssetLib 或直接放 addons 目录，启用插件后面板会随项目扫描更新。插件只读取源码，不会修改或写入任何脚本文件，配置随项目一起保存。",
+  "whatItDoes": "插件启动后遍历项目脚本，用一组可配置的正则匹配注释行，把文件、行号与文本收集到停靠面板。面板按颜色分组显示，双击条目即可在编辑器里定位，也能调用系统默认或指定的外部编辑器打开文件。匹配规则、颜色与是否扫描第三方目录都在设置里调，配置随项目保存。它只读取源码，不改动文件，也不参与构建。",
+  "useCases": [
+    {
+      "titleZh": "集中查看待办",
+      "descZh": "把散落在几十个脚本里的 TODO 汇到一页，按文件分组浏览，接手项目时先看这里，不用再逐个打开文件去搜索翻找。"
+    },
+    {
+      "titleZh": "标记待修问题",
+      "descZh": "用 FIXME 与 HACK 等自定义关键词区分优先级，颜色不同，一眼能看出哪些要先处理，正则里还能带上项目编号便于追溯。"
+    },
+    {
+      "titleZh": "跳转与外部编辑",
+      "descZh": "双击条目跳到对应行，或直接用外部编辑器打开文件，省去在文件树里翻找，面板里会一并显示文件名与具体行号。"
+    },
+    {
+      "titleZh": "团队统一注释规范",
+      "descZh": "自定义正则把团队约定的标记纳入扫描，代码评审时更容易对齐检查项，颜色也能按标记类型分开设置方便区分。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "待办清单面板",
+      "descZh": "编辑器停靠页里按文件与类型列出匹配到的注释条目，随扫描更新，双击还能直接跳进对应的脚本行。"
+    },
+    {
+      "titleZh": "自定义匹配规则",
+      "descZh": "可增删的正则模式，决定哪些注释会被收进面板，写法照 Godot 的正则语法，团队私有标记也能一次配好。"
+    },
+    {
+      "titleZh": "配色方案",
+      "descZh": "按关键词或类型设置颜色，让不同优先级一眼可分，比如 FIXME 用红色、TODO 用黄色，颜色会直接显示在面板条目上。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "宽松语法",
+      "descZh": "不强制固定格式，按自己习惯写 TODO 或中文备注也能被识别，前后缀与大小写基本不影响。"
+    },
+    {
+      "name": "正则可扩展",
+      "descZh": "自定义正则模式可把团队常见私有标记、工单编号一并收进扫描范围与面板里。"
+    },
+    {
+      "name": "快速跳转",
+      "descZh": "从面板直接跳到源码行，或交给外部编辑器定位，省去在文件树里再一层层翻目录找文件。"
+    },
+    {
+      "name": "多语言脚本",
+      "descZh": "GDScript、C# 与 GDNative 都在扫描范围内，混用多种语言的工程也能一起收进同一个面板查看待办。"
+    },
+    {
+      "name": "中文说明",
+      "descZh": "仓库附带简体中文 README，安装步骤与目录改名注意事项都有对照版本，中文读者不必再靠猜。"
+    }
+  ],
+  "limitsZh": "它只是注释的聚合视图，不做任务分配、状态流转或与外部 Issue 系统同步，勾选完成也只是面板内状态。扫描基于正则，跨行注释、字符串里出现的 TODO 以及动态拼接的文本都可能漏判或误判。项目很大时全量扫描会拖慢编辑器启动，需要手动限制扫描目录。面板不提供搜索过滤与排序的复杂组合，条目多时查找仍靠肉眼。插件长期只做小修小补，功能边界多年未扩展。面板没有搜索框，条目多时只能按文件顺序逐个看。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 安装插件，或把 Todo_Manager 目录放进项目的 addons 目录下。"
+    },
+    {
+      "stepZh": "在项目设置里启用插件，待办面板就会出现在编辑器侧栏。"
+    },
+    {
+      "stepZh": "在设置里确认扫描目录与正则模式，再按规范调好条目颜色。"
+    },
+    {
+      "stepZh": "写代码时随手按习惯加 TODO、FIXME 或团队自定义标记。"
+    },
+    {
+      "stepZh": "需要处理时打开面板双击条目，跳到对应脚本行改完再勾掉。"
+    }
+  ],
+  "pros": [
+    "把散落在各个脚本里的 TODO 收进一个面板，接手项目时能快速摸清还剩哪些欠账。",
+    "匹配用的正则与条目配色都能自定义，能贴合团队已有的注释规范与优先级约定。",
+    "双击条目即可跳转，也能交给外部编辑器打开，省去在文件树里层层翻找。",
+    "支持 GDScript、C# 与 GDNative 三种脚本，还附带简体中文说明，混用多种语言的项目也能一次扫到。"
+  ],
+  "cons": [
+    "只做注释展示，没有任务状态、负责人分配，也不与外部 Issue 系统同步。",
+    "正则扫描会漏判跨行注释，也会把字符串里出现的标记误收进面板。",
+    "脚本数量上千时全量扫描会拖慢编辑器启动，面板里没有搜索框过滤。",
+    "功能边界多年没有大改，复杂任务管理、看板视图这类需求它接不住。"
+  ],
+  "pitfalls": [
+    "把 addons 或 Todo_Manager 目录改名会让配置无法保存与读取，装好后别动这两层目录名。",
+    "字符串或日志文本里出现 TODO 字样也会被收进面板，需要自己改进正则来排除。",
+    "扫描范围包含 addons 与第三方库时条目会暴涨，先限制到自己写的脚本目录。"
+  ],
+  "bestFor": "习惯在注释里写 TODO 与 FIXME，希望随时在编辑器里查看并跳转处理的个人开发者与小团队，适合当成日常的轻量欠账清单。",
+  "avoidWhenZh": "需要任务看板、多人分配、状态流转与外部 Issue 同步，或项目脚本数量极大、要求检索排序的场景。",
+  "compareTips": {
+    "vs": [
+      "HolonProduction__godot_kanban_tasks",
+      "Maran23__script-ide"
+    ],
+    "whenZh": "和 kanban 类任务插件相比，它不建任务卡也不管状态流转，只聚合注释；要轻量查看欠账选它，要流程管理与多人分配选看板插件；与脚本 IDE 类插件相比，它只负责收集与跳转，不参与补全或重构。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "TODO",
+    "编辑器面板",
+    "代码导航",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "扫描 GDScript、C# 与 GDNative",
+      "source": "README.md",
+      "quote": "- Supports GDScript, C# and GDNative"
+    },
+    {
+      "claim": "允许自定义正则模式",
+      "source": "README.md",
+      "quote": "- Add your own RegEx patterns"
+    },
+    {
+      "claim": "支持跳转与外部编辑器打开",
+      "source": "README.md",
+      "quote": "- Quickly jump to lines and launch external editors"
+    },
+    {
+      "claim": "改动目录名会破坏配置读写",
+      "source": "README.md",
+      "quote": "DO NOT change the name of the 'addons' or 'Todo_Manager' folders as this will break the saving and loading of your settings."
+    }
+  ]
+}

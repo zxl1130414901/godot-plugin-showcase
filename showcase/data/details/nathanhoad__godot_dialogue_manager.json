@@ -1,0 +1,158 @@
+{
+  "id": "nathanhoad__godot_dialogue_manager",
+  "depth": "standard",
+  "taglineZh": "用类脚本语法写分支对话，编辑器与运行时都由插件负责",
+  "summaryZh": "Dialogue Manager 用一门接近剧本的迷你语言写对话，每行可以是台词、条件、跳转或调用函数，编辑器提供语法高亮、错误检查与跳转预览。它把对话当作无状态资源：运行时只负责按行推进、解析条件、记录已读，存档与变量由使用者自己接管。相比视觉小说框架，它不绑定立绘、背景与布局，更适合把对话嵌进系统向玩法里；相比手写状态机，条件与跳转的写法更短。插件附带气泡节点、响应菜单与 C# 包装，GDScript 与 C# 项目都能用。当前主线锁定 Godot 4.6 以上，旧版本要取对应分支。文档覆盖条件、翻译、节点与 API，入门成本在同类里偏低。",
+  "whatItDoes": "用 dialogue 文本写对白，行首缩进表示分支层级，支持条件、赋值、跳转标签与内联函数调用。编辑器插件提供语法高亮、错误提示与跳转关系预览，编译结果缓存在资源里。运行时通过 DialogueManager 单例加载资源，逐行返回文本与选项，由使用者的 UI 节点渲染。自带 DialogueLabel 打字机效果、响应按钮菜单与可点击的气泡节点。翻译走 Godot 的 CSV 本地化流程，也可导出导入文本；C# 项目有对应包装类。",
+  "useCases": [
+    {
+      "titleZh": "分支剧情对白",
+      "descZh": "做任务对白或剧情分支时，用条件行读取任务状态与好感度，改台词只动文本文件，不必回到脚本里翻逻辑。"
+    },
+    {
+      "titleZh": "系统提示与引导",
+      "descZh": "新手引导、道具说明这类短对话，用气泡节点直接挂到场景里播放，比自己搭对话框省下大半 UI 工作。"
+    },
+    {
+      "titleZh": "C# 项目接入",
+      "descZh": "主逻辑用 C# 写，但台词仍交给策划用文本维护，通过 C# 包装调用同一套运行时，避免为对话另立一套脚本体系。"
+    },
+    {
+      "titleZh": "多语言版本",
+      "descZh": "台词抽进 CSV 交给翻译，回填后按语言切换，同一份对话资源同时服务多个语种的发行版本，回填时只需换表。"
+    },
+    {
+      "titleZh": "对白流程验证",
+      "descZh": "借用仓库自带的测试场景跑对白流程，检查条件分支与跳转是否存在死循环或漏掉的台词行，改完再跑一遍回归。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "对话资源",
+      "descZh": "编译后的 DialogueResource，含行序列、跳转表与条件表达式，可在运行时按标签跳转，也便于在资源面板里预览分支结构。"
+    },
+    {
+      "titleZh": "对话气泡场景",
+      "descZh": "现成的 Balloon 节点，含头像、姓名、逐字显示与选项按钮，可直接挂进场景播放，改皮肤只需替换主题资源。"
+    },
+    {
+      "titleZh": "本地化表格",
+      "descZh": "导出的 CSV 台词表与回填后的译文，形成可交付翻译的中间物，便于逐版本对照，也方便统计字数与分工。"
+    },
+    {
+      "titleZh": "C# 调用包装",
+      "descZh": "供 C# 项目引用的一组类，把对话推进与选项回调包成可在脚本里直接调用的接口，省去手写互操作。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Mini Dialogue Language",
+      "descZh": "自研的缩进式对话语法，一行一句台词，条件与转场用前缀符号标注，写起来接近剧本。"
+    },
+    {
+      "name": "DMCompiler",
+      "descZh": "把文本编译成行序列与跳转索引，编译期报出未定义标签与语法错误，减少运行期崩溃。"
+    },
+    {
+      "name": "DialogueLabel",
+      "descZh": "带打字机与富文本效果的 Label 子类，支持逐字速度、跳过与逐行信号回调，可替换字体与节点。"
+    },
+    {
+      "name": "DialogueResponsesMenu",
+      "descZh": "把选项渲染成按钮菜单，支持键鼠导航与按条件禁用，省去自己搭选项 UI。"
+    },
+    {
+      "name": "C# Wrapper",
+      "descZh": "为 C# 项目提供的封装，让脚本侧不必直接操作 GDScript 单例，也不必自己处理类型转换与回调签名。"
+    }
+  ],
+  "limitsZh": "它只做对话逻辑，不提供立绘、背景、演出编排与存档系统，视觉小说级别的表现要自己搭或换 Dialogic。版本绑定很紧：主线要求 Godot 4.6 以上，4.4 与 4.5 只能退回 3.10 分支，4.3 及更早是更老的分支，跨版本迁移要重读升级文档。无状态设计意味着变量、已读记录与存档都得使用者自己维护，多人协作时容易各写一套。缩进语法对空格敏感，复制粘贴常带入全角空格导致编译失败。翻译走 CSV，改台词 ID 后旧表会错位。编辑器插件在超大对话文件上会有卡顿，几千行的单文件建议拆分。运行时逐行解析条件表达式，复杂条件写满一屏时会有可测的额外开销。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/dialogue_manager 并启用插件，确认面板出现"
+    },
+    {
+      "stepZh": "新建 dialogue 文本，按缩进写台词与分支，先跑通最小示例"
+    },
+    {
+      "stepZh": "在文本里用条件行读取游戏状态变量"
+    },
+    {
+      "stepZh": "把 DialogueResource 交给运行时并接上 UI，先接文本输出"
+    },
+    {
+      "stepZh": "导出 CSV 翻译，再回填多语言文本并切语言验证"
+    }
+  ],
+  "pros": [
+    "缩进式语法接近剧本，策划能直接改文本，改对白不必碰代码，协作成本明显低于在脚本里拼字符串。",
+    "编辑器内有语法高亮与错误检查，未定义跳转在保存时就能发现，不用等运行到那一行才崩。",
+    "同时提供 GDScript 与 C# 两套用法，并附气泡节点与选项菜单，界面起步成本低，不必从零搭对话框。",
+    "文档把条件、翻译、节点与 API 分章写清，新项目照文档走半天就能跑通第一段对话。"
+  ],
+  "cons": [
+    "不含立绘、背景与演出编排，做视觉小说要自己补一整套表现层。",
+    "主线只支持 Godot 4.6 以上，停留在 4.4 或 4.5 的项目要用旧分支并自行跟进修复。",
+    "无状态意味着存档、变量与已读记录全归使用者，项目一大就要自建状态层。"
+  ],
+  "pitfalls": [
+    "粘贴台词时带入全角空格或 Tab 混用，编译会直接报缩进错误，肉眼很难看出差别所在。",
+    "条件里引用的变量名写错不会报错，只会静默走 false 分支，排查时容易误判成逻辑正确。",
+    "直接覆盖升级会冲掉自定义气泡节点的改动，升级前应先备份 addons 下改过的文件。"
+  ],
+  "bestFor": "要把对话嵌进系统向玩法、希望策划直接改文本，且项目已在 Godot 4.6 以上的团队，尤其适合中小型 RPG 与冒险游戏。",
+  "avoidWhenZh": "需要立绘、演出与自动存档的视觉小说项目，或引擎版本仍停在 4.4 及以下时，选 Dialogic 或对应旧分支更合适。",
+  "compareTips": {
+    "vs": [
+      "dialogic-godot__dialogic",
+      "rakugoteam__Rakugo-Dialogue-System",
+      "real-ezTheDev__GodotEzDialoguePlugin"
+    ],
+    "whenZh": "Dialogic 提供时间轴、立绘与完整演出编排，体积和概念都更重；Rakugo 走视觉小说路线但更新更慢。要轻量、把对白当逻辑嵌进代码选本项目，要演出编排与现成视觉小说 UI 选 Dialogic。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "对话系统",
+    "分支剧情",
+    "本地化",
+    "C#"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "提供无状态的对话编辑器与运行时",
+      "source": "README.md",
+      "quote": "provides a stateless branching dialogue editor and runtime"
+    },
+    {
+      "claim": "用接近脚本的方式写对白",
+      "source": "README.md",
+      "quote": "Write your dialogue in a script-like way and easily integrate it into your game."
+    },
+    {
+      "claim": "插件自述为分支对话系统",
+      "source": "addons/dialogue_manager/plugin.cfg",
+      "quote": "A powerful branching dialogue system"
+    },
+    {
+      "claim": "当前主线要求 Godot 4.6 以上",
+      "source": "README.md",
+      "quote": "for Godot 4.6+"
+    },
+    {
+      "claim": "4.4 与 4.5 需使用 3.10 旧分支",
+      "source": "README.md",
+      "quote": "for Godot 4.4 or Godot 4.5"
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "id": "godotengine__godot-blender-exporter",
+  "depth": "standard",
+  "taglineZh": "Godot 官方的 Blender 插件，把场景直接导出为 .escn 文本场景而非走 glTF",
+  "summaryZh": "这是 Godot 引擎官方维护的 Blender 导出插件，安装到 Blender 的 scripts/addons 后可从文件菜单导出 .escn 场景，跳过 glTF 中转。README 直接说明它仍是实验性工具、缺很多特性，需要完整管线时建议改用 Blender 内置的 glTF 2.0 导出器。仓库保留了一套基于 Makefile 的回归测试：批量导出 tests/scenes 下的 blend 文件，再与参考导出逐行 diff，同时跑 pycodestyle 与 pylint。因为参考结果依赖特定 Blender 版本，还提供了 Dockerfile 固定环境。许可证是 GPL-2.0，分发给团队前要确认合规。官方把它定位为兼容旧管线的辅助工具，新资产仍推荐直接走 glTF 2.0。",
+  "whatItDoes": "它在 Blender 里注册一个 Godot 导出器，把当前场景转换为 Godot 的文本场景格式 .escn，包含节点层级、网格与材质等它能识别的数据。导出入口在 File 菜单的 Export 列表里，选择 Godot Engine (.escn) 后写文件。仓库里的 Makefile 负责开发验证：导出测试场景、与 tests/reference_exports 做 diff、再跑两项 Python 静态检查。测试依赖较老的 Blender 与固定系统环境，Dockerfile 用于复现参考结果。它不提供运行时导入组件，产物完全由 Godot 的资源导入器接管。",
+  "useCases": [
+    {
+      "titleZh": "文本场景便于审阅",
+      "descZh": "需要把 Blender 场景以文本形式进版本库、看清每次改动的节点与材质差异时，.escn 比二进制 glTF 更适合逐行评审。"
+    },
+    {
+      "titleZh": "旧管线兼容",
+      "descZh": "项目已有基于 .escn 的历史资产与导入配置，继续用同一导出器可以避免一次性全量转 glTF 带来的重新绑定工作量。"
+    },
+    {
+      "titleZh": "简易灯光相机搬运",
+      "descZh": "只把灯光、相机与简单几何从 Blender 搬到 Godot 做白模布局，不追求材质与动画完整还原时可以先用它跑通流程。"
+    },
+    {
+      "titleZh": "导出器二次开发",
+      "descZh": "要定制 Blender 到 Godot 的转换规则时，可以从这套插件代码起步，测试框架与参考导出样例能作为改动基线。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": ".escn 场景文件",
+      "descZh": "由 Blender 场景转换出的 Godot 文本场景文件，节点层级与变换以可读文本保存，能直接进版本库对比差异。"
+    },
+    {
+      "titleZh": "网格与材质引用",
+      "descZh": "导出时把网格数据与材质参数写进场景，Godot 导入后生成对应资源，具体支持范围受导出器当前实现限制。"
+    },
+    {
+      "titleZh": "回归参考样例",
+      "descZh": "tests/reference_exports 里的基准场景样例，配合 Makefile 的 diff 流程，可用来验证改动有没有破坏既有转换结果与导出逻辑。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "ESCN Export",
+      "descZh": "在 Blender 的文件导出菜单里直接产出 Godot 文本场景，省掉 glTF 中转与二次导入设置。"
+    },
+    {
+      "name": "Blender Add-on",
+      "descZh": "按 Blender add-on 规范安装到 scripts/addons 目录，启用后即注册导出入口，不依赖外部服务。"
+    },
+    {
+      "name": "Regression Diff Tests",
+      "descZh": "Makefile 批量导出测试场景并与参考结果逐行对比，改动转换逻辑后能立刻看到差异。"
+    },
+    {
+      "name": "Docker Reference",
+      "descZh": "提供 Dockerfile 固定 Blender 版本与环境，减少不同机器浮点舍入导致的参考导出漂移。"
+    }
+  ],
+  "limitsZh": "官方 README 直接写明它是实验性导出器、仍缺很多特性，并建议需要完整管线时改用 glTF 2.0，这意味着材质、动画、骨骼与修改器之类的能力不能按完整导出器预期，具体支持面要逐个场景实测。它只是 Blender 端插件，不包含 Godot 侧运行时组件，产物完全依赖 Godot 自身的 .escn 导入器。当前 master 至少要求 Blender 2.80，但参考导出依赖一个很老的特定版本，换版本可能出现浮点差异导致回归 diff 失败。GPL-2.0 许可对再分发有约束，闭源团队要把插件打包进工具链前先确认合规。仓库虽仍在维护，但官方定位是兼容旧管线而非主推方案。",
+  "workflowZh": [
+    {
+      "stepZh": "把整个 io_scene_godot 目录复制到 Blender 的 scripts/addons 安装位置"
+    },
+    {
+      "stepZh": "在 Blender 的偏好设置里启用 Godot Exporter 导出插件"
+    },
+    {
+      "stepZh": "整理场景层级并确认只用导出器支持的对象类型"
+    },
+    {
+      "stepZh": "从文件菜单的导出项选择 Godot Engine (.escn) 格式输出"
+    },
+    {
+      "stepZh": "把产物放进项目并检查 Godot 侧导入结果"
+    },
+    {
+      "stepZh": "需要批量验证时跑 Makefile 的导出与 diff 流程"
+    }
+  ],
+  "pros": [
+    "由 Godot 官方仓库维护，导出格式与引擎的 .escn 导入器同源，出问题时能对照引擎侧实现排查。",
+    "直接产出文本场景，节点与材质改动在版本库里可读可 diff，评审三维资产比二进制格式方便。",
+    "自带 Makefile 回归测试与参考导出样例，改转换逻辑后有基线可比，适合做定制导出的起点。",
+    "安装方式就是标准 Blender add-on，不依赖外部服务或额外运行时，离线环境也能用。"
+  ],
+  "cons": [
+    "官方自述实验性且缺很多特性，材质、动画与复杂节点不能指望完整往返，生产管线风险高。",
+    "参考导出绑定特定 Blender 版本，换版本后浮点差异会让回归 diff 失败，环境维护成本不低。",
+    "GPL-2.0 许可对再分发有约束，闭源项目把它打包进内部工具链前必须做合规确认。",
+    "只覆盖 Blender 到 Godot 单向导出，没有反向同步，资产在 Godot 侧改动后无法回写。"
+  ],
+  "pitfalls": [
+    "把整个插件目录只复制了内容而不是目录本身，Blender 识别不到 add-on，安装时必须保留 io_scene_godot 这一层。",
+    "场景里用了导出器不支持的对象或修改器，导出不报错但结果缺件，导出前先对照示例场景与参考导出。",
+    "升级 Blender 后直接跑回归测试，浮点舍入差异导致大面积 diff，先按 README 用 Docker 固定环境复现。"
+  ],
+  "bestFor": "仍在维护 .escn 旧资产管线、需要文本场景便于评审，或想以官方实现为起点定制 Blender 导出规则的团队。",
+  "avoidWhenZh": "新项目需要完整材质、动画与骨骼管线，或团队不能接受 GPL-2.0 再分发约束时，直接用 glTF 2.0 更稳。",
+  "compareTips": {
+    "vs": [
+      "godotengine__collada-exporter"
+    ],
+    "whenZh": "collada-exporter 产出 .dae，兼容更老的 Blender 与既有 Collada 资产，但格式本身粗糙、材质表达弱；本导出器产出 .escn，更贴近 Godot 场景结构。两者都属于遗留管线，新资产都建议走 glTF 2.0，只有在必须复用旧资产或需要文本 diff 时才在二者中选。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "Blender",
+    "导出器",
+    "escn",
+    "资产管线",
+    "官方"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 2,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 2
+  },
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "导出器仍是实验性且缺很多特性",
+      "source": "README.md",
+      "quote": "This exporter is experimental, and still lacks many features."
+    },
+    {
+      "claim": "官方建议完整管线改用 glTF 2.0",
+      "source": "README.md",
+      "quote": "consider using glTF 2.0 instead"
+    },
+    {
+      "claim": "master 分支至少需要 Blender 2.80",
+      "source": "README.md",
+      "quote": "The current `master` branch requires at least Blender 2.80."
+    },
+    {
+      "claim": "采用 GPL-2.0 或更高版本许可",
+      "source": "README.md",
+      "quote": "distributed under the terms of the GNU General Public License, version 2 or later"
+    },
+    {
+      "claim": "通过 Makefile 做导出回归与静态检查",
+      "source": "README.md",
+      "quote": "Runs `diff` on the output files compared to the reference exports"
+    }
+  ]
+}

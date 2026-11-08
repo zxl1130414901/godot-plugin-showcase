@@ -1,0 +1,14 @@
+{
+  "id": "godot-go__godot-go",
+  "descriptionZh": "用 Go 通过 cgo 接入 GDExtension 的语言绑定，自带绑定生成器与混合语言演示工程。",
+  "category": "visual-script",
+  "tags": ["Go", "GDExtension", "语言绑定", "cgo"],
+  "prosShort": ["可直接复用 Go 标准库与并发", "生成器可自动产出全部绑定代码", "自带可运行的 Go 与 GDScript 演示工程"],
+  "consShort": ["官方承认绑定可能内存泄漏", "起步版本要求 Godot 4.7 及以上", "多平台构建链需要自行搭建维护"],
+  "scores": {"coverage": 2, "usability": 2, "docs": 2, "maintenance": 4, "performance": 3, "stability": 2},
+  "installComplexity": 5,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

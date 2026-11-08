@@ -1,0 +1,142 @@
+{
+  "id": "issork__gift",
+  "depth": "standard",
+  "taglineZh": "以 IRC 与 EventSub 接入 Twitch 聊天的插件",
+  "summaryZh": "GIFT 是 Godot IRC For Twitch 的缩写，一套把 Twitch 聊天接入 Godot 工程的插件。它同时提供 IRC 连接与 EventSub 连接两条通道，前者接收聊天与私信，后者走官方的事件推送；配套的命令处理器支持为指令设置权限等级、参数上下限与接收位置（聊天或私信），参数数量不符时会发出对应的信号。认证部分相当完整，源码里能看到授权码、客户端凭据、设备码、隐式与重定向五种 OAuth 流程，另有令牌缓存、可刷新的用户令牌与应用令牌。使用前需要在 dev.twitch.tv 创建应用拿到客户端 ID，并把重定向地址设为 http://localhost:18297 或自定义值。仓库附带一个复刻 Twitch 聊天的示例工程。",
+  "whatItDoes": "通过 IRC 与 EventSub 两种连接接收 Twitch 聊天与事件，并把消息、私信与频道数据转成 Godot 信号。提供命令处理框架，可注册指令并约束权限与参数数量，统一处理执行结果与错误。封装 OAuth 的多种授权流程与令牌生命周期管理，供需要调用 Twitch API 的场景使用。",
+  "useCases": [
+    {
+      "titleZh": "直播互动玩法",
+      "descZh": "让观众用聊天指令影响游戏，命令处理器负责权限与参数校验。"
+    },
+    {
+      "titleZh": "聊天复刻与浮层",
+      "descZh": "用 IRC 连接把聊天消息渲染到 Godot 界面上，仓库示例即为聊天复刻。"
+    },
+    {
+      "titleZh": "需要调用 Twitch API 的工具",
+      "descZh": "复用内置的令牌缓存与多种 OAuth 流程，省去自行实现授权。"
+    },
+    {
+      "titleZh": "基于事件的自动化",
+      "descZh": "通过 EventSub 连接订阅关注、订阅等事件，驱动游戏或直播工具。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Twitch 聊天连接",
+      "descZh": "IRC 与 EventSub 两种通道的连接对象与信号。"
+    },
+    {
+      "titleZh": "指令处理框架",
+      "descZh": "带权限、参数数量与接收位置约束的命令注册表。"
+    },
+    {
+      "titleZh": "聊天复刻示例",
+      "descZh": "example 目录中可运行的 Twitch 聊天界面示例。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "双通道接入",
+      "descZh": "同时提供 IRC 与 EventSub 连接实现，可按需选择。"
+    },
+    {
+      "name": "五种 OAuth 流程",
+      "descZh": "覆盖授权码、客户端凭据、设备码、隐式与重定向流程。"
+    },
+    {
+      "name": "命令约束",
+      "descZh": "可为指令设置权限等级与参数最小最大值。"
+    },
+    {
+      "name": "令牌管理",
+      "descZh": "含令牌缓存、可刷新的用户令牌与应用令牌。"
+    }
+  ],
+  "limitsZh": "README 只有两千字符，主要介绍如何创建 Twitch 应用与几个工具类的字段含义，缺少安装步骤、信号清单与端到端接入示例说明，真正的用法要去读 example 目录里的脚本。插件版本标注为 2.1.1-alpha，属于预发布状态，接口与行为仍可能变动，生产使用需要自行验证。功能依赖真实的 Twitch 应用与 OAuth 授权，需要注册应用、配置重定向地址并处理令牌刷新，没有凭据时几乎无法测试。连接在国内网络环境下可能不稳定，README 未提供代理或重连策略说明。它同时支持 IRC 与 EventSub 两条通道，但 Twitch 已在推进 IRC 相关能力的替代，长期维护方向存在不确定性；文档也没有说明两条通道在事件覆盖上的差异，需要自行对照官方文档判断。",
+  "workflowZh": [
+    {
+      "stepZh": "在 dev.twitch.tv 创建应用并获取客户端 ID 与密钥。"
+    },
+    {
+      "stepZh": "把重定向地址设为 http://localhost:18297 或自定义值。"
+    },
+    {
+      "stepZh": "拷贝 addons/gift 到工程并启用插件。"
+    },
+    {
+      "stepZh": "选择 IRC 或 EventSub 连接并完成 OAuth 授权。"
+    },
+    {
+      "stepZh": "注册命令并设置权限与参数范围。"
+    },
+    {
+      "stepZh": "参考 example 目录实现聊天界面与事件响应。"
+    }
+  ],
+  "pros": [
+    "同时提供 IRC 与 EventSub 两条接入通道。",
+    "OAuth 流程覆盖完整，含令牌缓存与刷新。",
+    "命令框架自带权限与参数校验。",
+    "附可运行的聊天复刻示例工程。"
+  ],
+  "cons": [
+    "版本为 alpha，稳定性无保证。",
+    "README 简略，缺少安装与信号说明。",
+    "依赖 Twitch 应用与 OAuth 配置才能测试。"
+  ],
+  "pitfalls": [
+    "重定向地址与 Twitch 应用后台配置不一致，会导致授权流程拿不到回调而卡住。",
+    "直接照 README 的工具类说明写代码而不看 example，容易漏掉连接状态与重连处理。"
+  ],
+  "bestFor": "适合需要接入 Twitch 聊天与事件、并且能自行读示例代码完成接入的直播互动项目。",
+  "avoidWhenZh": "需要文档完备、维护稳定的 Twitch 集成，或无法注册 Twitch 应用获取凭据时，应选择更成熟的替代插件。",
+  "compareTips": {
+    "vs": [
+      "kanimaru__twitcher"
+    ],
+    "whenZh": "Twitcher 面向 Godot 4.4 以上、以 EventSub 与 Helix 为主并带编辑器配置向导，文档更完整；GIFT 同时保留 IRC 通道且版本为 alpha，按对文档与稳定性的要求取舍。"
+  },
+  "category": "network",
+  "tags": [
+    "Twitch",
+    "IRC",
+    "EventSub",
+    "OAuth授权",
+    "聊天指令"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "插件定位为 Godot 的 Twitch IRC 接入",
+      "source": "README.md",
+      "quote": "Godot IRC For Twitch addon"
+    },
+    {
+      "claim": "需要创建 Twitch 应用并配置重定向地址",
+      "source": "README.md",
+      "quote": "you need to create a new application on dev.twitch.tv to get a client ID ... The redirect URL of your App has to be http://localhost:18297 or the URL you specify in the RedirectingFlow constructor."
+    },
+    {
+      "claim": "命令可设置权限等级与参数范围",
+      "source": "README.md",
+      "quote": "**permission_level** : int - Permission level required by the command. ... cmd_invalid_argcount is emitted if above this number."
+    },
+    {
+      "claim": "面向 Twitch 的 IRC 插件",
+      "source": "README.md",
+      "quote": "Godot IRC For Twitch addon"
+    }
+  ]
+}

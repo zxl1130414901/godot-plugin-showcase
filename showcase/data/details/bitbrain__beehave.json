@@ -1,0 +1,166 @@
+{
+  "id": "bitbrain__beehave",
+  "depth": "standard",
+  "taglineZh": "在场景树里搭行为树的 GDScript 插件，带运行时调试视图与性能监视",
+  "summaryZh": "Beehave 把行为树拆成一组可嵌套的节点，直接摆进 Godot 的场景树：复合节点负责顺序与选择，装饰节点加冷却、延迟与重试，叶节点写具体动作与条件。它解决的是 if-else 越写越乱的 AI 逻辑问题，把优先级与执行状态显式化，改一条分支不必重读整段脚本。运行时提供调试视图，能看到当前走到的节点与黑板变量，配合自定义监视器观察每棵树的耗时。作者给每个功能配了单元测试，并同时维护 Godot 3 与 4 两条分支。它只做决策层，寻路、动画与感知仍要自己接；叶节点跑在 GDScript 上，大量单位同时运算时开销需要实测。",
+  "whatItDoes": "提供 BeehaveTree 作为树根，挂到任意节点后接管其 AI 更新。复合节点包含顺序与选择，装饰节点提供冷却、延迟、重试与反转等包装，叶节点分动作与条件两类。Blackboard 以节点形式存共享变量，配合比较与读写节点在树内传递状态。场景里可以同时存在多棵树，编辑器插件提供调试面板与性能监视器。树按 tick 推进，可设为每帧或固定间隔运行。",
+  "useCases": [
+    {
+      "titleZh": "敌人巡逻与警戒",
+      "descZh": "把巡逻、发现目标、追击、攻击与撤退写成一条选择分支，改行为只需调节点顺序，不必在状态机里补一堆跳转条件。"
+    },
+    {
+      "titleZh": "Boss 阶段切换",
+      "descZh": "用条件节点读取血量与阶段变量，配合冷却与延迟装饰控制技能节奏，让 Boss 在不同阶段走不同子树。"
+    },
+    {
+      "titleZh": "多单位逻辑复用",
+      "descZh": "同一棵树挂到多个敌人实例上，只替换叶节点里的参数与引用，避免为每种敌人复制一份完整 AI 脚本。"
+    },
+    {
+      "titleZh": "定位 AI 卡住",
+      "descZh": "行为出现异常时打开调试视图，看当前落到哪个节点、哪条条件返回失败，比逐行加 print 更快找到断点。"
+    },
+    {
+      "titleZh": "教学演示决策树",
+      "descZh": "课堂或团队分享里用可视化节点树讲清选择与顺序的差别，学员改动分支就能立刻看到行为变化。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "场景内行为树",
+      "descZh": "由 BeehaveTree 与各类叶节点组成的树结构，保存在场景文件里，可直接挂到角色节点上运行与复用，改分支时不必重开脚本。"
+    },
+    {
+      "titleZh": "黑板变量集",
+      "descZh": "存共享状态的 Blackboard 节点，配合读写与比较节点在分支之间传递目标、血量与冷却等数据，多个单位可共用一份。"
+    },
+    {
+      "titleZh": "自定义叶节点脚本",
+      "descZh": "继承动作或条件基类写出的 GDScript 小脚本，把项目自己的移动、攻击与感知逻辑接进树里，粒度可按需拆细。"
+    },
+    {
+      "titleZh": "调试与耗时报告",
+      "descZh": "调试面板给出的节点执行路径，以及性能监视器记录的每棵树耗时，可用于对比不同写法带来的开销。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "BeehaveTree",
+      "descZh": "树的根节点，挂到角色后按设定频率推进整棵树，并暴露运行状态给调试面板。"
+    },
+    {
+      "name": "Composite / Decorator",
+      "descZh": "顺序、选择与冷却、延迟、重试等包装节点，用嵌套组合出优先级与节奏控制。"
+    },
+    {
+      "name": "ActionLeaf / ConditionLeaf",
+      "descZh": "叶节点的两种基类，分别返回成功失败或布尔判断，具体逻辑由使用者自己继承实现。"
+    },
+    {
+      "name": "Blackboard",
+      "descZh": "以节点形式存在的共享状态容器，配合读写节点让不同子树读到同一份目标与参数。"
+    },
+    {
+      "name": "Debug View & Monitors",
+      "descZh": "编辑器内的调试视图展示执行路径，自定义监视器则记录每棵树的耗时，便于定位性能热点。"
+    }
+  ],
+  "limitsZh": "它只提供决策框架，感知、寻路、动画与表现仍要自己接，别指望装完就得到完整 AI。树以 GDScript 节点方式运行，几十个单位问题不大，上百个高频 tick 时要靠监视器确认开销，必要时降低 tick 频率或分帧推进。调试视图在编辑器里可用，导出后的运行环境看不到，线上问题只能靠日志。版本分支较多，Godot 4.0、4.1 与 4.5 以上对应不同的插件版本，装错分支会出现 API 找不到。叶节点写在场景里，同一逻辑若被多处复制，改一处容易漏掉另一处，需要团队约定复用方式。文档以 wiki 与视频为主，缺少从零到完整的文字教程；插件本身也不做黑板变量的类型校验。",
+  "workflowZh": [
+    {
+      "stepZh": "解压 addons/beehave 并在项目设置里启用插件"
+    },
+    {
+      "stepZh": "把 script_templates 复制进项目以生成节点脚本，先跑一遍示例树"
+    },
+    {
+      "stepZh": "在角色下新建 BeehaveTree 作为树根，挂到角色根节点上"
+    },
+    {
+      "stepZh": "用复合与装饰节点排出优先级与冷却节奏"
+    },
+    {
+      "stepZh": "继承动作与条件基类写具体行为脚本"
+    },
+    {
+      "stepZh": "运行场景并用调试视图检查执行路径"
+    }
+  ],
+  "pros": [
+    "行为树直接长在场景树里，节点即结构，策划和程序看同一棵树就能对齐行为预期。",
+    "调试视图能看到当前执行到哪个节点，AI 卡住时不必再靠堆 print 逐帧推断。",
+    "装饰节点覆盖冷却、延迟与重试，常见的节奏控制不用自己写计时器，省去自己维护计时器状态。",
+    "每个功能都有单元测试兜底，版本迭代时回归问题相对少，长期项目更放心。"
+  ],
+  "cons": [
+    "只做决策层，感知、寻路与动画要另接，装完并不能直接得到可用 AI。",
+    "叶节点跑 GDScript，大量单位高频 tick 时开销会累积，需要主动降频，建议先做同屏单位上限测试。",
+    "Godot 版本与插件分支对应关系复杂，装错分支会出现类找不到的报错。"
+  ],
+  "pitfalls": [
+    "把耗时逻辑写进条件叶节点，每帧都会被反复求值，帧率下降却很难看出是谁在拖。",
+    "复制整棵树给新敌人后改了叶节点引用，旧敌人的目标也跟着变，排查时容易误判为逻辑错乱。",
+    "插件升级后旧场景里的节点脚本签名变化，会出现能打开但运行即报错的隐性问题。"
+  ],
+  "bestFor": "需要可读、可复用 AI 决策结构的中小型项目，尤其是敌人种类多、行为分支复杂又不想引入 C++ 扩展的团队。",
+  "avoidWhenZh": "只有一两种简单敌人，或项目要求极致性能、需要上百单位同屏高频决策时，纯脚本状态机更划算。",
+  "compareTips": {
+    "vs": [
+      "limbonaut__limboai",
+      "derkork__godot-statecharts",
+      "kagenash1__godot-behavior-tree"
+    ],
+    "whenZh": "LimboAI 是 C++ 扩展，行为树加层级状态机，性能与编辑器更强但安装更重；statecharts 走状态图路线，适合流程型逻辑。要轻量、全 GDScript、直接长在场景树里选 Beehave，要高性能与状态机组合选 LimboAI。kagenash1 更轻但功能与维护有限。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "行为树",
+    "AI",
+    "GDScript",
+    "调试"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "用行为树构建 AI 系统",
+      "source": "README.md",
+      "quote": "is a powerful addon for Godot Engine that enables you to create robust AI systems using behavior trees."
+    },
+    {
+      "claim": "行为树直接在场景树里搭建",
+      "source": "README.md",
+      "quote": "Compose behavior trees in your scene and attach them to any node of your choice."
+    },
+    {
+      "claim": "编辑器内有专用调试视图",
+      "source": "README.md",
+      "quote": "A dedicated debug view inside the Godot editor allows you to better understand what the behavior is doing under the hood."
+    },
+    {
+      "claim": "提供性能监视器",
+      "source": "README.md",
+      "quote": "Investigate performance issues by using the custom monitor available inside the Godot editor."
+    },
+    {
+      "claim": "每个功能都有单元测试覆盖",
+      "source": "README.md",
+      "quote": "In order to avoid bugs creeping into the codebase, every feature is covered by unit tests."
+    },
+    {
+      "claim": "插件版本号仍带 dev 后缀",
+      "source": "addons/beehave/plugin.cfg",
+      "quote": "version=\"2.9.4-dev\""
+    }
+  ]
+}

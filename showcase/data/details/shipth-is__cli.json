@@ -1,0 +1,143 @@
+{
+  "id": "shipth-is__cli",
+  "depth": "standard",
+  "taglineZh": "一条命令把 Godot 游戏云构建并发布到应用商店",
+  "summaryZh": "ShipThis CLI 把 Godot 游戏的 iOS 与 Android 构建搬到云端：安装命令行后登录账号，运行 game wizard 配置工程，再用 game ship 生成 APK、AAB 或 IPA，并可继续提交到 TestFlight、App Store 与 Google Play。它代办证书、keystore、API key 与描述文件，本机不需要 Xcode 或 Android Studio。服务仍在公测，要联网并注册账号，发布商店仍需自有开发者账号，选型前建议结合团队实际评估，更适合作为该品类的专用工具。",
+  "whatItDoes": "CLI 通过子命令覆盖登录、游戏创建、Android keystore、Apple 证书、游戏详情、构建状态与发布流程。game wizard 会逐步调用底层命令，把凭据与导出预设配好；game ship 触发云构建并可用 follow 跟踪日志、download 下载产物。构建服务器会自动生成或合并 export_presets.cfg，并对 Godot 3.6 与 4.x、GDScript 与 C# 分别准备环境。",
+  "useCases": [
+    {
+      "titleZh": "独立开发者发布",
+      "descZh": "没有 Mac 或 Android 打包环境，直接用云构建出 IPA 与 AAB，省去配工具链，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "快速测试分发",
+      "descZh": "用 demo 凭据出 APK 给测试同学，不必先办开发者账号，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "多版本矩阵",
+      "descZh": "同一工程按 4.3、4.4、4.5 多版本出包，验证兼容性后再上架，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "CI 发布流程",
+      "descZh": "把 wizard 配好后，在流水线里调用 ship 与 follow，自动上传测试轨道，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "云构建产物",
+      "descZh": "APK、AAB 与 IPA，可直接下载或提交商店，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "凭据配置",
+      "descZh": "自动创建或导入 keystore、证书与 API key，结构与引擎资源体系保持一致，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "导出预设",
+      "descZh": "服务端生成或合并的 export_presets.cfg，可以直接放进项目里使用，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "game wizard",
+      "descZh": "分平台引导完成账号、包名与签名配置，参数集中在检查器面板。"
+    },
+    {
+      "name": "game ship",
+      "descZh": "触发云构建并可跟踪日志与下载产物，后续修改起来也不费劲。"
+    },
+    {
+      "name": "证书管理",
+      "descZh": "集中管理 Android keystore 与 Apple 证书描述文件，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "多引擎版本",
+      "descZh": "覆盖 Godot 3.6 到 4.7 的稳定版本矩阵，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "C# 支持",
+      "descZh": "Godot 3.6 与 4.3 以上的 C# 工程可云端构建，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "它不是本地构建工具，构建发生在 ShipThis 云端，必须联网并接受其服务条款。使用前要装 Node 18 以上并用 npm 全局安装，企业环境的代理与权限要另配。wizard 与 ship 的详细参数分散在官网文档，仓库 README 只是入口。公测免费但后续定价未定，长期成本需评估。发布到商店仍要 Apple Developer 或 Play Console 账号，且 4.3 以下的部分 Android 版本依赖 ShipThis 自维护的引擎补丁。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 Node 18 以上并全局安装 CLI，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "运行 login 登录 ShipThis 账号，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在工程目录运行 game wizard，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "用 game ship 触发云构建，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "下载产物或提交商店审核，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "本机不需要 Xcode 或 Android Studio，iOS 构建也在云端完成，团队新人照着示例就能上手。",
+    "wizard 把证书、keystore 与导出预设串成步骤，首次配置省心，出现问题时也更容易定位原因。",
+    "支持 Godot 3.6 到 4.7 与 C# 工程，版本矩阵覆盖广，对中小团队的时间成本很友好。",
+    "可用 demo 凭据先出包，未注册商店账号也能拿到安装包，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "必须联网并使用第三方云服务，离线或内网环境不可用。",
+    "公测免费但定价未定，长期成本与服务稳定性有不确定性。",
+    "详细文档在官网，仓库内只有入口与常见问题，升级引擎版本时容易卡住。"
+  ],
+  "pitfalls": [
+    "Node 版本低于 18 时全局安装会失败或运行报错，先确认运行时。",
+    "wizard 生成的凭据绑定账号，团队协作要统一登录身份，否则看不到同一游戏。",
+    "4.3 以下 Android 需要 ShipThis 的自维护引擎补丁，直接用官方版可能不满足商店新规。"
+  ],
+  "bestFor": "没有 Mac 与移动端打包环境，想用云服务把 Godot 游戏快速出包并上架的独立开发者，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "要求完全离线构建、内网部署，或不接受第三方云服务的团队。",
+  "compareTips": {
+    "vs": [
+      "abarichello__godot-ci"
+    ],
+    "whenZh": "两者都解决移动端出包；shipth CLI 是托管云构建并代办签名与上架，godot-ci 是自建 Docker 镜像跑本地或 CI 导出。要省事选前者，要完全掌控构建环境选后者。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "移动端",
+    "云构建",
+    "上架",
+    "命令行"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "构建 iOS 与 Android 并发布商店",
+      "source": "README.md",
+      "quote": "Build iOS and Android binaries (APK, AAB, IPA) for your **Godot** game"
+    },
+    {
+      "claim": "自动管理证书与密钥",
+      "source": "README.md",
+      "quote": "Automatically manages **certificates**, **keystores**, **API keys**, and **provisioning profiles**"
+    },
+    {
+      "claim": "需要 Node 18 以上",
+      "source": "README.md",
+      "quote": "[Node.js](https://nodejs.org/en/download/) version 18 or above"
+    },
+    {
+      "claim": "仍在公测且免费",
+      "source": "README.md",
+      "quote": "Currently in open beta and free to use."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "Ericdowney__SignalVisualizer",
+  "descriptionZh": "在编辑器里把场景信号连接画成图，并提供运行中信号记录面板的调试插件，便于排查通信问题。",
+  "category": "debug-perf",
+  "tags": ["信号调试", "GraphEdit", "可视化", "编辑器插件"],
+  "prosShort": ["信号关系一眼看清，接手项目更快", "只显示持久连接，图面更干净", "每条连接可跳转到接收函数源码"],
+  "consShort": ["仅编辑器可用，导出后没有面板", "不显示信号参数，定位数据仍难", "大场景生成图容易卡顿甚至崩溃"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 3, "maintenance": 4, "performance": 4, "stability": 3},
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

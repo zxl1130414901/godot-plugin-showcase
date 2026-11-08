@@ -1,0 +1,35 @@
+{
+  "id": "Lcbx__GdScript2All",
+  "descriptionZh": "把 GDScript 批量转译成 C# 与 C++ 的编辑器插件与命令行工具，整体接入成本不高。",
+  "category": "editor-tool",
+  "tags": [
+    "GDScript",
+    "转译",
+    "C#",
+    "C++",
+    "Python"
+  ],
+  "prosShort": [
+    "批量转译能省去逐行手抄时间",
+    "类型推断会参考官方类文档",
+    "编辑器与命令行均提供入口"
+  ],
+  "consShort": [
+    "生成代码不能保证可编译，团队要提前评估。",
+    "模式匹配等语法完全不支持",
+    "强依赖本机 Python 运行环境，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

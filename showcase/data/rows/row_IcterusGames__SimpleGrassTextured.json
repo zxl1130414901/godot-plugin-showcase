@@ -1,0 +1,14 @@
+{
+  "id": "IcterusGames__SimpleGrassTextured",
+  "descriptionZh": "Godot 4 草地插件，用笔刷在地形上绘制 MultiMesh 草丛并支持角色靠近时拨草交互，接入很简单",
+  "category": "3d-shader",
+  "tags": ["草地", "植被", "MultiMesh", "地形", "交互"],
+  "prosShort": ["笔刷画草地，编辑器内所见即所得", "草叶批量实例化，渲染开销可控较", "支持角色经过时拨开草丛的反馈"],
+  "consShort": ["地形场景必须先有 StaticBody3D 碰撞面才能绘制", "草铺得太密会明显拖累填充率与帧数", "拨草识别依赖第 17 渲染层约定正确"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 3, "maintenance": 4, "performance": 3, "stability": 4},
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

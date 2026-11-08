@@ -1,0 +1,35 @@
+{
+  "id": "Scony__godot-gdscript-toolkit",
+  "descriptionZh": "独立的 GDScript 命令行工具集，提供语法解析、静态检查、代码格式化与圈复杂度统计，可直接接进 CI 与提交钩子。",
+  "category": "editor-tool",
+  "tags": [
+    "代码检查",
+    "格式化",
+    "命令行",
+    "CI",
+    "Python"
+  ],
+  "prosShort": [
+    "不依赖引擎，CI 与本地钩子都能跑",
+    "lint、格式化与复杂度一套齐备",
+    "官方提供 Action 与 pre-commit 可直接接流水线"
+  ],
+  "consShort": [
+    "只查语法风格，查不出类型问题",
+    "格式化可能丢数据，需先提交",
+    "按引擎大版本分系列，要装两套"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,144 @@
+{
+  "id": "celyk__GPUTrail",
+  "depth": "standard",
+  "taglineZh": "用 GPU 粒子生成高性能丝带拖尾的 Godot 4 插件",
+  "summaryZh": "它解决的是传统拖尾要手写网格、更新顶点或堆 Trail 节点的问题：用 GPUParticles3D 的 ribbon 模式生成拖尾，封装成 GPUTrail3D 节点，把粒子模拟放到 GPU。挂上节点、给 material 里赋一个 ParticleProcessMaterial 与曲线贴图，再设置长度与颜色渐变即可出效果。还提供 dewiggle、clip_overlaps、billboard 与长度缩放等参数。限制是只做 3D 丝带拖尾，2D、flipbook 与翻转 UV 都还在 TODO，插件描述与文档都比较简陋。",
+  "whatItDoes": "GPUTrail3D 继承 GPUParticles3D，预设 draw_pass 为 ribbon 模式，并把常用参数暴露到检查器：trail_length、trail_texture、trail_color_ramp、trail_curve、curve_range、billboard、dewiggle、clip_overlaps 与 min_pixel_width。material 由用户提供 ParticleProcessMaterial，节点只负责粒子发射与拖尾渲染参数。",
+  "useCases": [
+    {
+      "titleZh": "武器拖影",
+      "descZh": "给剑、球棒或子弹加丝带拖尾，GPU 粒子在大量物体上比逐帧网格便宜，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "角色残影",
+      "descZh": "冲刺或闪避时用短生命周期拖尾强化速度感，颜色渐变可做淡出，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "载具轨迹",
+      "descZh": "赛车、飞船的尾迹用长条 ribbon，配合曲线贴图控制粗细变化，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "特效原型",
+      "descZh": "三步配置就能看到结果，适合先验证拖尾长度、贴图与颜色再细化，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "GPUTrail3D 节点",
+      "descZh": "继承 GPUParticles3D 的拖尾节点，检查器直接暴露长度、贴图与颜色参数，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "ribbon 渲染",
+      "descZh": "用粒子 ribbon 模式生成连续丝带，免去手工维护网格顶点，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "可调外观",
+      "descZh": "曲线、渐变、去抖动、重叠裁剪与广告牌等参数组合出不同质感，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "trail_length",
+      "descZh": "控制拖尾长度，按秒或距离换算，直接影响画面占比与开销，参数集中在检查器面板。"
+    },
+    {
+      "name": "颜色渐变",
+      "descZh": "trail_color_ramp 让拖尾从头到尾淡出或变色，后续修改起来也不费劲。"
+    },
+    {
+      "name": "dewiggle",
+      "descZh": "抑制粒子抖动，让丝带边缘更平滑，适合写实风，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "clip_overlaps",
+      "descZh": "裁剪自重叠部分，减少透明叠加造成的亮斑，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "billboard",
+      "descZh": "让丝带面向相机，适合广告牌式光效，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "功能范围很窄：只支持 3D ribbon 拖尾，2D 版本、flipbook 与 UV 翻转都在 TODO 列表里。节点要求用户自己提供 ParticleProcessMaterial 与贴图，仓库不带现成材质，第一次配置要理解 GPUParticles3D 的 emission 与 lifetime。参数之间耦合明显：长度、曲线范围、最小像素宽与粒子数量会互相影响，调过头会出现拖尾断裂或过度透明。插件没有版本化的兼容说明，plugin.cfg 的描述还是占位文本，长期维护信号偏弱。文档只有一份短 README，缺少参数逐项解释、性能上限与移动端注意事项。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/gpu_trail 目录复制进项目并启用插件"
+    },
+    {
+      "stepZh": "新建 GPUTrail3D 节点并挂到移动的发射源物体"
+    },
+    {
+      "stepZh": "给节点设置粒子处理材质与发射生命周期参数"
+    },
+    {
+      "stepZh": "在检查器里调拖尾长度、曲线与颜色渐变"
+    },
+    {
+      "stepZh": "运行场景检查断裂与透明叠加问题"
+    }
+  ],
+  "pros": [
+    "用 GPU 粒子生成丝带，拖尾开销与物体数量关系比网格方案更友好。",
+    "三步配置即可出效果，参数都在检查器里，原型验证快，团队新人照着示例就能上手。",
+    "颜色渐变、曲线、去抖动与重叠裁剪一并提供，质感可调，出现问题时也更容易定位原因。",
+    "节点继承 GPUParticles3D，可沿用已有粒子材质与发射设置，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "只支持 3D ribbon，2D 与 flipbook 仍在 TODO，升级引擎版本时容易卡住。",
+    "不带示例材质与贴图，首次配置要自己理解粒子参数。",
+    "文档只有短 README，缺少性能上限与移动端说明，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "粒子 lifetime 与 trail_length 不匹配时拖尾会断裂或突然截断，上线前要专门过一遍。",
+    "透明丝带重叠会累积亮度，未开 clip_overlaps 时容易出现亮斑，排查时需要多留一层日志。",
+    "插件描述仍是占位文本，别据此判断功能完整度，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "需要给武器、角色冲刺或载具加 GPU 丝带拖尾，并愿意自己调粒子材质的 3D 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "需要 2D 拖尾、flipbook 动画，或希望开箱即用附带材质与完整文档时。",
+  "compareTips": {
+    "vs": [
+      "sphynx-owner__JFA_driven_motion_blur_addon"
+    ],
+    "whenZh": "两者都是 GPU 视觉特效：GPUTrail 用粒子 ribbon 做物体拖尾，节点化、配置简单；JFA 运动模糊工具包做全屏相机与物体模糊，效果更重。角色武器拖影选 GPUTrail，画面级速度感选 JFA。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "GPU粒子",
+    "拖尾",
+    "3D特效",
+    "ribbon",
+    "Godot4"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "基于 GPU 的高性能拖尾，替代 CPU 实现",
+      "source": "README.md",
+      "quote": "GPUTrail is a GPU-based trail plugin for Godot 4, offering an efficient alternative to CPU-based trails for creating ribbon trail effects in your games and applications."
+    },
+    {
+      "claim": "封装为 GPUTrail3D 节点",
+      "source": "README.md",
+      "quote": "1. Add a new `GPUTrail3D` node to your scene"
+    },
+    {
+      "claim": "只需三步配置",
+      "source": "README.md",
+      "quote": "1. Clone or download this repository\n2. Copy the folder into your `addons/`, so that the root of this repo is located at `res://addons/GPUTrail`\n3. Enable the plugin in your project settings: Project -> Project Settings -> Plugins -> GPUTrail"
+    },
+    {
+      "claim": "flipbook 支持仍列在 TODO",
+      "source": "README.md",
+      "quote": "- Add flipbook support"
+    }
+  ]
+}

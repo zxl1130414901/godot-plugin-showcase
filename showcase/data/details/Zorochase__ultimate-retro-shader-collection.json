@@ -1,0 +1,140 @@
+{
+  "id": "Zorochase__ultimate-retro-shader-collection",
+  "depth": "standard",
+  "taglineZh": "把第五代主机画面搬进 Godot 4 的复古着色器合集",
+  "summaryZh": "它解决的是在 Godot 4 中复刻 PS1、Saturn 与 N64 画面质感的问题：提供顶点抖动、仿射贴图、三点采样、距离雾、金属与高光、3D 精灵、滚动天空、抖动与淡入等一组 shader。用法是把 shaders 目录放进项目，运行 setup.gd 写入全局 uniform，再把 shader 赋给材质；它不是插件，不需要启用。限制是安装脚本只做一次配置，材质引用路径在升级时会变，且透明材质与性能仍需自己权衡。",
+  "whatItDoes": "提供 canvas_item 的 dithering 与 fade 着色器，以及 spatial 下的 basic、standard、metallic、shiny、sprite 系列，全部通过 common.gdshaderinc 的宏组合。flat_sky 用盒体网格做滚动天空，sprite 系列支持 Alpha Scissor 与 billboard。setup.gd 是可执行编辑器脚本，用来批量写入全局 uniform。",
+  "useCases": [
+    {
+      "titleZh": "复古 3D 游戏",
+      "descZh": "做 PS1 或 N64 风格的低多边形游戏，需要顶点抖动与仿射贴图时可直接套用现成材质，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "风格化原型",
+      "descZh": "原型阶段想快速试出第五世代主机观感，用样例工程对比不同 shader 的差异，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "天空与背景",
+      "descZh": "用 flat_sky 给箱庭场景加滚动天空，只需一个盒体网格和一张无缝贴图，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "画面降色",
+      "descZh": "在 SubViewportContainer 上套 dithering，把 3D 画面压成有限色深并抑制色带，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "复古 spatial 材质",
+      "descZh": "basic、standard、metallic、shiny 四类不透明与透明变体，覆盖大多数低模场景，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "屏幕后处理",
+      "descZh": "dithering 与 fade 两个 canvas_item shader，用来降色深和做转场淡入淡出，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "滚动天空盒",
+      "descZh": "flat_sky 着色器配合大尺寸 BoxMesh，随相机移动滚动 UV，模拟远景天空，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "顶点抖动",
+      "descZh": "按屏幕网格吸附顶点，复刻 PS1 特有的多边形抖动，参数在材质检查器中。"
+    },
+    {
+      "name": "仿射贴图",
+      "descZh": "关闭透视校正，让纹理在斜面上拉伸，是第五世代主机的标志性观感。"
+    },
+    {
+      "name": "三点采样",
+      "descZh": "模拟 N64 的纹理过滤方式，近距离纹理更模糊，远距离更干净，参数集中在检查器面板。"
+    },
+    {
+      "name": "common 宏系统",
+      "descZh": "common.gdshaderinc 用宏拼装渲染模式与 uniform，可自建变体而不改核心，后续修改起来也不费劲。"
+    }
+  ],
+  "limitsZh": "合集只是着色器与示例工程，不提供材质库管理、批量转换或自动升级工具，材质要逐个替换。setup.gd 只负责写入全局 uniform，换项目或换机器都要重跑。1.4 版把 spatial 着色器移入子目录，README 明确直接覆盖旧版会破坏已有材质引用，升级需先手工整理文件。透明版本在移动端与低端 GPU 上仍有额外开销，合集建议仅在必要时使用。文档虽详尽，但以英文长文和参数表为主，缺少中文说明与按引擎版本划分的迁移指南。",
+  "workflowZh": [
+    {
+      "stepZh": "下载合集后把 shaders 资源目录复制进项目"
+    },
+    {
+      "stepZh": "在编辑器里执行一次 setup.gd 写入全局 uniform"
+    },
+    {
+      "stepZh": "给模型材质选择对应 shader 并调整参数"
+    },
+    {
+      "stepZh": "在样例工程里对比透明与不透明版本"
+    },
+    {
+      "stepZh": "升级前先按新目录结构整理旧材质"
+    }
+  ],
+  "pros": [
+    "覆盖顶点抖动、仿射贴图、三点过滤、雾与精灵等一整套复古效果，不用自己拼。",
+    "README 近四万字，逐个 shader 与 uniform 都有说明，调参时容易查到出处，团队新人照着示例就能上手。",
+    "兼容全部渲染后端，shader 基于内置管线，不依赖额外插件或编译步骤。",
+    "自带样例工程与多张对比图，能先看效果再决定替换哪些材质。"
+  ],
+  "cons": [
+    "不是插件，没有一键启用或批量替换，材质要手工挂接。",
+    "1.4 版调整了文件结构，旧项目升级会破坏材质引用，需要手工整理。",
+    "透明 shader 在移动端开销明显，合集本身没有 LOD 或合并方案。"
+  ],
+  "pitfalls": [
+    "忘记运行 setup.gd 时全局 uniform 缺失，所有 spatial shader 会报错或显示异常，上线前要专门过一遍。",
+    "直接删旧版再拷新版会打断材质引用，升级必须先按目录结构整理文件。",
+    "给不透明模型误挂透明 shader 会带来额外排序与混合开销，移动端尤其明显。"
+  ],
+  "bestFor": "做 PS1、Saturn 或 N64 风格的低多边形 3D 游戏，需要成套复古着色器并能接受手工挂材质的独立团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目以高清写实为目标，或需要一键批量替换材质与自动化管线时。",
+  "compareTips": {
+    "vs": [
+      "eldskald__godot4-cel-shader"
+    ],
+    "whenZh": "两者都面向 Godot 4 的 3D 画面风格：URSC 提供 PS1/N64 复古着色器全家桶，重点是贴图与顶点观感；cel-shader 提供卡通光照与描边，重点是二次元渲染。复古低模选 URSC，卡通角色选 cel-shader。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "复古画风",
+    "PS1",
+    "N64",
+    "着色器合集",
+    "3D材质"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "提供顶点抖动与仿射贴图",
+      "source": "README.md",
+      "quote": "Vertex snapping and affine texture mapping (as seen on *PlayStation* and *Saturn*)"
+    },
+    {
+      "claim": "复刻 N64 三点纹理过滤",
+      "source": "README.md",
+      "quote": "3-point texture filtering (as seen on *Nintendo 64*)"
+    },
+    {
+      "claim": "兼容全部渲染后端",
+      "source": "README.md",
+      "quote": "Compatible with all [rendering backends]"
+    },
+    {
+      "claim": "需要运行 setup.gd 写入全局 uniform",
+      "source": "README.md",
+      "quote": "An [editor script](https://docs.godotengine.org/en/stable/classes/class_editorscript.html), `setup.gd` is provided with your download and can be executed through the editor to add these uniforms quickly."
+    }
+  ]
+}

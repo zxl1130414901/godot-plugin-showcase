@@ -1,0 +1,34 @@
+{
+  "id": "passivestar__godot-minimal-theme",
+  "descriptionZh": "单文件编辑器主题，压低对比、统一圆角与配色，4.6 起已被引擎收编为默认外观。",
+  "category": "ui",
+  "tags": [
+    "编辑器主题",
+    "界面",
+    "配色",
+    "资源文件"
+  ],
+  "prosShort": [
+    "一个资源文件就能换整屏外观",
+    "对比度与圆角可在设置里微调",
+    "设计已被官方收编为默认主题"
+  ],
+  "consShort": [
+    "仓库停更，旧版本问题不再修复",
+    "只改外观，不改布局与交互密度",
+    "第三方插件面板不走这套样式"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 5
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

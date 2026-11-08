@@ -1,0 +1,35 @@
+{
+  "id": "JekSun97__gdTree3D",
+  "descriptionZh": "参数化生成带碰撞与风动的 3D 树木，支持季节换叶与生长，整体接入成本不高。",
+  "category": "3d-shader",
+  "tags": [
+    "程序化生成",
+    "3D树木",
+    "风动",
+    "GDExtension",
+    "碰撞"
+  ],
+  "prosShort": [
+    "树形参数丰富且形态可复现",
+    "自带多平台预编译库可直接用",
+    "风动与生长动画接口已内置"
+  ],
+  "consShort": [
+    "仅支持 Godot 4.5 及以上版本，团队要提前评估。",
+    "缺少自动 LOD 密林需自行优化",
+    "树叶树皮素材少风格化偏弱"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

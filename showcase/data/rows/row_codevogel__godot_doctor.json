@@ -1,0 +1,35 @@
+{
+  "id": "codevogel__godot_doctor",
+  "descriptionZh": "声明式校验场景与资源的插件，可在编辑器与 CI 命令行运行。",
+  "category": "debug-perf",
+  "tags": [
+    "场景校验",
+    "资源检查",
+    "声明式",
+    "CI集成",
+    "C#支持"
+  ],
+  "prosShort": [
+    "运行前抓错且声明式写法可读",
+    "GDScript 与 C# 双支持",
+    "CI 可跑并输出报告"
+  ],
+  "consShort": [
+    "根目录没有 README",
+    "不用 C# 需手动清理",
+    "新概念多需统一理解"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

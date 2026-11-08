@@ -1,0 +1,33 @@
+{
+  "id": "Kiamo2__YATI",
+  "descriptionZh": "Godot 4 的 Tiled 地图导入器，支持 tmx 与 tmj 及运行时加载，整体接入成本不高。",
+  "category": "asset-pipeline",
+  "tags": [
+    "Tiled",
+    "地图导入",
+    "2D关卡",
+    "图块"
+  ],
+  "prosShort": [
+    "Tiled 图层对象动画覆盖较全，团队上手也快。",
+    "GDScript 与 C# 双版本，接入成本不高。",
+    "编辑器导入与运行时包俱全"
+  ],
+  "consShort": [
+    "仅支持 Godot 4 且版本分档，团队要提前评估。",
+    "多地图导入需关闭多线程，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

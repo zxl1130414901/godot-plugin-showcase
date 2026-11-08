@@ -1,0 +1,35 @@
+{
+  "id": "Dragonboon__Terrainy",
+  "descriptionZh": "按噪声、噪声贴图或高度图一键生成带碰撞地形网格的编辑器插件",
+  "category": "asset-pipeline",
+  "tags": [
+    "地形生成",
+    "噪声",
+    "程序化",
+    "3D",
+    "编辑器插件"
+  ],
+  "prosShort": [
+    "噪声与高度图三种输入可选",
+    "参数存资源，可运行时重生成",
+    "自带地形着色器与水体预设"
+  ],
+  "consShort": [
+    "规则网格无 LOD，大世界开销高",
+    "不能手工雕刻，缺道路河流工具",
+    "默认材质偏演示，需自行替换"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

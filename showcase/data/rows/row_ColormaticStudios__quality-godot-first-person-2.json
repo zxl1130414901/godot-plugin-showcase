@@ -1,0 +1,34 @@
+{
+  "id": "ColormaticStudios__quality-godot-first-person-2",
+  "descriptionZh": "含走跑蹲跳、空中动量、运动平滑、动画准星与手柄支持的第一人称控制项目模板",
+  "category": "state-logic",
+  "tags": [
+    "第一人称",
+    "角色控制",
+    "FPS",
+    "项目模板"
+  ],
+  "prosShort": [
+    "移动、镜头、动画与准星开箱可用",
+    "空中动量与运动平滑参数可调",
+    "键鼠与手柄两套输入都支持"
+  ],
+  "consShort": [
+    "整仓项目式分发，不是即插即用",
+    "不含战斗、交互与联网，只是移动基底",
+    "文档偏简，深入问题要查外部 Wiki"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

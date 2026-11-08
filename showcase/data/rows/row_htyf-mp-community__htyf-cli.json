@@ -1,0 +1,34 @@
+{
+  "id": "htyf-mp-community__htyf-cli",
+  "descriptionZh": "红糖云服配套命令行工具，支持 Godot 模板项目的初始化、资源打包与真机调试，可接入 CI",
+  "category": "platform-export",
+  "tags": [
+    "小程序",
+    "命令行工具",
+    "Godot模板",
+    "真机调试"
+  ],
+  "prosShort": [
+    "初始化、构建、调试与清理一条龙",
+    "支持 Godot 模板并接受导出预设参数",
+    "提供非交互模式，便于接入 CI"
+  ],
+  "consShort": [
+    "绑定云服生态，脱离该平台就用不上",
+    "宿主版本锁定，模板需同步升级",
+    "Godot 平台适配的细节文档很少"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

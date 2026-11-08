@@ -1,0 +1,168 @@
+{
+  "id": "Zylann__godot_voxel",
+  "depth": "standard",
+  "taglineZh": "把可实时编辑、带坑道与隧道的地形做成 Godot 4 的 C++ 体素模块，可边玩边挖",
+  "summaryZh": "Godot Voxel 是在引擎内构建体素世界的 C++ 扩展，把三维空间切成区块，再按需转换成网格交给渲染。它要解决的是高度图地形表达不了悬空、隧道与可破坏结构的问题：玩家能在运行时挖洞、堆方块、把整片地貌抹掉。数据以 8 位或 16 位通道存储，既能做 Minecraft 风格方块地形，也能用 Transvoxel 生成带 LOD 的平滑地形。区块按距离分页加载，规模上不设硬边界；体素数据可由生成器、文件或自己写的流式源提供，表面还能实例化植被与石块。物理既可走 Godot 原生，也能切到快速的方块碰撞方案。代价是安装流程围绕自编译引擎展开，GDExtension 形态仍在路线图上，它更像一套地形内核而非开箱组件。",
+  "whatItDoes": "提供 VoxelTerrain 与 VoxelLodTerrain 两类节点，前者管方块地形，后者管平滑地形与 LOD。地形数据由 VoxelStream 与 VoxelGenerator 组合决定，可接文件、脚本生成器或自定义实现。运行时通过 VoxelTool 在指定位置读写体素，支持球形、立方体与自定义形状的挖掘和填充。表面细节靠 VoxelInstancer 在网格上散布装饰物，方块材质与烘焙环境光遮蔽由 VoxelBlockyLibrary 定义。编辑器内提供体素查看、地形雕刻与图块编辑面板，碰撞可交给引擎物理，也可切到内置的方块碰撞。",
+  "useCases": [
+    {
+      "titleZh": "可破坏的开放地形",
+      "descZh": "在生存或沙盒项目里，让玩家挖穿山体、垒起方块、炸开隧道，地形改动要能保存下来并在下次进入时还原，这层需求直接交给体素内核即可。"
+    },
+    {
+      "titleZh": "洞穴与地下关卡",
+      "descZh": "做地下城、矿井或洞穴关卡时，用体素工具挖出任意形状的空间，不必提前建模洞体，关卡设计可以在编辑器里直接雕出通路与岔口。"
+    },
+    {
+      "titleZh": "无限世界流式加载",
+      "descZh": "大世界项目用区块分页把地形按距离加载与卸载，玩家一直往前走也不会撞到地图边界，内存占用只跟可见半径相关。"
+    },
+    {
+      "titleZh": "程序化地形生成",
+      "descZh": "用噪声与脚本生成器铺出整片地貌，再在关键地点用体素工具手工修形，程序化生成与手工雕刻叠加在同一份数据上。"
+    },
+    {
+      "titleZh": "表面装饰散布",
+      "descZh": "在体素地表用实例化系统撒草、石头与树，省掉手工摆件，也让玩家挖动地形后装饰能跟着更新位置。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "体素地形节点",
+      "descZh": "VoxelTerrain 或 VoxelLodTerrain 节点及其区块网格，可直接放进场景运行，附带碰撞、LOD 切换与距离裁剪，节点本身就是地形根。"
+    },
+    {
+      "titleZh": "体素数据存档",
+      "descZh": "按区块序列化到磁盘的体素数据，记录玩家改动过的方块与平滑密度，可回读继续编辑，支持增量写入与按区块清理。"
+    },
+    {
+      "titleZh": "方块图块库",
+      "descZh": "由 VoxelBlockyLibrary 定义的方块集合，含材质、碰撞形状与烘焙环境光遮蔽，供方块地形直接引用，同一份图块库可复用给多个地形节点。"
+    },
+    {
+      "titleZh": "植被散布实例",
+      "descZh": "VoxelInstancer 生成的 MultiMesh 实例，跟随地形表面变化，用于草丛、岩石与树木铺设，可按密度与坡度筛掉陡坡多余对象，远处自动降级为替身。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "VoxelTool",
+      "descZh": "运行时读写体素的核心接口，提供球形、立方体与自定义形状的挖掘、填充和贴图涂抹操作。"
+    },
+    {
+      "name": "VoxelStream / Generator",
+      "descZh": "把数据来源与生成算法拆成两部分，可接文件存档、噪声生成或自己实现的流式源。"
+    },
+    {
+      "name": "Transvoxel LOD",
+      "descZh": "平滑地形用行进立方体变体做多级细节，区块交界处自动缝合，避免远近切换时出现裂缝。"
+    },
+    {
+      "name": "VoxelInstancer",
+      "descZh": "在体素表面按密度与坡度散布装饰实例，支持多级 LOD 与远距离替身，控制大面积植被开销。"
+    },
+    {
+      "name": "VoxelBlockyLibrary",
+      "descZh": "集中定义方块模型、材质、碰撞与 AO 烘焙结果，方块地形的外观和手感都从这里配置。"
+    }
+  ],
+  "limitsZh": "安装是第一道门槛：主流方式是把模块编进自定义引擎，要准备 SCons、C++ 工具链与对应版本的 Godot 源码，每次升级引擎都得重编；GDExtension 形态在路线图上仍标注为待完成，能直接用的预编译库覆盖平台也有限。性能上，体素转网格与 LOD 计算都很吃 CPU，区块尺寸、LOD 距离与网格线程数配不好就会在主线程卡顿，移动端尤其明显。内存随可见半径线性增长，16 位通道比 8 位多一倍，存档体积也会迅速变大。平滑地形的纹理与材质能力仍弱于高度图方案，想做出细致地貌要自己补着色器。多人同步、平滑体素贴图与方块地形 LOD 都还挂在路线图上，联机项目需要自行同步改动。文档以英文为主且概念密集，第一次接通流与生成器往往要读源码。",
+  "workflowZh": [
+    {
+      "stepZh": "用 SCons 把模块编译进自定义 Godot 引擎，再导出可执行文件"
+    },
+    {
+      "stepZh": "在场景放置 VoxelTerrain 或 VoxelLodTerrain 节点并指定数据资源"
+    },
+    {
+      "stepZh": "配置体素流、生成器与区块尺寸参数"
+    },
+    {
+      "stepZh": "用编辑器笔刷或 VoxelTool 雕刻地形并绘制方块材质"
+    },
+    {
+      "stepZh": "设置方块库或平滑材质，并调整 LOD 距离与网格线程数"
+    },
+    {
+      "stepZh": "运行场景验证挖掘、存档回读与碰撞手感"
+    }
+  ],
+  "pros": [
+    "支持运行时任意挖掘与建造，高度图方案做不到的隧道、悬空与整片抹除在这里都是常规操作。",
+    "区块分页加 Transvoxel LOD，世界规模没有硬边界，远距离开销可控，适合长线开放世界一路往外扩图。",
+    "方块与平滑两种地形形态共用一套数据流，同一项目里可以混用而不必换插件。",
+    "文档站覆盖安装、快速上手与类参考，示例工程能直接跑起来对照调参，问题定位相对有据可查。"
+  ],
+  "cons": [
+    "要编自定义引擎，版本一换就得重来，团队里没 C++ 环境的人基本无法独立安装。",
+    "体素转网格与 LOD 很吃 CPU，参数不当会在主线程造成明显卡顿，移动端更难压住。",
+    "平滑地形的贴图与材质能力弱于高度图方案，做细密地貌仍需补大量自定义着色器。",
+    "GDExtension 与多人同步仍在路线图上，想走免编译分发或联机改造会撞上缺口。"
+  ],
+  "pitfalls": [
+    "区块尺寸一旦写进存档就不好改，中途调整会让旧存档错位甚至读出空洞，动手前先定死。",
+    "生成器与流混用但没设优先级时，玩家改过的体素可能被重新生成覆盖，改动直接丢失。",
+    "编译模块时 Godot 源码版本与插件分支必须对应，错一个小版本就会在链接阶段报符号缺失。"
+  ],
+  "bestFor": "要做可挖掘、可建造、带洞穴与隧道的 3D 沙盒或生存项目，且团队里有人能维护自定义引擎编译的开发者。",
+  "avoidWhenZh": "只做静态关卡地形，或团队完全不想碰 C++ 编译与自建引擎分支，选高度图插件更省事。",
+  "compareTips": {
+    "vs": [
+      "Zylann__godot_heightmap_plugin",
+      "TokisanGames__Terrain3D",
+      "mohsenph69__Godot-MTerrain-plugin"
+    ],
+    "whenZh": "同一作者的 HeightMap 插件只做高度图，安装走 AssetLib 更轻；Terrain3D 用预编译 GDExtension，大地形性能强但也只能做起伏地表。需要挖洞、悬空与运行时改造就选 Voxel，只需要地表且不想编译引擎，选另外两个。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "体素",
+    "地形",
+    "GDExtension",
+    "程序化生成",
+    "C++"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 5,
+  "evidence": [
+    {
+      "claim": "定位是 Godot 4 的 C++ 模块或扩展",
+      "source": "README.md",
+      "quote": "A C++ module/extension for creating volumetric terrains in Godot Engine 4."
+    },
+    {
+      "claim": "支持运行时挖掘与破坏地形",
+      "source": "README.md",
+      "quote": "Realtime 3D terrain editable in-game (Unlike a heightmap based terrain, this allows for overhangs, tunnels, and user creation/destruction)"
+    },
+    {
+      "claim": "区块分页支撑无限地形",
+      "source": "README.md",
+      "quote": "Infinite terrains made by paging chunks in and out"
+    },
+    {
+      "claim": "平滑地形使用 Transvoxel 做 LOD",
+      "source": "README.md",
+      "quote": "Smooth terrain with level of detail using Transvoxel"
+    },
+    {
+      "claim": "GDExtension 形态尚未完成",
+      "source": "README.md",
+      "quote": "Make GDExtension work"
+    },
+    {
+      "claim": "仓库内 gdextension 声明最低兼容 4.4.1",
+      "source": "project/addons/zylann.voxel/voxel.gdextension",
+      "quote": "compatibility_minimum = \"4.4.1\""
+    }
+  ]
+}

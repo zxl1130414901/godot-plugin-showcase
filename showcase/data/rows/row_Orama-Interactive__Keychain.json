@@ -1,0 +1,34 @@
+{
+  "id": "Orama-Interactive__Keychain",
+  "descriptionZh": "提供现成重映射界面与多套快捷键方案的输入自定义插件，支持键鼠、手柄按钮与轴，并可分组防冲突",
+  "category": "ui",
+  "tags": [
+    "按键重映射",
+    "输入设置",
+    "无障碍",
+    "本地化"
+  ],
+  "prosShort": [
+    "现成重映射界面，省去自建设置页",
+    "键鼠与手柄按钮、轴都能绑定",
+    "多套方案与界面本地化，适合发行"
+  ],
+  "consShort": [
+    "不能新建输入动作，需手工先建",
+    "分组配置仍要改脚本或外部赋值",
+    "方案只存本地，不跨设备同步"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,144 @@
+{
+  "id": "nathanhoad__godot_input_helper",
+  "depth": "standard",
+  "taglineZh": "识别当前输入设备并读写按键映射、震动手柄的小工具",
+  "summaryZh": "Input Helper 在原生输入之外补上一层状态跟踪：它能判断玩家此刻在用键鼠还是手柄、区分几种常见手柄，并把手柄名称与图标暴露给 UI。输入映射可以直接在代码里读写，改键界面不必自己解析事件；手柄还支持强度与时长可控的震动。插件同时提供 GDScript 与 C# 版本，文档按设备检测、映射、震动与迁移分篇。它不改变原生输入调用方式，只维护一份当前设备状态，因此接入成本低，也不会接管输入分发。",
+  "whatItDoes": "持续跟踪最近使用的输入设备与手柄型号，提供动作映射读写、按键提示与手柄震动接口，跨 GDScript 与 C# 保持一致用法。",
+  "useCases": [
+    {
+      "titleZh": "按键提示随设备切换",
+      "descZh": "玩家从手柄换成键鼠时，界面上的按键图标自动切换成对应键位，不必让玩家手动选设备。"
+    },
+    {
+      "titleZh": "自制改键界面",
+      "descZh": "设置页在运行时读取与写回动作绑定，玩家可以自己换键，不必改项目设置后重启游戏。"
+    },
+    {
+      "titleZh": "手柄体验增强",
+      "descZh": "命中、受伤或爆炸时按强度与时长震动对应手柄，用触觉反馈补足画面之外的一点信息。"
+    },
+    {
+      "titleZh": "多手柄识别",
+      "descZh": "本地多人或展会场景里区分不同型号的手柄，按品牌名称显示对应图标与操作提示。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "设备检测单例",
+      "descZh": "记录最近使用的输入设备与手柄型号，供界面与按键提示系统随时查询。"
+    },
+    {
+      "titleZh": "输入映射读写接口",
+      "descZh": "在运行时增删改动作按键与手柄按钮，改键界面无需直接操作底层事件。"
+    },
+    {
+      "titleZh": "手柄震动封装",
+      "descZh": "按强度与持续时间驱动指定手柄的两侧马达，可叠加也可随时单独停止。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Device Detection",
+      "descZh": "根据最近输入事件判断当前设备，界面可随键鼠与手柄切换提示。"
+    },
+    {
+      "name": "Joypad Recognition",
+      "descZh": "能区分几种常见手柄型号，按型号名称匹配图标与按键布局。"
+    },
+    {
+      "name": "Remapping API",
+      "descZh": "运行时读写动作绑定，改键界面不必自己解析底层输入事件。"
+    },
+    {
+      "name": "Rumble",
+      "descZh": "控制手柄震动强度与时长，为打击、受击等场景增加触觉反馈。"
+    },
+    {
+      "name": "GDScript and C#",
+      "descZh": "两套实现保持一致的接口与命名，GDScript 与 C# 项目都能直接切换使用。"
+    }
+  ],
+  "limitsZh": "它只负责设备识别、映射读写与震动，不含按键提示 UI、输入缓冲、组合键解析或手柄热插拔的完整流程，这些要自己接。设备判断基于最近一次输入事件，键鼠与手柄同时使用时可能来回切换，需要自己加延迟或锁定策略。震动依赖系统与手柄驱动，部分平台或型号没有马达，效果会静默失效，得准备降级方案。文档按主题分篇但篇幅不长，没有完整 API 参考，复杂改键界面仍要读源码。C# 版本与 GDScript 版本更新节奏可能不同，跨语言项目要核对函数名。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/input_helper 整个目录复制到工程的 addons 目录下"
+    },
+    {
+      "stepZh": "在项目设置的插件列表里启用 Input Helper"
+    },
+    {
+      "stepZh": "按文档在界面里查询当前设备与图标"
+    },
+    {
+      "stepZh": "接上改键界面并调用映射读写接口"
+    },
+    {
+      "stepZh": "在目标平台逐项验证震动与手柄识别效果"
+    }
+  ],
+  "pros": [
+    "设备识别与按键图标切换是现成能力，省去自己判断键鼠与手柄。",
+    "映射可在运行时读写，改键界面不用碰底层输入事件，接入简单。",
+    "同时提供 GDScript 与 C# 两套实现，两种语言的项目都能直接切换使用。",
+    "接口很薄、不接管原生输入分发，旧代码几乎不需要任何改动。"
+  ],
+  "cons": [
+    "不含提示 UI 与改键界面，只提供数据与查询能力。",
+    "设备判断依赖最近事件，两套设备混用时可能来回跳。",
+    "震动在部分平台与手柄上不可用，需要自己做降级。"
+  ],
+  "pitfalls": [
+    "键鼠与手柄同时有输入时设备会反复切换，加一点延迟再读结果。",
+    "手柄型号名称在不同平台不一致，图标匹配需要准备兜底方案。",
+    "改键后忘记写回配置，重启游戏设置就丢了，保存流程要单独做。"
+  ],
+  "bestFor": "需要按键提示随设备切换、运行时改键或手柄震动，并且想保持原生输入体系的中小型 Godot 4 项目。",
+  "avoidWhenZh": "只需要固定键位、不做手柄适配的单平台小项目，直接写原生输入更省依赖。",
+  "compareTips": {
+    "vs": [
+      "godotneers__G.U.I.D.E",
+      "matjlars__godot-multiplayer-input"
+    ],
+    "whenZh": "三者都在原生输入上做封装：Input Helper 管设备识别、改键与震动；G.U.I.D.E 提供输入上下文与动作分层；MultiplayerInput 按设备号隔离本地多人输入。要设备提示与震动选它，要复杂输入状态机选 G.U.I.D.E。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "输入设备",
+    "按键映射",
+    "手柄震动",
+    "改键界面"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "能检测玩家正在使用的输入设备",
+      "source": "README.md",
+      "quote": "Detects what input device the player is using"
+    },
+    {
+      "claim": "支持运行时读取与设置动作绑定",
+      "source": "README.md",
+      "quote": "Get and set input action buttons and keys"
+    },
+    {
+      "claim": "可以震动指定手柄",
+      "source": "README.md",
+      "quote": "Rumble a joypad"
+    },
+    {
+      "claim": "能区分几种不同手柄",
+      "source": "README.md",
+      "quote": "Can tell the difference between a few different joypads"
+    }
+  ]
+}

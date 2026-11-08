@@ -1,0 +1,34 @@
+{
+  "id": "eumario__godot-manager",
+  "descriptionZh": "独立的 Godot 引擎与项目管理工具，支持多版本下载、项目分类、插件模板缓存与更新检查。",
+  "category": "editor-tool",
+  "tags": [
+    "engine-manager",
+    "version-management",
+    "asset-library",
+    "project-management"
+  ],
+  "prosShort": [
+    "引擎版本、项目与素材都能集中管理",
+    "每个项目都可以绑定到对应的引擎版本",
+    "能从 Asset Library 缓存插件与模板到本地复用"
+  ],
+  "consShort": [
+    "独立程序不嵌入编辑器，需另开窗口操作",
+    "整体界面明显停留在 Godot 3 时期的观感",
+    "镜像与下载源扩展仍处于规划阶段"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

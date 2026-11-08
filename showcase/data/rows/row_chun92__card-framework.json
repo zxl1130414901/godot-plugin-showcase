@@ -1,0 +1,33 @@
+{
+  "id": "chun92__card-framework",
+  "descriptionZh": "纸牌游戏底层框架，提供可拖拽卡牌、牌堆与手牌容器及 JSON 卡表",
+  "category": "state-logic",
+  "tags": [
+    "卡牌游戏",
+    "拖拽",
+    "牌堆",
+    "JSON数据"
+  ],
+  "prosShort": [
+    "卡牌拖拽与容器排布已封装",
+    "卡面数据用 JSON 方便替换，团队上手也快。",
+    "自带完整 FreeCell 示例工程，接入成本不高。"
+  ],
+  "consShort": [
+    "不含规则引擎胜负判定要自写",
+    "要求 Godot 4.6 以上版本较高，团队要提前评估。"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

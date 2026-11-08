@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "面向 Unity 与 Godot .NET 的 C# 框架，提供事件、状态机、对象池与存档等 Kit",
+  "prosShort": [
+    "基础能力齐全，省掉自研框架时间",
+    "Core 与 Adapter 分层，业务代码可跨引擎复用",
+    "自带 Workbench 与 CLI，运行时可观测性较好"
+  ],
+  "consShort": [
+    "只支持 Godot 4.x .NET 版本，其他用不上",
+    "安装需 .NET SDK 与 Installer 流程，比较麻烦",
+    "模块多且文档分散，新手上手偏慢"
+  ],
+  "isGDExtension": false,
+  "id": "HinataYoki__YokiFrame",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "category": "state-logic",
+  "tags": [
+    "C#框架",
+    "跨引擎",
+    "事件总线",
+    "状态机",
+    "对象池"
+  ],
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true
+}

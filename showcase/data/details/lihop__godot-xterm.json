@@ -1,0 +1,135 @@
+{
+  "id": "lihop__godot-xterm",
+  "depth": "standard",
+  "taglineZh": "在 Godot 里运行真实终端并执行本机命令的扩展",
+  "summaryZh": "GodotXterm 用 libtsm、libuv 与 node-pty 把真正的终端模拟器搬进 Godot：Terminal 节点能解析 ANSI、渲染字符网格与主题，Pty 节点则启动本机 shell 并与终端双向通信，因此可以直接在游戏里跑命令、做开发者控制台或远程运维界面。支持 Godot 4.3 以上，Linux 为主要开发测试平台，macOS、Windows 可用，HTML5 只有部分支持。适合做游戏内终端、SSH 客户端原型与教学演示。限制是要编译 GDExtension，Pty 等于把本机 shell 暴露给游戏进程，发布版必须谨慎处理安全与权限。",
+  "whatItDoes": "Terminal 节点负责 VT 解析、字符写入、光标与主题渲染；Pty 节点调用 node-pty 启动 shell 进程并转发输入输出，可选择 shell 程序与参数。二者可组合成完整终端窗口，也支持只渲染文本流的只读终端。仓库提供示例、主题与基准场景。",
+  "useCases": [
+    {
+      "titleZh": "游戏内开发者终端",
+      "descZh": "在调试版里开真实 shell，跑脚本、看日志与列文件，比自建控制台更接近实际运维环境，也能复现玩家环境里的问题。"
+    },
+    {
+      "titleZh": "SSH 与运维界面",
+      "descZh": "配合网络层做远程终端客户端原型，把服务器输出直接渲染成字符网格，也能接输入转发。"
+    },
+    {
+      "titleZh": "终端风 UI",
+      "descZh": "用 ANSI 渲染做黑客风界面与命令行交互谜题，颜色与光标都由终端自己处理，不用自己解析转义序列。"
+    },
+    {
+      "titleZh": "教学演示",
+      "descZh": "在游戏内展示命令执行与终端协议，适合课程演示，也能让学生理解 PTY 的工作方式，比纯讲原理直观。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可渲染的终端节点",
+      "descZh": "解析 ANSI 并以字符网格显示，支持主题与光标，长文本滚动也按终端规则处理。"
+    },
+    {
+      "titleZh": "本机 shell 会话",
+      "descZh": "Pty 启动进程并双向转发输入输出，窗口尺寸变化时也会同步到子进程，终端尺寸始终对齐。"
+    },
+    {
+      "titleZh": "主题与示例",
+      "descZh": "内置多套配色与演示场景，可直接改用，改主题只需换资源，也能自己写主题资源。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Terminal",
+      "descZh": "VT 解析与字符渲染节点，支持 ANSI 转义与主题，纯显示场景也能单独使用。"
+    },
+    {
+      "name": "Pty",
+      "descZh": "基于 node-pty 启动 shell，处理输入输出与窗口尺寸，也能接外部进程，会话生命周期由节点管理。"
+    },
+    {
+      "name": "主题资源",
+      "descZh": "配色、字体与样式可换，内置复古绿等主题，改造为游戏 UI 很快。"
+    },
+    {
+      "name": "基准场景",
+      "descZh": "提供性能基准，评估大量字符刷新时的开销，便于定刷新策略。"
+    }
+  ],
+  "limitsZh": "是原生 GDExtension，需要 CMake、C++ 工具链与 libtsm、libuv、node-pty 依赖，自行编译步骤不少；预编译包虽可从发布页取，但版本与引擎绑定。官方主要在 Linux 开发测试，macOS 与 Windows 属可用但非首要平台，HTML5 只有部分支持。Pty 会启动真实 shell，等于把本机命令执行能力交给游戏进程，发布版若保留就是严重安全风险。终端渲染大量字符与频繁刷新时有开销，仓库用基准场景评估，但低端设备仍需限制刷新频率。",
+  "workflowZh": [
+    {
+      "stepZh": "先装好 C++ 编译器与 CMake 等构建工具链并确认版本"
+    },
+    {
+      "stepZh": "拉取所有子模块，再按文档编译 GDExtension 扩展"
+    },
+    {
+      "stepZh": "把编译产物放进 addons 目录并启用插件"
+    },
+    {
+      "stepZh": "在场景里同时添加 Terminal 与 Pty 两个节点，并连成一条链路"
+    },
+    {
+      "stepZh": "配置 shell 路径、主题与终端尺寸后运行"
+    }
+  ],
+  "pros": [
+    "真实 VT 解析与 ANSI 支持，终端观感与行为接近原生，滚动与光标也按终端规则处理",
+    "Terminal 与 Pty 可以拆开使用，既能跑本机 shell，也能只做纯显示终端，组合方式很灵活",
+    "主题资源与示例都齐全，改成游戏内终端界面很快，配色替换成本低",
+    "支持 Linux、macOS 与 Windows 三类桌面系统，覆盖主流开发平台，导出前不用换终端方案",
+    "文档站点完整，含 API 与示例说明，遇到问题能查到原因，不必靠猜"
+  ],
+  "cons": [
+    "需自行编译 GDExtension，工具链门槛高，预编译包也绑版本",
+    "Pty 暴露本机 shell，发布版安全风险大，必须严格控制权限",
+    "HTML5 仅部分支持，平台能力不对等，Web 项目基本用不上"
+  ],
+  "pitfalls": [
+    "发布版忘记禁用 Pty，玩家可直接执行本机命令，等于开了后门",
+    "终端尺寸变化未同步 Pty，输出会错行，需要监听尺寸并回传给子进程",
+    "频繁写入大量字符会拖慢渲染，需限制刷新频率或做合批处理"
+  ],
+  "bestFor": "需要在游戏或工具里嵌入真实终端、能自行编译原生扩展并严格控制发布版权限的 Godot 4 开发者与工具团队。",
+  "avoidWhenZh": "只做 Web 导出，或不愿承担原生编译与 shell 权限风险的项目，都不适合使用 Pty 部分。",
+  "compareTips": {
+    "vs": [
+      "Kubulambula__Godot-GDShell"
+    ],
+    "whenZh": "GDShell 是插件内自建的命令解析器，只处理已注册命令；GodotXterm 是真实 VT 终端加本机 shell，能跑任意命令。要轻量调试命令选前者，要完整终端体验选后者，但后者必须管好发布版权限。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "终端模拟",
+    "GDExtension",
+    "shell",
+    "开发者工具"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "面向 Godot 的 GDExtension 终端模拟器",
+      "source": "README.md",
+      "quote": "GDExtension terminal emulator for Godot."
+    },
+    {
+      "claim": "基于 libtsm、libuv 与 node-pty",
+      "source": "README.md",
+      "quote": "Built using [libtsm](https://www.freedesktop.org/wiki/Software/libtsm/), [libuv](https://github.com/libuv/libuv), and [node-pty](https://github.com/microsoft/node-pty)."
+    },
+    {
+      "claim": "以 Linux 为主要开发测试平台，HTML5 仅部分支持",
+      "source": "README.md",
+      "quote": "Primarily developed and tested on Linux, it also supports macOS and Windows with partial support for HTML5."
+    }
+  ]
+}

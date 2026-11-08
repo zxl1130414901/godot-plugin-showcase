@@ -1,0 +1,139 @@
+{
+  "id": "kagenash1__godot-behavior-tree",
+  "depth": "standard",
+  "taglineZh": "面向 Godot 4 的完整行为树框架，含黑板、服务与反应式条件",
+  "summaryZh": "GodotBT 给 Godot 4 提供一套完整行为树：选择、顺序、并行以及随机版本，配合反转、重复、强制返回等装饰器，条件节点可读黑板并支持反应式中止，服务节点按频率周期执行，任务节点负责具体动作。同一棵树可被多个代理复用，每个代理保留独立上下文与黑板，适合做巡逻、追击、逃跑等 AI。仓库附敌人 Demo、API 文档与示例任务、服务，接入路径清楚。限制是全 GDScript，复杂树缺少可视化编辑器，黑板与节点的生命周期要自己管理。",
+  "whatItDoes": "在场景中挂 BehaviorTree 节点并配置根节点，子节点按行为树语义返回成功、失败或运行中。代理通过 BTContext 与 Blackboard 注入自身数据，服务按间隔更新感知，任务驱动移动与动画。反应式条件可在世界状态变化时按中止范围打断当前分支。",
+  "useCases": [
+    {
+      "titleZh": "敌人巡逻与追击",
+      "descZh": "用选择器把巡逻、发现玩家、追击与攻击分支组合起来，几十行代码就能搭出可用的基础敌人 AI。"
+    },
+    {
+      "titleZh": "多代理共享行为",
+      "descZh": "同一棵树配不同上下文与黑板，让一批敌人共用行为逻辑但各自决策，显著减少重复维护与拷贝。"
+    },
+    {
+      "titleZh": "反应式战斗行为",
+      "descZh": "用反应式条件在受击或目标丢失时中止当前动作，立即切换到新分支，反应比轮询更及时。"
+    },
+    {
+      "titleZh": "学习行为树结构",
+      "descZh": "代码与 API 文档齐全，适合拆读组合、装饰、条件与服务的职责划分，理解经典行为树设计。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可复用行为树",
+      "descZh": "一棵树配多个上下文，避免为每个敌人复制逻辑，改动只需要在一处完成。"
+    },
+    {
+      "titleZh": "黑板数据层",
+      "descZh": "带类型访问与变更检测，节点间共享感知与目标，减少重复查询，数据流更清楚。"
+    },
+    {
+      "titleZh": "示例 AI 场景",
+      "descZh": "仓库内含敌人巡逻、追击、寻路与射击演示场景，可直接改成自己的项目起点。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "BTSelector / BTSequence",
+      "descZh": "经典选择与顺序组合，另有并行和随机执行版本，覆盖多数决策结构。"
+    },
+    {
+      "name": "BTReactiveCondition",
+      "descZh": "条件变化时按可配中止范围打断分支，响应更及时，适合战斗中的即时切换。"
+    },
+    {
+      "name": "Blackboard",
+      "descZh": "带类型访问与变更检测，节点间共享数据，写入时会触发监听。"
+    },
+    {
+      "name": "BTService",
+      "descZh": "按自定义频率周期运行感知或维护任务，避免每帧重复计算。"
+    },
+    {
+      "name": "BTContext",
+      "descZh": "每个代理独立上下文，同一棵树可被多个角色复用，彼此不互相污染。"
+    }
+  ],
+  "limitsZh": "框架完全用 GDScript 实现，性能上不如原生扩展，大量代理每帧评估复杂树时会有开销；服务与反应式条件还会增加轮询成本。没有可视化行为树编辑器，树要在场景或代码里手工搭，规模大时结构容易看不清。黑板键是字符串，拼写错误只能运行时发现；节点生命周期、上下文释放与调试信息都要开发者自己管。仓库 API 文档覆盖核心类，但缺少完整教程与最佳实践，复杂项目仍需读源码。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/godot_bt 目录并在插件列表里启用"
+    },
+    {
+      "stepZh": "在代理的根节点下添加 BehaviorTree 节点并挂接脚本"
+    },
+    {
+      "stepZh": "组合选择、顺序与装饰节点搭出决策结构"
+    },
+    {
+      "stepZh": "编写任务与服务脚本，处理具体动作与感知"
+    },
+    {
+      "stepZh": "为每个代理注入上下文与黑板数据，然后运行观察行为"
+    }
+  ],
+  "pros": [
+    "组合、装饰、条件、服务与任务类型齐全，覆盖面足够做完整敌人 AI，不用自己补底层",
+    "支持反应式中止，行为切换比纯轮询更及时，战斗表现更自然",
+    "黑板带类型访问与变更检测，节点间的数据流清楚，调试也更容易",
+    "同一棵树可被多个代理复用，上下文彼此隔离，适合批量刷怪",
+    "附带的敌人 Demo 与 API 文档齐全，学习成本可控，可直接改造成项目起点"
+  ],
+  "cons": [
+    "纯 GDScript 实现，同屏大量代理时评估开销明显，性能不如原生扩展",
+    "没有可视化编辑器，大树只能在场景或代码里手工搭，结构容易看不清",
+    "黑板键是字符串，拼写错误只能运行时才发现，缺少编译期校验"
+  ],
+  "pitfalls": [
+    "反应式中止范围配错会频繁打断当前动作，行为看起来抖动，需要从小范围试起",
+    "服务频率设太高会拖慢大量代理的场景，感知类服务应尽量拉长间隔",
+    "上下文未及时释放会残留黑板数据，影响下一次决策，代理回收时要显式清理"
+  ],
+  "bestFor": "需要模块化敌人 AI、愿意用代码搭行为树，并接受 GDScript 性能上限的 Godot 4 独立开发者与规模不大的协作团队。",
+  "avoidWhenZh": "需要可视化编辑大型行为树，或同屏数百个高频决策代理的性能敏感项目，应评估原生方案。",
+  "compareTips": {
+    "vs": [
+      "LexianDEV__FlowKit"
+    ],
+    "whenZh": "GodotBT 是经典行为树框架，重点在组合节点与黑板；FlowKit 更偏向流程编排与状态切换。做敌人决策与感知分支选前者，做关卡流程、交互状态机则看后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "行为树",
+    "AI",
+    "黑板",
+    "敌人逻辑"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4 的灵活行为树框架",
+      "source": "plugin.cfg",
+      "quote": "A flexible behavior tree framework for AI in Godot 4"
+    },
+    {
+      "claim": "含组合、装饰、服务、任务与条件完整实现",
+      "source": "README.md",
+      "quote": "Complete Behavior Tree Implementation: Core composite nodes, decorators, services, tasks, and conditions"
+    },
+    {
+      "claim": "同一棵树可被多个代理复用",
+      "source": "README.md",
+      "quote": "Reusable Behavior Trees: Define a behavior tree once and use it across multiple agents with their own contexts"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "GodotModding__godot-mod-loader",
+  "descriptionZh": "把 ZIP 模组加载进 GDScript 游戏的通用模组加载器，支持脚本场景覆盖与创意工坊分发，并提供依赖排序。",
+  "category": "asset-pipeline",
+  "tags": ["模组加载", "ZIP", "GDScript", "创意工坊"],
+  "prosShort": ["可覆盖脚本、场景与资源三类内容", "停用模组后不留痕迹，便于版本管理", "自带依赖排序、配置档与统一日志"],
+  "consShort": ["只支持 GDScript，C# 与扩展项目都用不了", "需重新导出并注入钩子才能生效", "模组无沙箱，分发前需自行审核"],
+  "scores": {"coverage": 5, "usability": 3, "docs": 4, "maintenance": 4, "performance": 3, "stability": 3},
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

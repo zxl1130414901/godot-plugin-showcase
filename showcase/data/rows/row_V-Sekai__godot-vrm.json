@@ -1,0 +1,35 @@
+{
+  "id": "V-Sekai__godot-vrm",
+  "descriptionZh": "Godot 的 VRM 虚拟形象完整导入导出插件，兼容 0.0 与 1.0 两版规范，并附带完整的 MToon 卡通着色器。",
+  "category": "asset-pipeline",
+  "tags": [
+    "VRM",
+    "虚拟形象",
+    "导入导出",
+    "MToon",
+    "3D"
+  ],
+  "prosShort": [
+    "导入导出完整覆盖 VRM 两版规范内容",
+    "自带一份完整可用的 MToon 卡通着色器",
+    "人形骨架可重定向，动画能跨角色复用"
+  ],
+  "consShort": [
+    "节点约束与人形重定向组合有 bug",
+    "glTF 导出具有破坏性，操作风险比较高",
+    "弹簧骨骼尚未优化，性能比较吃紧"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

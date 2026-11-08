@@ -1,0 +1,145 @@
+{
+  "id": "real-ezTheDev__GodotEzDialoguePlugin",
+  "depth": "standard",
+  "taglineZh": "用自带脚本语言写分支对话的 Godot 编辑器插件",
+  "summaryZh": "EzDialogue 是一个 Godot 对话插件，在编辑器里提供一个对话管理标签页，用来创建与组织游戏对白。它使用自带的脚本语言写内容，通过节点名做跳转，可以控制叙事分支并触发自定义游戏函数。文本里可以用花括号加变量名注入状态字典中的值，选项以问号箭头语法书写，条件用 if 与 else 包裹，自定义命令则走信号模式，由对话处理器发出。运行时把节点挂进场景，加载编辑器生成的 JSON，调用开始函数后循环处理对话与结束信号。",
+  "whatItDoes": "在编辑器里提供对话管理标签页与一套轻量脚本语言，把对白、跳转、选项、条件与自定义信号写成文本，另配运行时处理器按信号循环推进，供游戏侧显示与控制。",
+  "useCases": [
+    {
+      "titleZh": "深度分支叙事",
+      "descZh": "用跳转与条件语句把剧情拆成多层分支，每个节点只写一段对白，结构清楚也方便逐条补写。"
+    },
+    {
+      "titleZh": "变量驱动对白",
+      "descZh": "文本里用花括号注入状态值，角色的名字、金钱与好感度能随游戏进程改变显示内容。"
+    },
+    {
+      "titleZh": "对话触发游戏事件",
+      "descZh": "在脚本里写信号命令，对话到某一行时触发动画、音效或数值修改，叙事与玩法连在一起。"
+    },
+    {
+      "titleZh": "轻量本地化替换",
+      "descZh": "对白以 JSON 资源保存，可按语言准备不同文件在运行时加载，替换文本不必改场景或脚本。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "对话管理标签页",
+      "descZh": "在编辑器里新增一个标签页，可视化创建对话节点并在右侧编辑名称与内容。"
+    },
+    {
+      "titleZh": "自带对话脚本语言",
+      "descZh": "提供跳转、选项、条件与信号等命令，用纯文本描述分支与事件，写起来接近写台词。"
+    },
+    {
+      "titleZh": "运行时对话处理器",
+      "descZh": "场景里挂上节点，加载 JSON 后按信号循环推进，处理玩家选项与结束状态，并驱动界面刷新。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "节点名跳转",
+      "descZh": "用箭头加节点名做跳转，系统按大小写不敏感查找目标节点。"
+    },
+    {
+      "name": "选项与条件",
+      "descZh": "问号语法给出玩家选项，if 与 else 按状态值决定显示内容与跳转目标。"
+    },
+    {
+      "name": "变量注入",
+      "descZh": "文本中用花括号包裹变量名，运行时替换成状态字典里的实际值。"
+    },
+    {
+      "name": "信号式自定义命令",
+      "descZh": "看到 signal 模式就从对话处理器发出信号，同步执行游戏侧的自定义逻辑。"
+    },
+    {
+      "name": "转义保留字",
+      "descZh": "用反斜杠转义特殊命令与保留字，让它们按普通文本显示出来。"
+    }
+  ],
+  "limitsZh": "插件只在 Godot 4.0 以上做过测试，作者自己也说明版本兼容没有充分验证，其他引擎版本可能遇到编辑器接口差异。分支靠节点名匹配，名字必须唯一且只做大小写不敏感匹配，改名后所有跳转都要手工同步，否则会跳到错误节点或直接中断。条件嵌套与括号内命令，作者明确表示不保证完全可用。语法高亮尚未做完。仓库路线图里仍有标签筛选、跳转回看与未处理分支定位等未完成项，作者也坦言存在大小 bug，修复优先级偏向自己项目。插件本身不提供现成对话界面。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addon 目录拷进工程并在插件页启用"
+    },
+    {
+      "stepZh": "打开对话标签页，新建节点并填写名称与文本"
+    },
+    {
+      "stepZh": "用跳转、选项与条件指令把多个对话节点串起来"
+    },
+    {
+      "stepZh": "在游戏脚本里加载编辑器生成的 JSON 资源"
+    },
+    {
+      "stepZh": "调用开始函数并循环处理对话与自定义信号"
+    }
+  ],
+  "pros": [
+    "脚本语言接近纯文本，写分支对白不必离开编辑器，迭代很快。",
+    "支持变量注入、条件与自定义信号，叙事能与任务、动画等玩法系统联动。",
+    "对话以 JSON 保存，运行时加载即可，资源可按语言替换，便于本地化。",
+    "安装只需拷贝目录并在插件页启用，没有额外依赖与编译步骤。",
+    "自带演示工程，可照着把加载流程与信号循环接进自己的游戏。"
+  ],
+  "cons": [
+    "只在 Godot 4.0 以上测试过，其他版本可能遇到编辑器接口差异。",
+    "节点名必须唯一，改名后所有跳转都要手工同步，容易漏改。",
+    "嵌套条件与语法高亮未完善，作者也不保证复杂分支完全可用。"
+  ],
+  "pitfalls": [
+    "改名节点后忘记更新跳转，运行时会跳到错误节点或直接中断对话。",
+    "自定义信号名与游戏侧处理不一致时，事件静默丢失，先核对信号参数。",
+    "变量名拼错时花括号会原样显示或留空，先在测试对话里逐项验证。"
+  ],
+  "bestFor": "想用轻量脚本语言写深度分支对白、并能自己把对话接入现有 UI 与游戏逻辑的 Godot 4 独立开发者。",
+  "avoidWhenZh": "需要开箱即用的对话界面、或分支已非常复杂且不容出错的项目，应当先评估脚本维护成本。",
+  "compareTips": {
+    "vs": [
+      "SproutyLabs__SproutyDialogs"
+    ],
+    "whenZh": "两者都在编辑器里管理对话：EzDialogue 用脚本语言与节点名跳转，接近纯文本写作；Sprouty Dialogs 用节点图画布，内置角色与翻译，结构更直观。偏写作选前者，偏可视化选后者。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "对话系统",
+    "脚本语言",
+    "编辑器插件",
+    "变量插值",
+    "分支剧情"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "插件提供自带脚本语言用于编写对话与触发函数",
+      "source": "README.md",
+      "quote": "Use EzDialogue's own scripting language to write dialogues, control narrative branches, and trigger custom in-game functions."
+    },
+    {
+      "claim": "仅在 Godot 4.0 以上测试过",
+      "source": "README.md",
+      "quote": "EzDialogue plugin has only been tested with Godot v4.0+"
+    },
+    {
+      "claim": "支持用 ${变量名} 注入状态字典中的值",
+      "source": "README.md",
+      "quote": "You can inject the value of variable defined in the state `Dictionary` within the text by surrounding the varaible name with `${variable_name}`"
+    },
+    {
+      "claim": "插件元信息版本号为 0.0.0",
+      "source": "addons/ez_dialogue/plugin.cfg",
+      "quote": "name=\"DeveloperEzra's Dialogue Manager\" ... version=\"0.0.0\""
+    }
+  ]
+}

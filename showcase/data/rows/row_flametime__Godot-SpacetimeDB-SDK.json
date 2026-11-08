@@ -1,0 +1,33 @@
+{
+  "id": "flametime__Godot-SpacetimeDB-SDK",
+  "descriptionZh": "Godot 的 SpacetimeDB 客户端 SDK，支持 schema 代码生成订阅与 reducer 调用，整体接入成本不高。",
+  "category": "network",
+  "tags": [
+    "SpacetimeDB",
+    "实时同步",
+    "WebSocket",
+    "后端"
+  ],
+  "prosShort": [
+    "schema 生成强类型绑定，团队上手也快。",
+    "订阅加本地库支持实时同步",
+    "纯 GDScript 无需编译，接入成本不高。"
+  ],
+  "consShort": [
+    "依赖服务端与已发布模块，团队要提前评估。",
+    "表无主键时本地库不保存，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

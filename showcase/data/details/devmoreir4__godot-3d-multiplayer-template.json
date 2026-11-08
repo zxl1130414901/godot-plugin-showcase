@@ -1,0 +1,145 @@
+{
+  "id": "devmoreir4__godot-3d-multiplayer-template",
+  "depth": "standard",
+  "taglineZh": "Godot 三维多人游戏起步模板，含联机、库存与专用服务器",
+  "summaryZh": "这是一个基于 Godot 4.7 的三维多人游戏起步工程，目标是预先搭好联机与常见玩法系统。它支持主机建房、加入房间、本地多实例测试与无头专用服务器，最多容纳十名玩家。角色控制器提供相对相机的移动、冲刺、二段跳与同步动画，可在第一与第三人称间切换。玩家有四种皮肤与名牌，聊天与在线列表一并提供。库存采用服务器权威设计，含基础格、背包格、堆叠、拖拽与右键操作，装备同步可见，世界物品可丢弃、推动与拾取。",
+  "whatItDoes": "把多人联机与常见玩法系统预先搭好：用 Network 与 ItemDatabase 两个全局单例协调会话、玩家与物品，配合场景化的库存、聊天、玩家列表与暂停菜单，组成一个可直接运行的联机演示工程。",
+  "useCases": [
+    {
+      "titleZh": "多人原型验证",
+      "descZh": "直接运行工程就能建房、加入与多开实例测试，把联机流程先跑通，再替换角色与关卡。"
+    },
+    {
+      "titleZh": "服务器权威库存",
+      "descZh": "库存改动在服务端校验后同步，客户端只发请求，能作为反作弊与状态一致的参考实现。"
+    },
+    {
+      "titleZh": "专用服务器部署",
+      "descZh": "用无头模式启动服务端并监听固定端口，配合包装脚本在 Linux 或 macOS 上快速起服并处理关闭。"
+    },
+    {
+      "titleZh": "角色与视角切换",
+      "descZh": "相机相对移动、冲刺、二段跳与第一第三人称切换都已接好，可直接改成适合自己项目的手感。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可运行的多人工程",
+      "descZh": "含主关卡、竞技场与玩家场景，打开工程按运行键即可进入可联机的演示，不必先配服务器。"
+    },
+    {
+      "titleZh": "服务器权威库存系统",
+      "descZh": "含物品数据、格子布局与玩家库存状态，每次改动都经服务端校验后再广播给所有客户端。"
+    },
+    {
+      "titleZh": "界面与联机协调层",
+      "descZh": "库存、聊天、玩家列表与暂停菜单统一处理输入与鼠标捕获，避免界面互抢焦点。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "主机与专用服务器",
+      "descZh": "可建房、加入或跑无头服务端，最多十名玩家，本地多实例便于测试。"
+    },
+    {
+      "name": "角色控制器",
+      "descZh": "相对相机移动、冲刺、二段跳与同步动画，第一与第三人称可切换。"
+    },
+    {
+      "name": "服务器权威库存",
+      "descZh": "基础格与背包格支持堆叠、拖拽与右键操作，服务端校验每次改动。"
+    },
+    {
+      "name": "装备与世界物品",
+      "descZh": "帽子、武器与背包同步显示在角色身上，世界物品可丢弃、推动与拾取。"
+    },
+    {
+      "name": "聊天与玩家列表",
+      "descZh": "会话内可聊天并查看在线成员，界面开合时自动协调鼠标捕获。"
+    }
+  ],
+  "limitsZh": "模板基于 Godot 4.7，属于较新的引擎版本，停留在 4.5 或更早的项目不能直接打开，脚本里的新接口也要回退。联机部分以 ENet 与 UDP 为主，专用服务器监听固定端口，公网部署需要自己处理转发、防火墙与 NAT，模板不包含匹配、房间浏览与反作弊。玩法只到演示级：攻击动画没有伤害判定，物品与库存是基础实现，战斗数值、任务与存档都要自行补齐。项目里带机器人模型、道具与贴图等第三方资源，各自有许可文件，商用前要逐项核对，不能只看代码的 MIT 许可。README 覆盖运行、服务器与按键。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆或下载仓库，用 Godot 4.7 打开工程并等待资源导入"
+    },
+    {
+      "stepZh": "按运行键启动，先试主机建房与加入流程"
+    },
+    {
+      "stepZh": "在调试菜单开启多实例，测试本地多人"
+    },
+    {
+      "stepZh": "用无头命令启动专用服务器并连接本机"
+    },
+    {
+      "stepZh": "替换角色、关卡与库存数据，接入自己的玩法"
+    }
+  ],
+  "pros": [
+    "联机、角色、库存、装备与聊天一次给齐，原型阶段省下大量搭建时间。",
+    "库存与装备走服务器权威，客户端只发请求，状态一致性有保障。",
+    "支持无头专用服务器与本地多实例，测试与部署都有现成路径。",
+    "角色控制器含冲刺、二段跳与视角切换，可直接改成自己的手感。",
+    "工程按场景与脚本分类组织，结构清晰，便于按模块替换成自己的玩法。"
+  ],
+  "cons": [
+    "基于 Godot 4.7，旧版本项目无法直接打开，接口回退要自己处理。",
+    "玩法停留在演示级，攻击无伤害判定，战斗、任务与存档都缺。",
+    "公网部署要自行处理转发、防火墙与 NAT，模板不含匹配与反作弊。"
+  ],
+  "pitfalls": [
+    "专用服务器端口被占用或被防火墙拦截时会连不上，先确认 UDP 端口可达。",
+    "多实例测试未在调试菜单开启多实例，第二份客户端会直接退出。",
+    "第三方模型与贴图有各自许可，商用前逐项核对，不能只看代码许可。"
+  ],
+  "bestFor": "想快速搭起可联机的三维多人原型、需要服务器权威库存与专用服务器做参考实现的 Godot 开发者与小团队。",
+  "avoidWhenZh": "只需要单人三维控制器，或项目停留在 Godot 4.5 及更早版本、无法升级引擎时，这个模板的大部分内容用不上。",
+  "compareTips": {
+    "vs": [
+      "godot-tube__tube"
+    ],
+    "whenZh": "两者都面向多人联机：tube 是基于 WebRTC 的点对点库，适合小规模无服务器场景；这个模板走主机与专用服务器，并自带库存、装备与聊天等玩法系统。要轻量点对点选前者，要完整多人玩法选后者。"
+  },
+  "category": "network",
+  "tags": [
+    "多人模板",
+    "专用服务器",
+    "服务端权威",
+    "库存系统",
+    "3D角色"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4.7 的 3D 多人起始工程",
+      "source": "README.md",
+      "quote": "Godot 4.7 starter project for building a 3D multiplayer game with player movement, sessions, inventory, equipment, chat, and dedicated-server support."
+    },
+    {
+      "claim": "支持无头专用服务器与最多十名玩家",
+      "source": "README.md",
+      "quote": "Host, join, test multiple local instances, or run a headless dedicated server with support for up to 10 players."
+    },
+    {
+      "claim": "库存为服务端权威并支持堆叠拖拽",
+      "source": "README.md",
+      "quote": "**Server-Authoritative Inventory:** 16 base slots, 4 backpack slots, stacking, drag and drop, context actions, and server-validated changes."
+    },
+    {
+      "claim": "第一与第三人称视角可切换",
+      "source": "README.md",
+      "quote": "switchable first- and third-person views"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "gilzoide__godot-dockable-container",
+  "category": "ui",
+  "tags": [
+    "停靠面板",
+    "分栏布局",
+    "Tab容器",
+    "编辑器UI"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "descriptionZh": "可拖拽停靠与分栏的 UI 容器，布局以 Resource 保存，子节点引用不受影响，适合工具型界面",
+  "prosShort": [
+    "拖拽分栏行为接近 IDE，易理解",
+    "布局存 Resource 方便存档，回滚简单",
+    "子节点 NodePath 保持不变，接入改动小"
+  ],
+  "consShort": [
+    "文档仅一页，细节要读源码，上手偏慢",
+    "标签图标与自定义名未支持",
+    "嵌套容器下拖放可能失准，需调试"
+  ],
+  "sampleStatus": "none"
+}

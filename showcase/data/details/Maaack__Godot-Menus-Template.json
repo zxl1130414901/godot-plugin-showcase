@@ -1,0 +1,150 @@
+{
+  "id": "Maaack__Godot-Menus-Template",
+  "depth": "standard",
+  "taglineZh": "十五分钟配好主菜单、设置与转场的 Godot 菜单模板",
+  "summaryZh": "Maaack 的菜单模板专补游戏开场界面：主菜单、设置、暂停、制作名单与带加载画面的场景切换，安装后约十五分钟能跑起来。它同时提供模板与插件两种形态，既开新项目，也能塞进已有工程；配套插件包括跨场景续播的音乐控制器、自动给控件挂音的界面音效控制器、示例清理工具与插件更新器。界面不绑定 2D 或 3D，分辨率从 640x360 覆盖到 4k。与同系列游戏模板相比，它不含游戏场景、关卡管理与关卡状态，只专注菜单与设置。",
+  "whatItDoes": "安装后得到一组可直接运行的菜单场景，设置面板覆盖音量、分辨率、显示与辅助选项，并能持久化到用户目录。SceneLoader 负责异步切换场景，显示加载画面、进度条与错误处理；MusicController 让背景乐跨场景不中断并支持曲目混合；UISoundController 是自动给按钮、标签栏、滑条与输入框挂音效的脚本与自动加载单例。Plugin Updater 会检查各插件版本并提示更新，Clean Copy Examples 用于把示例整理成可交付的工程。",
+  "useCases": [
+    {
+      "titleZh": "Jam 项目起步",
+      "descZh": "把主菜单、设置、暂停与转场一次配好，时间全花在玩法上，交稿前不必再赶一套能看的界面，省掉熬夜调弹窗，流程更完整。"
+    },
+    {
+      "titleZh": "补存量项目界面",
+      "descZh": "已有玩法但菜单是临时拼的，用插件形态装进现有工程，生成菜单场景后接上自己的关卡，不改原有脚本结构。"
+    },
+    {
+      "titleZh": "辅助功能适配",
+      "descZh": "设置项自带音量、显示与可访问性选项，满足基本的无障碍要求，少做一轮玩家反馈修补，也更容易过平台审核。"
+    },
+    {
+      "titleZh": "多分辨率发布",
+      "descZh": "同一套界面在 640x360 与 4k 之间切换，用模板给的分辨率配置减少手动调锚点的工作，移植到掌机与桌面平台时更省力。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "菜单场景集",
+      "descZh": "主菜单、设置、暂停与制作名单等场景，复制出 addons 后可直接改名换图，成为项目自己的一套界面。"
+    },
+    {
+      "titleZh": "带进度转场",
+      "descZh": "SceneLoader 生成的加载场景，含加载画面、进度条与错误处理，切换重资源关卡时不会只剩下一片黑屏等待。"
+    },
+    {
+      "titleZh": "音频控制器",
+      "descZh": "跨场景续播的音乐控制器与自动挂音的界面音效控制器，都是独立插件，可只装需要的一个。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "主菜单与设置",
+      "descZh": "主菜单、选项、暂停与名单场景齐全，设置改动可持久化，换场景后也不会被重置。"
+    },
+    {
+      "name": "SceneLoader",
+      "descZh": "异步加载场景并显示进度条与加载画面，失败时有错误提示，切关卡不会黑屏干等。"
+    },
+    {
+      "name": "MusicController",
+      "descZh": "跨场景保持音乐播放并混合曲目，切关卡时背景乐不断，淡入淡出的参数可调。"
+    },
+    {
+      "name": "UI Sound",
+      "descZh": "自动给按钮、标签栏、滑条与输入框挂音效，界面交互反馈不必再逐个手动接上。"
+    },
+    {
+      "name": "Plugin Updater",
+      "descZh": "检查各插件当前版本与仓库最新发布，能自动提示并协助更新已经过期的插件。"
+    }
+  ],
+  "limitsZh": "它刻意不含游戏场景、关卡管理、关卡状态与存档系统，装上只得到菜单层，玩法流程仍要自己接。模板面向 Godot 4.7 编写，向下兼容到 4.4，更早的版本要找回旧发布，分支维护不保证同步。示例场景带占位美术与演示资源，正式项目要逐个替换，否则包体与观感都会拖后腿。设置面板覆盖常见项，但布局与视觉风格仍要改，直接上线容易和同批模板作品撞脸。插件套件里的更新器与清理工具会改动 addons 内容，团队要约定范围。文档篇幅长但章节分散，第一次装容易选错复制目录。",
+  "workflowZh": [
+    {
+      "stepZh": "从资产库或资产商店安装模板版本或插件版本"
+    },
+    {
+      "stepZh": "在项目管理器里新建工程，或在现有工程启用插件"
+    },
+    {
+      "stepZh": "运行设置向导，确认示例场景要复制到哪个目录"
+    },
+    {
+      "stepZh": "替换图标、字体以及其他示例里的占位美术资源"
+    },
+    {
+      "stepZh": "把自建关卡接进 SceneLoader 里，再完整跑一遍转场与音乐"
+    }
+  ],
+  "pros": [
+    "菜单、设置、暂停、名单与转场一次备齐，十几分钟就有可玩流程，jam 项目最省时间。",
+    "模板与插件两种形态并存，新项目开箱即用，老项目也能只补界面层，不动现有场景结构。",
+    "音乐与界面音效各有独立控制器，跨场景续播与按钮音效不必自己写，音频逻辑少一半。",
+    "文档按功能拆章并列出同系列模板差异，选型时能对照，也便于判断该装完整版还是精简版。"
+  ],
+  "cons": [
+    "只覆盖开场与流程，玩法、存档与关卡状态仍要自己实现，别当成完整框架。",
+    "复制进项目的示例资源较多，替换占位图要花一轮清理时间，包体也变胖。",
+    "默认绑定较新的 Godot 版本，老引擎要退回旧发布，兼容分支维护不一定及时。"
+  ],
+  "pitfalls": [
+    "向导复制目录选错后会生成两套菜单场景，改一套忘另一套，运行起来仍是旧界面。",
+    "开着插件更新器又手改了 addons 内容，更新时改动被覆盖，自定义只应写在复制出来的场景里。",
+    "切换关卡没走 SceneLoader 而是直接 change_scene，音乐与设置单例会重复初始化，表现为音乐叠放。"
+  ],
+  "bestFor": "赶 jam、做小体量商业作品，或已有玩法但缺一套像样菜单与设置层的独立开发者与小团队，尤其适合两周内要出可玩版本的项目。",
+  "avoidWhenZh": "需要完整框架级的存档、成就与关卡流程，或项目锁定在 Godot 4.3 及更早版本时。",
+  "compareTips": {
+    "vs": [
+      "Maaack__Godot-Game-Template",
+      "TinyTakinTeller__TakinGodotTemplate"
+    ],
+    "whenZh": "同作者的 Game Template 多了示例关卡、关卡管理与游戏状态，适合要从头做完整流程；这份只给菜单与设置层。Takin 则偏工程规范与插件集成，界面骨架弱。只要菜单选这里，要整套玩法骨架看 Game Template。"
+  },
+  "category": "ui",
+  "tags": [
+    "菜单",
+    "模板",
+    "设置",
+    "转场",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "模板包含主菜单、选项、暂停、名单与场景加载器",
+      "source": "README.md",
+      "quote": "This template has a main menu, options menus, pause menu, credits, and scene loader."
+    },
+    {
+      "claim": "面向 Godot 4.7 并兼容 4.4 以上",
+      "source": "README.md",
+      "quote": "For *Godot 4.7* (4.4+ compatible)"
+    },
+    {
+      "claim": "目标是在约十五分钟内完成菜单与辅助功能",
+      "source": "README.md",
+      "quote": "Setup menus and accessibility features in about 15 minutes."
+    },
+    {
+      "claim": "音乐控制器让音乐跨场景续播并混合曲目",
+      "source": "addons/maaacks_music_controller/plugin.cfg",
+      "quote": "description=\"Music controller that keeps music playing between scenes and blends tracks.\""
+    },
+    {
+      "claim": "插件版本为 1.7.2",
+      "source": "addons/maaacks_menus_template/plugin.cfg",
+      "quote": "version=\"1.7.2\""
+    }
+  ]
+}

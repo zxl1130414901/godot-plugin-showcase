@@ -1,0 +1,35 @@
+{
+  "id": "nklbdev__godot-4-importality",
+  "descriptionZh": "在编辑器里把 Aseprite、Krita 等多种绘图源文件直接导入 Godot，可自动生成图集、SpriteFrames 资源或现成动画场景。",
+  "category": "asset-pipeline",
+  "tags": [
+    "素材导入",
+    "Aseprite",
+    "Krita",
+    "精灵图集",
+    "动画"
+  ],
+  "prosShort": [
+    "一次导入即可拿到可用动画资源",
+    "内置支持多种主流像素绘图工具",
+    "导入参数随资源保存，可反复复用"
+  ],
+  "consShort": [
+    "支持格式有限，新工具往往要等更新",
+    "Krita 在部分系统上可能整段卡住导入",
+    "只覆盖 2D 精灵，3D 与视频素材不管"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

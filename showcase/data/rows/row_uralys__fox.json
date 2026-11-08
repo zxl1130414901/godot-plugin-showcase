@@ -1,0 +1,35 @@
+{
+  "id": "uralys__fox",
+  "descriptionZh": "Godot 游戏框架：路由与响应式屏幕骨架，加运行导出发布的 CLI。",
+  "category": "state-logic",
+  "tags": [
+    "游戏框架",
+    "路由导航",
+    "CLI工具",
+    "响应式界面",
+    "商店发布"
+  ],
+  "prosShort": [
+    "导航转场与响应式开箱可用",
+    "内置音效补间HTTP与Steam",
+    "CLI 统一运行导出发布并源自商业实践"
+  ],
+  "consShort": [
+    "强约定结构需重构接入",
+    "CLI 仅支持 Node 26+",
+    "会注册多个 autoload"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

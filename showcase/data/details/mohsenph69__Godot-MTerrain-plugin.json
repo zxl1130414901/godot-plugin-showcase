@@ -1,0 +1,151 @@
+{
+  "id": "mohsenph69__Godot-MTerrain-plugin",
+  "depth": "standard",
+  "taglineZh": "面向 Godot 4 的超大地形与植被编辑系统",
+  "summaryZh": "Godot-MTerrain 是一个面向大世界的 GDExtension 地形工具：地形按四叉树分块并做 LOD，支持十公里级的尺寸；笔刷可抬高、降低、平整与绘制纹理，还能种树、种草与放石头，植被带碰撞与风摆。它自带地形材质与细节层，编辑器里可直接刷，运行时按块流式加载。项目以 C++ 与 godot-cpp 编写，仓库不附带预编译库，README 明确要求自行用 scons 构建，并且写明当前版本不能开箱即用，适合愿意读源码与调参数的团队。",
+  "whatItDoes": "以 GDExtension 扩展 Godot 4.x 的地形系统，提供四叉树 LOD 地形、笔刷雕刻、纹理绘制与带碰撞的植被散布，并附带运行时流式加载。",
+  "useCases": [
+    {
+      "titleZh": "开放世界地形",
+      "descZh": "做十几平方公里的野外地图时，用分块 LOD 控制面数，让远处地形不会拖垮帧率，近处仍保持细节。"
+    },
+    {
+      "titleZh": "刷植被与岩石",
+      "descZh": "在编辑器里用笔刷种树、铺草与放石头，自动带碰撞，省去手工摆场景的时间，密度也可调。"
+    },
+    {
+      "titleZh": "快速验证关卡",
+      "descZh": "原型阶段先刷出山脊、谷地与道路轮廓，再导入建模软件细修，缩短关卡迭代周期，先定大体走势。"
+    },
+    {
+      "titleZh": "研究地形实现",
+      "descZh": "想研究四叉树 LOD 与地形着色实现时，它的 C++ 源码结构清晰，可作为参考，也方便改造成自己的管线。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "LOD 地形网格",
+      "descZh": "按四叉树切块并逐级降低面数的地形网格，覆盖十公里级的连续地形范围。"
+    },
+    {
+      "titleZh": "笔刷雕刻工具",
+      "descZh": "抬高、降低、平整与绘制纹理的编辑器笔刷，可调半径、强度与衰减曲线等参数。"
+    },
+    {
+      "titleZh": "植被散布与碰撞",
+      "descZh": "把树木、草与岩石按规则散布到地形上，并生成对应的碰撞体与风摆效果。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Quad Tree LOD",
+      "descZh": "地形按四叉树分块降面，远处自动简化，明显控制大场景的三角面数。"
+    },
+    {
+      "name": "Sculpt Brushes",
+      "descZh": "抬高、降低与平整笔刷，支持半径、强度与衰减等多个参数调节。"
+    },
+    {
+      "name": "Vegetation with Collision",
+      "descZh": "种草、种树与放石头时可自动生成碰撞，角色与子弹不会穿过去。"
+    },
+    {
+      "name": "Detail Layers",
+      "descZh": "提供细节层与地形材质，减少往返建模软件修改纹理的次数。"
+    },
+    {
+      "name": "Streaming at Runtime",
+      "descZh": "运行时按块加载地形数据，适合开阔地图与长距离自由移动。"
+    }
+  ],
+  "limitsZh": "仓库不带预编译二进制，README 直接说明不能开箱即用，要自行安装 scons 与 godot-cpp 并编译，Windows 下还要准备 C++ 工具链，这一步就劝退不少人。版本面向 Godot 4.1，之后引擎的 GDExtension 接口变化可能让它编译失败，需要自己改源码。植被与碰撞在大范围铺设后内存与加载开销明显，需要按区块控制密度。编辑器笔刷缺少撤销栈与多选区编辑，误刷后不好回退。文档以 README 的几段说明为主，API 与参数含义要读头文件，社区规模小、遇到问题可参考的资料有限。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆仓库并初始化 godot-cpp 子模块与依赖"
+    },
+    {
+      "stepZh": "安装 scons 与 C++ 编译工具链并确认版本"
+    },
+    {
+      "stepZh": "按 README 说明用 scons 编译出扩展库文件包"
+    },
+    {
+      "stepZh": "把编译产物放进 addons 并在项目里启用插件"
+    },
+    {
+      "stepZh": "在示例场景里刷地形与植被逐项验证效果"
+    }
+  ],
+  "pros": [
+    "支持十公里级地形并带四叉树 LOD，大场景的面数控制有现成方案。",
+    "雕刻、纹理与植被散布都在编辑器里完成，关卡迭代不用来回导模型。",
+    "植被可自动生成碰撞，树木与岩石不会出现只看不挡的情况。",
+    "源码结构清晰，适合研究 GDExtension 地形与 LOD 的具体实现细节与组织方式。"
+  ],
+  "cons": [
+    "仓库不带预编译库，必须自建 C++ 工具链并编译，上手门槛高。",
+    "版本绑定 Godot 4.1，引擎升级后可能需要自己修代码才能编译。",
+    "大范围植被与碰撞的内存和加载开销不小，需要按区块限量。",
+    "文档只有 README 几段说明，参数含义与 API 都要直接读源码。"
+  ],
+  "pitfalls": [
+    "忘记初始化 godot-cpp 子模块会导致编译失败，先按 README 把依赖拉齐。",
+    "编辑器笔刷没有撤销栈，大范围误刷只能重新刷回，先在副本里试。",
+    "一次性铺满整张地图的植被会爆内存，按可见区块分批生成。"
+  ],
+  "bestFor": "需要开阔地形与植被、能接受自行编译 C++ 扩展，并愿意按源码调参的小型 Godot 4.1 项目或技术向团队。",
+  "avoidWhenZh": "不想装编译工具链、需要稳定开箱即用，或只做小范围室内场景的团队。",
+  "compareTips": {
+    "vs": [
+      "TokisanGames__Terrain3D",
+      "Zylann__godot_heightmap_plugin"
+    ],
+    "whenZh": "三者都做地形：Terrain3D 提供成熟的编辑器雕刻与纹理工作流，Heightmap 插件偏高度图与模块化地形，MTerrain 强在大尺寸与植被碰撞但需要自行编译。要稳定生产选 Terrain3D，要可改源码的大世界方案看 MTerrain。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "地形系统",
+    "LOD",
+    "植被散布",
+    "笔刷雕刻",
+    "大世界"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "插件描述定位为 Godot 4.1 的简单地形工具",
+      "source": "addons/mterrain/plugin.cfg",
+      "quote": "A simple terrain tool for Godot 4.1"
+    },
+    {
+      "claim": "地形使用八叉树 LOD 支持很大尺寸",
+      "source": "README.md",
+      "quote": "Terrain that uses an octree based LOD system for terrain sizes as big as 16km x 16km"
+    },
+    {
+      "claim": "植被系统带碰撞",
+      "source": "README.md",
+      "quote": "Grass system with collision for things like trees, grass, rocks, etc."
+    },
+    {
+      "claim": "作者说明插件不能开箱即用",
+      "source": "README.md",
+      "quote": "this terrain plugin will not work out of the box"
+    },
+    {
+      "claim": "需要用 scons 自行构建",
+      "source": "README.md",
+      "quote": "use scons to build this project"
+    }
+  ]
+}

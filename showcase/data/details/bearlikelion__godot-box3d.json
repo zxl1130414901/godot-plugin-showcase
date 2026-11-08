@@ -1,0 +1,139 @@
+{
+  "id": "bearlikelion__godot-box3d",
+  "depth": "standard",
+  "taglineZh": "把 Box3D 物理引擎接成 Godot 4 可切换的 3D 物理后端",
+  "summaryZh": "godot-box3d 是 Box3D 的 GDExtension 桥接层，把 Erin Catto 的 3D 物理引擎实现成 PhysicsServer3D 的替代后端：场景里的刚体、静态体、运动体、碰撞形状、区域、射线与角色移动保持原节点不变，只改项目设置里的物理引擎下拉项并重启即可切换。它适合对 trimesh 斜坡、高速贴地与复杂碰撞敏感的玩法。作者明确标注早期实验状态，Box3D 本身也年轻，缺功能与粗糙边缘属预期；macOS 只有 Apple Silicon 构建且未测试，复杂项目切换前要用行为差异与基准文档评估。",
+  "whatItDoes": "扩展注册新的物理后端，把 Godot 的 PhysicsServer3D 调用翻译到 Box3D。支持刚体、静态体、运动体，长方体、球、胶囊、圆柱、凸包、三角网格、高度图与世界边界等形状，区域重叠事件与重力、阻尼覆盖，以及射线、形状投射与直接空间查询。CharacterBody3D 与 move_and_slide 也可用，接触点与法线能真实回传。",
+  "useCases": [
+    {
+      "titleZh": "冲浪与高速贴地玩法",
+      "descZh": "处理长斜坡三角网格与高速拐角时，内建物理容易出现抖动与穿透；换到 Box3D 后角色贴地更稳，适合冲浪、滑铲这类高速移动玩法。"
+    },
+    {
+      "titleZh": "物理手感对比",
+      "descZh": "不改场景就能切到另一套求解器，用同一关卡对比接触、摩擦与堆叠表现，做技术选型时不必重搭测试关。"
+    },
+    {
+      "titleZh": "复杂三角网格关卡",
+      "descZh": "依赖 Box3D 的求解特性跑凹形地形、贴墙移动与多层斜坡，验证角色控制器在极端几何下是否仍然稳定。"
+    },
+    {
+      "titleZh": "物理后端研究",
+      "descZh": "借桥接源码与行为差异文档，学习 PhysicsServer3D 的扩展方式，也能理解替换后端时哪些接口必须保持一致。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可切换的物理后端",
+      "descZh": "在项目设置里选 Box3D 后，原有刚体与碰撞节点直接跑在新求解器上，场景与脚本都无需改动，回滚也只改一项设置。"
+    },
+    {
+      "titleZh": "Box3D 形状与查询",
+      "descZh": "多种碰撞形状、区域事件与空间查询都映射到 Godot 接口，日常探测与角色移动仍按原来的 API 调用，代码不用重写。"
+    },
+    {
+      "titleZh": "测试与基准工程",
+      "descZh": "附测试项目、基准数据与行为差异文档，切换前可以先量化性能与手感变化，再决定是否迁移整条物理链路。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Project Setting 切换",
+      "descZh": "把 3D 物理引擎设为 Box3D 并重启编辑器即可生效，不用改场景与脚本，出问题时把设置改回去就能回滚。"
+    },
+    {
+      "name": "完整碰撞形状",
+      "descZh": "长方体、球、胶囊、圆柱、凸包、三角网格与高度图等形状都已映射，常见关卡几何基本够用，不必自己补形状。"
+    },
+    {
+      "name": "区域与重力覆盖",
+      "descZh": "支持重叠事件、重力与阻尼覆盖以及点重力，重力场与区域触发的玩法可以继续沿用，不用换一套事件系统。"
+    },
+    {
+      "name": "空间查询",
+      "descZh": "射线、形状投射与直接空间状态查询照常可用，现有的瞄准、拾取与探测逻辑不必重写，迁移时省下大量适配工作。"
+    },
+    {
+      "name": "CharacterBody3D",
+      "descZh": "move_and_slide 在新后端下继续工作，角色控制脚本不必重写，只需要复核斜坡、台阶与贴墙的手感是否仍然合理。"
+    }
+  ],
+  "limitsZh": "README 明确是早期实验项目：Box3D 年轻，扩展仍在开发，缺功能与未打磨的边缘属预期，不适合直接押在生产项目上。要求 Godot 4.3 以上；Linux 与 Windows 已测试，macOS 只有 Apple Silicon 构建且未验证，其他架构没有保障。源码构建要 CMake、C++ 工具链与 Box3D 子模块，预编译包虽可从 Release 取，但版本与引擎绑定。替换后端会改变接触、摩擦与求解行为，现有依赖内建物理调校的关卡需要重新验证。",
+  "workflowZh": [
+    {
+      "stepZh": "从 Release 页面下载对应平台的 addon 压缩包，并解压到临时目录"
+    },
+    {
+      "stepZh": "把解压出来的 addons/godot-box3d 整个目录复制进项目"
+    },
+    {
+      "stepZh": "打开项目设置，把 3D 物理引擎选项改为 Box3D"
+    },
+    {
+      "stepZh": "重启 Godot 编辑器，确认扩展加载成功且没有报错"
+    },
+    {
+      "stepZh": "用测试场景复核碰撞、区域事件与角色移动的实际表现"
+    }
+  ],
+  "pros": [
+    "切换只改项目设置，现有物理节点与脚本基本不用动，迁移成本很低，也方便随时回滚",
+    "覆盖刚体、区域、形状与空间查询等常用能力，常规玩法不需要额外适配，接入面比较完整",
+    "附行为差异、基准与对比文档，切换前能先评估风险与收益，不必靠猜",
+    "面向三角网格斜坡与高速贴地等困难场景，能明显改善内建物理的抖动与穿透问题",
+    "MIT 许可，可自行编译与修改，遇到缺失功能能直接动源码，不必等上游排期"
+  ],
+  "cons": [
+    "早期实验状态，缺功能与粗糙边缘属预期，不适合直接押在生产项目上",
+    "macOS 仅提供 Apple Silicon 构建且作者未测试，Intel 机器与通用包都没有现成产物",
+    "替换后端会改变接触、摩擦与求解行为，已有手感需要逐关重新调校，工作量大"
+  ],
+  "pitfalls": [
+    "切换后未重启编辑器，后端可能没有真正加载，表现仍是旧物理，容易误判为无效",
+    "依赖内建物理参数调校的关卡在新后端下手感会变，需要逐关复核，尤其是斜坡与堆叠",
+    "导出时漏带原生库会导致运行时物理初始化失败，检查导出模板与依赖是否齐全"
+  ],
+  "bestFor": "愿意为三角网格斜坡、高速贴地等困难场景尝试新求解器，并能承担实验性后端风险、接受逐关重新调校的技术型 Godot 4 团队与物理方向开发者。",
+  "avoidWhenZh": "生产项目、需要 macOS 全架构支持，或不愿投入时间重新验证物理手感与性能的团队，都不建议现在切换。",
+  "compareTips": {
+    "vs": [
+      "GodotVR__godot_openxr_vendors"
+    ],
+    "whenZh": "两者都是 GDExtension 级集成：box3d 替换 3D 物理后端，改变求解与碰撞行为，适合做物理选型；OpenXR Vendors 接各家 VR 运行时，改变显示与追踪，适合做 XR 发行。前者动物理层，后者动 XR 层，方向不重叠。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "物理引擎",
+    "Box3D",
+    "GDExtension",
+    "后端替换"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "把 Box3D 集成为 PhysicsServer3D 的替代后端",
+      "source": "README.md",
+      "quote": "integrates Box3D ... into Godot 4 as a drop-in replacement for the built-in `PhysicsServer3D`."
+    },
+    {
+      "claim": "只改项目设置，场景节点保持不变",
+      "source": "README.md",
+      "quote": "You change a project setting, not your scenes."
+    },
+    {
+      "claim": "项目处于早期实验状态",
+      "source": "README.md",
+      "quote": "Status: early and experimental."
+    }
+  ]
+}

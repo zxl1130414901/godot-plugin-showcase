@@ -1,0 +1,35 @@
+{
+  "id": "stesproject__godot-2d-topdown-template",
+  "descriptionZh": "Godot 4 的 2D 俯视角游戏模板，自带角色、状态机、存档与库存系统。",
+  "category": "state-logic",
+  "tags": [
+    "游戏模板",
+    "2D俯视角",
+    "角色控制",
+    "状态机",
+    "库存系统"
+  ],
+  "prosShort": [
+    "开箱可玩，含角色控制与相机",
+    "组件与实体分层，便于扩展玩法",
+    "自带对话系统与瓦片素材资源"
+  ],
+  "consShort": [
+    "偏基础，缺存档与任务等系统",
+    "内置美术风格固定，替换费时",
+    "对话方案绑定 Dialogue Manager，换方案要重接"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

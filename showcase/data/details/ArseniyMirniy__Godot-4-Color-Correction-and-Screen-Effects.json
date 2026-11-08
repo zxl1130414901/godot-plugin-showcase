@@ -1,0 +1,166 @@
+{
+  "id": "ArseniyMirniy__Godot-4-Color-Correction-and-Screen-Effects",
+  "depth": "standard",
+  "taglineZh": "Godot 4 的色彩校正与屏幕后处理视觉着色器合集",
+  "summaryZh": "仓库提供两套纯 VisualShader 的屏幕后处理：Mini 版只做色温、亮度、对比度、饱和度、绿色偏移与暗角，轻量到几乎不挑平台；Ultimate 版在此基础上加入像素化、Panini 投影、模糊锐化、色差、泛光、光晕、色调分离与胶片颗粒，并可按阴影、中间调、高光分别调色。所有参数都是着色器滑块，可运行时改也可做动画。它不是插件，需要手动搭 CanvasLayer 与全屏 ColorRect，并把 UI 放到另一层，否则 UI 也会被后处理。",
+  "whatItDoes": "内容以 .tres 视觉着色器与示例纹理为主：Mini 与 Ultimate 两个 ShaderMaterial 可直接挂到全屏 ColorRect 上，参数在检查器里以滑块暴露。Ultimate 把全局效果与分区调色分开，泛光与模糊共用有限采样，胶片颗粒与渐变滤镜需要额外噪声、渐变纹理。仓库还附带演示场景与前后对比图，方便先看效果再接入自己的项目。",
+  "useCases": [
+    {
+      "titleZh": "氛围调色",
+      "descZh": "想让场景变冷、变暖或呈现毒性沼泽感，用 Mini 快速调整色温与绿偏，几分钟就能定下基调。"
+    },
+    {
+      "titleZh": "电影感后处理",
+      "descZh": "需要泛光、光晕、色差与颗粒的 3D 场景，用 Ultimate 一套搞定，不必分别找多个着色器拼起来，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "剧情演出",
+      "descZh": "用代码把参数做成动画，配合受伤、传送等事件切换画面风格，强化演出的情绪变化，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "分屏与多视口",
+      "descZh": "不同区域用不同 Viewport 各自挂着色器，实现画中画或特殊界面效果，互不干扰，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "低成本移植",
+      "descZh": "不想自己写 shader 的美术或独立开发者，搭好节点后只调滑块即可，改风格不必重写代码。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Mini 着色器",
+      "descZh": "轻量色彩校正图，覆盖色温、亮度、对比、饱和度与暗角，适合低配设备，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "Ultimate 着色器",
+      "descZh": "含十余种全局效果与阴影、中间调、高光分区调色，适合高画质场景，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "示例纹理",
+      "descZh": "噪声与渐变纹理，用于胶片颗粒与颜色滤镜，可直接替换成自己的图，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "演示场景",
+      "descZh": "附带对比场景与截图，接入前可先跑起来看效果是否符合预期，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "纯视觉着色器",
+      "descZh": "不依赖脚本或插件，VisualShader 节点即可打开修改，便于按需精简，参数集中在检查器面板。"
+    },
+    {
+      "name": "参数全滑块",
+      "descZh": "曝光、色温、泛光强度等均可动画与代码控制，方便做演出效果。"
+    },
+    {
+      "name": "分区调色",
+      "descZh": "Ultimate 可分别调整阴影、中间调与高光，适合精细风格化，后续修改起来也不费劲。"
+    },
+    {
+      "name": "轻量 Mini",
+      "descZh": "采样少、开销低，面向移动端与低配设备，可先上 Mini 再加效果，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "多视口支持",
+      "descZh": "不同 Viewport 可挂不同后处理，做出局部特效或分屏画面，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "只是着色器资源，不含安装脚本或插件入口，得自己按步骤搭 CanvasLayer、全屏 ColorRect 与材质槽。参数在编辑器里不可见预览，必须运行后才能看到效果，调参要反复启动。Ultimate 效果多、采样虽受控但仍比 Mini 重，移动端要逐项关闭不用的效果。胶片颗粒与渐变滤镜依赖额外纹理，漏放会没有效果。UI 必须搬到另一 CanvasLayer，否则会和画面一起被像素化；需要抗锯齿或 UI 清晰时尤其要注意。",
+  "workflowZh": [
+    {
+      "stepZh": "下载 Materials、Shaders 与 Textures 目录，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把资源拷入 Godot 4.3 项目，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在相机下添加 CanvasLayer 节点，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "添加全屏 ColorRect 并关闭鼠标事件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "给 ColorRect 挂 Mini 或 Ultimate 材质，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需加入噪声与渐变纹理，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把 UI 移到另一个 CanvasLayer，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "运行后调滑块并保存参数，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "两档方案兼顾低配与高画质，选型灵活，团队新人照着示例就能上手。",
+    "纯 VisualShader，可直接打开节点看实现并改逻辑，出现问题时也更容易定位原因。",
+    "参数可动画，适合剧情驱动的画面变化，对中小团队的时间成本很友好。",
+    "文档步骤详细，按 1 到 13 条照做即可跑通，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "非插件，安装要手工搭节点链，升级引擎版本时容易卡住。",
+    "编辑器内看不到效果，调参效率低，定制之前往往要先读源码。",
+    "Ultimate 效果全开时对移动端有压力，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "CanvasLayer 没关鼠标事件会挡住 UI 点击，联调阶段往往才会暴露出来。",
+    "UI 与后处理同层会被一起像素化，文字可能糊，上线前要专门过一遍。",
+    "漏放噪声纹理时胶片颗粒参数无效但不会报错，排查时需要多留一层日志。"
+  ],
+  "bestFor": "需要快速给 3D 或 2D 画面加色彩校正与电影感后处理、且愿意手工搭一次节点链的美术与独立开发者。",
+  "avoidWhenZh": "需要开箱即用的后处理插件，或不愿按 4.3 步骤手工接入的项目。",
+  "compareTips": {
+    "vs": [
+      "gdquest-demos__godot-shaders"
+    ],
+    "whenZh": "两者都提供 Godot 着色器素材：本仓库是可直接用的整套屏幕后处理，gdquest 的示例更偏教学与单效果演示；要成品效果选前者，要逐个学原理则后者更合适。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "色彩校正",
+    "后处理",
+    "视觉着色器",
+    "画面特效"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "isGDExtension": false,
+  "evidence": [
+    {
+      "claim": "分轻量 Mini 与重效果 Ultimate 两套着色器",
+      "source": "README.md",
+      "quote": "two branches: ColorCorrection Mini and Screen Effects Ultimate."
+    },
+    {
+      "claim": "参数只在运行时可见，编辑器内看不到",
+      "source": "README.md",
+      "quote": "it’s only visible in runtime, not within the editor"
+    },
+    {
+      "claim": "UI 需移到另一个 Canvas Layer",
+      "source": "README.md",
+      "quote": "Place your UI into another Canvas Layer (or it will be also affected)"
+    },
+    {
+      "claim": "面向 Godot 4.3，其它版本可能可用",
+      "source": "README.md",
+      "quote": "for Godot 4.3 (may work with other versions too)"
+    },
+    {
+      "claim": "Ultimate 效果多但更重",
+      "source": "README.md",
+      "quote": "A heavy but reliable shader with tons of effects"
+    }
+  ]
+}

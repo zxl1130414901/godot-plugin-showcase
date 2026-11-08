@@ -1,0 +1,35 @@
+{
+  "id": "nathanhoad__godot_sound_manager",
+  "descriptionZh": "音乐与音效播放插件，带播放器池、音乐交叉淡入与总线探测。",
+  "category": "audio",
+  "tags": [
+    "音频管理",
+    "音乐淡入",
+    "播放器池",
+    "C#支持",
+    "总线"
+  ],
+  "prosShort": [
+    "播放器池减少节点创建",
+    "音乐切换自带交叉淡入",
+    "自动探测音频总线且同时支持 C#"
+  ],
+  "consShort": [
+    "要求 Godot 4.6 以上",
+    "文档分散缺速查表",
+    "自定义总线时可能猜错"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

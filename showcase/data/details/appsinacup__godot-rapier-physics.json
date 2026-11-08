@@ -1,0 +1,149 @@
+{
+  "id": "appsinacup__godot-rapier-physics",
+  "depth": "standard",
+  "taglineZh": "用 Rust 实现的 2D 与 3D 物理引擎，可直接替换 Godot 内置物理",
+  "summaryZh": "Godot Rapier Physics 把 Rapier 物理引擎接进 Godot，作为 2D 与 3D 的内置物理替代品，装上后在项目设置里把物理引擎切到 Rapier2D 或 Rapier3D 即可生效。它主打堆叠与约束更稳定、没有幽灵碰撞、支持液体模拟、状态序列化与跨平台确定性，并提供身体蒙皮与逆运动学等扩展。官方给出桌面、移动与 Web 的支持声明，同时发布编辑器版与导出库，编辑器里能查到类文档。代价是要接受一套不同的物理行为与参数，已有依赖内置物理调校的项目迁移需要重新测试。",
+  "whatItDoes": "以 GDExtension 形式替换 Godot 的 2D/3D 物理后端，接入 Rapier 求解器与 salva 流体库，并提供状态存取、确定性模拟与扩展节点。",
+  "useCases": [
+    {
+      "titleZh": "堆叠与坍塌场景",
+      "descZh": "大量箱体堆叠或塔楼倒塌时，Rapier 的求解更稳，能明显减少物体互相抖动与缓慢下陷，迁移前先做小场景对照能省很多返工。"
+    },
+    {
+      "titleZh": "需要确定性联机",
+      "descZh": "同平台或跨平台需要可复现的物理结果时，用确定性模式让客户端与服务端算出同一轨迹。"
+    },
+    {
+      "titleZh": "液体与浮力玩法",
+      "descZh": "做水池、油罐或浮力关卡时直接用内置流体模拟，不必自己写复杂的粒子与浮力近似算法。"
+    },
+    {
+      "titleZh": "存档物理状态",
+      "descZh": "把整个物理世界序列化进存档，读档后继续模拟，避免复杂场景重放或重新搭建，也不用重放物理过程。"
+    },
+    {
+      "titleZh": "迁移内置物理项目",
+      "descZh": "把物理引擎切到 Rapier 后逐场景对比手感，逐项调整摩擦与阻尼参数，找到更合适的表现。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Rapier 物理后端",
+      "descZh": "替换内置 2D 与 3D 物理服务器的 GDExtension 库文件，同时带编辑器版与导出模板版本。"
+    },
+    {
+      "titleZh": "状态序列化接口",
+      "descZh": "把物理世界状态整体导出与恢复，用于存档、回放或联机同步的基线数据。"
+    },
+    {
+      "titleZh": "流体与扩展节点",
+      "descZh": "提供液体模拟、身体蒙皮与逆运动学等附加能力，明显超出基础刚体范围。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Stable Stacking",
+      "descZh": "改进的求解与休眠策略让箱体堆叠更稳，减少抖动与缓慢穿模。"
+    },
+    {
+      "name": "No Ghost Collisions",
+      "descZh": "避免高速移动物体在较薄的碰撞体上穿透后产生的幽灵碰撞。"
+    },
+    {
+      "name": "Determinism",
+      "descZh": "同平台可完全复现，跨平台也提供确定性模式，便于联机校验。"
+    },
+    {
+      "name": "State Serialization",
+      "descZh": "物理状态可整体保存与读取，支持存档、回放与断线后的恢复。"
+    },
+    {
+      "name": "Fluids and IK",
+      "descZh": "内置液体模拟，并提供身体蒙皮与逆运动学的扩展节点，覆盖角色与水体的特殊需求。"
+    }
+  ],
+  "limitsZh": "它不是无缝替换：物理参数、接触行为与休眠策略都和内置物理不同，已有按内置手感调好的角色、载具与关卡需要重新测试，迁移成本常被低估。仓库以 Rust 源码为主，想自己改要装 Rust 工具链并编译，普通用户只能用发布包。跨平台确定性有额外约束，输入顺序、浮点环境与版本都要一致，否则仍会分叉。文档站与变更日志较完整，但中文资料少，遇到边缘问题要去 Discord。Web 与移动端虽声明支持，性能与包体仍需按目标平台实测。",
+  "workflowZh": [
+    {
+      "stepZh": "从发布页下载 addons 或用资源商店安装"
+    },
+    {
+      "stepZh": "把 addons 目录整个合并进工程的 addons 目录下"
+    },
+    {
+      "stepZh": "在项目高级设置里切换物理引擎为 Rapier"
+    },
+    {
+      "stepZh": "在 2D 或 3D 场景里替换碰撞与关节节点"
+    },
+    {
+      "stepZh": "跑对比场景逐项检查堆叠、手感与性能"
+    }
+  ],
+  "pros": [
+    "堆叠与约束稳定性明显好于部分内置场景，箱子塔不易抖散。",
+    "提供液体、身体蒙皮与逆运动学等扩展，玩法上限比内置物理高。",
+    "支持物理状态存取与确定性模拟，为存档和联机校验省去自研。",
+    "同时覆盖 2D 与 3D，并明确声明支持桌面、移动与 Web 三类目标平台。"
+  ],
+  "cons": [
+    "物理行为与内置不同，迁移要重新调参数并回归所有依赖物理的关卡。",
+    "源码以 Rust 为主，自行修改需搭工具链编译，门槛较高。",
+    "跨平台确定性有严格前提，版本与输入不一致仍会分叉。",
+    "文档偏英文，边缘问题主要靠 Discord 与 issue 排查，缺少中文资料。"
+  ],
+  "pitfalls": [
+    "切换物理引擎后旧场景的碰撞层与关节参数含义可能变化，先做小场景对照。",
+    "跨平台确定性要求所有端使用同一版本与相同输入顺序，混版会直接分叉。",
+    "流体与蒙皮开销不低，大量使用前先按目标平台压测帧率与内存。"
+  ],
+  "bestFor": "需要更稳定堆叠、液体模拟或确定性物理，并愿意为迁移做回归测试的 Godot 4 项目，尤其是物理量大的沙盒与联机游戏。",
+  "avoidWhenZh": "物理只是轻微点缀、已按内置引擎调好手感，或无法承担迁移测试成本的小团队。",
+  "compareTips": {
+    "vs": [
+      "godot-jolt__godot-jolt"
+    ],
+    "whenZh": "两者都是替换内置物理的 GDExtension：Jolt 偏 3D 刚体与性能，生态成熟、迁移经验多；Rapier 同时覆盖 2D 与 3D，并额外提供液体、确定性模拟与状态存取。要稳妥的 3D 替换选 Jolt，要 2D 与流体选 Rapier。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "物理引擎",
+    "2D物理",
+    "3D物理",
+    "确定性模拟",
+    "液体模拟"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "提供 2D 与 3D 物理引擎能力",
+      "source": "README.md",
+      "quote": "2D and 3D physics engine"
+    },
+    {
+      "claim": "定位为内置物理的直接替代",
+      "source": "README.md",
+      "quote": "drop-in replacement for the"
+    },
+    {
+      "claim": "安装后需在项目设置切换物理引擎",
+      "source": "README.md",
+      "quote": "Change Physics Engine to Rapier2D or Rapier3D."
+    },
+    {
+      "claim": "宣称没有幽灵碰撞",
+      "source": "README.md",
+      "quote": "No Ghost Collisions"
+    }
+  ]
+}

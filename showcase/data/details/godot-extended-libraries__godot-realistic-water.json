@@ -1,0 +1,143 @@
+{
+  "id": "godot-extended-libraries__godot-realistic-water",
+  "depth": "standard",
+  "taglineZh": "Godot 4 写实海面 demo，多组波浪与焦散泡沫",
+  "summaryZh": "这个仓库是 Godot 里的写实水面演示工程，而不是可复用插件。核心是单个 Water.gdshader：用三组正弦波叠加位移顶点，配两张滚动的法线贴图、屏幕与深度纹理做折射，按 Beer 定律混合深浅水色，再用 16 帧纹理数组把焦散投到海底，并沿物体与水面距离生成岸边泡沫。场景里摆了水面、船、石头与海草，打开即可看到接近成片的海面。README 很薄，还写着用 Godot 3.4.2 打开，但工程文件已是 4.0 配置。适合拿来改参数或抄着色器思路。",
+  "whatItDoes": "提供一份可直接运行的 Godot 水面演示工程，用自定义空间着色器实现波浪位移、折射、深浅水色、焦散投影与岸边泡沫。",
+  "useCases": [
+    {
+      "titleZh": "海面效果参考",
+      "descZh": "把演示场景当基准，逐项改波浪速度、陡度与长度，观察海面起伏、折射和焦散的联动变化。"
+    },
+    {
+      "titleZh": "浅海与岸边",
+      "descZh": "用泡沫与深浅水色参数搭港口或沙滩，借助深度纹理让浅水区更通透，岸边与船体周围自然泛白。"
+    },
+    {
+      "titleZh": "移植到自有工程",
+      "descZh": "把 Water.gdshader 与配套贴图拷进自己的项目，替换材质后就能给自建的水面网格套上同样的效果。"
+    },
+    {
+      "titleZh": "着色器学习",
+      "descZh": "对照单文件着色器逐段读波浪、折射、焦散与泡沫的实现方式，理解写实水面的常见套路。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "水面着色器",
+      "descZh": "Water.gdshader 负责整套波浪位移、法线扰动、折射、深浅水色混合与焦散投影、岸边泡沫等效果。"
+    },
+    {
+      "titleZh": "演示场景",
+      "descZh": "main.tscn 摆好水面、船、石头、海草与相机，打开工程就能看到完整的水面渲染效果。"
+    },
+    {
+      "titleZh": "配套贴图",
+      "descZh": "仓库自带法线、泡沫、焦散与 UV 动画等配套贴图，省去寻找或制作素材的时间。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Layered Waves",
+      "descZh": "三组可调方向、陡度与波长的波浪叠加，海面起伏更自然不呆板。"
+    },
+    {
+      "name": "Dual Normal Maps",
+      "descZh": "两张法线贴图按 UV 错开滚动，近处细节与远景波纹都能兼顾。"
+    },
+    {
+      "name": "Depth Blending",
+      "descZh": "读取深度与屏幕纹理，按 Beer 定律混合深浅水色并做折射偏移计算。"
+    },
+    {
+      "name": "Caustics Projection",
+      "descZh": "用 16 帧纹理数组把水下焦散动态投到海底，随波浪一起流动。"
+    },
+    {
+      "name": "Shore Foam",
+      "descZh": "按物体与水面距离生成泡沫，岸边与船体周围会自然泛白并逐渐散开。"
+    }
+  ],
+  "limitsZh": "它是演示工程而不是插件：没有 plugin.cfg，也不提供可配置节点或资源，接入只能手动拷着色器与贴图。README 只有寥寥几句，参数含义要靠读着色器里的注释。文本仍写用 Godot 3.4.2 打开，但 project.godot 已是 4.0 配置，两处不一致，升到更高 4.x 版本需自行验证。效果偏海水，做湖面或卡通水要改配色与波形。焦散依赖相机与投影矩阵，换正交相机或特殊分辨率可能错位。没有 LOD 与质量档位，大范围海面要自己加裁剪或分块。",
+  "workflowZh": [
+    {
+      "stepZh": "先用 Godot 4 打开演示工程看默认效果"
+    },
+    {
+      "stepZh": "把 Water.gdshader 与配套贴图复制到自己的项目"
+    },
+    {
+      "stepZh": "新建 ShaderMaterial 并挂到水面网格的材质槽上"
+    },
+    {
+      "stepZh": "按场景光照调整深浅水色与波浪参数"
+    },
+    {
+      "stepZh": "用相机在近岸与远海各走一遍验证"
+    }
+  ],
+  "pros": [
+    "着色器单文件结构清晰，波浪、折射、焦散与泡沫的实现都能逐段阅读。",
+    "演示场景自带船、石头、海草与贴图，打开就能看到接近成片的水面效果。",
+    "关键参数都做成 uniform，改波浪方向或水色不用动代码，调参成本低。",
+    "以 MIT 许可发布，着色器与贴图都能直接搬到自己的水面网格。"
+  ],
+  "cons": [
+    "只是演示工程，没有插件入口与可复用节点，接入全靠手工复制。",
+    "文档极薄，版本说明与工程配置还互相矛盾，容易误导新手。",
+    "缺少 LOD 与性能选项，大范围海面直接套用容易拖帧。"
+  ],
+  "pitfalls": [
+    "README 写的 3.4.2 与工程里的 4.0 配置冲突，先按实际引擎版本打开再改。",
+    "焦散靠投影矩阵计算，换正交相机或改窗口尺寸后可能对不上位置。",
+    "双法线贴图的滚动速度与方向要一起调，只改一张会让水面细节打架。"
+  ],
+  "bestFor": "想在 Godot 4 里做海面效果，需要一份能直接跑、能照着改着色器的写实水面参考的中小型独立游戏项目。",
+  "avoidWhenZh": "需要开箱即用的水面插件、完整文档，或大面积海面的性能方案时。",
+  "compareTips": {
+    "vs": [
+      "tessarakkt__godot4-oceanfft"
+    ],
+    "whenZh": "两者都做海面：realistic-water 用多组正弦波加焦散投影，偏写实近海演示；oceanfft 用 FFT 生成大范围海浪，偏远洋与尺度感。近海港口选前者，开阔海面选后者。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "水面着色器",
+    "海洋渲染",
+    "焦散",
+    "Godot4"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "仓库是一个写实水面演示而非插件",
+      "source": "README.md",
+      "quote": "This is a demo of realistic water in Godot."
+    },
+    {
+      "claim": "README 给出的运行方式仍指向 Godot 3.4.2",
+      "source": "README.md",
+      "quote": "Download Godot 3.4.2-stable and open the Godot Realistic Water project."
+    },
+    {
+      "claim": "项目由 UnionBytes 与社区贡献者共同开发",
+      "source": "AUTHORS.md",
+      "quote": "Realistic Water Shader is developed by a community of voluntary contributors who contribute code, bug reports, documentation, artwork, support, etc."
+    },
+    {
+      "claim": "工程以 MIT 许可发布",
+      "source": "AUTHORS.md",
+      "quote": "the developers who contributed significant patches to this MIT licensed source code"
+    }
+  ]
+}

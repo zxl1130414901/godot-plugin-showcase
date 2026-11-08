@@ -1,0 +1,35 @@
+{
+  "id": "KoBeWi__Godot-Universal-Mod-Manager",
+  "descriptionZh": "不改游戏文件即可加载模组的通用管理器，靠 override.cfg 与资源接管注入内容",
+  "category": "editor-tool",
+  "tags": [
+    "模组管理",
+    "资源覆盖",
+    "独立应用",
+    "跨版本",
+    "社区分发"
+  ],
+  "prosShort": [
+    "不改源码即可给成品游戏加模组",
+    "可替换主场景与任意资源，内容型模组都能做",
+    "兼容 Godot 2、3 与 4，老项目也能复用同一思路"
+  ],
+  "consShort": [
+    "无法做权限控制与沙箱隔离",
+    "模组冲突要靠手工调整顺序",
+    "只覆盖资源，代码注入能力有限"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

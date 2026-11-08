@@ -1,0 +1,35 @@
+{
+  "id": "SlashScreen__skelerealms",
+  "descriptionZh": "面向贝塞斯达式开放世界的 Godot RPG 框架，提供完整的跨场景持久化、NPC 日程、派系与犯罪系统。",
+  "category": "state-logic",
+  "tags": [
+    "开放世界",
+    "RPG",
+    "NPC",
+    "持久化",
+    "GDScript"
+  ],
+  "prosShort": [
+    "持久化与导航底座省下数月工夫",
+    "组件化设计，只取单个模块也能接入",
+    "日程与巡逻工具都直接在编辑器里"
+  ],
+  "consShort": [
+    "无玩法、战斗与任务，仅提供工程底座",
+    "alpha 阶段接口频变，升级可能要改脚本",
+    "文档不全，多数子系统都得读源码"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

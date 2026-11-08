@@ -1,0 +1,143 @@
+{
+  "id": "MarcoFazioRandom__Virtual-Joystick-Godot",
+  "depth": "standard",
+  "taglineZh": "触屏虚拟摇杆，支持固定、动态与跟随三种模式",
+  "summaryZh": "Virtual Joystick 为触屏项目提供一根可配置的虚拟摇杆：模式可选固定、动态或跟随手指，外观可换贴图与颜色，能限制在屏幕范围内，也能按触摸区域显隐。它支持把输出映射到项目里定义的动作，因此角色移动仍走 Input 体系，不必把方向值硬编码进脚本。插件附带示例场景与编辑器导出属性，改参数即可调手感。适合手游与平板项目，桌面或纯键鼠游戏不需要它。",
+  "whatItDoes": "提供一个可拖拽的触屏摇杆节点，把手势换算成方向向量或输入动作，并支持多种模式与可视样式配置。",
+  "useCases": [
+    {
+      "titleZh": "手机角色移动",
+      "descZh": "横版或俯视手游里用摇杆控制移动方向，输出向量或动作，与键鼠逻辑共用同一套输入处理。"
+    },
+    {
+      "titleZh": "动态摇杆手感",
+      "descZh": "设置为动态模式时，摇杆在手指按下处出现，玩家不必去找固定位置，小屏操作更顺手。"
+    },
+    {
+      "titleZh": "跟随式操作",
+      "descZh": "跟随模式下摇杆底座跟着手指漂移，适合需要长按拖动的场景，避免手指滑出底座范围。"
+    },
+    {
+      "titleZh": "UI 主题适配",
+      "descZh": "换两张贴图就能匹配游戏的一整套美术，摇杆底色与手柄贴图可分别设置，不必改脚本逻辑。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "摇杆节点",
+      "descZh": "可放在 CanvasLayer 里的触屏摇杆节点，负责处理按下、拖动与松开的手势换算与半径计算。"
+    },
+    {
+      "titleZh": "输出映射",
+      "descZh": "把摇杆方向换算成向量或触发项目里已有的输入动作，供角色逻辑读取。"
+    },
+    {
+      "titleZh": "示例场景",
+      "descZh": "仓库自带演示场景，展示三种模式、显隐切换与参数调节后的实际手感差异。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Three Modes",
+      "descZh": "固定、动态与跟随三种模式，覆盖不同屏幕尺寸与玩家的操作习惯。"
+    },
+    {
+      "name": "Dead Zone and Clamp",
+      "descZh": "可调死区与最大半径，避免轻触漂移与拖出范围后数值异常。"
+    },
+    {
+      "name": "Input Action Mapping",
+      "descZh": "输出可映射到项目定义的动作，角色代码可以继续走 Input 体系。"
+    },
+    {
+      "name": "Custom Appearance",
+      "descZh": "底色、手柄贴图与透明度都能换，方便匹配各家不同的美术风格。"
+    },
+    {
+      "name": "Visibility Control",
+      "descZh": "可设为始终显示、仅触屏显示或按住时显示，适配多端布局与不同分辨率。"
+    }
+  ],
+  "limitsZh": "它只解决单根摇杆的方向输入，不含双摇杆、按钮、手势识别或多点触控管理，复杂虚拟手柄仍要自己拼。输出是模拟量，若项目已用数字动作驱动角色，需要自己做阈值与平滑。绘制走 2D 节点，缩放与不同分辨率下要手动调尺寸，否则手感会变。示例与文档以 README 为主，参数含义要对照导出变量试调。仓库更新较少，Godot 4 的触屏事件接口变化后可能需要自己修。",
+  "workflowZh": [
+    {
+      "stepZh": "先把 addons/virtual_joystick 整个目录复制到工程里"
+    },
+    {
+      "stepZh": "在项目设置的插件页启用 Virtual Joystick 插件"
+    },
+    {
+      "stepZh": "把摇杆节点加进游戏的 UI 层并锚定位置"
+    },
+    {
+      "stepZh": "选择模式并调整死区、半径与贴图参数"
+    },
+    {
+      "stepZh": "在手机上实机验证方向与显隐效果"
+    }
+  ],
+  "pros": [
+    "三种模式覆盖常见触屏操作习惯，参数调好就能得到顺手的移动手感。",
+    "输出可映射到输入动作，角色逻辑不必为触屏单独写一套分支。",
+    "外观与显隐都能配置，适配不同美术风格与屏幕布局比较省事。",
+    "节点轻量、导出属性直观，接进一个场景就能马上跑起来验证。"
+  ],
+  "cons": [
+    "只支持单根摇杆，按钮与双摇杆等虚拟手柄要自己拼。",
+    "不同分辨率下尺寸要手动调，缩放不当会让手感变差。",
+    "更新较少，触屏接口变化后可能需要自己修代码。"
+  ],
+  "pitfalls": [
+    "摇杆放在错误的 CanvasLayer 会被 UI 遮挡或吃掉触摸事件，先确认层级。",
+    "死区设得太小会轻触漂移，设得太大又推不动，按目标机型实机调。",
+    "多分辨率下没适配尺寸时，摇杆可能超出安全区，用锚点与缩放统一处理。"
+  ],
+  "bestFor": "需要触屏虚拟摇杆，并希望移动逻辑继续复用 Input 体系的 Godot 4 中小型独立手游、平板项目与快速原型。",
+  "avoidWhenZh": "纯键鼠或手柄游戏，或需要完整虚拟手柄（多按钮、双摇杆）的项目。",
+  "compareTips": {
+    "vs": [
+      "Federico-Ciuffardi__GodotTouchInputManager"
+    ],
+    "whenZh": "两者都处理触屏输入：Virtual Joystick 只做摇杆并输出方向或动作；TouchInputManager 管多点触控手势与模拟按键。只要一根移动摇杆选前者，要按钮、手势与多指管理选后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "虚拟摇杆",
+    "触屏操作",
+    "输入映射",
+    "移动控制"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "插件为触屏提供简单但功能完整的虚拟摇杆",
+      "source": "README.md",
+      "quote": "A simple yet powerful virtual joystick for touchscreens in Godot"
+    },
+    {
+      "claim": "摇杆支持固定、动态与跟随三种模式",
+      "source": "README.md",
+      "quote": "Fixed, Dynamic, or Following"
+    },
+    {
+      "claim": "可以触发项目设置里定义的动作",
+      "source": "README.md",
+      "quote": "Trigger input actions defined in Project Settings"
+    },
+    {
+      "claim": "插件配置说明带多种可选设置",
+      "source": "addons/virtual_joystick/plugin.cfg",
+      "quote": "A simple virtual joystick for touchscreens, with useful options."
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "id": "matjlars__godot-multiplayer-input",
+  "depth": "standard",
+  "taglineZh": "把输入动作分发到键盘与最多八个手柄玩家的插件",
+  "summaryZh": "MultiplayerInput 是一个轻量 Godot 插件，解决本地多人游戏里同一套输入动作要分给不同设备的问题。它提供两套 API：一套是单例，调用时显式传入设备号；另一套把设备号封装在小对象里，之后用法与原生 Input 几乎一致。插件加载时会把手柄动作映射复制并绑定到对应设备，因此编辑器里仍可只维护一份干净的输入映射，不必为每个玩家手工建一套。它还提供玩家加入退出的示例管理器，但把加入逻辑留给游戏自行决定。",
+  "whatItDoes": "在原生输入之上加一层按设备号的转发，把手柄动作映射复制并绑定到各自设备，提供单例与设备对象两套调用方式，让本地多人的输入互不串台。",
+  "useCases": [
+    {
+      "titleZh": "同屏多人本地对战",
+      "descZh": "键盘玩家与多只手柄玩家同场操作，各自的动作互不串台，角色只响应自己的设备输入。"
+    },
+    {
+      "titleZh": "本地合作关卡",
+      "descZh": "两名以上玩家共用一台机器合作闯关，输入按设备号分发，避免一人按键带动所有角色。"
+    },
+    {
+      "titleZh": "手柄热插拔",
+      "descZh": "手柄接入时插件会自动复制动作映射并绑定设备，玩家中途插拔手柄也能继续操作，不必重启游戏。"
+    },
+    {
+      "titleZh": "迁移单人控制代码",
+      "descZh": "把原生 Input 换成带设备号的小对象，原有动作名与查询写法基本不变，旧代码改造量很小。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "按设备分发输入的单例",
+      "descZh": "替换原生输入入口，调用时传入设备号，按键事件只落在对应玩家身上，不与其他人串台。"
+    },
+    {
+      "titleZh": "设备作用域输入对象",
+      "descZh": "把设备号封装成对象，之后用法与原生的单动作查询一致，玩家脚本里不必反复传参。"
+    },
+    {
+      "titleZh": "玩家加入示例管理器",
+      "descZh": "仓库附带玩家管理脚本，演示如何记录设备、维护玩家与发出加入离开信号。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "两套 API",
+      "descZh": "单例适合按设备查询，封装对象适合挂在玩家节点上，按场景选用。"
+    },
+    {
+      "name": "零到七手柄",
+      "descZh": "设备号零到七对应最多八只手柄，负一固定代表键盘与鼠标玩家。"
+    },
+    {
+      "name": "动作映射自动复制",
+      "descZh": "加载时与手柄接入时复制动作并绑定设备，编辑器里仍维护一份动作表。"
+    },
+    {
+      "name": "键鼠玩家支持",
+      "descZh": "键鼠玩家用负一参与分配，鼠标视角等非动作输入可用设备判断后读取。"
+    },
+    {
+      "name": "加入退出示例",
+      "descZh": "附带玩家管理脚本与信号，可直接改成自己的加入退出流程。"
+    }
+  ],
+  "limitsZh": "插件只解决输入动作到设备的分配，不做玩家加入退出、分屏、手柄热插拔提示与设备重排，玩家管理逻辑必须自己写，作者只给了示例脚本。它通过复制动作映射实现隔离，动作数量多时会生成八份带设备前缀的条目，内存与编辑器可见项都会增加，排查输入问题时要在这些复制项里找。函数名带 action 的原生输入在插件启用后行为会改变，必须改用插件 API，混用容易出错。键鼠玩家用负一这个约定只对插件有效，传给原生 Input 会得到相反结果。README 覆盖用法与注意事项，但没有列出完整的 API 参照，版本与引擎兼容范围也未写明。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录拷进工程并在插件页启用"
+    },
+    {
+      "stepZh": "在输入映射里为每个动作同时配置键盘与手柄事件"
+    },
+    {
+      "stepZh": "把代码里的原生输入查询换成插件 API 并传设备号"
+    },
+    {
+      "stepZh": "为每个玩家记录设备号，或在节点上创建输入对象"
+    },
+    {
+      "stepZh": "参考示例脚本实现加入退出与玩家数据管理"
+    }
+  ],
+  "pros": [
+    "用设备号隔离输入，多人同屏时各玩家动作互不干扰，角色响应更准确。",
+    "两套 API 兼顾直接查询与面向对象写法，旧代码迁移成本很低。",
+    "自动复制动作映射，编辑器里仍只维护一份输入配置，不易出错。",
+    "支持键盘与最多八只手柄，覆盖常见的本地多人同屏规模，设备号分配清晰。",
+    "附带玩家加入退出的示例管理器，接入时有现成参考实现可抄。"
+  ],
+  "cons": [
+    "只做输入隔离，不含分屏、加入退出与设备重排逻辑。",
+    "动作映射被复制成多份，动作多时编辑器项与内存都会膨胀。",
+    "带 action 的原生输入行为改变，混用插件与原生 API 容易出错。"
+  ],
+  "pitfalls": [
+    "键鼠玩家传入负一时只能走插件 API，传给原生输入会得到相反结果。",
+    "动作数量多时复制项会淹没输入映射列表，排查前先按前缀筛选。",
+    "玩家设备号未在加入时记录下来，角色会响应错误的手柄输入。"
+  ],
+  "bestFor": "做同屏本地多人、需要把键盘与多只手柄的动作隔离到各自玩家的 Godot 4 项目，以及希望快速验证本地多人手感的独立开发者。",
+  "avoidWhenZh": "只做单人游戏，或使用联机而非本地同屏多人，以及需要现成加入退出与分屏方案的项目，都不必引入它。",
+  "compareTips": {
+    "vs": [
+      "devmoreir4__godot-3d-multiplayer-template"
+    ],
+    "whenZh": "两者都服务多人游戏但层次不同：MultiplayerInput 只管本地多设备的输入隔离，把动作按设备号分给各自玩家；3D 多人模板覆盖会话、库存与专用服务器，是完整的联机工程。做同屏本地多人用插件即可，做联机才需要整模板。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "本地多人",
+    "输入映射",
+    "手柄支持",
+    "单例封装",
+    "设备隔离"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "为键鼠玩家与最多八名手柄玩家提供输入查询",
+      "source": "README.md",
+      "quote": "This Godot addon provides two simple APIs for using normal Input Actions, but spread out across a Keyboard player and up to 8 Joypad players."
+    },
+    {
+      "claim": "用法是把 Input 换成 MultiplayerInput 并补 device 参数",
+      "source": "README.md",
+      "quote": "MultiplayerInput.is_action_pressed(device, \"jump\")"
+    },
+    {
+      "claim": "device 为 -1 表示键鼠玩家",
+      "source": "README.md",
+      "quote": "Additionally, for all MultiplayerInput functions, -1 represents the player using the keyboard and mouse."
+    },
+    {
+      "claim": "加载与手柄接入时自动复制动作映射",
+      "source": "README.md",
+      "quote": "it will duplicate all of your Action Maps and assign them the correct device."
+    }
+  ]
+}

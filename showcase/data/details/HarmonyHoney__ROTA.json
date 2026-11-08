@@ -1,0 +1,144 @@
+{
+  "id": "HarmonyHoney__ROTA",
+  "depth": "standard",
+  "taglineZh": "完整开源的 Godot 3 重力翻转解谜平台游戏",
+  "summaryZh": "它是一套完整的 Godot 3.6.1 开源游戏工程，而不是通用插件：围绕重力方向翻转的方块解谜平台玩法，包含角色、关卡、过场、街机小游戏、菜单存档与音画资源。代码按 actor、arcade、autoload、cutscene、menu、stage 等目录拆分，可直接在 Godot 3 打开运行。限制是只适配 Godot 3.6.1，玩法与美术强绑定，仓库没有 API 文档，addons 里的 Steam 封装还带独立许可证。",
+  "whatItDoes": "用重力方向切换驱动 2D 平台角色移动，配套 SolidTileMap、SpikeMap 等关卡组件与 Clock、GemCollect 等过场脚本。autoload 下有 Audio、Cam、Clouds、Music、UI、Wipe 等全局服务，class 目录提供 EaseMover 与 SaveDict。menu 目录含标题、文件选择、暂停与外观设置，arcade 目录则是一个可玩的街机小游戏。",
+  "useCases": [
+    {
+      "titleZh": "重力解谜参考",
+      "descZh": "研究重力翻转如何影响角色状态、碰撞与关卡设计，可直接跑完整工程对照源码，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "完整项目学习",
+      "descZh": "学习 Godot 3 项目的目录组织、autoload 拆分与过场流程，比自己搭样板更具体，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "多平台发布",
+      "descZh": "需要 Linux、Windows、Mac、Web 与 Android 的导出配置时，可参考现成 preset 与脚本，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "Steam 接入",
+      "descZh": "想接 Steam 成就与排行榜，可参考 addons 里的 Godot-Steam-API 集成方式，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "完整可玩游戏",
+      "descZh": "含完整关卡、过场、菜单与街机小游戏，能直接导出发布，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "全局服务层",
+      "descZh": "Audio、Cam、Music、UI、Wipe 等 autoload 场景，覆盖常见游戏服务，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "Steam 封装",
+      "descZh": "内置 Godot-Steam-API addon 与示例调用，可作平台接入参考，可以直接放进项目里使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "重力翻转",
+      "descZh": "角色与关卡围绕重力方向切换设计，是整套玩法的核心机制。"
+    },
+    {
+      "name": "SaveDict",
+      "descZh": "class 目录下的存档字典封装，菜单文件卡用它读写进度，参数集中在检查器面板。"
+    },
+    {
+      "name": "过场系统",
+      "descZh": "Cutscene 与多个演出脚本串起开门、收集与通关流程，后续修改起来也不费劲。"
+    },
+    {
+      "name": "街机小游戏",
+      "descZh": "Arcade 目录含独立可玩的街机模式，展示同一工程内的玩法扩展。"
+    },
+    {
+      "name": "多平台导出",
+      "descZh": "export_presets 与 export 脚本覆盖桌面、Web 与 Android 发布，在编辑器里就能完成配置。"
+    }
+  ],
+  "limitsZh": "这是游戏工程而非库，目录与场景强耦合，想抽单个系统复用到别的项目要大量裁剪。引擎版本锁在 Godot 3.6.1，4.x 无法直接打开，迁移成本高。仓库没有 API 文档与架构说明，README 只有玩法简介、商店链接和截图，学习主要靠读源码。许可证是 Unlicense，但明确不覆盖 addons 目录，商用前要单独确认 Steam 封装的授权。美术、字体与音频资源体积不小，替换成自己的素材需要逐项核对引用。",
+  "workflowZh": [
+    {
+      "stepZh": "先用 Godot 3.6.1 打开仓库根目录的完整工程"
+    },
+    {
+      "stepZh": "在项目设置里确认各项 autoload 与输入映射"
+    },
+    {
+      "stepZh": "运行主场景，试玩重力翻转与关卡流程"
+    },
+    {
+      "stepZh": "对照 src 目录按系统阅读角色与关卡脚本"
+    },
+    {
+      "stepZh": "替换美术与音频后重新跑导出预设"
+    }
+  ],
+  "pros": [
+    "完整可玩且已在 Steam 发行的工程，关卡、菜单、存档与过场都能直接对照。",
+    "目录按 actor、menu、cutscene 等职责拆分，读源码时结构相对清楚，团队新人照着示例就能上手。",
+    "自带多平台导出预设与打包脚本，桌面、Web、Android 发布有现成参考。",
+    "内置 Steam 成就与排行榜示例，平台接入不必从零查文档，出现问题时也更容易定位原因。"
+  ],
+  "cons": [
+    "只支持 Godot 3.6.1，无法在 Godot 4 打开，迁移要重写大量 API。",
+    "没有 API 文档与架构说明，学习成本主要落在读源码上。",
+    "游戏逻辑与美术资源强绑定，抽系统复用的改造成本高。"
+  ],
+  "pitfalls": [
+    "addons 目录不在 Unlicense 覆盖范围，商用前要单独确认 Steam 封装许可，上线前要专门过一遍。",
+    "Godot 4 打开 3.x 工程会报大量 API 错误，别在原目录直接升级，排查时需要多留一层日志。",
+    "导出的 Steam 构建需要 steam_appid.txt 或上传商店，否则初始化会失败，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "想研究重力翻转解谜的完整实现，或需要一份 Godot 3 多平台发行工程作参考的开发者，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目已经迁到 Godot 4，或只需要一个可复用组件而非整份游戏工程时。",
+  "compareTips": {
+    "vs": [
+      "gilzoide__godot-lua-pluginscript"
+    ],
+    "whenZh": "两者都是 Godot 3 时代的完整工程：ROTA 是重力翻转解谜平台游戏，侧重 2D 关卡与多平台发行；Lua PluginScript 是语言扩展，侧重把 Lua 接进脚本系统。学完整项目看 ROTA，扩脚本能力看后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "完整游戏",
+    "重力解谜",
+    "Godot3",
+    "Steam接入",
+    "2D平台"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "基于 Godot 3.6.1 的重力解谜平台游戏",
+      "source": "readme.md",
+      "quote": "Made with [Godot Engine](https://github.com/godotengine/godot) 3.6.1 / Gravity Bending Puzzle Platformer"
+    },
+    {
+      "claim": "覆盖桌面、Web 与 Android",
+      "source": "readme.md",
+      "quote": "Available for Linux, Windows, Mac, Web & Android !"
+    },
+    {
+      "claim": "使用 Godot-Steam-API 接入 Steam",
+      "source": "readme.md",
+      "quote": "Using [Godot-Steam-API](https://github.com/samsface/godot-steam-api) by [samsface](https://github.com/samsface/)!"
+    },
+    {
+      "claim": "addons 目录不在 Unlicense 覆盖范围",
+      "source": "readme.md",
+      "quote": "This license does not include the addons/ folder."
+    }
+  ]
+}

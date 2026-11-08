@@ -1,0 +1,144 @@
+{
+  "id": "AlexeyBond__godot-constraint-solving",
+  "depth": "standard",
+  "taglineZh": "Godot 4 的 WFC 波函数坍缩与通用约束求解插件",
+  "summaryZh": "这个插件在 Godot 4 里实现波函数坍缩（WFC）与通用约束满足问题求解，能从一张示例地图学习邻接规则，再生成风格一致的新地图。它支持回溯，保证结果里没有破损格子，也可以关闭回溯或限制尝试次数以换取速度；二维生成能拆成多任务并发，无法拆分时自动退回单线程。生成目标包括 TileMapLayer、TileMap 与 GridMap，兼容部分六边形瓦片地图，还能按瓦片概率调整出现频率。除 WFC 外，底层的通用求解器可复用到其他约束问题。",
+  "whatItDoes": "插件把地图生成拆成约束定义、求解与结果写回三步：开发者提供合法组合或一张示例地图，求解器推断规则，再逐格收缩候选集并传播约束，直到每个格子只剩一种可能。回溯会在矛盾时回退并换选择，避免生成破损地图；多线程版本把可并行的任务分给多个线程。结果可写进 TileMapLayer、TileMap 或 GridMap。瓦片概率可来自内置属性、自定义数据层或网格元数据。",
+  "useCases": [
+    {
+      "titleZh": "程序化关卡",
+      "descZh": "做 roguelike 或沙盒关卡时，用一张手摆的示例地图来教会规则，再批量生成风格一致但细节各不相同的房间与地形。"
+    },
+    {
+      "titleZh": "瓦片地图填充",
+      "descZh": "已有 TileMapLayer 与地形设置，直接让插件从瓦片规则生成草地、道路与海岸线，减少大量手工刷地图的时间与重复劳动。"
+    },
+    {
+      "titleZh": "三维网格切片",
+      "descZh": "GridMap 可以先生成二维切片再逐层堆叠，做分层建筑或地下城时不必等待完整的 3D 地图生成功能，先把关卡做出来。"
+    },
+    {
+      "titleZh": "通用约束求解",
+      "descZh": "排课程表、布置房间或分配资源时，能绕过 WFC 直接使用底层的通用求解器，把问题建模成一组变量与约束条件。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "生成的地图数据",
+      "descZh": "写回 TileMapLayer、TileMap 或 GridMap 的瓦片与网格结果，可直接在场景里继续编辑、微调与碰撞配置，工作流不中断。"
+    },
+    {
+      "titleZh": "学习到的规则",
+      "descZh": "从示例地图或地形设置推断出的邻接组合，可保存并复用到同风格的其他地图生成任务里。"
+    },
+    {
+      "titleZh": "通用求解器",
+      "descZh": "与 WFC 解耦的约束满足实现，可单独调用，用于排课、房间布置等各类非地图的排布与分配问题。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "回溯",
+      "descZh": "遇到矛盾时回退重选，保证生成结果没有破损格子，也可关闭以换取速度与内存。"
+    },
+    {
+      "name": "多线程",
+      "descZh": "二维生成可拆成并发任务，多数情况下能自动判断是否可拆，不能拆时退回单线程。"
+    },
+    {
+      "name": "示例学习",
+      "descZh": "从一张合法地图推断规则，还能补充禁止出现的组合，减少手工列全部邻接表。"
+    },
+    {
+      "name": "多节点类型",
+      "descZh": "支持 TileMapLayer、TileMap 与 GridMap 三种目标，部分六边形瓦片地图也能生成，切换节点类型不必改流程。"
+    },
+    {
+      "name": "瓦片概率",
+      "descZh": "按瓦片设置出现概率，概率来源可以是内置属性、自定义数据层或网格元数据。"
+    }
+  ],
+  "limitsZh": "三维地图生成尚未实现，只能生成 GridMap 的二维切片，做真正三维地下城要自己堆叠或改源码。换行包裹、懒加载与动态生成都没做，开放世界式的边玩边生成需要另写调度。全局约束与路径约束也未实现，必须连通或固定入口位置的地图不能直接交给它。插件以 GDScript 实现，大规模地图的求解与回溯仍吃 CPU 与内存。文档以 README 为主，缺少从示例到自定义规则的逐步教程，参数含义要读源码与场景。仓库最后一次提交在 2025 年，后续维护节奏不确定，引擎升级后的兼容问题可能要自己修。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 里的 wfc 目录完整复制进自己的 Godot 4 项目里"
+    },
+    {
+      "stepZh": "在项目设置里启用 WFC 插件并重新加载整个工程"
+    },
+    {
+      "stepZh": "准备一张示例地图，或整理允许出现的瓦片组合"
+    },
+    {
+      "stepZh": "在示例场景里配置好目标节点、尺寸与回溯参数"
+    },
+    {
+      "stepZh": "运行生成并检查破损格、概率分布与碰撞体配置"
+    }
+  ],
+  "pros": [
+    "WFC 与通用求解器都实现，既能生成地图，也能把其他约束问题套进同一套代码。",
+    "支持回溯与多线程，能在质量与速度之间调参，生成结果可以做到没有破损格。",
+    "能从示例地图与地形设置学习规则，减少大量手工枚举邻接组合的工作量。",
+    "覆盖 TileMap、TileMapLayer 与 GridMap 三类目标，二维项目接入时不必更换已有的地图节点类型。"
+  ],
+  "cons": [
+    "没有三维地图生成，只能做 GridMap 的二维切片，立体关卡要自己扩展。",
+    "全局与路径约束缺失，必须连通或固定入口的地图不能直接生成。",
+    "文档只有 README 与示例，参数与自定义规则要读源码，上手门槛偏高。"
+  ],
+  "pitfalls": [
+    "示例地图本身有非法邻接，学出来的规则自相矛盾，生成时频繁回溯直到超时。",
+    "关掉回溯又限制尝试次数，复杂地图生成到一半失败，留下大量空网格与缺口。",
+    "把线程数开到很高但地图不大，线程调度开销反超收益，编辑器明显变慢。"
+  ],
+  "bestFor": "做 roguelike、沙盒或瓦片地图关卡，需要从示例学习风格并批量生成二维地图的 Godot 4 开发者，且愿意花时间读源码调参。",
+  "avoidWhenZh": "需要三维地图、全局连通约束或开箱即用的关卡编辑器，以及不愿维护 2025 年后停更代码的团队。",
+  "compareTips": {
+    "vs": [
+      "TokisanGames__Terrain3D"
+    ],
+    "whenZh": "Terrain3D 负责可雕刻的大地形与纹理绘制，不生成布局；这份插件负责从规则生成二维瓦片与网格布局。做开放世界时常见分工是地形用 Terrain3D，村落与迷宫布局用 WFC，两者解决的不是同一层问题。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "WFC",
+    "程序化生成",
+    "关卡生成",
+    "瓦片地图",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "实现 WFC 与通用约束满足问题求解",
+      "source": "README.md",
+      "quote": "# WFC (Wave Function Collapse) and generic constraint satisfaction problem solver implementation for Godot 4"
+    },
+    {
+      "claim": "支持回溯以保证没有破损格子",
+      "source": "README.md",
+      "quote": "This addon implements backtracking, so it's possible to generate maps that are guaranteed to have no broken cells."
+    },
+    {
+      "claim": "三维地图生成尚未实现",
+      "source": "README.md",
+      "quote": "Generation of 3d maps (like `GridMap`s) is not yet implemented (but a 2D slice of a `GridMap` can be generated)."
+    },
+    {
+      "claim": "除 WFC 外还提供通用求解器",
+      "source": "README.md",
+      "quote": "Addon contains a generic implementation of a solver capable of solving subclass of [constraint satisfaction problems](https://en.wikipedia.org/wiki/Constraint_satisfaction_problem) on top of which a WFC implementation is built."
+    }
+  ]
+}

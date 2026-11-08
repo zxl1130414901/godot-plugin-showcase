@@ -1,0 +1,35 @@
+{
+  "id": "Jeh3no__Godot-Advanced-State-Machine-First-Person-Controller",
+  "descriptionZh": "以有限状态机组织的第一人称角色资产，含走跑跳、冲刺、滑铲、墙跑与调试 HUD",
+  "category": "state-logic",
+  "tags": [
+    "第一人称",
+    "状态机",
+    "角色控制",
+    "FPS",
+    "移动手感"
+  ],
+  "prosShort": [
+    "每个状态独立脚本，便于增删改动作",
+    "移动动作与相机表现覆盖较完整",
+    "附带测试地图与调试用属性 HUD"
+  ],
+  "consShort": [
+    "只做移动，不含战斗、交互与联网",
+    "需按表手动配置 12 个输入动作",
+    "无插件配置，只能当资产复制使用"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

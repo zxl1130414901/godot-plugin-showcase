@@ -1,0 +1,14 @@
+{
+  "id": "GodotVR__godot-xr-tools",
+  "descriptionZh": "面向 OpenXR 的 VR/AR 交互场景合集，提供移动、抓取、传送等模块与完整 demo 工程。",
+  "category": "platform-export",
+  "tags": ["XR", "VR", "OpenXR", "交互场景"],
+  "prosShort": ["移动抓取传送等交互模块齐全", "附带十几个可运行的 demo 场景", "按 Godot 版本分支配对，兼容说明清晰"],
+  "consShort": ["强依赖 OpenXR 插件，缺装即无法运行", "仓库与 demo 资源体积大需裁剪", "非 OpenXR 设备与平台无法直接使用"],
+  "scores": {"coverage": 5, "usability": 4, "docs": 4, "maintenance": 4, "performance": 3, "stability": 4},
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

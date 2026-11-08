@@ -1,0 +1,14 @@
+{
+  "id": "KnifeXRage__Godot-Secure",
+  "descriptionZh": "用 Python 给 Godot 源码打补丁，生成带随机头与安全令牌的加密引擎构建，并支持脚本令牌混淆。",
+  "category": "platform-export",
+  "tags": ["资源加密", "引擎构建", "导出模板", "安全加固"],
+  "prosShort": ["随机头与安全令牌提高解包门槛", "脚本一键改源码并自动保留备份", "令牌混淆让脚本反编译直接失效"],
+  "consShort": ["必须自行编译引擎与全部导出模板", "同一份源码只允许运行一次脚本", "只提高逆向成本，并非绝对安全"],
+  "scores": {"coverage": 3, "usability": 3, "docs": 4, "maintenance": 4, "performance": 4, "stability": 3},
+  "installComplexity": 5,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

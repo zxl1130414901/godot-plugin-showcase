@@ -1,0 +1,139 @@
+{
+  "id": "GodotVR__godot_openxr_vendors",
+  "depth": "standard",
+  "taglineZh": "把各家 XR 厂商扩展接入 Godot 4 的 GDExtension 插件",
+  "summaryZh": "Godot OpenXR Vendors 是 GDExtension 插件，把 OpenXR 的厂商专属扩展接进 Godot 4：Android XR、Meta Quest、Pico 等运行时的锚点持久化、环境深度、眼动与面部追踪、地理空间、光照估计、鼠标交互等能力，都能通过脚本访问。官方二进制可从 Asset Store、Asset Library 与 Release 获取，也提供完整文档站、类参考与 Demo。适合做 Android XR 与一体机应用。限制是能力按厂商与设备分化，部分组件另有许可，桌面 VR 与不支持的运行时无法使用；自行编译要 Gradle、CMake 与 Android 工具链。",
+  "whatItDoes": "插件在 OpenXR 初始化后注册各厂商扩展接口，把扩展能力包装成 Godot 类与单例，例如锚点跟踪、环境深度、眼动与面部数据、地理空间位姿。Demo 展示手部控制器、网格与动作映射；文档站提供安装、功能与类参考。构建系统同时支持 Android Gradle 与桌面 SCons。",
+  "useCases": [
+    {
+      "titleZh": "Meta Quest 混合现实",
+      "descZh": "用环境深度与锚点做 MR 遮挡、房间布局与物体放置，让虚拟内容贴合真实空间，Quest 上直接可用。"
+    },
+    {
+      "titleZh": "眼动与面部追踪",
+      "descZh": "读取用户视线与面部表情，驱动角色与交互反馈，可做注视交互、注意力统计与虚拟形象表情同步。"
+    },
+    {
+      "titleZh": "Android XR 应用",
+      "descZh": "接入地理空间与系统属性查询，做户外定位与地图相关体验，位姿与场景理解都由运行时提供，省去自建定位链。"
+    },
+    {
+      "titleZh": "多厂商一体机发行",
+      "descZh": "用同一套插件覆盖 Meta、Pico 与 Android XR 运行时，减少多套分支代码，发行时按设备能力做降级。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "厂商扩展访问层",
+      "descZh": "把 OpenXR 厂商扩展包装成引擎类与接口，在脚本里按厂商能力调用，调用方式与内置类接近。"
+    },
+    {
+      "titleZh": "XR Demo 场景",
+      "descZh": "含手部控制器、网格与动作映射，可作接入参考，也能直接改成自己的起始场景。"
+    },
+    {
+      "titleZh": "可发布的原生库",
+      "descZh": "提供 Android 与桌面构建产物，随 XR 项目一起导出，版本必须与引擎和插件标签保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "锚点跟踪",
+      "descZh": "持久化空间锚点，支持混合现实物体定位，重启应用后锚点仍可恢复。"
+    },
+    {
+      "name": "环境深度",
+      "descZh": "读取深度图，做遮挡与虚实融合，让虚拟物体被真实家具正确遮挡。"
+    },
+    {
+      "name": "眼动与面部追踪",
+      "descZh": "访问视线与表情数据，驱动交互与角色，也能做注意力分析与疲劳监测。"
+    },
+    {
+      "name": "地理空间",
+      "descZh": "Android XR 的地理空间位姿与系统属性查询，支持户外定位体验与地图叠层。"
+    },
+    {
+      "name": "光照估计",
+      "descZh": "获取环境光照信息，让虚拟物体更贴合现实，减少材质与环境不匹配。"
+    }
+  ],
+  "limitsZh": "功能按厂商与设备分化：同一个类在 Meta 上可用，换 Pico 或 Android XR 可能缺对应扩展，运行时会直接不可用，代码必须做能力检测。仓库里部分厂商组件采用独立许可，商用前要逐个核对，不能只看根目录的 MIT。桌面 VR 与不支持这些扩展的运行时完全用不上；自行编译需要 Android SDK、Gradle、CMake 与 NDK，环境配置成本高。文档虽全但主要在外部站点，升级引擎或厂商 SDK 后接口可能变动，需要跟着版本验证。",
+  "workflowZh": [
+    {
+      "stepZh": "从 Asset Store 或 Release 获取官方二进制包并核对引擎版本"
+    },
+    {
+      "stepZh": "复制 addons 目录并在插件列表启用插件"
+    },
+    {
+      "stepZh": "在导出预设里启用 OpenXR 与目标厂商选项"
+    },
+    {
+      "stepZh": "按设备检测扩展可用性，做能力降级分支"
+    },
+    {
+      "stepZh": "调用对应类并导出到真机验证追踪效果"
+    }
+  ],
+  "pros": [
+    "把多家厂商的 OpenXR 扩展统一到一个插件，减少维护多套分支的成本",
+    "官方提供二进制、文档站与类参考，接入路径清楚，排查也有依据",
+    "覆盖深度、锚点、眼动、面部与光照等 MR 能力，常见混合现实需求都够用",
+    "附 Demo 与动作映射，真机调试有参考，能少走不少弯路，接入更快",
+    "MIT 为主，部分组件单独许可写得明确，商用评估更方便，分发前能提前确认风险"
+  ],
+  "cons": [
+    "能力按设备分化，代码必须做可用性检测，否则容易在别的机型崩",
+    "部分厂商组件另有许可，商用需逐项核对，不能只看根目录",
+    "自行编译需完整 Android 与 CMake 工具链，环境配置成本高"
+  ],
+  "pitfalls": [
+    "在不支持的设备上直接调用会报错或返回空，先检测扩展再调用",
+    "导出预设未启用 OpenXR 时插件不会初始化，看起来像没装上，先查导出选项",
+    "厂商组件许可与根目录不同，分发前要读对应文件夹的许可说明"
+  ],
+  "bestFor": "面向 Meta Quest、Pico 或 Android XR 做混合现实应用，需要厂商级追踪、深度与光照能力，并有真机调试条件的 Godot 4 团队与 XR 开发者。",
+  "avoidWhenZh": "只做桌面 VR，或目标设备不支持这些厂商扩展、也不打算做能力降级的项目。",
+  "compareTips": {
+    "vs": [
+      "godot-sdk-integrations__godot-ios-plugins"
+    ],
+    "whenZh": "两者都是平台原生能力集合：OpenXR Vendors 面向 XR 运行时，提供深度、锚点与眼动等厂商扩展；iOS Plugins 面向 iOS 系统服务，覆盖内购与 ARKit。按目标平台选，几乎没有交集。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "OpenXR",
+    "XR厂商扩展",
+    "混合现实",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "为 Godot 4 增加 OpenXR 厂商扩展支持",
+      "source": "README.md",
+      "quote": "a GDExtension plugin for Godot 4, that adds support for OpenXR vendor extensions"
+    },
+    {
+      "claim": "覆盖 Android XR、Meta 与 Pico 等运行时",
+      "source": "README.md",
+      "quote": "access vendor-specific OpenXR extensions running on OpenXR runtimes (e.g: Android XR, Meta, Pico devices)."
+    },
+    {
+      "claim": "部分厂商组件使用独立许可",
+      "source": "README.md",
+      "quote": "some vendor-specific components are licensed under separate license terms"
+    }
+  ]
+}

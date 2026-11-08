@@ -1,0 +1,154 @@
+{
+  "id": "gdquest-demos__godot-shaders",
+  "depth": "standard",
+  "taglineZh": "GDQuest 开源着色器库：2D、3D 与全屏特效均带可玩示例",
+  "summaryZh": "这个仓库是 GDQuest 着色器课程的配套素材库，按 3D、2D 与屏幕后处理分组，收录溶解、描边、冲击波、卡通火焰、力场、水面、调色板替换、高斯模糊等效果，每个效果通常配一个可运行 demo 场景。它的价值在于可直接读改的 gdshader 与节点配置，而不是封装成插件。它更像一本可运行的效果菜谱，适合先跑起来看效果，再把需要的 shader 摘出来改。仓库不提供版本化发布，使用时应锁定提交而不是直接 clone 主线；也没有统一版本号，与其他 shader 合集混用时要注意命名冲突。",
+  "whatItDoes": "仓库按 Shaders、Demos 与 Intro 组织，着色器是独立 gdshader 文件，示例场景演示如何挂到材质、粒子或全屏 quad。3D 部分含溶解、描边、冲击波、卡通火焰、力场、模板遮罩与交互雪；2D 部分含辉光、描边、调色板替换、水面与 X 光；全屏部分含高斯模糊、反色、点彩与屏幕扭曲。项目正在从 Godot 3 迁移到 4，部分 demo 仍指向旧版本，需要按目录逐项确认。",
+  "useCases": [
+    {
+      "titleZh": "学习 shader 写法",
+      "descZh": "照着 demo 拆解顶点与片元结构，比读文档更快理解空间坐标、屏幕纹理与时间参数的用法，再动手改自己的版本。"
+    },
+    {
+      "titleZh": "快速加特效",
+      "descZh": "原型期直接复制溶解、描边或水面 shader 到项目，改几个 uniform 就能得到可用效果，不必从零写起再调试半天。"
+    },
+    {
+      "titleZh": "美术风格参考",
+      "descZh": "给美术展示同一效果的多个参数区间，作为卡通、写实或复古风格的选型与验收参考，减少口头描述误差。"
+    },
+    {
+      "titleZh": "教学课程",
+      "descZh": "用作课堂或内部培训的练习底稿，让学生改噪声频率、阈值与颜色并实时观察画面变化，并记录参数范围。"
+    },
+    {
+      "titleZh": "后处理试验",
+      "descZh": "基于全屏 shader demo 搭后处理管线，试验模糊、扭曲与调色叠放时的顺序与性能开销，避免顺序错乱与重复采样。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可复用 gdshader",
+      "descZh": "独立的 gdshader 文件，含 uniform 声明、注释与默认值，可直接拖进项目材质替换使用，也可作为二次改写的参考底稿。"
+    },
+    {
+      "titleZh": "演示场景",
+      "descZh": "每个效果配套的演示场景文件，展示节点结构、材质与参数配置，可单独运行观察差异，便于逐个对比。"
+    },
+    {
+      "titleZh": "后处理管线示例",
+      "descZh": "屏幕 shader 的挂载、叠放与顺序控制方式，可作为自建后处理管线与调色链路的模板，也提示了性能陷阱。"
+    },
+    {
+      "titleZh": "效果清单文档",
+      "descZh": "README 按 2D、3D 与屏幕后处理列出的效果目录，便于按项目需求快速定位对应 demo，减少在目录里盲目搜索。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "3D Dissolve",
+      "descZh": "按噪声阈值裁切模型，可做消失、传送与生成特效，阈值、边缘宽度与颜色都可调。"
+    },
+    {
+      "name": "3D Outline",
+      "descZh": "基于法线或模板缓冲的描边，演示不同宽度、颜色与遮挡关系的处理方式。"
+    },
+    {
+      "name": "Screen Shaders",
+      "descZh": "全屏 quad 上的模糊、反色、点彩与扭曲，演示后处理顺序与采样方式，可直接搬到全屏材质。"
+    },
+    {
+      "name": "2D Palette Swap",
+      "descZh": "用查找纹理替换调色板，适合像素风换装、受击闪色与角色状态切换，并演示查找纹理生成。"
+    },
+    {
+      "name": "Interactive Snow",
+      "descZh": "按角色与物体位置写入积雪遮罩，展示运行时纹理更新与遮罩回读流程。"
+    }
+  ],
+  "limitsZh": "仓库定位是示例库而非插件，没有安装脚本、版本管理或统一 API，复制后要自己接入项目。迁移到 Godot 4 的工作尚未完成，部分 demo 仍是 3.x 写法，语法与渲染管线差异会导致直接报错。效果数量有限，缺少 PBR 级材质与移动端优化版本，性能取决于使用者是否裁剪分支。示例场景多为桌面分辨率设计，直接搬到移动端会因精度与带宽出现性能问题。部分 shader 依赖屏幕纹理，无法在无后处理的渲染路径直接复用；仓库也没有统一的效果索引，查找只能靠 README 列表与目录名。缺少对渲染管线的版本分支说明。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆仓库并用匹配版本的 Godot 打开项目"
+    },
+    {
+      "stepZh": "在 Demos 目录里找到目标效果的场景文件"
+    },
+    {
+      "stepZh": "运行场景并调整 uniform 参数观察变化幅度"
+    },
+    {
+      "stepZh": "复制 shader 文件与材质到自己的项目中"
+    },
+    {
+      "stepZh": "按项目光照、分辨率与风格改写参数"
+    }
+  ],
+  "pros": [
+    "效果全部以独立 shader 文件给出，可读可改，不依赖黑盒插件或封装接口，可直接用于生产原型。",
+    "每个效果基本都配可运行的演示场景，参数改动带来的画面变化一眼可见。",
+    "覆盖 2D、3D 与全屏三类效果，适合当项目初期的特效清单与选型参考，三类项目都能找到参考。",
+    "由 GDQuest 团队维护，代码风格统一，注释、命名与目录结构都比较清楚，维护记录可查。"
+  ],
+  "cons": [
+    "只是素材库，没有安装器、版本管理、统一接口或自动升级机制。",
+    "Godot 4 迁移尚未完成，部分示例仍停留在 3.x，直接打开会报语法错误。",
+    "效果数量与深度有限，缺少完整 PBR 材质，复杂效果仍需自己实现。"
+  ],
+  "pitfalls": [
+    "直接拿 3.x demo 在 4.x 打开，会因着色器语法与纹理槽变化而直接报错，需按版本改写语法。",
+    "全屏 shader 依赖屏幕纹理，分辨率变化未处理时会出现拉伸、偏移或采样错位。",
+    "许可证非标准 SPDX，商用前需逐个确认每个 shader 的来源与授权范围，避免商用后收到投诉。"
+  ],
+  "bestFor": "想快速给项目加溶解、描边、水面等常见特效，并愿意自己读改 shader 的独立开发者与美术，尤其是原型期。",
+  "avoidWhenZh": "需要开箱即用、跨版本稳定维护的特效插件，或项目要求明确商用授权时。",
+  "compareTips": {
+    "vs": [
+      "Zorochase__ultimate-retro-shader-collection",
+      "ahopness__GodotRetro",
+      "ArseniyMirniy__Godot-4-Color-Correction-and-Screen-Effects"
+    ],
+    "whenZh": "这几个都属着色器合集；本项目偏教学与通用特效，Ultimate Retro 专注复古 CRT，GodotRetro 是完整复古渲染管线，Color Correction 专注调色。要学习通用写法选本项目，要整套复古风格选 GodotRetro。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "着色器",
+    "特效",
+    "示例库",
+    "2D",
+    "3D"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "项目仍在迁移到 Godot 4",
+      "source": "README.md",
+      "quote": "This project is in the process of being ported to Godot 4"
+    },
+    {
+      "claim": "效果按 2D、3D 与屏幕后处理分类",
+      "source": "README.md",
+      "quote": "Screen shaders"
+    },
+    {
+      "claim": "shader 文件集中在 Shaders 目录",
+      "source": "README.md",
+      "quote": "You can find the shaders in the `Shaders/` directory."
+    },
+    {
+      "claim": "大多数效果附带 demo 场景",
+      "source": "README.md",
+      "quote": "Most shaders come with a demo scene. All demos are in the `Demos/` directory."
+    }
+  ]
+}

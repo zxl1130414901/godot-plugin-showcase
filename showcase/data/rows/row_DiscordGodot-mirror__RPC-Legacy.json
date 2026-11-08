@@ -1,0 +1,35 @@
+{
+  "id": "DiscordGodot-mirror__RPC-Legacy",
+  "descriptionZh": "用 C++ 扩展封装 Discord Game SDK，在桌面端展示富状态、发送邀请并读取好友列表",
+  "category": "network",
+  "tags": [
+    "Discord",
+    "Rich Presence",
+    "社交",
+    "GDExtension",
+    "好友列表"
+  ],
+  "prosShort": [
+    "一次封装状态、邀请与好友列表",
+    "自带 SCons 脚本，可自行编译三平台库",
+    "Windows、Linux、macOS 三个桌面平台都能自行编译"
+  ],
+  "consShort": [
+    "必须自行编译，无法直接复制 addons 使用",
+    "仍基于已过时的 Game SDK，新 SDK 未适配",
+    "仓库内文档偏少，上手依赖外部站点"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

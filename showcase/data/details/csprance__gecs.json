@@ -1,0 +1,68 @@
+{
+  "id": "csprance__gecs",
+  "depth": "standard",
+  "taglineZh": "给 Godot 项目加上查询驱动的完整实体组件系统",
+  "summaryZh": "GECS 是面向 Godot 4.6 及以上的实体组件系统框架，把数据放进组件、把逻辑放进系统，同时保留 Godot 的节点与场景工作流。它提供按组件、关系与属性过滤的查询并自动缓存，带有可视化组件编辑、实时调试查看器、可暂停单步的调试器与关系图，还附带多人网络模块。仓库内置卡牌、背包、MultiMesh 与网络等多个示例工程，安装可用 Git 子模块、手动复制或 AssetLib。组件属性必须给默认值，否则导出会报错，这是上手时最常见的坑。",
+  "whatItDoes": "ECS.world 负责实体与系统的注册和推进，实体是纯数据容器，组件用 @export 属性描述状态，系统在 query 里声明要处理的组件组合，框架据此缓存匹配集合，每帧按顺序执行。实体之间可用 Relationship 建立有向关系，查询也能按关系过滤。编辑器插件提供组件面板与场景集成，调试器可暂停并单步推进 ECS，同时记录每一步的变更。",
+  "useCases": [
+    {"titleZh": "卡牌与背包系统", "descZh": "用组件表示卡牌属性与物品数据，系统负责结算与堆叠，逻辑与数据分离便于扩展与测试。"},
+    {"titleZh": "大量单位管理", "descZh": "用查询筛选带生命与移动组件的实体，配合 MultiMesh 示例渲染成批单位，降低节点开销与卡顿。"},
+    {"titleZh": "多人同步原型", "descZh": "借助内置网络模块与示例，把组件状态同步到其他客户端，快速验证联机玩法，省去自研框架。"},
+    {"titleZh": "需要调试的复杂逻辑", "descZh": "用单步调试器查看每步变更与实体关系图，定位系统执行顺序或组件缺失的问题并复盘。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "实体与组件模型", "descZh": "实体承载组件数据，组件用导出属性描述状态，便于在编辑器里查看与调试。"},
+    {"titleZh": "系统与查询缓存", "descZh": "系统声明组件组合，框架缓存匹配实体，每帧按序处理逻辑并回填结果，高效。"},
+    {"titleZh": "关系与网络模块", "descZh": "实体可用有向关系连接，内置网络模块支持组件状态在客户端之间同步。"},
+    {"titleZh": "调试与示例工程", "descZh": "附带调试器、组件面板和多个完整示例，覆盖卡牌、背包、联机与批量渲染等内容。"}
+  ],
+  "featureCallouts": [
+    {"name": "查询与自动缓存", "descZh": "按组件、关系或属性过滤实体，匹配结果缓存后每帧复用，减少重复遍历。"},
+    {"name": "单步调试器", "descZh": "暂停 ECS 并单步推进，配合变更日志与关系图排查逻辑与执行顺序。"},
+    {"name": "可视化组件编辑", "descZh": "在编辑器里编辑组件属性并接入场景节点，减少手写配置与出错概率。"},
+    {"name": "内置网络模块", "descZh": "提供多人同步扩展，组件状态可在多个客户端之间复制、校正与回滚。"},
+    {"name": "多示例工程", "descZh": "卡牌、背包、MultiMesh 与网络示例可直接运行，照着改就能接入自己的项目参考。"}
+  ],
+  "limitsZh": "GECS 要求 Godot 4.6 或更新版本，4.5 及以下无法解析 v8 引入的逐系统性能监控代码，老项目迁移要先升级引擎。组件属性必须写默认值，只写构造函数而不给导出默认值，导出时会直接报错。框架用心跳式系统调度与查询缓存换取性能，但也意味着要接受一套固定的生命周期与执行顺序，和纯节点写法混用时需要理解边界。仓库附带大量示例与第三方插件，体积很大，首次导入较慢。网络模块仍在演进，生产项目要自行评估稳定性。",
+  "workflowZh": [
+    {"stepZh": "用 Git 子模块、手动复制或 AssetLib 安装 addons/gecs 目录到项目"},
+    {"stepZh": "在项目设置的插件页勾选启用 GECS，然后重载项目"},
+    {"stepZh": "定义组件类并为每个导出属性写默认值，避免导出报错"},
+    {"stepZh": "创建实体并添加组件，再调用 ECS.world.add_entity 注册进世界"},
+    {"stepZh": "编写系统类，在 query 声明组件组合，并在更新回调里处理逻辑"}
+  ],
+  "pros": [
+    "查询能按组件、关系或属性过滤实体，匹配结果自动缓存，每帧复用不必重算",
+    "实体仍能挂到 Godot 节点与场景，编辑器里可继续用熟悉的场景组织方式，顺畅",
+    "内置可暂停的单步调试器、变更日志与实体关系图，复杂系统执行顺序一目了然",
+    "仓库自带卡牌、背包、MultiMesh 与网络等完整示例工程，拉下来就能运行参考，省事",
+    "README 明确提醒组件属性要写默认值，否则导出报错，减少新手踩坑，很实用"
+  ],
+  "cons": [
+    "框架要求 Godot 4.6 或更新，4.5 及以下解析不了新版性能监控代码，老项目要先升级",
+    "组件属性不写导出默认值就会在导出时报错，必须给每个字段补上初始值",
+    "仓库内置多个示例工程和若干第三方插件，体积很大，首次克隆与导入都偏慢",
+    "系统有固定调度与生命周期，和纯节点脚本混用时必须理解边界，否则状态会不同步"
+  ],
+  "pitfalls": [
+    "组件只写 _init 带参构造函数而不给导出属性默认值，导出项目时会直接报错中断",
+    "在 Godot 4.5 或更早版本打开会因语法解析失败，动手前先确认引擎已升级到 4.6",
+    "查询声明的组件组合过宽会匹配大量实体，拖慢系统，应按实际需要收窄条件"
+  ],
+  "bestFor": "用 Godot 4.6 以上开发数据与逻辑需要清晰分离的中大型游戏，尤其是卡牌、背包、批量单位或计划联机的项目、复杂系统。",
+  "avoidWhenZh": "小体量原型不想引入额外框架，或必须停留在 Godot 4.5 及以下版本的项目、纯节点写法。",
+  "compareTips": {"vs": ["dialogic-godot__dialogic"], "whenZh": "GECS 提供底层实体组件架构，适合自己搭玩法逻辑；Dialogic 是开箱即用的对话系统，专注剧情分支。要做通用游戏架构选 GECS，只需要对话与剧情管理选 Dialogic，两者层级不同。"},
+  "category": "state-logic",
+  "tags": ["ECS", "架构", "实体组件", "查询", "调试"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 4, "maintenance": 4, "performance": 4, "stability": 4},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {"claim": "GECS 是 Godot 实体组件系统", "source": "plugin.cfg", "quote": "description=\"GECS - Godot Entity Component System\""},
+    {"claim": "面向 Godot 4.6 及以上", "source": "README.md", "quote": "> **Entity Component System for Godot 4.6+**"},
+    {"claim": "查询带自动缓存的高性能优化", "source": "README.md", "quote": "- 🚀 **High Performance** - Optimized queries with automatic caching"},
+    {"claim": "组件属性必须有默认值否则导出报错", "source": "README.md", "quote": "# All component properties need a default value or Godot will error on export"},
+    {"claim": "4.5 及以下无法解析新版性能监控代码", "source": "README.md", "quote": "Godot 4.6 or newer. (Versions up to and including 4.5 cannot parse the per-system performance monitor code introduced in GECS v8.0.0.)"}
+  ]
+}

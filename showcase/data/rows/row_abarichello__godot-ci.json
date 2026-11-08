@@ -1,0 +1,35 @@
+{
+  "id": "abarichello__godot-ci",
+  "descriptionZh": "预装 Godot 与导出模板的 CI 镜像，配 GitLab 与 GitHub Actions 模板，可自动导出多平台并发布到 Pages 或 itch.io。",
+  "category": "platform-export",
+  "tags": [
+    "CI",
+    "Docker",
+    "自动导出",
+    "发布",
+    "GitHub Actions"
+  ],
+  "prosShort": [
+    "镜像预装引擎与全套导出模板",
+    "双平台 CI 模板都可直接套用",
+    "mono 与 Android 签名都有完整现成方案"
+  ],
+  "consShort": [
+    "完全不支持 iOS 的自动打包导出流程",
+    "自定义模块要自己先编译引擎",
+    "镜像体积偏大，冷缓存拉取很慢"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

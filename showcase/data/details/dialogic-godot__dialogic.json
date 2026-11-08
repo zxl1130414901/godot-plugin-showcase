@@ -1,0 +1,157 @@
+{
+  "id": "dialogic-godot__dialogic",
+  "depth": "standard",
+  "taglineZh": "用时间轴编辑器做对话、视觉小说与角色管理的完整框架",
+  "summaryZh": "Dialogic 2 把对话写成可拖拽的时间轴事件，每个事件对应立绘、背景、音频、选项与条件跳转，运行时由 DialogicGameHandler 解释执行。角色、背景、布局与词汇表都是独立资源，可在检查器里维护。它比多数轻量对话插件多出视觉小说级排版、自动存档历史与多语言 CSV 流程，但 addons 目录接近 30MB，且当前主线要求 Godot 4.5 以上，仍处 Alpha。插件自带主题与示例场景，第一次运行就能看到完整对白效果。它更适合剧情驱动项目，而不是把对话当作系统提示的小型游戏。插件把演出数据与文本数据分开管理，改台词不会连带改动布局。",
+  "whatItDoes": "在 addons/dialogic 注册编辑器面板，提供时间轴、角色、背景、布局与词汇表五类编辑器。时间轴按事件块顺序执行，支持分支、条件、跳转、调用与自动播放。运行时通过 autoload 的 Dialogic 单例加载时间轴并驱动自定义布局节点，对话历史与自动存档由插件维护。所有资源以文本格式保存，便于版本控制与多人合并。",
+  "useCases": [
+    {
+      "titleZh": "视觉小说对白",
+      "descZh": "项目早期用时间轴把章节对白、立绘与背景一次编排好，策划无需写代码就能改台词与演出顺序，减少反复沟通。"
+    },
+    {
+      "titleZh": "RPG 支线对话",
+      "descZh": "用条件事件读取任务状态与角色好感度，按玩家进度走不同分支，避免把对白硬编码进各个任务脚本里。"
+    },
+    {
+      "titleZh": "多语言本地化",
+      "descZh": "把台词导出 CSV 交给翻译团队，回填后再按语言切换，同一时间轴维护多语种，减少多套对白的手工同步。"
+    },
+    {
+      "titleZh": "对话历史回看",
+      "descZh": "需要玩家回看已读文本时，直接使用插件维护的历史记录与自动存档，不必再自己写一套对话日志系统。"
+    },
+    {
+      "titleZh": "剧情演示",
+      "descZh": "做 PV 或剧情演示时开启自动推进与跳过，按时间轴顺序播放整段剧情，不需要玩家点击、选择或等待输入。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "时间轴资源",
+      "descZh": "包含事件序列、分支、条件与跳转的对话数据文件，可在时间轴编辑器里可视化调整顺序与事件参数。"
+    },
+    {
+      "titleZh": "角色与立绘档案",
+      "descZh": "记录角色名、颜色、头像与多套立绘的资源，供时间轴按表情、姿势与服装状态自动切换，并记录默认表情。"
+    },
+    {
+      "titleZh": "对话布局场景",
+      "descZh": "可直接运行的对白 UI 场景，含文本框、选项按钮、姓名标签、打字机逐字与语音播放控制，可替换主题皮肤。"
+    },
+    {
+      "titleZh": "本地化 CSV",
+      "descZh": "导出的台词 CSV 与回填后的多语言表，形成可交付翻译团队的本地化中间产物并保留每次版本，方便回滚。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Timeline Editor",
+      "descZh": "以事件块排列对白与演出指令，拖动即可调整顺序，支持整段复制与跨时间轴粘贴。"
+    },
+    {
+      "name": "DialogicGameHandler",
+      "descZh": "运行时解释时间轴，处理自动推进、跳过、历史记录与事件信号回调等核心流程。"
+    },
+    {
+      "name": "Character Editor",
+      "descZh": "集中管理角色元数据与立绘，时间轴按名字引用角色，避免硬编码资源路径。"
+    },
+    {
+      "name": "Glossary",
+      "descZh": "维护词条与替换规则，统一术语并在对白文本中自动识别、替换、高亮与提示。"
+    },
+    {
+      "name": "CSV Import/Export",
+      "descZh": "把台词抽成表格交给翻译，回填后按语言切换，适合多语种发行的完整流程。"
+    }
+  ],
+  "limitsZh": "体量是首要门槛，addons 目录接近 30MB，含大量示例与主题资源，小项目会觉得重。版本要求严格，当前主线要求 Godot 4.5 以上，仍在 Alpha 阶段，跨小版本升级时资源格式与 API 可能变动。时间轴事件种类多，团队需要先统一命名与布局规范，否则多人协作容易冲突。运行时会额外维护历史、自动存档与音频状态，低端移动设备需实测内存。插件升级后旧时间轴可能需要重新保存一次才能正常加载；官方支持以 Discord 为主，中文资料偏少。时间轴资源也不适合放在多人共用的同一分支里频繁改写，首次升级建议另开分支验证。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/dialogic 并在项目设置里启用插件"
+    },
+    {
+      "stepZh": "创建角色、背景与对话布局等基础资源"
+    },
+    {
+      "stepZh": "在时间轴编辑器里排布对白与演出事件"
+    },
+    {
+      "stepZh": "用条件与跳转把对白接上任务状态"
+    },
+    {
+      "stepZh": "导出 CSV 交给翻译，再回填多语言文本"
+    },
+    {
+      "stepZh": "运行场景验证存档、历史与自动推进"
+    }
+  ],
+  "pros": [
+    "事件块覆盖立绘、音频、分支、条件与自动播放，视觉小说常用能力基本齐全。",
+    "官方文档含入门、类参考与教程视频，遇到问题能较快查到对应类与参数。",
+    "持续维护近六年，Discord 与 issue 响应活跃，版本迭代频率较高，修复也较及时，长期项目更放心。",
+    "对话历史、自动存档与本地化 CSV 都是内建能力，省去自建日志、存档与翻译管线。"
+  ],
+  "cons": [
+    "插件体积接近 30MB，示例、主题与字体资源都打包在内，小项目引入成本偏高。",
+    "要求 Godot 4.5 以上且仍处 Alpha，跨版本升级时资源格式与 API 可能不兼容。",
+    "概念与编辑器面板较多，新团队通常需要一天以上才能理顺完整工作流。",
+    "复杂分支缺少断点调试，只能靠反复播放时间轴、逐段排除来定位问题。"
+  ],
+  "pitfalls": [
+    "直接覆盖升级会丢失自定义布局与主题改动，升级前应先备份 addons 与时间轴资源。",
+    "自动存档写入用户目录，反复测试会带入旧进度，验证前需要先清掉存档目录。",
+    "CSV 回填要求列名与台词 ID 完全一致，改过 ID 后旧翻译表会整列错位甚至丢行。"
+  ],
+  "bestFor": "要做视觉小说、文字冒险或对话量大的 RPG，愿意接受较重插件并需要现成 UI、演出与本地化流程的团队。",
+  "avoidWhenZh": "只需几十句提示气泡，或项目锁死在 Godot 4.2、4.3 上，用轻量对话管理器更省事。",
+  "compareTips": {
+    "vs": [
+      "nathanhoad__godot_dialogue_manager",
+      "rakugoteam__Rakugo-Dialogue-System",
+      "real-ezTheDev__GodotEzDialoguePlugin"
+    ],
+    "whenZh": "Dialogic 偏重视觉小说与演出编排；Dialogue Manager 更轻、语法接近脚本，适合系统向对话；Rakugo 同走视觉小说路线但生态更小。要演出与本地化闭环选 Dialogic，要嵌入既有代码逻辑选 Dialogue Manager。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "对话系统",
+    "视觉小说",
+    "时间轴",
+    "本地化"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "当前主线要求 Godot 4.5 以上",
+      "source": "README.md",
+      "quote": "requires at least Godot 4.5"
+    },
+    {
+      "claim": "版本仍处 Alpha 阶段",
+      "source": "addons/dialogic/plugin.cfg",
+      "quote": "2.0-Alpha-21 WIP (Godot 4.5+)"
+    },
+    {
+      "claim": "插件用于创建对话、角色与对话场景",
+      "source": "addons/dialogic/plugin.cfg",
+      "quote": "Create dialogs, characters and scenes to display conversations in your Godot games."
+    },
+    {
+      "claim": "内建自动更新器",
+      "source": "README.md",
+      "quote": "Dialogic comes with an auto-updater"
+    }
+  ]
+}

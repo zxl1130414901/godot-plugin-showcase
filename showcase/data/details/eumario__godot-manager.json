@@ -1,0 +1,147 @@
+{
+  "id": "eumario__godot-manager",
+  "depth": "standard",
+  "taglineZh": "独立工具管理 Godot 引擎版本、项目分类与插件缓存",
+  "summaryZh": "Godot Manager 是一个独立的引擎与项目管理工具，界面本身也由 Godot 构建。它可以从官方仓库下载不同版本的 Godot，标准版与 Mono 版都能装，并在有新版本时提醒更新。所有项目会被归入分类，每个项目可以绑定具体引擎版本，启动时自动选用正确的解释器。它还能浏览官方 Asset Library，把插件与模板缓存到本地，新建项目时按需勾选带入。下载与缓存路径都能自定义，也支持通过 Scoop 包管理器安装。",
+  "whatItDoes": "工具把引擎安装、项目索引与素材缓存集中到一处：按版本下载引擎并记录路径，项目条目保存图标、分类与关联版本，启动按钮直接调用对应可执行文件。Asset Library 的条目会下载到本地缓存，新项目创建时把选中的插件与模板复制进去。更新窗口负责检查新版本并替换旧引擎。",
+  "useCases": [
+    {
+      "titleZh": "多版本并存",
+      "descZh": "同时维护多个 Godot 版本与 Mono 版本，用统一入口管理安装路径，每个项目切换时不必手动查找对应的可执行文件。"
+    },
+    {
+      "titleZh": "项目分类整理",
+      "descZh": "项目数量变多后可以按分类、标签与图标统一整理列表，在界面里快速筛选并启动最近在做的工程，不用翻找文件夹。"
+    },
+    {
+      "titleZh": "插件模板复用",
+      "descZh": "经常从 Asset Library 取插件与模板，可以提前下载并快速缓存到本地，新建项目时直接勾选所需全部内容完整带入工程。"
+    },
+    {
+      "titleZh": "版本更新提醒",
+      "descZh": "不想频繁手动查新版本时，可以用更新窗口集中查看与管理可用的引擎升级，方便地一键下载与替换旧版本。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "引擎版本库",
+      "descZh": "下载不同版本的标准版与 Mono 版引擎并统一记录安装位置，列表里可直接选择对应版本启动项目。"
+    },
+    {
+      "titleZh": "项目索引",
+      "descZh": "保存项目路径、图标与分类信息，关联具体的引擎版本，双击即可直接用正确的引擎版本解释器打开。"
+    },
+    {
+      "titleZh": "素材缓存",
+      "descZh": "从官方 Asset Library 拉取插件与模板资源并自动缓存到本地，新建项目时按勾选结果直接复制进新工程。"
+    },
+    {
+      "titleZh": "设置与镜像",
+      "descZh": "可分别配置引擎与缓存目录，避免下载把系统盘空间塞满，镜像与下载源的自定义扩展仍处于后续规划中。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "版本管理",
+      "descZh": "标准版与 Mono 版都能直接下载与切换，项目与引擎版本的绑定关系在列表中清晰可见。"
+    },
+    {
+      "name": "项目分类",
+      "descZh": "按分类整理项目并配自定义图标，列表视图与分页浏览让大量工程也能快速定位。"
+    },
+    {
+      "name": "素材缓存",
+      "descZh": "插件与模板资源先完整缓存再复用，新建项目时勾选即可直接带入，减少重复下载。"
+    },
+    {
+      "name": "自动更新",
+      "descZh": "检查引擎新版本并在窗口内集中下载替换，省去手动比对版本号与解压安装。"
+    },
+    {
+      "name": "Scoop 安装",
+      "descZh": "除 GitHub 与 itch 外还提供 Scoop 安装包，命令行一条命令即可一键快速完成整个安装流程。"
+    }
+  ],
+  "limitsZh": "它是独立应用程序而不是编辑器内插件，使用时要在 Godot 之外单独打开，项目内操作仍需回到编辑器完成。界面与主题沿用较早的 Godot 风格，和 4.x 编辑器的观感有差距。README 说明镜像配置仍在未来计划中，目前主要依赖官方源，网络受限时下载体验一般。项目信息保存在本地，换机器需要重新整理分类与版本关联。工具面向引擎与素材管理，不处理场景编辑、版本控制或构建流水线，团队协作仍需另配方案。",
+  "workflowZh": [
+    {
+      "stepZh": "从 GitHub 发布页、itch 或 Scoop 包管理器下载并安装，然后启动 Godot Manager。"
+    },
+    {
+      "stepZh": "在设置里分别指定引擎存放目录与下载缓存位置。"
+    },
+    {
+      "stepZh": "按项目需要下载标准版或 Mono 版的 Godot 引擎安装包。"
+    },
+    {
+      "stepZh": "导入现有项目，为每个项目设置分类、图标与关联的引擎版本。"
+    },
+    {
+      "stepZh": "浏览 Asset Library 并缓存插件与模板，新建项目时按需勾选带入。"
+    }
+  ],
+  "pros": [
+    "引擎版本、项目与素材统一集中管理，多版本并存时整体日常切换非常省心。",
+    "每个项目可绑定具体对应的引擎版本，启动时始终使用正确对应的解释器。",
+    "Asset Library 中的插件与模板支持本地缓存，新项目复用时不用重复下载，非常省事。",
+    "支持 Scoop 安装包并提供引擎版本自动更新检查，整体长期日常维护成本明显较低。"
+  ],
+  "cons": [
+    "独立程序不嵌入 Godot 编辑器，需在两个窗口之间来回切换与操作。",
+    "整体界面风格明显停留在 Godot 3 时期，与 4.x 编辑器的观感差距较大。",
+    "镜像与下载源的自定义扩展仍处于后续规划阶段，短期内选择有限。"
+  ],
+  "pitfalls": [
+    "移动或删除引擎目录后项目绑定会失效，先在设置里更新路径再启动项目。",
+    "缓存目录放在空间不足的分区会让下载中断，提前规划磁盘位置与可用容量。",
+    "分类与项目信息都保存在本地，换机前要完整备份配置，否则需要重新整理。"
+  ],
+  "bestFor": "适合日常同时使用多个 Godot 与 Mono 版本、项目数量较多，并希望集中管理插件与模板缓存的独立开发者或小团队。",
+  "avoidWhenZh": "只用单一引擎版本、项目很少时收益有限；需要编辑器内集成或团队共享配置的场景应另找方案。",
+  "compareTips": {
+    "vs": [
+      "MakovWait__godots"
+    ],
+    "whenZh": "与 MakovWait 的 godots 相比，后者是编辑器内的版本管理插件，切换引擎不必离开 Godot；Godot Manager 是独立程序，额外提供项目分类与 Asset Library 缓存，功能更全但使用时需要多开一个窗口。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "engine-manager",
+    "version-management",
+    "asset-library",
+    "project-management"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "用于管理引擎版本与项目",
+      "source": "README.md",
+      "quote": "Godot Manager is an **engine version and project management utility**, streamlining the Godot development experience."
+    },
+    {
+      "claim": "支持标准版与 Mono 版引擎",
+      "source": "README.md",
+      "quote": "With Godot Manager, you can manage the versions of Godot from the official Github repository, as well as use either standard versions of Godot, or the Mono Edition of Godot."
+    },
+    {
+      "claim": "可缓存 Asset Library 的插件与模板",
+      "source": "README.md",
+      "quote": "Godot Manager will let you download plugins and templates from the official Godot Asset Library, and cache them on your computer."
+    },
+    {
+      "claim": "提供 Scoop 安装方式",
+      "source": "README.md",
+      "quote": "scoop install godot-manager"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "Coding-Solo__godot-mcp",
+  "descriptionZh": "npm 发布的 MCP 服务，让 AI 启动编辑器、跑项目、抓日志并管理场景。",
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "场景管理",
+    "日志抓取",
+    "编辑器自动化"
+  ],
+  "prosShort": [
+    "启动运行与日志一条流程",
+    "npx 一行即可接入",
+    "多款 MCP 客户端可编程建场景节点"
+  ],
+  "consShort": [
+    "缺少运行期状态观测",
+    "依赖外部 Godot 与路径",
+    "场景编辑深度受限制"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

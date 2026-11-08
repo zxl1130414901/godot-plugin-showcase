@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "Godot Android 导出插件，封装 Play Billing 的查询、购买、消费与确认接口调用与回调",
+  "prosShort": [
+    "内购全流程都封装成 GDScript 方法",
+    "文档覆盖方法信号与 Console 配置",
+    "官方 IAP 示例可对照跑通闭环"
+  ],
+  "consShort": [
+    "只在 Android 与 Google Play 环境可用，桌面测不了",
+    "必须开启 gradle build 才能被注入，否则导出即失效",
+    "商品 ID 与后台配置强耦合，改动易错"
+  ],
+  "isGDExtension": false,
+  "id": "godot-sdk-integrations__godot-google-play-billing",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "category": "platform-export",
+  "tags": [
+    "Android",
+    "内购",
+    "Google Play",
+    "计费",
+    "Gradle"
+  ],
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

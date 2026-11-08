@@ -1,0 +1,165 @@
+{
+  "id": "SirRamEsq__SmartShape2D",
+  "depth": "standard",
+  "taglineZh": "在 Godot 4 里拖点画出带贴图的 2D 地形与路径，支持碰撞生成",
+  "summaryZh": "SmartShape2D 是一个 2D 地形绘制工具：放下几个控制点，指定形状材质，就能得到一片带纹理、带法线与碰撞的多边形。它面向平台跳跃与俯视视角的地表制作，材质用类似 TileSet 的边与填充贴图，可以自动沿轮廓铺边、按距离平铺内部。工具条提供加点、切边、开合形状、移动控制点、分裂曲线与反转朝向，操作都记在撤销栈里。碰撞层可由编辑器一键生成，也能手动编辑。仓库自带 GUT 测试与诊断插件，开发流程相对规范。文档部分章节偏旧，官方建议优先看引擎内帮助。",
+  "whatItDoes": "提供 SS2D_Shape 节点族，用控制点定义轮廓，配合 SS2D_Material_Shape 与 SS2D_Material_Edge 决定内部填充与边缘贴图。编辑器工具条支持加点、删除、切分、闭合与倒置，操作走统一动作类，可撤销。法线范围与边元数据控制边缘在拐角处的宽度与朝向。碰撞可由 SS2D_CollisionGen 根据轮廓批量生成多边形，也能用碰撞编辑器手工调整。形状网格会缓存，改动后按需重建，减少反复生成的开销。",
+  "useCases": [
+    {
+      "titleZh": "平台跳跃地表",
+      "descZh": "用控制点勾出山坡、平台与台阶，指定边贴图后立刻得到带草皮边缘的地表，改地形只需拖点，方案变来变去也不必重做素材。"
+    },
+    {
+      "titleZh": "俯视地图道路",
+      "descZh": "做俯视视角的道路、河流与围墙时，用开放形状沿路径铺贴图，拐弯处自动处理边缘宽度，一条长路不必切成几十段拼图。"
+    },
+    {
+      "titleZh": "快速迭代关卡",
+      "descZh": "原型期用工具条加点与切边，几分钟改完一片地形，不必回到绘图软件重导贴图，策划也能自己动手调形状。"
+    },
+    {
+      "titleZh": "碰撞体批量生成",
+      "descZh": "地形改完一键生成多边形碰撞，避免手工沿轮廓摆一串碰撞体，也减少漏摆与错位，改完形状重建一次就对上了。"
+    },
+    {
+      "titleZh": "像素风地表",
+      "descZh": "配合像素风素材与 TileSet 风格的边图，得到硬边地表，适合复古平台游戏，缩放时边缘也不会糊成一片。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "带纹理的地形网格",
+      "descZh": "由控制点与材质生成的 2D 网格，含填充与边缘贴图，拐角宽度按法线范围自动调整，观感接近 TileSet 拼出的地形。"
+    },
+    {
+      "titleZh": "多边形碰撞体",
+      "descZh": "由碰撞生成器按轮廓批量创建的多边形，可整体重建，也可在碰撞编辑器里逐点微调，改地形时不必手工同步。"
+    },
+    {
+      "titleZh": "可复用材质资源",
+      "descZh": "形状材质与边材质资源，定义填充贴图、边缘贴图与元数据，可被多个形状共享，换风格时只改一处。"
+    },
+    {
+      "titleZh": "开放与闭合路径",
+      "descZh": "同一套控制点既能闭合成地形块，也能打开成道路与围墙，按需求切换，改闭合状态不会丢控制点。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "SS2D_Shape",
+      "descZh": "地形主节点，保存控制点、材质引用与网格缓存，是绘制与碰撞的入口，属性面板里能直接改轮廓参数。"
+    },
+    {
+      "name": "Shape Material",
+      "descZh": "定义内部填充贴图与平铺方式，配合边材质决定地表整体观感，平铺比例与偏移都能单独调。"
+    },
+    {
+      "name": "Edge Material",
+      "descZh": "定义轮廓边缘贴图与元数据，控制拐角处边缘的宽度、偏移与朝向，决定草皮与岩壁怎么收边。"
+    },
+    {
+      "name": "Collision Generator",
+      "descZh": "按形状轮廓批量生成多边形碰撞节点，改地形后可一键重建，省去逐个摆碰撞体的重复劳动。"
+    },
+    {
+      "name": "Editor Toolbar",
+      "descZh": "加点、切边、开合、倒置与分裂等操作的工具条，全部走撤销栈，误操作可以直接回退。"
+    }
+  ],
+  "limitsZh": "只做 2D，且只处理形状轮廓与贴图平铺，不涉及光照、遮挡与高度信息，做带光影的 2D 场景仍要另配。控制点一多，网格重建与碰撞生成会在编辑器里卡顿，大地图建议拆成多个形状。材质只能按边与填充两层组织，想要多层混合或动态变形得自己写着色器。文档明确标注部分内容过时，视频教程还停留在 Godot 3，照着做会在 Godot 4 的节点与属性上对不上。碰撞生成结果是静态多边形，移动平台要自己挂 AnimatableBody 或脚本驱动，否则角色会被卡住。仓库里同时带诊断与测试插件，导出前要清理掉，否则包体会变大。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/rmsmartshape 整个复制进项目，再在项目设置里启用插件"
+    },
+    {
+      "stepZh": "参考引擎内帮助或 Quickstart 建第一个形状"
+    },
+    {
+      "stepZh": "用工具条逐个加点，先勾出一条地形轮廓"
+    },
+    {
+      "stepZh": "在检查器里指定形状材质与边材质"
+    },
+    {
+      "stepZh": "调法线范围与边元数据，修好拐角接缝"
+    },
+    {
+      "stepZh": "生成多边形碰撞，并在场景里试走一段"
+    }
+  ],
+  "pros": [
+    "拖点即出带贴图地表，改地形不用回绘图软件，关卡迭代速度很快，原型阶段尤其省时间。",
+    "边材质能按拐角自动调整宽度，像素风与手绘风地表都不必手工拼边图，长曲线也不会断边。",
+    "碰撞可一键生成，省去沿轮廓逐个摆碰撞体的重复劳动，改完形状重建一次就同步了。",
+    "仓库带 GUT 测试与诊断插件，改动有回归兜底，维护规范相对完整，提 PR 前能先跑一遍测试。"
+  ],
+  "cons": [
+    "只支持 2D 轮廓与贴图平铺，光照、遮挡与高度都要另做，做不了分层地表。",
+    "控制点很多时网格重建会卡，大地图需要拆成多个形状，拆分后又增加了管理成本。",
+    "文档部分过时，视频教程仍是 Godot 3，照着做容易在属性名与节点结构上对不上。"
+  ],
+  "pitfalls": [
+    "边材质贴图尺寸与法线范围不匹配时，拐角会出现拉伸或断裂，先对齐像素尺寸再调范围。",
+    "移动平台直接挂在生成的多边形上当静态碰撞，平台动起来角色会被卡住或穿透。",
+    "开着诊断与测试插件导出，包里会带上测试资源，发布前记得关掉，否则包体明显变大。"
+  ],
+  "bestFor": "做 2D 平台跳跃或俯视视角游戏，需要频繁改动地表形状与贴图，并希望碰撞跟地形同步更新的团队。",
+  "avoidWhenZh": "要做带光照、遮挡或高度差的 2D 地形，或团队更习惯用 TileMap 拼格子时，这套轮廓工具不适用。",
+  "compareTips": {
+    "vs": [
+      "pablogila__TileMapDual",
+      "HungryProton__scatter"
+    ],
+    "whenZh": "TileMapDual 走格子拼贴，适合规则化关卡与自动过渡；SmartShape2D 走自由轮廓，适合有机形状的山坡与道路。规则地形用 TileMap，曲线与不规则地表用本插件，两者也能在同一项目里混用。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "2D地形",
+    "多边形",
+    "编辑器工具",
+    "碰撞生成"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "用于制作带纹理的 2D 多边形",
+      "source": "README.md",
+      "quote": "This plugin allows you to create nicely textured 2D polys."
+    },
+    {
+      "claim": "放点并指定材质即可成型",
+      "source": "README.md",
+      "quote": "Simply place a few points then create / assign the shape material and you should have a good looking polygon."
+    },
+    {
+      "claim": "贴图用法接近 TileSet 地形",
+      "source": "README.md",
+      "quote": "The textures used are similar to what you would use if making terrain using TileMaps/TileSets"
+    },
+    {
+      "claim": "文档部分已明显过时",
+      "source": "README.md",
+      "quote": "Some documentation is largely outdated."
+    },
+    {
+      "claim": "4.x 版本仍在维护",
+      "source": "README.md",
+      "quote": "Newest version is developed and supported for Godot 4.x"
+    },
+    {
+      "claim": "开发流程带 GUT 测试",
+      "source": "README.md",
+      "quote": "We have a set of tests we run against the code"
+    }
+  ]
+}

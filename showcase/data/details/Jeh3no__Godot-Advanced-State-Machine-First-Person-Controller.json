@@ -1,0 +1,140 @@
+{
+  "id": "Jeh3no__Godot-Advanced-State-Machine-First-Person-Controller",
+  "depth": "standard",
+  "taglineZh": "基于有限状态机的第一人称控制器资产",
+  "summaryZh": "这套资产提供一个用有限状态机组织的第一人称控制器：每个状态独立脚本，走路、跑步、蹲伏、跳跃、冲刺、滑铲、飞行、蹬墙跑与蹬墙跳都能单独改。相机模块支持分状态 FOV、倾斜、头部晃动与缩放，附带准星和调试属性 HUD，并给出含斜坡、跳板、重力区、传送带与滑面的测试地图。它适合直接当作 FPS 移动基底。限制是只覆盖单人第一人称，需自行绑定 12 个输入动作，也不处理武器、生命与联网同步。",
+  "whatItDoes": "场景里放入玩家角色场景，复制 addons 目录并启用后即可用 WASD 移动；移动参数、相机设置与按键都暴露为导出变量。状态机按脚本拆分，新增行为只需加一个状态脚本并接入切换条件。测试地图用跳板、重力区、传送带与滑面演示各种修饰区效果。",
+  "useCases": [
+    {
+      "titleZh": "快速拿到移动手感",
+      "descZh": "直接拿现成的移动、跳跃、冲刺与滑铲状态，把时间留给关卡与玩法设计，而不是从零调手感。"
+    },
+    {
+      "titleZh": "学习状态机拆分方式",
+      "descZh": "每个状态一个脚本，适合拆读并理解第一人称控制的状态划分、切换顺序与优先级关系。"
+    },
+    {
+      "titleZh": "测试地图调进阶动作",
+      "descZh": "在附带测试地图上试墙跑、兔子跳与多段冲刺，快速确认环境互动下的手感反馈是否稳定。"
+    },
+    {
+      "titleZh": "借 HUD 定位移动问题",
+      "descZh": "用内置属性面板观察速度、当前状态与输入，定位移动异常比逐段加日志更快更直观。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可直接控制的玩家场景",
+      "descZh": "含相机、碰撞、HUD 与状态机的玩家场景，拖进关卡就能用默认键位开始移动。"
+    },
+    {
+      "titleZh": "可复制的状态脚本",
+      "descZh": "每个状态独立文件，复制一份改逻辑就能新增动作，不必改动其他状态与切换表。"
+    },
+    {
+      "titleZh": "环境交互测试关卡",
+      "descZh": "跳板、重力区、传送带与滑面样例，用于验证移动反馈与状态切换是否正确。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "分状态脚本",
+      "descZh": "Idle、Run、Jump、Dash、Slide、Fly 等状态各自成脚本，改一个动作不会波及其他动作。"
+    },
+    {
+      "name": "跳跃手感参数",
+      "descZh": "内置跳跃缓冲、土狼时间、多段跳与空中控制参数，手感项都能在检查器里调。"
+    },
+    {
+      "name": "模块化相机",
+      "descZh": "分状态 FOV、前后与侧倾、头部晃动、缩放与灵敏度都可调，跑步与冲刺观感不同。"
+    },
+    {
+      "name": "调试属性 HUD",
+      "descZh": "运行时 HUD 显示速度、当前状态与输入检查，调手感时不必反复加日志打印。"
+    },
+    {
+      "name": "环境交互样例",
+      "descZh": "跳板、重力区、传送带与滑面等结构，展示环境因素如何改变移动状态与速度。"
+    }
+  ],
+  "limitsZh": "它是一套单人第一人称控制器，不包含武器、伤害、生命、交互或联网同步，第三人称与 2D 也用不上。输入需要自己创建 12 个动作，名字必须匹配默认前缀，否则要改脚本。状态逻辑全在 GDScript 里，想加攀爬、载具等复杂行为仍要读代码并自己接状态。README 面向 4.4 至 4.7，旧版 4.0 至 4.3 要删掉 uid 文件才可能打开；仓库也没有插件配置，属于资产而非可启用的编辑器插件。",
+  "workflowZh": [
+    {
+      "stepZh": "把仓库里的 addons 目录整体复制到项目根目录下"
+    },
+    {
+      "stepZh": "把玩家角色场景实例放进关卡，确认出生点与碰撞层设置"
+    },
+    {
+      "stepZh": "按 README 表格在输入映射里创建 12 个动作并绑定按键"
+    },
+    {
+      "stepZh": "在检查器里调整移动速度、跳跃高度与相机灵敏度等导出参数"
+    },
+    {
+      "stepZh": "需要新动作时复制状态脚本，并在状态机里注册切换条件"
+    }
+  ],
+  "pros": [
+    "状态拆分清晰，每个动作独立脚本，增删改都不容易牵一发动全身",
+    "移动能力覆盖走跑蹲跳、冲刺、滑铲、墙跑与飞行，接近完整的 FPS 移动基底",
+    "相机带分状态 FOV、倾斜与头部晃动，观感比多数免费控制器更完整",
+    "附带测试地图与调试 HUD，验证移动手感比自己搭场景快很多",
+    "README 列出输入表与兼容版本，接入前就能估出工作量与改动范围"
+  ],
+  "cons": [
+    "只做移动与相机，不含战斗、交互、生命与联网，仍需自己补一大块系统",
+    "需要手动配置 12 个输入动作，名字对不上会直接失效且不报错",
+    "仓库没有插件配置，只能当资产复制，无法在插件页启用或卸载"
+  ],
+  "pitfalls": [
+    "输入动作名必须与默认前缀一致，改名时要把对应脚本一起改掉，否则状态收不到输入",
+    "用旧版 Godot 打开前要先删掉 uid 文件，否则资源导入阶段就会报错",
+    "HUD 与准星默认挂在玩家场景里，正式项目要按需移除或换皮再打包"
+  ],
+  "bestFor": "适合想直接拿到一套可读可改的第一人称移动基底，并且需要墙跑、滑铲、多段冲刺等进阶动作，愿意自己补战斗与交互的团队。",
+  "avoidWhenZh": "只做第三人称或 2D 移动，或需要开箱即用的战斗、生命与联网同步的项目。",
+  "compareTips": {
+    "vs": [
+      "ColormaticStudios__quality-godot-first-person-2"
+    ],
+    "whenZh": "Jeh3no 把移动拆成有限状态机并自带测试地图，适合深入改逻辑；quality-godot-first-person-2 更强调相机与画面质感，适合当观感完整的 FPS 基底。想改移动选前者，想要整体观感选后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "第一人称",
+    "状态机",
+    "角色控制",
+    "FPS",
+    "移动手感"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "基于有限状态机、含模块化相机与调试 HUD",
+      "source": "addons/JehenoAdvancedFirstPersonController/README.md",
+      "quote": "This asset provides a fully commented, finite state machine based first-person controller with a modular camera system and a debug properties HUD."
+    },
+    {
+      "claim": "每个状态独立脚本，便于增删改行为",
+      "source": "addons/JehenoAdvancedFirstPersonController/README.md",
+      "quote": "The controller uses a finite state machine architecture where each state has its own script, making it straightforward to add, remove, or modify behaviors."
+    },
+    {
+      "claim": "支持 Godot 4.4 至 4.7",
+      "source": "addons/JehenoAdvancedFirstPersonController/README.md",
+      "quote": "Godot 4.4 - 4.7: Fully supported."
+    }
+  ]
+}

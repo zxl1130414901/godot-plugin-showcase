@@ -1,0 +1,34 @@
+{
+  "id": "Voxybuns__at-icons",
+  "descriptionZh": "600 多个与编辑器风格统一的矢量节点图标，可用 @icon 注解套用",
+  "category": "ui",
+  "tags": [
+    "图标库",
+    "编辑器美化",
+    "SVG",
+    "节点"
+  ],
+  "prosShort": [
+    "风格与原生编辑器高度一致",
+    "图标数量多且类型分类覆盖广",
+    "自带编辑器内可视化选择器"
+  ],
+  "consShort": [
+    "只改外观不提供任何节点功能",
+    "换主题或缩放后需重新导入",
+    "直接克隆仓库安装会混入源码"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

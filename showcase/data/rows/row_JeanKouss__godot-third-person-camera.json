@@ -1,0 +1,35 @@
+{
+  "id": "JeanKouss__godot-third-person-camera",
+  "descriptionZh": "Godot 4 的第三人称相机插件，支持动态跟随、固定视角与越肩模式并带编辑器预览",
+  "category": "state-logic",
+  "tags": [
+    "第三人称",
+    "相机控制",
+    "编辑器预览",
+    "Godot4",
+    "即插即用"
+  ],
+  "prosShort": [
+    "挂上即用的第三人称相机，省去自研跟随逻辑",
+    "支持跟随、固定与越肩三种拍摄模式",
+    "编辑器内预览视角，调参直观不必反复运行"
+  ],
+  "consShort": [
+    "不含角色控制器与输入映射",
+    "复杂地形下的碰撞回避仍需自己补射线与分层",
+    "文档主要在 wiki，仓库内说明较简略"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

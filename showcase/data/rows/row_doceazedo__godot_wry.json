@@ -1,0 +1,34 @@
+{
+  "id": "doceazedo__godot_wry",
+  "descriptionZh": "把系统原生 webview 封装成 Godot 节点，可直接用 HTML、CSS 与 JavaScript 搭建游戏内界面的跨平台轻量 Rust 扩展。",
+  "category": "ui",
+  "tags": [
+    "WebView",
+    "UI",
+    "Rust",
+    "跨平台"
+  ],
+  "prosShort": [
+    "复用系统 webview 内核，游戏包体明显更小",
+    "用 HTML 做界面比重写控件要快得多",
+    "网页脚本与游戏脚本可双向互调"
+  ],
+  "consShort": [
+    "移动端与 Web 导出现在都还没支持",
+    "Linux 只在 X11 下可用且需系统运行库",
+    "需要按平台编译或下载对应二进制产物"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

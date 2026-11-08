@@ -1,0 +1,166 @@
+{
+  "id": "cherriesandmochi__gdmaim",
+  "depth": "standard",
+  "taglineZh": "导出时混淆全部 GDScript，给逆向与作弊加一道门槛，不改源码",
+  "summaryZh": "GDMaim 在导出阶段处理 pck 里的脚本：随机化标识符、内联常量与枚举、打乱顶层声明顺序、删注释与空行，可按开关选择是否混淆导出变量。它不修改工程源码，只在导出产物上做文章，因此日常开发不受影响。为了定位混淆后的问题，它能生成 source map，并用独立查看器把错误行映射回原文件。还支持预处理器提示、自定义忽略符号与按导出模板特性标签启用的配置。作者明确说明混淆不能阻止逆向，只是比单纯脚本加密更难绕过；插件要求 Godot 4.5 以上，导出大 tres 与 tscn 时可能长时间卡住。",
+  "whatItDoes": "在导出流程里拦截 pck，按配置重命名标识符、内联常量与枚举、压缩语句、打乱顶层声明，并剥离注释与空行。可单独开启导出变量混淆，但要求相关资源保存为 tres 文件。混淆结果与源码行号不同，插件会生成 source map，配合查看器把运行期报错映射回原文件。预处理器提示可按导出特性标签切换配置，调试版与发布版可以不同步。自定义忽略符号让引擎回调名与外部约定名保持原样。",
+  "useCases": [
+    {
+      "titleZh": "商业项目发布",
+      "descZh": "准备发行时打开混淆，把导出 pck 里的脚本标识符与常量打乱，让拆包者难以直接读懂逻辑，成本比自研方案低。"
+    },
+    {
+      "titleZh": "服务端权威逻辑",
+      "descZh": "多人游戏的服务端校验代码被打包进客户端时，混淆能提高定位漏洞的门槛，但要配合真正的服务端隔离才有效。"
+    },
+    {
+      "titleZh": "外挂防护",
+      "descZh": "休闲游戏被改数值或跳关时，混淆至少让直接搜索变量名失效，拖延脚本小子的时间，但不能当唯一防线。"
+    },
+    {
+      "titleZh": "排查混淆后报错",
+      "descZh": "混淆后线上报错行号对不上时，用 source map 与查看器把错误映射回源码行，定位问题不必靠猜，source map 要与那次构建的产物严格对应。"
+    },
+    {
+      "titleZh": "分级导出配置",
+      "descZh": "调试版不混淆、发布版全开，用导出模板特性标签区分两套配置，避免开发期被混淆拖慢排查，两套配置可以同时保留。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "混淆后的 pck",
+      "descZh": "导出产物里的脚本被重命名与压缩，源码包不受影响，发布包可以同时保留未混淆的开发版本，便于对照排查。"
+    },
+    {
+      "titleZh": "Source Map",
+      "descZh": "记录混淆前后位置对应关系的映射文件，配合查看器把错误行还原到源码，便于线上排查，需与构建产物一一对应。"
+    },
+    {
+      "titleZh": "分级导出配置",
+      "descZh": "按特性标签区分的混淆参数，调试版与发布版各用一套，切换时不必手改开关，发布时直接选预设即可。"
+    },
+    {
+      "titleZh": "混淆后的导出变量",
+      "descZh": "导出变量名被改写后的资源引用，需要 tres 承载，能让检查器字段名也难以猜测，否则运行期引用会断。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Obfuscation",
+      "descZh": "导出时重命名标识符并剥离注释与空行，源码目录保持原样，可随时关掉对比。"
+    },
+    {
+      "name": "Inline Statements",
+      "descZh": "把多行语句压缩到尽量少的行，增加阅读难度，同时减小脚本体积，代价是可读性降到最低。"
+    },
+    {
+      "name": "Export Vars",
+      "descZh": "单独混淆导出变量名，要求相关资源保存为 tres，否则引用会对不上，开启前先确认资源已转换。"
+    },
+    {
+      "name": "Source Map Viewer",
+      "descZh": "把混淆产物里的错误行映射回源码，配合日志定位问题，不必对照整份混淆结果。"
+    },
+    {
+      "name": "Preprocessor Hints",
+      "descZh": "按导出特性标签切换配置与强制种子，调试与发布可以走不同混淆策略。"
+    }
+  ],
+  "limitsZh": "混淆不是加密：作者明确说它只能提高逆向成本，不能阻止有耐心的分析者，也不保护资源与密钥，客户端逻辑仍可能被篡改。要求 Godot 4.5 以上，旧引擎要用旧版本，缺陷修复只落在最新版。导出时遇到巨大的 tres 或 tscn 会长时间无响应，通常因为内嵌资源太大，需要先把图片与动画存成外部二进制资源。开启导出变量混淆后，修改相关字段的资源必须存为 tres，否则运行期引用会断。静态类型、字符串标识符与跨脚本共享名字都有兼容限制，混淆后可能出现只在运行时才暴露的错误。文件名混淆仍在路线图，资源路径与文件名依旧可读。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/gdmaim 整个复制进项目并启用插件"
+    },
+    {
+      "stepZh": "在 GDMaim 面板里先只开基础混淆，导一次试试"
+    },
+    {
+      "stepZh": "按需打开内联语句与顶层声明打乱"
+    },
+    {
+      "stepZh": "开启导出变量混淆并把资源改存 tres"
+    },
+    {
+      "stepZh": "导出后跑一遍，确认识别符回调仍正常"
+    },
+    {
+      "stepZh": "用 source map 定位报错，再回查对应源码行"
+    }
+  ],
+  "pros": [
+    "导出时自动处理全部脚本，源码目录完全不动，开发与发布可以用同一套工程。",
+    "混淆项可分级开关，标识符、常量、语句压缩与导出变量都能单独控制，方便逐步试错。",
+    "带 source map 与查看器，混淆后的线上报错还能映射回源码，排查不至于全靠猜。",
+    "作者把局限与已知问题写在文档里，包括卡导出与兼容性限制，预期比宣传型方案诚实。"
+  ],
+  "cons": [
+    "混淆只能提高门槛，挡不住有决心的逆向，也不能代替服务端校验与真实加密。",
+    "要求 Godot 4.5 以上，旧引擎只能用旧版本，升级与修复节奏被引擎版本绑住。",
+    "导出变量混淆要求资源存为 tres，老项目要批量转换，卡导出时排查成本很高。"
+  ],
+  "pitfalls": [
+    "混淆后引擎回调名被改写，节点找不到方法，先把回调加进忽略符号再导出。",
+    "项目里有巨大的内嵌资源，导出阶段长时间卡住，先把图片与动画拆成外部二进制资源。",
+    "发布版混淆、调试版不混淆，两边错误行号不一致，排查线上问题时先确认用的是哪份 source map。"
+  ],
+  "bestFor": "准备发行 Godot 4.5 以上项目、希望提高脚本逆向门槛，并愿意处理资源格式与兼容限制的团队，也接受混淆并非绝对防护。",
+  "avoidWhenZh": "需要真正防篡改与防盗版、或项目仍在旧版 Godot、无法承担导出兼容排查成本时。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-git-plugin",
+      "abarichello__godot-ci"
+    ],
+    "whenZh": "git 插件管版本控制，godot-ci 管自动构建导出，GDMaim 管导出产物保护。三者不冲突：CI 里跑导出时顺手开混淆，是最省事的组合方式，注意 GDMaim 处理 pck、CI 负责流程，分工清楚才不会重复配置。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "代码混淆",
+    "导出",
+    "安全",
+    "GDScript",
+    "发布"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "导出时混淆全部 GDScript",
+      "source": "README.md",
+      "quote": "obfuscates all GDScripts when exporting a project"
+    },
+    {
+      "claim": "只处理导出的 pck，不破坏工程源码",
+      "source": "README.md",
+      "quote": "Since only the exported 'pck' file gets processed, obfuscation is non-destructive"
+    },
+    {
+      "claim": "混淆不能阻止逆向",
+      "source": "README.md",
+      "quote": "It does of course not make reverse engineering impossible"
+    },
+    {
+      "claim": "要求 Godot 4.5 以上",
+      "source": "README.md",
+      "quote": "Requires Godot 4.5+."
+    },
+    {
+      "claim": "巨大 tres 或 tscn 会导致导出卡住",
+      "source": "README.md",
+      "quote": "during export is usually caused by huge"
+    },
+    {
+      "claim": "插件版本为 0.4.4",
+      "source": "addons/gdmaim/plugin.cfg",
+      "quote": "version=\"0.4.4\""
+    }
+  ]
+}

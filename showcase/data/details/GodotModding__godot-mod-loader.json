@@ -1,0 +1,65 @@
+{
+  "id": "GodotModding__godot-mod-loader",
+  "depth": "standard",
+  "taglineZh": "把 ZIP 模组安全加载进 GDScript 项目的通用模组加载器",
+  "summaryZh": "godot-mod-loader 是面向 GDScript 游戏的通用模组加载器，把模组打成 ZIP 后在运行时挂载，让玩家修改脚本、场景与资源，而发行包里不必附带原版文件。它提供模组元数据、版本兼容检查、加载顺序与依赖、独立的模组配置与配置档，还能从 Steam 创意工坊、Thunderstore 或本地 mods 目录读取模组。导出插件会在脚本里注入静态钩子，使未预装加载器的游戏也支持模组；官方 wiki 提供上手流程，Brotato 与 Dome Keeper 等商业游戏都在使用。",
+  "whatItDoes": "提供 addons/mod_loader 运行时与导出插件，把 ZIP 解包成虚拟文件系统覆盖脚本、场景与资源。运行时维护模组列表、元数据、依赖顺序与配置档，并把模组日志汇总到统一输出；导出时向每个脚本注入静态钩子，使模组能在未预装加载器的游戏中生效。日志按模组分组，便于定位某个模组的问题。",
+  "useCases": [
+    {"titleZh": "为已发行游戏加模组支持", "descZh": "在不重发原版资源的前提下开放脚本与场景修改，玩家只需放入 ZIP，停用模组后游戏回到干净状态，不必回滚版本。"},
+    {"titleZh": "接入创意工坊或 Thunderstore", "descZh": "内置模组源可直接读取订阅内容，省去自己写下载、校验与版本比对流程，分发渠道也能自由选择，接入成本更低。"},
+    {"titleZh": "管理多套模组组合", "descZh": "用配置档保存启用列表与各自设置，一键切换不同整合包，减少手动排查模组冲突的时间，也方便分享给玩家。"},
+    {"titleZh": "练习模组架构设计", "descZh": "参考成熟实现的钩子注入与加载顺序设计，为自己的游戏或工具搭一套可维护的模组层，少走架构弯路。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "可运行的模组运行时", "descZh": "addons/mod_loader 提供加载、卸载、元数据解析与日志，挂进项目即可读取 ZIP 模组，无需改动引擎。"},
+    {"titleZh": "带钩子的游戏脚本", "descZh": "导出插件向每个脚本写入静态钩子，让模组能在指定位置插入或替换逻辑，不必预装加载器。"},
+    {"titleZh": "模组配置与配置档", "descZh": "为每个模组生成独立设置，并用配置档保存启用组合，便于玩家随时切换，也便于排查单项配置。"}
+  ],
+  "featureCallouts": [
+    {"name": "ZIP 模组挂载", "descZh": "模组以 ZIP 分发，加载后覆盖脚本、场景与资源，原版文件不进入模组包，分发体积更小。"},
+    {"name": "依赖与加载顺序", "descZh": "元数据声明兼容版本与依赖，加载器据此排序，减少互相覆盖导致的错乱与启动失败。"},
+    {"name": "多模组源", "descZh": "支持 Steam 创意工坊、Thunderstore 与本地 mods 目录，分发渠道可自由选择，也方便离线安装。"},
+    {"name": "统一日志", "descZh": "所有模组输出汇总到同一日志系统，排查冲突时不必逐个翻控制台，定位更快。"}
+  ],
+  "limitsZh": "加载器只面向 GDScript 项目，C# 或 GDExtension 逻辑无法直接打补丁；导出钩子需要按版本重新处理，已发行游戏要重新导出才能支持模组，导出模板也要跟着更新。ZIP 覆盖依赖脚本路径与 class_name 约定，Godot 4 下仍需额外绕行处理，写法不规范的项目容易失效。模组之间没有沙箱隔离，恶意 ZIP 可以执行任意脚本，分发时必须自行审核来源。官方文档集中在 wiki，仓库内说明较简，遇到加载顺序问题需要读源码定位。",
+  "workflowZh": [
+    {"stepZh": "把 addons 目录复制进项目，在项目设置里启用模组加载器插件"},
+    {"stepZh": "在导出设置中加入钩子导出插件，重新导出发行版本的游戏"},
+    {"stepZh": "按约定目录结构打包模组 ZIP，并写好元数据与依赖声明"},
+    {"stepZh": "把 ZIP 放进 mods 目录或订阅创意工坊，启动游戏后加载"}
+  ],
+  "pros": [
+    "覆盖脚本、场景与资源三类内容，模组能力比单纯替换贴图更完整，可改玩法",
+    "停用模组后不留痕迹，原版文件不随模组分发，便于合规与版本管理，回滚也简单",
+    "自带元数据、依赖排序、配置档与统一日志，省去大量模组管理代码与排查工具",
+    "内置 Steam 创意工坊与 Thunderstore 源，商业发行时接入成本低，玩家订阅即可生效",
+    "被 Brotato、Dome Keeper 等商业游戏采用，实际项目验证较充分，踩坑经验有人分享"
+  ],
+  "cons": [
+    "只支持 GDScript 项目，C# 与 GDExtension 代码无法直接打补丁，语言选择受限",
+    "需要重新导出并注入钩子，已上线的旧版本无法事后启用，只能随新版本发布",
+    "模组没有沙箱，恶意脚本可执行任意代码，分发需自行审核来源并承担风险"
+  ],
+  "pitfalls": [
+    "Godot 4 的 class_name 脚本要按文档绕行处理，漏掉会导致模组脚本不生效，先跑示例验证",
+    "模组覆盖同一脚本时按加载顺序生效，依赖声明写错会出现半新半旧的行为，排查成本高",
+    "导出钩子与加载器版本必须匹配，升级加载器后要重新导出游戏，否则钩子缺失"
+  ],
+  "bestFor": "已发行或即将发行 GDScript 游戏、希望开放脚本级模组生态，并能承担导出钩子与模组审核、愿意维护导出流水线工作的团队。",
+  "avoidWhenZh": "项目以 C# 或 GDExtension 为主，或只需要替换美术资源、不愿改动导出流程，也不愿维护模组兼容性的情况。",
+  "compareTips": {
+    "vs": ["KoBeWi__Godot-Universal-Mod-Manager"],
+    "whenZh": "同为模组方案，godot-mod-loader 面向 GDScript 全量覆盖并自带分发源；KoBeWi 的通用模组管理器更偏本地模组启停。需要商业级模组生态选前者，只想给单机项目加简单模组开关可看后者。"
+  },
+  "category": "asset-pipeline",
+  "tags": ["模组加载", "ZIP", "GDScript", "创意工坊"],
+  "scores": {"coverage": 5, "usability": 3, "docs": 4, "maintenance": 4, "performance": 3, "stability": 3},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {"claim": "模组以 ZIP 分发并可修改脚本、场景与资源", "source": "README.md", "quote": "The Mod Loader allows users to create mods for games and distribute them as zips."},
+    {"claim": "停用模组不会留下痕迹", "source": "README.md", "quote": "Disabled mods leave no trace"},
+    {"claim": "导出插件向每个脚本注入静态模组钩子", "source": "addons/mod_loader/_export_plugin/plugin.cfg", "quote": "Export plugin to insert static mod hooks into each script."}
+  ]
+}

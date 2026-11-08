@@ -1,0 +1,35 @@
+{
+  "id": "CSharpGodotTools__Template",
+  "descriptionZh": "Godot 4 的 C# 游戏模板，内置 ENet 联机、可视化调试、代码生成与 GDUnit4 测试",
+  "category": "state-logic",
+  "tags": [
+    "C#模板",
+    "工程基建",
+    "调试工具",
+    "联网起始",
+    "GDUnit4"
+  ],
+  "prosShort": [
+    "内置 ENet 联机骨架与网络包生成流程",
+    "含控制台、指标浮层与可视化调试",
+    "已接入 GDUnit4，可直接写并运行测试用例"
+  ],
+  "consShort": [
+    "只面向 C#，GDScript 项目无法直接套用",
+    "依赖 .NET 10 与较新引擎，升级成本高",
+    "功能多，模板体积与学习曲线都偏大"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "KoBeWi__Godot-Instance-Dock",
+  "descriptionZh": "在编辑器侧栏集中存放常用场景，支持拖拽实例化、快速指派与属性覆盖预设的场景管理插件",
+  "category": "editor-tool",
+  "tags": [
+    "场景管理",
+    "停靠面板",
+    "预制体",
+    "编辑器插件"
+  ],
+  "prosShort": [
+    "常用场景集中一处免翻目录",
+    "拖拽即实例化，操作与原生一致",
+    "一个场景可存多套属性覆盖预设"
+  ],
+  "consShort": [
+    "图标生成基本只对 2D 场景有效",
+    "槽位数据单文件，多人易冲突",
+    "只存场景引用，不管依赖与批量替换"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,163 @@
+{
+  "id": "chickensoft-games__AutoInject",
+  "depth": "standard",
+  "taglineZh": "为 C# Godot 脚本提供无反射的节点依赖注入",
+  "summaryZh": "AutoInject 用场景树做依赖注入：上层 Provider 节点向子孙提供值，下层 Dependent 节点用 [Dependency] 声明需求并调用 DependOn 获取，解析沿祖先链进行，进树后 O(1) 访问。它基于 Introspection 源生成器，不依赖反射，还提供 IAutoOn 生命周期回调、IAutoConnect 自动绑定 [Node] 字段、IAutoInit 测试前初始化，以及 IAutoNode 一键套用全部能力。安装是往 csproj 加 NuGet 包，不是 addons 插件，选型前建议结合团队实际评估。",
+  "whatItDoes": "核心是几个 mixin 接口：IProvider 需实现 IProvide<T> 或 IProvideAny，IDependent 用 [Dependency] 标注并调用 this.DependOn<T>()，IAutoOn 把 Godot 通知映射成 OnReady、OnProcess 等方法，IAutoConnect 把 [Node] 属性绑到场景节点并支持接口查询，IAutoInit 在非测试环境先于 _Ready 执行。所有 mixin 通过 [Meta(typeof(IAutoNode))] 组合，并要求脚本重写 _Notification 调用 this.Notify(what)。",
+  "useCases": [
+    {
+      "titleZh": "解耦角色脚本",
+      "descZh": "上层玩家节点提供配置，下层武器与 UI 直接取用，不必层层传参或互相持有引用，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "可测试代码",
+      "descZh": "用 IAutoInit 分离初始化与引擎生命周期，单元测试时跳过引擎回调，快速验证逻辑，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "节点绑定",
+      "descZh": "用 [Node] 自动抓取场景节点，减少 @onready 路径字符串，改名后更容易发现错误，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "依赖替换",
+      "descZh": "不同关卡放不同 Provider，子树自动使用新的值，便于做难度或皮肤切换，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "大型 C# 项目",
+      "descZh": "需要统一生命周期与注入规范，减少脚本间硬引用，团队协作更清晰，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Provider 与 Dependent",
+      "descZh": "提供与请求值的两类节点，基于祖先链解析依赖，作用域清晰，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "生命周期 mixin",
+      "descZh": "IAutoOn 把通知映射为 OnReady 等方法，写法接近 .NET 事件，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "自动绑定",
+      "descZh": "IAutoConnect 按 [Node] 属性查找节点，也支持按接口获取，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "分析器",
+      "descZh": "可选 Analyzers 包检查重写与 Provide 调用，提前报错，可以直接放进项目里使用，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "无反射",
+      "descZh": "依赖由源生成器展开，运行时不靠反射查找，开销可控，参数集中在检查器面板。"
+    },
+    {
+      "name": "树内作用域",
+      "descZh": "值只在 Provider 子树有效，避免全局单例污染，子树可独立复用，后续修改起来也不费劲。"
+    },
+    {
+      "name": "就近覆盖",
+      "descZh": "离 Dependent 最近的 Provider 生效，方便局部替换与做变体，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "生命周期钩子",
+      "descZh": "OnReady、OnProcess 等回调统一走 mixin，少写样板代码，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "可脱离引擎测试",
+      "descZh": "IAutoInit 让初始化逻辑能在测试环境单独跑，测试速度更快，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "它只是 C# 库，不提供 GDScript 支持，也不解决场景装配之外的资源加载与存档。每个节点必须重写 _Notification 并调用 this.Notify(what)，漏写时 mixin 完全不工作，且只有装了分析器才会明显报错。依赖沿祖先链查找，节点被移到 Provider 之外会拿不到值，运行期才暴露。包是 source-only，需要同时引入 Introspection、GodotNodeInterfaces 与生成器，版本要互相对齐；项目还需 .NET 8 与对应 Godot 版本。",
+  "workflowZh": [
+    {
+      "stepZh": "在 csproj 加入四个 NuGet 包，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "可选加入 AutoInject.Analyzers，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "给节点加 [Meta(typeof(IAutoNode))]，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "重写 _Notification 并调用 Notify，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "用 [Dependency] 标注需求字段，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在 Provider 中调用 this.Provide()，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "需要时用 IAutoInit 拆初始化，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "依赖沿树解析，脚本之间不再互相持有引用，耦合明显降低，团队新人照着示例就能上手。",
+    "源生成器无反射，运行开销与 AOT 友好度都更好，出现问题时也更容易定位原因。",
+    "生命周期与节点绑定统一，样板代码减少，对中小团队的时间成本很友好。",
+    "可测试性提升，初始化逻辑能脱离引擎单独验证，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "仅支持 C#，GDScript 项目无法使用，升级引擎版本时容易卡住。",
+    "必须重写通知方法，漏写时排查困难，定制之前往往要先读源码。",
+    "多包版本对齐，升级需要留意兼容，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "忘记 this.Notify(what) 时依赖永远不解析，且没有明显报错，上线前要专门过一遍。",
+    "在 Provider 的 _Ready 之前取依赖会拿到空值，解析是异步等待的，排查时需要多留一层日志。",
+    "节点移出 Provider 子树后旧值不会自动更新，需重新进树，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "使用 C# 开发中大型 Godot 项目、希望用场景树做依赖注入并统一生命周期回调的团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "GDScript 为主的项目，或只需要少量节点引用、用 @onready 即可解决的小型工程。",
+  "compareTips": {
+    "vs": [
+      "csprance__gecs"
+    ],
+    "whenZh": "两者都在 C# 架构层：AutoInject 解决节点间依赖与生命周期，gecs 提供 ECS 数据驱动结构；注入适合 UI 与游戏对象协作，ECS 适合大量同质实体，按团队架构偏好选择。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "依赖注入",
+    "C#",
+    "节点解耦",
+    "生命周期钩子"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "isGDExtension": false,
+  "evidence": [
+    {
+      "claim": "无反射、基于节点的 C# 依赖注入",
+      "source": "README.md",
+      "quote": "Reflection-free node-based dependency injection for C# Godot scripts"
+    },
+    {
+      "claim": "Provider 向子孙节点提供值",
+      "source": "README.md",
+      "quote": "A `Provider` node provides values to its descendant nodes"
+    },
+    {
+      "claim": "必须重写 _Notification 并调用 Notify",
+      "source": "README.md",
+      "quote": "you must override `_Notification` in your node script and call `this.Notify(what)`"
+    },
+    {
+      "claim": "使用源生成器，属于 source-only 包",
+      "source": "README.md",
+      "quote": "AutoInject is a source-only package that uses the [Introspection] source generator"
+    },
+    {
+      "claim": "测试项目使用 Godot .NET SDK 4.7.2",
+      "source": "global.json",
+      "quote": "\"Godot.NET.Sdk\": \"4.7.2\""
+    }
+  ]
+}

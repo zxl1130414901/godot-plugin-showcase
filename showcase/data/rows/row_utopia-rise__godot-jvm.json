@@ -1,0 +1,35 @@
+{
+  "id": "utopia-rise__godot-jvm",
+  "descriptionZh": "让 Godot 4 项目用 Kotlin、Java 或 Scala 编写游戏脚本的 JVM 语言绑定，基于 GDExtension。",
+  "category": "visual-script",
+  "tags": [
+    "JVM",
+    "Kotlin",
+    "Java",
+    "脚本绑定",
+    "GDExtension"
+  ],
+  "prosShort": [
+    "JVM 背景团队几乎无需换语言",
+    "Gradle 构建流程与 Maven 依赖可沿用",
+    "可打包带内嵌 JRE 的桌面版本"
+  ],
+  "consShort": [
+    "构建链复杂环境配置易出错",
+    "启动内存与包体都比 GDScript 更大",
+    "移动与 Web 平台支持比较有限"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

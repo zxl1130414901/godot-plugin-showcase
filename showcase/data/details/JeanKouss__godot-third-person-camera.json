@@ -1,0 +1,145 @@
+{
+  "id": "JeanKouss__godot-third-person-camera",
+  "depth": "standard",
+  "taglineZh": "可动态跟随、固定视角与越肩切换的 Godot 4 第三人称相机",
+  "summaryZh": "Godot Third Person Camera 是一个开箱即用的第三人称相机插件，把弹簧臂、相机与参数面板打包成可直接挂到角色节点下的场景。它提供动态跟随、固定透视、越肩与过肩四种用法，弹簧臂长度、相机高度、偏移与旋转阻尼都在检查器里暴露，可按项目手感逐项微调。插件还带一个编辑器预览面板，选中节点就能实时看视角变化，不必反复运行场景。Camera3D 的原生属性全部可用，通过 get_camera() 拿到相机节点即可继续设置。",
+  "whatItDoes": "提供可挂到任意角色的第三人称相机节点，按导出属性自动跟随目标并处理旋转与碰撞回退。在编辑器里提供预览面板，选中节点即可查看取景效果，缩短调参循环。底层相机保持完整 Camera3D 接口，方便叠加广角、景深等原生设置。",
+  "useCases": [
+    {
+      "titleZh": "动作游戏跟随",
+      "descZh": "把相机场景挂到角色节点即可获得带阻尼的动态跟随，转向、升降与缩放都平滑过渡，跑跳与急停时画面不会硬甩。"
+    },
+    {
+      "titleZh": "射击越肩视角",
+      "descZh": "切换到越肩模式后可调肩部偏移与准星对齐，适合第三人称射击与掩体玩法，瞄准时构图稳定不遮挡视线。"
+    },
+    {
+      "titleZh": "固定机位演出",
+      "descZh": "用固定视角模式做解谜或过场演出，相机的位置与朝向由参数锁定，角色转向与移动都不会改变既定构图。"
+    },
+    {
+      "titleZh": "编辑器内预览",
+      "descZh": "打开编辑器预览面板并选中相机节点，就能在场景里实时查看视角变化，调整参数所见即所得，省去反复运行工程。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "相机场景",
+      "descZh": "ThirdPersonCamera.tscn 作为子节点挂到角色下，内部管理 Camera3D、弹簧臂与跟随逻辑，开箱即可运行并切换四种拍摄模式。"
+    },
+    {
+      "titleZh": "参数面板",
+      "descZh": "弹簧臂长度、相机高度、肩部偏移、旋转阻尼与俯仰限制都暴露在检查器里，可按项目手感逐项微调。"
+    },
+    {
+      "titleZh": "预览面板",
+      "descZh": "编辑器底部按钮打开预览面板，选中节点即可实时查看视角、遮挡与弹簧臂收缩效果，不必反复启动场景。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "动态跟随",
+      "descZh": "带阻尼的跟随与旋转让相机平滑追上角色，快速转向与急停时不会硬甩，手感可在检查器里调节。"
+    },
+    {
+      "name": "越肩模式",
+      "descZh": "肩部偏移与准星对齐均可调，切换到越肩视角后适合射击与掩体玩法，瞄准构图更稳。"
+    },
+    {
+      "name": "固定视角",
+      "descZh": "锁定机位用于演出与解谜，角色转动与移动都不会改变构图，适合固定镜头叙事的场景。"
+    },
+    {
+      "name": "碰撞回避",
+      "descZh": "弹簧臂遇到墙体或障碍会自动收短避免穿墙，配合碰撞掩码设置能覆盖多数室内外场景。"
+    },
+    {
+      "name": "预览面板",
+      "descZh": "编辑器内直接调参与预览，改完参数立刻看到视角变化，省去反复运行场景的时间。"
+    }
+  ],
+  "limitsZh": "插件只负责相机本身，不含角色控制器、输入映射与动画状态机，走跑跳与转向仍要自己实现。碰撞回避依赖弹簧臂的射线检测，复杂地形与多层场景需要自己补射线、调整碰撞掩码与脱困策略，否则会出现穿墙或贴脸。参数数量多，初调容易互相干扰，缺少预设档位与一键恢复默认。文档主要放在 GitHub wiki 与文档站，仓库内 README 只给接入步骤，离线查阅不便。固定视角与越肩模式的构图逻辑偏简单，做电影化镜头与轨道运镜仍需自己扩展。",
+  "workflowZh": [
+    {
+      "stepZh": "把仓库 addons 目录下的 third-person-camera 文件夹整体复制进项目"
+    },
+    {
+      "stepZh": "打开项目设置里的插件页，找到并启用 Third Person Camera 插件"
+    },
+    {
+      "stepZh": "把 ThirdPersonCamera.tscn 实例化并挂到角色节点下作为子节点"
+    },
+    {
+      "stepZh": "在检查器里调弹簧臂长度、高度与阻尼"
+    },
+    {
+      "stepZh": "用编辑器底部预览面板确认视角与遮挡"
+    }
+  ],
+  "pros": [
+    "挂上就能用的第三人称相机，弹簧臂、阻尼与四种模式都已写好，省去自研跟随逻辑的时间。",
+    "动态跟随、固定视角与越肩三种拍摄模式并存，动作、射击与解谜演出等常见需求都能覆盖。",
+    "弹簧臂长度、相机高度、肩部偏移与旋转阻尼全在检查器暴露，调手感不必改脚本，改完即时生效。",
+    "编辑器内自带预览面板，选中节点就能看到视角与遮挡变化，调参所见即所得，迭代速度快。",
+    "以 MIT 许可发布，可商用，场景结构简单清晰，需要加轨道运镜或自定义模式时也便于二次修改。"
+  ],
+  "cons": [
+    "插件只负责相机本身，不含角色控制器、输入映射与动画状态机，走跑跳与转向仍要自己实现。",
+    "复杂地形下的碰撞回避仍需自己补射线与分层设置",
+    "说明散落在 GitHub wiki 与文档站，仓库内 README 只给接入步骤，离线查阅与团队分享都不太方便。"
+  ],
+  "pitfalls": [
+    "相机与角色同层挂载时继承旋转会导致抖动，注意父节点选择",
+    "弹簧臂的碰撞掩码没配好会直接穿过墙体与地形，接入后先按场景设好碰撞层并测试狭窄空间。",
+    "固定视角模式下角色转动仍会影响构图时，检查是否锁定朝向"
+  ],
+  "bestFor": "做 3D 动作、射击或解谜游戏，需要现成第三人称相机与可调手感、又不想自写弹簧臂逻辑的 Godot 4 开发者。",
+  "avoidWhenZh": "需要第一人称、轨道相机或复杂锁定镜头逻辑的项目，专用相机插件与自写脚本更合适。",
+  "compareTips": {
+    "vs": [
+      "devmoreir4__godot-3d-multiplayer-template"
+    ],
+    "whenZh": "两者都属于 3D 表现层能力：Third Person Camera 提供可调阻尼的第三人称相机，负责跟随、越肩与固定机位；Godot-PSX 提供 PS1 风格的低多边形渲染与抖动效果。做镜头选前者，做画面风格选后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "第三人称",
+    "相机控制",
+    "编辑器预览",
+    "Godot4",
+    "即插即用"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "提供可配置的第三人称相机并支持四种视角形态",
+      "source": "README.md",
+      "quote": "This is a ready-to-use third person camera for your 3D games. It is also highly configurable ... Dynamic Follow / Fixed Perspective / Shoulder View / Over-The-Shoulder View"
+    },
+    {
+      "claim": "以独立场景挂到角色节点下使用",
+      "source": "README.md",
+      "quote": "Add the scene `ThirdPersonCamera.tscn` located at `addons\\third-person-camera\\third_person_camera` as a child from your character node"
+    },
+    {
+      "claim": "编辑器内提供预览面板",
+      "source": "README.md",
+      "quote": "Click the \"Third Person Camera\" button located at the bottom of the editor to open the preview panel."
+    },
+    {
+      "claim": "保留全部 Camera3D 原生属性",
+      "source": "README.md",
+      "quote": "All Godot `Camera3D` Properties are available. You can access the camera node by `get_camera()` method."
+    }
+  ]
+}

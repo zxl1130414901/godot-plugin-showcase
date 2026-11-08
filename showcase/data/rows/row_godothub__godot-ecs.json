@@ -1,0 +1,35 @@
+{
+  "id": "godothub__godot-ecs",
+  "descriptionZh": "纯 GDScript 的 ECS 框架，支持双模式调度、组合查询与版本化存档，整体接入成本不高。",
+  "category": "state-logic",
+  "tags": [
+    "ECS",
+    "架构",
+    "多线程",
+    "GDScript",
+    "存档"
+  ],
+  "prosShort": [
+    "纯 GDScript 免编译易调试，团队上手也快。",
+    "单线程与并行双模式可渐进",
+    "查询缓存与组合条件好用，接入成本不高。"
+  ],
+  "consShort": [
+    "GDScript 性能上限低于 C++，团队要提前评估。",
+    "并行模式需自行保证线程安全",
+    "API 参考简略复杂用法靠源码"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

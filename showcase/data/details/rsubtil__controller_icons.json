@@ -1,0 +1,134 @@
+{
+  "id": "rsubtil__controller_icons",
+  "depth": "standard",
+  "taglineZh": "按输入设备类型自动切换键位图标与提示",
+  "summaryZh": "Controller Icons 解决的是同一动作在不同设备上该显示哪个按键的问题。它会解析项目里定义的输入动作，给键盘、鼠标和手柄分别准备图标，并持续检测玩家最近使用的设备，在手柄与键鼠之间自动切换。手柄路径做了泛化处理，因此不必为每个型号写一份映射。插件内置 Xbox、PlayStation、Switch、Steam Deck 等主流设备的素材，图标来自 CC0 素材包，可商用。它同时支持为不同手柄型号配置不同皮肤。",
+  "whatItDoes": "插件在运行时监听输入事件，判断玩家正在用键鼠还是手柄，并识别手柄型号；然后把界面里绑定的动作名解析成对应的按钮图标。开发者只需在 Label 或 TextureRect 上挂脚本并填写动作名，图标会随设备切换自动刷新，也能手动指定某套皮肤。",
+  "useCases": [
+    {
+      "titleZh": "手柄提示 UI",
+      "descZh": "教程与操作提示根据玩家当前设备自动显示 A 键或空格键，避免在界面里写死一套只适用于键鼠的提示文案。"
+    },
+    {
+      "titleZh": "设置页按键展示",
+      "descZh": "在按键重映射界面用图标替代文字，玩家改键后仍能一眼看出新绑定对应的是哪个物理按键。"
+    },
+    {
+      "titleZh": "多平台发行",
+      "descZh": "同一份界面覆盖主机、PC 与掌机，减少为不同平台分别维护图标映射与贴图的工作量。"
+    },
+    {
+      "titleZh": "本地化与无障碍",
+      "descZh": "图标比文字更少受语言影响，配合文字提示可改善跨语言玩家与读写困难玩家的理解。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "动作到图标的映射",
+      "descZh": "按输入动作自动选取键盘、鼠标或手柄图标，并随设备类型与手柄型号切换对应的图标皮肤。"
+    },
+    {
+      "titleZh": "设备检测逻辑",
+      "descZh": "持续判断最近使用的输入设备与手柄型号，驱动整套图标刷新与重绘，并处理设备切换时的过渡。"
+    },
+    {
+      "titleZh": "多品牌图标素材",
+      "descZh": "内置主流手柄与键鼠图标，覆盖 Xbox、PlayStation、Switch、Steam Deck、Luna 等主流设备与键鼠套装，风格统一且命名规范。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "自动设备切换",
+      "descZh": "键鼠与手柄交替使用时，界面图标会即时换成当前设备对应的样式与按键符号。"
+    },
+    {
+      "name": "手柄型号识别",
+      "descZh": "识别具体手柄类型，PlayStation、Xbox 与 Switch 等手柄的按钮符号不会互相混淆，界面风格更统一。"
+    },
+    {
+      "name": "动作解析",
+      "descZh": "直接读取项目输入映射，动作改名或新增后，图标配置会同步生效且无需改代码。"
+    },
+    {
+      "name": "完整文档",
+      "descZh": "仓库附 DOCS.md 与快速上手章节，接口用法、素材命名规则与常见问题都有专门说明。"
+    }
+  ],
+  "limitsZh": "插件的强项是显示层，它不会替你处理输入逻辑或重映射本身，改键仍要接 Godot 的输入系统或另找方案。素材虽多，但按钮布局与图标风格被固定为 Xelu 的一套，若要换成自家美术，需要按命名规则替换全部贴图。README 提到 C# 项目存在引擎缺陷，官方建议改用第三方 C# 分支，说明语言支持并不对等。最低要求 Godot 4.1.2，老项目升级前需评估。素材文件夹体积不小，打包前要确认只保留实际用到的设备皮肤。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons 目录到项目，并在项目设置的插件列表里启用。"
+    },
+    {
+      "stepZh": "确认输入映射里已有需要展示的动作名与绑定按键。"
+    },
+    {
+      "stepZh": "在提示节点上挂载图标组件，填写动作名与要使用的样式。"
+    },
+    {
+      "stepZh": "运行游戏，用键鼠和手柄交替操作验证图标切换是否即时正确。"
+    },
+    {
+      "stepZh": "按需替换图标素材或扩展新的手柄型号与自定义皮肤。"
+    }
+  ],
+  "pros": [
+    "装好即用，界面图标会跟随设备自动变化，几乎不用写额外代码，接入当天就能看到效果。",
+    "内置素材覆盖主流手柄，省去搜集、切图、命名与逐型号校对图标的大量时间。",
+    "文档与快速上手章节齐全，接入步骤与排错思路都有据可查，新手也能上手。",
+    "素材为 CC0，商用项目也不必担心图标授权问题，发行与上架审核时更省心。"
+  ],
+  "cons": [
+    "只负责显示，不包含输入重映射、冲突检测与配置保存逻辑。",
+    "图标风格固定，换皮时需要成批替换全部素材并重新校对命名。",
+    "C# 支持有已知引擎问题，需改用第三方维护的 C# 分支并自行验证。"
+  ],
+  "pitfalls": [
+    "动作名拼写不一致时图标会静默缺失，排查时先从项目的输入映射配置查起。",
+    "自定义手柄可能落到通用路径，图标会显示为默认符号，需要手动补上对应映射。"
+  ],
+  "bestFor": "适合需要同时支持键鼠与多品牌手柄的 Godot 4 项目，尤其是主机移植、本地多人或带设置菜单的游戏，能显著减少提示界面的维护量。",
+  "avoidWhenZh": "项目只用键盘鼠标、或已有一套自绘提示体系时没必要引入，额外依赖反而增加负担。",
+  "compareTips": {
+    "vs": [
+      "godotneers__G.U.I.D.E"
+    ],
+    "whenZh": "G.U.I.D.E 覆盖输入检测、重映射与提示的整条链路，Controller Icons 只解决图标展示；已有输入系统时选后者更轻，想统一整套输入架构与提示链路时则选前者。"
+  },
+  "category": "ui",
+  "tags": [
+    "input",
+    "gamepad",
+    "ui-icons",
+    "remapping",
+    "accessibility"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "提供主流手柄与键鼠图标并自动映射",
+      "source": "plugin.cfg",
+      "quote": "Provides icons for all major controllers and keyboard, with automatic icon remapping."
+    },
+    {
+      "claim": "根据输入设备在键鼠与手柄间自动切换图标",
+      "source": "README.md",
+      "quote": "Automatically detects input between keyboard/mouse and controller and switches icons on-the-fly corresponding to the controller's type"
+    },
+    {
+      "claim": "最低支持 Godot 4.1.2",
+      "source": "README.md",
+      "quote": "The minimum Godot version is 4.1.2 (stable)."
+    }
+  ]
+}

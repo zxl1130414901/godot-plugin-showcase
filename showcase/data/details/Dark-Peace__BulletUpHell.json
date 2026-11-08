@@ -1,0 +1,147 @@
+{
+  "id": "Dark-Peace__BulletUpHell",
+  "depth": "standard",
+  "taglineZh": "覆盖主流弹幕攻击模式的 Godot 弹幕引擎",
+  "summaryZh": "作者研究《挺进地牢》《以撒的结合》等作品的攻击方式后整理出的弹幕插件，把子弹生成、运动、事件、动画与音效打包成可配置的生成器资源。支持数学公式驱动的运动、手绘路径、追踪、激光与随机化，Godot 3 与 4 都能用。免费版功能已很全，但更完整的 BLAST 版本需付费，文档也主要放在外部站点，选型前建议结合团队实际评估。",
+  "whatItDoes": "通过 BuHSpawner 资源定义弹幕模式，包含子弹数量、间隔、角度、速度、加速度、旋转、生命周期与触发事件。子弹运动可走公式、曲线或自定义路径，支持追踪目标、分裂与动画音效管理，并能对颜色、速度、方向等参数做随机化。附带激光束与多阶段发射配置。",
+  "useCases": [
+    {
+      "titleZh": "弹幕射击原型",
+      "descZh": "纵版或横版弹幕游戏需要密集攻击模式，用生成器快速堆出多种弹幕而不写循环，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "Boss 战设计",
+      "descZh": "多阶段 Boss 可用不同生成器组合，配合事件触发切换弹幕与激光，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "肉鸽房间敌人",
+      "descZh": "随机化参数让同类敌人每次发射的弹幕略有差异，提升重复可玩性，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "弹幕教学演示",
+      "descZh": "教学或演示项目需要可视化配置弹幕，直接在检查器调参数比写代码直观，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "Godot 3 旧项目",
+      "descZh": "仍停留在 Godot 3 的项目也能使用，作者保留了 3.x 版本，在这类项目里能省下不少重复劳动。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "弹幕生成器",
+      "descZh": "可在检查器配置的 BuHSpawner 资源与发射场景，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "子弹行为",
+      "descZh": "带公式运动、追踪、分裂与生命周期管理的子弹，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "特效与音效",
+      "descZh": "内置动画与声音管理，发射与命中可直接挂资源，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "BuHSpawner",
+      "descZh": "以资源形式描述整组弹幕的数量、角度、速度与节奏，参数集中在检查器面板。"
+    },
+    {
+      "name": "公式运动",
+      "descZh": "用数学表达式控制子弹轨迹，可做螺旋、波动等效果，后续修改起来也不费劲。"
+    },
+    {
+      "name": "自绘路径",
+      "descZh": "支持按手绘曲线飞行，适合演出型弹幕，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "追踪与激光",
+      "descZh": "内置追踪目标和激光束，覆盖常见 Boss 攻击，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "随机化",
+      "descZh": "对速度、角度、颜色等参数随机取值，增加变化，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "免费版与付费 BLAST 版存在功能分层，优化、API 与后续更新更多倾斜到付费版，长期项目要评估是否愿意买断。文档主要托管在作者网站与视频教程，仓库内说明较简略，离线查阅不便。插件封装度高，深度定制需要读 BuH.gd 与 Spawner 源码；极大量子弹同时存在时仍要自己做对象池与剔除，引擎不会自动帮你兜底。",
+  "workflowZh": [
+    {
+      "stepZh": "把 BulletUpHell 目录拷入 addons 并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "新建 BuHSpawner 资源并配置弹幕参数，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在敌人脚本中触发对应生成器，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "为子弹挂接动画、音效与命中事件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需调随机化与多阶段组合，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "弹幕模式覆盖面广，常见攻击几乎都能配置出来，团队新人照着示例就能上手。",
+    "生成器以资源形式存在，策划也能直接在检查器调参，出现问题时也更容易定位原因。",
+    "Godot 3 与 4 双版本，旧项目迁移压力小，对中小团队的时间成本很友好。",
+    "公式运动与手绘路径让演出型弹幕更容易实现，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "免费版与付费版功能分层，完整能力需额外购买",
+    "文档放在外部网站，仓库内说明偏少，升级引擎版本时容易卡住。",
+    "高度封装导致深度定制要读源码，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "子弹数量过大时不做对象池会明显掉帧，上线前要专门过一遍。",
+    "生成器参数叠加顺序不清时，弹幕形态与预期不符，排查时需要多留一层日志。",
+    "Godot 3 与 4 的 API 差异会导致示例不能直接照搬，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "正在做弹幕射击或 Boss 战，希望用可视化生成器快速迭代攻击模式，而不是手写发射循环的团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只做轻量射击、不愿为完整功能付费，或需要完全掌控底层子弹实现时。",
+  "compareTips": {
+    "vs": [
+      "DesirePathGames__Slay-The-Robot"
+    ],
+    "whenZh": "两者都是玩法层工具包但品类不同：BulletUpHell 解决弹幕生成与子弹行为，适合射击与 Boss 战；Slay-The-Robot 面向肉鸽卡牌循环。若项目是弹幕加卡牌混合玩法，二者可以叠加使用。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "弹幕",
+    "射击游戏",
+    "Boss战",
+    "生成器"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "支持 Godot 3 与 4",
+      "source": "README.md",
+      "quote": "It's a plugin for Godot 3 and 4 that I made over 2 years"
+    },
+    {
+      "claim": "覆盖弹幕生成、属性与事件",
+      "source": "README.md",
+      "quote": "It takes care of everything related to bullet spawning : patterns, bullet properties, event triggering"
+    },
+    {
+      "claim": "支持公式运动、追踪与激光",
+      "source": "README.md",
+      "quote": "complex bullet movement (from math equations to custom drawn paths), advanced homing features"
+    },
+    {
+      "claim": "存在功能更全的付费版本",
+      "source": "README.md",
+      "quote": "Then go for the improved version : [BulletUpHell BLAST]"
+    }
+  ]
+}

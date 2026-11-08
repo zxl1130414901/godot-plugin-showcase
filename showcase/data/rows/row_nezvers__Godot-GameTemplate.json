@@ -1,0 +1,35 @@
+{
+  "id": "nezvers__Godot-GameTemplate",
+  "descriptionZh": "俯视射击项目模板，自带菜单、设置、暂停、转场与通用脚本库，示例关卡含寻路敌人与波次刷怪，可直接改数值做原型。",
+  "category": "ui",
+  "tags": [
+    "模板",
+    "俯视射击",
+    "菜单",
+    "音频",
+    "资源管理"
+  ],
+  "prosShort": [
+    "开场菜单、设置与音效底座一次备齐",
+    "通用脚本库在其他项目可直接复用",
+    "示例关卡含寻路敌人与波次刷怪"
+  ],
+  "consShort": [
+    "命名偏个人习惯，团队接手成本更高",
+    "绑定较新引擎，旧 4.x 迁入要逐项改",
+    "内置 Steam 单例与示例资源要清理"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

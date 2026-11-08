@@ -1,0 +1,138 @@
+{
+  "id": "cloudofoz__godot-deformablemesh",
+  "depth": "standard",
+  "taglineZh": "用可堆叠变形器节点实时改造三维网格的形状",
+  "summaryZh": "DeformableMesh 是面向 Godot 4 的 GDScript 插件，核心思路是在场景里摆放若干变形器节点，再把它们挂到 DeformableMeshInstance3D 上，由后者在运行时改写原始网格的顶点。自带球形、弯曲扭转锥化以及拖拽三类变形器，支持多个变形器按顺序叠加，效果强弱与轴向都能在检查器里调整。想扩展时可以继承基类，只覆写少数回调就能接入自定义算法。作者明确说它优先照顾简单通用的场景，并不适合高密度网格，官方也建议使用前先自行压测。",
+  "whatItDoes": "它把网格变形拆成可复用的节点：变形器负责算法与参数，DeformableMeshInstance3D 负责持有一份原始网格，并按变形器列表逐层计算顶点。你可以在编辑器里实时预览，也能在运行期移动或旋转变形器节点来驱动效果，甚至用拖拽变形器模拟被手指拉扯的软体表面。",
+  "useCases": [
+    {
+      "titleZh": "软体与果冻效果",
+      "descZh": "给角色、道具或场景装饰加上呼吸、挤压、抖动一类的形变，让原本僵硬的模型显得柔软有弹性，并能随动作自然过渡。"
+    },
+    {
+      "titleZh": "角色受击与夸张动画",
+      "descZh": "在命中、爆炸或技能释放的瞬间临时叠加球形或拖拽变形，做出卡通化的冲击与拉伸，让打击的冲击反馈更夸张。"
+    },
+    {
+      "titleZh": "风格化场景装置",
+      "descZh": "用弯曲与扭转让管道、藤蔓、旗帜等物件随手摆动，快速搭出可交互的场景装置，省去手工制作骨骼动画的工序。"
+    },
+    {
+      "titleZh": "原型阶段快速试形",
+      "descZh": "不写自定义着色器，直接在检查器里拖动参数比较形态，验证美术方向是否可行，再决定要不要投入深入实现。"
+    },
+    {
+      "titleZh": "自定义变形实验",
+      "descZh": "继承基类实现新的顶点位移规则，把插件当作小型变形框架来扩展，适合有算法经验的小团队进行二次开发。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "核心 DeformableMeshInstance3D 节点",
+      "descZh": "承载原始网格与变形器列表的实例节点，替代普通 MeshInstance3D 参与渲染，并逐层输出变形结果供场景使用。"
+    },
+    {
+      "titleZh": "三类内置变形器",
+      "descZh": "球形、标准（弯曲扭转锥化）与拖拽变形器，都是可直接放进场景并即时调节参数的节点，可独立复用。"
+    },
+    {
+      "titleZh": "可继承的变形器基类",
+      "descZh": "dm_deformer.gd 暴露少量回调，方便你写出自己的顶点位移算法，并接入现有的变形器堆叠处理链路之中。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "变形器堆叠",
+      "descZh": "多个变形器按添加顺序依次作用，顺序不同结果也不同，需要在检查器里反复试。"
+    },
+    {
+      "name": "运行时可调",
+      "descZh": "变形参数、节点位置与旋转都能在游戏运行中改变，适合做动态特效与交互反馈。"
+    },
+    {
+      "name": "拖拽变形",
+      "descZh": "在静止姿态下摆好变形器，再通过移动节点实时拉扯网格表面，适合做软体触感。"
+    },
+    {
+      "name": "自定义扩展",
+      "descZh": "继承基类覆写回调即可加入新算法，不必改动插件主体，也不会影响已有变形器。"
+    }
+  ],
+  "limitsZh": "README 的已知限制写得很直白：插件以简单和通用为首要目标，因此没有针对高密度网格做优化，多表面模型也可能拖慢性能，性能敏感的项目必须自己压测。DragDeformer 同一时间只能绑定一个网格，其他变形器才支持一次影响多个网格。它也不是完整的建模或布料系统，缺少碰撞、体积保持与法线重算之类的能力，复杂角色变形仍需专门的工具链。另外插件没有烘焙或缓存机制，运行时每帧都要重新计算顶点，多个网格同时变形时开销会叠加。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录复制进项目根目录，在项目设置里启用插件。"
+    },
+    {
+      "stepZh": "在场景中添加一个变形器节点，设置它的位置与参数。"
+    },
+    {
+      "stepZh": "再添加 DeformableMeshInstance3D 节点，并在其属性面板里指定原始网格资源。"
+    },
+    {
+      "stepZh": "把变形器拖进 Deformers 列表，按需要的效果顺序依次排列。"
+    },
+    {
+      "stepZh": "逐项微调参数与轴向，必要时在运行中移动变形器观察。"
+    }
+  ],
+  "pros": [
+    "变形器就是普通节点，编辑器里所见即所得，试错与调试成本都很低，改完即可预览。",
+    "支持多层叠加，顺序与轴向可控，能组合出更丰富也更自然的形变效果，便于做复合特效。",
+    "基类接口简单，覆写少量方法就能接入自研算法，学习门槛不高，适合小团队维护。",
+    "纯 GDScript 实现，无需编译，跨平台表现一致，也便于直接读源码排查兼容性问题。"
+  ],
+  "cons": [
+    "高密度网格和多表面模型的性能吃紧，官方未做针对性优化。",
+    "拖拽变形器同一时间只能绑定一个网格，组合玩法受到限制。",
+    "内置变形器只有三类，复杂效果仍要自己扩展算法与代码。"
+  ],
+  "pitfalls": [
+    "变形器顺序与轴向会显著改变结果，照抄示例参数常常得不到预期形态。",
+    "原始网格会在运行时被改写，若要拿同一资源做静态渲染，记得另存副本。"
+  ],
+  "bestFor": "适合想在 Godot 4 里给中小型网格快速加形变动画的美术与独立开发者，尤其是原型、休闲游戏和风格化场景，能省掉外部动画的工夫。",
+  "avoidWhenZh": "要处理高密度角色网格、布料解算或大量多表面模型时不宜使用，性能与功能都会成为瓶颈。",
+  "compareTips": {
+    "vs": [
+      "cloudofoz__godot-smashthemesh"
+    ],
+    "whenZh": "同作者的 SmashTheMesh 更偏向把网格打碎做破坏效果，而 DeformableMesh 专注连续形变；需要碎裂就选前者，需要软体、弯曲与拖拽则选后者，两者也可以配合使用，按项目需要选择即可。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "3d",
+    "mesh-deform",
+    "runtime",
+    "visual-effects",
+    "addon"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "插件以节点形式提供运行时网格变形",
+      "source": "README.md",
+      "quote": "This addon allows to deform 3D meshes using a stack of customizable deformers at run-time"
+    },
+    {
+      "claim": "拖拽变形器一次只能绑定一个网格",
+      "source": "README.md",
+      "quote": "While other deformers support deforming multiple meshes at once, a `DragDeformer` can only be tied to a single mesh at a time."
+    },
+    {
+      "claim": "内置球形、标准与拖拽三类变形器节点",
+      "source": "plugin.cfg",
+      "quote": "This addon enables real-time deformation of 3D meshes using customizable deformers. This version includes the following deformer nodes: SphericalDeformer, SimpleDeformer (bend, twist, taper) and DragDeformer."
+    }
+  ]
+}

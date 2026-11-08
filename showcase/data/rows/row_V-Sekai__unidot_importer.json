@@ -1,0 +1,35 @@
+{
+  "id": "V-Sekai__unidot_importer",
+  "descriptionZh": "把 Unity 的 .unitypackage 预制体、模型、材质与动画翻译成 Godot 4 原生场景与资源，导入后可移除插件。",
+  "category": "asset-pipeline",
+  "tags": [
+    "Unity迁移",
+    "资源转换",
+    "unitypackage导入",
+    "预制体翻译",
+    "场景重建"
+  ],
+  "prosShort": [
+    "覆盖预制体动画材质与地形等类型",
+    "按 GUID 建立资源库保留引用关系",
+    "导入完成后可直接移除插件"
+  ],
+  "consShort": [
+    "脚本与着色器必须手工移植",
+    "大包导入内存占用很高易卡顿",
+    "UI 与时间轴等对象仍未实现"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 2,
+    "stability": 2
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

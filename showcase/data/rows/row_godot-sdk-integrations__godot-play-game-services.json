@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "Godot Android 导出插件，封装 Play Games 登录、排行榜、成就与云存档的调用接口",
+  "prosShort": [
+    "登录榜单成就一次封装到位",
+    "节点化可按需挂载控制登录时机",
+    "有官方 demo 与示例可对照跑通"
+  ],
+  "consShort": [
+    "只在 Android 导出生效，桌面用不了",
+    "依赖 Play Console 凭据，配置容易出错",
+    "文档以代码注释为主缺教程"
+  ],
+  "isGDExtension": false,
+  "id": "godot-sdk-integrations__godot-play-game-services",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "category": "platform-export",
+  "tags": [
+    "Android",
+    "Google Play",
+    "排行榜",
+    "成就",
+    "云存档"
+  ],
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

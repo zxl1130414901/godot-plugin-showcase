@@ -1,0 +1,144 @@
+{
+  "id": "DanTrz__TileMapLayer3D",
+  "depth": "standard",
+  "taglineZh": "把 2D 图集刷成 3D 体素关卡的编辑器",
+  "summaryZh": "TileMapLayer3D 让 Godot 4.5 以上的 3D 场景直接复用 2D TileSet：在三维视口选图块刷地板、墙体和斜坡，AutoTile 负责自动接边，平面格点还能拖成自由四边形。它提供智能填充、体积雕刻和顶点编辑，支持分区域碰撞与网格烘焙，运行时也能增删查询。适合体素风与 2.5D 关卡快速搭建。主要限制是仓库已标记废弃并迁往新仓库，只支持 4.5 以上版本，旧场景升级需自行备份。",
+  "whatItDoes": "在 3D 视口加载任意 2D 图集或 Godot TileSet，选择平铺、三角、盒子、棱柱等网格类型后像刷瓦片一样铺地板、墙与斜面。AutoTile 依据相邻格自动选块，动画图块用着色器播放；智能填充可一键替换连通区域或生成坡道。顶点编辑把平面格拖成任意四边形，雕刻模式用笔刷挤出建筑与地形。",
+  "useCases": [
+    {
+      "titleZh": "体素风或复古 3D 关卡",
+      "descZh": "用像素图集搭出有厚度和坡度的关卡，保持贴图对齐与复古观感，适合低成本试做复古 3D 场景。"
+    },
+    {
+      "titleZh": "2.5D 平台原型",
+      "descZh": "在三维空间铺平面与斜坡，快速验证跳跃路线、镜头尺度与碰撞手感，再决定是否投入美术资源。"
+    },
+    {
+      "titleZh": "用 2D 素材做建筑内景",
+      "descZh": "把墙、地板、天花板图块拼成可碰撞的室内空间，省去建模与 UV 拆分，适合小体量建筑内景关卡。"
+    },
+    {
+      "titleZh": "运行时动态改图",
+      "descZh": "借运行时 API 增删格子并刷新碰撞，做可破坏墙壁与可建造平台一类的动态场景玩法。"
+    },
+    {
+      "titleZh": "内部关卡工具试点",
+      "descZh": "把手绘地图流程搬进编辑器，让少量关卡团队先试水，再评估是否值得投入正式美术与关卡设计。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可复用的 3D 瓦片关卡",
+      "descZh": "关卡保存在场景节点里，网格与碰撞按区域生成，需要时可以导出为静态网格复用。"
+    },
+    {
+      "titleZh": "统一 TileSet 资源",
+      "descZh": "绘制、动画、自定义数据与运行时查询共用同一份 TileSet，不必为 3D 场景另做一套素材。"
+    },
+    {
+      "titleZh": "烘焙后的静态网格",
+      "descZh": "按区域导出合并网格，减少运行时的节点数与绘制调用，适合墙体与地板为主的静态场景。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "AutoTile",
+      "descZh": "沿用 Godot 地形位掩码自动选块，道路、墙边与草地过渡无需手动摆放，改动后一键刷新。"
+    },
+    {
+      "name": "Sculpt 模式",
+      "descZh": "用菱形、方形或拱形笔刷画轮廓，再向上拖出建筑、山丘与平台，比逐格摆放快得多。"
+    },
+    {
+      "name": "Vertex Edit",
+      "descZh": "把平面格转成自由四边形，拖动四角做斜屋顶与有机地形，斜面过渡比逐格旋转更自然。"
+    },
+    {
+      "name": "Runtime API",
+      "descZh": "脚本可放置、擦除、查询、替换格子并刷新碰撞，便于做关卡工具、存档恢复与动态场景。"
+    },
+    {
+      "name": "区域碰撞烘焙",
+      "descZh": "按区域重建并导出网格，透明裁剪贴图也能正确生成碰撞，避免挡板比可见轮廓大出一圈。"
+    }
+  ],
+  "limitsZh": "仅支持 Godot 4.5 及以上，旧版 4.x 打不开；仓库顶部已标注本版本废弃，后续能力转移到独立的 C++ 新仓库，遇到问题不会再修。它解决的是关卡拼装，不提供建模、UV 或材质编辑；斜面与顶点编辑后的碰撞精度依赖烘焙设置。超大地图逐区域重建仍会卡顿，动画图块走着色器，导出静态网格后动画不会保留。文档以长指南和视频为主，缺少 API 级参考。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons 目录并在项目设置中启用这个插件"
+    },
+    {
+      "stepZh": "在 3D 场景中新建 TileMapLayer3D 节点作为关卡容器"
+    },
+    {
+      "stepZh": "载入图集或现成 TileSet，并选择平铺、盒子等网格类型"
+    },
+    {
+      "stepZh": "用画笔、AutoTile 或雕刻模式铺出地板、墙体与斜面"
+    },
+    {
+      "stepZh": "按区域烘焙网格与碰撞，再把结果导出给正式场景使用"
+    }
+  ],
+  "pros": [
+    "2D 图集直接映射到 3D 网格，省去手工建模、UV 拆分与逐格对齐的重复劳动",
+    "AutoTile、智能填充与坡道生成显著减少重复摆放，改动一处即可刷新周边街区",
+    "碰撞按区域重建并可导出烘焙网格，运行时节点数与绘制开销都能控制在较低水平",
+    "提供运行时增删查询 API，能够支撑可破坏与可建造一类的动态关卡玩法",
+    "附完整图文指南与视频教程，参数和工作流都有对应演示，上手路径相对清晰"
+  ],
+  "cons": [
+    "仓库已标记废弃，问题与兼容性不再修复，只能当作过渡方案使用",
+    "只支持 Godot 4.5 以上版本，停留在 4.0 至 4.4 的老项目无法直接使用",
+    "顶点编辑后的碰撞与法线需要额外检查，斜面拼缝容易出现穿透或空隙"
+  ],
+  "pitfalls": [
+    "从 1.0 之前版本升级可能损坏场景数据，动手前务必完整备份整个项目",
+    "动画图块依赖着色器播放，烘焙成静态网格之后原有动画不会被保留",
+    "透明裁剪贴图的碰撞要开启 alpha 感知，否则挡板会比可见轮廓大出一圈"
+  ],
+  "bestFor": "做体素风、复古 3D 或 2.5D 关卡，愿意用 2D 图集代替建模，并且已经升级到 Godot 4.5、能接受仓库停止维护的个人开发者与小团队。",
+  "avoidWhenZh": "需要稳定长期维护与持续修复，或项目仍停留在 Godot 4.0 至 4.4 版本、暂时无法升级。",
+  "compareTips": {
+    "vs": [
+      "TokisanGames__Terrain3D"
+    ],
+    "whenZh": "TileMapLayer3D 面向手工拼装规则化关卡，Terrain3D 面向大尺度可雕刻地形与贴图混合。做室内、城镇与平台关卡选前者，做开放世界地貌与地形笔刷选后者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "3D瓦片",
+    "关卡编辑",
+    "2D转3D",
+    "自动拼接",
+    "编辑器插件"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 1,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "仓库已废弃并指引迁往新仓库",
+      "source": "README.md",
+      "quote": "THIS REPO AND VERSION IS DEPRECATED => FROM NOW ON USE THE NEW V2.X"
+    },
+    {
+      "claim": "面向 Godot 4.5 以上，从 2D 图集搭 3D 关卡",
+      "source": "README.md",
+      "quote": "Godot 4.5+ editor plugin for building 3D tile-based levels from 2D tilesheets."
+    },
+    {
+      "claim": "支持区域碰撞与网格烘焙",
+      "source": "README.md",
+      "quote": "Regional collision and mesh baking — alpha-aware options for cut-out textures, per-region rebuilds, exportable baked meshes."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "imjp94__gd-blender-3d-shortcuts",
+  "descriptionZh": "把 Blender 的三维变换与约束操作完整带进 Godot 编辑器的快捷键插件",
+  "category": "editor-tool",
+  "tags": [
+    "Blender快捷键",
+    "3D视口",
+    "编辑器增强",
+    "变换操作",
+    "效率工具"
+  ],
+  "prosShort": [
+    "沿用 Blender 的 G、R、S 变换操作习惯",
+    "支持 ALT 反向恢复与数值输入",
+    "与编辑器吸附和本地空间协同"
+  ],
+  "consShort": [
+    "与内置快捷键冲突，需手动清理",
+    "版本分支多，装错分支即失效",
+    "只覆盖三维视口，功能范围有限"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

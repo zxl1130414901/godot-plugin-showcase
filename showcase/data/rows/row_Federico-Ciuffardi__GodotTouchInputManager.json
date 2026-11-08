@@ -1,0 +1,14 @@
+{
+  "id": "Federico-Ciuffardi__GodotTouchInputManager",
+  "descriptionZh": "只需自动加载一个脚本，就能给 Godot 项目补上单击、拖拽、滑动、捏合等触屏手势，并能用鼠标模拟触摸",
+  "category": "ui",
+  "tags": ["触屏", "手势识别", "输入", "移动端", "鼠标模拟"],
+  "prosShort": ["一个自动加载脚本即可接入手势识别", "单指与多指手势合计覆盖十余种", "鼠标可模拟触摸，桌面调试移动端很方便"],
+  "consShort": ["只做手势识别，不含触控界面控件", "阈值全局生效，多界面需自行处理", "文档偏表格与链接，深入用法需读源码"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 4, "performance": 4, "stability": 4},
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

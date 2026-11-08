@@ -1,0 +1,64 @@
+{
+  "id": "KnifeXRage__Godot-Secure",
+  "depth": "standard",
+  "taglineZh": "给 Godot 源码打补丁，构建独一无二的加密引擎与模板",
+  "summaryZh": "Godot Secure 是一个 Python 脚本，运行时修改 Godot 源码，把默认的 AES-256 资源加密扩展为 Camellia-256 或 AES-256，并写入每个构建独有的安全令牌与随机文件头。它还能打乱导出后的 GDScript 令牌流，让按官方令牌表工作的反编译工具读不出源码。脚本要求 Godot 4.4 以上源码与 Python 3.10，改完需要自行编译编辑器与导出模板；README 明确提醒同一份源码只能跑一次，重复执行会导致编译错误。它面向需要提高逆向成本的商业发行流程。",
+  "whatItDoes": "脚本扫描 Godot 源码里的加密与导出相关文件，注入安全令牌、随机 magic header 与可选的密钥派生公式，并把备份保存在 utils 目录以便还原。改完后按官方流程编译编辑器与导出模板，导出的 PCK 使用自定义文件签名与令牌映射。整个流程需要自己维护源码分支与构建脚本。",
+  "useCases": [
+    {"titleZh": "商业游戏防通用解包", "descZh": "让市面上的通用解密工具失效，提高美术与脚本被批量提取的成本，保护首发内容与付费资源。"},
+    {"titleZh": "每个版本生成独立构建", "descZh": "每次编译都换随机头与令牌，即使某一版被逆向，其他版本也不通用，降低连锁泄露与复制风险。"},
+    {"titleZh": "脚本源码保护", "descZh": "开启令牌混淆后，即使 PCK 未加密，按官方令牌表解析也会得到乱码，覆盖资源之外的代码层。"},
+    {"titleZh": "安全加固流程试验", "descZh": "在测试分支上验证加密与导出链路，评估对加载时间与兼容性的影响，再决定是否用于正式版本。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "打过补丁的引擎源码", "descZh": "自动插入令牌头与加密改动，保留备份供还原，避免源码被永久改坏而无法回退。"},
+    {"titleZh": "自定义导出模板", "descZh": "按官方命令编译出与补丁匹配的模板，供项目导出使用，各平台都要单独构建。"},
+    {"titleZh": "安全令牌文件", "descZh": "在 core/crypto 下生成令牌头，密钥与令牌在编译时结合，二进制里不留明文密钥。"}
+  ],
+  "featureCallouts": [
+    {"name": "随机文件头", "descZh": "每次构建生成不同的 magic header，通用识别规则无法直接套用，静态扫描也会失效。"},
+    {"name": "安全令牌", "descZh": "32 字节令牌嵌入引擎二进制，密钥需与令牌异或后才生效，缺少令牌无法解密。"},
+    {"name": "高级密钥派生", "descZh": "可生成随机构造公式，增加自动化提取密钥的难度，让脚本化破解更难复用。"},
+    {"name": "令牌混淆", "descZh": "导出时打乱 GDScript 令牌 ID，按官方表反编译只能得到错误内容，源码保护更完整。"}
+  ],
+  "limitsZh": "必须自行编译编辑器与导出模板，单次构建耗时长，CI 也要预留足够机器资源。脚本只能在一份干净源码上运行一次，重复执行会破坏补丁并导致编译失败，回滚要靠备份脚本。编辑器与模板必须使用同一套补丁与令牌，混用会出现解密失败；README 也提醒标准导出模板不再适用。方案提高的是逆向成本而非绝对安全，令牌仍需妥善保管，泄露后要重新构建全部版本。此外每次改 Godot 版本都要重新打补丁并验证兼容性。",
+  "workflowZh": [
+    {"stepZh": "克隆 Godot 源码，并生成 256 位的资源加密密钥"},
+    {"stepZh": "在源码目录运行 godot_secure.py，按需开启派生与混淆选项"},
+    {"stepZh": "编译编辑器与各平台导出模板，确保补丁与密钥一致"},
+    {"stepZh": "用新模板导出项目，并妥善备份令牌、源码与构建产物"}
+  ],
+  "pros": [
+    "在标准加密上叠加随机头与令牌，明显提高通用解包工具的失效概率，静态特征也被打散",
+    "一个脚本自动改源码并保留备份，省去手工定位加密代码的工作，流程可重复执行于新分支",
+    "可选令牌混淆让脚本反编译也失效，覆盖资源与代码两条路径，防护面更完整",
+    "提供还原脚本与故障排查清单，改坏后可以回到原始源码，试错成本可控"
+  ],
+  "cons": [
+    "必须自行编译引擎与全部导出模板，构建成本远高于普通插件，迭代节奏会被拖慢",
+    "同一份源码只能运行一次，重复执行会造成编译错误，流程容错低且依赖备份纪律",
+    "只提高逆向成本，无法阻止有针对性的人工分析，且令牌泄露需整体重建"
+  ],
+  "pitfalls": [
+    "编辑器与导出模板必须来自同一次补丁与同一密钥，混用会直接解密失败且难以定位",
+    "重复在已打补丁的源码上运行脚本会报编译错误，先还原备份再重新执行",
+    "导出前删掉项目里的 .godot 缓存，否则可能残留未混淆的旧令牌导致脚本仍可读"
+  ],
+  "bestFor": "需要发行商业游戏、愿意自建引擎与模板构建流水线，并希望提高资源与脚本逆向成本、能接受较长构建时间的工作室。",
+  "avoidWhenZh": "使用官方预编译模板、没有自建构建能力，或只需轻量混淆而不想维护定制引擎与长期版本跟进的项目。",
+  "compareTips": {
+    "vs": ["hhyyrylainen__GodotPckTool"],
+    "whenZh": "Godot Secure 改源码重编译引擎，从加密与令牌层加固；GodotPckTool 面向 PCK 的打包与提取，属于资源管线工具。需要防解包与源码保护选前者，日常打包校验、替换资源或做发布检查看后者。"
+  },
+  "category": "platform-export",
+  "tags": ["资源加密", "引擎构建", "导出模板", "安全加固"],
+  "scores": {"coverage": 3, "usability": 3, "docs": 4, "maintenance": 4, "performance": 4, "stability": 3},
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 5,
+  "evidence": [
+    {"claim": "脚本自动修改 Godot 源码并集成加密与令牌", "source": "README.md", "quote": "**Godot Secure** is a Simple Python Script That modify the Godot Source Code Automatically, to integrate **Camellia-256 / AES-256** encryption with a **unique security token system**."},
+    {"claim": "需要 Godot 源码、Python 与编译工具", "source": "README.md", "quote": "**Godot Source Code** (4.4.x and Above recommended)"},
+    {"claim": "重复运行脚本会导致编译错误", "source": "README.md", "quote": "Using script multiple times on same source code can cause **Compilation Errors!**."}
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "id": "noidexe__godot-version-manager",
+  "depth": "standard",
+  "taglineZh": "下载安装并管理多个 Godot 版本的独立应用",
+  "summaryZh": "Godot Version Manager 是一个用 Godot 3 写的桌面小工具，用来下载、安装并在多个 Godot 版本间切换：从下拉菜单选版本即可下载，能显示或隐藏 alpha、beta、rc 与 dev 构建，也能把本地任意位置的编辑器加进列表。它还支持拖入 project.godot 或项目文件夹，用指定版本直接启动项目，并内置官网新闻。它本身不是编辑器插件，而是独立应用；下载产物默认落在 user://versions，Windows 下即 AppData，介意 C 盘占用的人需要另行处理。",
+  "whatItDoes": "应用启动后列出已安装版本，选中某一版即可下载对应平台压缩包并解压到用户数据目录。列表支持右键删除、拖拽排序与自定义图标，拖入项目文件会记录项目并询问用哪个版本打开。新闻栏从 godotengine.org 拉取标题，方便看版本动态。",
+  "useCases": [
+    {
+      "titleZh": "多版本并存开发",
+      "descZh": "同时维护 3.x 与 4.x 项目，按项目选版本启动，不必手动换编辑器或改环境变量，团队协作也少踩版本坑。"
+    },
+    {
+      "titleZh": "快速试新版本",
+      "descZh": "一键下载 rc 或 dev 构建，先在小项目里验证兼容性，再决定是否升级正式版，避免正式项目被预览版带崩。"
+    },
+    {
+      "titleZh": "教学与演示环境",
+      "descZh": "在同一台机器准备多个稳定版，按课程或演示需要切换，减少现场安装讲解与等待下载的时间。"
+    },
+    {
+      "titleZh": "管理本地编辑器",
+      "descZh": "把散落在各盘的 Godot 可执行文件集中登记，统一起别名，找版本不用翻目录，交接也方便。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "集中式版本列表",
+      "descZh": "已安装与自定义编辑器统一展示，可排序、删除与标注稳定或预览通道，列表一眼看清。"
+    },
+    {
+      "titleZh": "项目启动入口",
+      "descZh": "记录项目路径与首选版本，双击即可用对应编辑器打开，省去手动选择版本与等待。"
+    },
+    {
+      "titleZh": "下载缓存目录",
+      "descZh": "把各版本编辑器与解压结果都收在 user://versions 下，备份与清理都方便，重装也不必重新下载。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "版本下拉下载",
+      "descZh": "从菜单选择版本后自动下载并解压，Windows 下依赖 PowerShell，首次使用前先确认策略允许。"
+    },
+    {
+      "name": "通道过滤",
+      "descZh": "可显示或隐藏 alpha、beta、rc 与 dev，列表不被预览版淹没，只看稳定版时很清爽。"
+    },
+    {
+      "name": "拖入项目启动",
+      "descZh": "拖 project.godot 或文件夹进窗口，绑定版本后直接运行项目，省去先开编辑器再找项目。"
+    },
+    {
+      "name": "自定义二进制",
+      "descZh": "把任意路径下的 Godot 可执行文件加入列表并命名，兼容手动安装。"
+    },
+    {
+      "name": "官网新闻",
+      "descZh": "内置 godotengine.org 新闻摘要，版本动态与发布说明一目了然，不必另开浏览器。"
+    }
+  ],
+  "limitsZh": "它是独立应用而非编辑器插件，不能在你的项目里调用，也没有命令行接口或 CI 集成。下载解压依赖系统工具：Windows 要 PowerShell，Linux 要 unzip，macOS 还要手动去掉 quarantine 属性，否则会被系统拦截。下载产物默认放 user://versions，Windows 下位于 AppData，占 C 盘空间且不便迁移；应用本身也没有做下载校验或断点续传的说明。作者在 FAQ 里承认 Hourglass、Godot Manager 等替代品更成熟，本项目胜在轻量。",
+  "workflowZh": [
+    {
+      "stepZh": "下载对应平台的压缩包并解压，按说明放好启动文件"
+    },
+    {
+      "stepZh": "双击启动应用，必要时处理系统拦截与安全提示"
+    },
+    {
+      "stepZh": "在版本菜单选择需要的 Godot，等它下载并解压"
+    },
+    {
+      "stepZh": "重复添加其他版本，给常用版本起易记的别名"
+    },
+    {
+      "stepZh": "拖入项目文件并绑定启动版本，之后双击即可打开"
+    }
+  ],
+  "pros": [
+    "一个窗口管理多版本 Godot，切换成本很低，省去手动下载与解压",
+    "支持拖入项目文件并按版本启动，日常在 3.x 与 4.x 间切换很顺手",
+    "可登记任意路径下的编辑器，不强制使用它自己下载的版本",
+    "能过滤预览通道，列表不会被 alpha 与 dev 构建塞满，找稳定版更快",
+    "MIT 许可且体积小，试用门槛低，随时可以删掉，不影响现有环境"
+  ],
+  "cons": [
+    "是独立应用，不能作为插件集成进项目，也没有命令行接口",
+    "下载目录默认在用户数据区，迁移不便，还占系统盘空间",
+    "解压依赖系统工具，缺少校验与断点续传的说明"
+  ],
+  "pitfalls": [
+    "Windows 下产物落在 AppData，想放其他盘需改系统用户目录或做软链，否则 C 盘会很快变大",
+    "macOS 未去 quarantine 会提示应用已损坏，需手动执行 xattr 命令，首次启动前先处理",
+    "Linux 缺少 unzip 时下载完成却无法解压，先确认依赖是否齐全，否则会卡在安装步骤"
+  ],
+  "bestFor": "需要在同一台机器维护多个 Godot 版本、经常在 3.x 与 4.x 项目之间切换，且愿意自己处理下载与解压环境的个人开发者或教学者。",
+  "avoidWhenZh": "需要 CI 自动安装版本，或要求所有编辑器与缓存都固定在指定盘符目录的用户。",
+  "compareTips": {
+    "vs": [
+      "gdzig__gdzig"
+    ],
+    "whenZh": "Godot Version Manager 负责编辑器版本的下载、登记与切换，属于环境工具；gdzig 把 Zig 接到 Godot，属于扩展开发链。前者管环境，后者写扩展，二者互不冲突。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "版本管理",
+    "Godot安装",
+    "多版本",
+    "桌面工具"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "下载、安装并管理任意 Godot 版本",
+      "source": "README.md",
+      "quote": "Download, install and manage any version of Godot Engine from a simple app."
+    },
+    {
+      "claim": "下载产物保存在 user://versions",
+      "source": "README.md",
+      "quote": "They are saved to user://versions which varies depending on your platform."
+    },
+    {
+      "claim": "Windows 解压依赖 PowerShell",
+      "source": "README.md",
+      "quote": "(requires powershell for extraction)"
+    }
+  ]
+}

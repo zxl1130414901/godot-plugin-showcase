@@ -1,0 +1,149 @@
+{
+  "id": "gilzoide__godot-dockable-container",
+  "depth": "standard",
+  "taglineZh": "让 Godot UI 面板支持拖拽停靠与分栏布局的容器",
+  "summaryZh": "Dockable Container 把普通 Control 子节点包进可分栏、可合并的 TabContainer 面板，拖动标签即可把面板拆成左右或上下分栏，也能把标签拖进另一面板合并。布局用二叉树结构的 Resource 保存，因此可以把用户自定义的停靠状态存盘再读回。子节点的 NodePath 与父级位置保持不变，只是视觉上被重新排布。它提供编辑器插件，可在检查器里预览布局，但文档偏薄，自定义标签图标等能力仍在待办清单里。",
+  "whatItDoes": "DockableContainer 继承 Container，内部用 DockablePanel、DragNDropPanel 与分割手柄组成分栏与拖放逻辑。布局由 Resource 描述：分割方向、尺寸、标签名与当前选中下标都可序列化。子 Control 仅做视觉移动，原有 NodePath 不变，业务脚本无需改引用。启用编辑器插件后，可在检查器里编辑布局副本并在编辑器中预览拖放效果，方便先调结构再接逻辑。",
+  "useCases": [
+    {
+      "titleZh": "编辑器式工具",
+      "descZh": "做关卡编辑器、资源管理器等内部工具时，让面板像 IDE 一样自由停靠与分栏，提升操作效率。"
+    },
+    {
+      "titleZh": "游戏内窗口",
+      "descZh": "模拟软件界面的模拟经营或策略游戏，用可拖拽面板承载信息，玩家能按习惯调整布局。"
+    },
+    {
+      "titleZh": "布局存档",
+      "descZh": "需要记住玩家自定义界面布局的产品，可把布局 Resource 存到用户目录，下次启动自动还原。"
+    },
+    {
+      "titleZh": "多面板调试台",
+      "descZh": "开发期把调试信息拆成多个可停靠面板，运行时可随时合并或拆分，减少屏幕占用，调试台可长期保留。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可停靠容器",
+      "descZh": "DockableContainer 节点把 Control 子节点包装成可拖拽标签与分栏面板，对外仍是普通容器，接入方式仍是 add_child。"
+    },
+    {
+      "titleZh": "布局资源",
+      "descZh": "DockableLayout 等 Resource 描述分栏树、尺寸与选中标签，可直接保存为独立文件，换布局时替换资源即可。"
+    },
+    {
+      "titleZh": "编辑器预览",
+      "descZh": "插件在检查器内提供布局编辑副本，改完即可在编辑器里看到排布效果。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "拖拽分栏",
+      "descZh": "拖动标签到面板边缘即可拆出新分栏，方向与尺寸跟随鼠标位置。"
+    },
+    {
+      "name": "标签合并",
+      "descZh": "把标签拖进另一面板会合并为多标签，行为与常见 IDE 基本一致。"
+    },
+    {
+      "name": "布局序列化",
+      "descZh": "分栏树与选中状态都保存在 Resource 里，存盘与读盘只涉及一个对象。"
+    },
+    {
+      "name": "NodePath 不变",
+      "descZh": "子节点只做视觉移动，脚本引用与信号连接不受布局变化影响。"
+    },
+    {
+      "name": "编辑器内编辑",
+      "descZh": "启用插件后可在检查器里直接调整布局，并实时预览拖放效果。"
+    }
+  ],
+  "limitsZh": "README 只有一页，明确标注文档仍需完善，自定义标签图标与显示名尚未实现，只能依赖子节点自身属性。布局存盘是 Resource 级别，跨项目复用要自己管理资源路径；多窗口或弹出式面板不在支持范围内。拖放依赖 Godot 的 GUI 拖拽系统，嵌套容器或自行处理 mouse_filter 的控件可能干扰命中判定。Godot 4 与 Godot 3 两个分支分开维护，混用会直接报错；版本更新时布局格式也可能需要迁移。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录整体拷入项目的 addons 文件夹。"
+    },
+    {
+      "stepZh": "在项目设置里启用 Dockable Container 插件，否则节点类型不注册。"
+    },
+    {
+      "stepZh": "把需要停靠的 Control 节点放进容器，顺序决定初始标签位置。"
+    },
+    {
+      "stepZh": "在检查器里调整分栏方向、尺寸与标签。"
+    },
+    {
+      "stepZh": "在脚本里保存或读取布局资源以持久化。"
+    }
+  ],
+  "pros": [
+    "拖拽与分栏行为贴近 IDE，玩家与开发者都容易理解，学习成本低。",
+    "布局存成 Resource，存档、回滚与跨场景复用都比较简单，也方便做多套预设。",
+    "子节点 NodePath 不变，接入既有 UI 脚本时改动很小，迁移成本较低，风险也小。",
+    "自带编辑器插件，调布局不用反复运行项目看效果，调试布局更直观，调整效率高。"
+  ],
+  "cons": [
+    "文档只有一页，细节要靠读源码补，新人上手偏慢。",
+    "标签图标与自定义名称尚未支持，只能沿用子节点默认外观。",
+    "复杂嵌套下拖放命中可能不稳，需要额外调试，需逐层排查。"
+  ],
+  "pitfalls": [
+    "子节点若自行处理鼠标事件，拖放会抢不到输入，需检查 mouse_filter。",
+    "布局资源忘了 clone 时，运行时会改到原始资源，下次打开布局就变样。",
+    "面板最小尺寸设置不当会导致分栏手柄无法拖动，调布局前先确认尺寸约束。"
+  ],
+  "bestFor": "需要 IDE 式可停靠面板的编辑器工具、模拟经营或策略游戏 UI，并接受读源码补文档的团队，且界面面板数量较多。",
+  "avoidWhenZh": "只需要固定布局，或要求开箱即用的完整 UI 框架的项目，自己实现反而更省事。",
+  "compareTips": {
+    "vs": [
+      "SpyrexDE__SmoothScroll"
+    ],
+    "whenZh": "两者都在 UI 层：dockable-container 解决面板停靠与分栏，SmoothScroll 解决滚动阻尼与回弹；功能互补，常在同一复杂界面里一起用，可按缺失的是布局能力还是滚动手感来选择。"
+  },
+  "category": "ui",
+  "tags": [
+    "停靠面板",
+    "分栏布局",
+    "Tab容器",
+    "编辑器UI"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "isGDExtension": false,
+  "evidence": [
+    {
+      "claim": "布局用二叉树 Resource 保存分栏与标签状态",
+      "source": "README.md",
+      "quote": "It is composed of a Container script and layout Resources in a binary tree"
+    },
+    {
+      "claim": "子控件只做视觉移动，NodePath 保持不变",
+      "source": "README.md",
+      "quote": "Child Controls are only moved visually and have their NodePaths and position in"
+    },
+    {
+      "claim": "标签图标与文档仍在待办",
+      "source": "README.md",
+      "quote": "- Add way to specify icon and custom name for tabs, based on a property or method on children"
+    },
+    {
+      "claim": "仅 Godot 4 分支可用",
+      "source": "README.md",
+      "quote": "This branch is only usable with Godot 4.X."
+    },
+    {
+      "claim": "插件版本 1.1.2",
+      "source": "addons/dockable_container/plugin.cfg",
+      "quote": "version=\"1.1.2\""
+    }
+  ]
+}

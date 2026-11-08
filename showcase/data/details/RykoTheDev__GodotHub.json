@@ -1,0 +1,153 @@
+{
+  "id": "RykoTheDev__GodotHub",
+  "depth": "standard",
+  "taglineZh": "管理本地 Godot 项目、版本与导出构建的桌面客户端",
+  "summaryZh": "GodotHub 是一个独立的桌面应用，把 Godot 项目的日常管理搬出编辑器：可以从模板新建项目、导入本地工程或直接克隆 Git 仓库，并为每个项目绑定 Godot 版本，一键启动编辑器或运行游戏。它还能列出导出预设并直接产出发布包、把导出日志流式显示在控制台、检查资源库是否有新版本、跑无头测试与查看项目统计。界面类似 Unity Hub 与 GitHub Desktop 的结合体，适合同时维护多个项目的开发者，但它不是 Godot 插件，无法在编辑器内使用。",
+  "whatItDoes": "以桌面客户端形式集中管理 Godot 项目的创建、克隆、版本绑定、启动运行、导出构建与资源库版本检查。",
+  "useCases": [
+    {
+      "titleZh": "多项目切换",
+      "descZh": "同时维护几个 Godot 项目时，在列表里按最近使用或收藏排序，双击即可用绑定的版本打开。"
+    },
+    {
+      "titleZh": "多引擎版本",
+      "descZh": "老项目锁在旧引擎、新项目用新版本时，为每个项目单独绑定可执行文件，避免手动换版本。"
+    },
+    {
+      "titleZh": "一键式导出",
+      "descZh": "直接在客户端里选导出预设并生成发布包，构建日志实时显示在面板上，省去记命令行参数。"
+    },
+    {
+      "titleZh": "克隆仓库试用",
+      "descZh": "看到想试的 GitHub 项目时直接克隆并导入，自动识别版本要求，省去手动下载与解压的步骤。"
+    },
+    {
+      "titleZh": "项目健康检查",
+      "descZh": "查看项目统计、跑无头测试与检查资源库更新，把日常维护工作集中在一个面板里完成。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "项目库面板",
+      "descZh": "以卡片或列表管理本地项目，显示版本、路径、最近打开时间与收藏状态等信息。"
+    },
+    {
+      "titleZh": "版本绑定与启动",
+      "descZh": "为每个项目记录绑定的 Godot 可执行文件路径，一键打开编辑器或直接运行游戏。"
+    },
+    {
+      "titleZh": "导出与日志控制台",
+      "descZh": "读取项目的导出预设并触发构建，把构建日志实时输出到内置的控制台面板。"
+    },
+    {
+      "titleZh": "仓库克隆与模板",
+      "descZh": "从 Git 地址克隆工程或按模板新建项目，导入时自动补齐名称、版本等项目元数据。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Project Library",
+      "descZh": "集中列出本地项目，支持搜索、排序、收藏与拖拽整理等多种管理方式。"
+    },
+    {
+      "name": "Version Binding",
+      "descZh": "每个项目可绑定不同 Godot 版本，启动时自动使用对应可执行文件。"
+    },
+    {
+      "name": "One-click Export",
+      "descZh": "读取导出预设并生成发布包，把构建日志实时输出到内置控制台。"
+    },
+    {
+      "name": "Git Clone",
+      "descZh": "粘贴仓库地址即可克隆并导入项目，省去手动下载与解压的步骤。"
+    },
+    {
+      "name": "Headless Tests",
+      "descZh": "可在客户端内直接跑 GUT 或 gdUnit4 测试，不用再切换到终端命令行。"
+    }
+  ],
+  "limitsZh": "它是外部桌面工具而不是编辑器插件，项目打开后仍要回到 Godot 里工作，资产管理、场景编辑等能力一概没有。功能依赖项目的 project.godot 与导出预设结构，工程配置不规范时识别会失败。跨平台安装包需要按系统选择，自动更新与版本发现依赖网络，离线环境体验打折。项目数量很多时列表与统计的加载会变慢。文档与社区规模有限，遇到平台相关问题主要靠 issue，且不同系统的路径处理偶有差异。",
+  "workflowZh": [
+    {
+      "stepZh": "从发布页下载对应系统的 GodotHub 安装包"
+    },
+    {
+      "stepZh": "首次启动时设置 Godot 可执行文件路径"
+    },
+    {
+      "stepZh": "导入现有工程或从内置模板新建项目"
+    },
+    {
+      "stepZh": "为每个项目绑定 Godot 版本并启动编辑器"
+    },
+    {
+      "stepZh": "配置导出预设后一键构建并生成发布包"
+    }
+  ],
+  "pros": [
+    "把项目列表、版本绑定、启动与导出集中到一个客户端，多项目维护更省心。",
+    "支持直接克隆 Git 仓库并按模板新建项目，试用别人的工程很快。",
+    "导出日志实时显示，构建失败时不必再翻找整段命令行的输出。",
+    "可跑无头测试与检查资源库更新，日常维护不必在多个工具间来回切换。"
+  ],
+  "cons": [
+    "不是编辑器插件，无法在 Godot 内使用，资产与场景操作仍要回编辑器。",
+    "依赖规范的工程与导出预设，配置异常时识别可能失败。",
+    "离线或受限网络环境下，版本发现与更新检查功能会受限。",
+    "社区与文档规模小，平台差异问题主要靠自己排查。"
+  ],
+  "pitfalls": [
+    "首次没设置好 Godot 路径时项目打不开，先在设置里绑定可执行文件。",
+    "绑定版本与项目要求不一致会直接启动失败，导入后先核对版本号。",
+    "导出预设缺失时构建入口不可用，先在编辑器里创建预设再回来构建。"
+  ],
+  "bestFor": "同时维护多个 Godot 项目、需要快速切换引擎版本并集中做导出与测试的独立开发者或小团队日常使用。",
+  "avoidWhenZh": "只做一个项目、习惯在编辑器内完成全部操作，或不方便安装额外桌面软件的环境。",
+  "compareTips": {
+    "vs": [
+      "MakovWait__godots",
+      "eumario__godot-manager"
+    ],
+    "whenZh": "三者都是 Godot 版本与项目管理工具：Godots 更轻、主打版本下载与快速切换；godot-manager 偏命令行与脚本化；GodotHub 把克隆、导出与测试也放进图形客户端。要极简版本切换选 Godots，要一体化桌面面板选 GodotHub。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "项目管理",
+    "版本管理",
+    "导出构建",
+    "桌面客户端"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "支持新建、导入与克隆项目",
+      "source": "README.md",
+      "quote": "Create new projects from scratch or from templates, import existing ones from disk, or clone directly from a Git repo."
+    },
+    {
+      "claim": "可以用项目绑定的版本导出发布包",
+      "source": "README.md",
+      "quote": "Export a release build from any export preset with the project's bound Godot version."
+    },
+    {
+      "claim": "可以在客户端内跑无头测试",
+      "source": "README.md",
+      "quote": "Run GUT or gdUnit4 tests headless"
+    },
+    {
+      "claim": "会检查资源库是否有新版本",
+      "source": "README.md",
+      "quote": "Checks the Godot Asset Library for newer versions"
+    }
+  ]
+}

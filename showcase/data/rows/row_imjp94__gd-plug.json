@@ -1,0 +1,33 @@
+{
+  "id": "imjp94__gd-plug",
+  "descriptionZh": "单脚本 Godot 4 插件管理器，用 GDScript 清单锁定依赖版本并批量安装",
+  "category": "asset-pipeline",
+  "tags": [
+    "插件管理",
+    "依赖",
+    "命令行",
+    "版本锁定"
+  ],
+  "prosShort": [
+    "一份清单复现插件环境，团队上手也快。",
+    "版本冻结与并行安装，接入成本不高。",
+    "命令与限制文档齐全，后续扩展方便。"
+  ],
+  "consShort": [
+    "必须依赖 git 与命令行，团队要提前评估。",
+    "卸载不清理 autoload 引用，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "kibble-cabal__godot-rive",
+  "descriptionZh": "基于 rive-cpp 与 skia 的 Godot 4 GDExtension，加载 .riv 并支持状态机、多画板与输入事件",
+  "category": "ui",
+  "tags": [
+    "Rive",
+    "矢量动画",
+    "状态机",
+    "GDExtension",
+    "交互动效"
+  ],
+  "prosShort": [
+    "加载 .riv 与状态机，编辑器可预览",
+    "矢量动画缩放不糊，内存占用比序列帧省",
+    "支持输入事件与运行时状态切换"
+  ],
+  "consShort": [
+    "仍在 alpha 阶段，API 与行为可能变动",
+    "仅提供 macOS 二进制，其他需自编",
+    "依赖 skia 等子模块，构建链重，升级成本高"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

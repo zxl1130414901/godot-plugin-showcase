@@ -1,0 +1,34 @@
+{
+  "id": "3ddelano__epic-online-services-godot",
+  "descriptionZh": "把 Epic 在线服务封装进 Godot 4 的 GDExtension 与示例工程，整体接入成本不高。",
+  "category": "network",
+  "tags": [
+    "Epic",
+    "联机",
+    "成就",
+    "大厅",
+    "GDExtension"
+  ],
+  "prosShort": [
+    "高层 API 覆盖登录、成就与大厅",
+    "自带完整示例与专用服务器",
+    "跨平台发行配置有完整参考"
+  ],
+  "consShort": [
+    "必须持有 Epic 开发者账号与凭据",
+    "部分平台需自行编译原生共享库"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

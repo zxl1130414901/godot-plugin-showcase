@@ -1,0 +1,144 @@
+{
+  "id": "FlamxGames__godot-ai-assistant-hub",
+  "depth": "standard",
+  "taglineZh": "在 Godot 编辑器内嵌入可本地运行的 AI 助手",
+  "summaryZh": "它解决的是在 Godot 编辑器里频繁切换窗口问 AI 的问题：把聊天面板嵌到底部停靠区，接 Ollama、llama.cpp、Gemini、OpenRouter 等服务，并允许模型通过工具直接创建脚本、增删节点、改资源与读写文件。工具权限分 Allow、Ask、Hide 三档，还能按助手类型限制可访问的工具与文件。它不附带模型，本地运行要先装 Ollama 并下载模型。限制是除 Ollama 与 llama.cpp 外多数服务只支持聊天与 Quick Prompts，不提供工具调用。",
+  "whatItDoes": "编辑器内的 AI Hub 停靠面板，支持多助手类型、会话编辑、上下文占用指示与 IP 远程连接。工具面覆盖 Code（创建、追加、替换、删除、展示脚本）、Scene（创建场景、按类或场景加节点、改属性、信号与组）、Resource、File 与 Project 全局组。Quick Prompts 用 {CODE} 与 {CHAT} 占位符把编辑器选区与输入带入提示词。",
+  "useCases": [
+    {
+      "titleZh": "本地 AI 编码",
+      "descZh": "已经用 Ollama 跑本地模型，希望不离开编辑器就让助手改脚本与节点，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "团队共享算力",
+      "descZh": "团队只有一台强机器时，可通过 IP 配置让其他成员连到同一台 Ollama，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "限定范围助手",
+      "descZh": "按助手类型隐藏工具或限制文件，做成只改 UI 场景的专用助手，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "代码解释",
+      "descZh": "开启工具后助手能读当前场景与脚本，直接问这段逻辑做什么，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "AI 聊天面板",
+      "descZh": "底部 AI Hub 页签，支持多助手并行会话与历史编辑，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "编辑器工具集",
+      "descZh": "覆盖代码、场景、资源、文件与项目组的三十多个可授权工具，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "Quick Prompts",
+      "descZh": "预置提示按钮，用占位符把选中代码与聊天内容注入请求，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "三档权限",
+      "descZh": "Allow、Ask、Hide 控制每个工具，写操作默认走审批，参数集中在检查器面板。"
+    },
+    {
+      "name": "多服务商",
+      "descZh": "Ollama、llama.cpp、Gemini、OpenRouter、xAI 等可切换，调用方式简单不需要额外封装，后续修改起来也不费劲。"
+    },
+    {
+      "name": "助手类型",
+      "descZh": "不同助手可绑定不同模型、工具集与提示词，互不干扰，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "IP 远程",
+      "descZh": "本地模型也能填远程地址，把推理放到另一台机器，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "上下文提示",
+      "descZh": "面板显示上下文占用，并可设置上下文长度，避免超限，参数集中在检查器面板。"
+    }
+  ],
+  "limitsZh": "插件本身不带模型，本地使用要先装 Ollama 或 llama.cpp 并下载权重，首次配置有门槛。功能在服务商之间不一致：只有 Ollama 与 llama.cpp 支持工具调用，Gemini、Jan、OpenRouter、OpenWebUI 与 xAI 目前只有聊天和 Quick Prompts，写代码仍要手工粘贴。工具权限虽细，但默认给写操作加审批，批量修改时点击次数多。会话与提示词都保存在 addon 的 .tres 资源里，升级或重装要小心覆盖。README 很长且以英文为主，教程视频也偏英文，中文团队需要自行翻译关键步骤。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 Ollama 并下载至少一个支持工具的模型"
+    },
+    {
+      "stepZh": "把 ai_assistant_hub 目录复制到 addons 并重载项目"
+    },
+    {
+      "stepZh": "在项目设置启用插件并打开 AI Hub 页签"
+    },
+    {
+      "stepZh": "选择服务商与模型后新建一个助手类型"
+    },
+    {
+      "stepZh": "按需设置工具权限与 Quick Prompts 快捷提示"
+    }
+  ],
+  "pros": [
+    "聊天面板嵌在编辑器底部，改脚本与场景不必来回切窗口，团队新人照着示例就能上手。",
+    "工具权限分三档，写操作可逐次审批，也能按助手隐藏敏感工具。",
+    "同一面板管理多个助手类型与会话，本地与远程模型都能接。",
+    "Quick Prompts 支持选中代码注入，模型不支持工具时仍能提效，出现问题时也更容易定位原因。"
+  ],
+  "cons": [
+    "不附带模型，必须先自行部署 Ollama 或 llama.cpp，升级引擎版本时容易卡住。",
+    "多数第三方服务只支持聊天，工具调用仅 Ollama 与 llama.cpp 完整。",
+    "工具默认要审批，批量操作时交互成本高，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "模型不支持工具时看不到锤子图标，误以为插件没装好，上线前要专门过一遍。",
+    "把所有工具都开放会迅速吃满上下文，长会话更容易丢指令。",
+    "升级覆盖 addons 会重置助手 .tres 配置，改动前要备份，排查时需要多留一层日志。"
+  ],
+  "bestFor": "希望把本地大模型接进 Godot 编辑器、让 AI 直接改脚本与场景，并重视工具权限控制的独立开发者，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只使用云端聊天模型、不需要工具调用，或不愿维护本地模型服务时。",
+  "compareTips": {
+    "vs": [
+      "IvanMurzak__Godot-MCP"
+    ],
+    "whenZh": "两者都是编辑器内 AI：AI Assistant Hub 自带聊天面板，以 Ollama 等本地模型为主，工具权限细；Godot-MCP 把编辑器暴露给外部 MCP 客户端，强调结构化工具与运行时错误。要面板内聊天选前者，要接 Claude Code 选后者。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "AI助手",
+    "Ollama",
+    "编辑器插件",
+    "工具调用",
+    "本地模型"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "在 Godot 编辑器内使用 AI 助手",
+      "source": "addons/ai_assistant_hub/plugin.cfg",
+      "quote": "Embed AI assistants in Godot with the ability to modify code and scenes."
+    },
+    {
+      "claim": "Ollama 是唯一官方维护的服务商",
+      "source": "README.md",
+      "quote": "The only reason Ollama was selected as the \"officially maintained\" LLM provider is because its relative popularity, easy installation, and ease of use for non-advanced users."
+    },
+    {
+      "claim": "工具权限分 Allow、Ask、Hide 三档",
+      "source": "README.md",
+      "quote": "Assistants can have three levels of tool access: **Allow, Ask, and Hide.**"
+    },
+    {
+      "claim": "多数服务商不支持工具调用",
+      "source": "README.md",
+      "quote": "Missing features in LLM providers different to Ollama may be added by the community"
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "id": "crystal-bit__godot-game-template",
+  "depth": "standard",
+  "taglineZh": "带场景管理、设置菜单与存档骨架的 Godot 4 游戏模板",
+  "summaryZh": "crystal-bit 的 Godot Game Template 是一套偏工程化的起步骨架：内置场景管理器与过渡动画、可选的进度条、多线程加载、音效总线控制、设置菜单、存档系统与自动构建脚本。它把常见但重复的基础设施先搭好，新项目可以直接在菜单、场景切换与存档上继续写玩法，而不必每次重造。模板不绑定具体美术风格与玩法框架，界面朴素、改起来自由。仓库以 GDScript 为主，带文档站与示例关卡，适合中小团队快速启动，但需要自己补玩法层。",
+  "whatItDoes": "提供场景切换与加载、设置与音量控制、存档读写、输入提示与自动构建等基础系统，作为新 Godot 4 项目的起手骨架。",
+  "useCases": [
+    {
+      "titleZh": "Game Jam 起步",
+      "descZh": "时间有限时直接用现成的菜单、场景过渡与存档，把精力集中在核心玩法上，先做出可玩版本。"
+    },
+    {
+      "titleZh": "中小团队统一结构",
+      "descZh": "团队新项目都从同一骨架起步，目录与场景切换方式一致，换人维护时更容易接手，规范也更容易落地。"
+    },
+    {
+      "titleZh": "学习工程化组织",
+      "descZh": "想了解 Godot 项目如何划分 autoload、场景与资源时，它的目录与脚本组织可作为参照，不必再自己摸索目录分层。"
+    },
+    {
+      "titleZh": "需要多语言设置",
+      "descZh": "模板自带语言与音频设置菜单，做多语言小项目时可以直接接上翻译表与音量滑条。"
+    },
+    {
+      "titleZh": "桌面小游戏原型",
+      "descZh": "做短篇叙事或解谜原型时，用模板的过渡与存档把流程串起来，减少重复代码，把流程骨架先定下来。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "场景管理骨架",
+      "descZh": "带过渡动画与多线程加载的场景切换器，支持可选进度条并统一管理场景栈。"
+    },
+    {
+      "titleZh": "设置与存档系统",
+      "descZh": "音频总线、语言与显示设置菜单，加上可扩展的存档读写入口，改字段即可保存自定义数据。"
+    },
+    {
+      "titleZh": "自动构建脚本",
+      "descZh": "用脚本批量导出各平台版本，并在发布版自动移除调试快捷键与入口，减少手工重复导出。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Scene Manager",
+      "descZh": "统一处理场景切换、过渡动画与异步加载，避免每个关卡各写一套。"
+    },
+    {
+      "name": "Multithreaded Loading",
+      "descZh": "后台线程加载下一个场景，主线程继续显示过渡，减少卡顿，加载大场景时更平稳。"
+    },
+    {
+      "name": "Settings Menu",
+      "descZh": "内置音量、语言与显示设置界面，改配色与排版即可用，接上自己的选项也很快。"
+    },
+    {
+      "name": "Save System",
+      "descZh": "提供存档读写与槽位管理的基础实现，可按玩法扩展字段，槽位结构可按需调整。"
+    },
+    {
+      "name": "CI Export Scripts",
+      "descZh": "附带构建脚本，可批量导出并自动剔除发布版里的调试功能。"
+    }
+  ],
+  "limitsZh": "模板给的是骨架而不是完整游戏：玩家控制器、关卡内容、战斗与 UI 主题都要自己补，直接发布只剩一个能切场景的空壳。部分系统带较强的作者偏好，比如音频总线命名与设置项结构，团队若已有规范需要先改。多线程加载对资源组织有要求，场景里引用过多资源仍会阻塞。仓库更新节奏不快，Godot 大版本升级后要自己迁移 API。文档站覆盖主要模块，但示例较简单，复杂需求仍要读脚本。",
+  "workflowZh": [
+    {
+      "stepZh": "从 GitHub 克隆仓库或模板页下载压缩包"
+    },
+    {
+      "stepZh": "用 Godot 4 编辑器打开工程并检查版本号"
+    },
+    {
+      "stepZh": "运行示例关卡确认场景与设置可用"
+    },
+    {
+      "stepZh": "按项目需要改菜单、主题与存档字段"
+    },
+    {
+      "stepZh": "用附带的构建脚本导出目标平台版本"
+    }
+  ],
+  "pros": [
+    "场景切换、设置菜单与存档都已搭好，新项目能跳过大量重复基础设施。",
+    "目录与 autoload 划分清楚，团队接手或换人维护时理解成本低，规范也容易延续。",
+    "带多线程加载与构建脚本，原型到发布的基础流程都有覆盖。",
+    "不绑定美术风格与玩法，界面与逻辑都能按项目自由替换，换成自己的美术也方便。"
+  ],
+  "cons": [
+    "只是骨架，玩法、关卡与美术仍需从零开始，别期待开箱成游戏。",
+    "部分系统带作者偏好，已有规范的团队要花时间改造。",
+    "更新节奏偏慢，引擎大版本升级后可能需自行迁移 API。",
+    "示例较简单，复杂需求与边界行为要读脚本确认。"
+  ],
+  "pitfalls": [
+    "模板默认的 autoload 名称与现有工程冲突时要先重命名，否则启动报错。",
+    "多线程加载要求场景依赖精简，资源引用过多会退化成同步卡顿。",
+    "存档字段改动后旧档不兼容，上线前先加版本号与迁移逻辑。"
+  ],
+  "bestFor": "想快速启动 Godot 4 项目、需要现成场景管理与设置存档骨架的中小团队，及想少搭基础件的独立开发者。",
+  "avoidWhenZh": "已经有成熟的自研框架，或项目只需要单场景演示、不需要菜单与存档的极简原型。",
+  "compareTips": {
+    "vs": [
+      "Maaack__Godot-Game-Template",
+      "bitbrain__godot-gamejam"
+    ],
+    "whenZh": "三者都是起步模板：Maaack 模板偏菜单与 UI 流程，带完整的主菜单与暂停界面；GameJam 模板更轻，专注快速出原型；crystal-bit 这套在场景管理、存档与构建上更工程化。要菜单体验选 Maaack，要最短启动选 GameJam。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "项目模板",
+    "场景管理",
+    "存档系统",
+    "设置菜单",
+    "自动构建"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "项目定位是通用起步模板",
+      "source": "README.md",
+      "quote": "a simple generic starter project for Godot games"
+    },
+    {
+      "claim": "场景管理带过渡与可选进度条",
+      "source": "README.md",
+      "quote": "Scene management with transitions and optional progress bar"
+    },
+    {
+      "claim": "支持多线程场景加载",
+      "source": "README.md",
+      "quote": "Multithreaded scene loading"
+    },
+    {
+      "claim": "发布版会自动移除快捷键",
+      "source": "README.md",
+      "quote": "Automatic shortcuts removal for release builds"
+    },
+    {
+      "claim": "核心插件描述包含场景管理器与工具",
+      "source": "addons/ggt-core/plugin.cfg",
+      "quote": "Scene manager with transitions, multithread loader and other core utilities."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "cherriesandmochi__gdmaim",
+  "descriptionZh": "导出阶段混淆全部 GDScript 的插件，可重命名标识符、压缩语句并生成 source map，用于提高逆向与改包的门槛。",
+  "category": "platform-export",
+  "tags": [
+    "代码混淆",
+    "导出",
+    "安全",
+    "GDScript",
+    "发布"
+  ],
+  "prosShort": [
+    "导出时处理，源码目录完全不动",
+    "混淆项可分级开关，便于试错",
+    "带 source map 能把报错回查到源码"
+  ],
+  "consShort": [
+    "只提高门槛，挡不住有决心的逆向",
+    "要求 4.5 以上，版本升级受绑定",
+    "巨大资源会让导出长时间卡住"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

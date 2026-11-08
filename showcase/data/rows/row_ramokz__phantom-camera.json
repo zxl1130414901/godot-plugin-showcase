@@ -1,0 +1,35 @@
+{
+  "id": "ramokz__phantom-camera",
+  "descriptionZh": "Cinemachine 风格的相机插件，提供优先级切换、跟随模式、死区、过渡与第三人称弹簧臂。",
+  "category": "ui",
+  "tags": [
+    "相机",
+    "Cinemachine",
+    "过场",
+    "第三人称",
+    "GDScript"
+  ],
+  "prosShort": [
+    "多机位切换与过渡开箱可用",
+    "跟随模式覆盖 2D 与 3D 常见需求",
+    "兼顾 GDScript 与 C# 两套脚本调用方式"
+  ],
+  "consShort": [
+    "仍属 0.x，接口在小版本间变动",
+    "参数组合敏感，调手感要反复试",
+    "缺少一键预设，新手容易试错"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,147 @@
+{
+  "id": "quaadgras__graphics.gd",
+  "taglineZh": "用 Go 语言写 Godot 游戏并复用其编辑器与生态",
+  "summaryZh": "graphics.gd 把 Godot 4 的类库与运行时映射到 Go，提供从窗口、输入、渲染到场景管理的完整绑定，并附带 gd 命令行工具直接跑 Go 项目。它比 GDScript 快，支持把着色器也用 Go 写，还能交叉编译到桌面、移动与 Web，不需要 Android SDK 或 Xcode。代价是版本跟进紧、API 仍在演进，构建链比脚本项目重，团队要接受 Go 的工程习惯。它把引擎当成 Go 的一个图形运行时，而不是在 Go 里调用 GDScript。",
+  "whatItDoes": "生成 Godot 类库的 Go 绑定，提供启动器、强类型节点 API 与 gd 构建命令，把 Go 程序编译成可被引擎加载的扩展。",
+  "useCases": [
+    {
+      "titleZh": "统一客户端语言",
+      "descZh": "团队已有 Go 后端与工具链，想复用同一语言写客户端逻辑，用这套绑定少维护一门语言。"
+    },
+    {
+      "titleZh": "大规模实体模拟",
+      "descZh": "性能敏感的大量实体模拟，用 Go 编译成原生库，比 GDScript 循环更稳，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "多平台交叉编译",
+      "descZh": "需要从任意主机交叉编译 Android 或 iOS 包，用命令行一次产出多平台二进制，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "强类型着色器",
+      "descZh": "把着色器逻辑也用 Go 组织，配合强类型 API 减少运行时类型错误，对独立开发者尤其友好且后续扩展方便。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Go 运行时绑定",
+      "descZh": "把 Godot 类库生成为 Go 包，提供场景、节点、渲染与输入的强类型接口，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "gd 命令行",
+      "descZh": "跨平台构建工具，创建 graphics 目录、运行项目并调用编辑器，兼容现有 .gd 工程，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "跨平台产物",
+      "descZh": "编译成共享库或静态二进制，可直接随 Godot 项目导出到桌面、移动与 Web，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "强类型 API",
+      "descZh": "RID、Callable 与字典都有具体类型，编译期就能发现参数不匹配，参数集中在检查器面板。"
+    },
+    {
+      "name": "Go 写着色器",
+      "descZh": "用 Go 组织着色器参数与逻辑，避免字符串拼错的运行时错误。"
+    },
+    {
+      "name": "gd 工具链",
+      "descZh": "安装后即可 gd run、gd test，并在项目里生成可被编辑器管理的资源目录。"
+    },
+    {
+      "name": "交叉编译",
+      "descZh": "在任意主机产出 Windows、macOS、Android、Linux 与 Web 的构建，后续修改起来也不费劲。"
+    },
+    {
+      "name": "完整文档",
+      "descZh": "pkg.go.dev 上有全部 API 参考，示例代码统一使用 Go 写法，在编辑器里就能完成配置。"
+    }
+  ],
+  "limitsZh": "API 紧跟 Godot 主线，README 标注 4.7.2，引擎版本变动时接口会跟着改，升级前要看迁移说明。项目需要 Go 工具链与 CGO，首次构建要下载模块并编译大量包，冷启动时间远长于脚本项目。调试仍要回 Godot 编辑器或 Delve，断点与热重载体验不如 GDScript。社区规模小，遇到问题主要靠文档与讨论区，第三方插件大多只提供 GDScript 接口。交叉编译到移动端需要额外配置签名与依赖，Web 产物的体积也偏大。绑定覆盖全类库，但新引擎特性上线有滞后。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 Go 并执行 go install graphics.gd/cmd/gd@release，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在项目里用 gd 初始化 graphics 目录，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "写 main.go 并调用 startup 初始化场景树，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "用 classdb 包创建节点并连接信号，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "用 gd run 启动项目并在编辑器调资源"
+    },
+    {
+      "stepZh": "按目标平台交叉编译并随项目导出"
+    }
+  ],
+  "pros": [
+    "Go 的编译期类型检查能挡掉不少脚本运行时错误，团队新人照着示例就能上手。",
+    "比 GDScript 快，重逻辑与大量实体模拟更稳，出现问题时也更容易定位原因。",
+    "一条命令交叉编译多平台，移动端不需要额外 SDK，对中小团队的时间成本很友好。",
+    "API 参考完整，示例统一，学习路径清晰，长期维护与升级的压力都比较小。",
+    "能复用 Go 生态的库与工具，后端与客户端语言统一，实际项目落地时省下大量重复工作。"
+  ],
+  "cons": [
+    "必须搭 Go 工具链，首次构建慢且依赖 CGO，升级引擎版本时容易卡住。",
+    "API 随引擎主线演进，升级时需要改代码，定制之前往往要先读源码。",
+    "社区与第三方插件生态远小于 GDScript，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "引擎小版本升级后绑定未更新，编译会报符号缺失，先对齐 README 标注的版本。",
+    "忘记把 graphics 资源目录纳入版本控制，编辑器里改的场景会丢失。",
+    "在 Windows 上交叉编译 iOS 需要额外签名配置，直接构建会卡在证书步骤。"
+  ],
+  "bestFor": "团队以 Go 为主、需要原生性能与多平台交叉编译，并愿意跟随引擎主线升级的 Godot 4 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只想快速做玩法原型，或高度依赖 GDScript 插件生态的团队，Go 的构建链会拖慢迭代。",
+  "compareTips": {
+    "vs": [
+      "godot-go__godot-go"
+    ],
+    "whenZh": "两者都让 Go 写 Godot：graphics.gd 覆盖 4.x 全类库并自带 gd 构建工具，godot-go 更早、偏底层绑定与实验性。要完整工作流与文档选 graphics.gd，要研究绑定实现或维护旧项目再看 godot-go。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "Go",
+    "语言绑定",
+    "GDExtension",
+    "跨平台编译"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "面向 Go 的跨平台图形运行时",
+      "source": "Readme.md",
+      "quote": "suitable for building native mobile apps"
+    },
+    {
+      "claim": "构建 Android 不需要 Java 与 SDK",
+      "source": "Readme.md",
+      "quote": "Neither Java, nor an Android SDK/NDK is needed to build Android apps"
+    },
+    {
+      "claim": "并非简单的一对一封装",
+      "source": "Readme.md",
+      "quote": "Not just a 1:1 wrapper for gdextension!"
+    },
+    {
+      "claim": "提供可替换 go 的 gd 命令",
+      "source": "Readme.md",
+      "quote": "The module includes a drop-in replacement for the go command called `gd`"
+    }
+  ],
+  "depth": "standard"
+}

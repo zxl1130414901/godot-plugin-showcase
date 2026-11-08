@@ -1,0 +1,167 @@
+{
+  "id": "GodotVR__godot_openvr",
+  "depth": "standard",
+  "taglineZh": "为 Godot 4 接入 SteamVR 头显与控制器的 OpenVR GDExtension 插件",
+  "summaryZh": "这是 GodotVR 组织维护的 OpenVR GDExtension，让 Godot 4 通过 SteamVR 驱动头显、控制器与基站。插件注册名为 OpenVR 的 XR 接口，提供 XR 相机、控制器轨迹、骨骼与叠加层容器，并改用 OpenVR Actions 系统映射按键与摇杆。仓库不含预编译库，需要初始化 godot-cpp 与 OpenVR 子模块后用 SCons 编译，或下载 CI 产物。Linux 需把 SteamVR 库加入路径，macOS 构建尚未恢复，整体偏硬核。",
+  "whatItDoes": "插件在 demo/addons/godot-openvr 下提供运行时库与编辑器、导出插件：运行时向 XRServer 注册 OpenVR 接口，创建头显与控制器节点，并通过 action 映射读取输入；编辑器插件提供动作配置与项目设置，导出插件把 openvr_api 库随包部署。示例场景展示第一人称控制器、传送与叠加层，可作为改造起点。",
+  "useCases": [
+    {
+      "titleZh": "SteamVR 项目",
+      "descZh": "目标平台是 SteamVR 头显，需要原生 OpenVR 接口而不是 OpenXR 兼容层，直接用官方接口更稳，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "街机与展会",
+      "descZh": "需要叠加层或与 SteamVR 运行时深度集成的线下 VR 体验，插件提供 overlay 支持，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "输入映射",
+      "descZh": "项目要用 OpenVR Actions 管理多套控制器按键，插件提供编辑器配置与动作清单，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "源码定制",
+      "descZh": "需要改渲染或输入细节，可直接改 C++ 并重新编译扩展，调试路径透明，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "XR 接口",
+      "descZh": "向 XRServer 注册 OpenVR，初始化后把头显姿态接入 Godot 渲染，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "控制器与骨骼",
+      "descZh": "提供控制器节点与 OpenVRSkeleton，支持手部或道具骨骼，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "叠加层容器",
+      "descZh": "Overlay 相关节点用于在 SteamVR 中显示额外画面或信息，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "编辑器与导出插件",
+      "descZh": "配置动作并处理 openvr_api 库的随包部署，减少手工拷贝，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "OpenVR Actions",
+      "descZh": "按键与摇杆走动作系统，可在编辑器里配置多套绑定，参数集中在检查器面板。"
+    },
+    {
+      "name": "预编译可选",
+      "descZh": "可从 CI 产物取包，免去本地编译，但仅含发布构建，后续修改起来也不费劲。"
+    },
+    {
+      "name": "骨骼支持",
+      "descZh": "OpenVRSkeleton 读取手部或控制器骨骼，便于做手势与道具挂点，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "叠加层",
+      "descZh": "支持 SteamVR overlay，可在 VR 界面外显示信息，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "完整示例",
+      "descZh": "演示场景含第一人称控制器与传送，可直接运行观察效果，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "构建链偏重：要拉取 godot-cpp 与 OpenVR 两个子模块，先编译 godot-cpp 再编译扩展，Windows 还要装 SDK 与运行库。仓库没有提交二进制，README 只提供 CI 产物作为免编译路径，且不含调试构建。Linux 下 SteamVR 库不会自动进 LD_LIBRARY_PATH，脱离 Steam 启动会加载失败；macOS 支持在 OpenVR 2.0 后仍未恢复。OpenVR Actions 与旧输入方式互斥，迁移要重做绑定；部分场景还有着色器预编译卡顿，需要按文档加缓存场景。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆仓库并初始化子模块，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "先编译 godot-cpp 绑定，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "用 SCons 编译扩展，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "把生成的 addons 目录拷入项目，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在项目设置启用 OpenVR 插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在根节点初始化 XR 接口，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "配置动作映射与控制器，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "导出时确认 openvr_api 随包，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "直接对接 SteamVR 运行时，不需要经过 OpenXR 兼容层，团队新人照着示例就能上手。",
+    "提供骨骼、叠加层与动作系统，功能覆盖较全，出现问题时也更容易定位原因。",
+    "示例场景完整，能跑起来对照改，对中小团队的时间成本很友好。",
+    "开源可改，遇到渲染或输入问题能直接动 C++，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "必须自行编译，工具链与子模块门槛高，升级引擎版本时容易卡住。",
+    "macOS 不支持，Linux 运行环境还需额外配置，定制之前往往要先读源码。",
+    "Actions 迁移会破坏旧输入绑定，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "没先把 SteamVR 库加入 LD_LIBRARY_PATH，Linux 下会加载失败，上线前要专门过一遍。",
+    "用 mingw 编译未打头文件补丁，运行时会与 SteamVR 通信失败，排查时需要多留一层日志。",
+    "传送时着色器未预编译会卡顿，需挂上缓存场景，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "目标平台为 SteamVR、需要原生 OpenVR 接口与骨骼、叠加层能力，并具备 C++ 构建能力的 VR 团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "希望用 OpenXR 跨平台统一接口，或没有 C++ 编译与 SteamVR 调试环境的团队。",
+  "compareTips": {
+    "vs": [
+      "GodotVR__godot-xr-tools"
+    ],
+    "whenZh": "两者同属 GodotVR 生态：godot_openvr 提供底层 OpenVR 驱动，xr-tools 提供移动、抓取等 XR 交互工具；通常先装前者跑通设备，再用后者补交互，按当前缺驱动还是缺玩法选择。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "VR",
+    "SteamVR",
+    "OpenVR",
+    "XR接口"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "isGDExtension": true,
+  "evidence": [
+    {
+      "claim": "以 GDExtension 形式为 Godot 添加 OpenVR 支持",
+      "source": "README.md",
+      "quote": "This is a GDExtension based plugin that adds OpenVR support to Godot."
+    },
+    {
+      "claim": "使用 OpenVR Actions 输入系统",
+      "source": "README.md",
+      "quote": "this version of the OpenVR plugin now uses the OpenVR actions system."
+    },
+    {
+      "claim": "需要 SCons 编译子模块",
+      "source": "README.md",
+      "quote": "SCons is used for compiling this module."
+    },
+    {
+      "claim": "发布时必须随包携带 openvr_api 库",
+      "source": "README.md",
+      "quote": "The finished GDExtension must be shipped with Valve's `openvr_api.dll`"
+    },
+    {
+      "claim": "macOS 支持尚未恢复",
+      "source": "README.md",
+      "quote": "MacOS support in OpenVR was dropped by Valve for a long time. While it appears it has recently made a return without much fanfare in OpenVR 2.0, support has not yet been returned to our build."
+    },
+    {
+      "claim": "最低兼容 Godot 4.1",
+      "source": "demo/addons/godot-openvr/godot_openvr.gdextension",
+      "quote": "compatibility_minimum = 4.1"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "godot-nim__gdext-nim",
+  "descriptionZh": "把 Godot 4 的 GDExtension 接口映射到 Nim，并提供 gdextwiz 脚手架与测试工程的扩展开发库",
+  "category": "editor-tool",
+  "tags": [
+    "Nim",
+    "GDExtension",
+    "语言绑定",
+    "热重载"
+  ],
+  "prosShort": [
+    "引擎 API 与扩展类映射较完整",
+    "自带脚手架与测试工程，上手较快",
+    "支持热重载，减少重启编辑器"
+  ],
+  "consShort": [
+    "Nim 生态较小，可查资料相对少",
+    "需另装 Nim 与 C 编译工具链，团队成本高",
+    "文档以在线站点为主，离线不便"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

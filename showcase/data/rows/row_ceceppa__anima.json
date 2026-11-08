@@ -1,0 +1,35 @@
+{
+  "id": "ceceppa__anima",
+  "descriptionZh": "用类 CSS 链式语法为 Control 节点制作 UI 动画的轻量插件，整体接入成本不高。",
+  "category": "ui",
+  "tags": [
+    "UI动画",
+    "缓动",
+    "Tween",
+    "菜单",
+    "GDScript"
+  ],
+  "prosShort": [
+    "类 CSS 语法几行就有动画，团队上手也快。",
+    "89 种预设与 33 种缓动，接入成本不高。",
+    "支持序列并行与分组编排，后续扩展方便。"
+  ],
+  "consShort": [
+    "主要面向 Control 节点，团队要提前评估。",
+    "缺少动画状态管理，规模化后更明显。",
+    "复杂时间轴能力有限，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

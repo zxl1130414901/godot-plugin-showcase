@@ -1,0 +1,152 @@
+{
+  "taglineZh": "把 LDtk 关卡文件导入成 Godot 4 场景与 TileSet 的插件",
+  "summaryZh": "LDtk 是常见的 2D 关卡编辑器，这个插件让 Godot 4 直接打开 .ldtk 文件：导入时按 World、Level、Layer、Tileset 与 Entity 逐层解析，生成 LDTKWorld、LDTKLevel 与 TileMap 节点，实体变成 LDTKEntity 占位节点，字段按类型转成 Godot 值。它还提供分世界层、翻转瓦片、外部关卡、Tile 自定义数据与四类导入后脚本等选项，重新导入会保留你在生成 TileSet 上做的碰撞与法线修改。",
+  "whatItDoes": "导入器读取 LDtk 的 JSON，按 worldLayout 与 worldDepth 生成世界结构，为 Tiles、IntGrid 与 AutoLayer 生成 TileMap，为每个 Tileset 生成 Atlas 与 TileSet。关卡与实体字段解析成 Godot 类型，EntityRef 通过 unresolved_references 延后解析。导入后脚本可在 Tileset、EntityLayer、Level 与 World 四个粒度接管，配合 update_instance_reference 与 add_unresolved_reference 处理跨关卡引用。",
+  "useCases": [
+    {
+      "titleZh": "2D 关卡迭代",
+      "descZh": "平台游戏与银河城用 LDtk 画关卡，导入后直接得到可运行的 TileMap 场景，不必手抄坐标与拼贴。"
+    },
+    {
+      "titleZh": "美术与程序分工",
+      "descZh": "关卡设计师单独用 LDtk 迭代，程序只需重新导入，导入后对 TileSet 做的碰撞与法线修改会被保留。"
+    },
+    {
+      "titleZh": "实体摆放",
+      "descZh": "在 LDtk 里摆敌人与机关，导入后用占位节点或导入后脚本替换成项目自己的场景与逻辑。"
+    },
+    {
+      "titleZh": "分层大世界",
+      "descZh": "项目按 worldDepth 组织关卡时，开启分世界层选项，节点结构会自动按深度分组，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "像素风素材",
+      "descZh": "像素素材需要关过滤并用法线贴图时，可把图集类型改成 CanvasTexture 以保留法线信息，在这类项目里能省下不少重复劳动。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "世界与关卡场景",
+      "descZh": "按 LDtk 世界结构生成的场景树，含关卡背景、分层节点与可独立打开的单关卡场景。"
+    },
+    {
+      "titleZh": "TileSet 与图集",
+      "descZh": "从 LDtk Tileset 生成 Atlas 与 TileSet，支持翻转瓦片、自定义数据与不同网格尺寸，按 Tileset 分开生成。"
+    },
+    {
+      "titleZh": "占位实体节点",
+      "descZh": "LDTKEntity 节点保留实体定义与字段，供导入后脚本替换成真正的游戏对象与逻辑。"
+    },
+    {
+      "titleZh": "导入后脚本示例",
+      "descZh": "examples/post-import-examples 下的脚本演示生成灯光与按关卡开关节点等定制用法，可直接对照改。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "分世界层",
+      "descZh": "按 worldDepth 把关卡归组到 LDTKWorldLayer，大世界的层级结构不用手工整理，层级也更清楚。"
+    },
+    {
+      "name": "翻转瓦片",
+      "descZh": "显式支持 LDtk 的翻转标记，斜向与镜像拼贴不会错位，拼图结果更接近原作。"
+    },
+    {
+      "name": "可编辑 TileSet",
+      "descZh": "生成的 TileSet 可继续在编辑器里加物理层，重新导入会保留这些改动。"
+    },
+    {
+      "name": "四类导入后钩子",
+      "descZh": "Tileset、EntityLayer、Level 与 World 四级都能挂脚本，覆盖绝大多数定制需求，不用改导入器源码。"
+    },
+    {
+      "name": "外部关卡",
+      "descZh": "支持 LDtk 的外部关卡文件，大项目可以拆分保存而不是维护一个巨文件。"
+    }
+  ],
+  "limitsZh": "插件面向 Godot 4.1 以上与 LDtk 1.4.1，两个工具升级后字段或 API 变化都可能让导入器跟不上。EntityRef 的解析作者自己说还需要更多测试，跨关卡引用这类复杂结构容易出问题。同一张 .ldtk 里若有多个 Tileset 且网格尺寸差异很大，TileMap 生成会受 Godot 节点结构限制。文档以 README 与 docs/classes.md 为主，缺少面向复杂项目的迁移指南与性能说明。",
+  "workflowZh": [
+    {
+      "stepZh": "下载 release 并把 ldtk-importer 解压到工程的 addons 目录。"
+    },
+    {
+      "stepZh": "在项目设置的插件面板启用 LDTK 插件。"
+    },
+    {
+      "stepZh": "把 .ldtk 文件拖进工程并在 Import 面板调整选项。"
+    },
+    {
+      "stepZh": "按需为 Tileset、Entity 与 Level 指定导入后脚本名称。"
+    },
+    {
+      "stepZh": "重新导入后检查场景结构，必要时在生成的 TileSet 上补碰撞。"
+    }
+  ],
+  "pros": [
+    "从 LDtk 到可运行场景基本一步到位，TileMap、TileSet 与实体占位都自动生成。",
+    "导入后对 TileSet 的修改会被保留，碰撞与法线不必每次重新配置。",
+    "四类导入后脚本给了足够的定制空间，复杂项目也能接自己的节点体系。",
+    "README 把导入选项、字段映射与常见问题写得很细，排查时有据可依。"
+  ],
+  "cons": [
+    "绑定 Godot 4.1 与 LDtk 1.4.1，两边升级都可能需要等适配",
+    "EntityRef 等复杂引用作者自己承认仍需更多测试，跨关卡尤其如此",
+    "以 README 与类文档为主，缺少迁移指南与性能说明，复杂项目要自己摸索"
+  ],
+  "pitfalls": [
+    "在编辑器里改了生成的 TileSet 又点 Force Tileset Reimport，修改会被覆盖，改前先导出备份。",
+    "像素素材忘记把图集类型改成 CanvasTexture，法线贴图不会生效，法线信息会丢。",
+    "跨关卡 EntityRef 在导入后脚本运行前是未解析状态，直接取节点会拿到空值。"
+  ],
+  "bestFor": "用 LDtk 做 2D 关卡设计、希望在 Godot 内保留手工 TileSet 修改并接自定义实体逻辑的小团队，且愿意跟着两个工具的版本节奏走。",
+  "avoidWhenZh": "关卡已经在 Godot 内直接搭建，或需要导入 Tiled 等其他格式的地图时。",
+  "compareTips": {
+    "vs": [
+      "V-Sekai__unidot_importer"
+    ],
+    "whenZh": "两者都是外部格式导入器：ldtk-importer 把 LDtk 关卡转成 TileMap 场景与占位实体，unidot_importer 把 Unity 资源转进 Godot。前者服务 2D 关卡的日常迭代，后者服务整项目迁移，按来源格式选即可。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "LDtk",
+    "关卡导入",
+    "TileMap",
+    "2D",
+    "资源管线"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4 与 LDtk 1.4.1 的导入插件",
+      "source": "README.md",
+      "quote": "![](https://img.shields.io/badge/Godot-4.1%2B-%20?logo=godotengine&color=%23478CBF) ![](https://img.shields.io/badge/LDtk%201.4.1-%20?color=%23FFCC00)"
+    },
+    {
+      "claim": "把 .ldtk 导入为场景并支持外部关卡",
+      "source": "README.md",
+      "quote": "Imports '.ldtk' files as Scenes"
+    },
+    {
+      "claim": "生成的 TileSet 修改会在重新导入时保留",
+      "source": "README.md",
+      "quote": "Allows for further editing of TileSets in the Editor, preserving changes (Physics Layers, Render Layers, etc.)"
+    },
+    {
+      "claim": "EntityRef 解析仍需要更多测试",
+      "source": "README.md",
+      "quote": "This was quite tricky to get right, and still needs some testing!"
+    }
+  ],
+  "id": "heygleeson__godot-ldtk-importer",
+  "depth": "standard"
+}

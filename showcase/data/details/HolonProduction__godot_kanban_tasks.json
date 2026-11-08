@@ -1,0 +1,152 @@
+{
+  "taglineZh": "在 Godot 编辑器里管理待办看板，也能单独运行的轻量工具",
+  "summaryZh": "Kanban Tasks 是一个给独立开发者用的极简看板应用，既可以作为 Godot 编辑器插件，也能作为独立程序运行，两个版本共用同一套代码。任务有标题与详细描述，按可自定义的阶段列摆放，用拖放改变状态，支持分类、常用操作快捷键，并适配浅色与深色编辑器主题。插件的数据存在工程的 res://kanban_tasks_data.kanban 里，与具体看板无关的设置写进编辑器设置，README 也提醒要定期备份这个文件。",
+  "whatItDoes": "插件在编辑器里加一个看板面板，从 kanban_tasks_data.kanban 读取任务并渲染成卡片列，拖放卡片即改阶段，常用操作有快捷键。阶段名称与顺序、分类都在设置界面里编辑，独立版通过 inject.gd 把同一套界面注入另一个宿主，打包脚本负责生成带 license 的压缩包。编辑器与独立版共享数据格式，所以功能只需要实现一次。",
+  "useCases": [
+    {
+      "titleZh": "个人待办",
+      "descZh": "独立开发者把美术、代码与发布待办混在一个看板里，任务描述能写验收条件，比另开一套工具省事。"
+    },
+    {
+      "titleZh": "跟着工程提交",
+      "descZh": "想把待办与代码一起版本化时，看板数据就在 res:// 下，随 Git 走，换机器打开工程就能接着做。"
+    },
+    {
+      "titleZh": "小团队分工",
+      "descZh": "两人以内的小团队用分类区分模块，用阶段列表示进度，不必再接 Jira 之类的在线服务。"
+    },
+    {
+      "titleZh": "独立运行",
+      "descZh": "不想在工程里塞编辑器插件时，可装 standalone 版当桌面待办应用，读写仍是同一份看板数据。"
+    },
+    {
+      "titleZh": "浅色主题环境",
+      "descZh": "编辑器用浅色主题的项目常被插件花屏困扰，这个看板专门适配了浅色主题，长时间看不刺眼。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "编辑器看板面板",
+      "descZh": "停靠在编辑器里的看板，卡片按阶段列排列，可直接拖放调整状态与顺序。"
+    },
+    {
+      "titleZh": "独立桌面版",
+      "descZh": "与插件共用代码的独立应用，适合不在编辑器里也想随时查看任务的人。"
+    },
+    {
+      "titleZh": "看板数据文件",
+      "descZh": "res://kanban_tasks_data.kanban 是唯一数据源，随工程一起提交、备份与迁移，换机器打开即可继续。"
+    },
+    {
+      "titleZh": "打包脚本",
+      "descZh": "build_logic/bundle.gd 生成带 license 的发布压缩包，但只在 Linux 上受支持，Windows 用户要自己处理打包。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "拖放操作",
+      "descZh": "卡片在列之间拖动即改阶段，不需要填表单或点菜单，改状态几乎零操作成本。"
+    },
+    {
+      "name": "自定义阶段",
+      "descZh": "阶段列的名称与顺序可在设置里调整，适配个人流程而不是固定模板。"
+    },
+    {
+      "name": "分类",
+      "descZh": "用分类把任务归到模块或客户，配合筛选快速找到当前要做的部分。"
+    },
+    {
+      "name": "快捷键",
+      "descZh": "常用操作都有快捷键，添加、移动与完成任务不用离开键盘，能明显减少鼠标操作。"
+    },
+    {
+      "name": "主题适配",
+      "descZh": "显式适配浅色编辑器主题，深色与浅色下卡片边界都清晰可辨。"
+    }
+  ],
+  "limitsZh": "功能刻意保持极简：没有到期提醒、甘特图、多人协作与权限，任务也没有附件与评论，团队规模一大就不够用。README 提到发布打包脚本仅在 Linux 上受支持，Windows 用户要自己处理打包流程。数据存在工程 res:// 下的单一文件，多分支并行时容易冲突，协作场景需要额外约定。插件在 Godot 3.x 与 4.x 分成两个 AssetLib 条目，升级引擎需要换装对应版本。",
+  "workflowZh": [
+    {
+      "stepZh": "从 Asset Store 安装插件并在项目设置里启用。"
+    },
+    {
+      "stepZh": "打开看板面板，按自己的流程重命名阶段列。"
+    },
+    {
+      "stepZh": "新建分类并把任务按模块归类，筛选时只看当前模块。"
+    },
+    {
+      "stepZh": "拖动卡片推进状态，用快捷键添加新任务。"
+    },
+    {
+      "stepZh": "定期备份 res://kanban_tasks_data.kanban，或直接提交到 Git 随分支管理。"
+    }
+  ],
+  "pros": [
+    "看板就住在编辑器里，写代码时顺手改任务状态，不用在两个窗口之间来回切换。",
+    "拖放与快捷键都很直接，学习成本几乎为零，装上就能开始记任务。",
+    "数据以单个文件放在工程内，随 Git 提交，换机器与备份都很简单。",
+    "浅色主题也做了适配，长期盯着的编辑器不会因为看板刺眼而分心。"
+  ],
+  "cons": [
+    "功能极简，没有提醒、报表与多人协作，团队人数一多就不够用",
+    "数据是单一文件，多分支并行容易冲突，协作时要额外约定",
+    "打包脚本只支持 Linux，Windows 用户发版要多做一步打包流程"
+  ],
+  "pitfalls": [
+    "看板数据在 res:// 下，误删文件会丢掉全部任务，换分支前先确认已提交。",
+    "多人同时改同一分支的 kanban 文件，合并冲突基本只能手工挑拣。",
+    "3.x 与 4.x 是两个独立 AssetLib 条目，装错版本插件面板不会出现。"
+  ],
+  "bestFor": "一个人或两人的小团队，想把待办与工程放在一起、又不想引入外部项目管理服务、追求低切换成本的开发者。",
+  "avoidWhenZh": "需要多人协作、权限管理与进度报表，或团队已在用 Jira 等外部工具时。",
+  "compareTips": {
+    "vs": [
+      "chun92__card-framework"
+    ],
+    "whenZh": "两者名字都涉及 card 但用途无关：card-framework 是卡牌游戏的牌组与效果框架，kanban_tasks 是开发任务看板。搜索插件时容易混淆，按用途区分即可，不存在替代关系。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "看板",
+    "任务管理",
+    "编辑器插件",
+    "待办",
+    "独立应用"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "既可作编辑器插件也可作独立应用",
+      "source": "README.md",
+      "quote": "Kanban Tasks - Todo Manager is a minimalistic kanban board application aimed at solo developers. It is available as addon for the Godot Engine or as standalone application."
+    },
+    {
+      "claim": "看板数据存放在工程内单一文件",
+      "source": "README.md",
+      "quote": "When using the editor plugin your board data can be found under `res://kanban_tasks_data.kanban`."
+    },
+    {
+      "claim": "打包脚本只支持 Linux",
+      "source": "README.md",
+      "quote": "The build script is only supported on linux."
+    },
+    {
+      "claim": "插件版本为 v2.3.0",
+      "source": "addons/kanban_tasks/plugin.cfg",
+      "quote": "version=\"v2.3.0\""
+    }
+  ],
+  "id": "HolonProduction__godot_kanban_tasks",
+  "depth": "standard"
+}

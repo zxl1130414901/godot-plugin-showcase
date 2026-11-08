@@ -1,0 +1,33 @@
+{
+  "id": "jitspoe__godot-console",
+  "descriptionZh": "游戏内开发者控制台 addon，支持命令注册变量补全与持久化，整体接入成本不高。",
+  "category": "debug-perf",
+  "tags": [
+    "控制台",
+    "调试",
+    "命令",
+    "变量"
+  ],
+  "prosShort": [
+    "一行注册命令接入成本很低",
+    "cvar 支持持久化与属性引用，团队上手也快。",
+    "单文件 addon 无第三方依赖，接入成本不高。"
+  ],
+  "consShort": [
+    "内置命令只有退出，团队要提前评估。",
+    "界面朴素无远程与日志落盘"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

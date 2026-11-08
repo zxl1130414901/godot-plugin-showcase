@@ -1,0 +1,167 @@
+{
+  "id": "limbonaut__limboai",
+  "depth": "standard",
+  "taglineZh": "把行为树与层级状态机合进 Godot 4 的 C++ 插件，带可视化调试器",
+  "summaryZh": "LimboAI 用 C++ 写成 GDExtension，同时提供行为树与层级状态机两套结构，可以在同一份 AI 里混用：状态机管高层阶段，行为树管阶段内的具体决策。任务、条件与状态都能用 GDScript 继承扩展，所以策划与程序不必碰 C++。它带行为树编辑器、内置类文档、可视化调试器与完整示例工程，黑板支持变量计划、作用域与参数绑定，可在不同代理之间共享数据。相比纯脚本方案，它把遍历与黑板访问放在原生层，单位多时更稳。代价是安装要匹配 Godot 版本并处理预编译库，模块方式还要编引擎。",
+  "whatItDoes": "提供 BehaviorTree 资源与 BTPlayer 节点，树由复合、装饰、条件与动作任务嵌套组成，可在编辑器里新建与保存。LimboState 与 LimboHSM 构成层级状态机，转移由事件触发，状态机本身也能嵌套。Blackboard 支持变量计划、作用域与参数绑定，任务可导出以 var 结尾的变量并绑定到黑板。BTSubtree 允许引用另一份树文件，便于拆分与复用。可视化调试器挂在运行中的场景上查看执行路径，BehaviorTreeView 可在游戏内显示树结构。",
+  "useCases": [
+    {
+      "titleZh": "阶段加行为的敌人 AI",
+      "descZh": "用状态机管巡逻、战斗与逃跑阶段，每个阶段内部再跑一棵行为树，改阶段逻辑与改具体动作互不干扰。"
+    },
+    {
+      "titleZh": "任务拆分与复用",
+      "descZh": "把通用子树抽成独立资源，用 BTSubtree 在多棵树里引用，避免每份 AI 都复制同一段判定与动作，通用子树改一处即可全局生效。"
+    },
+    {
+      "titleZh": "共享黑板数据",
+      "descZh": "多个代理通过黑板作用域共享目标与被发现位置，让小队成员不各自扫描，减少重复计算，但要注意作用域层级。"
+    },
+    {
+      "titleZh": "调试复杂行为",
+      "descZh": "AI 行为不符预期时，用可视化调试器看当前执行节点与黑板取值，定位是条件写错还是任务没返回。"
+    },
+    {
+      "titleZh": "游戏内行为展示",
+      "descZh": "用 BehaviorTreeView 在调试面板或开发者模式里显示 AI 当前分支，方便测试人员直接描述问题，不必记节点路径。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "行为树资源",
+      "descZh": "可在编辑器里新建、保存与复用的 BehaviorTree 资源，含任务层级、黑板变量计划与参数默认值，便于按代理分类组织。"
+    },
+    {
+      "titleZh": "层级状态机",
+      "descZh": "由 LimboHSM 与 LimboState 组成的嵌套状态网络，转移绑定事件，可逐层组织高层与细分状态，也可用事件触发跨层转移。"
+    },
+    {
+      "titleZh": "自定义任务与状态脚本",
+      "descZh": "继承 BTAction、BTCondition、BTDecorator、BTComposite 或 LimboState 写出的 GDScript 脚本，继承核心任务类即可接入树，状态脚本还能重写进入与退出回调。"
+    },
+    {
+      "titleZh": "调试可视化",
+      "descZh": "运行中查看树执行路径的调试器界面，以及可嵌进游戏的 BehaviorTreeView 节点，用于游戏内工具面板，可选择只显示。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "BTPlayer",
+      "descZh": "在场景里执行 BehaviorTree 资源的节点，负责按帧推进并暴露黑板与运行状态，黑板数据也由它统一转发。"
+    },
+    {
+      "name": "LimboHSM / LimboState",
+      "descZh": "层级状态机与状态基类，转移由事件触发，状态机自身可嵌套形成分层结构。"
+    },
+    {
+      "name": "Blackboard Scopes",
+      "descZh": "黑板作用域隔离变量命名，并支持在多个代理之间共享同一份数据，避免多单位命名互相打架。"
+    },
+    {
+      "name": "BTSubtree",
+      "descZh": "引用另一份树文件作为子树执行，把通用行为抽出来复用，拆分后单棵树更容易读懂。"
+    },
+    {
+      "name": "Visual Debugger",
+      "descZh": "在运行中的场景里检查任意树的执行路径与黑板取值，便于定位卡住的分支。"
+    }
+  ],
+  "limitsZh": "安装门槛不低：GDExtension 版本要与引擎版本对应，仓库声明支持 4.6 以上，模块方式则要按表匹配 4.7 并自行编译；gdextension 文件的最低兼容写的是 4.2，但实际可用版本仍以发布说明为准。预编译库覆盖的桌面与移动平台有限，主机平台与特殊架构需要自己编。C++ 实现带来性能优势，也意味着出问题时排查链路更长，除错要靠调试器与日志而不是改脚本。黑板作用域与参数绑定概念多，新团队容易把变量放错层导致取不到值。可视化调试器只在编辑器内工作，线上环境看不到执行路径。层级状态机与行为树都能表达同一套逻辑，缺少约定的团队容易两种写法混用。",
+  "workflowZh": [
+    {
+      "stepZh": "按引擎版本下载预编译包，或自行编译 GDExtension"
+    },
+    {
+      "stepZh": "把 addons/limboai 放进项目并在设置里启用，先从小型示例树开始"
+    },
+    {
+      "stepZh": "新建 BehaviorTree 资源，排出任务层级，避免运行时才发现类型不符"
+    },
+    {
+      "stepZh": "用黑板计划声明变量并绑定到任务参数"
+    },
+    {
+      "stepZh": "需要高层切换时接入 LimboHSM 状态机，转移用事件驱动"
+    },
+    {
+      "stepZh": "用可视化调试器验证执行路径与转移"
+    }
+  ],
+  "pros": [
+    "行为树与层级状态机可以混用，高层阶段与细节决策各归各的结构，复杂 AI 更好拆。",
+    "核心逻辑在 C++ 层运行，单位数量多时遍历与黑板访问的开销比纯脚本方案更可控。",
+    "任务、条件与状态都能用 GDScript 扩展，玩法侧不必为了改行为去碰原生代码，也不必为了调整行为去重编译。",
+    "带编辑器、类文档、示例工程与调试器，从入门到排障都有对应材料，示例还附完整教程。"
+  ],
+  "cons": [
+    "安装要匹配引擎版本，模块方式还得自己编，跨版本升级成本明显。",
+    "黑板作用域、变量计划与参数绑定概念多，初学阶段容易放错层。",
+    "调试器只在编辑器内可用，导出后的运行环境缺少同等观测手段。"
+  ],
+  "pitfalls": [
+    "GDExtension 版本与引擎小版本不一致时，插件会直接加载失败，报错信息却指向入口符号。",
+    "把黑板变量放在错误作用域，任务读到的永远是默认值，表现像条件永远不成立。",
+    "行为树与状态机同时驱动同一份移动逻辑，会互相覆盖目标位置，先划分清楚职责再接入。"
+  ],
+  "bestFor": "敌人类型多、AI 需要分层管理，并且愿意为原生扩展付出安装成本的 3D 或 2D 项目团队，并有人能处理版本升级时的库匹配问题。",
+  "avoidWhenZh": "只有少量简单敌人，或项目要求零编译依赖、必须一条命令装完时，纯脚本方案更合适。",
+  "compareTips": {
+    "vs": [
+      "bitbrain__beehave",
+      "derkork__godot-statecharts",
+      "kagenash1__godot-behavior-tree"
+    ],
+    "whenZh": "Beehave 全 GDScript、装在场景树里，上手快但性能一般；statecharts 专注状态图，适合流程型逻辑。需要行为树加层级状态机、并且在意大量单位的开销选 LimboAI，轻量原型选 Beehave。kagenash1 更轻但功能与维护有限。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "行为树",
+    "状态机",
+    "AI",
+    "C++",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "用 C++ 实现并同时提供行为树与状态机",
+      "source": "README.md",
+      "quote": "is an open-source C++ plugin for"
+    },
+    {
+      "claim": "自带编辑器、文档与可视化调试器",
+      "source": "README.md",
+      "quote": "It comes with a behavior tree editor, built-in documentation, visual debugger"
+    },
+    {
+      "claim": "C++ 实现同时支持 GDScript 扩展任务与状态",
+      "source": "README.md",
+      "quote": "While it is implemented in C++, it fully supports GDScript for"
+    },
+    {
+      "claim": "可继承核心类写自定义任务",
+      "source": "README.md",
+      "quote": "extending core classes: `BTAction`, `BTCondition`, `BTDecorator`, and `BTComposite`"
+    },
+    {
+      "claim": "黑板作用域避免命名冲突",
+      "source": "README.md",
+      "quote": "Blackboard scopes: Prevent name conflicts"
+    },
+    {
+      "claim": "GDExtension 最低兼容 Godot 4.2",
+      "source": "gdextension/limboai.gdextension",
+      "quote": "compatibility_minimum = \"4.2\""
+    }
+  ]
+}

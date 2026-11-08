@@ -1,0 +1,14 @@
+{
+  "id": "RandallLiuXin__GodotMaker",
+  "descriptionZh": "面向 Godot 的自主 text-to-game 流水线，用多个 AI 代理从构想跑到可玩工程，代码留在本地归你。",
+  "category": "ai-gen",
+  "tags": ["AI生成", "text-to-game", "代理", "Claude Code", "Codex", "流水线"],
+  "prosShort": ["从构想到可玩工程全自动推进，省去搭建", "角色与钩子明文可改，能换成自己的标准", "产出落在本地，代码与素材都能继续开发"],
+  "consShort": ["需 Python 与编码代理，环境配置门槛偏高", "长跑耗 token 且可能卡住，仍要人工介入", "许可证标注不明确，商用前需自行核实"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 4, "maintenance": 4, "performance": 3, "stability": 3},
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,145 @@
+{
+  "id": "SproutyLabs__SproutyDialogs",
+  "depth": "standard",
+  "taglineZh": "节点图式可视化对话编辑器，为 Godot 4.5 提供完整叙事工作流",
+  "summaryZh": "Sprouty Dialogs 是一个基于节点图的对话系统插件，目标是在不必自建对话框架的前提下，用可视化、可定制、可扩展的方式编写游戏对话。它提供图形化编辑器搭建分支，内置文本编辑器以 BBCode 排版，另有角色编辑器管理人物与立绘。对话支持变量与条件分支、信号触发、自定义事件节点，也能用 tres 或 CSV 文件做本地化并在编辑器内直接编辑。做好后可以直接在编辑器里预览对话。插件用 GDScript 编写，要求 Godot 4.5 以上，文档托管在独立站点并附类参考。",
+  "whatItDoes": "把对话的编写、角色管理、排版与本地化收进一套编辑器工具：在节点图里搭分支，用带标签的文本编辑器写对白，再通过变量、信号与自定义事件把对话接进游戏逻辑，并支持在编辑器内预览。",
+  "useCases": [
+    {
+      "titleZh": "分支剧情与多结局",
+      "descZh": "在节点图里把对话拆成多个分支，用变量判断条件走向不同结局，改剧情时直接拖动节点调整结构。"
+    },
+    {
+      "titleZh": "角色立绘与对白管理",
+      "descZh": "用角色编辑器维护人物与立绘，对白里引用角色即可切换头像与名字，不必在每个场景重复配置。"
+    },
+    {
+      "titleZh": "多语言本地化",
+      "descZh": "对话文本可存为 tres 或 CSV 并接入翻译，编辑器内就能改译文，省去导出与来回导入的流程。"
+    },
+    {
+      "titleZh": "事件与玩法联动",
+      "descZh": "在对话节点上发出信号或调用自定义事件，触发任务、开商店或播放演出，叙事与玩法自然衔接。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "节点图对话编辑器",
+      "descZh": "在插件提供的图形界面里搭建对话流程，节点之间用连线表示跳转，结构一眼可见。"
+    },
+    {
+      "titleZh": "带排版能力的文本编辑器",
+      "descZh": "内置编辑器支持 BBCode 标签，可控制字体、颜色与打字速度，写对白不必手写标记。"
+    },
+    {
+      "titleZh": "角色与本地化资源",
+      "descZh": "角色编辑器管理人物与立绘，译文可用资源文件或表格导入，并在编辑器内直接校对。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "可视化分支",
+      "descZh": "节点图把选项与跳转画成连线，改剧情结构时拖节点即可，不必翻脚本。"
+    },
+    {
+      "name": "变量与条件",
+      "descZh": "对话可读取游戏变量做条件分支，也能在对话中解析变量显示数值与名字。"
+    },
+    {
+      "name": "自定义事件节点",
+      "descZh": "可以按项目需要扩展事件节点，把对话与任务、商店或演出系统接起来。"
+    },
+    {
+      "name": "编辑器内预览",
+      "descZh": "不用运行游戏就能在编辑器里预览对话走向，调台词与分支时反馈更快。"
+    },
+    {
+      "name": "多语言支持",
+      "descZh": "用资源文件或 CSV 管理译文，编辑器内即可编辑，导出前统一校对。"
+    }
+  ],
+  "limitsZh": "插件要求 Godot 4.5 以上，旧版本工程无法安装；作者说明只以 GDScript 编写与测试，没有验证过 C#，用 C# 的项目可能遇到类型与信号对接问题。对话运行时依赖插件提供的节点与类，替换或移除插件要同步改场景与脚本。路线图里角色节点、随机节点、播放音效与分支节点仍未完成，打字音效、节点分组与无头对话类也在计划中，说明功能边界仍会变化。文档主要在独立站点，仓库 README 只做功能概览。作为编辑器扩展，它与引擎的检查器与图形编辑 API 绑定，升级大版本前要先确认兼容。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 或发布页获取插件并拷入工程"
+    },
+    {
+      "stepZh": "在项目设置的插件页里找到并启用 Sprouty Dialogs"
+    },
+    {
+      "stepZh": "新建对话资源，在节点图里搭出分支与选项"
+    },
+    {
+      "stepZh": "在角色编辑器里建立人物与立绘对应关系"
+    },
+    {
+      "stepZh": "在编辑器里预览对话，确认分支与变量判断"
+    }
+  ],
+  "pros": [
+    "可视化节点图降低分支剧情的设计门槛，策划也能直接改结构。",
+    "文本、角色与本地化工具集中在一处，叙事资源不必分散维护。",
+    "支持变量、信号与自定义事件，对话能与任务、商店等玩法系统联动。",
+    "编辑器内可预览对话，调台词与分支的反馈很快，省去反复运行游戏。",
+    "文档有独立站点与完整类参考，MIT 许可可商用，也方便按项目二次扩展。"
+  ],
+  "cons": [
+    "要求 Godot 4.5 以上，停留在旧版本的项目无法直接使用。",
+    "只以 GDScript 编写测试，C# 项目可能遇到类型与信号对接问题。",
+    "路线图仍有节点与功能未完成，能力边界会随版本变化。"
+  ],
+  "pitfalls": [
+    "替换或移除插件后场景里的对话节点会失效，迁移前先备份工程。",
+    "对话引用变量名拼错时分支会静默走默认路径，先在预览里核对。",
+    "自定义事件节点升级后接口可能变化，重装插件前先看更新说明。"
+  ],
+  "bestFor": "需要为叙事向游戏搭建对话与分支、希望用可视化节点图而不是手写脚本的 Godot 4.5 独立开发者与小团队。",
+  "avoidWhenZh": "对话量极少、只想要一段线性文本，或项目必须停留在 Godot 4.4 及更早版本时，引入整套插件并不划算。",
+  "compareTips": {
+    "vs": [
+      "rakugoteam__VisualNovelKit"
+    ],
+    "whenZh": "两者都能承载视觉小说式对话：VisualNovelKit 走 Ren'Py 式文本脚本与整套界面模板，适合编剧主导的线性叙事；Sprouty Dialogs 走节点图与编辑器工具，适合程序与策划共同搭分支。偏好写文本选前者，偏好可视化分支选后者。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "对话系统",
+    "节点图",
+    "可视化编辑",
+    "多语言",
+    "剧情分支"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "插件以节点图方式制作对话",
+      "source": "README.md",
+      "quote": "A graph-based visual dialogue system plugin for Godot, to create dialogues in your games incredibly easy!"
+    },
+    {
+      "claim": "要求 Godot 4.5 或更高版本",
+      "source": "README.md",
+      "quote": "Sprouty Dialogs requires **Godot 4.5 or higher!**"
+    },
+    {
+      "claim": "支持变量、信号、自定义事件与翻译",
+      "source": "README.md",
+      "quote": "**Variables support** for conditional branching ... **Custom event nodes support** ... **Translations support** using `.tres` files or CSV files"
+    },
+    {
+      "claim": "可在编辑器内预览对话",
+      "source": "README.md",
+      "quote": "**Preview your dialogues** directly in the editor!"
+    }
+  ]
+}

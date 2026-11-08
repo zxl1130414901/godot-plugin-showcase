@@ -1,0 +1,34 @@
+{
+  "id": "cashew-olddew__Universal-Transition-Shader",
+  "descriptionZh": "用单个 CanvasItem 着色器通过 progress 参数驱动擦除、溶解、光圈与淡入淡出等多种转场，可直接挂到任意节点上。",
+  "category": "3d-shader",
+  "tags": [
+    "着色器",
+    "转场",
+    "UI动画",
+    "2D"
+  ],
+  "prosShort": [
+    "一个着色器文件覆盖大部分常用转场",
+    "改一个进度参数就能播放整段转场",
+    "文档里给出大量可直接照抄的参数配方"
+  ],
+  "consShort": [
+    "只做画面遮罩，场景加载仍要自己写",
+    "缺少粒子、液体与三维翻页等过渡",
+    "效果全靠手调参数，没有预设面板"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

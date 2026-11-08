@@ -1,0 +1,34 @@
+{
+  "id": "nathanhoad__godot_puzzle_dependencies",
+  "descriptionZh": "在 Godot 编辑器内创建谜题依赖图的插件，用 Board 与 Thing 梳理道具与事件的前置关系",
+  "category": "editor-tool",
+  "tags": [
+    "谜题设计",
+    "依赖图",
+    "冒险游戏",
+    "编辑器插件"
+  ],
+  "prosShort": [
+    "依赖图直接放进项目，便于评审",
+    "支持多 Board 与自定义类型颜色",
+    "接入原生撤销重做，操作可回退"
+  ],
+  "consShort": [
+    "只做可视化，不与游戏逻辑联动",
+    "无导出格式，分享只能靠截图",
+    "多人编辑同一张图容易冲突"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

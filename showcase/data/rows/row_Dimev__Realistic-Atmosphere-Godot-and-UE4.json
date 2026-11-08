@@ -1,0 +1,34 @@
+{
+  "id": "Dimev__Realistic-Atmosphere-Godot-and-UE4",
+  "descriptionZh": "用立方体网格加材质实现的写实大气着色器，含瑞利米氏散射、行星半径与步进参数，附 Godot 与 UE4 版本",
+  "category": "3d-shader",
+  "tags": [
+    "大气散射",
+    "天空着色器",
+    "行星",
+    "写实渲染"
+  ],
+  "prosShort": [
+    "瑞利米氏散射，天空观感自然",
+    "行星尺度、散射与色调参数齐全",
+    "附演示工程与可借用的地形着色器"
+  ],
+  "consShort": [
+    "单文件着色器，没有插件化安装流程",
+    "光线步进开销偏高，低端设备比较吃力",
+    "不含云层、天气与昼夜循环逻辑"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 2,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

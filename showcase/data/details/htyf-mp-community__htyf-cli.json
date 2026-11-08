@@ -1,0 +1,139 @@
+{
+  "id": "htyf-mp-community__htyf-cli",
+  "depth": "standard",
+  "taglineZh": "为小程序与云服宿主打包 Godot 内容的 Node 命令行工具",
+  "summaryZh": "HTYF CLI 是红糖云服配套的 Node 命令行工具，负责项目初始化、资源打包、真机调试、清理与依赖同步。它不只支持 React Native 与 Taro，还能用 --template game 生成 Godot 游戏模板，并在 build 时通过 --godot-bin、--godot-project、--godot-preset 指定引擎与导出预设，产出可上传的小程序资源包，debug 则启动常驻的真机调试服务。适合要把 Godot 内容搬上小程序或云服宿主的人。限制是它依赖云服生态、宿主版本被锁定，Godot 只是其中一条模板，且仓库几乎不解释平台侧细节。",
+  "whatItDoes": "init 生成项目骨架，build 按版本与平台输出资源包，debug 启动调试服务，sync-deps 把项目依赖对齐到 CLI 配套版本，clean 删除当前目标产物。自动化场景加 --non-interactive，可用 --project 指定目标。Godot 模板额外接受引擎路径、项目目录与导出预设参数。",
+  "useCases": [
+    {
+      "titleZh": "Godot 上小程序平台",
+      "descZh": "用 game 模板生成工程，构建时指定引擎路径与导出预设，产出小程序宿主可直接加载的资源包。"
+    },
+    {
+      "titleZh": "云服宿主版本对齐",
+      "descZh": "用 sync-deps 把项目依赖同步到 CLI 配套版本，避免宿主与资源版本错位导致运行失败或白屏。"
+    },
+    {
+      "titleZh": "真机联调",
+      "descZh": "启动 debug 服务后，在手机上连接真机验证资源加载与运行表现，改动后立刻能看到效果。"
+    },
+    {
+      "titleZh": "批量自动化构建",
+      "descZh": "在 CI 里用非交互命令按版本与平台批量出包，省去人工点菜单，也便于接入自动发布流程。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可上传的资源包",
+      "descZh": "按平台与版本构建，产出小程序宿主可加载的资源包，目录结构由模板决定。"
+    },
+    {
+      "titleZh": "多模板工程骨架",
+      "descZh": "RN、Godot 与 Taro 三类模板可按目标平台选择，初始化时一次生成完整工程骨架。"
+    },
+    {
+      "titleZh": "对齐后的依赖清单",
+      "descZh": "sync-deps 会把项目依赖同步到 CLI 的配套版本，减少升级与更换宿主时的兼容问题。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "init",
+      "descZh": "按模板生成项目，支持非交互模式与自定义名称、显示名，CI 里也能用。"
+    },
+    {
+      "name": "build",
+      "descZh": "按版本与平台构建资源包，Godot 模板还能指定引擎与导出预设。"
+    },
+    {
+      "name": "debug",
+      "descZh": "启动常驻真机调试服务，手机上实时联调资源加载与运行表现。"
+    },
+    {
+      "name": "sync-deps",
+      "descZh": "同步依赖到配套版本，减少宿主与资源之间的不兼容问题，升级前先跑一次。"
+    },
+    {
+      "name": "Godot 模板",
+      "descZh": "用 --template game 生成 Godot 游戏工程骨架，省去手写配置文件与目录结构。"
+    }
+  ],
+  "limitsZh": "它是围绕红糖云服宿主的工具链，离开该平台的构建与分发流程就用不上；README 明确当前主分支适配固定宿主版本，CLI、RN 模板与 Taro 模板要一起更新，版本错位会导致资源不兼容。Godot 只是三种模板之一，文档对 Godot 的具体导出预设、平台 API 限制几乎没有展开，遇到问题要读源码或找平台支持。使用需要 Node、pnpm 与网络拉包，首次构建还必须提供版本号；真机调试要服务常驻，CI 里只能做构建不能调试。",
+  "workflowZh": [
+    {
+      "stepZh": "用 npx 运行 CLI 并查看当前版本的帮助"
+    },
+    {
+      "stepZh": "init 选择 game 模板，并填写项目名称与显示名"
+    },
+    {
+      "stepZh": "安装依赖之后，用 sync-deps 对齐到配套版本"
+    },
+    {
+      "stepZh": "build 指定版本号与目标平台，产出资源包"
+    },
+    {
+      "stepZh": "debug 启动调试服务，在手机上验证效果"
+    }
+  ],
+  "pros": [
+    "把初始化、构建、调试、清理与依赖同步收进一个 CLI，操作集中，切换步骤也少",
+    "支持 Godot 模板，并接受引擎路径与导出预设参数，适配不同工程结构",
+    "提供非交互模式，便于接 CI 批量构建与自动发布流程，适合流水线作业",
+    "sync-deps 能把依赖对齐到宿主配套版本，减少版本错位带来的兼容问题",
+    "命令表简洁，常用操作一眼能找到，新人上手的学习成本比较低"
+  ],
+  "cons": [
+    "绑定红糖云服生态，脱离该平台的构建与分发流程就用不上",
+    "宿主版本锁定，CLI、RN 模板与 Taro 模板需要一起升级，否则容易错位",
+    "Godot 平台适配细节文档几乎没有，遇到问题要读源码或找支持"
+  ],
+  "pitfalls": [
+    "宿主与模板版本错位时构建出的资源可能无法运行，先对齐版本",
+    "首次构建漏传版本号会直接失败，命令参数要照着帮助补齐",
+    "debug 服务退出后真机连接会断开，CI 里只能构建，联调仍需要人工参与"
+  ],
+  "bestFor": "要把 Godot 内容发布到红糖云服小程序宿主、团队已有 Node 工具链，并接受平台与版本锁定的开发者与发行团队。",
+  "avoidWhenZh": "不做小程序发行，或希望完全掌控导出流程、自行维护平台适配的项目。",
+  "compareTips": {
+    "vs": [
+      "godothub__godot-minigame"
+    ],
+    "whenZh": "两者都面向小游戏发行：godot-minigame 是 Godot 内的微信小游戏导出插件，重点在模板与导出；htyf-cli 是云服宿主的外部命令行，重点在初始化与资源打包。目标微信选前者，目标红糖云服选后者。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "小程序",
+    "命令行工具",
+    "Godot模板",
+    "真机调试"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "红糖云服项目的初始化、打包、调试与依赖同步工具",
+      "source": "README.md",
+      "quote": "红糖云服项目的初始化、资源打包、真机调试、清理和依赖同步工具。"
+    },
+    {
+      "claim": "支持 Godot 模板并可指定引擎与导出预设",
+      "source": "README.md",
+      "quote": "Godot 支持 `--godot-bin`、`--godot-project` 和 `--godot-preset`"
+    },
+    {
+      "claim": "宿主版本被锁定，模板需同步更新",
+      "source": "README.md",
+      "quote": "当前主分支和模板适配 RN-0.86-2.3.0 宿主：React Native 0.88.1、React 19.3.1、Expo 58。"
+    }
+  ]
+}

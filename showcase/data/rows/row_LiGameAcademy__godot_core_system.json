@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "godot_core_system 是轻量 GDScript 基础系统合集，含场景切换、存档、输入与音频模块",
+  "prosShort": [
+    "常见底层需求都有现成实现",
+    "文档分系统且每篇带示例场景",
+    "模块可拆分接入不强制全套"
+  ],
+  "consShort": [
+    "只在 4.7.2 与 Windows 上验证，跨平台待测",
+    "版本号 0.0.1 接口仍在演进",
+    "存档依赖原生扩展导出多一步"
+  ],
+  "isGDExtension": true,
+  "id": "LiGameAcademy__godot_core_system",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "category": "state-logic",
+  "tags": [
+    "基础框架",
+    "存档",
+    "场景切换",
+    "输入重绑定",
+    "模块化"
+  ],
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

@@ -1,0 +1,67 @@
+{
+  "id": "godotjs__GodotJS",
+  "depth": "standard",
+  "taglineZh": "为 Godot 4 引入 TypeScript/JavaScript 脚本层，可切换 V8 或 QuickJS",
+  "summaryZh": "GodotJS 把 JavaScript 引擎嵌进 Godot 4，让 TypeScript 项目可以直接作为脚本运行。它实现了 ScriptLanguage 接口，注册之后 .ts 与 .js 文件能够像 GDScript 一样挂到节点上，并提供编辑器内 REPL、热重载以及 Chrome、VSCode 断点调试；V8、QuickJS、JavaScriptCore 和浏览器 JS 四种后端都能切换。它的主要限制是需要自行编译 C++ 模块，源码集成链路较重，README 也说明核心功能仍在测试阶段。",
+  "whatItDoes": "通过 ScriptLanguage 接口把 JS/TS 接入 Godot 4，.ts 文件可以直接作为脚本挂到节点并参与场景继承。提供编辑器内 REPL、热重载、用 Chrome 或 VSCode 断点调试，并可编译到 V8、QuickJS、JavaScriptCore 或宿主浏览器 JS 后端。",
+  "useCases": [
+    {"titleZh": "已有 TypeScript 代码库的团队", "descZh": "把现有 TS 工具链与类型定义带进 Godot，复用前端团队熟悉的写法、lint 规则与打包流程，减少重新学习 GDScript 的成本。"},
+    {"titleZh": "需要脚本热更新的迭代场景", "descZh": "改脚本后在编辑器里热重载，不用重启项目就能验证玩法数值与界面逻辑，适合频繁调参的原型阶段。"},
+    {"titleZh": "要做 Web 导出的轻量项目", "descZh": "Web 平台可选用浏览器自带的 JS 引擎，避免在页面里再塞一个 V8 带来的包体与内存负担。"},
+    {"titleZh": "工具链与编辑器扩展开发", "descZh": "在编辑器 REPL 里快速试 API 与类型定义，再用同一套语言编写停靠面板工具、导入脚本与批处理任务。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "TS 脚本节点", "descZh": "把 .ts 文件当 GDScript 一样挂到场景节点上，由 JS 运行时执行脚本逻辑与信号回调。"},
+    {"titleZh": "可切换的 JS 运行时", "descZh": "按目标平台编译出 V8 或 QuickJS 版本的扩展库，随项目一起导出，运行时不需要额外安装。"},
+    {"titleZh": "调试会话", "descZh": "配合 Chrome DevTools 或 VSCode 连接正在运行的游戏进程，逐步断点并查看调用栈与变量值。"}
+  ],
+  "featureCallouts": [
+    {"name": "ScriptLanguage 集成", "descZh": "注册后 .js 与 .ts 成为正式脚本语言，享受资源导入、节点挂载与场景继承。"},
+    {"name": "多引擎后端", "descZh": "V8、QuickJS、QuickJS-ng、JavaScriptCore 与宿主浏览器 JS 都可作为运行后端，Web 端还能借用浏览器自带引擎，切换后端时需重新编译。"},
+    {"name": "编辑器 REPL 与热重载", "descZh": "不重启编辑器即可执行代码片段，并重载改动过的脚本模块与依赖。"},
+    {"name": "远程调试", "descZh": "V8 后端下用 Chrome 或 VSCode 调试脚本，JavaScriptCore 后端下改用 Safari 远程调试，断点与调用栈直接在浏览器开发者工具里查看。"}
+  ],
+  "limitsZh": "必须自行编译 C++ 模块，按平台产出动态库，V8 版本对工具链与系统库要求较高；README 说明核心功能已经可用但仍在测试，Worker 线程与异步模块只提供有限支持。项目只面向 Godot 4.x，Godot 3 无法使用；切换 JS 引擎需要重新编译，Web 与非主流架构要额外验证。类型声明依赖生成流程，引擎升级后可能出现破坏性变更，需要预留适配时间。",
+  "workflowZh": [
+    {"stepZh": "准备 V8 或 QuickJS 依赖，并配置 SCons 与 C++ 构建环境"},
+    {"stepZh": "编译扩展库，把 addons 目录完整复制进项目"},
+    {"stepZh": "在项目设置中启用脚本语言，然后重启编辑器"},
+    {"stepZh": "编写 .ts 脚本，npm 安装类型后用 tsc 编译产物"},
+    {"stepZh": "通过 Chrome 或 VSCode 连接调试运行中的项目"}
+  ],
+  "pros": [
+    "ScriptLanguage 集成完整，TS 脚本能像 GDScript 一样挂节点并参与场景继承与信号连接",
+    "四种 JS 引擎都可切换，Web 端能用浏览器自带引擎，避免额外体积",
+    "自带热重载与编辑器 REPL，改脚本不必重启项目就能验证效果与数值调整",
+    "支持 Chrome 与 VSCode 断点调试，调试体验接近前端开发者的日常工作习惯",
+    "提供类型声明生成链路，TypeScript 项目可获得自动补全、跳转与基础静态检查"
+  ],
+  "cons": [
+    "需要自行编译 C++ 模块，跨平台打包与分发链路偏重",
+    "官方承认仍在测试阶段，API 与切换引擎可能带来破坏性变更",
+    "V8 编译对工具链与系统库要求高，新平台需要自行适配",
+    "Worker 线程与异步模块仅支持有限场景，复杂并发要谨慎"
+  ],
+  "pitfalls": [
+    "升级 Godot 版本后必须重新生成绑定并重编译，否则脚本注册会失败",
+    "Web 导出选 V8 会让包体明显变大，优先考虑浏览器 JS 或 QuickJS 后端",
+    "热重载不会重置全部状态，改类结构后最好重启编辑器再验证"
+  ],
+  "bestFor": "已有 TypeScript 团队、希望用前端语言与工具链开发 Godot 4 项目，并能接受自行编译扩展与测试期风险的开发者。",
+  "avoidWhenZh": "只想要零编译、即装即用的脚本方案，或项目仍停留在 Godot 3、无法使用 4.x 扩展的情况。",
+  "compareTips": {
+    "vs": ["godot-go__godot-go"],
+    "whenZh": "两者都在给 Godot 换脚本语言：GodotJS 面向前端生态，自带调试、热重载与多引擎后端；godot-go 更偏实验性的 Go 绑定。团队写 TypeScript 选前者，必须调用 Go 库才考虑后者。"
+  },
+  "category": "visual-script",
+  "tags": ["TypeScript", "JavaScript", "脚本语言", "V8", "热重载"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 3, "maintenance": 4, "performance": 4, "stability": 3},
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {"claim": "支持多种 JS 引擎后端", "source": "README.md", "quote": "Support for multiple javascript engines ([v8](https://github.com/v8/v8), [quickjs](https://github.com/bellard/quickjs), [quickjs-ng](https://github.com/quickjs-ng/quickjs), [JavaScriptCore](https://developer.apple.com/documentation/javascriptcore), the host Browser JS)"},
+    {"claim": "官方说明核心功能仍在测试阶段", "source": "README.md", "quote": "The core functionality is implemented and essentially usable but still under testing."},
+    {"claim": "自带编辑器 REPL 与热重载", "source": "README.md", "quote": "REPL in Editor"}
+  ]
+}

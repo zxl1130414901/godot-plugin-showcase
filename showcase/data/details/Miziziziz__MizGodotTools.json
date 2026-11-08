@@ -1,0 +1,146 @@
+{
+  "id": "Miziziziz__MizGodotTools",
+  "depth": "standard",
+  "taglineZh": "作者自用代码合集：存档、场景切换、按键重绑与 NPC 视野",
+  "summaryZh": "MizGodotTools 不是一个包装完整的插件，而是作者在多个游戏里反复使用的代码与场景合集：存档与读档场景、带按键重绑的设置菜单、简易音频播放、场景切换、NPC 视野锥、摄像机跟随与若干着色器示例。每个功能都以独立场景或脚本给出，复制进项目后按自己的命名改一改就能用。它没有统一的插件入口与 API 文档，质量与完成度参差，更像一本可抄的代码笔记。适合已经能读 GDScript、想省下搭基础件时间的人。",
+  "whatItDoes": "把作者常用的存档、设置、场景切换、NPC 视野与摄像机等实现整理成独立脚本与示例场景，供直接复制改造。",
+  "useCases": [
+    {
+      "titleZh": "快速搭存档",
+      "descZh": "需要一个能存位置与进度的读档场景时，直接复制示例并按自己的存档字段改，字段结构可以按存档需求扩。"
+    },
+    {
+      "titleZh": "设置菜单起步",
+      "descZh": "按键重绑、音量与全屏开关都有现成场景，改布局就能直接接进自己的菜单流程，得到一套能用的设置页。"
+    },
+    {
+      "titleZh": "NPC 视野原型",
+      "descZh": "做潜行或巡逻 AI 时，用视野锥场景先跑通探测与警报，再替换成正式逻辑，先验证玩法再考虑性能。"
+    },
+    {
+      "titleZh": "抄写实现细节",
+      "descZh": "想参考 GDScript 怎么写摄像机跟随、场景切换或音频管理时，代码短小易读，读一遍就能明白大致思路。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "示例场景集",
+      "descZh": "存档、设置、视野与摄像机等独立场景，打开即可运行观察效果，功能之间互不依赖。"
+    },
+    {
+      "titleZh": "可复制脚本",
+      "descZh": "按功能拆分的 GDScript，复制进工程后改节点路径与字段即可用，按功能逐个搬进工程。"
+    },
+    {
+      "titleZh": "着色器小样",
+      "descZh": "若干 2D 与 3D 效果着色器，作为画面效果的起点使用，可当作着色器练习材料。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Save and Load Scenes",
+      "descZh": "提供读档与存档场景，演示位置、进度与设置的保存方式，改字段即可存自己的进度。"
+    },
+    {
+      "name": "Settings with Rebinding",
+      "descZh": "设置菜单含按键重绑、音量与显示选项，可直接改造成自己的界面。"
+    },
+    {
+      "name": "Scene Switching",
+      "descZh": "带过渡的场景切换脚本，替换场景时不必重写加载逻辑，过渡效果也可替换。"
+    },
+    {
+      "name": "NPC Vision",
+      "descZh": "视野锥示例覆盖探测范围、遮挡与警报状态的基础实现，可接巡逻与追击逻辑。"
+    },
+    {
+      "name": "Camera Follow",
+      "descZh": "摄像机跟随脚本处理平滑与边界，适合横版或俯视项目，边界与平滑都可调。"
+    }
+  ],
+  "limitsZh": "它没有插件入口、统一 API 或安装说明，所有内容都要手动复制并按项目结构改，节点路径与单例名不一致时会直接报错。示例覆盖面广但深度有限：存档没有版本迁移，设置菜单的键位保存也依赖作者自己的写法，复杂项目仍需重做。代码风格与命名不统一，缺少注释与测试，读起来要猜意图。仓库更新不频繁，引擎升级后部分 API 可能过时。把整套直接搬进项目容易留下无用依赖，建议按需摘取。",
+  "workflowZh": [
+    {
+      "stepZh": "浏览仓库目录并挑选需要的功能模块"
+    },
+    {
+      "stepZh": "复制对应场景与脚本进自己的工程"
+    },
+    {
+      "stepZh": "逐个改节点路径、单例名称与存档字段名"
+    },
+    {
+      "stepZh": "运行示例场景逐项确认行为符合预期"
+    },
+    {
+      "stepZh": "删掉多余依赖、示例资源与调试输出"
+    }
+  ],
+  "pros": [
+    "存档、设置、视野与摄像机等常见基础件都有现成实现，省下起步时间。",
+    "每个功能独立成场景或脚本，按需摘取，不会被迫引入整套框架。",
+    "代码短小直白，适合作为 GDScript 写法参考来读，改起来也快，很好上手。",
+    "覆盖 2D 与 3D 的小效果，原型阶段可以直接跑起来看，原型阶段足够用。"
+  ],
+  "cons": [
+    "没有插件入口与安装说明，只能靠手动复制改造。",
+    "示例深度有限，存档与设置缺少版本迁移和边界处理。",
+    "代码风格不统一、注释少，也没有测试，维护靠读源码。",
+    "更新不频繁，引擎升级后部分 API 可能已经过时失效。"
+  ],
+  "pitfalls": [
+    "直接整套复制会带进无用单例与资源依赖，按功能逐个摘取更稳。",
+    "示例里的节点路径写死，搬到自己工程要先改路径否则启动报错。",
+    "存档没有版本字段，改结构后旧档读回可能丢数据，先加版本号。"
+  ],
+  "bestFor": "已经会读 GDScript、想快速拿到存档与设置等基础件，并愿意按自己项目改造的 Godot 4 独立开发者，以及想少写基础代码的个人项目。",
+  "avoidWhenZh": "需要稳定 API、插件式安装与长期维护保障的团队，或不愿读源码只想开箱即用的项目。",
+  "compareTips": {
+    "vs": [
+      "crystal-bit__godot-game-template",
+      "InvadingOctopus__comedot"
+    ],
+    "whenZh": "三者都提供可复用的基础代码：crystal-bit 模板是成体系的工程骨架，Comedot 是组件化框架，MizGodotTools 更像作者代码笔记。要完整骨架选模板，要组件体系选 Comedot，要零散基础件抄写选它。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "代码合集",
+    "存档系统",
+    "设置菜单",
+    "NPC视野",
+    "场景切换"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "仓库是作者常用代码与工具的合集",
+      "source": "README.md",
+      "quote": "This repo contains a collection of code and tools I use in a lot of my games."
+    },
+    {
+      "claim": "采用 MIT 许可可自由用于自己的游戏",
+      "source": "README.md",
+      "quote": "Under MIT license so feel free to use in your own games."
+    },
+    {
+      "claim": "包含存档与读档场景示例",
+      "source": "README.md",
+      "quote": "Save System : save_load_scene_1.tscn and save_load_scene_2.tscn"
+    },
+    {
+      "claim": "包含设置菜单与按键重绑示例",
+      "source": "README.md",
+      "quote": "Settings Menu + Key rebinding + UI sfx: settings_example.tscn"
+    }
+  ]
+}

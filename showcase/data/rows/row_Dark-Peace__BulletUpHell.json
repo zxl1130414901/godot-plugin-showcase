@@ -1,0 +1,34 @@
+{
+  "id": "Dark-Peace__BulletUpHell",
+  "descriptionZh": "弹幕插件，可视化配置发射模式、公式运动、追踪与激光，整体接入成本不高。",
+  "category": "state-logic",
+  "tags": [
+    "弹幕",
+    "射击游戏",
+    "Boss战",
+    "生成器"
+  ],
+  "prosShort": [
+    "弹幕模式覆盖常见攻击类型",
+    "生成器资源化策划可直接调参",
+    "同时支持 Godot 3 与 4，团队上手也快。"
+  ],
+  "consShort": [
+    "完整功能需购买付费版本，团队要提前评估。",
+    "文档主要在外部网站查阅，规模化后更明显。",
+    "深度定制仍需阅读源码，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

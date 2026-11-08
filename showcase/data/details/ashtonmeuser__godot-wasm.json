@@ -1,0 +1,143 @@
+{
+  "id": "ashtonmeuser__godot-wasm",
+  "depth": "standard",
+  "taglineZh": "通过 GDExtension 在 GDScript 中加载并调用 WebAssembly 模块的扩展",
+  "summaryZh": "这个 GDExtension 让 GDScript 能加载并调用 WebAssembly 模块：用 Wasm.new 读取字节码后 load，再用 function 调用导出函数，并可读写线性内存与处理外部共享内存。它同时支持 Wasmer 与 Wasmtime 两种运行时，可作为 Rust、Go、C++ 等语言编写的沙箱扩展。项目仍处早期，接口可能变动，WASI 支持有限，只返回整数与浮点，且 Web 导出不可用，选型前建议结合团队实际评估。",
+  "whatItDoes": "提供 Wasm 与 WasmMemory 两个核心类，负责模块编译、实例化、导出函数与变量访问以及线性内存读写。支持 Wasmer 与 Wasmtime 后端，可配置导入对象覆盖默认 WASI 绑定，还支持外部共享内存。可作为 GDExtension addon 或编译进引擎模块，附 wasm-consume、wasm-create 与 wasm-test 多个示例工程。",
+  "useCases": [
+    {
+      "titleZh": "沙箱模组",
+      "descZh": "把玩家上传的逻辑编译成 Wasm 模块，在受限运行时里执行，避免脚本直接触碰引擎资源。"
+    },
+    {
+      "titleZh": "跨语言算法",
+      "descZh": "用 Rust 或 C++ 写高性能计算模块，通过 Wasm 在多个平台复用，不必为每个平台出原生库，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "热更新逻辑",
+      "descZh": "把可替换的规则或 AI 编译成 Wasm，运行时下载并实例化，减少整包更新，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "性能对照",
+      "descZh": "用同仓库的 Benchmark 场景比较 GDScript 与 Wasm 的计算开销，验证是否值得迁移，对独立开发者尤其友好且后续扩展方便。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Wasm 实例",
+      "descZh": "可加载字节码、实例化并调用导出函数的运行时对象，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "内存桥接",
+      "descZh": "WasmMemory 封装线性内存读写与外部共享内存，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "示例模块",
+      "descZh": "wasm-create 演示如何构建模块，wasm-consume 演示接入，结构与引擎资源体系保持一致，可以直接放进项目里使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Wasm.load",
+      "descZh": "读取字节码并实例化，导入表可自定义，参数集中在检查器面板。"
+    },
+    {
+      "name": "wasm.function",
+      "descZh": "按名称调用导出函数，参数与返回值需符合数值类型，后续修改起来也不费劲。"
+    },
+    {
+      "name": "WasmMemory",
+      "descZh": "按下标读写内存，用于传字符串或数组，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "双运行时",
+      "descZh": "Wasmer 与 Wasmtime 可选，便于按平台取舍，调用方式简单不需要额外封装。"
+    },
+    {
+      "name": "沙箱隔离",
+      "descZh": "模块运行在虚拟机内，不能直接访问宿主文件系统，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "README 明确警告项目仍在婴儿期，接口在每个版本都可能变化。WASI 只提供少量绑定，访问不到宿主文件系统，TinyGo 之类依赖完整 WASI 的模块难以运行。函数返回值只支持整数与浮点，字符串和结构体要自己编码。Web 与 HTML5 导出完全不支持，跨平台模块还要求各平台各自编译。仓库只带空的 bin 目录，二进制需自行编译或下载 Release，文档主要靠 Wiki。",
+  "workflowZh": [
+    {
+      "stepZh": "编译 C++ 扩展或下载对应平台 Release，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把 addons/godot-wasm 复制到项目中，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "准备 Wasm 模块字节码并读入内存，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "创建 Wasm 实例并调用导出函数，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需读写内存并处理导入表，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "GDScript 侧 API 很少，load 与 function 两个调用就能跑通最小模块，团队新人照着示例就能上手。",
+    "支持 Wasmer 与 Wasmtime，两个运行时可按平台与性能需求切换，出现问题时也更容易定位原因。",
+    "沙箱模型适合加载不可信模组，安全边界比直接执行脚本清晰。",
+    "仓库附完整示例与基准场景，能直接对照构建与调用流程，对中小团队的时间成本很友好。"
+  ],
+  "cons": [
+    "接口仍在早期，版本升级可能出现不兼容改动，升级引擎版本时容易卡住。",
+    "仅支持整数与浮点返回值，复杂数据要手工编解码。",
+    "Web 导出不支持，WASI 覆盖也很有限，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "仓库 bin 目录是空的，直接拷 addon 会因找不到动态库而加载失败，必须先编译或下载 Release。",
+    "默认 WASI 绑定很少，依赖文件系统或网络的模块会在实例化时报导入缺失。",
+    "跨平台要分别编译，只放一个平台的库在导出其它平台时会静默失败。"
+  ],
+  "bestFor": "需要让 Godot 安全执行外部编译模块，或想用 Rust 等语言分担重计算逻辑的技术型团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "要导出 Web 版、依赖完整 WASI，或不能接受接口频繁变动的项目，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "gilzoide__lua-gdextension"
+    ],
+    "whenZh": "两者都用于把外部逻辑带进 Godot；godot-wasm 走 Wasm 沙箱与多语言编译产物，lua-gdextension 走 Lua 脚本与更直接的对象绑定。要强隔离与跨语言选前者，要轻量脚本与快速迭代选后者。"
+  },
+  "category": "platform-export",
+  "tags": [
+    "WebAssembly",
+    "沙箱",
+    "跨语言",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "从 GDScript 加载并交互 Wasm 模块",
+      "source": "README.md",
+      "quote": "A Godot extension allowing for loading and interacting with [WebAssembly (Wasm)](https://webassembly.org) modules from GDScript"
+    },
+    {
+      "claim": "项目仍处早期接口会变",
+      "source": "README.md",
+      "quote": "This project is still in its infancy. Interfaces are liable to change with each release until v1.0."
+    },
+    {
+      "claim": "仅支持整数与浮点返回值",
+      "source": "README.md",
+      "quote": "Only `int` and `float` return values are supported."
+    },
+    {
+      "claim": "Web 与 HTML5 导出不支持",
+      "source": "README.md",
+      "quote": "Web/HTML5 export is not supported"
+    }
+  ]
+}

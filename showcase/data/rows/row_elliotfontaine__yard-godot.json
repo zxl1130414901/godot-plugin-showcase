@@ -1,0 +1,34 @@
+{
+  "id": "elliotfontaine__yard-godot",
+  "descriptionZh": "编辑器内表格管理资源注册表，运行时按稳定 ID 与属性查询",
+  "category": "asset-pipeline",
+  "tags": [
+    "资源管理",
+    "注册表",
+    "编辑器插件",
+    "数据表"
+  ],
+  "prosShort": [
+    "稳定 ID 引用不怕目录重构，团队上手也快。",
+    "表格视图便于策划独立维护",
+    "运行时过滤无需加载资源，接入成本不高。"
+  ],
+  "consShort": [
+    "不参与资源导入与打包流程",
+    "条目很多时表格编辑效率一般",
+    "延迟加载让缺失资源暴露更晚"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

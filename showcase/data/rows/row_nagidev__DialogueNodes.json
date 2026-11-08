@@ -1,0 +1,34 @@
+{
+  "id": "nagidev__DialogueNodes",
+  "descriptionZh": "在编辑器里用图节点搭建分支对话，导出资源并可在游戏内直接播放的完整对话插件。",
+  "category": "visual-script",
+  "tags": [
+    "对话系统",
+    "分支剧情",
+    "图编辑器",
+    "RPG"
+  ],
+  "prosShort": [
+    "图编辑器让分支与跳转一目了然",
+    "条件变量与信号可直接驱动剧情",
+    "自带预览器并可给台词加富文本动画"
+  ],
+  "consShort": [
+    "官方未适配 C# 项目，只能另找分支",
+    "台词含回车换行时选项可能不显示",
+    "多数详细用法散在 wiki，需自行翻查"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

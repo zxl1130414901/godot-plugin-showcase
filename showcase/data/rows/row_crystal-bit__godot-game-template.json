@@ -1,0 +1,35 @@
+{
+  "id": "crystal-bit__godot-game-template",
+  "descriptionZh": "带场景管理、设置菜单、存档与自动构建脚本的 Godot 4 工程化起步模板。",
+  "category": "state-logic",
+  "tags": [
+    "项目模板",
+    "场景管理",
+    "存档系统",
+    "设置菜单",
+    "自动构建"
+  ],
+  "prosShort": [
+    "场景设置与存档的骨架齐全",
+    "autoload 与目录都划分清楚易接手",
+    "附带构建脚本覆盖发布流程"
+  ],
+  "consShort": [
+    "只是骨架玩法与美术仍需自建",
+    "部分系统带作者偏好改造成本高",
+    "更新偏慢引擎升级需自行迁移"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

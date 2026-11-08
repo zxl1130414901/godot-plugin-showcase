@@ -1,0 +1,35 @@
+{
+  "id": "godotneers__G.U.I.D.E",
+  "descriptionZh": "把键鼠、手柄与触屏输入统一成动作，支持上下文、优先级、重绑定与输入提示的输入层。",
+  "category": "state-logic",
+  "tags": [
+    "input",
+    "rebinding",
+    "input-prompts",
+    "gamepad",
+    "touch"
+  ],
+  "prosShort": [
+    "键鼠、手柄与触屏的输入统一处理",
+    "上下文切换与输入优先级都完善",
+    "内置输入提示，图标自动随设备切换"
+  ],
+  "consShort": [
+    "作者自述粗糙边缘，项目验证不足",
+    "概念较多，上下文与优先级需学习",
+    "文档仍在扩充，部分细节说明缺失"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,149 @@
+{
+  "id": "bukkbeek__GodotPixelRenderer",
+  "taglineZh": "把 3D 模型与动画渲染成像素画面的独立工具",
+  "summaryZh": "Godot Pixel Renderer 是一个用 Godot 写的独立小工具，把 GLB 与 GLTF 模型按可调像素化、颜色量化与描边渲染成像素画，并能逐帧导出 PNG 序列。它内置相机控制、动画播放、HSV 与锐化等后处理，支持反照率、法线与高光贴图输出。适合做像素游戏素材、宣传图与低分辨率动画，不必在建模软件里手动降采样。代价是它依赖 Godot 4.4 以上运行，导出是离线渲染，复杂材质与骨骼动画需要先验证。它把 3D 资产转成 2D 像素素材的流程固定下来。",
+  "whatItDoes": "在独立工程里加载 GLB 模型，用像素着色器实时预览并按帧导出 PNG 序列，同时可输出法线与高光通道。",
+  "useCases": [
+    {
+      "titleZh": "角色行走图",
+      "descZh": "像素游戏需要角色八方向行走图，用工具加载模型并按帧导出 PNG，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "宣传图制作",
+      "descZh": "宣传图想要低分辨率复古感，调像素块与色阶后直接出图，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "法线通道导出",
+      "descZh": "做法线贴图版本，导出时切换通道，供 2D 光照使用，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "批量统一风格",
+      "descZh": "批量处理多个模型，用固定预设保证整套素材风格一致，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "像素材质",
+      "descZh": "带 Sobel 描边与 Bayer 抖动的着色器，控制像素块大小与色阶数量，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "PNG 序列",
+      "descZh": "按帧范围与 FPS 导出的透明 PNG，可直接进精灵表或动画工具，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "通道导出",
+      "descZh": "分别输出反照率、法线与高光，供 2D 光照或后期合成使用，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "像素化 8-800",
+      "descZh": "按目标分辨率调节像素块大小，兼顾图标与大图，参数集中在检查器面板。"
+    },
+    {
+      "name": "颜色量化",
+      "descZh": "2 到 32 级色阶与八色调色板，控制复古配色，后续修改起来也不费劲。"
+    },
+    {
+      "name": "描边与抖动",
+      "descZh": "Sobel 边缘检测配合 Bayer 抖动，轮廓更清晰，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "逐帧导出",
+      "descZh": "自定义帧范围、FPS 与缩放，带进度与命名前缀，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "动画预览",
+      "descZh": "播放、暂停与循环控制，导出前先确认动作，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "它是独立工程而不是编辑器插件，要克隆仓库并用 Godot 打开运行，不能直接嵌进游戏项目。导出走 SubViewport 逐帧截图，模型面数高或分辨率大时渲染很慢。骨骼动画依赖 GLB 导入结果，重定向与混合树支持有限。材质只处理常规 PBR 通道，自定义着色器与粒子不会出现在输出里。颜色量化与描边参数互相影响，换模型往往要重新调一套。版本要求 4.4 以上，旧引擎打开会报错。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆仓库并用 Godot 4.4 以上打开，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "运行 PixelRenderer 场景进入工具界面，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "加载 GLB 或 GLTF 模型并定位相机，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "调节像素化、色阶与描边参数，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "选择帧范围、FPS 与导出目录，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "导出 PNG 序列并检查透明边缘，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "一条流程把 3D 模型转成像素素材，省去手工降采样，团队新人照着示例就能上手。",
+    "像素化、量化、描边与抖动都可调，风格控制细，出现问题时也更容易定位原因。",
+    "支持逐帧导出与自定义帧率，适合做动画序列，对中小团队的时间成本很友好。",
+    "能单独输出法线与高光通道，方便 2D 光照，长期维护与升级的压力都比较小。",
+    "开源且跨平台，Windows、Linux 与 macOS 都能跑，实际项目落地时省下大量重复工作。"
+  ],
+  "cons": [
+    "独立工程而非插件，不能直接在游戏项目里调用。",
+    "逐帧渲染慢，高面数模型导出耗时长，升级引擎版本时容易卡住。",
+    "材质与骨骼支持有限，复杂资产要先试，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "模型未按 Y 轴向上导入，导出后角色躺倒，先在预览里校正朝向。",
+    "分辨率与像素块设得太小，描边会糊成一片，先调大再逐步降。",
+    "导出目录含中文或空格时部分平台写文件失败，换成短英文路径。"
+  ],
+  "bestFor": "需要把现有 3D 模型快速转成像素风角色图或宣传素材，并能接受离线逐帧导出的独立开发者，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "需要在游戏运行时实时像素化 3D 画面，或依赖骨骼重定向与自定义材质，这个离线工具不适用。",
+  "compareTips": {
+    "vs": [
+      "GarrettGunnell__Godot-PSX",
+      "ahopness__GodotRetro"
+    ],
+    "whenZh": "三者都做复古像素观感：本工具是离线把模型渲成 PNG 素材；Godot-PSX 在运行时模拟 PS1 渲染；GodotRetro 提供 CRT 与 VHS 后处理。要做素材选前者，要做运行时的低多边形风格选后两者。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "像素画",
+    "3D转2D",
+    "素材导出",
+    "像素着色器",
+    "独立工具"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "把 3D 模型渲染成像素画",
+      "source": "README.md",
+      "quote": "a powerful 3d to pixel art renderer built with godot"
+    },
+    {
+      "claim": "支持逐帧导出 PNG 序列",
+      "source": "README.md",
+      "quote": "frame-by-frame animation export to PNG sequences with progress tracking"
+    },
+    {
+      "claim": "可调像素化范围 8 到 800",
+      "source": "README.md",
+      "quote": "real-time 3d to pixel art conversion with customizable pixelation"
+    },
+    {
+      "claim": "支持法线与高光导出",
+      "source": "README.md",
+      "quote": "Specular and Normal map"
+    }
+  ],
+  "depth": "standard"
+}

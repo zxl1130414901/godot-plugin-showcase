@@ -1,0 +1,14 @@
+{
+  "id": "poingstudios__godot-admob-plugin",
+  "descriptionZh": "为 Godot 的 Android 与 iOS 项目接入 Google AdMob，覆盖横幅、插屏、激励与原生广告并支持 GDScript 或 C# 两套接口",
+  "category": "platform-export",
+  "tags": ["AdMob", "广告变现", "移动端", "Android", "iOS"],
+  "prosShort": ["横幅、插屏、激励、原生与开屏全覆盖", "两套语言接口对齐，官方文档齐全", "编辑器内可预览模拟广告，减少真机调试"],
+  "consShort": ["广告依赖原生 SDK，桌面与 Web 不可用", "首次接入要配包名签名与隐私清单", "中介与多平台依赖会增大安装包"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 5, "maintenance": 4, "performance": 4, "stability": 4},
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

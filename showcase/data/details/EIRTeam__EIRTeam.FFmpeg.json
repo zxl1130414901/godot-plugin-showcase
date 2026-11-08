@@ -1,0 +1,140 @@
+{
+  "id": "EIRTeam__EIRTeam.FFmpeg",
+  "depth": "standard",
+  "taglineZh": "用 FFmpeg 给 Godot 4 补齐视频解码能力的 GDExtension",
+  "summaryZh": "它解决的是 Godot 4 内置视频播放只支持特定格式、难以加载 h264 等常见素材的问题：基于 FFmpeg 实现 VideoStream 解码器，把视频帧交给 Godot 的播放管线。仓库提供 GDExtension 源码与 ffmpeg-kit 子模块，支持 Linux、macOS 与 Android 的构建，Windows 需要额外处理。用法是把编好的库与 .gdextension 放进项目，VideoStreamPlayer 即可加载视频。限制是必须自行编译 FFmpeg 与扩展，h264 涉及专利，发布前要确认当地法律与许可。",
+  "whatItDoes": "提供 VideoStreamFFmpeg 等类与 FFmpeg 解码后端，把音视频包解复用、解码并按 Godot 的帧格式交付。构建系统用 Makefile 调 ffmpeg-kit，支持 Linux、macOS 与 Android arm64/armv7a，生成 .gdextension 与平台库。官方文档在 readthedocs 上，介绍入门、类与构建流程。",
+  "useCases": [
+    {
+      "titleZh": "播放 h264 视频",
+      "descZh": "内置播放器打不开的 h264 素材，可用该扩展加载并显示在 2D 或 3D 表面，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "过场动画",
+      "descZh": "游戏需要播放较长的视频过场，可用 FFmpeg 解码替代逐帧贴图，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "Android 视频",
+      "descZh": "移动端要播放本地视频而内置解码受限，可交叉编译到 arm64 与 armv7a，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "自定义播放",
+      "descZh": "需要按时间戳取帧或做自定义音画同步时，可基于解码器写自己的播放逻辑，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "VideoStream 解码器",
+      "descZh": "注册到 Godot 视频系统的 FFmpeg 后端，供 VideoStreamPlayer 直接使用，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "跨平台构建",
+      "descZh": "Makefile 与 ffmpeg-kit 子模块，产出 Linux、macOS、Android 的库文件，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "官方文档",
+      "descZh": "readthedocs 上的入门、类参考与构建说明，接入步骤可查，可以直接放进项目里使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "FFmpeg 解码",
+      "descZh": "复用 FFmpeg 的解复用与解码能力，覆盖内置播放器不支持的编码。"
+    },
+    {
+      "name": "h264 支持",
+      "descZh": "自带 FFmpeg 构建启用了 h264，适合常见网络与相机素材，参数集中在检查器面板。"
+    },
+    {
+      "name": "ffmpeg-kit",
+      "descZh": "子模块统一各平台构建参数，减少手工配置 FFmpeg 的复杂度，后续修改起来也不费劲。"
+    },
+    {
+      "name": "GDExtension",
+      "descZh": "以扩展形式加载，不需替换引擎二进制，随项目分发，在编辑器里就能完成配置。"
+    }
+  ],
+  "limitsZh": "使用门槛主要在构建：README 只给出 Linux 与 macOS 主机的构建步骤，Windows 不在支持列表，需要自己找预编译产物或另配工具链。首次构建要拉取 ffmpeg-kit 子模块并执行 make bootstrap，编译时间长、依赖多，CI 要预留缓存。h264 受专利约束，README 开头就提醒确认当地法律，商业发行还要核对 FFmpeg 与各编码库的许可。仓库本身几乎不含使用示例，入门文档在外部站点，遇到平台差异只能读源码。视频解码对 CPU 与内存有开销，高分辨率多路播放要自己做池化与限帧。",
+  "workflowZh": [
+    {
+      "stepZh": "获取仓库源码并初始化 ffmpeg-kit 子模块依赖"
+    },
+    {
+      "stepZh": "先运行 make bootstrap 安装构建所需工具依赖"
+    },
+    {
+      "stepZh": "按目标平台执行 make gdextension 生成扩展库，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把生成的库与 gdextension 文件放进项目内 addons"
+    },
+    {
+      "stepZh": "用 VideoStreamPlayer 加载一段测试视频验证解码正常"
+    }
+  ],
+  "pros": [
+    "补上内置播放器缺失的编码支持，h264 素材可直接播放，团队新人照着示例就能上手。",
+    "以 GDExtension 分发，不需要替换引擎或重新编译 Godot，出现问题时也更容易定位原因。",
+    "构建基于 ffmpeg-kit，Linux、macOS 与 Android 有明确步骤，对中小团队的时间成本很友好。",
+    "官方文档独立维护，类参考与入门指南都能查，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "必须自行编译 FFmpeg 与扩展，构建链重且耗时长，升级引擎版本时容易卡住。",
+    "Windows 构建未在 README 覆盖，需要额外摸索，定制之前往往要先读源码。",
+    "仓库没有示例工程，使用方式主要靠外部文档，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "h264 涉及软件专利，商业发行前要确认当地法律与许可，上线前要专门过一遍。",
+    "子模块未初始化或 bootstrap 失败时，gdextension 目标会直接中断，排查时需要多留一层日志。",
+    "导出版本与编辑器版本的库必须匹配，混用会加载失败，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "需要在 Godot 4 中播放 h264 等内置不支持的格式，并有能力维护原生构建链的团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只需要播放引擎原生支持的格式，或无法承担 FFmpeg 编译与专利合规成本时。",
+  "compareTips": {
+    "vs": [
+      "celyk__GPUTrail"
+    ],
+    "whenZh": "两者都扩展 Godot 4 的媒体与画面能力但层次不同：EIRTeam.FFmpeg 是原生视频解码扩展，解决 h264 等格式播放；GPUTrail 是渲染特效插件，解决拖尾表现。要视频播放选前者，要视觉特效选后者。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "FFmpeg",
+    "视频解码",
+    "GDExtension",
+    "h264",
+    "跨平台"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4.1 以上的 GDExtension 视频解码库",
+      "source": "README.md",
+      "quote": "GDExtension Video Decoder library for [Godot Engine](https://godotengine.org) >4.1, using the [FFmpeg](https://ffmpeg.org) library."
+    },
+    {
+      "claim": "自带 FFmpeg 启用 h264 且涉及专利",
+      "source": "README.md",
+      "quote": "The version of FFmpeg shipped with EIRTeam.FFmpeg allows loading of videos using the patent-encumbered h264 codec, check with your local laws to see if software patents are recognized in your country."
+    },
+    {
+      "claim": "构建仅在 Linux 与 macOS 主机受支持",
+      "source": "README.md",
+      "quote": "Currently building ffmpeg from source is supported on Linux and macOS hosts. And ffmpeg libraries for Android can be cross compiled on both hosts."
+    },
+    {
+      "claim": "按平台执行 make gdextension",
+      "source": "README.md",
+      "quote": "run `make gdextension PLATFORM=linux` for Linux."
+    }
+  ]
+}

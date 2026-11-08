@@ -1,0 +1,149 @@
+{
+  "id": "V-Sekai__godot-vrm",
+  "depth": "standard",
+  "taglineZh": "在 Godot 中完整导入导出 VRM 虚拟形象与 MToon 着色器",
+  "summaryZh": "这是 V-Sekai 团队维护的 VRM 导入导出插件，覆盖 VRM 0.0 与 1.0：导入 0.0 时会自动转成 1.0 命名，导出则统一输出 VRM 1.0。附带一份独立完整的 MToon 着色器实现，让虚拟形象在 Godot 里呈现卡通材质观感。人形骨架会按 SkeletonProfileHumanoid 做重定向，表情与口型以动画轨道形式生成，第一人称、视线偏移与弹簧骨骼也有处理。仓库带 AliciaSolid 与 Godette 两个示例模型、运行时加载脚本与截图场景。它要求 Godot 4.0 以上，glTF 导出有破坏性操作，需先保存场景。",
+  "whatItDoes": "插件注册 VRM 资源导入器，把模型、骨架、材质、表情与元数据读进 Godot 场景；人形骨骼按标准配置重定向，MToon 材质转成可编辑的着色器材质，弹簧骨骼生成对应的模拟组件。导出侧能把场景写成 .vrm，也能写带 VRM 扩展的 .gltf。样例场景演示静态摆放与运行时加载两种用法。编辑器里可检查导入选项，例如第一人称隐藏头部与表情处理方式。MToon 着色器可单独用于非 VRM 模型。",
+  "useCases": [
+    {
+      "titleZh": "虚拟主播形象",
+      "descZh": "把画师给的 VRM 形象导入 Godot，调好 MToon 材质与表情轨道，接上动作捕捉或动画后用于直播与短片，流程可以完整跑通。"
+    },
+    {
+      "titleZh": "VR 社交角色",
+      "descZh": "多人 VR 场景里统一用 VRM 作为角色格式，人形骨架重定向后可复用同一套动画，减少每个角色单独适配的工作量。"
+    },
+    {
+      "titleZh": "角色生产管线",
+      "descZh": "美术在外部工具里做 VRM，程序在 Godot 里导入验证材质与骨骼，再把修改后的模型导回，形成可长期使用的往返流程。"
+    },
+    {
+      "titleZh": "MToon 风格渲染",
+      "descZh": "不做 VRM 也想用卡通材质时，单独拿附带的 MToon 着色器直接给普通模型上材质，调出接近日式动画的明暗分层效果。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "导入的角色场景",
+      "descZh": "完整包含骨架、网格、MToon 材质与表情轨道的 Godot 场景，导入后可直接挂动画、挂脚本并接入角色控制。"
+    },
+    {
+      "titleZh": "VRM 导出文件",
+      "descZh": "把调整过的角色导出为 VRM 1.0 的 .vrm，或带 VRM 扩展的 .gltf，供外部工具或其他引擎使用，便于接进其他内容管线。"
+    },
+    {
+      "titleZh": "MToon 材质",
+      "descZh": "独立完整的 MToon 着色器与材质配置，支持描边、明暗分层等卡通渲染特性，也可直接给普通模型使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "双版本导入",
+      "descZh": "VRM 0.0 与 1.0 都能读入，旧格式会自动转换成 1.0 命名，减少手工对照规范的麻烦。"
+    },
+    {
+      "name": "VRM 1.0 导出",
+      "descZh": "导出统一写成 VRM 1.0，元数据、人形骨骼与材质扩展都会完整带上，外部工具能直接识别。"
+    },
+    {
+      "name": "MToon 着色器",
+      "descZh": "附带完整 MToon 实现，卡通明暗、描边、光照与材质参数都能在 Godot 编辑器里逐项调整。"
+    },
+    {
+      "name": "人形重定向",
+      "descZh": "按 SkeletonProfileHumanoid 标准配置骨架，同一套带重定向的人形动画可复用到多个不同风格的角色。"
+    },
+    {
+      "name": "弹簧骨骼",
+      "descZh": "VRMC_springBone 已实现，头发与裙摆能做物理摆动，但官方说明仍需优化，性能优化仍在进行中。"
+    }
+  ],
+  "limitsZh": "VRMC_node_constraint 在与人形重定向组合时有已知 bug，复杂约束 rig 可能表现异常。弹簧骨骼虽已实现但官方标注需要优化，角色一多就会吃性能。导出独立 .gltf 时不支持 VRMC_springBone，只能走 .vrm；而且 glTF 导出不会克隆场景根节点，部分操作具有破坏性，会改坏材质，导出前必须先保存场景。VRMC_vrm_animation 尚未实现，人形动画库的导入导出还不能用。lookAt 只生成动画轨道，应用侧要自己建混合空间；第一人称隐藏头部也需要相机层或运行时脚本配合。示例模型有各自授权，商用前要逐个确认许可。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 里的 vrm 插件与 MToon 着色器目录一并复制进项目"
+    },
+    {
+      "stepZh": "在项目设置里启用两个插件并重新加载整个工程"
+    },
+    {
+      "stepZh": "把 .vrm 拖进项目，检查导入选项与生成的人形骨架"
+    },
+    {
+      "stepZh": "在示例场景里对照材质、表情轨道与弹簧骨骼设置"
+    },
+    {
+      "stepZh": "需要导出时先保存场景，再写 .vrm 并验证元数据是否完整"
+    }
+  ],
+  "pros": [
+    "导入导出覆盖 VRM 0.0 与 1.0，旧资产能自动转换，角色来源不必限制在单一版本。",
+    "自带完整 MToon 着色器，虚拟形象的卡通材质与描边效果开箱就有，不用另找方案。",
+    "人形骨架按标准配置重定向，同一套动画可复用到多个 VRM 角色，节省适配时间。",
+    "示例模型、运行时加载脚本与截图场景齐全，第一次接入能照着跑通再改。"
+  ],
+  "cons": [
+    "节点约束与重定向组合有已知 bug，复杂 rig 可能出问题，需要自己绕开或修。",
+    "glTF 导出具有破坏性且不克隆根节点，操作不当会改坏场景材质，风险偏高。",
+    "弹簧骨骼未优化，角色数量多时性能压力明显，需要自行降级或关掉。"
+  ],
+  "pitfalls": [
+    "导出 .gltf 前没保存场景，导出过程直接改坏材质，回头只能重做整个材质配置。",
+    "把 VRM 0.0 和 1.0 的命名混用，重定向与表情轨道对不上，角色动作出现扭曲。",
+    "以为 .gltf 能带弹簧骨骼，导出后头发与裙摆不再摆动，才发现该扩展不被支持。"
+  ],
+  "bestFor": "需要把 VRM 虚拟形象接入 Godot、做虚拟主播或 VR 社交角色，并愿意花时间处理材质与骨骼细节的团队与独立开发者。",
+  "avoidWhenZh": "只需要普通 glTF 角色、不涉及 VRM 规范，或无法接受导出破坏性操作与已知约束 bug 时。",
+  "compareTips": {
+    "vs": [
+      "GodotVR__godot-xr-tools"
+    ],
+    "whenZh": "godot-xr-tools 解决 VR 交互、移动与手部输入，不负责角色格式；这份专管 VRM 导入导出与 MToon 材质。做 VR 玩法时两者通常会一起用：角色管线交给 VRM，交互与移动交给 XR Tools。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "VRM",
+    "虚拟形象",
+    "导入导出",
+    "MToon",
+    "3D"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "插件完整实现 VRM 规范的导入与导出",
+      "source": "README.md",
+      "quote": "This Godot addon fully implements an importer and exporter for models with the [VRM specification](https://github.com/vrm-c/vrm-specification/tree/master/specification)."
+    },
+    {
+      "claim": "兼容 Godot 4.0 稳定版及以上",
+      "source": "README.md",
+      "quote": "Compatible with Godot Engine 4.0 stable or newer."
+    },
+    {
+      "claim": "附带独立的完整 MToon 着色器实现",
+      "source": "README.md",
+      "quote": "This package also includes a standalone full implementation of the MToon Shader for Godot Engine."
+    },
+    {
+      "claim": "独立 glTF 导出不支持弹簧骨骼",
+      "source": "README.md",
+      "quote": "⚠️ `VRMC_springBone` not supported in non-`.vrm` standalone `.gltf` export."
+    },
+    {
+      "claim": "VRM 插件版本为 2.0.1",
+      "source": "addons/vrm/plugin.cfg",
+      "quote": "version=\"2.0.1\""
+    }
+  ]
+}

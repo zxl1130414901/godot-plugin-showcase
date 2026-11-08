@@ -1,0 +1,156 @@
+{
+  "id": "TaloDev__godot",
+  "depth": "standard",
+  "taglineZh": "为 Godot 4 接入 Talo 游戏后端的官方插件",
+  "summaryZh": "Talo 是开源游戏后端，这个插件把它的在线服务接进 Godot 4：玩家认证、排行榜、统计、云存档、频道、实时配置、事件、反馈、在线状态与玩家关系都封装成节点与静态方法。插件自带自动加载单例与设置面板，配好游戏 ID 与 API 地址即可调用。云存档支持离线写入、联网后同步，Steamworks、Google Play 与 Apple 登录也有对应集成。适合需要跨设备账号与运营数据的项目。",
+  "whatItDoes": "插件在 addons/talo 下提供 Talo 自动加载单例、各功能节点（玩家、排行榜、统计、存档、频道、事件等）与编辑器设置页。初始化时读取项目设置里的 API 地址与游戏 ID，登录后把玩家会话保存在单例上；请求支持分页与离线存档合并，并通过信号或 await 返回结果。导出时会带上配置，Steam 与移动平台登录由额外脚本与官方示例处理。",
+  "useCases": [
+    {
+      "titleZh": "跨设备存档",
+      "descZh": "玩家在 PC 与手机间切换，用云存档恢复进度，离线时也能继续写本地，联网后自动合并。"
+    },
+    {
+      "titleZh": "排行榜与统计",
+      "descZh": "跑酷、竞技类需要榜单与游玩数据，直接调用统计与排行榜接口，不必自己设计后端表结构。"
+    },
+    {
+      "titleZh": "账号体系",
+      "descZh": "需要邮箱、Steam 或移动平台登录，复用现成认证流程与玩家资料，减少账号系统开发量，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "运营活动",
+      "descZh": "用实时配置与事件下发活动开关，不改包也能调整内容，适合长线运营的游戏，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "玩家互动",
+      "descZh": "频道与在线状态可用于简易聊天或好友在线展示，快速补齐社交基础功能，对独立开发者尤其友好且后续扩展方便。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "自动加载单例",
+      "descZh": "Talo 单例持有配置、会话与请求入口，脚本可直接调用，无需手动传参，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "功能节点",
+      "descZh": "玩家、排行榜、存档、统计、频道等节点，按领域封装对应 API，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "设置面板",
+      "descZh": "编辑器插件提供游戏 ID 与 API 地址配置，导出时一并带入，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "离线存档",
+      "descZh": "无网时写本地队列，恢复连接后合并到云端，减少丢档，参数集中在检查器面板。"
+    },
+    {
+      "name": "多平台登录",
+      "descZh": "邮箱之外还支持 Steamworks、Google Play 与 Apple，降低接账号成本，后续修改起来也不费劲。"
+    },
+    {
+      "name": "实时配置",
+      "descZh": "活动参数可远端下发，发布后仍能调整数值与开关，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "信号与 await",
+      "descZh": "请求既可用信号回调也可以 await，写法贴近 Godot 习惯，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "仪表盘配套",
+      "descZh": "同一套后端有网页管理台，运营可直接查看数据与配置，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "它不是纯本地插件：没有 Talo 账号或自建服务就无法使用，默认连官方 API，国内网络与合规需自行评估。功能面很广但每项都偏基础，复杂匹配、战斗校验与反作弊不在范围内。云存档的冲突合并策略有限，多端同时写同一玩家要自己设计规则。Steam 与移动登录要额外配置密钥，跨平台打包时容易漏。文档以外部站点为主，仓库 README 只是功能清单，遇到问题要查官网与示例目录。",
+  "workflowZh": [
+    {
+      "stepZh": "在 Talo 官网注册并创建游戏，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把 addons/talo 拷入项目并启用，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在设置面板填入 API 地址与游戏 ID，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "调用登录接口获取玩家会话，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需接入存档、排行榜与统计，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "导出前确认配置随包带入，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "认证、存档、排行榜等常见在线功能一次接齐，省去自建后端，团队新人照着示例就能上手。",
+    "云存档支持离线写入与恢复同步，移动端体验更稳，出现问题时也更容易定位原因。",
+    "提供多平台登录封装，账号接入路径清晰，对中小团队的时间成本很友好。",
+    "有网页仪表盘，运营查看数据不需要另做后台，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "强依赖外部服务，离线单机场景不适用，升级引擎版本时容易卡住。",
+    "功能偏基础，复杂业务仍需自研，定制之前往往要先读源码。",
+    "文档主要在官网，仓库内说明有限，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "游戏 ID 填错时请求返回 404，先在仪表盘核对项目，上线前要专门过一遍。",
+    "存档键名冲突会互相覆盖，命名前先规划前缀，排查时需要多留一层日志。",
+    "多端同时在线写同一存档可能丢数据，冲突策略要自己补，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "需要账号、云存档与排行榜等在线能力，但不想自建后端的中小团队与独立开发者，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "纯离线单机项目，或有严格数据合规要求、必须自建服务的团队。",
+  "compareTips": {
+    "vs": [
+      "supabase-community__godot-engine.supabase"
+    ],
+    "whenZh": "两者都是后端即服务：Talo 面向游戏功能，排行榜与存档开箱可用；Supabase 提供通用数据库与认证，灵活但要自己做游戏层封装。按需要的现成度选择。"
+  },
+  "category": "save-data",
+  "tags": [
+    "排行榜",
+    "玩家认证",
+    "云存档",
+    "后端服务"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "isGDExtension": false,
+  "evidence": [
+    {
+      "claim": "插件把 Talo 在线服务接入 Godot",
+      "source": "README.md",
+      "quote": "Talo is the easiest way to add leaderboards, player authentication, peer-to-peer multiplayer and more to your game."
+    },
+    {
+      "claim": "云存档支持离线使用",
+      "source": "README.md",
+      "quote": "A simple and flexible way to load/save game state; also works offline."
+    },
+    {
+      "claim": "排行榜与统计可与 Steamworks 同步",
+      "source": "README.md",
+      "quote": "Highly customisable leaderboards that can sync with Steamworks."
+    },
+    {
+      "claim": "插件随包附带示例",
+      "source": "README.md",
+      "quote": "Samples included with the plugin"
+    },
+    {
+      "claim": "插件版本 1.2.0，以自动加载脚本入口",
+      "source": "addons/talo/plugin.cfg",
+      "quote": "version=\"1.2.0\""
+    }
+  ]
+}

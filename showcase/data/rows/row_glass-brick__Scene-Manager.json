@@ -1,0 +1,14 @@
+{
+  "id": "glass-brick__Scene-Manager",
+  "descriptionZh": "用单例管理场景切换，提供图案淡入淡出、后台加载与加载界面的 Godot 4 插件，参数集中在项目设置。",
+  "category": "ui",
+  "tags": ["场景切换", "转场动画", "加载界面", "后台加载"],
+  "prosShort": ["替换内置切场景，迁移改动小", "九种图案与自定义动画可换", "后台加载与加载界面开箱可用"],
+  "consShort": ["文档几乎全在 wiki，离线无法查阅", "只管场景转场，不管存档与引用", "着色器图案需按项目调层级"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 3, "maintenance": 4, "performance": 4, "stability": 4},
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

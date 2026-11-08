@@ -1,0 +1,141 @@
+{
+  "id": "YuriSizov__gdsion",
+  "depth": "standard",
+  "taglineZh": "基于 SiON 的软件合成器，可用 MML 或 API 实时生成音效",
+  "summaryZh": "GDSiON 是把 Flash 时代的 SiON 软件合成器移植为 GDExtension 的项目，能在 Godot 4.3 里动态生成声音而不依赖预制音频文件。它支持用 SiON 风格的 Music Macro Language 直接写旋律，也支持逐个音符或序列喂给驱动的 API 调用。内置六百多种乐器音色预设，可配置音色、算法与播放参数，适合做芯片音乐、程序化配乐与实时音效。发布包覆盖 Linux、macOS、Windows、Web 与 Android，仓库另带交互示例工程，作者自己的 Bosca Ceoil Blue 也基于它。",
+  "whatItDoes": "以 GDExtension 形式把软件合成器嵌入 Godot，提供实时的波形合成与音色控制能力，输出可播放的音频流。支持用 MML 字符串编排乐句，或以代码直接操作音符、音色与通道参数，两种方式可混用。声音完全在运行时生成，无需提前准备音频素材，适合参数化与程序化的声音设计。",
+  "useCases": [
+    {
+      "titleZh": "程序化配乐",
+      "descZh": "按关卡数据实时生成旋律与音效，不必预先渲染成音频文件，素材体积与变体数量都能省下来，改动参数就能换一套听感。"
+    },
+    {
+      "titleZh": "芯片音乐工具",
+      "descZh": "用 Music Macro Language 写短旋律并反复调试音色，适合做八位风格配乐与小游戏音效，改一个音符就能立刻试听效果。"
+    },
+    {
+      "titleZh": "动态音效",
+      "descZh": "按参数实时改变音高、时长与音色，做随机的打击声、脚步与环境提示，避免反复播放同一段采样带来的重复感。"
+    },
+    {
+      "titleZh": "音乐教学",
+      "descZh": "在编辑器里边写 MML 边听结果，帮助学习者理解音阶、节奏与合成原理，也能把同一段旋律换个音色对比差异。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "SiONDriver 节点",
+      "descZh": "加入场景即可播放声音，一个场景只允许存在一个驱动节点，负责合成、混音与最终输出，脚本通过它控制播放。"
+    },
+    {
+      "titleZh": "MML 播放接口",
+      "descZh": "把一串宏语言字符串交给播放接口，就能演奏整段旋律，适合快速试听、脚本生成与在代码里拼接乐句。"
+    },
+    {
+      "titleZh": "音色预设工具",
+      "descZh": "SiONVoicePresetUtil 能生成六百多种乐器预设，覆盖音色、算法与包络参数，可挑选后微调成自定义音色。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "MML 语法",
+      "descZh": "用紧凑的字符串描述音符、长度与循环，写旋律比逐个音符调用快。"
+    },
+    {
+      "name": "直接 API",
+      "descZh": "也可以逐个音符或整段序列喂给驱动，便于与游戏数据、节奏表或外部 MIDI 联动，控制粒度比 MML 更细。"
+    },
+    {
+      "name": "音色预设",
+      "descZh": "六百多种乐器声音开箱可用，也能调整合成算法与包络参数做出自定义音色，芯片风格与复古电子音都能覆盖。"
+    },
+    {
+      "name": "多平台二进制",
+      "descZh": "发布包覆盖 Linux、macOS、Windows、Web 与 Android，接入时按目标平台复制对应库文件，不必自己搭编译链。"
+    }
+  ],
+  "limitsZh": "项目处于 beta，虽称功能完整，但仍需修 bug 与测试，发布包按引擎版本构建，换 Godot 版本要重新下载对应二进制。全局只允许存在一个 SiONDriver，多个场景同时发声需要自己做混合或复用同一个驱动，这也限制了多声道独立控制。音色偏复古合成，做真实乐器质感仍要外部采样音频；缺少专业音频后处理与总线管理，混音要交给引擎的音频系统。MML 语法由 SiON 定义，学习曲线比直接写音符陡，文档以类参考与示例为主。Web 平台需要较新的引擎版本，导出前要核对兼容说明。自行编译还需 SCons 与 godot-cpp。",
+  "workflowZh": [
+    {
+      "stepZh": "下载对应平台的发布包，解压到项目根目录"
+    },
+    {
+      "stepZh": "确认 res://bin 目录下确实有 gdextension 描述文件与对应平台库文件"
+    },
+    {
+      "stepZh": "重启编辑器，在帮助里搜索 SiON 查看类文档"
+    },
+    {
+      "stepZh": "在脚本里创建 SiONDriver 实例并加入场景树"
+    },
+    {
+      "stepZh": "调用播放接口执行 MML 字符串，或逐个音符、逐段序列喂给驱动"
+    }
+  ],
+  "pros": [
+    "自带合成器，不必预渲染音频，动态生成能省下大量素材体积",
+    "MML 与直接 API 两种驱动方式并存，既能用紧凑字符串快速试听，也能逐音符精确控制，适配不同开发节奏。",
+    "内置六百多种乐器音色预设，芯片音乐、复古电子音与游戏提示音都能直接覆盖，省去找采样素材的时间。",
+    "官方发布包覆盖桌面、Web 与 Android 等平台，按目标平台复制二进制即可接入，不必自己搭编译链。",
+    "仓库带交互示例工程与类参考文档，作者自己的音乐应用 Bosca Ceoil Blue 也基于同一套驱动，参考实现现成。"
+  ],
+  "cons": [
+    "全局只允许一个驱动，多场景同时发声需要自己做混合",
+    "合成音色偏复古，做真实乐器质感仍要外部音频",
+    "仓库仍在 beta 阶段，接口与行为可能随引擎或库版本调整，长期项目要预留回归测试成本。"
+  ],
+  "pitfalls": [
+    "同时创建多个驱动节点会因全局状态冲突而出现异常或无声，一个场景只保留一个驱动实例即可避免。",
+    "bin 目录没有放在项目根或 gdextension 里的路径不对时会加载失败，接入后先在编辑器里确认类已注册。",
+    "Web 平台需要较新的引擎版本才能正常加载扩展，导出前先核对发布说明里的版本要求与浏览器兼容性。"
+  ],
+  "bestFor": "做芯片音乐、程序化配乐或复古音效，希望运行时合成而不是堆素材的 Godot 4 项目与音乐工具作者。",
+  "avoidWhenZh": "要求音频系统绝对稳定、或只需要播放现成音效与背景音乐的项目，用常规音频播放节点更省心。",
+  "compareTips": {
+    "vs": [
+      "nathanhoad__godot_sound_manager"
+    ],
+    "whenZh": "两者都属于内容生成管线上的扩展：GDSiON 在运行时合成声音，适合程序化配乐与动态音效；godot-rive 把 Rive 的矢量动画与状态机带进引擎，适合 UI 与角色动效。做音频选前者，做动画选后者。"
+  },
+  "category": "audio",
+  "tags": [
+    "软件合成器",
+    "MML",
+    "程序化音乐",
+    "GDExtension",
+    "芯片音色"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "以 GDExtension 实现的软件合成器库",
+      "source": "README.md",
+      "quote": "**GDSiON** is a software synthesizer library implemented as a GDExtension for the [Godot engine](https://godotengine.org/)."
+    },
+    {
+      "claim": "支持 MML 与直接 API 两种驱动方式",
+      "source": "README.md",
+      "quote": "You can drive the process using a SiON-specific flavor of Music Macro Language (MML) or by making direct API calls."
+    },
+    {
+      "claim": "项目处于 beta 阶段并建议备份",
+      "source": "README.md",
+      "quote": "This project is in the _beta_ phase. ... Please make backups when working with prerelease libraries!"
+    },
+    {
+      "claim": "兼容 Godot 4.3",
+      "source": "bin/libgdsion.gdextension",
+      "quote": "compatibility_minimum = \"4.3\""
+    }
+  ]
+}

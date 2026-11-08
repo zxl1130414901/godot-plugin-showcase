@@ -1,0 +1,144 @@
+{
+  "taglineZh": "Godot 官方维护的非 HTML 平台 WebRTC 原生实现库",
+  "summaryZh": "HTML5 导出里 WebRTC 由浏览器提供，桌面与移动端却缺少对等连接实现，这个官方插件用 libdatachannel 与 mbedTLS 补上 WebRTCPeerConnection 与 WebRTCDataChannel 的原生后端。它以 GDExtension 形式提供，Godot 4.1 以上直接构建，4.0 与 3.x 分别走 legacy GDExtension 与 GDNative 分支。使用前要从 releases 取对应平台二进制或自行用 scons 编译，仓库本身不含房间管理与信令抽象，接入要自己补一层。",
+  "whatItDoes": "实现 WebRTCPeerConnectionNative 与 WebRTCDataChannelNative 并注册进 Godot 的 WebRTC 单例体系，使 create_peer_connection 在非 HTML 平台返回可用对象。底层封装 libdatachannel，用 mbedTLS 做 DTLS，SConstruct 会把依赖一起编进单个动态库。支持 windows、linux、osx、android、ios 五个平台目标，按 target 区分调试与发布产物。",
+  "useCases": [
+    {
+      "titleZh": "桌面实时联机",
+      "descZh": "桌面或移动端做实时语音、观战或 P2P 联机，需要浏览器之外可用的原生 WebRTC 后端，否则只能改用 WebSocket 轮询。"
+    },
+    {
+      "titleZh": "与网页互通",
+      "descZh": "网页版已经用 WebRTC 互通的项目，希望 Godot 客户端加入同一个信令房间与同一套房间逻辑，复用现有服务端。"
+    },
+    {
+      "titleZh": "自定义消息通道",
+      "descZh": "局域网或内网穿透场景下用 data channel 传自定义消息，省掉自建 TCP 协议与序列化层，也省去重连处理。"
+    },
+    {
+      "titleZh": "研究官方实现",
+      "descZh": "需要理解 Godot WebRTC 抽象层的原生落地方式，把仓库当作参考实现阅读并做二次改造，成本低。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "对等连接实现库",
+      "descZh": "可在桌面与移动端加载的 WebRTC 原生后端，补齐 WebRTC 单例在非 HTML 平台的实现，无需额外适配层。"
+    },
+    {
+      "titleZh": "扩展配置",
+      "descZh": "打包好的 .gdextension 与 tres 配置，拷到工程根目录即可被引擎注册加载，无需改项目设置。"
+    },
+    {
+      "titleZh": "分平台动态库",
+      "descZh": "按平台与 target 生成的动态库，调试版与发布版分目录输出，按部署环境选择即可。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "libdatachannel",
+      "descZh": "底层用成熟的 C++ 库实现，自带 ICE、SDP 协商与 data channel 逻辑，不必自己写协议栈。"
+    },
+    {
+      "name": "mbedTLS",
+      "descZh": "DTLS 加密由 mbedTLS 提供，随库一起编译进产物，不依赖系统预装，部署更省事。"
+    },
+    {
+      "name": "多平台目标",
+      "descZh": "scons 指定 windows、linux、osx、android 与 ios 即可产出对应平台的库，一次构建一个目标。"
+    },
+    {
+      "name": "官方维护",
+      "descZh": "仓库位于 godotengine 组织下，跟随 Godot 版本分支更新并附带发布产物，可信度高。"
+    },
+    {
+      "name": "版本分支",
+      "descZh": "4.1 以上走主分支构建，4.0 与 3.x 分别通过构建参数切换分支。"
+    }
+  ],
+  "limitsZh": "README 很薄，只有编译与拷贝说明，没有任何 API 用法、信令服务器或 NAT 穿透的指导，接入后基本靠 Godot 官方 WebRTC 文档自己摸索。releases 里有桌面三平台的预编译库，但 Android 与 iOS 仍需自行构建，多平台发布时 CI 复杂度高。仓库依赖 godot-cpp、mbedTLS 与 libdatachannel 三个子模块，克隆要递归，缺一不可。它只是底层传输实现，不含房间管理、匹配与中继，STUN 与 TURN 服务器都要自己部署。",
+  "workflowZh": [
+    {
+      "stepZh": "带子模块递归克隆仓库，确保依赖完整。"
+    },
+    {
+      "stepZh": "按目标引擎版本与平台执行 scons 构建。"
+    },
+    {
+      "stepZh": "把 bin 下生成的扩展目录拷到工程根目录。"
+    },
+    {
+      "stepZh": "确认 .gdextension 已被加载，再用 WebRTC 单例创建对等连接。"
+    },
+    {
+      "stepZh": "为每个导出平台重复构建并一起打包。"
+    }
+  ],
+  "pros": [
+    "官方维护，接口与 Godot 的 WebRTC 抽象层对齐，非 HTML 平台终于有可用后端。",
+    "依赖全部静态编进单个动态库，部署时不用再装 mbedTLS 或 libdatachannel，分发更省心。",
+    "覆盖桌面、Android 与 iOS，跨平台联机不必为每个系统另找替代方案。",
+    "代码结构简单，只有注册层与两个原生封装，便于阅读和二次修改。"
+  ],
+  "cons": [
+    "只给编译说明，缺少 API 示例与信令、NAT 穿透的实战指南，新手难以上手",
+    "每个导出平台都要自行构建，多平台发布流程繁琐",
+    "不含房间匹配与中继服务，上层逻辑全部要自写"
+  ],
+  "pitfalls": [
+    "克隆时漏掉 --recurse-submodules，构建会在缺少依赖的位置直接失败，报错信息也不直观。",
+    "构建产物按 target 与版本分目录，拷错目录会导致扩展加载不到。",
+    "TURN 没配好时跨 NAT 连接会长时间卡在 ICE 阶段，容易误判为实现问题。"
+  ],
+  "bestFor": "需要在桌面或移动端做 P2P 实时联机，并且愿意自行构建原生库、搭建信令与中继服务的游戏团队。",
+  "avoidWhenZh": "只做 HTML5 导出，或希望开箱即用拿到整套匹配、中继与信令方案的项目。",
+  "compareTips": {
+    "vs": [
+      "godot-sdk-integrations__godot-play-game-services"
+    ],
+    "whenZh": "两者都补 Godot 原生能力的缺口：webrtc-native 补非 HTML 平台的 P2P 传输，play-game-services 补 Android 的排行榜与成就。前者偏底层网络传输，后者偏平台服务，按项目需求选择。"
+  },
+  "category": "network",
+  "tags": [
+    "WebRTC",
+    "P2P联机",
+    "GDExtension",
+    "原生扩展",
+    "网络传输"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 2,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "为非 HTML 导出提供 WebRTC 实现",
+      "source": "README.md",
+      "quote": "GDNative WebRTC plugin for Godot"
+    },
+    {
+      "claim": "以 GDExtension 形式支持 Godot 4.1 以上",
+      "source": "README.md",
+      "quote": "To build the GDExtension version of the plugin (Godot 4.1+) run the following command from the `webrtc-native` folder"
+    },
+    {
+      "claim": "每个导出平台都要单独构建",
+      "source": "README.md",
+      "quote": "Note that you will have to build the library for all the desired export platforms."
+    },
+    {
+      "claim": "依赖 godot-cpp、mbedTLS 与 libdatachannel",
+      "source": "README.md",
+      "quote": "Clone this repository with the following command to checkout all the dependencies: godot-cpp, mbedTLS and libdatachannel"
+    }
+  ],
+  "id": "godotengine__webrtc-native",
+  "depth": "standard"
+}

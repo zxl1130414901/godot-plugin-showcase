@@ -1,0 +1,35 @@
+{
+  "id": "ClarkThyLord__Voxel-Core",
+  "descriptionZh": "Godot 3 体素插件，提供 VoxelObject 网格节点、VoxelSet 资源与完整的编辑器面板，并支持导入外部体素文件。",
+  "category": "asset-pipeline",
+  "tags": [
+    "体素",
+    "Godot3",
+    "关卡编辑",
+    "GDScript",
+    "资源"
+  ],
+  "prosShort": [
+    "体素编辑、碰撞与 UV 映射一次打包",
+    "两个编辑器面板，都支持撤销重做",
+    "纯 GDScript 实现，几乎所有平台都能运行"
+  ],
+  "consShort": [
+    "只支持 Godot 3，且作者已明确停止更新",
+    "大范围体素生成时性能明显有限",
+    "文档内容较单薄，复杂用法要读源码"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "cloudofoz__godot-deformablemesh",
+  "descriptionZh": "运行时用可堆叠变形器节点改写三维网格，自带球形、弯曲扭转与拖拽三类变形效果。",
+  "category": "3d-shader",
+  "tags": [
+    "3d",
+    "mesh-deform",
+    "runtime",
+    "visual-effects",
+    "addon"
+  ],
+  "prosShort": [
+    "节点式操作，改参数即时看到结果",
+    "支持多个变形器按顺序叠加出效果",
+    "纯 GDScript 实现，无需编译即可直接启用插件"
+  ],
+  "consShort": [
+    "高密度网格和多表面模型性能吃紧",
+    "拖拽变形器同一时间只能绑一个网格",
+    "内置变形器种类偏少且更新停滞"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

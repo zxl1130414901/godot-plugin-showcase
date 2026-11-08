@@ -1,0 +1,146 @@
+{
+  "id": "tomankirilov__VPainter",
+  "depth": "standard",
+  "taglineZh": "在 Godot 的 3D 视图里随时直接给网格刷顶点颜色",
+  "summaryZh": "VPainter 是 Godot 4.x 的顶点着色插件，让作者在 3D 编辑器里直接给网格刷 RGBA 顶点色。它提供画笔、填充与模糊三种操作，R、G、B、A 四个通道可分别控制强度，还能一次涂多个网格并为每个网格自动做本地副本与撤销。笔刷大小可预览，用方括号键缩放，两个颜色之间按 X 键互换，顶点色还能复制粘贴。把 addons/vpainter 复制进项目、在插件页启用即可使用。作者明确只保留顶点色功能，移除了数位板与网格变形，也未附带着色器。",
+  "whatItDoes": "启用插件后选中网格并点 VPainter 图标进入绘制模式，工具栏给出画笔、填充、模糊与通道开关。绘制结果写进网格的顶点色数组，多个网格一起刷时会各自生成本地副本，撤销按操作记录回退。复制粘贴可在网格之间搬运颜色，重新加载网格时按顶点位置做线性混合把颜色带过去，即使拓扑变了也能保留大部分绘制结果。",
+  "useCases": [
+    {
+      "titleZh": "手绘风格化植被",
+      "descZh": "给草地、岩石与树干刷上渐变色，靠顶点色区分明暗与色相，不必为每块地单独做贴图，省下一批贴图资源与 UV 工作量。"
+    },
+    {
+      "titleZh": "低多边形场景",
+      "descZh": "Low Poly 模型靠顶点色出效果，刷一层颜色就能做出层次，导出到其它引擎也能保留在网格数据里，不必再转成贴图。"
+    },
+    {
+      "titleZh": "灰盒原型",
+      "descZh": "原型阶段用纯色网格区分墙体、地面与道具，改配色只刷顶点色，比重新做材质快很多，连贴图基本都不用准备。"
+    },
+    {
+      "titleZh": "网格重导入后保留颜色",
+      "descZh": "模型在 Blender 里改过拓扑后再导入，插件按最近顶点混色把原有涂装带过来，减少重刷，能省去大半手工重画的麻烦。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "绘制面板",
+      "descZh": "选中网格后出现的场景内面板，提供画笔、填充、模糊与通道开关，画笔大小有预览圈，从工具栏点图标进入。"
+    },
+    {
+      "titleZh": "本地网格副本",
+      "descZh": "多网格一起绘制时给每个网格生成局部副本，原资源不被直接改写，撤销也按副本单独记录。"
+    },
+    {
+      "titleZh": "颜色搬运工具",
+      "descZh": "复制粘贴顶点色、重新加载网格并保留颜色、重建 LOD，这三件事都在面板里，重新加载时按顶点位置比对再混色。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "RGBA 分通道",
+      "descZh": "红绿蓝与透明度可分别设置强度，单独刷某个通道，做顶点遮罩或粗糙度数据很方便。"
+    },
+    {
+      "name": "笔刷预览",
+      "descZh": "笔刷大小在网格上有预览圈，方括号键即可缩放，刷大范围与抠细节都不用频繁来回改设置。"
+    },
+    {
+      "name": "双颜色互换",
+      "descZh": "准备两个常用颜色，按 X 键即可互换，在两种色相之间快速切换，画过渡时少点几次取色器。"
+    },
+    {
+      "name": "重导入兼容",
+      "descZh": "网格拓扑变化后，插件按位置线性混合顶点色，尽量把旧涂装映射到新网格上，省去重新刷一遍。"
+    }
+  ],
+  "limitsZh": "只处理顶点色，不提供贴图绘制、法线编辑或网格变形，作者明确砍掉了数位板与形变功能。面板在 3D 视图里工作，网格必须有顶点色数组，否则要先在导入设置里启用。涂装结果写进网格资源，团队协作时要提交改过的资源文件，二进制差异不好审。拓扑大改后靠位置混合，边缘可能出现错色，需要手动补刷。仓库不带着色器，要在材质里自己接顶点色，否则刷了也看不见。插件基于 GDScript，超大网格一次涂多个时会明显卡顿。README 很短，参数与快捷键说明集中在一页。",
+  "workflowZh": [
+    {
+      "stepZh": "把整个 addons/vpainter 目录复制进项目，并在插件页启用 VPainter。"
+    },
+    {
+      "stepZh": "选中网格，点工具栏里的 VPainter 图标直接进入绘制模式。"
+    },
+    {
+      "stepZh": "选画笔或填充，先设定笔刷大小与要刷的通道再开始。"
+    },
+    {
+      "stepZh": "在网格上拖动涂色，用方括号键随时调笔刷大小。"
+    },
+    {
+      "stepZh": "需要灰度或遮罩时切到单通道，再用复制粘贴搬到别的网格。"
+    }
+  ],
+  "pros": [
+    "直接在 3D 编辑器里刷顶点色，不用离开 Godot 去外部工具画贴图，省掉导出再导入的往返。",
+    "RGBA 四通道可分开刷，做遮罩、粗糙度与自发光数据都能用同一套顶点色直接控制。",
+    "多网格同时绘制会自动生成本地副本，原资源不被直接改写，撤销也能回退。",
+    "重新导入拓扑变化的网格时能按位置混色保留涂装，省去大半重新刷一遍的麻烦。"
+  ],
+  "cons": [
+    "只做顶点色，贴图绘制、法线编辑与网格变形都不在支持范围内。",
+    "仓库不带着色器，材质里没接顶点色就看不到任何绘制效果。",
+    "顶点色写进网格资源，团队协作时二进制差异难审，还容易产生冲突。",
+    "超大网格一次涂多个会明显卡顿，GDScript 实现没有做批处理优化。"
+  ],
+  "pitfalls": [
+    "网格没有顶点色数组时画笔没反应，先确认导入设置已允许顶点色，否则一直白刷。",
+    "材质没接顶点色，刷完就在视图里看不到变化，容易误判成插件完全没生效。",
+    "重新导入时直接覆盖原网格会丢涂装，先确认本地副本与重载流程再操作。"
+  ],
+  "bestFor": "用它给 Low Poly 场景、手绘植被或灰盒原型刷顶点色，希望快速不离开 Godot、不做额外的配套贴图的小团队与个人美术。",
+  "avoidWhenZh": "需要贴图绘制、法线或粗糙度贴图、网格变形，或者要跨团队审阅二进制网格资源的项目。",
+  "compareTips": {
+    "vs": [
+      "cloudofoz__godot-deformablemesh",
+      "98teg__SpriteMesh"
+    ],
+    "whenZh": "和 deformablemesh 这类顶点动画插件不同，它只负责把颜色画进网格，不参与形变与骨骼；与 SpriteMesh 这种 2D 网格工具相比，它面向 3D 视图与材质通道；需要程序化笔刷或运行时绘制时得另找方案。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "顶点色",
+    "3D",
+    "网格",
+    "编辑器工具"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "在 3D 编辑器里直接绘制顶点颜色",
+      "source": "README.md",
+      "quote": "I made VPainter to paint vertex colors directly in Godot's 3D editor."
+    },
+    {
+      "claim": "支持画笔、填充与模糊及分通道",
+      "source": "README.md",
+      "quote": "Paint, fill and blur, with strength and separate R, G, B and A channels."
+    },
+    {
+      "claim": "多网格绘制并自动本地副本与撤销",
+      "source": "README.md",
+      "quote": "Paint multiple meshes together, with automatic local copies and undo."
+    },
+    {
+      "claim": "复制粘贴顶点色、重载网格保留颜色并重建 LOD",
+      "source": "README.md",
+      "quote": "Copy/paste vertex colors, reload a mesh while keeping its colors, and rebuild LODs."
+    },
+    {
+      "claim": "不附带着色器",
+      "source": "README.md",
+      "quote": "There are no shaders included with this version."
+    }
+  ]
+}

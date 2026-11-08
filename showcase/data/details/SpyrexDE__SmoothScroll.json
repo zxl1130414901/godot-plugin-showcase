@@ -1,0 +1,156 @@
+{
+  "id": "SpyrexDE__SmoothScroll",
+  "depth": "standard",
+  "taglineZh": "为 Godot 提供带惯性与回弹的平滑滚动容器",
+  "summaryZh": "SmoothScroll 给 Godot 的 ScrollContainer 加一层速度驱动的滚动：滚轮、拖动与滚动条各自使用可替换的 ScrollDamper，内容会带惯性继续移动，到边界还能短暂越界再回弹。容器还支持跟随焦点留边距、自动判断哪一轴可滚、隐藏滚动条与调试显示，并会在需要时把子控件的 mouse_filter 调成穿透。它只是替换节点类型，不改业务逻辑，适合列表、设置页与移动端长页面。",
+  "whatItDoes": "SmoothScrollContainer 继承 ScrollContainer，用 content_node 与 velocity 自行推进位置：每次输入记录类型与强度，再由 ExpoScrollDamper 等资源衰减速度，低于阈值时吸附到边界。导出参数涵盖滚轮速度、拖拽阻尼、越界开关、滚动条淡出、焦点边距与横竖轴限制，子控件会按需覆盖 mouse_filter，另可开启调试信息观察速度与状态。",
+  "useCases": [
+    {
+      "titleZh": "设置菜单",
+      "descZh": "长设置页需要顺滑滚动，用惯性让滚轮操作不再一格一格跳，浏览体验更连贯，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "移动端页面",
+      "descZh": "触摸拖动带越界回弹，更接近原生列表手感，减少生硬的边界停顿，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "焦点导航",
+      "descZh": "手柄或键盘切换控件时，容器自动留边距把焦点滚进视野，避免焦点跑出屏幕，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "隐藏滚动条",
+      "descZh": "界面要求干净，可让滚动条闲置后淡出、交互时再出现，不占视觉注意力，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "既有项目改造",
+      "descZh": "右键节点改类型即可替换，业务脚本无需改动，适合逐步替换旧滚动容器，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "平滑容器",
+      "descZh": "SmoothScrollContainer 节点，替换原生 ScrollContainer，保留原有子节点结构，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "阻尼资源",
+      "descZh": "ScrollDamper 与 ExpoScrollDamper，可自定义速度衰减曲线与回弹力度，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "状态信号",
+      "descZh": "滚动开始与结束会发信号，便于联动音效、懒加载或滚动提示，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "惯性滚动",
+      "descZh": "速度驱动推进，松手后继续滑动并平滑停止，减少一格一格的跳变。"
+    },
+    {
+      "name": "越界回弹",
+      "descZh": "到边界可短暂超出再回插，触屏手感更自然，也可按需关闭，参数集中在检查器面板。"
+    },
+    {
+      "name": "可换阻尼",
+      "descZh": "ScrollDamper 是资源，能按项目调不同衰减曲线，快慢风格都能适配，后续修改起来也不费劲。"
+    },
+    {
+      "name": "焦点跟随",
+      "descZh": "follow_focus_margin 让键盘或手柄焦点始终可见，适合主机与手柄 UI，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "滚动条淡出",
+      "descZh": "闲置后隐藏滚动条，交互时淡入，界面更干净，不影响可用性，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "它是 UI 节点而非通用输入方案，复杂嵌套滚动容器同时启用拖动时可能抢事件，需要逐层调 mouse_filter。默认的 snap_controls_to_pixels 若保持开启，平滑滚动会被像素对齐打断，README 要求关闭该设置，可能影响像素风项目。拖动与内部按钮、滑条的手势会冲突，需靠 override_mouse_filters 或自定义过滤解决。仓库只给了一段用法说明，参数含义主要靠检查器提示与源码，缺少完整示例工程。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/SmoothScroll 拷入项目，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在项目设置启用插件，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "添加 SmoothScrollContainer 节点，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "把原 ScrollContainer 右键改类型，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "关闭 snap_controls_to_pixels，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需调阻尼与回弹参数，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "惯性加回弹接近移动端原生手感，体验提升明显，团队新人照着示例就能上手。",
+    "阻尼是资源，能按项目调整衰减曲线，出现问题时也更容易定位原因。",
+    "支持焦点跟随与滚动条淡出，细节考虑周全，对中小团队的时间成本很友好。",
+    "改节点类型即可替换，迁移成本低，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "需关闭像素对齐，像素风项目要权衡，升级引擎版本时容易卡住。",
+    "嵌套滚动与手势冲突需手动调，定制之前往往要先读源码。",
+    "文档只有用法片段，参数靠读源码，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "忘记关闭 snap_controls_to_pixels，滚动会一顿一顿，排查时需要多留一层日志。",
+    "子控件 mouse_filter 未覆盖，拖动会被按钮吃掉，上线前要专门过一遍。",
+    "多个可滚动容器嵌套时，外层可能同时响应滚轮，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "需要移动端般顺滑滚动、带越界回弹与焦点跟随的 UI 项目，且能接受关闭像素对齐的代价，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "像素风且必须保持控件像素对齐，或只需要默认滚动行为的简单界面。",
+  "compareTips": {
+    "vs": [
+      "gilzoide__godot-dockable-container"
+    ],
+    "whenZh": "两者都在 UI 层：dockable-container 解决面板停靠与分栏，SmoothScroll 解决滚动阻尼与回弹；功能互补，常在同一复杂界面里一起用，可按缺失的是布局能力还是滚动手感来选择。"
+  },
+  "category": "ui",
+  "tags": [
+    "滚动容器",
+    "平滑滚动",
+    "UI控件",
+    "移动端触控"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "isGDExtension": false,
+  "evidence": [
+    {
+      "claim": "在 ScrollContainer 基础上提供平滑滚动选项",
+      "source": "addons/SmoothScroll/plugin.cfg",
+      "quote": "This plugin adds a new scroll container class\nwith additional smooth scroll options."
+    },
+    {
+      "claim": "插件需在项目设置的插件页启用",
+      "source": "README.md",
+      "quote": "Activate the addon in the project settings' addon tab"
+    },
+    {
+      "claim": "用改节点类型的方式替换原有滚动容器",
+      "source": "README.md",
+      "quote": "rightclick the node and select change type"
+    },
+    {
+      "claim": "必须关闭 snap_controls_to_pixels",
+      "source": "README.md",
+      "quote": "set _gui/common/snap_controls_to_pixels_ to _false_"
+    },
+    {
+      "claim": "当前版本 1.4.4",
+      "source": "addons/SmoothScroll/plugin.cfg",
+      "quote": "version=\"1.4.4\""
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "id": "kibble-cabal__godot-rive",
+  "depth": "standard",
+  "taglineZh": "把 Rive 矢量动画与状态机接进 Godot 4 的 GDExtension",
+  "summaryZh": "Godot Rive 用 GDExtension 把 Rive 的矢量动画能力接进 Godot 4.1 以上版本，底层依赖 rive-cpp 与其自带的 skia。它可以加载 .riv 文件里的画板、动画与状态机，支持多画板切换、栅格图像与悬停按下等输入事件，并能在检查器与代码里修改状态机属性。编辑器内提供静态与动画预览，改完动画资源可以即时查看。项目仍标注为 alpha，多数功能已实现但 API 可能小幅变动，二进制目前只提供 macOS 通用版本。",
+  "whatItDoes": "把 Rive 的矢量动画运行时嵌入 Godot，加载 .riv 资源并按画板与状态机播放动画。暴露输入事件与状态机属性的读写接口，让动画能与玩家操作联动，并可在检查器中直接修改状态机参数。在编辑器内提供静态与动态预览，摆放节点时即可看到动画效果。",
+  "useCases": [
+    {
+      "titleZh": "UI 动效",
+      "descZh": "用 Rive 做按钮、加载与页面转场动效，状态机在编辑器里调好，引擎侧只需切换状态与喂输入事件。"
+    },
+    {
+      "titleZh": "角色与图标动画",
+      "descZh": "把矢量角色与图标动画放进 2D 场景，任意缩放都不糊，内存占用也比同尺寸序列帧省得多。"
+    },
+    {
+      "titleZh": "交互式插画",
+      "descZh": "监听悬停、按下与点击事件来驱动 Rive 状态切换，做出可交互的菜单、引导图与教学插画。"
+    },
+    {
+      "titleZh": "设计与程序协作",
+      "descZh": "美术在 Rive 里完成动画，程序只引用 .riv 文件与输入名，改动画不必改代码，交接边界清晰。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Rive 节点",
+      "descZh": "加载 .riv 文件并显示画板，支持多场景与多画板切换，能在同一节点里切换不同资源。"
+    },
+    {
+      "titleZh": "状态机接口",
+      "descZh": "在编辑器检查器与代码里修改状态机属性，监听输入事件并以信号形式发给游戏逻辑层。"
+    },
+    {
+      "titleZh": "示例工程",
+      "descZh": "仓库自带 demo 与示例资源，包含编辑器内的静态与动画预览，可照着改出自己的动画。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": ".riv 加载",
+      "descZh": "直接读取 .riv 里的画板、动画与状态机，资源格式开箱可用，不必先转成序列帧或骨骼数据。"
+    },
+    {
+      "name": "输入事件",
+      "descZh": "悬停、按下与点击等事件会以信号发出，可以按需开关监听，把交互逻辑接进游戏脚本。"
+    },
+    {
+      "name": "状态机属性",
+      "descZh": "检查器按状态机结构动态生成属性面板，调参不必写代码，改完立刻在预览里看到结果。"
+    },
+    {
+      "name": "编辑器预览",
+      "descZh": "静态与动画预览都能在编辑器里直接查看，改完动画资源即时反馈，省去反复运行场景。"
+    }
+  ],
+  "limitsZh": "项目处于 alpha，作者明确说明可能有 bug、多平台未充分测试，API 也可能随版本调整，用在长期项目需要留改动预算。官方只提供 macOS 通用二进制，Windows、Android 与 iOS 都要自行编译，构建链还要先装 Python、SCons 与 ninja 并处理 skia 与 rive-cpp 子模块。gdextension 文件里的路径需按项目目录手工修改，路径不对会直接加载失败。状态机输入名写错时动画不会切换，也不一定给出明确错误，排查靠对照 Rive 工程。编辑器之外的资源管理仍缺缩略图与导入器，属于路线图里的未完成项。",
+  "workflowZh": [
+    {
+      "stepZh": "克隆仓库后先用 git submodule 初始化 godot-cpp 与 thirdparty 子模块，再进入编译步骤"
+    },
+    {
+      "stepZh": "按 README 说明执行 build.py，等待 skia 与 rive-cpp 编译完成并生成库文件"
+    },
+    {
+      "stepZh": "把生成的 bin 与 gdextension 文件复制进项目，并按目录修改里面写的路径"
+    },
+    {
+      "stepZh": "在场景里添加 Rive 节点，选中 .riv 文件并确认画板正确显示"
+    },
+    {
+      "stepZh": "按状态机输入名切换动画并接事件信号"
+    }
+  ],
+  "pros": [
+    "矢量动画任意缩放都不糊，内存占用比序列帧低，特别适合 UI 图标与角色这类需要多种尺寸的资源。",
+    "状态机在 Rive 编辑器里可视化调好，程序侧只需切换状态与喂输入事件，动画与代码的耦合很低。",
+    "检查器按状态机结构动态生成属性面板，参数含义与 Rive 里一致，调参与调试都很直观。",
+    "编辑器内可以直接预览静态帧与动画播放，改完资源立刻看到效果，不必先跑场景再回头改。",
+    "以 MIT 许可开放源码，需要改渲染后端或扩展交互事件时可以直接动 C++ 层，长期维护更可控。"
+  ],
+  "cons": [
+    "项目仍标注 alpha，作者说明可能有 bug，API 也可能小幅变动，长期项目要预留升级与回归成本。",
+    "官方只提供 macOS 通用二进制，Windows、Android 与 iOS 都要自行编译，跨平台项目前期投入更大。",
+    "依赖 skia 与 rive-cpp 两个重子模块，构建链较复杂，换引擎版本时要重新拉子模块并整体重编。"
+  ],
+  "pitfalls": [
+    "在 Windows 或 Linux 上直接使用官方 macOS 二进制会缺库并加载失败，先按文档自行编译对应平台版本。",
+    "gdextension 文件里的库路径未按项目实际目录调整时会在启动时报错，复制后第一件事是核对路径。",
+    "状态机输入名拼错时动画不会切换也不一定给出明确错误，接入后先对照 Rive 工程核对每个输入名。"
+  ],
+  "bestFor": "做矢量 UI 动效或交互插画，团队里已有 Rive 设计流程，并能接受 alpha 阶段与自行编译的 Godot 4 项目团队。",
+  "avoidWhenZh": "需要在 Windows 或移动端稳定交付、或要求插件 API 长期不变的项目，应等其完成其他平台支持后再采用。",
+  "compareTips": {
+    "vs": [
+      "EvilBunnyMan__TweenFX"
+    ],
+    "whenZh": "两者都是通过 C++ 扩展接入外部能力：godot-rive 引入 Rive 矢量动画与状态机，补齐 UI 与角色动效；GDSiON 引入软件合成器，补齐程序化音频。做动画选前者，做声音选后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "Rive",
+    "矢量动画",
+    "状态机",
+    "GDExtension",
+    "交互动效"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "项目处于 alpha，平台与 API 均不稳定",
+      "source": "README.md",
+      "quote": "This extension is in **alpha**. That means: You may encounter some bugs / It's untested on many platforms / Most features are implemented, but the API may change a little"
+    },
+    {
+      "claim": "仅为 macOS 提供二进制，其他平台需自行构建",
+      "source": "README.md",
+      "quote": "Binaries are only provided for MacOS universal (debug and release). Eventually, binaries will be provided for other platforms."
+    },
+    {
+      "claim": "构建说明只在 M1 macOS 上验证过",
+      "source": "README.md",
+      "quote": "These instructions are only tested on M1 MacOS. You may have to modify `build/build.py` or `build/SConstruct` for your system."
+    },
+    {
+      "claim": "加载 .riv 并支持状态机与输入事件",
+      "source": "README.md",
+      "quote": "* Load `.riv` files (artboards, animations, and state machines)\\n* Listen for input events"
+    }
+  ]
+}

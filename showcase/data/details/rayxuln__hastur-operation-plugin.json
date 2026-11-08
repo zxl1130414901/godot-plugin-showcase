@@ -1,0 +1,140 @@
+{
+  "id": "rayxuln__hastur-operation-plugin",
+  "depth": "standard",
+  "taglineZh": "让编码代理通过 HTTP 远程执行 GDScript 的编辑器插件",
+  "summaryZh": "Hastur 在 Godot 编辑器里开了一个受控入口：插件通过 TCP 连到 Node.js broker，broker 暴露 HTTP API，编码代理带 Bearer token 调用执行接口，就能在编辑器里编译并运行任意 GDScript。代理因此可以检查场景树、增删节点、改项目设置，把 GUI 编辑器变成可脚本化的工作面。代价是权力极大：token 泄露等于把编辑器交给对方，必须只在本机或可信网络使用。插件本身很轻，但需要额外跑 Node 服务，且版本号仅 0.1。",
+  "whatItDoes": "编辑器插件启动后连接 broker 的 TCP 端口，并在停靠面板显示连接状态；broker 提供带 Bearer 鉴权的 HTTP 接口，把代码转发给指定编辑器实例。插件收到代码后编译执行并回传输出，代理可据此连续操作场景与项目设置。仓库同时附带代理技能说明，告诉编码代理如何发现编辑器并调用接口。",
+  "useCases": [
+    {
+      "titleZh": "AI 代理批量改场景",
+      "descZh": "让代理直接增删节点、修改属性与项目设置，人不必守在前台逐个点选菜单，也不必反复切换窗口。"
+    },
+    {
+      "titleZh": "编辑器自动化回归",
+      "descZh": "用脚本远程触发场景加载与节点操作，做无人值守的编辑器侧回归与冒烟检查，适合夜间跑批。"
+    },
+    {
+      "titleZh": "远程排障与取样",
+      "descZh": "在编辑器里即时运行诊断脚本，读取节点树与项目设置，减少来回描述问题的沟通成本。"
+    },
+    {
+      "titleZh": "代理工具链教学",
+      "descZh": "演示如何把一个 GUI 编辑器包成带鉴权与路由的 HTTP 服务，供编码代理稳定调用与复现。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可远程调用的执行端点",
+      "descZh": "broker 暴露 HTTP 接口，按 token 把请求路由到具体的编辑器实例，并支持同时多开多个窗口。"
+    },
+    {
+      "titleZh": "编辑器内连接面板",
+      "descZh": "编辑器停靠面板显示连接状态与最近一次执行结果，host 与端口都可以在项目设置里调整。"
+    },
+    {
+      "titleZh": "代理技能说明",
+      "descZh": "附带 SKILL.md，描述如何发现编辑器、提交代码与读取返回，降低代理的接入成本。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "POST /api/execute",
+      "descZh": "代理提交 GDScript 与 token，由 broker 转发到编辑器内编译执行，并把输出原样回传。"
+    },
+    {
+      "name": "Bearer 鉴权",
+      "descZh": "broker 用 Bearer token 做安全边界，避免任意 HTTP 请求直接触达编辑器进程。"
+    },
+    {
+      "name": "多编辑器路由",
+      "descZh": "broker 维护已连接实例列表，可把代码发给指定编辑器而不是广播。"
+    },
+    {
+      "name": "编辑器停靠面板",
+      "descZh": "显示连接状态与最近一次执行结果，host 与端口通过项目设置调整。"
+    },
+    {
+      "name": "代理技能文件",
+      "descZh": "内置代理技能文件，降低接入时编写提示词与工具描述的成本。"
+    }
+  ],
+  "limitsZh": "必须在旁边跑一个 Node.js 18 以上的 broker，纯 Godot 项目无法开箱即用；插件只覆盖 GDScript 执行，没有 C# 或 GDExtension 版本。核心能力就是执行任意代码，仓库没有沙箱、权限分级或代码白名单，token 泄露或 broker 暴露公网都等于交出编辑器。版本停在 0.1，接口与端口约定可能变动；README 也提醒这是为编码代理准备的「后门」，不适合放进生产流水线。",
+  "workflowZh": [
+    {
+      "stepZh": "先安装 Node 18 以上版本，再启动 broker 服务并观察日志"
+    },
+    {
+      "stepZh": "记下 broker 启动时打印的鉴权 token 与端口"
+    },
+    {
+      "stepZh": "把插件仓库里的 addons 目录复制进项目，并在插件页启用"
+    },
+    {
+      "stepZh": "在项目设置里填写 broker 的 host 与 TCP 端口"
+    },
+    {
+      "stepZh": "给编码代理配置 token 与 broker 的 HTTP 接口地址，再发起调用"
+    }
+  ],
+  "pros": [
+    "把编辑器操作暴露成 HTTP 接口，代理无需模拟鼠标即可改场景与设置",
+    "broker 负责鉴权与路由分发，比让编辑器直接监听公网端口更可控",
+    "附带代理技能说明，接入编码代理时提示词与调用路径都清晰",
+    "插件本体很轻，停靠面板能直观看到连接状态与最近一次结果",
+    "端口、地址与 token 都可配置，便于本机同时运行多个编辑器实例"
+  ],
+  "cons": [
+    "需要额外维护 Node broker 服务，只用编辑器的用户完全用不上",
+    "执行任意代码且没有沙箱，安全边界全靠 token，风险极高",
+    "版本停在 0.1，接口与端口约定可能变动，长期维护前景不明"
+  ],
+  "pitfalls": [
+    "token 写进脚本或截图会直接泄露编辑器控制权，用完应及时重置",
+    "broker 不要绑定公网地址，默认只监听 localhost 才相对安全，暴露前先评估风险",
+    "执行报错只回传文本输出，复杂对象需要自己在代码里序列化"
+  ],
+  "bestFor": "让编码代理直接操作 Godot 编辑器、愿意在本机多跑一个 Node 服务并接受早期版本风险的自动化玩家与工具链作者。",
+  "avoidWhenZh": "需要开箱即用、多人共享环境，或对代码执行有合规审计要求的团队。",
+  "compareTips": {
+    "vs": [
+      "Coding-Solo__godot-mcp"
+    ],
+    "whenZh": "两者都让代理操作 Godot：godot-mcp 走 MCP 协议封装常用操作，Hastur 走 HTTP 直接执行任意 GDScript。需要标准工具接口与权限收敛选前者，需要最大自由度选后者。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "AI代理",
+    "远程执行",
+    "GDScript",
+    "编辑器自动化",
+    "HTTP"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "通过 HTTP API 远程执行任意 GDScript",
+      "source": "README.md",
+      "quote": "A Godot editor plugin that lets you remotely execute arbitrary GDScript code snippets via an HTTP API."
+    },
+    {
+      "claim": "broker 使用 Bearer token 作为安全边界",
+      "source": "README.md",
+      "quote": "having a proper HTTP server with Bearer token authentication is a reasonable security boundary"
+    },
+    {
+      "claim": "需要 Node.js 18 以上运行 broker",
+      "source": "README.md",
+      "quote": "- [Node.js](https://nodejs.org/) 18+ (for the broker server)"
+    }
+  ]
+}

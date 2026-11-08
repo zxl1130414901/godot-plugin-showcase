@@ -1,0 +1,14 @@
+{
+  "id": "tessarakkt__godot4-oceanfft",
+  "descriptionZh": "用 Tessendorf FFT 与计算着色器生成海浪，并以 CDLOD 管理海面密度、附带基础浮力与水下效果的 Godot 4 海洋插件",
+  "category": "3d-shader",
+  "tags": ["海洋", "FFT", "计算着色器", "浮力", "LOD"],
+  "prosShort": ["FFT 波谱让海浪起伏更接近真实海况", "计算着色器配合 CDLOD，远处省三角形", "浮力、水下效果与白浪有基础实现"],
+  "consShort": ["早期在研项目，插件版本仍是 devel 号", "海岸交互与多人同步仍在待办中", "参数多且缺教程，新手难调好海面"],
+  "scores": {"coverage": 4, "usability": 2, "docs": 3, "maintenance": 3, "performance": 3, "stability": 3},
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

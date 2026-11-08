@@ -1,0 +1,33 @@
+{
+  "id": "yuchenyang1994__godot-love-wechat",
+  "descriptionZh": "把 Godot 4.3 Web 导出转成微信小游戏，并修复音频与文件同步，整体接入成本不高。",
+  "category": "platform-export",
+  "tags": [
+    "微信小游戏",
+    "Web导出",
+    "音频修复",
+    "Python工具"
+  ],
+  "prosShort": [
+    "图形化流程完整且支持一键预览",
+    "开源模板可按需裁剪引擎模块",
+    "音频能重新接入 Godot 音频总线"
+  ],
+  "consShort": [
+    "作者已停止维护无法跟进新版",
+    "导出工具目前只能在 Windows 11 下运行"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 1,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

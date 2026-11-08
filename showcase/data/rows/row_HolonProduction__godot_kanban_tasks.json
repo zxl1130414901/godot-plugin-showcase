@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "Godot 编辑器内的极简看板待办插件，拖放管理任务并随工程一起提交",
+  "prosShort": [
+    "待办就在编辑器里，切换成本极低",
+    "拖放加快捷键，几乎不用学习",
+    "数据随工程走，备份与迁移简单"
+  ],
+  "consShort": [
+    "功能极简，没有提醒、报表与协作",
+    "单一数据文件，多分支易冲突",
+    "打包脚本只支持 Linux，Windows 需自查"
+  ],
+  "isGDExtension": false,
+  "id": "HolonProduction__godot_kanban_tasks",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "category": "editor-tool",
+  "tags": [
+    "看板",
+    "任务管理",
+    "编辑器插件",
+    "待办",
+    "独立应用"
+  ],
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

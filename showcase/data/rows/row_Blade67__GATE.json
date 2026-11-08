@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "把 GDScript 扩展为带类型、struct 与泛型的 .gate 语言并编译回原生脚本，适合大型工程",
+  "prosShort": [
+    "类型前置与泛型提升可读性",
+    "编译产物为原生 GDScript，性能无损耗",
+    "生成代码保留注释可继续调试"
+  ],
+  "consShort": [
+    "要求 Godot 4.7 以上，旧项目难接入",
+    "非官方语法，长期维护有风险",
+    "调试器只显示生成的 .gd，行号需对照"
+  ],
+  "isGDExtension": false,
+  "id": "Blade67__GATE",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "category": "editor-tool",
+  "tags": [
+    "GDScript",
+    "语言扩展",
+    "编译器",
+    "类型系统",
+    "编辑器插件"
+  ],
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

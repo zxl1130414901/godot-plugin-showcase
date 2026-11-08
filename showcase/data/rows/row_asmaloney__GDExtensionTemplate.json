@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "用 CMake 构建 Godot 4 C++ 扩展的模板工程，含 gdextension 生成、版本头与三平台 CI",
+  "prosShort": [
+    "构建脚本与 godot-cpp 接线已备好",
+    "版本头文件与打包自动生成",
+    "三平台 CI 与格式检查都已就绪"
+  ],
+  "consShort": [
+    "只对齐 Godot 4.2，升级要自己同步",
+    "仅骨架与示例，业务代码全自写",
+    "无 Android、iOS 与 Web 的交叉编译配置"
+  ],
+  "isGDExtension": true,
+  "id": "asmaloney__GDExtensionTemplate",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "category": "editor-tool",
+  "tags": [
+    "GDExtension",
+    "C++",
+    "CMake",
+    "模板",
+    "构建"
+  ],
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true
+}

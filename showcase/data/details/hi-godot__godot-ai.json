@@ -1,0 +1,168 @@
+{
+  "id": "hi-godot__godot-ai",
+  "depth": "standard",
+  "taglineZh": "把 46 个工具接进 Godot 编辑器，让 MCP 客户端直接改场景与脚本",
+  "summaryZh": "Godot AI 在编辑器里跑一个插件，同时拉起 Python 编写的 MCP 服务器，把场景树、节点属性、脚本、信号、材质、动画、粒子与环境配置暴露成工具。相比只生成代码的 AI 助手，它的每次改动都写进真实工程，脚本会做解析校验并热重载，模型还能读回场景层级与运行日志。安装靠 AssetLib 加 uv，支持二十多个客户端并提供一键配置。GDScript 得到完整支持，C# 只能按文本读写，不负责编 .NET 也不报编译错误。它默认收集匿名遥测，可以在编辑器或环境变量里关掉。工具覆盖面很宽，但调用都要过编辑器主线程，超大场景连续操作会明显变慢。",
+  "whatItDoes": "插件启用后在编辑器里加一个 dock，负责发现 uv、启动与关闭 MCP 服务进程，并为客户端写入配置。服务器以标准输入输出或本地端口与客户端通信，把工具调用转成编辑器内的操作。工具覆盖场景与节点增删改、脚本读写与符号查找、信号连接、UI 与材质、动画与粒子、相机与环境设置，还包括测试运行与文件扫描。脚本改动会做解析校验并热重载，运行时可读取游戏日志与截图。安装与更新都在 dock 内完成，v3 到 v4 有专门的迁移桥接插件。",
+  "useCases": [
+    {
+      "titleZh": "自然语言搭场景",
+      "descZh": "原型期让模型按描述铺出主菜单或关卡骨架，节点与属性直接落进场景树，省去手动拖拽与逐个填参数。"
+    },
+    {
+      "titleZh": "批量脚本改造",
+      "descZh": "重构时让模型批量改脚本并跑解析校验，错误当场反馈，改完还能按符号定位引用位置，减少手工逐个打开文件。"
+    },
+    {
+      "titleZh": "AI 辅助调试",
+      "descZh": "把运行日志与场景层级喂给模型，让它判断报错来自哪个节点或脚本，并在编辑器里直接改掉，省去复制粘贴日志。"
+    },
+    {
+      "titleZh": "UI 与材质调参",
+      "descZh": "给界面和材质做批量调整，例如统一间距、字体或材质参数，模型直接改属性而不只是给建议，一次改一片控件。"
+    },
+    {
+      "titleZh": "教学与演示",
+      "descZh": "演示 AI 与引擎协作时，用工具实时建场景，观众能看到改动确实发生在编辑器里而非纸面方案，也便于录屏讲解。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可运行的编辑器会话",
+      "descZh": "由工具调用驱动改动的场景与脚本，改动即时可见，之后还能在编辑器里继续手工调整，不必重新导入项目。"
+    },
+    {
+      "titleZh": "客户端配置",
+      "descZh": "为 Claude Code、Codex、Cursor 等客户端写好的 MCP 配置，含端口与工具域，写进对应客户端自己的配置文件，换机器时复制即可复用，省去逐项核对命令。"
+    },
+    {
+      "titleZh": "校验后的脚本",
+      "descZh": "经过解析校验并热重载的 GDScript，语法错误在写入阶段就能发现，编辑器也不会留下无法打开的脚本文件。"
+    },
+    {
+      "titleZh": "运行日志与截图",
+      "descZh": "从编辑器与运行实例抓到的日志、截图，作为下一轮对话的反馈输入，也可用于人工复核，便于定位画面问题。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "46 Tools / 120+ Operations",
+      "descZh": "覆盖场景、脚本、信号、UI、材质、动画、粒子与环境，是同类 MCP 里覆盖面较广的一套。"
+    },
+    {
+      "name": "Parse-validated Scripts",
+      "descZh": "脚本写入前做解析校验并热重载，语法错误当场暴露，减少把工程改到打不开的风险。"
+    },
+    {
+      "name": "Client Configurator",
+      "descZh": "dock 里一键为二十多个客户端写配置，并处理版本与端口对不上的常见坑。"
+    },
+    {
+      "name": "Runtime Logs & Screenshot",
+      "descZh": "读取编辑器与运行实例的日志，并可截图回传，供模型判断画面与报错，可用来判断画面是否正确。"
+    },
+    {
+      "name": "Telemetry Opt-out",
+      "descZh": "匿名统计可用环境变量关闭，不记录代码、场景内容与项目文件名，默认开启需告知团队。"
+    }
+  ],
+  "limitsZh": "版本咬得很紧：要求 Godot 4.7 以上，旧版本编辑器装不上；服务器端要 Python 3.11 到 3.14 与 uv，缺一样 dock 就起不来。C# 只做文本读写，不编译也不报错，C# 项目的错误反馈明显弱于 GDScript。所有工具都经过编辑器主线程，超大场景连续调用会变慢，批量操作要拆开做。客户端配置写的是工具域与端口，换端口或改工具域后必须重配，否则连不上。默认全局作用域会顺带改到其他项目，多项目共用一台机器时容易互相干扰。遥测虽匿名，企业环境通常要求先确认可关闭。文档很全，但工具数量多，模型侧要先收敛到少数工具域，否则容易误调。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 uv，并从 AssetLib 装 addons/godot_ai，或手动解压 release 压缩包"
+    },
+    {
+      "stepZh": "在项目设置里启用 Godot AI 插件，等待 dock 出现"
+    },
+    {
+      "stepZh": "在 dock 里配置客户端并重启对应工具"
+    },
+    {
+      "stepZh": "让模型先读场景层级与项目结构，再动手改"
+    },
+    {
+      "stepZh": "用工具改场景、脚本与属性并校验，逐项确认结果"
+    },
+    {
+      "stepZh": "跑场景读日志与截图，回到下一轮修正"
+    }
+  ],
+  "pros": [
+    "工具覆盖场景、脚本、信号、UI、材质与动画，改动直接落在工程里，比只生成代码的助手更深一层。",
+    "脚本写入前解析校验并热重载，错误在写文件阶段就暴露，不容易把项目改到打不开。",
+    "dock 内可给二十多个客户端一键写配置，安装与升级流程比手动填 JSON 省事。",
+    "文档含工具表、架构说明、版本迁移与平台排障，遇到问题能查到明确入口。"
+  ],
+  "cons": [
+    "强制 Godot 4.7 以上，旧版项目完全用不了，必须先升级引擎，升级又会带回兼容问题。",
+    "C# 只按文本读写，不编 .NET 也不报错，C# 项目反馈明显不足，连类型检查都只能靠编辑器。",
+    "工具走编辑器主线程，超大场景连续调用会卡，批量操作得拆。",
+    "默认写全局客户端配置，多项目共用一台机器时容易互相改配置。"
+  ],
+  "pitfalls": [
+    "直接解压新版本覆盖 addons/godot_ai 会留下旧文件，官方要求用 dock 内的更新按钮，覆盖式安装是官方明令禁止的。",
+    "换端口或改工具域后没重配客户端，会表现为连接成功但工具全空，很难一眼看出原因。",
+    "v3 配置残留没清干净时两个版本会抢同一端口，先移除旧条目再迁移，否则两边都连不上。"
+  ],
+  "bestFor": "已在用 Claude Code、Codex、Cursor 等 MCP 客户端，想让 AI 真正在编辑器里改场景与脚本的 Godot 4.7 用户，并接受 uv 与 Python 依赖。",
+  "avoidWhenZh": "项目锁在 Godot 4.6 及以下，或以 C# 为主、需要编译错误反馈时，别指望它，也别浪费配置时间。",
+  "compareTips": {
+    "vs": [
+      "Coding-Solo__godot-mcp",
+      "IvanMurzak__Godot-MCP",
+      "yurineko73__Godot-MCP-Native"
+    ],
+    "whenZh": "Coding-Solo 的 MCP 更轻，只做启动、运行与基础场景编辑；Godot-MCP-Native 走原生扩展路线。要工具面最广、带客户端一键配置选本项目，只想跑项目读日志就用更轻的那套。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "AI代理",
+    "MCP",
+    "编辑器自动化",
+    "场景编辑",
+    "Python"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "把 MCP 客户端接到运行中的编辑器",
+      "source": "README.md",
+      "quote": "clients to a live Godot editor."
+    },
+    {
+      "claim": "工具覆盖场景、节点、脚本与材质等",
+      "source": "README.md",
+      "quote": "build scenes, edit nodes and scripts, wire signals, and configure UI, materials, animation, particles, cameras, and environments."
+    },
+    {
+      "claim": "要求 Godot 4.7 以上",
+      "source": "README.md",
+      "quote": "Godot 4.7+"
+    },
+    {
+      "claim": "GDScript 会解析校验并热重载",
+      "source": "README.md",
+      "quote": "GDScript is fully supported: scripts are parse-validated, hot-reloaded,"
+    },
+    {
+      "claim": "不负责编译 .NET",
+      "source": "README.md",
+      "quote": "Godot AI does not build .NET or report compiler errors."
+    },
+    {
+      "claim": "遥测不采集代码与文件名",
+      "source": "README.md",
+      "quote": "never code, scene contents, or project or file names."
+    }
+  ]
+}

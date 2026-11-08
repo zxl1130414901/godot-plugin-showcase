@@ -1,0 +1,149 @@
+{
+  "id": "godot-gdunit-labs__gdUnit4Net",
+  "depth": "standard",
+  "taglineZh": "Godot C# 单元测试框架，兼容 VSTest 与 IDE 测试面板",
+  "summaryZh": "GdUnit4Net 是 GdUnit4 的官方 C# 实现，一套完整兼容 VSTest 标准的单元测试框架，拆成三个 NuGet 包：gdUnit4.api 提供测试编写与断言的运行时，gdUnit4.test.adapter 把测试接入 Visual Studio Test Platform，gdUnit4.analyzers 提供编译期的特性校验。v5 起做了一次架构重写，纯逻辑测试默认不启动 Godot 运行时，官方称比旧版快最多十倍，只有标注 RequireGodotRuntime 的用例才拉起引擎。框架提供参数化测试、强大的测试过滤、场景运行器模拟鼠标与键盘输入、信号与函数等待、异常监控和输出捕获，可在 Visual Studio、VS Code 与 Rider 里直接写、跑、调。",
+  "whatItDoes": "为 Godot 的 C# 工程提供 NuGet 形式的单元测试运行时，包含断言库、参数化测试与场景运行器。通过 VSTest 适配器把测试用例注册到 IDE 的测试面板，在 Visual Studio、VS Code、Rider 中直接运行与断点调试。Roslyn 分析器在编译期校验测试特性的用法，异常与日志输出会被自动捕获并挂到用例结果上。",
+  "useCases": [
+    {
+      "titleZh": "C# 逻辑单测",
+      "descZh": "给纯逻辑类写测试并在 VS 或 Rider 里直接跑，默认不启 Godot 运行时，执行速度接近普通 .NET 测试。"
+    },
+    {
+      "titleZh": "场景与输入测试",
+      "descZh": "用场景运行器模拟点击与按键，等待信号触发，验证节点交互与状态变化是否符合预期。"
+    },
+    {
+      "titleZh": "参数化用例",
+      "descZh": "用 TestCase 与 DataPoint 覆盖多组输入输出，边界值成组列出，报告里能看清哪组失败，减少重复用例。"
+    },
+    {
+      "titleZh": "持续集成",
+      "descZh": "输出 VSTest 兼容结果，接入 CI 流水线跑回归，提交前就能拦住破坏性改动，也能按分类只跑受影响模块。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "测试 API 包",
+      "descZh": "提供测试套件标注、断言与用例组织，写法贴近常见 .NET 测试框架，迁移成本低。"
+    },
+    {
+      "titleZh": "VSTest 适配器",
+      "descZh": "把测试注册到 Visual Studio 测试平台，可在 IDE 面板里筛选、运行与调试，断点也能直接用。"
+    },
+    {
+      "titleZh": "Roslyn 分析器",
+      "descZh": "在编译期检查测试标注与组合是否合法，写错属性当场报出，不必等运行时。"
+    },
+    {
+      "titleZh": "场景运行器",
+      "descZh": "加载场景并注入输入，支持等待信号与函数返回值，覆盖交互路径，比手工点场景更可靠。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "TestSuite 标注",
+      "descZh": "标记测试类，框架据此发现用例，配合命名空间即可组织分层结构。"
+    },
+    {
+      "name": "场景运行器",
+      "descZh": "模拟鼠标键盘并等待信号，是测交互逻辑的关键工具，比手工点场景可靠。"
+    },
+    {
+      "name": "RequireGodotRuntime",
+      "descZh": "只为需要引擎能力的用例启动运行时，其余用例保持轻量，速度与兼容兼顾。"
+    },
+    {
+      "name": "分析器",
+      "descZh": "编译期校验属性用法，减少跑起来才发现的配置错误，也能提示属性组合是否合法。"
+    },
+    {
+      "name": "测试过滤",
+      "descZh": "按分类与标记筛选用例，CI 里可只跑受影响模块，反馈更快，也便于分模块调试。"
+    }
+  ],
+  "limitsZh": "这是库而非资源库插件，使用前要装 .NET SDK 并在工程里引用 NuGet 包，与在编辑器里点一下启用插件完全不同。版本矩阵相当严格：README 的兼容性表把 api 版本、适配器版本、分析器版本、.NET 版本与 Godot 版本一一对应，选错组合就可能装不上或分析器失效，编译器过旧还会让分析器静默失效。v5.0 是一次破坏性架构重写，官方要求先读 release notes 再升级，老项目迁移要改测试写法并补上 RequireGodotRuntime 标注。仓库本体是解决方案工程，包含 Api、TestAdapter、Analyzers 等多个子项目与示例工程，克隆下来需要理解结构才能改源码。文档分散在根 README 与三个子包 README 中，缺少单页的完整 API 参考。",
+  "workflowZh": [
+    {
+      "stepZh": "用 NuGet 引入 api 包，并在测试项目里配置引用"
+    },
+    {
+      "stepZh": "在测试类上标注 TestSuite，写出第一个断言用例"
+    },
+    {
+      "stepZh": "按需给用例加上 RequireGodotRuntime 属性，以启用引擎能力"
+    },
+    {
+      "stepZh": "安装适配器，在 IDE 测试面板里运行调试"
+    },
+    {
+      "stepZh": "接入 CI，用过滤参数只跑本次改动涉及的用例"
+    }
+  ],
+  "pros": [
+    "兼容 VSTest，IDE 与 CI 都能直接用，不必为引擎再另造一套测试链，接入成本低",
+    "默认不启运行时，纯逻辑用例快得多，大项目回归时间明显缩短",
+    "场景运行器支持输入模拟与信号等待，交互逻辑也能自动化验证",
+    "Roslyn 分析器在编译期拦错，测试标注写错当场就能发现，省去运行时排查",
+    "文档与示例齐全，版本兼容表清楚，选包与升级时都有据可依"
+  ],
+  "cons": [
+    "只支持 C#，GDScript 项目用不上，团队要维护两套测试工具",
+    "包与引擎版本绑定紧密，升级 Godot 时要同步换包，容易错配",
+    "配置涉及 NuGet、适配器与分析器，初次接入步骤偏多"
+  ],
+  "pitfalls": [
+    "在需要引擎能力的用例里漏加 RequireGodotRuntime，运行时会直接报错并中断整轮测试",
+    "包版本与引擎版本不匹配会导致加载失败，先查兼容表再升级",
+    "CI 里未装对应 SDK 时分析器不生效，只会留警告，错误属性拦不住"
+  ],
+  "bestFor": "用 C# 开发 Godot 4 项目，需要单元测试、场景交互测试与 CI 回归，并且团队已经有成熟的 .NET 与 VSTest 工具链。",
+  "avoidWhenZh": "纯 GDScript 项目，或只需要偶尔手点验证、不打算接入自动化测试的项目。",
+  "compareTips": {
+    "vs": [
+      "godot-gdunit-labs__gdUnit4"
+    ],
+    "whenZh": "两者都服务调试与质量：gdUnit4Net 是 C# 单元测试框架，走 VSTest 与 IDE 集成，负责断言与回归；godot-logger 是运行日志采集插件，负责记录与回看输出。写测试选前者，查运行日志选后者。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "单元测试",
+    "C#",
+    "VSTest",
+    "CI集成",
+    "场景测试"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "框架完整兼容 VSTest 并提供 IDE 适配器",
+      "source": "README.md",
+      "quote": "GdUnit4Net is a **feature-complete unit testing framework** for Godot C# projects that is **fully compatible with the VSTest standard**."
+    },
+    {
+      "claim": "纯逻辑测试默认不启动 Godot 运行时，速度提升明显",
+      "source": "README.md",
+      "quote": "Tests run without Godot runtime by default, with opt-in Godot features"
+    },
+    {
+      "claim": "场景运行器可模拟鼠标与键盘输入",
+      "source": "README.md",
+      "quote": "Scene runner for simulating different kinds of inputs and actions, such as mouse clicks and keyboard inputs"
+    },
+    {
+      "claim": "分析器对编译器版本有要求，低于 9.0.300 会失效",
+      "source": "README.md",
+      "quote": "With an older compiler, the build reports the warning CS9057 and the analyzers do not run."
+    }
+  ]
+}

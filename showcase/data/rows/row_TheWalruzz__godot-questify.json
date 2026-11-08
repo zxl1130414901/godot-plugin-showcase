@@ -1,0 +1,34 @@
+{
+  "id": "TheWalruzz__godot-questify",
+  "category": "state-logic",
+  "tags": [
+    "任务系统",
+    "节点图",
+    "RPG",
+    "存档序列化"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "descriptionZh": "任务图编辑与运行时管理插件，支持条件信号、分支目标与状态序列化，适合任务链复杂的 RPG",
+  "prosShort": [
+    "任务图可视化，策划可自编，沟通成本低",
+    "条件判定解耦为信号，易接自有存档",
+    "提供序列化与 C# 包装，接入面广"
+  ],
+  "consShort": [
+    "条件默认轮询有性能开销，任务多时明显",
+    "强依赖单例，需改项目结构，接入有门槛",
+    "缺完整示例，分支调试难，要靠日志"
+  ],
+  "sampleStatus": "none"
+}

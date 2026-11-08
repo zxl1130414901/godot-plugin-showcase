@@ -1,0 +1,35 @@
+{
+  "id": "Maaack__Godot-Menus-Template",
+  "descriptionZh": "Godot 菜单模板，提供主菜单、设置、暂停、名单与带进度的场景切换，并附音乐与界面音效控制器。",
+  "category": "ui",
+  "tags": [
+    "菜单",
+    "模板",
+    "设置",
+    "转场",
+    "GDScript"
+  ],
+  "prosShort": [
+    "菜单、设置与转场十几分钟即可配齐",
+    "模板与插件两种形态都能直接用",
+    "音乐与界面音效各有独立控制器"
+  ],
+  "consShort": [
+    "不含完整的玩法、存档与关卡流程",
+    "示例里的占位资源较多，需要清理",
+    "绑定较新的引擎版本，旧版要回退"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

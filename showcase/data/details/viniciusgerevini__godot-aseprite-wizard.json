@@ -1,0 +1,166 @@
+{
+  "id": "viniciusgerevini__godot-aseprite-wizard",
+  "depth": "standard",
+  "taglineZh": "把 Aseprite 动画导入 AnimationPlayer 与 SpriteFrames 的编辑器插件，支持 Tag 与方向",
+  "summaryZh": "Aseprite Wizard 解决像素动画从 Aseprite 进 Godot 的搬运问题：它注册自定义导入器，把 .aseprite 直接当 SpriteFrames 资源用，也能只取首帧当静态贴图，或把 Tilemap 图层导成可接进 Tileset 的 AtlasTexture。检查器面板可把动画写进 AnimationPlayer（Sprite2D、Sprite3D、TextureRect）、AnimatedSprite2D/3D 或独立 SpriteFrames，支持方向、循环、Tag 拆分、正则排除图层与切片区域，帧时长会按毫秒换算成引擎 FPS。往已有 AnimationPlayer 导入时只增删自己的轨道，不动其他动画，也支持动画库。它只在开发期需要，删掉插件后已导入的动画仍能正常播放。仓库按 Godot 4 维护，另留一个 3.x 分支，文档站覆盖每种导入方式与常见问题。",
+  "whatItDoes": "安装后在导入面板里把 .aseprite 设为 SpriteFrames、静态贴图或 Tileset 图集，保存文件即自动重新导入。检查器面板可手动把动画导入 AnimationPlayer、AnimatedSprite 或独立 SpriteFrames，逐个文件配置轨道与层。Aseprite 里的 Tag 会拆成多条动画，没有 Tag 时整体作为默认动画。帧时长按毫秒换算成 FPS，方向与循环模式一并读取。图层过滤用正则排除，切片可只导指定区域，也能把每层拆成独立资源。",
+  "useCases": [
+    {
+      "titleZh": "像素动画导入",
+      "descZh": "美术在 Aseprite 里按 Tag 分好动画，插件按 Tag 自动切成多条动画，方向与循环设置一并带过来，省去逐帧摆关键帧。"
+    },
+    {
+      "titleZh": "批量重导入",
+      "descZh": "改完像素图重新保存后，导入器会按配置重新生成 SpriteFrames 或更新动画轨道，已有轨道不被覆盖，迭代美术时不必手工同步。"
+    },
+    {
+      "titleZh": "Tilemap 素材",
+      "descZh": "把 Aseprite 的 Tilemap 图层导成 AtlasTexture，直接拖进 Tileset 创建器切块，做像素关卡时素材准备快很多，素材更新后重新导入即可。"
+    },
+    {
+      "titleZh": "多角色共用一个动画器",
+      "descZh": "需要把多个文件的动画汇总到一个 AnimationPlayer 时，插件只增删自己的轨道，其他动画保持不动，适合角色动作统一管理。"
+    },
+    {
+      "titleZh": "团队协作规范",
+      "descZh": "用正则排除辅助图层、按切片只导可见区域，把规范写进导入配置，美术交文件时不必每次口头说明哪些层不要。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "SpriteFrames 资源",
+      "descZh": "由 .aseprite 自动生成的帧动画资源，含图集与帧时序，可直接挂到 AnimatedSprite 或代码里播放，帧率按 Aseprite 设置换算，改图后刷新即生效。"
+    },
+    {
+      "titleZh": "动画轨道",
+      "descZh": "写进 AnimationPlayer 的轨道与关键帧，多个文件可汇总到同一播放器，已有轨道不会被误删，导入后立刻能播，不必手搭关键帧。"
+    },
+    {
+      "titleZh": "AtlasTexture 图集",
+      "descZh": "Tilemap 图层导出的图集纹理，能直接拿进 Tileset 创建器切块，做像素关卡时省掉手工拼图，切块参数与图集坐标一一对应。"
+    },
+    {
+      "titleZh": "按 Tag 拆分的动画库",
+      "descZh": "每个 Tag 一条动画并归入动画库，角色动作按名字切换，不必在代码里维护帧区间，动画名与 Tag 同名更好对照。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Automatic Importer",
+      "descZh": "注册 .aseprite 的自定义导入器，保存文件即按配置重新导入，适合把美术流程做成自动化。"
+    },
+    {
+      "name": "Inspector Dock",
+      "descZh": "检查器面板里手动导入动画，逐文件选择目标节点与图层，适合一次性整理旧资源。"
+    },
+    {
+      "name": "Tag Split",
+      "descZh": "把 Aseprite 里的每个 Tag 拆成独立动画，方向与循环模式一并读取，动画命名与美术一致。"
+    },
+    {
+      "name": "Layer Exclusion",
+      "descZh": "用正则排除不需要的图层，参考线与草稿层不会进最终资源，导出结果更干净。"
+    },
+    {
+      "name": "Frame Timing",
+      "descZh": "把毫秒帧时长换算成引擎 FPS，Aseprite 里调好的节奏导入后不会变快或变慢，逐帧动画的时序保持一致。"
+    }
+  ],
+  "limitsZh": "它只在编辑器里工作，运行期不会解析 .aseprite，资源必须先导入成 SpriteFrames 或轨道，想热更像素图仍要重新导入。静态贴图导入只取第一帧，动图用它当贴图会丢帧。解析依赖 Aseprite 文件结构，版本差异或特殊图层可能读不全，遇到异常要先看文档的已知问题。自动导入与手动导入同时改同一批轨道时容易重复，团队要约定只用一种方式。工程按 Godot 4.5 配置，旧 4.x 版本可能缺 API，Godot 3 要用另一个分支。插件删掉后动画仍可播放，但重新导入能力随之消失，此外导入出的图集尺寸受贴图上限影响，超大便要拆图。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/AsepriteWizard 整个复制进项目并启用插件"
+    },
+    {
+      "stepZh": "在 Aseprite 里用 Tag 分好动画，保存并确认文件名"
+    },
+    {
+      "stepZh": "选中 aseprite 文件，在导入面板选导入模式"
+    },
+    {
+      "stepZh": "需要动画时用检查器面板指定目标节点"
+    },
+    {
+      "stepZh": "配好方向、循环模式与图层排除规则再导入"
+    },
+    {
+      "stepZh": "重新保存并确认轨道与帧时序都更新"
+    }
+  ],
+  "pros": [
+    "Tag 自动拆动画、毫秒换算 FPS、方向与循环一起读取，像素动画从 Aseprite 到引擎几乎不用手工重排。",
+    "自动导入器与检查器面板并存，新资源可自动化，旧资源也能一次性整理，迁移项目比较顺。",
+    "往已有 AnimationPlayer 导入只增删自己的轨道，多角色共用播放器时不会误删其他动画。",
+    "支持图层正则排除、切片与 Tilemap 图集，团队规范可以写进配置，交付一致性比口头约定可靠。"
+  ],
+  "cons": [
+    "只在开发期可用，运行期不解析 aseprite，改图仍要回到编辑器重新导入，不能做运行时换皮。",
+    "静态贴图模式只取第一帧，误把动画文件当贴图会静默丢帧，需要在导入面板确认模式。",
+    "工程绑定较新的 4.5 配置，旧 4.x 与 Godot 3 要另找分支，版本切换时导入配置不通用。"
+  ],
+  "pitfalls": [
+    "自动导入与手动导入同时写同一个 AnimationPlayer，轨道会重复，团队约定只用其中一种。",
+    "Aseprite 图层名改了但正则没同步，排除规则失效，草稿层跟着导进资源，检查导入日志再改规则。",
+    "没有 Tag 的文件会整体当默认动画，多个动作挤在一条轨道里，先在 Aseprite 里补 Tag。"
+  ],
+  "bestFor": "像素风项目、美术以 Aseprite 为主、希望把动画导入尽量自动化并减少手工同步的 Godot 4 团队与个人开发者。",
+  "avoidWhenZh": "需要在运行期读取 aseprite 文件、或项目仍在 Godot 3、又不想维护导入配置与图层规则时。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-blender-exporter",
+      "V-Sekai__unidot_importer"
+    ],
+    "whenZh": "Blender 导出器管 3D 模型与动画，unidot 管 Unity 资源迁移，本插件专管 2D 像素动画。做 2D 像素选 Aseprite Wizard，做 3D 模型选 Blender 导出器，从 Unity 迁资源选 unidot；团队同时用 Blender 与 Aseprite 时两个导入器可以并存。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "Aseprite",
+    "像素动画",
+    "导入器",
+    "SpriteFrames",
+    "编辑器插件"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "把 Aseprite 动画导入 Godot 的插件",
+      "source": "README.md",
+      "quote": "Aseprite Wizard is a godot plugin to help import Aseprite animations to Godot."
+    },
+    {
+      "claim": "仅开发期需要，删掉后动画仍可用",
+      "source": "README.md",
+      "quote": "Aseprite Wizard is only required during development."
+    },
+    {
+      "claim": "支持四种动画方向",
+      "source": "README.md",
+      "quote": "Supports Aseprite animation directions (forward, reverse, ping-pong, ping-pong reverse)."
+    },
+    {
+      "claim": "可用正则过滤图层",
+      "source": "README.md",
+      "quote": "Filters out layers you don't want in the final animation using regex."
+    },
+    {
+      "claim": "毫秒帧时长会换算成引擎 FPS",
+      "source": "README.md",
+      "quote": "Converts Aseprite frame duration (defined in milliseconds) to Godot's animation FPS."
+    },
+    {
+      "claim": "插件版本为 9.8.0",
+      "source": "addons/AsepriteWizard/plugin.cfg",
+      "quote": "version=\"9.8.0\""
+    }
+  ]
+}

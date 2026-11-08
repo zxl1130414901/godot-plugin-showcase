@@ -1,0 +1,165 @@
+{
+  "id": "touilleMan__godot-python",
+  "depth": "standard",
+  "taglineZh": "把 Python 当脚本语言接进 Godot 的老项目，Godot 4 版本仍在重构中",
+  "summaryZh": "Godot Python 想给 Godot 加一门 Python 脚本语言：用 exposed 装饰器标记暴露给引擎的类，用 export 声明编辑器可见属性，方法自动暴露，Pool 数组可借上下文管理器锁定后直接读写。它把 CPython 解释器编进 GDNative 库，让 .py 文件像 .gd 一样挂到节点上。项目从 2016 年开始，Godot 3 时代可用；Godot 4 与旧代码完全不兼容，作者正在 godot4-meson 分支做大规模重构。仓库自带 SConstruct、godot_headers 子模块与构建脚本，安装本质是自己编一套运行库。适合研究语言绑定或坚持用 Python 写玩法的人，不适合按周排期的商业项目。",
+  "whatItDoes": "提供 godot 模块，包含 exposed 与 export 装饰器、Node 等引擎类的 Python 映射，以及 Pool 数组的 raw_access 上下文管理器。一个 .py 文件只能有一个 exposed 类，类名即脚本入口，其他类只能作为模块内辅助。属性用 export 声明后出现在检查器里，方法默认暴露给 GDScript 调用。GDNative 库内嵌 CPython 解释器，脚本在引擎启动时加载，退出时释放。仓库还带一个 REPL 插件用于交互式试验，另附 Makefile 与跨平台构建脚本。",
+  "useCases": [
+    {
+      "titleZh": "用 Python 写玩法",
+      "descZh": "团队已有 Python 代码与工具链，想把同一门语言用到游戏逻辑上，避免为玩法再学一套脚本语法，也能让熟悉 Python 的实习生直接上手。"
+    },
+    {
+      "titleZh": "复用 Python 生态",
+      "descZh": "需要调用数据分析、文本处理或已有 Python 库时，直接在脚本里 import，不必先包一层 GDExtension，验证阶段省掉大量胶水代码。"
+    },
+    {
+      "titleZh": "研究语言绑定",
+      "descZh": "想了解引擎如何把类、属性与信号映射到另一门语言，仓库的生成脚本与 headers 是现成的参考实现，可以照着做别的语言接入。"
+    },
+    {
+      "titleZh": "交互式试验",
+      "descZh": "用自带 REPL 插件在运行中的编辑器里试 API，改一行就能看结果，省去反复重启项目，调参数时尤其省时间。"
+    },
+    {
+      "titleZh": "教学演示",
+      "descZh": "课堂用 Python 讲面向对象与游戏循环，学生不必同时记 GDScript 的类型与语法细节，把注意力放在结构与逻辑上。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Python 脚本节点",
+      "descZh": "由 exposed 类生成的脚本资源，可像 GDScript 一样挂到节点上，属性与信号在编辑器里可见，改参数不必改代码。"
+    },
+    {
+      "titleZh": "自编译运行库",
+      "descZh": "内嵌 CPython 的 GDNative 库文件，按平台与架构分别产出，安装时要与引擎版本对应，换机器往往要重新编一份。"
+    },
+    {
+      "titleZh": "Python 类映射",
+      "descZh": "godot 模块导出的引擎类与工具函数，可作为在 Python 侧访问节点、资源与单例的入口，调用方式与引擎 API 一一对应。"
+    },
+    {
+      "titleZh": "REPL 交互会话",
+      "descZh": "编辑器内的 Python 交互窗口，用于试调 API 与快速验证片段，试完可直接把代码抄回脚本文件，不必切回脚本再跑一遍。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "@exposed",
+      "descZh": "标记一个类为脚本入口，必须继承引擎节点类，一个文件只能有一个，多余的会被忽略。"
+    },
+    {
+      "name": "export()",
+      "descZh": "把属性声明为编辑器可见的导出项，行为接近 GDScript 的 export 关键字，也能用于 property 写法。"
+    },
+    {
+      "name": "raw_access()",
+      "descZh": "锁定 Pool 数组后拿到底层指针直接读写，速度快但没有边界检查，越界写会直接损坏内存。"
+    },
+    {
+      "name": "GDNative Library",
+      "descZh": "把 CPython 解释器编进库文件，运行时由引擎加载并托管脚本生命周期，库与引擎版本必须匹配。"
+    },
+    {
+      "name": "pythonscript_repl",
+      "descZh": "配套 REPL 插件，在编辑器里开交互窗口试调引擎 API，适合验证参数与返回值。"
+    }
+  ],
+  "limitsZh": "Godot 4 支持仍是半成品：README 明确写着大规模重构进行中，Godot 4 与现有代码完全不兼容，可用实现放在单独分支。安装要自己编 CPython 与 GDNative 库，需要 Python 3.7 以上、C 编译器、对应平台的开发头文件，漏装 sqlite 开发包时编出来的解释器连 sqlite3 模块都没有。库文件按平台与架构分发，换引擎版本要重编，团队里没编译环境的人无法独立安装。raw_access 没有边界检查，越界写会直接破坏内存。调试体验弱于 GDScript，断点在 Python 侧的支撑有限。文档以 API 示例与 FAQ 为主，缺少 Godot 4 的完整迁移指南，新版本可用性只能自己试，遇到问题也只能翻旧分支的提交记录。",
+  "workflowZh": [
+    {
+      "stepZh": "先初始化 godot_headers 子模块，并把构建依赖装好"
+    },
+    {
+      "stepZh": "用 SCons 脚本依次编译 CPython 与 GDNative 的库文件"
+    },
+    {
+      "stepZh": "把生成的库文件与 addons 目录一起放进项目"
+    },
+    {
+      "stepZh": "写一个继承 Node 的类，并给它加上 exposed 标记"
+    },
+    {
+      "stepZh": "用 export 声明属性，再到检查器里逐个配置"
+    },
+    {
+      "stepZh": "运行场景验证方法调用与信号连接"
+    }
+  ],
+  "pros": [
+    "能把 Python 直接当脚本语言挂在节点上，属性与信号和 GDScript 一样在编辑器里可见，玩法侧不必改工作流。",
+    "仓库自带生成脚本与 headers，语言绑定的实现路径完整，研究价值高，也能照着改出别的语言绑定。",
+    "Pool 数组提供 raw_access 指针访问，批量数值处理可以绕开逐元素拷贝，密集计算场景收益明显。",
+    "附带 REPL 插件，试调引擎 API 时不必每次重启项目，验证返回值很快，改参数不用重跑场景。"
+  ],
+  "cons": [
+    "Godot 4 版本仍在重构，可用性不稳定，接口随时可能变，不适合按版本交付的项目。",
+    "安装要自己编 CPython 与 GDNative 库，平台与版本匹配成本很高，CI 上也要单独维护构建步骤。",
+    "raw_access 无边界检查，越界写会造成内存损坏，排查困难且崩溃点常常不在出错代码附近。"
+  ],
+  "pitfalls": [
+    "把 __init__ 当成 _ready 用，节点还没进场景树就去取父节点，会拿到空引用并在运行时报错。",
+    "同一个 .py 文件里写两个 exposed 类，第二个会被忽略，表现为脚本挂不上节点却不报明确错误。",
+    "换引擎小版本后没重编库，加载时直接报符号缺失，看起来像插件损坏而不是版本不匹配。"
+  ],
+  "bestFor": "已有 Python 技术栈、愿意自己维护编译流程，并且能接受 Godot 4 支持尚不完整的技术型团队或研究项目。",
+  "avoidWhenZh": "项目按档期交付、团队没有 C 编译环境，或需要稳定调试与完整工具链时，应坚持用 GDScript。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-vscode-plugin",
+      "utopia-rise__godot-jvm"
+    ],
+    "whenZh": "godot-jvm 走 Kotlin 与 JVM 路线，工具链更现代但同样要编运行库；本项目的优势只在 Python 生态与存量代码。若只想改善脚本编辑体验，装 VS Code 扩展即可，不必引入语言绑定。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "Python",
+    "脚本语言",
+    "GDNative",
+    "C++"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 1,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 5,
+  "evidence": [
+    {
+      "claim": "项目正在为 Godot 4 做大规模重构",
+      "source": "README.md",
+      "quote": "Heavy refactoring in progress"
+    },
+    {
+      "claim": "Godot 4 与现有代码完全不兼容",
+      "source": "README.md",
+      "quote": "The project is under heavy refactoring to support Godot4 (which is totally incompatible"
+    },
+    {
+      "claim": "目标是把 Python 作为脚本模块",
+      "source": "README.md",
+      "quote": "The goal of this project is to provide Python language support as a scripting"
+    },
+    {
+      "claim": "构建要求 Python 3.7 以上与 C 编译器",
+      "source": "README.md",
+      "quote": "Godot-Python requires Python >= 3.7 and a C compiler."
+    },
+    {
+      "claim": "raw_access 不做边界检查",
+      "source": "README.md",
+      "quote": "there is no boundary check so you may end up with memory corruption if you don't take care"
+    },
+    {
+      "claim": "暴露类必须继承引擎节点类",
+      "source": "README.md",
+      "quote": "class must inherit from `godot.Node` or any of its children"
+    }
+  ]
+}

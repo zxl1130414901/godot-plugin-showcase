@@ -1,0 +1,34 @@
+{
+  "id": "detomon__wigglebone",
+  "descriptionZh": "用 SkeletonModifier3D 节点给角色单根骨骼加逐帧弹簧式旋转或位置抖动，省去手工 K 头发与配饰的动画。",
+  "category": "state-logic",
+  "tags": [
+    "骨骼动画",
+    "物理抖动",
+    "头发",
+    "Skeleton3D"
+  ],
+  "prosShort": [
+    "旋转与位置两类修饰器都已提供",
+    "参数资源可共享，便于多骨骼复用",
+    "编辑器内带手柄可直接预览摆动"
+  ],
+  "consShort": [
+    "最低要求 Godot 4.3，老项目得换分支或升级",
+    "只有弹簧近似，没有碰撞与关节约束",
+    "修饰器顺序敏感，排错会出反效果"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gdquest-demos__godot-shaders",
+  "descriptionZh": "GDQuest 的着色器示例库，涵盖 2D、3D 与全屏特效，每个效果均配可运行演示场景。",
+  "category": "3d-shader",
+  "tags": [
+    "着色器",
+    "特效",
+    "示例库",
+    "2D",
+    "3D"
+  ],
+  "prosShort": [
+    "每个 shader 文件都能直接读改代码",
+    "每项效果基本都配有演示场景",
+    "同时覆盖 2D、3D 与全屏三类效果"
+  ],
+  "consShort": [
+    "只是素材库，不是可安装插件",
+    "Godot 4 的迁移工作尚未全部完成",
+    "特效数量与实现深度都比较有限"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

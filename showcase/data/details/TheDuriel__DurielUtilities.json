@@ -1,0 +1,139 @@
+{
+  "id": "TheDuriel__DurielUtilities",
+  "depth": "standard",
+  "taglineZh": "可整目录拖进 Godot 4 项目的通用工具脚本合集",
+  "summaryZh": "DurielUtilities 是作者自用后整理的一批工具脚本合集：资源按 ID 加载的 ResourceProvider、递归找文件的 FileFinder、可挂着色器的 FancyTheme、能混合遮罩的 LayeredTexture、弹出窗框架、屏幕转场、无节点状态机、同步异步任务队列与数学、多布尔、ID 生成等杂项。用法很直接，把整个目录拖进项目或作为子模块即可，不注册插件。适合快速补齐项目里的通用轮子。限制是模块之间没有统一文档，多为源码即说明，作者也明确按原样提供、不保证支持。",
+  "whatItDoes": "各目录是独立脚本：ResourceProvider 从文件夹按 ID 提供资源，LayeredTexture 以 Photoshop 式混合多张图层，SimpleStateMachine 用纯类管理状态，TaskQueue 顺序或异步执行任务，Popups 与 ScreenTransition 提供界面框架，Logger 提供统一打印。按需取用即可，不依赖插件启用。",
+  "useCases": [
+    {
+      "titleZh": "快速补通用轮子",
+      "descZh": "把任务队列、状态机与日志直接拿来用，少写基础代码，项目前期能省下不少脚手架工作。"
+    },
+    {
+      "titleZh": "UI 弹窗与转场",
+      "descZh": "用现成弹窗框架与屏幕转场接菜单流程，省去自己处理层级、输入拦截与淡入淡出动画。"
+    },
+    {
+      "titleZh": "资源按 ID 管理",
+      "descZh": "用 ResourceProvider 从目录批量加载资源，避免在代码里硬编码大量路径字符串，换目录时更好维护。"
+    },
+    {
+      "titleZh": "图层混合工具",
+      "descZh": "用 LayeredTexture 把多张图按混合模式合成，省去在运行时手工拼图或写着色器，做状态高亮更快。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可复用工具类集合",
+      "descZh": "状态机、任务队列、资源提供者等脚本可直接复制进项目，不依赖插件注册。"
+    },
+    {
+      "titleZh": "UI 与转场框架",
+      "descZh": "弹窗、容器主题与屏幕转场成套提供，接菜单与过场动画更省事，风格也容易统一。"
+    },
+    {
+      "titleZh": "图层合成纹理",
+      "descZh": "运行时合并、遮罩与混合多张图片，适合做动态图标、状态高亮与材质变体。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "ResourceProvider",
+      "descZh": "扫描目录并按 ID 提供资源，减少路径硬编码，替换素材时无需改代码。"
+    },
+    {
+      "name": "SimpleStateMachine",
+      "descZh": "不依赖节点的经典状态机，适合管理非场景对象或纯逻辑实体。"
+    },
+    {
+      "name": "TaskQueue",
+      "descZh": "支持同步与异步解算的任务队列，可串行编排加载与初始化流程。"
+    },
+    {
+      "name": "LayeredTexture",
+      "descZh": "多图层合并、遮罩与混合，接近图像软件的操作方式，可运行时换层。"
+    },
+    {
+      "name": "Popups / ScreenTransition",
+      "descZh": "弹窗与转场框架，支持嵌套与统一配置，风格可通过主题替换。"
+    }
+  ],
+  "limitsZh": "这是一个按作者习惯生长的工具合集，不是统一设计的框架：命名、依赖与初始化方式各自不同，取用前要读源码。多数模块没有独立文档，只有零散 Readme，API 变化也不会写迁移说明。作者明确按原样提供、不承诺支持，RetiredTools 目录还留着已退役内容。它不注册编辑器插件，没有安装向导或版本管理；部分工具如 FancyTheme、LayeredTexture 绑定特定使用场景，硬套到结构不同的项目反而增加耦合。",
+  "workflowZh": [
+    {
+      "stepZh": "把仓库目录复制进项目或作为子模块引入"
+    },
+    {
+      "stepZh": "按需要挑选要用的模块，删掉无关目录"
+    },
+    {
+      "stepZh": "逐个读脚本，确认依赖关系与初始化顺序"
+    },
+    {
+      "stepZh": "把选中的模块接入 autoload，或挂到对应场景节点上"
+    },
+    {
+      "stepZh": "在项目中保留 MIT 署名，并在文档里记录自己改过的地方"
+    }
+  ],
+  "pros": [
+    "模块覆盖资源、UI、状态机、队列与数学等常见需求，能省下大量脚手架",
+    "纯脚本实现，复制即可用，没有插件启用步骤，也不引入额外依赖",
+    "源码短小，读改成本低，遇到不合用的地方可以直接改，不必等上游",
+    "MIT 许可，保留署名即可商用，集成到商业项目没有授权障碍与额外费用",
+    "作者长期做 Godot 工具，代码风格一致，几个模块可以互相配合使用"
+  ],
+  "cons": [
+    "模块各自为政，缺少统一设计与文档，组合使用时边界不清",
+    "作者按原样提供，不保证支持与迁移，版本升级时要自己兜底",
+    "部分模块与特定场景强耦合，硬套到结构不同的项目会加重耦合"
+  ],
+  "pitfalls": [
+    "整目录拖入会带进用不到的模块与退役代码，建议按需挑选，避免打包体积膨胀",
+    "不同模块的初始化顺序有隐含依赖，接入前要读源码确认，否则可能出现空引用",
+    "直接改仓库内脚本会让后续更新难以合并，改动最好单独记录"
+  ],
+  "bestFor": "熟悉 Godot、想从现成脚本里挑轮子快速补齐项目基础能力，并能读源码判断依赖关系的独立开发者与小团队。",
+  "avoidWhenZh": "需要完善文档、长期官方支持，或要求统一框架设计与清晰升级路径的团队应避开。",
+  "compareTips": {
+    "vs": [
+      "kagenash1__godot-behavior-tree"
+    ],
+    "whenZh": "DurielUtilities 是通用脚本合集，含简单状态机与任务队列；GodotBT 是专门的行为树框架，节点类型与黑板齐全。要零散通用工具选前者，要完整的敌人 AI 决策体系则看后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "工具库",
+    "状态机",
+    "任务队列",
+    "UI框架"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4 的工具类库",
+      "source": "README.md",
+      "quote": "This is a library of utility classes for Godot Engine 4."
+    },
+    {
+      "claim": "含无节点状态机与任务队列",
+      "source": "README.md",
+      "quote": "Classical state machine implementation without nodes. ... Event Queue implementation, with syncronous and asyncronous resolution schemes."
+    },
+    {
+      "claim": "按原样提供，不承诺支持",
+      "source": "README.md",
+      "quote": "This repository is provided as is."
+    }
+  ]
+}

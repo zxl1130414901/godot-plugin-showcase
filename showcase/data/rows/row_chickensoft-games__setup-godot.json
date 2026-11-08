@@ -1,0 +1,35 @@
+{
+  "id": "chickensoft-games__setup-godot",
+  "descriptionZh": "用于在 macOS、Windows 与 Linux CI 上安装 Godot 4、导出模板与 .NET 变体的 GitHub Action 构建步骤",
+  "category": "platform-export",
+  "tags": [
+    "GitHubAction",
+    "CI构建",
+    "自动安装",
+    "缓存加速",
+    "C#支持"
+  ],
+  "prosShort": [
+    "一行配置就能装好引擎与模板",
+    "覆盖三大平台并支持 .NET 变体",
+    "内置缓存，重复构建明显更快"
+  ],
+  "consShort": [
+    "只装环境，测试导出仍需自写",
+    "版本号与模板需要手动对齐",
+    "绑定 GitHub Actions，迁移其他 CI 要重写"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

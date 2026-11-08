@@ -1,0 +1,152 @@
+{
+  "taglineZh": "受 Ren'Py 启发的 Godot 叙事对话框架，自带 .rk 脚本语言",
+  "summaryZh": "Rakugo 想做 Godot 里的 Ren'Py：它自带一套 .rk 脚本语言，用 say、choice、ask、jump 等指令描述对白与选项，由名为 Rakugo 的自动加载单例解析执行并发信号。对话内容与界面解耦，文本推进、角色变量与全局变量、存读档都由框架托管，剧情作者可以只写脚本。它只是一个核心层，对话框与立绘要自己接或另装官方 Kit；文档放在独立站点，README 只给最小示例，.rk 文件默认不会被导出。",
+  "whatItDoes": "插件启用后注册 Rakugo 单例，parse_and_execute_script 读取 .rk 文件并按行执行，遇到对白发出 sg_say，遇到等待节点发出 sg_step，脚本结束发出 sg_execute_script_finished。调用 do_step 推进剧情，is_waiting_step 判断是否在等待输入。角色与全局变量可在脚本中用 <角色名.变量> 插值，框架另带存读档接口。",
+  "useCases": [
+    {
+      "titleZh": "视觉小说",
+      "descZh": "做线性或分支视觉小说的团队，剧情作者可以直接写 .rk 脚本，程序只负责接对白与立绘信号。"
+    },
+    {
+      "titleZh": "点击式冒险",
+      "descZh": "点击式冒险需要大量对白与条件跳转，用 say 与 choice 控制流程比手写状态机更直观，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "RPG 支线对白",
+      "descZh": "RPG 的支线对话与 NPC 闲聊可用独立 .rk 文件管理，改文案不必动代码也不用重新编译，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "交互文本游戏",
+      "descZh": "做纯文本或交互小说，框架已带存读档与变量，省掉自己设计剧情数据结构的时间，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "剧情原型",
+      "descZh": "剧情原型阶段需要一天内跑通对话流程，用自动加载单例加几行信号连接就能看到效果。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": ".rk 脚本语言",
+      "descZh": "一套受 Ren'Py 启发的指令集，支持 say、choice、ask 与 jump 跳转，写剧情不用碰 GDScript，分支也写在同一份文件里。"
+    },
+    {
+      "titleZh": "Rakugo 单例",
+      "descZh": "自动加载的运行时，负责解析脚本、推进步骤并向界面层发出信号，调用 do_step 才继续下一句。"
+    },
+    {
+      "titleZh": "存读档与变量",
+      "descZh": "角色变量与全局变量随剧情保存，读档后可以继续执行，文本里可用 <角色.变量> 做插值。"
+    },
+    {
+      "titleZh": "Gut 测试用例",
+      "descZh": "仓库自带 Gut 单元测试与示例工程，可以对照验证解析与执行行为，也能当作接入参考。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "say 与 choice",
+      "descZh": "对白与选项是脚本原生指令，分支写在同一份文件里，改剧情不用碰代码。"
+    },
+    {
+      "name": "sg_ 信号体系",
+      "descZh": "对白、等待步骤与脚本结束各有信号，界面层自行决定怎么显示。"
+    },
+    {
+      "name": "变量插值",
+      "descZh": "脚本里可写 <角色.变量>，运行时取角色或全局变量的当前值填入文本。"
+    },
+    {
+      "name": "存读档",
+      "descZh": "框架托管剧情进度存取，读档后从上次停下的步骤继续，不必自己记录行号。"
+    },
+    {
+      "name": "独立文档站",
+      "descZh": "完整教程放在 rakugoteam 的文档站，README 只保留最小可跑示例，换界面样式只需重新连信号。"
+    }
+  ],
+  "limitsZh": "README 明确它只是一个 core，对话框、立绘、选项按钮都要自己实现或另装 Visual Novel Kit，开箱并不能直接得到可玩的视觉小说界面。.rk 文件默认不会被打包导出，必须按文档单独配置导出过滤，否则发布版读不到脚本。项目文档主要在外部站点，README 只给一个最小示例，仓库里虽有 Gut 测试与示例工程但没有系统教程。从 3.x 升 4.x 时所有信号都改名成 sg_ 前缀，旧教程与旧项目需要逐处改。",
+  "workflowZh": [
+    {
+      "stepZh": "把 Rakugo 文件夹解压到 res://addons 并启用插件，然后重启编辑器。"
+    },
+    {
+      "stepZh": "在编辑器设置里把 rk 注册为可识别的文本扩展名。"
+    },
+    {
+      "stepZh": "新建 Timeline.rk 并写入角色声明与对白指令，先跑一次看输出。"
+    },
+    {
+      "stepZh": "场景脚本连接 sg_say 与 sg_step，调用 parse_and_execute_script。"
+    },
+    {
+      "stepZh": "按文档配置导出过滤，确保 .rk 随包发布。"
+    }
+  ],
+  "pros": [
+    "剧情与代码彻底分开，作者只写 .rk 脚本，程序改界面不影响已经写好的文案。",
+    "自带存读档、角色变量与全局变量，叙事游戏常见需求不用另搭一套数据结构。",
+    "用信号与界面解耦，同一套脚本可以接不同风格的对话框与立绘层。",
+    "受 Ren'Py 启发的语法上手快，写过视觉小说脚本的人几乎零学习成本。"
+  ],
+  "cons": [
+    "只是核心层，对话框、选项按钮与立绘 UI 都要自己实现",
+    ".rk 文件默认不导出，漏配会让发布版读不到剧情",
+    "文档在外部站点，README 极简，排错基本要靠读源码与示例。"
+  ],
+  "pitfalls": [
+    ".rk 不加导出过滤，编辑器里正常但导出版会静默读不到脚本。",
+    "3.x 升 4.x 时信号全部改成 sg_ 前缀，旧示例会直接报连接失败。",
+    "等待步骤时忘记调用 do_step，剧情会停在原地且没有明显报错提示。"
+  ],
+  "bestFor": "做视觉小说、点击式冒险或 RPG 支线剧情，愿意自己搭对话界面、只想把叙事逻辑外包给框架的小团队。",
+  "avoidWhenZh": "需要开箱即用的对话 UI 与可视化编辑器，或不打算自写界面层时。",
+  "compareTips": {
+    "vs": [
+      "nathanhoad__godot_dialogue_manager"
+    ],
+    "whenZh": "两者都只提供对话核心层，界面要自己接：Rakugo 自带 .rk 语言、变量插值与存读档，偏脚本驱动；godot_dialogue_manager 是另一套主流方案，编写方式与编辑器集成不同。按团队更习惯写脚本还是用编辑器来选。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "对话系统",
+    "视觉小说",
+    "脚本语言",
+    "叙事",
+    "存读档"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "灵感来自 Ren'Py，目标是简化叙事游戏开发",
+      "source": "README.md",
+      "quote": "Inspired by Ren'Py, this project aiming to provide a way to make narrative-based games on Godot easily."
+    },
+    {
+      "claim": "提供 say、choice、ask、jump 等对话指令",
+      "source": "README.md",
+      "quote": "Dialog system (say, choices, ask, jump)"
+    },
+    {
+      "claim": "通过自动加载单例的信号与方法工作",
+      "source": "README.md",
+      "quote": "By signals and methods from a singleton (autoload) called Rakugo."
+    },
+    {
+      "claim": ".rk 文件默认不会导出",
+      "source": "README.md",
+      "quote": "**/!\\ .rk files are not exported by default /!\\**"
+    }
+  ],
+  "id": "rakugoteam__Rakugo-Dialogue-System",
+  "depth": "standard"
+}

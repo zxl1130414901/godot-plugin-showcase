@@ -1,0 +1,161 @@
+{
+  "id": "ramokz__phantom-camera",
+  "depth": "standard",
+  "taglineZh": "把 Cinemachine 式的相机跟随、优先级切换与构图搬进 Godot 4，可平滑过渡",
+  "summaryZh": "Phantom Camera 把 Unity Cinemachine 的相机思路搬进 Godot 4：场景里放多个 PhantomCamera 节点，每个定义跟随目标、偏移、阻尼、死区与朝向，再由宿主节点按优先级挑选当前生效的那个，切换时自动做过渡。它不改写 Camera2D 与 Camera3D，而是在旁边下发位置与参数，因此原有相机功能仍可用。跟随模式包括锁定目标、带阻尼跟随、跟随多目标中心、沿路径约束与第三人称弹簧臂。噪声与推拉镜头另有独立资源，可组合出镜头抖动与变焦。相对手写相机脚本，它把优先级、过渡与死区都做成可调资源，策划也能直接改。项目仍是 0.x 版本，接口随小版本调整。",
+  "whatItDoes": "提供 PhantomCamera2D 与 PhantomCamera3D 两类节点，配一个 PhantomCameraHost 挂在 Camera2D 或 Camera3D 上。每个相机节点保存跟随目标、偏移、阻尼、死区尺寸、缩放与朝向等参数，优先级高者接管。切换由宿主执行，按过渡时长与缓动曲线插值位置。第三人称模式在节点下挂 SpringArm3D，碰撞遮罩与臂长可从相机属性调。噪声通过 PhantomCameraNoise2D 与 PhantomCameraNoise3D 及发射器资源驱动，可叠加手持抖动。运行时可用 tween 接口在指定曲线上移动到另一个机位。",
+  "useCases": [
+    {
+      "titleZh": "横版动作跟随",
+      "descZh": "做横版平台跳跃时给角色挂一个带死区与阻尼的 2D 相机，角色小幅移动画面不动，走远之后镜头才跟上。"
+    },
+    {
+      "titleZh": "多机位剧情切换",
+      "descZh": "过场里摆多个机位，用优先级与过渡时间在台词节点之间切换，不用写一行相机插值代码，过渡曲线可单独设。"
+    },
+    {
+      "titleZh": "第三人称探索",
+      "descZh": "3D 探索或 TPS 项目用弹簧臂模式，镜头遇墙自动缩短距离，避免穿模后看到模型内部，臂长与边距也能调。"
+    },
+    {
+      "titleZh": "多人同屏取景",
+      "descZh": "双人或小队玩法用组跟随模式，镜头盯住所有目标的中心，并按目标散布距离自动调整缩放，窄场景也能用。"
+    },
+    {
+      "titleZh": "镜头抖动与打击感",
+      "descZh": "战斗命中时用噪声发射器叠加短促抖动，幅度与频率参数化，比手写随机位移更可控，还能叠多个发射器。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "相机节点配置",
+      "descZh": "一组 PhantomCamera 节点资源，各自记录跟随模式、偏移、阻尼、死区与优先级，可复制复用给同类敌人，切场景不必重配。"
+    },
+    {
+      "titleZh": "机位过渡",
+      "descZh": "宿主按优先级执行的位置与旋转插值，可在运行时用 tween 接口触发指定曲线，也支持自定义曲线，可复用到同类转场。"
+    },
+    {
+      "titleZh": "第三人称弹簧臂",
+      "descZh": "带碰撞遮罩与臂长的 SpringArm3D 组合，交给相机节点统一调参，省去在节点树里手挂弹簧臂与逐个调碰撞层，也避免漏设时镜头穿墙。"
+    },
+    {
+      "titleZh": "噪声与抖动资源",
+      "descZh": "可复用的噪声资源与发射器，叠加到相机上形成手持感与命中冲击抖动，可按战斗事件开关并按强度分档。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "PhantomCameraHost",
+      "descZh": "挂在 Camera2D 或 Camera3D 上，按优先级挑选生效相机并执行过渡，切换时机由宿主统一调度。"
+    },
+    {
+      "name": "Follow Modes",
+      "descZh": "锁定、阻尼跟随、组跟随、路径约束与第三人称弹簧臂，覆盖多数取景需求，2D 与 3D 都有对应实现。"
+    },
+    {
+      "name": "Dead Zones",
+      "descZh": "设定水平与垂直死区，目标在区内移动时镜头保持不动，减少画面抖动，尺寸可按分辨率换算。"
+    },
+    {
+      "name": "Priority & Tween",
+      "descZh": "优先级决定谁接管，过渡时长与曲线决定切换手感，运行时也能调用，可用来做过场。"
+    },
+    {
+      "name": "Noise Emitter",
+      "descZh": "独立噪声资源叠加抖动，可按需开关，适合打击反馈与手持镜头，幅度与频率分开调。"
+    }
+  ],
+  "limitsZh": "它是 0.x 版本，节点属性与 API 在小版本之间改过名，升级前要读变更记录并回改场景。性能开销主要在过渡插值与弹簧臂的射线查询，同屏挂十几个相机不会明显掉帧，但每个相机都开噪声发射器时要注意叠加成本。2D 与 3D 两套节点接口相似却不通用，混用时参数含义要分别确认。死区与阻尼的组合容易调过头，画面会显得黏滞或突然跳动，需要反复试。组跟随在目标分散很远时会持续拉远，超过缩放上限后只能接受。文档站以英文为主，参数说明细但示例偏视频，读文字不如看演示直观。第三方插件若也改写 Camera2D 变换，会与宿主争抢最终位置。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/phantom_camera 并启用插件，确认节点出现在创建菜单"
+    },
+    {
+      "stepZh": "在场景放 PhantomCamera 节点并设优先级，避免重复数值"
+    },
+    {
+      "stepZh": "指定跟随目标与跟随模式、偏移与阻尼"
+    },
+    {
+      "stepZh": "给 Camera2D 或 Camera3D 挂 PhantomCameraHost，否则相机不会收到任何参数"
+    },
+    {
+      "stepZh": "用 tween 或优先级切换验证过渡手感与抖动幅度"
+    },
+    {
+      "stepZh": "需要第三人称时挂 SpringArm 并调碰撞遮罩"
+    }
+  ],
+  "pros": [
+    "把优先级切换、过渡与死区做成可调资源，多机位项目不用再手写相机插值逻辑。",
+    "跟随模式覆盖锁定、组跟随、路径约束与弹簧臂，横版与第三人称都能直接落地。",
+    "不改写内置相机节点，只下发位置与参数，原有 Camera 功能仍可叠加使用，迁移旧项目风险小。",
+    "文档站与大量演示视频按功能分章，参数含义与实际效果可以对照着看，上手较快。"
+  ],
+  "cons": [
+    "仍是 0.x 版本，属性与接口在小版本间改过名，升级后场景要回改。",
+    "死区、阻尼与过渡时长组合敏感，调不好画面会黏滞或突然跳动，需要反复试。",
+    "参数项很多，初学者常在跟随模式与偏移之间反复试错，缺少一键预设。"
+  ],
+  "pitfalls": [
+    "多个相机优先级相同时行为不确定，切换会随机抖动，务必给每个机位写明确且不重复的优先级。",
+    "给 Camera2D 开位置平滑后又在宿主里设过渡，两层插值叠加会让画面明显滞后甚至过冲。",
+    "弹簧臂的碰撞遮罩漏设时镜头会穿墙，调试时先把遮罩画出来确认再调臂长。"
+  ],
+  "bestFor": "横版动作、第三人称探索或多机位过场项目，希望像 Cinemachine 那样用资源配出镜头手感的 Godot 4 团队，尤其适合需要频繁切镜头的关卡设计。",
+  "avoidWhenZh": "只需要一个固定跟随的简单相机，或项目不允许引入 0.x 阶段依赖时，手写几行脚本更稳。",
+  "compareTips": {
+    "vs": [
+      "JeanKouss__godot-third-person-camera",
+      "anthonyec__godot_little_camera_preview"
+    ],
+    "whenZh": "third-person-camera 专注第三人称镜头，功能单一但更轻；little_camera_preview 只是编辑器里的相机预览小工具。要多机位、2D 与 3D 通用以及优先级切换选 Phantom Camera，只要一个第三人称脚本选前者。"
+  },
+  "category": "ui",
+  "tags": [
+    "相机",
+    "Cinemachine",
+    "过场",
+    "第三人称",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "定位是为 2D 与 3D 相机简化常用行为",
+      "source": "README.md",
+      "quote": "Phantom Camera is a Godot 4 plugin designed to provide and simplify common behaviors for the built-in"
+    },
+    {
+      "claim": "灵感来自 Unity 的 Cinemachine",
+      "source": "README.md",
+      "quote": "heavily inspired by a Unity package called Cinemachine"
+    },
+    {
+      "claim": "支持带偏移与阻尼的跟随",
+      "source": "README.md",
+      "quote": "Follows the target with an optional offset and damping."
+    },
+    {
+      "claim": "支持跟随一组目标的中心",
+      "source": "README.md",
+      "quote": "Follows the centre of a collection of targets."
+    },
+    {
+      "claim": "插件当前版本仍为 0.11 系列",
+      "source": "addons/phantom_camera/plugin.cfg",
+      "quote": "version=\"0.11.0.3\""
+    }
+  ]
+}

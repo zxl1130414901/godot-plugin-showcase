@@ -1,0 +1,139 @@
+{
+  "id": "nathanhoad__godot_sound_manager",
+  "depth": "standard",
+  "taglineZh": "带播放器池与音乐交叉淡入的音频管理插件",
+  "summaryZh": "Sound Manager 是 Nathan Hoad 为 Godot 4.6 以上版本做的音乐与音效播放插件，目标是让音频调用变得简单。它提供可复用的播放器池，避免为每个音效反复创建节点；音乐切换时自动做交叉淡入，让曲目过渡自然；会为音效与音乐自动探测合适的音频总线，减少手动配置；把声音区分为 UI 音效与局部音效，前者不随场景位置变化。插件同时支持 GDScript 与 C#，仓库里有单独的 Sound Manager.csproj 与解决方案文件，并附四个专题文档分别讲音效、环境音、音乐与 C# 用法，示例场景也在仓库内。",
+  "whatItDoes": "封装音乐的播放、停止与交叉淡入，以及音效的一次性播放与环境音循环，通过播放器池复用节点降低开销。自动识别总线并为 UI 与场景内声音分配不同处理路径，减少手动配置音量与总线的步骤。提供 GDScript 与 C# 两套调用方式，覆盖不同技术栈的工程。",
+  "useCases": [
+    {
+      "titleZh": "需要背景音乐切换的游戏",
+      "descZh": "在关卡或菜单之间切换曲目时自动交叉淡入，避免音乐硬切造成突兀感。"
+    },
+    {
+      "titleZh": "音效使用频率高的项目",
+      "descZh": "借助播放器池重复播放同一音效而不反复创建节点，控制开销。"
+    },
+    {
+      "titleZh": "C# 工程",
+      "descZh": "仓库自带 csproj，C# 项目可直接使用同一套音频管理能力。"
+    },
+    {
+      "titleZh": "需要统一音频策略的团队",
+      "descZh": "用 UI 与局部声音的区分以及自动总线探测，减少各成员各自写播放逻辑。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "统一的音频入口",
+      "descZh": "通过插件提供的接口播放音效、环境音与音乐。"
+    },
+    {
+      "titleZh": "播放器池",
+      "descZh": "复用的一组音频播放节点，减少实例创建与销毁。"
+    },
+    {
+      "titleZh": "音乐过渡效果",
+      "descZh": "曲目切换时的交叉淡入，输出平滑的听觉过渡。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "播放器池",
+      "descZh": "音效由池化播放器承载，避免频繁创建节点。"
+    },
+    {
+      "name": "音乐交叉淡入",
+      "descZh": "曲目切换自带淡入淡出，无需手写补间。"
+    },
+    {
+      "name": "自动总线探测",
+      "descZh": "为音效与音乐自动寻找合适的音频总线。"
+    },
+    {
+      "name": "UI 与局部声音分离",
+      "descZh": "区分不受位置影响的 UI 音效与场景内局部音效。"
+    }
+  ],
+  "limitsZh": "插件要求 Godot 4.6 以上，使用 Godot 3 的用户必须切到 v1.x 分支，4.0 到 4.5 的用户没有明确的兼容分支说明，跨版本升级时需要自行验证。README 只有一千四百字符，主体内容分散在 docs 下的四个专题文件里，需要逐篇翻阅才能拼出完整用法，缺少一页式速查表与接口清单。自动总线探测虽然省事，但在自定义总线布局的项目里可能猜错目标总线，仍需手动覆盖配置。播放器池的容量与回收策略由插件内部管理，README 未说明上限与调优方式，音效极多的场景需要实测。仓库同时维护 C# 工程，使用 C# 时需要保证工程与插件的构建配置一致，否则可能出现类找不到的情况。",
+  "workflowZh": [
+    {
+      "stepZh": "拷贝 addons/sound_manager 到工程并在项目设置中启用。"
+    },
+    {
+      "stepZh": "按 docs 中的说明确认音频总线布局。"
+    },
+    {
+      "stepZh": "在脚本里调用音效、环境音与音乐的播放接口。"
+    },
+    {
+      "stepZh": "为音乐切换设置淡入淡出时长。"
+    },
+    {
+      "stepZh": "在示例场景中试听，按需覆盖自动探测的总线。"
+    }
+  ],
+  "pros": [
+    "播放器池与音乐交叉淡入一次解决常见音频痛点。",
+    "自动探测总线，默认配置下几乎免设置。",
+    "同时支持 GDScript 与 C#，覆盖面广。",
+    "作者维护活跃，文档分为四个专题较为完整。"
+  ],
+  "cons": [
+    "要求 Godot 4.6 以上，中间版本缺少说明。",
+    "文档分散，缺少一页式接口速查。",
+    "自动总线探测在自定义布局下可能猜错。"
+  ],
+  "pitfalls": [
+    "在 4.0 到 4.5 的工程里安装后若出现 API 不兼容，应先确认是否有对应分支而非直接改源码。",
+    "自定义了音频总线却没同步调整配置，自动探测可能把音乐接到错误的总线上。"
+  ],
+  "bestFor": "适合需要稳定播放背景音乐与大量音效、希望用池化与交叉淡入省去自写音频调度的 Godot 4.6 项目。",
+  "avoidWhenZh": "仍在使用 Godot 4.0 到 4.5，或音频需求极简只需播放单个音效的项目，引入该插件收益不大。",
+  "compareTips": {
+    "vs": [
+      "YuriSizov__gdsion"
+    ],
+    "whenZh": "Sound Manager 管理已有音频资源的播放与切换，GDSiON 负责在运行时合成声音；需要程序化音乐时两者可以配合，常规配乐只需前者。"
+  },
+  "category": "audio",
+  "tags": [
+    "音频管理",
+    "音乐淡入",
+    "播放器池",
+    "C#支持",
+    "总线"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "插件面向 Godot 4.6 以上，Godot 3 需用 v1.x 分支",
+      "source": "README.md",
+      "quote": "This is for Godot 4.6+. If you are using Godot 3 then have a look at the [v1.x branch](...)"
+    },
+    {
+      "claim": "提供播放器池与音乐交叉淡入",
+      "source": "README.md",
+      "quote": "- Pooled audio players\n- Handles music crossfades"
+    },
+    {
+      "claim": "自动探测音频总线并区分 UI 与局部声音",
+      "source": "README.md",
+      "quote": "- Autodetect probable audio buses for both sounds and music\n- Splits sounds up into UI sounds and local sounds"
+    },
+    {
+      "claim": "同时支持 GDScript 与 C#",
+      "source": "README.md",
+      "quote": "Supports both GDScript and C#"
+    }
+  ]
+}

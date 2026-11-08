@@ -1,0 +1,34 @@
+{
+  "id": "WhoStoleMyCoffee__raytraced-audio",
+  "descriptionZh": "用射线探测房间与墙体，实时算出混响、环境声与隔墙闷音的 3D 音频插件，并自动调整总线。",
+  "category": "audio",
+  "tags": [
+    "空间音频",
+    "混响",
+    "射线检测",
+    "3D音效"
+  ],
+  "prosShort": [
+    "不用手工摆音频区域，关卡改动更省事",
+    "墙后的声音会自动变闷并降低音量",
+    "纯 GDScript 实现，复制目录即可直接启用"
+  ],
+  "consShort": [
+    "只是射线近似，复杂房间听感有限",
+    "射线数与播放器一多，CPU 开销明显上升",
+    "文档只有一页，参数调法基本靠试"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

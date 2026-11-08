@@ -1,0 +1,35 @@
+{
+  "id": "libriscv__godot-sandbox",
+  "descriptionZh": "在受限虚拟机里运行玩家脚本的低延迟 Godot 扩展，支持 SafeGDScript 方言、资源限额与完整模组加载。",
+  "category": "visual-script",
+  "tags": [
+    "沙箱",
+    "模组",
+    "脚本语言",
+    "GDExtension",
+    "安全"
+  ],
+  "prosShort": [
+    "方言语法接近 GDScript，现有脚本迁移改动较小",
+    "内存与超时限额能挡住脚本死循环",
+    "接口默认关闭，脚本权限边界清晰"
+  ],
+  "consShort": [
+    "需要编译产物，冷门平台只能自己编译",
+    "方言特性不全，旧脚本要逐处改写",
+    "沙箱有运行开销，计算密集会掉帧"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

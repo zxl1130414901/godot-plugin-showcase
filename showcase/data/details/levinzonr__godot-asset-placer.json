@@ -1,0 +1,156 @@
+{
+  "id": "levinzonr__godot-asset-placer",
+  "depth": "standard",
+  "taglineZh": "在大场景里快速摆放 3D 资产的 Godot 编辑器插件",
+  "summaryZh": "Godot Asset Placer 把 3D 资产的挑选、预览与落点判断收进一个停靠面板：先把资产目录同步进资产库，再在视口里用射线贴到碰撞体、无限平面或 Terrain3D 表面。支持刷子批量散布、随机取资产、集合分组、调色板快捷位与就地变换。它只做摆放与整理，不含资产导入或模型优化，缩略图生成也可能不完美。要求 Godot 4.3 以上，资产文件夹需手动加入同步列表。",
+  "whatItDoes": "插件在编辑器侧边新增 Asset Placer 停靠面板，含 Folders、Assets、Collections、Palette 等分页。摆放模式有表面碰撞、无限平面与 Terrain3D 三种，均通过视口射线求交；预览时可旋转、缩放、平移并吸附。刷子模式按半径与密度连续绘制，随机摆放可从当前筛选结果抽取；放置后可按主集合自动分组，设置面板还能改快捷键与缩略图尺寸。",
+  "useCases": [
+    {
+      "titleZh": "关卡场景搭建",
+      "descZh": "森林、废墟等大场景需要铺大量模型，用刷子与随机抽取快速铺量，再手工精修重点区域。"
+    },
+    {
+      "titleZh": "地形贴物",
+      "descZh": "配合 Terrain3D 或碰撞地面摆放石头与植被，法线对齐能让物体自然贴合坡面，节省手工摆放时间。"
+    },
+    {
+      "titleZh": "白盒原型",
+      "descZh": "白模阶段用无限平面模式快速摆方块，不必先给场景补齐碰撞体，原型阶段也能更快出效果。"
+    },
+    {
+      "titleZh": "资产整理",
+      "descZh": "把常用模型收进集合与调色板，用数字键切换，减少反复搜索文件的时间，不必来回翻目录。"
+    },
+    {
+      "titleZh": "批量调整",
+      "descZh": "已摆放节点用就地变换模式统一旋转缩放，无需逐个选中再改检查器属性，改完立即看到结果。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "资产面板",
+      "descZh": "停靠面板内的文件夹、资产库、集合与调色板分页，负责挑选、筛选与批量管理。"
+    },
+    {
+      "titleZh": "摆放预览",
+      "descZh": "视口内的半透明预览与变换控件，落点、法线与缩放所见即所得，放置前即可确认姿态。"
+    },
+    {
+      "titleZh": "分组结果",
+      "descZh": "按主集合自动生成的 Node3D 分组，让铺量后的场景树仍然保持可读，分组名取自集合名。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "射线落点",
+      "descZh": "表面碰撞、无限平面与 Terrain3D 三种落点策略，可按当前场景切换，切换无需改代码。"
+    },
+    {
+      "name": "刷子模式",
+      "descZh": "调半径与密度后连续拖拽绘制，带实时预览与变换吸附，适合大面积铺量。"
+    },
+    {
+      "name": "调色板",
+      "descZh": "十个数字键槽位，视口浮层可直接切换资产，不必回面板，适合高频资产。"
+    },
+    {
+      "name": "集合与规则",
+      "descZh": "资产可归属多集合，同步目录时还能按名称规则自动归类，减少手工归类。"
+    },
+    {
+      "name": "就地变换",
+      "descZh": "对已摆放节点复用旋转缩放流程，批量微调时省事，无需逐个改属性。"
+    }
+  ],
+  "limitsZh": "只支持 tscn、scn、glb、gltf、obj、fbx 与 blend 这几种可摆放资源，其它格式要自行转出。资产目录必须手动加入同步列表，项目大了首次扫描与缩略图生成都要时间，复杂模型的缩略图可能偏暗或角度不佳。表面模式要求场景已有碰撞体，否则只能切平面模式。Terrain3D 模式依赖对应节点存在，仓库虽附带扩展但版本需与项目匹配。随机摆放被标注为实验特性，批量使用前应先小范围试。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/asset_placer 目录拷入项目，保持 addons 层级。"
+    },
+    {
+      "stepZh": "在项目设置里启用 Asset Placer 插件，启用后才会出现侧边面板。"
+    },
+    {
+      "stepZh": "在 Folders 分页加入资产目录并等待同步。"
+    },
+    {
+      "stepZh": "选中资产，在视口中移动鼠标预览落点。"
+    },
+    {
+      "stepZh": "左键放置，或开启刷子模式连续拖拽绘制。"
+    },
+    {
+      "stepZh": "按需用集合与调色板整理常用资产。"
+    }
+  ],
+  "pros": [
+    "预览加射线落点，摆放位置与朝向基本一次到位，少走回头路，试错成本较低。",
+    "刷子与随机抽取适合铺量，大场景搭建速度提升明显，铺量后不易乱。",
+    "集合、调色板与自动分组让场景树保持整齐，便于后期维护，配置项覆盖常用操作。",
+    "键位与缩略图可配置，能贴合团队既有的操作习惯，常用项都能改。"
+  ],
+  "cons": [
+    "资产目录要手动同步，首次导入耗时较长，项目越大越明显。",
+    "缩略图生成质量不稳定，复杂模型可能偏暗或角度不佳。",
+    "仅支持有限资源格式，其它格式要预先转换，格式转换要额外花时间。"
+  ],
+  "pitfalls": [
+    "表面碰撞模式下场景没有碰撞体，物体会落到平面而非地面，摆完要检查高度。",
+    "资产库路径默认在项目内，多人协作忘了纳入版本控制会各自不同步。",
+    "刷子密度过高会一次生成大量节点，编辑器可能卡顿甚至卡死，先调低密度试。"
+  ],
+  "bestFor": "需要频繁铺设大量 3D 模型、并希望用集合与调色板管理资产的关卡美术与独立团队，场景规模越大收益越明显。",
+  "avoidWhenZh": "只摆放少量手工模型，或资源格式不在支持列表且不愿转换的项目。",
+  "compareTips": {
+    "vs": [
+      "Portponky__better-terrain"
+    ],
+    "whenZh": "两者都在 3D 编辑器里做场景布置：Asset Placer 专注模型挑选与批量摆放，better-terrain 专注地形雕刻与贴图；地面已成形时用前者铺物效率高，缺地形时则要先用后者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "3D关卡搭建",
+    "资产摆放",
+    "编辑器插件",
+    "场景美化"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "isGDExtension": true,
+  "evidence": [
+    {
+      "claim": "支持贴地、碰撞体与 Terrain3D 表面摆放",
+      "source": "README.md",
+      "quote": "One-Click Asset Placement with Snapping to Ground, Collision shapes and Terrain3D Surfaces"
+    },
+    {
+      "claim": "提供刷子批量散布模式",
+      "source": "README.md",
+      "quote": "Paint multiple assets at once with adjustable brush size and density"
+    },
+    {
+      "claim": "资产目录需用户手动加入同步",
+      "source": "README.md",
+      "quote": "Right now the plugin relies on user selecting the folders where your assets are located"
+    },
+    {
+      "claim": "支持的资源格式有限",
+      "source": "README.md",
+      "quote": "So far the plugin only supports placeable scenes and models with these extensions:"
+    },
+    {
+      "claim": "当前插件版本 1.6.0",
+      "source": "addons/asset_placer/plugin.cfg",
+      "quote": "version=\"1.6.0\""
+    }
+  ]
+}

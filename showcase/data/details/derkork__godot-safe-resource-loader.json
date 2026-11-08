@@ -1,0 +1,139 @@
+{
+  "id": "derkork__godot-safe-resource-loader",
+  "depth": "standard",
+  "taglineZh": "加载玩家资源前先扫描内嵌脚本的防护库",
+  "summaryZh": "Godot 的文本资源格式允许把 GDScript 直接嵌进 .tres，玩家分享的存档一旦被加载就可能立即执行恶意代码。这个库提供与 ResourceLoader 同名的静态接口，先用自研解析器读文本、确认没有内嵌 GDScript、外部依赖都来自 res://，再交给引擎真正加载，不安全就打印警告并返回空。0.3 起还支持线程加载，C# 项目可通过加载脚本再 Call 的方式使用。适合开放存档分享的游戏。限制是只处理文本资源，二进制 .res 不在防护范围。",
+  "whatItDoes": "SafeResourceLoader.load 先读取文件文本并用自己的解析器扫描，不实例化任何脚本；发现内嵌 GDScript 或以非 res:// 路径引用外部资源时拒绝加载。线程接口与引擎的 load_threaded_request、get_status、get 一一对应，可直接替换调用。示例工程同时用原生与安全加载器打开恶意资源，对比执行结果。",
+  "useCases": [
+    {
+      "titleZh": "玩家存档分享",
+      "descZh": "允许玩家互传 .tres 存档，又不担心其中夹带会在加载瞬间执行的恶意脚本，社区分享更放心。"
+    },
+    {
+      "titleZh": "关卡与地图导入",
+      "descZh": "支持社区导入自制关卡资源，加载前先做脚本与路径检查，降低被恶意资源利用的风险。"
+    },
+    {
+      "titleZh": "安全加载教学",
+      "descZh": "示例直接演示恶意资源被原生加载器执行、被本库拦截的差别，适合做团队安全培训材料。"
+    },
+    {
+      "titleZh": "线程加载整合",
+      "descZh": "用同名线程接口替换现有加载逻辑，几乎不改业务代码就能获得防护，迁移成本很低。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "安全加载接口",
+      "descZh": "与 ResourceLoader 同形的静态方法，替换后即可获得扫描防护，调用方式完全不变，迁移几乎零成本。"
+    },
+    {
+      "titleZh": "恶意样本示例",
+      "descZh": "含安全与恶意两类资源，可现场对比两种加载器的行为，便于验证防护是否真正生效。"
+    },
+    {
+      "titleZh": "线程加载封装",
+      "descZh": "提供请求、状态与获取三件套，保持异步加载体验，适合加载较大的关卡资源。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "SafeResourceLoader.load",
+      "descZh": "先扫描再加载，发现内嵌脚本时返回空并打印警告，调用方可继续回退。"
+    },
+    {
+      "name": "内嵌脚本检测",
+      "descZh": "识别 .tres 中的 GDScript 子资源，阻断加载时执行，覆盖最常见的攻击方式。"
+    },
+    {
+      "name": "外部路径校验",
+      "descZh": "外部依赖必须来自 res://，防止有人在存档旁塞入脚本或替换贴图。"
+    },
+    {
+      "name": "线程加载",
+      "descZh": "提供与引擎同名的三个线程接口，可原样替换，保持后台加载体验。"
+    },
+    {
+      "name": "C# 调用方式",
+      "descZh": "加载脚本资源后通过 Call 调用，兼容 .NET 项目，无需另写绑定层或额外封装。"
+    }
+  ],
+  "limitsZh": "防护只针对文本资源，二进制 .res 或打包后的资源不在扫描范围，不能当成通用沙箱。它拒绝所有内嵌 GDScript，而不仅是恶意脚本，因此正常带脚本的自定义资源也会被拦下。外部引用只允许 res://，玩家存档若合法引用 user:// 下的贴图会被误判。导出后 res:// 资源无法被文件系统脚本读取，所以它只适用于 user:// 等外部路径。自研解析器与引擎格式若出现新语法，可能先于引擎失配，需要跟着更新。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 或 GitHub Release 下载并安装插件到 addons 目录"
+    },
+    {
+      "stepZh": "在项目设置的插件列表里启用 Safe Resource Loader"
+    },
+    {
+      "stepZh": "把项目里 ResourceLoader.load 的调用逐个换成安全接口"
+    },
+    {
+      "stepZh": "需要异步加载时改用插件提供的线程三件套"
+    },
+    {
+      "stepZh": "用示例工程验证恶意资源是否被拦截"
+    }
+  ],
+  "pros": [
+    "用同名接口替换，接入成本极低，业务代码几乎不用改，迁移风险小",
+    "解析阶段不实例化脚本，避免加载即执行，阻断最常见的攻击路径",
+    "同时校验内嵌脚本与外部资源来源路径，防护面比单纯过滤更完整",
+    "提供线程加载与 C# 用法，覆盖常见工程需求，不必自己包一层",
+    "带恶意样本示例，防护效果可现场验证，便于向团队说明风险"
+  ],
+  "cons": [
+    "只保护文本资源，二进制 .res 或打包资源不在扫描范围",
+    "会误伤带内嵌脚本的正常资源，自定义资源设计需要调整",
+    "外部引用限制 res://，合法的 user:// 依赖会被拒绝，需要改资源结构。"
+  ],
+  "pitfalls": [
+    "以为换上它就万事大吉，却仍在加载 .res 存档，防护实际上等于没开。",
+    "自定义资源内嵌脚本属正常设计，会被一律拦截，需要拆成外置脚本",
+    "玩家存档引用 user:// 贴图时加载返回空，需要改资源结构或复制到 res://"
+  ],
+  "bestFor": "允许玩家互传 .tres 存档或自制关卡、需要在不信任输入上做基础防护的 Godot 4 游戏与编辑器工具开发者。",
+  "avoidWhenZh": "主要使用二进制资源，或需要完整沙箱与脚本白名单机制、要求细粒度权限控制的项目。",
+  "compareTips": {
+    "vs": [
+      "AdamKormos__SaveMadeEasy"
+    ],
+    "whenZh": "Save Made Easy 负责写读自己的存档，重点在键值流程；Safe Resource Loader 负责安全加载别人给的资源，重点在不可信输入防护。两者职责不同，开放存档分享的项目可以组合使用。"
+  },
+  "category": "save-data",
+  "tags": [
+    "存档安全",
+    "资源加载",
+    "恶意脚本",
+    "线程加载"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "加载前扫描资源内嵌的 GDScript",
+      "source": "README.md",
+      "quote": "It does this by scanning the resource file for embedded GDScripts before loading it, and then only loading the resource if no GDScripts are found."
+    },
+    {
+      "claim": "只加载 res:// 之外路径，导出后 res:// 不可读",
+      "source": "README.md",
+      "quote": "this function will only load from paths outside the `res://` folder"
+    },
+    {
+      "claim": "自研解析器解析时不实例化脚本",
+      "source": "README.md",
+      "quote": "This custom parser will not instantiate any scripts while parsing the file"
+    }
+  ]
+}

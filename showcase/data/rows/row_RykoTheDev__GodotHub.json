@@ -1,0 +1,34 @@
+{
+  "id": "RykoTheDev__GodotHub",
+  "descriptionZh": "管理 Godot 项目、引擎版本与导出构建的桌面客户端，支持克隆仓库与测试。",
+  "category": "platform-export",
+  "tags": [
+    "项目管理",
+    "版本管理",
+    "导出构建",
+    "桌面客户端"
+  ],
+  "prosShort": [
+    "项目版本绑定与启动集中管理",
+    "可以直接克隆 Git 仓库试用项目",
+    "导出日志实时显示在控制台"
+  ],
+  "consShort": [
+    "不是插件无法在编辑器内使用",
+    "依赖规范工程配置异常会失败",
+    "文档与社区规模较小排查靠自己"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

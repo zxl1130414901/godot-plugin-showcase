@@ -1,0 +1,35 @@
+{
+  "id": "godot-extended-libraries__godot-antialiased-line2d",
+  "descriptionZh": "为 Godot 4 提供跨渲染器的抗锯齿 Line2D、Polygon2D 与规则多边形绘制节点",
+  "category": "ui",
+  "tags": [
+    "抗锯齿",
+    "2D绘制",
+    "Line2D",
+    "多边形",
+    "轻量"
+  ],
+  "prosShort": [
+    "边缘质量优于内置线条实现",
+    "支持全部渲染器，多平台一致",
+    "附圆形与正多边形辅助节点"
+  ],
+  "consShort": [
+    "需替换内置节点，迁移有工作量",
+    "大量线条逐个绘制开销偏高",
+    "只做抗锯齿，虚线等线型需自建"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

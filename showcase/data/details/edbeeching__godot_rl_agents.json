@@ -1,0 +1,166 @@
+{
+  "id": "edbeeching__godot_rl_agents",
+  "depth": "standard",
+  "taglineZh": "用 Python 训练 Godot 里的 AI 智能体，训练后可导出 ONNX 推理",
+  "summaryZh": "Godot RL Agents 在 Godot 游戏与 Python 强化学习框架之间搭了一层接口：游戏侧用插件暴露观测、动作与奖励，Python 侧把环境包装成 gym 接口，交给 StableBaselines3、Sample Factory、Ray RLLib 或 CleanRL 训练。观测可以来自相机、射线、位置与自定义传感器，动作支持离散与连续，也能用 LSTM 或注意力结构处理带记忆的任务，2D 与 3D 场景都覆盖。训练完成后可导出 ONNX 在游戏里直接推理，不必再依赖 Python。仓库带多个示例环境、教程与论文引用，插件本体是 GDScript，训练侧是独立的 pip 包，照着示例跑一遍就能改到自己的项目。",
+  "whatItDoes": "在 Godot 侧提供环境节点与传感器，把画面、射线、位置与奖励整理成观测，并接收策略输出的动作。Python 侧通过 socket 与环境通信，包装成标准 gym 接口交给四种强化学习框架之一训练。支持同步与异步环境、动作重复与多智能体场景。训练过程可在编辑器里直接启动，不必先导出游戏可执行文件。训练完成后能把策略导出成 ONNX，在游戏内用推理节点加载并实时决策。",
+  "useCases": [
+    {
+      "titleZh": "训练敌人行为",
+      "descZh": "想让敌人自己学会追击、绕障与射击，用示例环境改出观测与奖励，交给 PPO 训练几轮，比手写行为树更容易覆盖少见情况。"
+    },
+    {
+      "titleZh": "强化学习研究",
+      "descZh": "做算法对比实验时用它把 Godot 场景变成标准环境，换后端只改几行配置，四种框架都能跑同一套任务，复现实验省事。"
+    },
+    {
+      "titleZh": "自动调整关卡难度",
+      "descZh": "用训练出的策略当陪玩或自动测试体，反复跑关卡找出难度突变点，比纯人工试玩更快暴露平衡问题。"
+    },
+    {
+      "titleZh": "教学与课堂实验",
+      "descZh": "讲强化学习时让学生先跑示例环境看曲线，再改奖励函数观察行为变化，比只讲公式更容易理解策略是怎么学出来的。"
+    },
+    {
+      "titleZh": "批量仿真验证",
+      "descZh": "让智能体在大量随机场景里反复跑，统计卡死、掉出地图与超时比例，能在手工测试覆盖不到的边界里提前发现缺陷。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "训练好的策略模型",
+      "descZh": "由强化学习框架产出的策略权重与训练配置，能继续微调，也能复现同一轮实验的曲线与结果，检查点可随时接着训练。"
+    },
+    {
+      "titleZh": "ONNX 推理文件",
+      "descZh": "从训练结果导出的 ONNX 模型，游戏内直接加载推理，发行版不必打包 Python 环境与训练依赖，推理节点拿到动作后直接驱动角色。"
+    },
+    {
+      "titleZh": "传感器观测数据",
+      "descZh": "相机、射线、位置与自定义传感器生成的观测张量，决定智能体能感知到什么，也方便离线分析训练样本。"
+    },
+    {
+      "titleZh": "可切换训练配置",
+      "descZh": "同一环境可接四种后端与不同超参，配置以脚本或 yaml 保存，便于横向比较算法效果，也能回溯哪组超参对应哪次结果。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "AI Sensors",
+      "descZh": "提供相机、射线、位置与奖励等传感器，把游戏世界转成观测张量，必要时也能自己写传感器扩展。"
+    },
+    {
+      "name": "RL Backends",
+      "descZh": "封装 StableBaselines3、Sample Factory、Ray RLLib 与 CleanRL 四种框架，换后端不必重写环境，同一套定义可以横向对比算法效果。"
+    },
+    {
+      "name": "Memory Agents",
+      "descZh": "支持 LSTM 与注意力结构处理带记忆的任务，适合需要历史信息才能决策的追逐与探索场景。"
+    },
+    {
+      "name": "ONNX Export",
+      "descZh": "把训练好的策略导出成 ONNX，在游戏运行时直接推理，省掉 Python 依赖与通信开销。"
+    },
+    {
+      "name": "In-editor Training",
+      "descZh": "不导出可执行文件也能从编辑器直接启动训练，改场景与奖励后立刻重跑，迭代速度更快。"
+    }
+  ],
+  "limitsZh": "训练链路很重：要装 Python 3.7 以上的环境、pip 包与所选框架，GPU 训练还需要对应驱动，仓库本身接近 260 MB，示例环境还要单独下载。编辑器内训练要求 .NET 版 Godot，普通版打不开示例工程。同步模式下环境会周期性冻结等模型更新，这是设计使然而非缺陷，但也意味着不能边训练边流畅试玩。训练收敛依赖奖励设计，奖励写歪时策略会学到奇怪行为，调参周期可能很长。跨版本兼容跟随上游框架，依赖升级容易打破旧配置。导出的 ONNX 只覆盖推理，训练与调试仍要回到 Python 侧，团队里得有人能维护这套环境。",
+  "workflowZh": [
+    {
+      "stepZh": "建 Python 虚拟环境并安装 godot-rl 与所选框架"
+    },
+    {
+      "stepZh": "下载示例环境，先在现成任务上跑通训练"
+    },
+    {
+      "stepZh": "把示例的观测、动作与奖励改到自己的场景"
+    },
+    {
+      "stepZh": "调动作重复与并行环境数，观察训练曲线"
+    },
+    {
+      "stepZh": "训练收敛后导出 ONNX，再接进游戏的推理节点"
+    },
+    {
+      "stepZh": "在发行包里验证推理延迟与行为稳定性"
+    }
+  ],
+  "pros": [
+    "把 Godot 场景直接变成强化学习环境，观测、动作与奖励都在引擎侧定义，不必另写一套仿真器。",
+    "一套环境可接四种主流框架，做算法对比时只换后端与配置，实验代码复用度高。",
+    "支持 LSTM 与注意力等记忆结构，也能处理 2D 与 3D 场景，复杂任务不必自己改网络接口。",
+    "训练完可导出 ONNX 在游戏内推理，发行时不需要 Python 与训练依赖，运行时开销可控。"
+  ],
+  "cons": [
+    "安装链很长，Python、pip 包、框架与 .NET 版编辑器缺一不可，环境问题比训练本身更耗时间。",
+    "同步训练时环境会周期性冻结，无法边训练边流畅试玩，调奖励的反馈循环被拉长。",
+    "依赖上游框架版本，升级容易破坏旧配置，长期项目要专门维护一套可复现环境。"
+  ],
+  "pitfalls": [
+    "用普通版 Godot 打开示例工程，编辑器内训练会直接不可用，必须换成 .NET 版本。",
+    "奖励函数只给终局奖励又没做归一化，训练曲线长期不动，先加过程奖励再调折扣因子。",
+    "示例环境从独立仓库下载，路径写死在脚本里，换目录后训练启动即报找不到可执行文件。"
+  ],
+  "bestFor": "想让 NPC 或智能体通过试错学习行为，并且团队里有人能维护 Python 训练环境的游戏工作室与研究会。",
+  "avoidWhenZh": "只需要确定性行为、无法承担 Python 与 GPU 训练成本，或希望零依赖在引擎里完成全部逻辑时。",
+  "compareTips": {
+    "vs": [
+      "edbeeching__godot_rl_agents_plugin",
+      "nobodywho-ooo__nobodywho"
+    ],
+    "whenZh": "同作者的 plugin 仓库只提供引擎侧插件，训练仍要配本项目；NobodyWho 走本地大模型推理，解决的是语言与语音而非决策学习。要训练行为策略选本项目，要在游戏里跑对话模型选 NobodyWho。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "强化学习",
+    "Python",
+    "AI训练",
+    "ONNX",
+    "传感器"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "在游戏与 Python 算法之间提供接口",
+      "source": "README.md",
+      "quote": "An interface between games created in the"
+    },
+    {
+      "claim": "封装四种强化学习框架",
+      "source": "README.md",
+      "quote": "Wrappers for four well known rl frameworks"
+    },
+    {
+      "claim": "支持带记忆的智能体结构",
+      "source": "README.md",
+      "quote": "Support for memory-based agents, with LSTM or attention based interfaces"
+    },
+    {
+      "claim": "同时支持 2D 与 3D 游戏",
+      "source": "README.md",
+      "quote": "Support for 2D and 3D games"
+    },
+    {
+      "claim": "同步训练时环境会周期性冻结",
+      "source": "README.md",
+      "quote": "normal for the Godot env to periodically freeze while the model is updating."
+    },
+    {
+      "claim": "通过 pip 安装 godot-rl 包",
+      "source": "README.md",
+      "quote": "pip install godot-rl"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "taglineZh": "面向 Godot 独立开发者的轻量基础系统合集",
+  "summaryZh": "godot_core_system 把中小项目反复要写的底层设施做成一组可拆开用的服务：CoreScenes 负责带淡入淡出的场景切换，CoreSaveStore 提供带版本号与校验的 JSON 存档，CoreInputs 管理按键重绑定与冲突检查，另有配置、标签、触发器、计时器、音频、对象池、异步 IO 与分帧工具。各服务尽量不依赖全局 AutoLoad，按文档与 examples 目录逐个接入即可。业务规则明确留给项目本身，且当前只在 Godot 4.7.2 上验证过。",
+  "whatItDoes": "以 addons/godot_core_system 形式提供插件，启用后注册 CoreSystem AutoLoad 供旧版管理器使用；CoreScenes、CoreSaveStore、CoreInputs 等独立服务不强制依赖该单例。接口返回明确的结果对象，区分文件缺失与数据损坏。docs/systems 下每个系统一份文档，examples 下每个能力一个可运行场景，可按任务取用。",
+  "useCases": [
+    {
+      "titleZh": "小游戏基础设施",
+      "descZh": "独立开发者做 2D 平台或解谜小游戏，需要场景切换与存档而不想自己写底层设施与工具。"
+    },
+    {
+      "titleZh": "可改键设置",
+      "descZh": "需要玩家自定义按键并持久化的项目，用 CoreInputs 的动作组与冲突检查，避免改键后互斥，减少输入 bug。"
+    },
+    {
+      "titleZh": "存档版本迁移",
+      "descZh": "存档格式要考虑后续升级的项目，用 CoreSaveStore 的版本号与校验结果做迁移判断，不必自己设计兼容层。"
+    },
+    {
+      "titleZh": "按模块接入",
+      "descZh": "想统一音频、配置与对象池入口的中小团队，按模块逐个接入而非整套引入，避免一次性背上整套依赖。"
+    },
+    {
+      "titleZh": "教学演示",
+      "descZh": "教学场景可直接跑 examples 里的两场景切换与计数器存档示例，配合文档讲解生命周期，便于课堂演示。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "服务脚本集",
+      "descZh": "一组 GDScript 服务脚本与插件入口，可单独引用而不必全量启用，模块边界清楚。"
+    },
+    {
+      "titleZh": "JSON 存档格式",
+      "descZh": "带版本号与校验字段的存档结构，便于后续迁移与回滚旧档案，也方便排查损坏。"
+    },
+    {
+      "titleZh": "文档与示例",
+      "descZh": "每个系统配一份 API 说明和可运行场景，照着跑通再改成自己的用法，接入路径清晰。"
+    },
+    {
+      "titleZh": "原子写扩展",
+      "descZh": "Windows x64 上用于替换存档文件的原生扩展，导出时要一并带上对应 DLL，缺了就无法存档。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "CoreScenes",
+      "descZh": "报告切换完成、拒绝重叠请求，可选常驻过渡层，资源加载是同步的。"
+    },
+    {
+      "name": "CoreSaveStore",
+      "descZh": "版本化 JSON 存档，区分文件缺失与数据损坏，返回可判别结果供上层处理。"
+    },
+    {
+      "name": "CoreInputs",
+      "descZh": "管理显式动作组，检查按键冲突并恢复默认值，保留手柄输入。"
+    },
+    {
+      "name": "模块化接入",
+      "descZh": "独立服务不依赖 AutoLoad，只取需要的模块即可接入现有工程，不必整体迁移。"
+    },
+    {
+      "name": "分帧与异步 IO",
+      "descZh": "FrameSplitter 与 AsyncIOManager 把耗时任务摊到多帧执行，缓解主线程卡顿，避免一次性长卡顿。"
+    }
+  ],
+  "limitsZh": "文档明确只在 Godot 4.7.2 / Windows x64 上做过验证，其他平台与版本需要自行验收，plugin.cfg 的版本号还写着 0.0.1。Windows 的原子写存档依赖 native/atomic_file 编译出的 DLL，导出时必须带上，其他平台还没有对应实现。模块之间新旧两套 API 并存，旧管理器与新独立服务的存档格式和事件路由不同，混用要先看迁移说明。作者也承认模块尚未拆成可单独下载的包，依赖与安装摩擦仍在规划中。",
+  "workflowZh": [
+    {
+      "stepZh": "把仓库内容放到 addons/godot_core_system，确认 plugin.cfg 在目录下。"
+    },
+    {
+      "stepZh": "需要旧管理器时在插件面板启用并注册 CoreSystem AutoLoad。"
+    },
+    {
+      "stepZh": "按任务选一个服务，先跑对应的 examples 场景。"
+    },
+    {
+      "stepZh": "Windows 存档示例要一并复制 atomic_file 的原生库。"
+    },
+    {
+      "stepZh": "把服务所有权收到自己的常驻节点，再接入正式流程。"
+    }
+  ],
+  "pros": [
+    "场景切换、存档与输入重绑定等常见需求都有现成实现，能省掉一批底层代码。",
+    "文档按系统拆分且带示例场景，接入时能照着跑通再改，学习曲线平缓。",
+    "模块可以只取一部分，不强制整套引入，与既有工程并存的成本较低。",
+    "返回结果区分缺失与损坏等失败原因，比静默失败更容易排查。"
+  ],
+  "cons": [
+    "只在 Godot 4.7.2 与 Windows x64 验证，跨平台可用性需自行确认",
+    "版本号 0.0.1，新旧 API 并存，接口还处在演进阶段",
+    "Windows 存档依赖原生扩展，导出流程多一步，其他平台还没对应实现"
+  ],
+  "pitfalls": [
+    "新旧管理器与独立服务的存档格式不通用，混用前要确认迁移路径。",
+    "CoreScenes 的资源加载是同步的，大场景切换会卡帧，需要自己做预加载。",
+    "导出时漏带 atomic_file 的 DLL，存档会在 Windows 上直接失败且报错不直观。"
+  ],
+  "bestFor": "做 2D 小游戏或独立项目的开发者，想用一套轻量 GDScript 服务补齐场景、存档、输入与音频基础，避免重复搭轮子。",
+  "avoidWhenZh": "需要跨平台稳定存档，或要求 API 已冻结、可长期支持的中大型商业项目。",
+  "compareTips": {
+    "vs": [
+      "HinataYoki__YokiFrame"
+    ],
+    "whenZh": "两者都覆盖事件、状态机与存档：core_system 是纯 GDScript 插件，拷贝即用但只在 4.7 上验证；YokiFrame 用 C# 做跨引擎，能力强但接入要 .NET 工具链。按语言栈与团队规模取舍即可。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "基础框架",
+    "存档",
+    "场景切换",
+    "输入重绑定",
+    "模块化"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "只在 Godot 4.7.2 上验证",
+      "source": "README.md",
+      "quote": "Current independent-service validation records use Godot 4.7.2 / Windows x64, in editor and headless hosts."
+    },
+    {
+      "claim": "Windows 存档依赖原生扩展",
+      "source": "README.md",
+      "quote": "The included Windows x64 persistence extension requires Godot 4.7+."
+    },
+    {
+      "claim": "独立服务不依赖 CoreSystem 单例",
+      "source": "README.md",
+      "quote": "Independent services such as CoreScenes, CoreInputs and CoreSaveStore do not require that AutoLoad."
+    },
+    {
+      "claim": "按任务挑选系统并先从示例开始",
+      "source": "README.md",
+      "quote": "Choose a system for a concrete task and start with its example."
+    }
+  ],
+  "id": "LiGameAcademy__godot_core_system",
+  "depth": "standard"
+}

@@ -1,0 +1,150 @@
+{
+  "id": "monxa__GodotIK",
+  "depth": "standard",
+  "taglineZh": "为 Godot 4.3+ 提供 FABRIK 反向动力学的骨骼修改器",
+  "summaryZh": "GodotIK 用 C++ 实现的 GDExtension 给 Skeleton3D 补上 3D 反向动力学：GodotIK 作为 SkeletonModifier 驱动整条骨骼链，GodotIKEffector 标定末端位置与链长，GodotIKConstraint 允许用 GDScript 自定义约束。适合手部、脚部贴地或瞄准目标的角色动画。它采用 FABRIK 位置求解，扭转角只能事后推算，因此约束无法直接控制 twist；要求 Godot 4.3 以上，官方提供预编译包，自己编译则要拉取 godot-cpp，偏工具向。",
+  "whatItDoes": "提供 GodotIK、GodotIKEffector、GodotIKConstraint 与 GodotIKRoot 四个类：前者挂在 Skeleton3D 下负责求解，效应器设定目标位置、链长与 transform_behavior，约束以抽象类形式挂到效应器上。仓库附 PoleBone、StraightBone、SmoothBone、MaxRotationBone 四个 GDScript 约束示例，并在 doc_classes 里提供编辑器内文档。多条骨骼链可并行求解，每个效应器独立控制一段骨骼。",
+  "useCases": [
+    {
+      "titleZh": "脚部贴地",
+      "descZh": "角色在斜坡或台阶上行走时，用效应器把脚骨拉到地面，减少穿地与悬空，调参数即可得到自然站姿。"
+    },
+    {
+      "titleZh": "手部抓握",
+      "descZh": "让手骨对齐门把、武器或道具，再配合约束限制肘部朝向，交互动作不必逐帧手 K，调参时可配合极骨。"
+    },
+    {
+      "titleZh": "头部瞄准",
+      "descZh": "用效应器控制头骨朝向目标点，叠加旋转上限约束，让 NPC 转头自然不僵硬，目标点可由游戏逻辑实时更新。"
+    },
+    {
+      "titleZh": "程序化姿态",
+      "descZh": "程序生成角色或大量 NPC 时用 IK 代替动画片段，降低资源量，也便于运行时动态调整，适合大量同类敌人。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "骨骼修改器",
+      "descZh": "GodotIK 节点挂在 Skeleton3D 下，作为 SkeletonModifier 接管整条链的求解与刷新，是整套系统的核心，便于统一调度。"
+    },
+    {
+      "titleZh": "效应器与约束",
+      "descZh": "GodotIKEffector 定义末端目标、链长与 transform_behavior，GodotIKConstraint 子类负责极向量与旋转限制，二者组成一条骨骼链的控制入口。"
+    },
+    {
+      "titleZh": "示例约束",
+      "descZh": "四个 GDScript 约束示例覆盖极骨、伸直、平滑与最大旋转，可直接改参数复用到自己的骨架。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "FABRIK 求解",
+      "descZh": "位置优先的迭代求解，链长与目标由效应器决定，适合拉伸与贴地场景。"
+    },
+    {
+      "name": "可编程约束",
+      "descZh": "约束是抽象类，可用 GDScript 覆写求解行为与旋转限制，自由度较高。"
+    },
+    {
+      "name": "多链支持",
+      "descZh": "同一骨架可挂多个效应器，手脚与头部能同时求解互不干扰。"
+    },
+    {
+      "name": "编辑器文档",
+      "descZh": "doc_classes 下的 XML 会在编辑器内联显示类与方法说明，查接口方便。"
+    },
+    {
+      "name": "预编译发布",
+      "descZh": "Releases 提供各平台二进制，直接拷 addons 目录即可使用无需编译，省去编译步骤。"
+    }
+  ],
+  "limitsZh": "只支持 3D 的 Skeleton3D 骨骼链，2D 骨骼与普通 Node3D 层级不适用。FABRIK 先解位置再反推旋转，约束拿不到扭转自由度，需要 twist 的动作要另配极骨或手动补偿。README 自述稳定性取决于约束组合，极端拉伸与多约束叠加时仍需逐参数试。文档以 doc_classes 的 XML 为主，缺少从零搭建的教程视频；自己编译还要初始化 godot-cpp 子模块并用 SCons，对非 C++ 团队门槛偏高。版本下限是 4.3。",
+  "workflowZh": [
+    {
+      "stepZh": "从 Releases 页面下载对应平台的发布包，注意选对系统与架构。"
+    },
+    {
+      "stepZh": "解压后把 addons 目录整体拷入项目根目录。"
+    },
+    {
+      "stepZh": "在 Skeleton3D 节点下添加 GodotIK 修改器节点，它会接管骨骼更新。"
+    },
+    {
+      "stepZh": "为每条需要求解的骨骼链添加一个效应器。"
+    },
+    {
+      "stepZh": "按需挂上约束脚本，逐个调整链长与目标位置。"
+    }
+  ],
+  "pros": [
+    "位置求解对拉伸与贴地很友好，参数调整后的姿态反馈比较直观。",
+    "约束接口开放，可用 GDScript 扩展求解行为，不必改动 C++ 源码，改完马上能看出差别。",
+    "提供各平台预编译包，接入不需要本地编译环境，试错成本低。",
+    "多个效应器可并行，手脚与头部能在同一骨架上同时求解，改动互不影响。"
+  ],
+  "cons": [
+    "约束无法施加扭转，复杂动作仍需手动补偿扭转角。",
+    "只支持 3D 骨架，2D 骨骼项目无法使用，选型前要先确认维度。",
+    "文档以 XML 为主，缺少从零搭建的系统教程，遇到问题多半得啃 XML。"
+  ],
+  "pitfalls": [
+    "效应器层级与 NodePath 配错时骨骼完全不动，先检查父级关系再调参数。",
+    "多个约束叠加会互相拉扯，调参时应一次只加一个并观察结果。",
+    "骨骼链过长时迭代不足会抖动，需要调高迭代次数或缩短链长。"
+  ],
+  "bestFor": "需要脚部贴地、手部抓取或头部瞄准等程序化姿态，且使用 Godot 4.3 以上 3D 骨架的角色项目，对动画量不大的团队尤其合适。",
+  "avoidWhenZh": "只做 2D 骨骼动画，或团队不接受 GDExtension 二进制依赖的项目，否则维护成本偏高。",
+  "compareTips": {
+    "vs": [
+      "GuilhermeGSousa__godot-motion-matching"
+    ],
+    "whenZh": "两者都处理角色动画：GodotIK 用效应器解算局部骨骼姿态，motion-matching 从动画库里挑选整段动作；IK 适合叠加修正，匹配适合大规模移动集，方向不同也可组合使用。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "反向动力学",
+    "骨骼动画",
+    "FABRIK",
+    "3D角色",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "isGDExtension": true,
+  "evidence": [
+    {
+      "claim": "提供四个核心类",
+      "source": "README.md",
+      "quote": "This project provides four classes:"
+    },
+    {
+      "claim": "采用 FABRIK 位置求解",
+      "source": "README.md",
+      "quote": "This solution uses FABRIK, a positional solver."
+    },
+    {
+      "claim": "约束无法直接控制扭转",
+      "source": "README.md",
+      "quote": "Constraints can’t apply twist, as it's inferred dynamically."
+    },
+    {
+      "claim": "最低兼容 Godot 4.3",
+      "source": "godot_project/addons/libik/libik.gdextension",
+      "quote": "compatibility_minimum = \"4.3\""
+    },
+    {
+      "claim": "官方提供预编译包",
+      "source": "README.md",
+      "quote": "We have binaries!"
+    }
+  ]
+}

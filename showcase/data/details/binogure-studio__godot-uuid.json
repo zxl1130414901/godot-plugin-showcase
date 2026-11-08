@@ -1,0 +1,152 @@
+{
+  "taglineZh": "GDScript 静态 UUID 类，生成 v4 唯一标识并可比较与序列化",
+  "summaryZh": "godot-uuid 提供一个小而完整的 UUID 工具：addons/uuid/uuid.gd 里定义静态类 UUID，调用 UUID.v4() 直接拿到 v4 字符串，UUID.new() 则得到可 as_string、as_dict、as_array 的对象，is_equal 用来比较两份标识是否相同。生成依赖 RandomNumberGenerator，也接受外部传入的 rng 以便复现。它只有 v4 一个版本，没有 v1、v7 这类时间有序变体，也不做持久化，适合给存档条目、资源引用或联机房间分配本地唯一键。",
+  "whatItDoes": "uuid.gd 用 RandomNumberGenerator 生成 128 位随机数并置入 v4 版本位与变体位，uuidbin 与 uuidbinrng 返回原始字节数组，v4 与 v4_rng 直接返回格式化字符串。实例方法 as_string 输出标准连字符格式，as_dict 可按大端或小端给出字段，as_array 返回字节数组，is_equal 逐字节比较。plugin.cfg 只用于在插件面板登记，实际使用可以只拷 uuid.gd 而不启用插件。",
+  "useCases": [
+    {
+      "titleZh": "存档条目 ID",
+      "descZh": "存档系统要给每份记录分配稳定 ID 时，用 UUID.v4() 生成键，读档按 ID 定位条目，不必依赖自增序号。"
+    },
+    {
+      "titleZh": "运行时资源命名",
+      "descZh": "运行时生成的资源需要唯一名字，用 UUID 避免同名覆盖，也方便把引用写进外部配置文件。"
+    },
+    {
+      "titleZh": "联机房间标识",
+      "descZh": "局域网联机用它给玩家与房间分配临时标识，比随手拼随机字符串更不容易碰撞，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "测试复现",
+      "descZh": "单元测试需要可复现的随机标识时，用 v4_rng 传入固定种子的生成器，每次跑出的结果都一致。"
+    },
+    {
+      "titleZh": "导入去重",
+      "descZh": "导入外部数据时用生成的 ID 对照已有记录，is_equal 做精确比较，避免格式化字符串比错。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "UUID 静态类",
+      "descZh": "单文件 GDScript，提供 v4 与 v4_rng 两个静态方法，生成即返回标准字符串，不用引第三方库。"
+    },
+    {
+      "titleZh": "UUID 实例",
+      "descZh": "UUID.new() 生成对象，带 as_string、as_dict、as_array 与 is_equal，也可直接当值传递，用作数据键也方便。"
+    },
+    {
+      "titleZh": "字节级接口",
+      "descZh": "uuidbin 与 uuidbinrng 返回原始字节，便于写二进制存档，与外部系统对接时更省事，序列化开销也小。"
+    },
+    {
+      "titleZh": "最小测试脚本",
+      "descZh": "仓库根目录的 test.gd 演示生成、序列化与比较的调用方式，可直接运行对照。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "v4 生成",
+      "descZh": "UUID.v4() 一步拿到标准格式字符串，不用自己拼字节、版本位与变体位。"
+    },
+    {
+      "name": "可注入随机源",
+      "descZh": "v4_rng 与 uuidbinrng 接受 RandomNumberGenerator，测试时固定种子即可复现，跑两次结果完全一致。"
+    },
+    {
+      "name": "多种序列化",
+      "descZh": "as_string、as_dict 与 as_array 覆盖文本、字典与二进制三种场景，按消费端格式取用。"
+    },
+    {
+      "name": "相等比较",
+      "descZh": "is_equal 按字节比较两份标识，避免手工格式化后再做字符串比较出错。"
+    },
+    {
+      "name": "零依赖单文件",
+      "descZh": "整个实现就是一个 uuid.gd，拷进工程即可用，不引入任何外部依赖。"
+    }
+  ],
+  "limitsZh": "只实现 v4 随机版本，没有 v1、v5、v7 等基于时间或命名空间的变体，需要有序 ID 或从名字派生 ID 的场景要自己实现。UUID 不做持久化与去重校验，生成后是否重复全凭随机性，极端情况下仍需业务层兜底。README 极短，只有用法示例，没有 API 参考、性能数据或线程安全说明。plugin.cfg 虽然存在，但仓库定位更像单文件工具库，装成插件并不会带来额外功能。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/uuid/uuid.gd 拷到工程里的脚本目录。"
+    },
+    {
+      "stepZh": "需要插件面板入口时再启用 uuid 插件。"
+    },
+    {
+      "stepZh": "在脚本里调用 UUID.v4() 或 UUID.new()，拿到唯一标识。"
+    },
+    {
+      "stepZh": "按用途选 as_string、as_dict 或 as_array 输出，写进存档或日志。"
+    },
+    {
+      "stepZh": "测试里改用 v4_rng 传入固定种子以复现结果。"
+    }
+  ],
+  "pros": [
+    "单文件零依赖，拷进工程就能用，不需要改项目设置或安装插件。",
+    "静态方法与实例方法两种用法都覆盖，生成、序列化与比较一次到位。",
+    "支持注入 RandomNumberGenerator，写单元测试时可以固定种子，复现同一结果，不必手写随机 mock。",
+    "代码量很小，读一遍就能确认实现是否正确，适合放进需要审计的项目。"
+  ],
+  "cons": [
+    "只有 v4 一个版本，缺少时间有序与命名空间派生版本",
+    "README 只有示例，没有 API 文档、性能数据或线程安全说明",
+    "不提供持久化与碰撞校验，去重仍要业务层自己做"
+  ],
+  "pitfalls": [
+    "同一个种子反复用 v4_rng 会生成相同序列，容易误以为随机碰撞率很高。",
+    "把 as_dict 的字节序当成固定约定，跨语言或跨端比较时会对不上。",
+    "以为必须启用插件才有 UUID 类，其实只用拷 uuid.gd，白折腾插件开关。"
+  ],
+  "bestFor": "需要给存档条目、运行时资源或联机对象分配本地唯一键，且希望零依赖直接拷文件使用的 Godot 项目。",
+  "avoidWhenZh": "需要时间有序 ID、按名字派生稳定 ID，或要求并发安全的场景。",
+  "compareTips": {
+    "vs": [
+      "danilw__godot-utils-and-other"
+    ],
+    "whenZh": "两者都是轻量 GDScript 工具：godot-uuid 只做 UUID 一件事，接口稳定且几乎不用维护；另一个是杂项工具集合，覆盖面更广但边界不清。只需要唯一标识就选前者，想一次拿到多种零散脚本再看集合。"
+  },
+  "category": "save-data",
+  "tags": [
+    "UUID",
+    "唯一标识",
+    "GDScript",
+    "工具类",
+    "零依赖"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "提供 UUID 生成的静态类",
+      "source": "README.md",
+      "quote": "The *UUID* class is a GDScript 'static' class that provides a unique identifier generation for [Godot Engine](https://godotengine.org)."
+    },
+    {
+      "claim": "可以只拷 uuid.gd 使用",
+      "source": "README.md",
+      "quote": "Copy the `uuid.gd` file in your project folder, then start using it."
+    },
+    {
+      "claim": "提供 as_string、as_dict、as_array 与 is_equal",
+      "source": "README.md",
+      "quote": "print(uuid_object.as_string())\n  print(uuid_object.as_dict())"
+    },
+    {
+      "claim": "插件版本为 3.0.0",
+      "source": "addons/uuid/plugin.cfg",
+      "quote": "version=\"3.0.0\""
+    }
+  ],
+  "id": "binogure-studio__godot-uuid",
+  "depth": "standard"
+}

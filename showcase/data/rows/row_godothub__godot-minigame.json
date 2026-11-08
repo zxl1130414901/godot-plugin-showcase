@@ -1,0 +1,34 @@
+{
+  "id": "godothub__godot-minigame",
+  "descriptionZh": "面向 Godot 4 的微信小游戏导出插件，按引擎版本下载缓存模板并在导出时解压生成目录",
+  "category": "platform-export",
+  "tags": [
+    "微信小游戏",
+    "导出插件",
+    "模板分发",
+    "C++"
+  ],
+  "prosShort": [
+    "模板下载、缓存与解压全自动",
+    "按引擎版本自动匹配模板包",
+    "可切换 GitHub 与 Gitee 两种模板分发源"
+  ],
+  "consShort": [
+    "必须自行编译 C++ 插件，门槛较高",
+    "模板与引擎版本强绑定，升级易踩坑",
+    "平台 API 与包体限制需自行验证"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

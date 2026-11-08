@@ -1,0 +1,137 @@
+{
+  "id": "godot-extended-libraries__godot-plugin-refresher",
+  "depth": "standard",
+  "taglineZh": "在编辑器工具栏一键关闭再开启插件，省去反复进入设置",
+  "summaryZh": "godot-plugin-refresher 解决的是编辑器插件开发中最烦的一步：改完代码要反复去项目设置里把插件关掉再打开。它会在 Godot 编辑器右上角的主工具栏加一个下拉框与刷新按钮，下拉框列出其他插件的名字，点刷新就把选中的插件先禁用再启用，等效于热重载。README 用对比的方式说明了收益：原先要八步操作，现在只需选插件再点一次刷新。插件由 willnationsdev 维护，master 分支支持 Godot 4.2 以上，4.0 到 4.1 与 Godot 3 各有独立分支，plugin.cfg 标明版本 1.2 并注明已适配 4.3。",
+  "whatItDoes": "在编辑器主工具栏注入一个下拉列表与刷新按钮，列出工程内其他插件，点击后对选中插件执行禁用再启用的操作，从而重载其代码。对已禁用的插件同样可操作，但会先弹确认再启用。",
+  "useCases": [
+    {
+      "titleZh": "编辑器插件迭代",
+      "descZh": "改完插件脚本后用工具栏按钮关一次再开，省去翻项目设置的来回，验证速度明显提升，也不必重启整个编辑器。"
+    },
+    {
+      "titleZh": "多插件对比",
+      "descZh": "在同一个下拉框里切换目标插件，逐个刷新，比较不同实现的编辑器行为差异，排查冲突时很有用。"
+    },
+    {
+      "titleZh": "团队演示",
+      "descZh": "演示前把插件重置到干净状态，避免残留缓存影响效果，讲解过程也更顺，不会卡在旧的工具栏状态。"
+    },
+    {
+      "titleZh": "排错定位",
+      "descZh": "怀疑插件状态异常时先刷新一次，排除加载问题后再查代码，缩小排查范围，也能确认问题是否与插件重载有关。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "工具栏控件",
+      "descZh": "在主工具栏右上角加下拉框与刷新按钮，常驻可用，不占额外窗口，随手就能点到。"
+    },
+    {
+      "titleZh": "插件开关逻辑",
+      "descZh": "刷新时先关闭目标插件再重新启用，效果等价于重载，比重启编辑器快得多，脚本改动立即生效。"
+    },
+    {
+      "titleZh": "纯 GDScript 实现",
+      "descZh": "只有一个场景与脚本，接入无构建步骤，改行为也方便，适合当学习编辑器插件的入门例子。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "插件下拉框",
+      "descZh": "列出项目里所有插件包括已禁用的，选中即作为刷新目标，不必先去项目设置里找名字。"
+    },
+    {
+      "name": "刷新按钮",
+      "descZh": "点一次完成关闭再开启，插件脚本改动立即生效，重复迭代时几乎不用等编辑器重启。"
+    },
+    {
+      "name": "工具栏常驻",
+      "descZh": "固定在编辑器右上角，不打断当前场景操作，切场景与运行后都还在原位。"
+    }
+  ],
+  "limitsZh": "功能范围极窄，只做“把插件关掉再打开”这一件事，不涉及脚本热编译、场景重载或缓存清理，遇到插件内部状态无法靠重启清除的问题时仍然得手动处理。README 只有一千余字符，除用法说明外没有配置项、快捷键或故障排查内容，插件下拉列表在工程插件很多时会变得很长且无搜索框。仓库按 Godot 版本切了三个分支，master 只保证 4.2 以上可用，4.0 到 4.1 的用户必须自行切到 4.0 分支，版本选错会直接报错。它本身也是编辑器插件，需要先在项目设置里启用一次才能获得后续的便利，属于“用插件来管理插件”的引导式依赖。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 里的插件目录复制进项目工程，并在项目设置里启用"
+    },
+    {
+      "stepZh": "打开项目设置，在插件列表里勾选启用 Plugin Refresher"
+    },
+    {
+      "stepZh": "在工具栏的下拉框里选中需要刷新的那个插件"
+    },
+    {
+      "stepZh": "点刷新按钮，观察插件是否重新加载"
+    },
+    {
+      "stepZh": "改插件脚本后重复刷新，确认改动生效"
+    }
+  ],
+  "pros": [
+    "改完插件脚本后一键重载，省去反复开关设置面板的时间，迭代节奏明显变快",
+    "下拉框覆盖所有插件，禁用项也能选中，调试与对比都更灵活",
+    "纯 GDScript 实现，代码短小，改行为或加功能都容易，也便于学习编辑器扩展写法",
+    "常驻工具栏，不打断场景操作，顺手就能刷新，不需要记快捷键",
+    "MIT 许可，可直接进项目与商用版本，分发没有额外限制，团队内部复用也方便"
+  ],
+  "cons": [
+    "只能刷新插件本身，编辑器缓存与已打开场景状态不会重置",
+    "刷新时若插件有未保存状态会丢失，需先手动保存",
+    "功能单一，插件数量多时下拉框查找仍要滚动，缺少搜索"
+  ],
+  "pitfalls": [
+    "刷新前忘记保存编辑器状态，插件重载可能丢掉临时数据与未提交设置",
+    "插件依赖单例或自动加载时，重载后要确认注册顺序，否则会重复注册",
+    "目标插件自身报错时刷新会连带失败，先看输出面板再判断是不是本插件问题"
+  ],
+  "bestFor": "开发 Godot 编辑器插件、需要频繁验证改动的工具作者，尤其受不了每次重启编辑器的团队与个人开发者。",
+  "avoidWhenZh": "不写编辑器插件、改动频率低，或已经用热重载脚本替代手动刷新的项目。",
+  "compareTips": {
+    "vs": [
+      "KoBeWi__Godot-Instance-Dock"
+    ],
+    "whenZh": "两者都服务编辑器工作流：Plugin Refresher 在工具栏一键重载插件，适合频繁改编辑器工具；Project Builds 编排导出与商店发布。调插件选前者，做构建选后者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "编辑器插件",
+    "热重载",
+    "工具栏",
+    "插件开发",
+    "效率工具"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "插件为编辑器插件开发者简化调试流程",
+      "source": "README.md",
+      "quote": "This plugin simplifies plugin development for those wanting to make tools for the Godot Editor."
+    },
+    {
+      "claim": "在编辑器主工具栏添加下拉框与刷新按钮",
+      "source": "README.md",
+      "quote": "The plugin adds a dropdown and refresh button to the main toolbar in the top-right corner of the Godot Editor."
+    },
+    {
+      "claim": "刷新操作是先禁用再启用插件",
+      "source": "README.md",
+      "quote": "Clicking the refresh button will toggle the plugin off and then back on."
+    },
+    {
+      "claim": "不同 Godot 版本需使用对应分支",
+      "source": "README.md",
+      "quote": "The `master` branch supports Godot 4.2+. For Godot 4.0-4.1, see the `4.0` branch. For Godot 3, see the `3.x` branch."
+    }
+  ]
+}

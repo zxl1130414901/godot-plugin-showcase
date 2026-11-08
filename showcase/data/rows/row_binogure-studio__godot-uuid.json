@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "单文件 GDScript UUID 工具，生成 v4 标识并支持字符串、字典与字节序列化",
+  "prosShort": [
+    "零依赖单文件，拷进工程即可用",
+    "生成、序列化与比较一次到位",
+    "可固定随机种子方便测试复现"
+  ],
+  "consShort": [
+    "只有 v4 版本，缺少有序与派生变体",
+    "README 只有用法示例，没有 API 参考文档",
+    "不做持久化，也不校验标识碰撞"
+  ],
+  "isGDExtension": false,
+  "id": "binogure-studio__godot-uuid",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "category": "save-data",
+  "tags": [
+    "UUID",
+    "唯一标识",
+    "GDScript",
+    "工具类",
+    "零依赖"
+  ],
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

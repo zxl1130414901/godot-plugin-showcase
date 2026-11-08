@@ -1,0 +1,35 @@
+{
+  "id": "matjlars__godot-multiplayer-input",
+  "descriptionZh": "把输入动作按设备号分发给键盘与最多八名手柄玩家的 Godot 本地多人插件",
+  "category": "state-logic",
+  "tags": [
+    "本地多人",
+    "输入映射",
+    "手柄支持",
+    "单例封装",
+    "设备隔离"
+  ],
+  "prosShort": [
+    "按设备隔离输入，多人互不干扰",
+    "两套 API 并存，旧代码迁移成本低",
+    "支持键盘与最多八只手柄同屏"
+  ],
+  "consShort": [
+    "只管输入，不含分屏与加入逻辑",
+    "动作映射复制多份，列表会膨胀",
+    "与原生输入 API 混用容易出错"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

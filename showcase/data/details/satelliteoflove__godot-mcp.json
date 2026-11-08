@@ -1,0 +1,144 @@
+{
+  "id": "satelliteoflove__godot-mcp",
+  "depth": "standard",
+  "taglineZh": "让 AI 助手直接操作 Godot 编辑器并真机试玩游戏的 MCP 服务",
+  "summaryZh": "项目由 npm 上的 MCP 服务器与装进 Godot 工程的桥接插件组成。它不只让 AI 开关场景或点点节点，而是让智能体验证自己的工作：先运行游戏，再像玩家一样操作，然后读出真实结果，省去来回搬运截图与日志。为此它提供确定性试玩，可冻结时钟并按时间片推进；能读取实体位置、速度、动画状态与自定义数据；支持命名动作、手柄摇杆、组合键、鼠标视角与文字输入；还能在运行中的游戏里执行 GDScript 布置测试场景。前置是 Godot 4.5 与 Node 20 以上。",
+  "whatItDoes": "在 Godot 编辑器与运行中的游戏之间搭起 MCP 通道，把场景编辑、输入注入、游戏时间控制与运行时状态读取暴露成工具调用，让 AI 助手可以冻结时间、按步推进、注入输入并读取结构化结果。",
+  "useCases": [
+    {
+      "titleZh": "AI 自动回归测试",
+      "descZh": "让智能体跑起游戏、按脚本注入输入并读取实体状态，验证这次改动是否真的达到预期，回归不必人眼盯屏。"
+    },
+    {
+      "titleZh": "可复现的行为调试",
+      "descZh": "冻结游戏时钟并按固定时间片推进，能稳定重现只在特定帧序出现的 bug，不受实时帧率波动干扰。"
+    },
+    {
+      "titleZh": "快速搭建测试场景",
+      "descZh": "在运行中的游戏里执行 GDScript，直接给角色发武器、跳到第三波或刷出测试机器人，不必在游戏代码里预埋调试钩子。"
+    },
+    {
+      "titleZh": "AI 辅助编辑器操作",
+      "descZh": "通过工具调用完成场景打开与保存、节点属性修改与重挂父级，把重复的编辑器点击交给助手去做。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可调用的 MCP 工具集",
+      "descZh": "二十一个工具、八十六个动作，覆盖场景、节点、动画、TileMap、GridMap、资源、输入、性能剖析与运行时状态。"
+    },
+    {
+      "titleZh": "运行中的可观测游戏",
+      "descZh": "借助调试协议接进游戏进程，把实体位置、速度、动画状态与自定义数据以 JSON 返回给智能体。"
+    },
+    {
+      "titleZh": "配套编辑器插件",
+      "descZh": "装进 Godot 工程的桥接插件，在本机回环地址上开 WebSocket，与 npm 服务器通信并转发调用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "确定性时间推进",
+      "descZh": "冻结时钟后按毫秒级时间片步进，或一直推进到某个条件成立，观察不会与游戏抢跑。"
+    },
+    {
+      "name": "结构化状态读取",
+      "descZh": "实体位置、速度、动画状态与自定义数据以 JSON 输出，多数判断不必消耗截图额度。"
+    },
+    {
+      "name": "真实输入注入",
+      "descZh": "命名动作可带模拟量，还支持手柄按键与摇杆向量、组合键、相对鼠标视角与文字输入。"
+    },
+    {
+      "name": "运行中执行脚本",
+      "descZh": "在正在运行的游戏里执行 GDScript 布置场景，不必为了测试往游戏代码里加调试钩子。"
+    }
+  ],
+  "limitsZh": "硬性前置是 Godot 4.5 以上与 Node 20 以上，旧版本工程与没装 Node 的环境都无法使用。部署要三处配合：用 npm 安装服务器、把插件装进 Godot 工程、再在 AI 客户端的 MCP 配置里登记，任一步缺失都会导致工具不可见或连接失败。它面向编辑器与本机运行的游戏，涉及进程通信与端口，防火墙、远程容器或多实例运行时需要额外配置。工具覆盖广但参数多，缺少逐工具的参数表与错误码说明。一个编辑器同时只服务一个客户端，多开要排队；把编辑器与游戏暴露给外部服务的安全边界也需自行评估，不建议长期开放。",
+  "workflowZh": [
+    {
+      "stepZh": "先安装 Node 20 以上运行环境，再用 npm 拉取 MCP 服务器"
+    },
+    {
+      "stepZh": "把 godot_mcp 插件拷进工程并在项目设置里启用"
+    },
+    {
+      "stepZh": "在 AI 客户端的 MCP 配置中登记服务器地址"
+    },
+    {
+      "stepZh": "让助手调用编辑器工具，以冻结时钟方式启动游戏"
+    },
+    {
+      "stepZh": "用脚本工具布置测试场景并注入输入序列"
+    },
+    {
+      "stepZh": "读取实体状态 JSON，确认行为是否符合预期"
+    }
+  ],
+  "pros": [
+    "不只操作编辑器，还能驱动运行中的游戏做真实试玩，验证范围超出静态检查。",
+    "确定性时间推进让只在特定帧序出现的问题可以稳定复现与对比。",
+    "结构化状态读取减少对截图的依赖，节省视觉模型额度也更快。",
+    "输入注入覆盖键盘、手柄、鼠标与文字，接近真实玩家的操作方式。",
+    "读与写工具分开，只读工具可安全地设为自动放行，写操作仍受权限管控。"
+  ],
+  "cons": [
+    "要求 Godot 4.5 与 Node 20，旧工程与老环境直接被挡在门外。",
+    "部署涉及 npm、插件与客户端配置三处，任何一处漏掉都连不上。",
+    "工具参数多，文档以场景演示为主，缺少逐工具的参数表与错误码。"
+  ],
+  "pitfalls": [
+    "只装 npm 服务器而忘记在工程里启用插件，工具会连不上编辑器且报错含糊，先查插件状态。",
+    "多个 Godot 实例同时运行时未区分端口与工程，调用可能落到错误的目标上。",
+    "冻结时钟后忘记恢复，游戏行为会与预期不符，测试结束前先确认时间已解锁。"
+  ],
+  "bestFor": "把 AI 助手接入 Godot 开发流程，希望它能自己跑游戏、注入输入并读取状态来验证改动的独立开发者与小团队。",
+  "avoidWhenZh": "工程停留在 Godot 4.4 及更早版本、机器无法安装 Node 20，或不允许把编辑器暴露给外部进程时，不适合使用。",
+  "compareTips": {
+    "vs": [
+      "Coding-Solo__godot-mcp"
+    ],
+    "whenZh": "两者都是面向 AI 助手的 Godot MCP 服务：Coding-Solo 的版本侧重编辑器内的场景与节点操作，重在让 AI 改工程；本项目强在运行期确定性试玩与结构化状态观测，重在让 AI 验证改动。需要自动回归选后者，只需编辑器操作选前者。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "自动化测试",
+    "输入注入",
+    "运行时观测"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "目标是让 AI 在编辑器与运行中的游戏中操作与验证",
+      "source": "README.md",
+      "quote": "Give your AI assistant eyes and hands in the Godot editor — and a running game it can actually playtest."
+    },
+    {
+      "claim": "支持冻结时钟并按时间片推进的确定性试玩",
+      "source": "README.md",
+      "quote": "**Deterministic playtesting.** Freeze the game clock, step exact slices of game time (or step *until a condition holds*)"
+    },
+    {
+      "claim": "要求 Godot 4.5 以上与 Node 20 以上",
+      "source": "README.md",
+      "quote": "- **Godot 4.5+** (the addon uses the Logger class introduced in 4.5)\n- **Node.js 20+**"
+    },
+    {
+      "claim": "插件声明最低 Godot 版本为 4.5",
+      "source": "godot/addons/godot_mcp/plugin.cfg",
+      "quote": "godot_version_min=\"4.5\""
+    }
+  ]
+}

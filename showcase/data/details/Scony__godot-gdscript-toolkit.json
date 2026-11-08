@@ -1,0 +1,166 @@
+{
+  "id": "Scony__godot-gdscript-toolkit",
+  "depth": "standard",
+  "taglineZh": "独立的 GDScript 解析、检查、格式化与复杂度命令行工具",
+  "summaryZh": "GDScript Toolkit 是一套不依赖编辑器的命令行工具，用 Python 实现，提供 gdparse、gdlint、gdformat 与 gdradon 四个入口。gdparse 输出语法树，适合调试语法或做教学演示；gdlint 按预设规则做静态检查，能报命名、参数与结构问题；gdformat 按固定风格重排代码；gdradon 计算函数与类的圈复杂度。它按 Godot 版本分 3.x 与 4.x 两个发布系列，可以装进 pre-commit 钩子或直接作为 GitHub Action 跑，让 CI 在合并前拦下格式与规则问题。仓库还有编辑器插件目录与 stub 定义，方便在其他工具里复用解析能力，它不参与运行时，只处理文本，因此可以在任何有 Python 的机器上独立运行。",
+  "whatItDoes": "提供四个命令：gdparse 把脚本解析成语法树并打印结构，gdlint 按内置规则检查命名、参数、类结构与常见错误，gdformat 按统一风格重写代码，gdradon 输出圈复杂度报告。安装通过 pip 或 pipx，按 Godot 版本选择 3.x 或 4.x 发布系列。可作为 pre-commit 钩子或 GitHub Action 接入流水线，用 check 模式在合并前阻止不合规代码。仓库另带编辑器插件与 stub，供第三方工具直接调用解析器。",
+  "useCases": [
+    {
+      "titleZh": "CI 静态检查",
+      "descZh": "在合并请求里跑 gdlint 与 format check，把命名与结构问题挡在评审前，团队不必靠人工逐条看风格差异，也省下反复解释规范的时间。"
+    },
+    {
+      "titleZh": "统一团队代码风格",
+      "descZh": "新项目接入 gdformat 后所有脚本按同一规则重排，diff 里只剩真实改动，评审时不会被缩进与换行噪声淹没。"
+    },
+    {
+      "titleZh": "接手旧项目清理",
+      "descZh": "接手历史项目时先跑一遍 lint 拿到问题清单，再分批格式化，能在改功能前先把明显的结构与命名隐患清掉。"
+    },
+    {
+      "titleZh": "复杂度评估",
+      "descZh": "用 gdradon 找出圈复杂度高的函数，优先拆那些分支最多的逻辑，重构有数据依据而不是凭感觉挑文件。"
+    },
+    {
+      "titleZh": "语法教学与工具开发",
+      "descZh": "讲 GDScript 语法或写自己的分析脚本时，用 gdparse 输出的语法树作为输入，比手写解析器省很多工作，也适合做课程演示或自建检查器。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "格式统一的脚本",
+      "descZh": "由 gdformat 重写后的 GDScript 文件，缩进、空格与换行按同一规则统一，提交前跑一次就能消掉风格差异，diff 里只剩真实改动。"
+    },
+    {
+      "titleZh": "Lint 问题报告",
+      "descZh": "gdlint 输出的错误与警告列表，带文件名、行号与规则名，能直接接进 CI 日志或代码扫描报告，也能贴进合并请求的检查结果。"
+    },
+    {
+      "titleZh": "语法树输出",
+      "descZh": "gdparse 打印的结构化语法树，可用于教学演示、语法检查或作为自建静态分析工具的输入，结构清晰，方便逐层查看。"
+    },
+    {
+      "titleZh": "圈复杂度报告",
+      "descZh": "gdradon 按函数与类给出的复杂度等级，帮助定位最该拆分的代码，重构优先级有据可依，按等级排序后先拆最复杂的那几个函数。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "gdparse",
+      "descZh": "把 GDScript 解析成语法树并打印，适合调试语法与教学，也能作为其他分析工具的前端。"
+    },
+    {
+      "name": "gdlint",
+      "descZh": "按预设规则做静态检查，报告命名、参数与结构问题，输出格式带行号与规则名，便于接 CI。"
+    },
+    {
+      "name": "gdformat",
+      "descZh": "按固定风格重排代码，支持 check 模式只校验不写入，适合在提交前或流水线里跑。"
+    },
+    {
+      "name": "gdradon",
+      "descZh": "计算函数与类的圈复杂度并给出等级，帮助找出分支过多的逻辑，重构前先看数据。"
+    },
+    {
+      "name": "GitHub Action",
+      "descZh": "官方提供 Action 封装，在流水线里直接跑 lint 与格式检查，不必自己写安装与缓存步骤。"
+    }
+  ],
+  "limitsZh": "它只做语法层与风格层的检查，不理解类型与运行时语义，跨文件引用错误、信号签名不匹配这类问题查不出来，真正的类型检查仍要靠引擎编辑器或语言服务器。gdformat 官方明确提示格式化可能导致数据丢失，必须先有版本控制再跑，遇到解析器不支持的语法时会直接失败而不是降级处理。解析器按 Godot 版本分系列，3.x 与 4.x 语法差异要装对应版本，混用项目得准备两套环境。规则集是预设的，可配置空间有限，团队自定义规范仍要另写脚本。工具本身更新节奏慢，新语法支持通常滞后于引擎发布。",
+  "workflowZh": [
+    {
+      "stepZh": "用 pip 或 pipx 安装对应 Godot 版本的发布系列"
+    },
+    {
+      "stepZh": "先在单个目录跑 gdlint，看规则命中情况"
+    },
+    {
+      "stepZh": "用 gdformat 格式化一小批文件，并逐行检查 diff"
+    },
+    {
+      "stepZh": "把 lint 与 format check 写进仓库里的 pre-commit 钩子配置"
+    },
+    {
+      "stepZh": "在 CI 流水线里接官方 Action 或自建步骤"
+    },
+    {
+      "stepZh": "定期跑 gdradon，挑出高复杂度函数优先重构"
+    }
+  ],
+  "pros": [
+    "不依赖引擎与编辑器，纯命令行就能跑，CI 与本地钩子都能用，接入成本低于装一套 IDE 插件。",
+    "lint、格式化、语法树与复杂度四件事一套工具解决，团队不必拼多个来源不明的脚本。",
+    "官方提供 GitHub Action 与 pre-commit 配置，流水线里几行就能拦住格式与规则问题，不必自己维护安装脚本。",
+    "输出格式带行号与规则名，和常见代码扫描报告一致，接进现有质量看板比较顺。"
+  ],
+  "cons": [
+    "只查语法与风格，类型、跨文件引用与信号签名问题查不出来，不能替代引擎的静态检查。",
+    "gdformat 官方提示可能丢数据，遇到解析器不支持的语法会直接失败，必须先有版本控制兜底。",
+    "按 Godot 大版本分系列，3.x 与 4.x 要分别安装，新旧项目并存的团队得维护两套环境。"
+  ],
+  "pitfalls": [
+    "在没提交的项目上直接跑 gdformat，格式化出错后无法回滚，先 commit 或 stash 再动，否则只能靠编辑器历史找回。",
+    "装了 3.x 系列却检查 4.x 脚本，解析器直接报语法错误，先确认 gdtoolkit 版本与引擎一致。",
+    "把 format 写进提交钩子却没设 check 模式，钩子会改文件却不报告，评审时才发现 diff 被搅乱。"
+  ],
+  "bestFor": "需要把 GDScript 风格与基础规范接进 CI、又不打算依赖某个编辑器的团队，以及想基于语法树做二次工具的人。",
+  "avoidWhenZh": "希望工具能查类型与跨文件错误，或团队已完全依赖引擎内置检查与语言服务器时。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-vscode-plugin",
+      "Maran23__script-ide"
+    ],
+    "whenZh": "VS Code 扩展与 script-ide 提供编辑器内的补全、诊断与格式化，本工具是命令行侧的质量闸门。两者定位不同：日常写代码靠编辑器插件，提交与 CI 靠 gdtoolkit，通常一起用而不是二选一。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "代码检查",
+    "格式化",
+    "命令行",
+    "CI",
+    "Python"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "提供语法解析器",
+      "source": "README.md",
+      "quote": "A parser that produces a parse tree for debugging and educational purposes."
+    },
+    {
+      "claim": "提供静态检查器",
+      "source": "README.md",
+      "quote": "A linter that performs a static analysis according to some predefined configuration."
+    },
+    {
+      "claim": "提供代码格式化器",
+      "source": "README.md",
+      "quote": "A formatter that formats the code according to some predefined rules."
+    },
+    {
+      "claim": "提供圈复杂度计算",
+      "source": "README.md",
+      "quote": "A code metrics calculator which calculates cyclomatic complexity of functions and classes."
+    },
+    {
+      "claim": "格式化可能造成数据丢失",
+      "source": "README.md",
+      "quote": "Formatting may lead to data loss"
+    },
+    {
+      "claim": "支持按 Godot 4 安装对应版本",
+      "source": "README.md",
+      "quote": "gdtoolkit==4.*"
+    }
+  ]
+}

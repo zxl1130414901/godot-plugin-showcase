@@ -1,0 +1,35 @@
+{
+  "descriptionZh": "受 Ren'Py 启发的 Godot 对话系统，自带 .rk 脚本语言、变量与存读档，界面要自己接",
+  "prosShort": [
+    "剧情与代码分离，文案改动不必动代码",
+    "自带存读档与变量，省掉底层设计",
+    "信号解耦，可接不同风格对话框"
+  ],
+  "consShort": [
+    "只提供核心层，UI 要自己实现",
+    ".rk 文件默认不导出，发布前容易漏配",
+    "文档在外部站点，README 示例很简略"
+  ],
+  "isGDExtension": false,
+  "id": "rakugoteam__Rakugo-Dialogue-System",
+  "sampleStatus": "none",
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 2
+  },
+  "category": "state-logic",
+  "tags": [
+    "对话系统",
+    "视觉小说",
+    "脚本语言",
+    "叙事",
+    "存读档"
+  ],
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gaea-godot__gaea",
+  "descriptionZh": "用节点图拼 2D 与 3D 世界的程序化生成插件，带区块加载、节点预览与自定义节点，可输出到 GridMap 或 TileMap。",
+  "category": "editor-tool",
+  "tags": [
+    "程序化生成",
+    "节点图",
+    "区块加载",
+    "地形",
+    "GDScript"
+  ],
+  "prosShort": [
+    "节点图里改参数就能换一整套世界",
+    "区块加载器可直接输出到 GridMap 与 TileMap",
+    "支持把自定义生成步骤注册成节点"
+  ],
+  "consShort": [
+    "2.0 仍是 beta 版，大型项目尚未优化",
+    "纯 GDScript 执行，大范围生成会明显变慢",
+    "4.3 及更早要回退到 1.X 分支重建图"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

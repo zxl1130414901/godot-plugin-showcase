@@ -1,0 +1,147 @@
+{
+  "id": "chun92__card-framework",
+  "depth": "standard",
+  "taglineZh": "为 Godot 打造纸牌游戏卡牌与牌堆的完整框架",
+  "summaryZh": "这个 addon 把纸牌类游戏里最琐碎的部分抽出来：Card 节点负责翻面、拖拽与动画，Pile 与 Hand 容器负责堆叠和扇形排布，CardManager 统一管理工厂、容器与移动历史。卡面数据用 JSON 描述，可在编辑器里预览容器效果。它不包含任何游戏规则，接龙或卡牌对战的胜负判定仍要自己写，且要求 Godot 4.6 以上，选型前建议结合团队实际评估。",
+  "whatItDoes": "提供 Card、CardContainer、Pile、Hand、CardFactory 与 CardManager 等节点和脚本，支持卡牌拖放、翻面、缩放与补间动画。卡牌由 JSON 定义名称、正面贴图、花色与点数，工厂按数据实例化。CardManager 维护容器注册与移动记录，便于实现撤销或回放。",
+  "useCases": [
+    {
+      "titleZh": "接龙类纸牌",
+      "descZh": "做 FreeCell、蜘蛛纸牌一类规则固定的单人纸牌，直接用现成牌堆与手牌容器减少底层工作量。"
+    },
+    {
+      "titleZh": "卡牌对战原型",
+      "descZh": "TCG 或对战卡牌原型需要拖拽出牌与手牌扇形排布，用框架先把手感调顺再补规则，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "Roguelike 卡牌",
+      "descZh": "构筑类游戏的手牌、抽牌堆、弃牌堆都能映射到 Pile 与 Hand，快速搭出战斗界面，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "课堂示例",
+      "descZh": "教学项目需要可读性高的卡牌实现，仓库内自带基础示例与完整 FreeCell 工程可参考，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "自定义牌桌",
+      "descZh": "需要扩展容器行为时，可继承 CardContainer 覆写布局与放置校验逻辑，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可交互卡牌",
+      "descZh": "带正面/背面、拖拽、动画与交互属性的 Card 节点，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "牌堆与手牌",
+      "descZh": "Pile 堆叠容器与 Hand 扇形手牌容器，含 HandAnchor 定位，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "JSON 卡表",
+      "descZh": "描述卡名、贴图、花色与点数的数据文件，工厂按表生成，不必再手工搭建一套。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "CardManager",
+      "descZh": "统一管理工厂、容器与移动历史，是整套框架的调度中心，参数集中在检查器面板。"
+    },
+    {
+      "name": "JsonCardFactory",
+      "descZh": "从 JSON 读取卡牌定义并实例化，也可换成自定义工厂，后续修改起来也不费劲。"
+    },
+    {
+      "name": "Pile / Hand",
+      "descZh": "分别处理堆叠与扇形手牌布局，支持拖放落点校验，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "编辑器预览",
+      "descZh": "在 Godot 编辑器内实时查看容器排布，改参数立即刷新，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "移动历史",
+      "descZh": "记录卡牌在容器间的移动，便于实现撤销与回放，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "框架只解决卡牌表示与交互，规则、计分、AI 与关卡流程都不在范围内，复杂玩法仍要写大量业务代码。版本要求偏高，README 标注 Godot 4.6+，4.4/4.5 项目无法直接接入。自带卡面与牌桌美术非常朴素，正式项目需要整套替换；容器虽可继承扩展，但拖放校验与动画参数仍要逐个调。仓库文档以 API 与快速上手为主，缺少完整规则示例之外的教程。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录拷入项目并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在场景顶层放置 CardManager 节点，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "给 CardManager 指定 JSON 卡表与图片目录，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "添加 Pile 或 Hand 容器并调整布局，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在脚本中实现发牌、移动与胜负规则"
+    }
+  ],
+  "pros": [
+    "卡牌拖拽、翻面与容器排布都已封装，省去大量重复代码，团队新人照着示例就能上手。",
+    "卡面数据用 JSON 描述，换一套牌只需替换数据与贴图，出现问题时也更容易定位原因。",
+    "自带完整 FreeCell 示例，能对照实现规则与流程，对中小团队的时间成本很友好。",
+    "工厂与容器均可继承扩展，便于接入自定义玩法，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "不含规则引擎，发牌逻辑与胜负判定都要自己实现",
+    "要求 Godot 4.6 以上，多数现有 4.x 项目无法直接用",
+    "自带美术很基础，正式项目仍需重做卡面与牌桌"
+  ],
+  "pitfalls": [
+    "CardManager 必须位于所有容器之上，否则容器注册会失败，上线前要专门过一遍。",
+    "JSON 里的贴图名与资源目录不一致时，卡牌会显示为空，排查时需要多留一层日志。",
+    "移动历史只记录位置变化，撤销时的动画要自己补，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "准备做接龙、卡牌对战或构筑类游戏，希望先把手牌与牌堆交互做扎实，再专注规则设计的独立团队。",
+  "avoidWhenZh": "只需要简单展示卡牌图片，或项目仍停留在 Godot 4.5 及更早版本时。",
+  "compareTips": {
+    "vs": [
+      "DesirePathGames__Slay-The-Robot"
+    ],
+    "whenZh": "两者都服务卡牌品类：card-framework 提供卡牌、牌堆与拖拽的底层交互，规则留空；Slay-The-Robot 更偏构筑类游戏的完整框架。前者适合自定规则，后者适合直接套用现成循环。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "卡牌游戏",
+    "拖拽",
+    "牌堆",
+    "JSON数据"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向接龙、TCG 与构筑类卡牌游戏",
+      "source": "README.md",
+      "quote": "Create **Solitaire**, **TCG**, or **deck-building roguelikes** with flexible card handling and drag-and-drop interactions."
+    },
+    {
+      "claim": "提供牌堆与手牌容器",
+      "source": "README.md",
+      "quote": "`Pile` (stacks), `Hand` (fanned layouts with `HandAnchor`), custom containers"
+    },
+    {
+      "claim": "卡牌数据使用 JSON 定义",
+      "source": "README.md",
+      "quote": "**JSON Card Data** - Define cards with metadata, images, and custom properties"
+    },
+    {
+      "claim": "要求 Godot 4.6 以上",
+      "source": "README.md",
+      "quote": "Godot-4.6+"
+    }
+  ]
+}

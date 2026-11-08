@@ -1,0 +1,149 @@
+{
+  "id": "GDQuest__GDScript-formatter",
+  "depth": "standard",
+  "taglineZh": "基于 Rust 与 Tree-sitter 的 GDScript 命令行格式化与检查工具",
+  "summaryZh": "GDQuest 的 GDScript Formatter 用 Rust 重写格式化核心，解析器基于 Tree-sitter GDScript，目标是把格式化做到近乎瞬时。它支持自动折行、按官方风格指南重排成员顺序、检查风格问题、原地覆盖或输出到标准输出，也提供只检查不修改的模式供 CI 使用。空格与制表符、缩进宽度、定义间空行等都能配置，可读 .editorconfig 与队友共享，还能用注释临时关闭格式化。项目同时发布命令行二进制和 Godot 4 编辑器插件，插件版本要求 Godot 4.7，仓库带较大测试集与基准脚本。",
+  "whatItDoes": "命令行工具读取 GDScript 文件或目录，解析成语法树后按规则重排与换行，再写回文件或打印结果；检查模式只报告未格式化的文件，适合放进 CI。编辑器插件把同一套核心接进 Godot，提供格式化当前脚本与保存时格式化的入口。配置支持空格或制表符、缩进宽度、最大行宽与定义周围空行，并读取 .editorconfig。安全模式在格式化可能改变语义时拒绝覆盖原文件。",
+  "useCases": [
+    {
+      "titleZh": "团队统一风格",
+      "descZh": "把格式化命令写进提交前脚本，成员保存或提交时自动整理缩进与换行，评审时不再为空格和空行反复争论。"
+    },
+    {
+      "titleZh": "CI 检查格式",
+      "descZh": "在流水线里跑只检查模式，未格式化的文件会让构建直接失败，合并前就能提前拦住风格漂移，不必靠人肉 review。"
+    },
+    {
+      "titleZh": "编辑器内随手整理",
+      "descZh": "装上 Godot 插件后按快捷键格式化当前脚本，写长函数时先让工具折行与重排，再继续补逻辑，不必手工调整缩进细节。"
+    },
+    {
+      "titleZh": "整理历史代码",
+      "descZh": "接手缩进混乱的旧工程时先整体跑一遍格式化，把纯格式差异单独提交，后续改动 diff 更干净，也便于逐行追溯历史。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "命令行程序",
+      "descZh": "各平台预编译二进制，支持原地格式化、标准输出与只检查模式，可直接接进 CI 或编辑器外部工具。"
+    },
+    {
+      "titleZh": "Godot 插件",
+      "descZh": "把格式化核心封装成一个编辑器插件，提供格式化当前脚本与保存时格式化的入口，核心以 GDExtension 形式加载。"
+    },
+    {
+      "titleZh": "风格配置",
+      "descZh": "支持 .editorconfig 与项目内的独立配置，统一管理空格或制表符、缩进宽度、最大行宽与定义间空行等规则，可与队友共享。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "速度",
+      "descZh": "Rust 核心配合 Tree-sitter 解析，单文件的中位耗时在毫秒级，整仓格式化也不用等太长时间。"
+    },
+    {
+      "name": "代码重排",
+      "descZh": "按官方风格指南把变量、常量与函数排到约定位置，省掉手工调整成员顺序的麻烦。"
+    },
+    {
+      "name": "风格检查",
+      "descZh": "内置 linter 报告命名、注释与结构问题，格式化之外还能指出不符合团队约定的写法。"
+    },
+    {
+      "name": "editorconfig",
+      "descZh": "读取 .editorconfig，把缩进宽度与最大行宽规则与团队其他工具共享，减少两套配置打架。"
+    },
+    {
+      "name": "安全模式",
+      "descZh": "检测格式化是否可能改变语义，有风险时拒绝覆盖原文件，降低不可逆改坏代码的概率。"
+    }
+  ],
+  "limitsZh": "GDScript 语法复杂，格式化器仍在快速迭代，边缘写法可能被排成不符合预期的样子，作者明确建议先接入版本控制再运行。编辑器插件要求 Godot 4.7，旧版 4.x 只能用命令行或等兼容版本，GDExtension 产物还要匹配平台。格式化规则与 gdformat 并不完全一致，团队从旧工具迁过来会产生一次性大 diff，需要在合适时机单独提交。项目不提供完整的 IDE 语言服务，补全与跳转仍靠其他插件。Windows 与 Linux 的二进制要分别下载，CI 里还得处理可执行权限与缓存。",
+  "workflowZh": [
+    {
+      "stepZh": "从发布页下载对应平台的二进制并解压到工具目录"
+    },
+    {
+      "stepZh": "在项目根目录放一份 .editorconfig，统一缩进宽度与最大行宽"
+    },
+    {
+      "stepZh": "先跑只检查模式，确认到底哪些文件会被实际改动"
+    },
+    {
+      "stepZh": "接入版本控制后执行格式化，把纯格式改动单独提交"
+    },
+    {
+      "stepZh": "在 CI 或提交钩子里加上检查步骤，防止风格回退"
+    }
+  ],
+  "pros": [
+    "Rust 核心解析速度快，单文件毫秒级完成，整仓整理与保存时格式化都不会卡编辑器。",
+    "格式化、重排与 lint 三件事由一套工具覆盖，减少在多个插件之间来回切换。",
+    "支持 .editorconfig 与只检查模式，能直接接进 CI 流水线，团队风格约束可以全自动化。",
+    "安全模式与临时关闭注释都考虑到实际风险，改坏代码前会拦一下，也保留手工豁免口。"
+  ],
+  "cons": [
+    "仍在快速迭代，边缘语法可能被排成意外样式，格式化前必须做版本控制。",
+    "编辑器插件要求 Godot 4.7，旧版项目只能走命令行，版本门槛偏高。",
+    "规则与 gdformat 存在差异，迁移时会产生一次性大 diff，需要挑合适时机。"
+  ],
+  "pitfalls": [
+    "没有提交当前改动就直接整仓格式化，出问题时无法对比原始版本，回滚成本很高。",
+    "在 CI 里跑格式化模式而不是检查模式，流水线把代码改了却不提交，白跑一趟还掩盖问题。",
+    "插件与命令行版本不一致，编辑器里排好的文件在 CI 里仍被判为未格式化，规则对不上。"
+  ],
+  "bestFor": "需要把 GDScript 风格检查整体自动化、愿意接入 CI 与版本控制的团队，以及嫌 gdformat 慢、想换更快格式化器的 Godot 4 中小项目。",
+  "avoidWhenZh": "项目仍停留在 Godot 4.6 及更早版本，或团队不愿为格式化差异做一次集中整理时。",
+  "compareTips": {
+    "vs": [
+      "habamax__vim-godot"
+    ],
+    "whenZh": "vim-godot 改善编辑器里的语法高亮与跳转，本仓库负责统一格式与静态检查，两者并不冲突。需要团队格式一致、接入 CI 选 formatter；只想提升 Vim 编辑体验选 vim-godot。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "格式化",
+    "GDScript",
+    "Rust",
+    "CLI",
+    "代码规范"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "格式化器基于 Tree-sitter GDScript 解析器",
+      "source": "README.md",
+      "quote": "A fast code formatter for Godot's GDScript programming language, built on top of the [Tree Sitter GDScript](https://github.com/PrestonKnopp/tree-sitter-gdscript) parser."
+    },
+    {
+      "claim": "单文件格式化耗时在毫秒级",
+      "source": "README.md",
+      "quote": "Format GDScript files perceptually instantly (less than 1ms to a few ms per file on a mid-range laptop)"
+    },
+    {
+      "claim": "运行前应先接入版本控制",
+      "source": "README.md",
+      "quote": "**Use a version control system:** Please consider using a version control system like Git to track changes to your code before running the formatter."
+    },
+    {
+      "claim": "插件版本为 0.28.0",
+      "source": "addons/GDQuest_GDScript_formatter/plugin.cfg",
+      "quote": "version=\"0.28.0\""
+    },
+    {
+      "claim": "独立插件最低兼容 Godot 4.7",
+      "source": "addons/GDQuest_GDScript_formatter_standalone/bin/gdscript_formatter.gdextension",
+      "quote": "compatibility_minimum = 4.7"
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "id": "supabase-community__godot-engine.supabase",
+  "depth": "standard",
+  "taglineZh": "在 Godot 里直连 Supabase 认证、数据库与存储的轻量封装",
+  "summaryZh": "这个插件把 Supabase 的四个主要能力包成 GDScript 节点：Auth 处理注册、登录、OTP、魔法链接与用户资料，Database 用链式查询读写表，Realtime 订阅变更，Storage 管理存储桶与文件。配置从项目设置的 supabase/config 读取，填 URL 与 anon key 即可，适合独立开发者快速搭账号与云存档。注意当前分支面向 Godot 3.x，Godot 4 需要切到 4.x 分支；它只是 REST 与 WebSocket 封装，不含离线缓存、行级权限配置界面或服务端逻辑。",
+  "whatItDoes": "在项目设置里填入 Supabase URL 与匿名 key，插件启动后创建四个子模块节点。Auth 提供注册、登录、OTP、魔法链接、刷新 token 与获取用户；Database 提供查询构造器，可插入、更新、删除与筛选；Realtime 通过频道订阅表变更；Storage 负责桶与文件的上传下载。错误与任务状态通过信号回传。",
+  "useCases": [
+    {
+      "titleZh": "账号体系开箱可用",
+      "descZh": "直接接 Supabase Auth，省去自建注册、验证邮件与第三方登录，账号流程开箱可用，接入成本很低。"
+    },
+    {
+      "titleZh": "云存档与跨设备续玩",
+      "descZh": "把玩家进度写进表或存储桶，换设备后仍能恢复，适合做云存档与设置同步，不必自建服务器。"
+    },
+    {
+      "titleZh": "排行榜与实时榜单",
+      "descZh": "用数据库查询读写分数表，配合实时订阅刷新榜单，省去自建服务器与定时轮询的开销。"
+    },
+    {
+      "titleZh": "轻量联机大厅",
+      "descZh": "通过 Realtime 频道订阅变更，做轻量联机大厅、聊天或房间状态同步，替代自己做轮询与心跳。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "四个独立模块",
+      "descZh": "Auth、Database、Realtime 与 Storage 四个模块各自独立，可按需调用、不互相牵连，模块依赖关系清晰。"
+    },
+    {
+      "titleZh": "链式数据库调用",
+      "descZh": "用 GDScript 链式串起筛选、排序与增删改，减少手写请求与手动解析 JSON 的工作量。"
+    },
+    {
+      "titleZh": "信号式结果回调",
+      "descZh": "请求结果与错误通过信号回传，便于接进现有 UI 与状态流程而不阻塞主线程。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Auth",
+      "descZh": "覆盖注册、密码登录、OTP、魔法链接、登出与刷新 token 的完整账号流程。"
+    },
+    {
+      "name": "Database",
+      "descZh": "提供查询构造与增删改接口，按表读写行数据，支持筛选、排序与分页。"
+    },
+    {
+      "name": "Realtime",
+      "descZh": "按频道订阅数据库变更，收到推送后更新本地状态与界面，不必轮询。"
+    },
+    {
+      "name": "Storage",
+      "descZh": "管理存储桶与文件，支持上传、下载与删除，适合头像、截图与存档。"
+    },
+    {
+      "name": "配置节点",
+      "descZh": "URL 与 key 放在 supabase/config，避免硬编码进脚本或提交进仓库，便于切环境。"
+    }
+  ],
+  "limitsZh": "当前仓库默认分支是 Godot 3.x 版本，代码里仍在用 PoolStringArray 等旧 API，Godot 4 项目必须另切 4.x 分支，两个分支的接口并不完全一致。它只是 REST 与 WebSocket 的轻量封装，没有离线缓存、请求重试队列或本地数据库镜像，弱网下要自己处理失败。Realtime 依赖长连接，断线重连与频道恢复需自行兜底；行级权限、Edge Functions 等 Supabase 服务端能力要在控制台配置，插件不提供管理界面。文档主要在外部 wiki，仓库内只有简短示例。",
+  "workflowZh": [
+    {
+      "stepZh": "在 Supabase 控制台创建项目，取出项目 URL 与 anon key 备用"
+    },
+    {
+      "stepZh": "复制 addons/supabase 到工程，并在插件页启用 Supabase"
+    },
+    {
+      "stepZh": "在项目设置里填写 supabase/config 的 URL 与 anon key"
+    },
+    {
+      "stepZh": "实例化客户端节点，先调用 Auth 的信箱登录或 OTP 登录"
+    },
+    {
+      "stepZh": "按需接入 Database、Realtime 与 Storage 的具体模块与信号"
+    }
+  ],
+  "pros": [
+    "一次封装认证、数据库、实时与存储四类能力，省去逐项对接 REST",
+    "配置放项目设置，URL 与 key 不必写死在脚本，切环境更方便安全",
+    "链式查询与信号回调贴近 GDScript 使用习惯，读起来不别扭，容易嵌入界面流程",
+    "覆盖 OTP、魔法链接与多种第三方登录，账号流程比较完整，省去拼接认证细节",
+    "MIT 许可，独立开发者可低成本接上后端，不必先写服务端，迭代更快"
+  ],
+  "cons": [
+    "默认分支仅支持 Godot 3.x，4.x 需另切分支且接口不完全一致",
+    "无离线缓存与重试队列，弱网下要自己兜底失败与重发",
+    "文档依赖外部 wiki，仓库内示例偏少，查参数要跳站"
+  ],
+  "pitfalls": [
+    "把 anon key 提交进仓库会泄露项目，应走环境变量或本地配置文件",
+    "Godot 4 直接拿默认分支会因旧 API 报错，要先切到 4.x 分支再改代码",
+    "Realtime 断线后不会自动恢复订阅，需监听连接状态并重新加入频道"
+  ],
+  "bestFor": "适合独立开发者或小团队用 Supabase 做账号、云存档与排行榜，希望直接在 GDScript 里读写数据、不想自建服务端的 Godot 项目。",
+  "avoidWhenZh": "需要强离线能力或复杂服务端逻辑，或必须离线运行、不能依赖外部云服务的项目。",
+  "compareTips": {
+    "vs": [
+      "DiscordGodot-mirror__RPC-Legacy"
+    ],
+    "whenZh": "Supabase 提供账号、数据库、实时订阅与存储的云端后端；RPC-Legacy 只做 Discord 状态与好友邀请。要存数据与做联机后端选前者，要做桌面社交展示选后者。"
+  },
+  "category": "network",
+  "tags": [
+    "Supabase",
+    "后端",
+    "账号",
+    "数据库",
+    "实时同步"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "封装认证、数据库、实时与存储四类 API",
+      "source": "README.md",
+      "quote": "- [x] Authentication (/auth) - [x] Database (/database) - [x] Realtime (/realtime) - [x] Storage (/storage)"
+    },
+    {
+      "claim": "当前分支为 Godot 3.x，4.x 另有分支",
+      "source": "README.md",
+      "quote": "Godot Engine - Supabase (3.x) ... 👉 4.x"
+    },
+    {
+      "claim": "该库面向 Godot 3.x",
+      "source": "README.md",
+      "quote": "# Godot Engine - Supabase (3.x)"
+    }
+  ]
+}

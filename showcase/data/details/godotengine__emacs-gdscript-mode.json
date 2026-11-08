@@ -1,0 +1,144 @@
+{
+  "id": "godotengine__emacs-gdscript-mode",
+  "depth": "standard",
+  "taglineZh": "在 Emacs 里获得完整 GDScript 编辑与调试体验",
+  "summaryZh": "官方维护的 Emacs 主模式，为 .gd 与 .tscn 提供语法高亮、缩进、代码折叠、imenu 与 LSP 补全，还能直接启动 Godot 调试器查看断点、栈帧和场景树，并调用 gdformat 格式化。它把 Godot 工作流搬进 Emacs，但只服务 Emacs 用户，需要自行配置包管理与语言服务器，不包含场景可视化编辑能力，选型前建议结合团队实际评估，更适合作为该品类的专用工具。",
+  "whatItDoes": "提供 gdscript-mode 主模式，处理缩进、注释换行与场景文件编辑；可接入 Godot 的 LSP 做补全、跳转和诊断。附带调试前端，能设置断点、单步、查看栈帧变量与场景树，并调用 gdformat 格式化代码。另提供 Treesit 语法模式与 Hydra 快捷键面板。",
+  "useCases": [
+    {
+      "titleZh": "Emacs 主力开发",
+      "descZh": "习惯 Emacs 的开发者不想切到 Godot 编辑器，在熟悉环境里写 GDScript 与场景文件，保持原有快捷键。"
+    },
+    {
+      "titleZh": "终端内调试",
+      "descZh": "远程或轻量环境下用文本界面启动 Godot 并查看断点、栈帧与变量，不必开图形编辑器，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "大项目符号跳转",
+      "descZh": "用 LSP 与 imenu 在成千行脚本中快速定位函数、信号和类成员，减少滚动查找，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "统一代码风格",
+      "descZh": "保存时调用 gdformat，保证团队 GDScript 的缩进与排版风格一致，减少评审噪音，对独立开发者尤其友好且后续扩展方便。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "GDScript 编辑环境",
+      "descZh": "带语法高亮、缩进与折叠的 .gd 编辑缓冲区，可同时处理 .tscn 场景文本，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "调试会话界面",
+      "descZh": "断点、栈帧变量、场景树与检查器缓冲区，构成文本界面的调试面板，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "API 文档浏览",
+      "descZh": "用 eww 在 Emacs 内查阅 Godot 类文档，支持加载本地文档副本，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "LSP 补全",
+      "descZh": "接入 Godot 语言服务器，提供补全、定义跳转与错误诊断，参数集中在检查器面板。"
+    },
+    {
+      "name": "断点调试",
+      "descZh": "在编辑器内添加断点并单步执行，查看当前调用栈，后续修改起来也不费劲。"
+    },
+    {
+      "name": "imenu",
+      "descZh": "按函数与类成员生成大纲，快速跳转到目标定义，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "gdformat",
+      "descZh": "调用外部 gdformat 整理选中代码或整个文件，保持风格统一，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "Treesit 模式",
+      "descZh": "基于 Treesit 语法树的替代主模式，缩进判断更准确，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "功能边界清楚：它只是文本编辑与调试前端，场景搭建、资源导入仍要回 Godot 编辑器操作。补全与跳转依赖外部 Godot LSP，配置不当就只剩语法高亮；README 也列出 LSP 的已知问题，大文件下补全可能卡顿。Treesit 模式需要额外安装语法包，与 LSP 功能不完全重合，二者取舍要自己权衡。调试需以可连接的方式启动 Godot，端口和环境变量要自己维护。",
+  "workflowZh": [
+    {
+      "stepZh": "通过 package.el 或 use-package 安装并加载扩展，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "配置 Godot 可执行文件路径与项目目录"
+    },
+    {
+      "stepZh": "启动 GDScript LSP 获得补全、跳转与诊断，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "在脚本中设置断点并以调试模式启动项目"
+    },
+    {
+      "stepZh": "在栈帧、场景树与检查器缓冲区排查问题"
+    }
+  ],
+  "pros": [
+    "由 Godot 官方组织维护，跟进引擎版本与语言特性及时，团队新人照着示例就能上手。",
+    "编辑、LSP、调试、格式化链路完整，不只有语法高亮，出现问题时也更容易定位原因。",
+    "文档细致，Spacemacs、Doom 与 use-package 配置都有示例，对中小团队的时间成本很友好。",
+    "纯 Elisp 实现，不依赖外部运行时，安装体积很小，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "只对 Emacs 用户有意义，其他编辑器无法复用这套功能",
+    "LSP 与调试需要不少手工配置，新手容易卡在环境上",
+    "缺少场景可视化编辑与资源管理，仍需切回 Godot 编辑器"
+  ],
+  "pitfalls": [
+    "Godot 路径未配置时，调试启动与文档浏览会静默失败，上线前要专门过一遍。",
+    "Treesit 语法包版本与引擎版本不匹配会报解析错误，需对齐版本",
+    "LSP 已知问题可能导致大文件补全卡顿或跳转失准，排查时需要多留一层日志。"
+  ],
+  "bestFor": "长期以 Emacs 为主力编辑器、希望在不切换工具的情况下写 GDScript 并做基础调试的开发者与脚本维护者。",
+  "avoidWhenZh": "不熟悉 Emacs 配置，或需要可视化场景编辑与资源管理时，投入产出比很低。",
+  "compareTips": {
+    "vs": [
+      "Lcbx__GdScript2All"
+    ],
+    "whenZh": "两者都服务 GDScript 工具链：本项目是 Emacs 编辑与调试前端，不改变语言本身；GdScript2All 把 GDScript 转译到 C#/C++，用于性能或跨语言迁移，二者可并行使用。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "Emacs",
+    "GDScript",
+    "LSP",
+    "调试",
+    "代码格式化"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 5
+  },
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "为 Emacs 增加 GDScript 语法高亮与缩进",
+      "source": "README.md",
+      "quote": "This package adds support for the GDScript programming language from the Godot game engine in Emacs. It gives syntax highlighting and indentations."
+    },
+    {
+      "claim": "内置调试器支持",
+      "source": "README.md",
+      "quote": "Debugger support."
+    },
+    {
+      "claim": "支持 LSP 自动补全",
+      "source": "README.md",
+      "quote": "Auto-completion with the Language Server Protocol (LSP)"
+    },
+    {
+      "claim": "提供 Treesit 主模式",
+      "source": "README.md",
+      "quote": "Major mode with Treesit"
+    }
+  ]
+}

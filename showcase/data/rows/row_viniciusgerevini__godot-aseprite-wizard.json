@@ -1,0 +1,35 @@
+{
+  "id": "viniciusgerevini__godot-aseprite-wizard",
+  "descriptionZh": "把 Aseprite 动画导入 Godot 的编辑器插件，支持自动导入 SpriteFrames、AnimationPlayer 轨道与 Tilemap 图集，按 Tag 拆分动画。",
+  "category": "asset-pipeline",
+  "tags": [
+    "Aseprite",
+    "像素动画",
+    "导入器",
+    "SpriteFrames",
+    "编辑器插件"
+  ],
+  "prosShort": [
+    "Tag 会按标记自动拆成多条独立动画",
+    "毫秒帧时长会自动换算成引擎 FPS",
+    "自动导入与手动整理都支持"
+  ],
+  "consShort": [
+    "只在开发期用，运行时不解析",
+    "静态贴图模式只导入第一帧，动画会丢",
+    "绑定较新版本，旧版要换分支"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

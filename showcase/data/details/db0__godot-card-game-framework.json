@@ -1,0 +1,166 @@
+{
+  "id": "db0__godot-card-game-framework",
+  "depth": "standard",
+  "taglineZh": "给卡牌游戏备好手牌、牌堆、目标与规则引擎的完整框架",
+  "summaryZh": "Godot Card Game Framework（CGF）把卡牌游戏里重复度最高的部分做成可复用的类与场景：手牌、牌堆、卡库、牌组编辑器、拖拽移动、卡牌翻转、旋转、附着、标记与目标箭头，连高亮、缩放、重排都有动画。核心是 Alterant 脚本引擎，用纯文本字典描述卡牌规则，可监听面板操作触发、按属性过滤、生成可选与多选能力、按局面计算效果强度，还能让脚本之间传递结果。框架区分核心代码与自定义目录，升级时只需替换核心部分，自定义卡牌放在 src/custom。它面向 Godot 3，许可证为 AGPL-3.0，另附允许 Steam 分发的补充条款。",
+  "whatItDoes": "提供 Board、Card、CardContainer、Hand 等场景，搭出一张可拖拽的卡牌桌面。卡牌能翻转、旋转、附着到其他卡、加标记，并用拖拽箭头指向目标。AlterantEngine 读取卡牌字典脚本，按触发事件执行效果，支持属性过滤、可选与多选能力、脚本间传值。CardLibrary 与 DeckBuilder 提供浏览、筛选与牌组保存界面，可作为开局准备流程。所有交互与动画默认可用，特殊玩法再调用插件暴露的方法补逻辑。",
+  "useCases": [
+    {
+      "titleZh": "卡牌对战原型",
+      "descZh": "要验证一套卡牌规则能不能玩，先用框架的手牌、牌堆与拖拽把基本操作跑起来，规则先用示例脚本写，手感对了再补内容。"
+    },
+    {
+      "titleZh": "桌游电子化",
+      "descZh": "把实体桌游搬到屏幕时，卡牌移动、翻转、标记与目标箭头都已实现，团队只需把规则写成脚本，不必再为交互重做一套 UI。"
+    },
+    {
+      "titleZh": "规则校验与平衡",
+      "descZh": "用 Alterant 脚本把伤害、费用与触发写成字典，改数值不动代码，快速跑几十局看哪些组合过强，平衡调整有可复现的脚本依据。"
+    },
+    {
+      "titleZh": "牌组构筑界面",
+      "descZh": "需要让玩家在开局前组牌时，直接接框架的 CardLibrary 与 DeckBuilder，筛选、搜索、保存与读取都已做好，省下做一套牌库管理界面的时间。"
+    },
+    {
+      "titleZh": "卡牌交互复用",
+      "descZh": "非卡牌项目也能借用它的拖拽、悬停放大、弹出按钮与容器布局，把这类 2D 交互搬到自己项目里，减少从头写控件的时间。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可玩的卡牌桌面",
+      "descZh": "手牌、牌堆、弃牌堆与桌面容器组成的可交互场景，拖拽、翻转、旋转与附着都能直接操作，动画由 Tween 驱动。"
+    },
+    {
+      "titleZh": "规则脚本与效果",
+      "descZh": "用字典描述的卡牌脚本，可监听面板操作、按属性过滤触发、生成可选能力，并在脚本之间传递结果。"
+    },
+    {
+      "titleZh": "卡库与牌组编辑器",
+      "descZh": "带筛选与预览的卡牌库和牌组构建界面，玩家能搜索卡牌并保存牌组，开箱即可接进游戏的开局流程。"
+    },
+    {
+      "titleZh": "卡牌 UI 组件",
+      "descZh": "高亮、放大预览、目标箭头、标记计数与堆叠显示等控件，能拆出来复用到其他 2D 界面，动画参数也能在场景里调。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "AlterantEngine",
+      "descZh": "规则引擎入口，读取卡牌字典脚本并按触发条件执行，支持可选能力、多选与运行时强度计算。"
+    },
+    {
+      "name": "CardContainer",
+      "descZh": "手牌、牌堆与桌面容器，负责排列、拖拽与转移卡牌，支持椭圆或直线手牌与自动重排。"
+    },
+    {
+      "name": "Card",
+      "descZh": "单张卡牌的节点，处理翻转、旋转、附着、标记与目标选择，动画由 Tween 与脚本驱动。"
+    },
+    {
+      "name": "CardLibrary",
+      "descZh": "可筛选与预览的卡牌库界面，支持网格与列表布局，玩家能浏览并挑牌加入牌组。"
+    },
+    {
+      "name": "DeckBuilder",
+      "descZh": "牌组构筑界面，含搜索、筛选、统计与存档读写，可直接接进游戏的准备流程。"
+    }
+  ],
+  "limitsZh": "它停留在 Godot 3，没有 4.x 分支，新项目要用得先迁移场景与 API，成本不低。许可证是 AGPL-3.0，闭源商业项目必须读补充条款，否则要开源改动。全部逻辑用 GDScript，桌上卡牌数量一多，重排与高亮逐帧计算会掉帧，官方建议的场景规模也是中等。文档主要散在 wiki 与 INSTALL，缺少按模块的系统说明，第一次接规则引擎要对照示例脚本读。演示工程自带 GUT 测试与示例卡，但整体是框架演示而非成品游戏，联网、账号与匹配都不包含。升级流程要求只替换核心目录，自定义代码混进核心后再升级会冲突，另外演示里的卡牌图片与音频资源较大，导出前要先做压缩。",
+  "workflowZh": [
+    {
+      "stepZh": "用 Godot 3 打开工程，先跑官方演示确认交互"
+    },
+    {
+      "stepZh": "复制核心场景，按 INSTALL 建一张最小桌面"
+    },
+    {
+      "stepZh": "在 src/custom 目录下写第一张卡的字典脚本并接进示例"
+    },
+    {
+      "stepZh": "接上 CardLibrary 与 DeckBuilder，把开局的抽牌流程串起来"
+    },
+    {
+      "stepZh": "补自己的触发与目标逻辑，调效果数值"
+    },
+    {
+      "stepZh": "按升级文档替换核心目录，回归自定义卡"
+    }
+  ],
+  "pros": [
+    "手牌、牌堆、拖拽、翻转、标记与目标箭头全部现成，卡牌交互从第一分钟就能用，省掉大量 UI 控件开发。",
+    "Alterant 脚本用纯文本字典写规则，触发过滤、可选能力与脚本传值都支持，规则与表现分离得比较彻底。",
+    "核心代码与自定义目录分开，升级时替换核心即可，长期维护比直接改框架源码更可控。",
+    "带卡库、牌组编辑器与统计接口，单机卡牌游戏从对战到组牌的核心闭环基本齐全。"
+  ],
+  "cons": [
+    "只支持 Godot 3，迁到 4.x 要重写大量场景与 API，新项目直接采用的门槛很高。",
+    "AGPL-3.0 加补充条款，闭源发行前必须逐条确认，否则有开源义务，商业化决策会被许可证卡住。",
+    "GDScript 实现且按逐帧处理高亮与重排，卡牌数量多时会掉帧，复杂特效要自己优化。"
+  ],
+  "pitfalls": [
+    "把自定义卡牌写进核心目录，升级替换后全部丢失，自定义内容必须留在 src/custom。",
+    "卡牌字典里字段名拼错不会报错，只是效果静默不触发，改脚本后先用示例卡对照字段。",
+    "删除插件或改核心类名后旧存档与牌组文件对不上，升级前先备份卡牌定义与牌组数据。"
+  ],
+  "bestFor": "做单机卡牌或桌游电子化、希望快速拿到一套完整卡牌交互与规则引擎，并且能接受 Godot 3 与 AGPL 的团队。",
+  "avoidWhenZh": "项目在 Godot 4.x、需要闭源商业发行又不想承担 AGPL 义务，或要求联网对战与高性能大量卡牌时。",
+  "compareTips": {
+    "vs": [
+      "chun92__card-framework",
+      "DesirePathGames__Slay-The-Robot"
+    ],
+    "whenZh": "chun92 的 card-framework 更轻，适合只做最小卡牌移动；Slay-The-Robot 偏 roguelike 牌组构建，规则更重。要开箱的牌组与规则引擎选本项目，只要轻量卡牌交互选 chun92。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "卡牌游戏",
+    "规则引擎",
+    "牌组构筑",
+    "Godot3",
+    "AGPL"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "提供类型明确且带注释的类与场景",
+      "source": "README.md",
+      "quote": "This framework is meant to provide well designed, statically typed, and fully commented classes and scenes"
+    },
+    {
+      "claim": "可完整执行卡牌文本与规则",
+      "source": "README.md",
+      "quote": "Complete card text and rules enforcement"
+    },
+    {
+      "claim": "卡牌脚本可用纯文本字典定义",
+      "source": "README.md",
+      "quote": "Can define card scripts in plain text, using dictionaries."
+    },
+    {
+      "claim": "脚本之间可以传递结果",
+      "source": "README.md",
+      "quote": "Can store results from one script to use in another."
+    },
+    {
+      "claim": "采用 AGPL3 许可证",
+      "source": "README.md",
+      "quote": "This software is licensed undel AGPL3."
+    },
+    {
+      "claim": "可直接插入任意卡牌项目",
+      "source": "README.md",
+      "quote": "which you can plug into any potential card game"
+    }
+  ]
+}

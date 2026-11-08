@@ -1,0 +1,35 @@
+{
+  "id": "AlexeyBond__godot-constraint-solving",
+  "descriptionZh": "Godot 4 的 WFC 与通用约束求解插件，可从示例地图学习规则并生成二维瓦片或网格地图，支持回溯与多线程。",
+  "category": "ai-gen",
+  "tags": [
+    "WFC",
+    "程序化生成",
+    "关卡生成",
+    "瓦片地图",
+    "GDScript"
+  ],
+  "prosShort": [
+    "WFC 与通用约束求解器都已完整实现",
+    "支持回溯，生成结果里没有破损格",
+    "可直接从示例地图自动学习规则"
+  ],
+  "consShort": [
+    "目前完全没有三维地图生成能力",
+    "全局与路径约束缺失，需自行后处理",
+    "文档单薄，参数要读源码，上手门槛偏高"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

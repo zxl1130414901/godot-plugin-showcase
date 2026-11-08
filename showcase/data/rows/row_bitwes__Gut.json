@@ -1,0 +1,34 @@
+{
+  "id": "bitwes__Gut",
+  "descriptionZh": "用 GDScript 写 GDScript 单元测试的老牌框架，带替身、打桩、命令行与 JUnit 导出，结果可交给流水线。",
+  "category": "debug-perf",
+  "tags": [
+    "单元测试",
+    "CI",
+    "GDScript",
+    "自动化"
+  ],
+  "prosShort": [
+    "同语言写测试，接入成本很低",
+    "替身与打桩能隔离外部依赖",
+    "命令行加 JUnit 导出可直接接流水线"
+  ],
+  "consShort": [
+    "测试跑在引擎里，整套偏慢，用例多时更明显",
+    "版本与引擎小版本强绑定，升级要跟着换",
+    "替身对 C# 与原生类支持有限"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

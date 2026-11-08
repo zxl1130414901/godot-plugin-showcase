@@ -1,0 +1,35 @@
+{
+  "id": "satelliteoflove__godot-mcp",
+  "descriptionZh": "给 AI 助手接入 Godot 编辑器与运行期游戏的 MCP 服务，支持确定性试玩与状态观测",
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "自动化测试",
+    "输入注入",
+    "运行时观测"
+  ],
+  "prosShort": [
+    "让 AI 驱动运行中的游戏做真实试玩",
+    "冻结时钟按片推进，问题可稳定复现",
+    "状态以 JSON 返回，少依赖截图判读"
+  ],
+  "consShort": [
+    "要求 Godot 4.5 与 Node 20 以上，门槛偏高",
+    "部署要 npm、插件与客户端三处配合",
+    "工具参数多，缺少完整参数表与错误码"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

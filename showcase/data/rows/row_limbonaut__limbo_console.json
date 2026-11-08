@@ -1,0 +1,35 @@
+{
+  "id": "limbonaut__limbo_console",
+  "descriptionZh": "Godot 4 的游戏内开发控制台，按反引号呼出，支持命令注册、TAB 补全、参数解析与自定义主题。",
+  "category": "debug-perf",
+  "tags": [
+    "控制台",
+    "调试",
+    "命令",
+    "自动补全",
+    "GDScript"
+  ],
+  "prosShort": [
+    "注册一条命令只需要一行代码即可",
+    "命令名与历史记录都支持 TAB 补全",
+    "参数解析与帮助文本生成都已内置"
+  ],
+  "consShort": [
+    "开发期接口可能会有破坏性变更",
+    "没有权限控制与命令白名单机制",
+    "以键盘输入为主，移动端基本不可用"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

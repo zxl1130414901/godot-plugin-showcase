@@ -1,0 +1,172 @@
+{
+  "id": "nobodywho-ooo__nobodywho",
+  "depth": "standard",
+  "taglineZh": "在 Godot 里本地跑 LLM、语音识别与合成的 Rust 推理引擎",
+  "summaryZh": "NobodyWho 是一个用 Rust 写的本地推理引擎，通过 gdext 接入 Godot，让项目在没有 API Key 的情况下运行 GGUF 格式的对话模型。核心基于 llama.cpp，聊天模板、语法约束、采样与上下文平移都在自己的 Rust 层实现；工具调用会从函数签名自动生成结构化语法，不需要手写 JSON schema。除文本外还接入 ONNX Runtime，支持图像与音频输入、Whisper 语音转写、Silero 语音活动检测，以及 Kokoro、Pocket TTS 与 Supertonic 三条本地 TTS 后端。模型可以直接从 Hugging Face 或任意 URL 下载。Godot 侧只提供桌面与 Android，官方明确没有 iOS 与 Web 导出，运行期按 ABI 加载，版本不匹配时错误会直接落在原生层。",
+  "whatItDoes": "提供 GDExtension 库与配套节点或资源，让 Godot 项目加载本地 GGUF 模型并启动一段对话。运行期把聊天消息、模板与采样参数交给 Rust 核心，由 llama.cpp 在 Vulkan、Metal、CUDA 或 CPU 上推理。工具调用可从函数签名生成语法约束，让模型按固定结构输出，再由脚本解析成调用。语音链路由 ONNX Runtime 承担，包含 Whisper 转写、Silero 判定说话结束与本地 TTS 合成。模型可从 Hugging Face 或 URL 下载到本地目录，之后完全离线运行。",
+  "useCases": [
+    {
+      "titleZh": "离线 NPC 对话",
+      "descZh": "做单机 RPG 或叙事游戏时让 NPC 用本地模型即兴回应，玩家的网络与隐私都不受影响，也不必按调用量付费，发行后没有额外服务成本。"
+    },
+    {
+      "titleZh": "本地语音助手",
+      "descZh": "把语音识别、说话结束判定与语音合成串成一条链路，做免手操作的游戏内助手或无障碍朗读，全过程在设备上完成，不必上传音频。"
+    },
+    {
+      "titleZh": "带工具调用的玩法",
+      "descZh": "让模型按函数签名生成结构化参数，再交给游戏逻辑执行查询、发任务或改状态，比让模型自由输出文本再解析稳定，减少格式错误。"
+    },
+    {
+      "titleZh": "无网环境部署",
+      "descZh": "展会、教学机房或内网机器没有稳定外网时，把模型与运行库一起打包进安装包，启动后即可对话，不依赖任何线上服务可用性。"
+    },
+    {
+      "titleZh": "内容审核敏感场景",
+      "descZh": "对玩家输入与生成内容有合规要求时，本地推理让数据不出设备，日志与模型版本都由自己掌控，便于做审计与内容过滤。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "本地模型运行环境",
+      "descZh": "加载 GGUF 模型后可对话的运行时，含聊天模板、采样与上下文管理，脚本侧只需要喂消息与读回复，换模型文件时不必改脚本接口。"
+    },
+    {
+      "titleZh": "结构化工具调用",
+      "descZh": "从函数签名生成的结构化语法与调用结果，模型按固定字段输出，脚本直接解析成参数并执行对应逻辑。"
+    },
+    {
+      "titleZh": "语音转写文本",
+      "descZh": "Whisper 把麦克风或音频文件转成文字，配合语音活动检测判断一句话何时结束，适合做语音输入与字幕。"
+    },
+    {
+      "titleZh": "本地合成的 WAV",
+      "descZh": "Kokoro、Pocket TTS 或 Supertonic 生成的音频波形，可直接交给 AudioStreamPlayer 播放，全程不需要云端 TTS，音色与语速按后端参数调整。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "GGUF Models",
+      "descZh": "直接读取 llama.cpp 格式的量化模型，Gemma、Qwen、Mistral 等常见家族都能用，换模型只需换文件。"
+    },
+    {
+      "name": "Tool Calling",
+      "descZh": "从函数签名自动生成结构化语法，模型输出被约束在固定字段上，省去手写 schema 与容错解析。"
+    },
+    {
+      "name": "Multimodal Input",
+      "descZh": "除文本外还能把图像与音频交给模型，用于看图问答或结合语音上下文的对话。"
+    },
+    {
+      "name": "Whisper STT",
+      "descZh": "本地语音转写后端，把录音转成文字，可与 Silero 语音活动检测配合切分句子。"
+    },
+    {
+      "name": "Kokoro TTS",
+      "descZh": "本地文本转语音后端之一，输出 WAV 音频；同仓库还提供 Pocket TTS 与 Supertonic 可选，音色与采样率由后端参数决定。"
+    }
+  ],
+  "limitsZh": "最紧的限制是内存：官方给的估算是有空闲内存约为模型文件的 1.5 倍，繁忙机器要按 2 倍留，8 GB 只能勉强跑 2 GB 以内的模型，大模型在消费级显卡上会直接被显存卡住。平台覆盖不全，Godot 只有桌面与 Android，官方说明没有 iOS 导出，也没有 Web 导出，Windows ARM64 也不支持。首次运行要下载模型，几 GB 的下载与冷启动都会让编辑器卡住一段时间，建议提前放进资源目录。许可证是 EUPL-1.2，修改仓库代码再分发需要开源改动，Kokoro 后端还通过 Cargo 特性引入 GPL-3.0 的 espeak-ng，商用前要单独确认。模型输出质量取决于所选 GGUF 与量化级别，小模型在中文长对话里容易跑偏，需要自己加约束与后处理。",
+  "workflowZh": [
+    {
+      "stepZh": "从 AssetLib 安装插件，确认库文件与引擎版本匹配"
+    },
+    {
+      "stepZh": "挑一个 GGUF 模型放进项目目录或配置下载地址"
+    },
+    {
+      "stepZh": "在场景里初始化模型并设置上下文长度与采样参数"
+    },
+    {
+      "stepZh": "接入聊天模板，先跑一段纯文本对话验证输出"
+    },
+    {
+      "stepZh": "把工具函数注册进去，检查生成的调用参数是否正确"
+    },
+    {
+      "stepZh": "接上语音链路，用麦克风试一轮转写与合成"
+    }
+  ],
+  "pros": [
+    "完全离线运行，不需要 API Key 与在线服务，发行后没有按调用量计费的成本，隐私数据也不出设备。",
+    "工具调用从函数签名生成语法，模型输出被结构约束住，比自由文本再正则解析稳定得多，接入业务逻辑更省事。",
+    "同一套 Rust 核心同时提供 LLM、语音转写、语音活动检测与三条 TTS 后端，语音交互不必再拼多个库。",
+    "仓库多语言绑定齐全且有完整文档站，Godot 侧只是其中一个门面，底层修复会同步惠及其他平台。"
+  ],
+  "cons": [
+    "内存门槛高，模型文件 1.5 到 2 倍的空闲内存是硬要求，小内存设备与集显机器很难跑稍大的模型。",
+    "Godot 侧缺 iOS 与 Web 导出，Windows ARM64 也不支持，跨平台发行方案要提前排除这些目标。",
+    "模型与库文件体积大，首次下载和冷启动都会阻塞，打包进安装包会让发行包膨胀数 GB。"
+  ],
+  "pitfalls": [
+    "没按模型体积预留内存，加载时直接 OOM 或系统疯狂换页，先算清空闲内存再挑量化级别。",
+    "把 Kokoro 默认特性一起编进包里又没处理 espeak-ng 的 GPL 许可，商用分发前要确认许可兼容或关掉该特性。",
+    "模型下载放在主线程，首次启动界面长时间无响应，应改成后台任务并显示进度。"
+  ],
+  "bestFor": "需要离线对话、语音交互或对数据隐私有硬要求，并且能接受模型体积与内存成本的单机游戏与工具类项目。",
+  "avoidWhenZh": "目标是 Web、iOS 或低内存移动设备，或希望零下载、小包体、按量付费的云端推理方案时。",
+  "compareTips": {
+    "vs": [
+      "hi-godot__godot-ai",
+      "fennaraOfficial__fennara-godot-ai",
+      "FlamxGames__godot-ai-assistant-hub"
+    ],
+    "whenZh": "godot-ai 一类项目多是把编辑器接上云端模型做辅助开发，本项目的价值在运行期离线推理与语音链路。要在编辑器里让 AI 改场景可选前两者，要在游戏内跑本地模型与语音交互选 NobodyWho。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "本地LLM",
+    "语音合成",
+    "离线AI",
+    "Rust",
+    "GDExtension"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "完全本地离线运行，无需 API Key",
+      "source": "README.md",
+      "quote": "no API keys needed or hidden fees"
+    },
+    {
+      "claim": "工具调用语法由函数签名自动生成",
+      "source": "README.md",
+      "quote": "automatically generates structured grammars from your function signatures"
+    },
+    {
+      "claim": "内置本地语音合成后端",
+      "source": "README.md",
+      "quote": "synthesize local WAV audio with Kokoro"
+    },
+    {
+      "claim": "Godot 侧没有 iOS 导出",
+      "source": "README.md",
+      "quote": "Godot has no iOS export."
+    },
+    {
+      "claim": "没有 Web 导出",
+      "source": "README.md",
+      "quote": "There is no web export."
+    },
+    {
+      "claim": "内存约为模型文件的 1.5 倍",
+      "source": "README.md",
+      "quote": "roughly 1.5× the model file in free RAM"
+    },
+    {
+      "claim": "以 GDExtension 形式接入，最低 4.6",
+      "source": "nobodywho/godot/nobodywho.gdextension",
+      "quote": "compatibility_minimum = 4.6"
+    }
+  ]
+}

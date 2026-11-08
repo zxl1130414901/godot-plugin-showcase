@@ -1,0 +1,35 @@
+{
+  "id": "godot-gdunit-labs__gdUnit4Net",
+  "descriptionZh": "面向 Godot C# 项目的单元测试框架，兼容 VSTest 并提供场景运行器与分析器",
+  "category": "debug-perf",
+  "tags": [
+    "单元测试",
+    "C#",
+    "VSTest",
+    "CI集成",
+    "场景测试"
+  ],
+  "prosShort": [
+    "兼容 VSTest 标准，IDE 面板与 CI 都能通用",
+    "纯逻辑用例默认不启运行时",
+    "场景运行器支持输入模拟与信号等待"
+  ],
+  "consShort": [
+    "仅支持 C# 项目，GDScript 完全用不上这套",
+    "包与引擎版本绑定，升级易错配",
+    "初次接入涉及多项配置，步骤偏多"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

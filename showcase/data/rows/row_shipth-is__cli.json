@@ -1,0 +1,33 @@
+{
+  "id": "shipth-is__cli",
+  "descriptionZh": "ShipThis 命令行工具，用云端构建出 Godot 的 APK AAB 与 IPA 并上架，整体接入成本不高。",
+  "category": "platform-export",
+  "tags": [
+    "移动端",
+    "云构建",
+    "上架",
+    "命令行"
+  ],
+  "prosShort": [
+    "无需本机 Xcode 与安卓工具链，团队上手也快。",
+    "wizard 代办证书与导出预设，接入成本不高。",
+    "支持 3.6 到 4.7 与 C# 工程，后续扩展方便。"
+  ],
+  "consShort": [
+    "必须联网使用第三方云服务",
+    "公测定价未定长期成本不明"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

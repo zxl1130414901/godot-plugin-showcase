@@ -1,0 +1,162 @@
+{
+  "id": "gaea-godot__gaea",
+  "depth": "standard",
+  "taglineZh": "用节点图拼出 2D 与 3D 世界的程序化生成插件，支持自定义节点",
+  "summaryZh": "Gaea 是给 Godot 4 做的程序化生成插件，核心是一张节点图：把生成器、过滤器、输出与运算节点连起来，让数据顺着图流下去，最终产出地形、房间、装饰或任何可以描述成规则的内容，2D 与 3D 共用一套图结构。节点参数支持范围、枚举、位标记与曲线等类型，编辑器里有节点预览、图框、重路由与右键菜单，还能把自定义节点注册进图里。运行期由 GaeaGenerator 驱动，配套区块加载器可以把生成结果挂到 GridMap、TileMap 或自定义 Actor 上，适合做无限或分块世界。它支持 4.4 以上，4.3 及更早要用 1.X 分支，当前 2.0 仍是 beta。",
+  "whatItDoes": "提供生成图资源与图形编辑器，把若干生成步骤连成一条数据流，从噪声、形状到最终布局都由节点决定。图可在编辑器里逐节点预览，调参后只重算受影响的部分。运行期由 GaeaGenerator 执行图并产出数据，区块加载器按玩家位置调度生成与卸载。输出端可接 GridMap、TileMap 或自定义 Actor，把生成结果落到现有场景结构上。插件同时提供 GDScript 扩展点，自定义节点注册后即可在图中使用。",
+  "useCases": [
+    {
+      "titleZh": "分块开放世界",
+      "descZh": "做无缝大世界时把生成图交给区块加载器，玩家走到哪生成到哪，地形与装饰按同一套规则产出，不必预先烘一张巨大的地图。"
+    },
+    {
+      "titleZh": "地牢房间布局",
+      "descZh": "用生成器与过滤器把房间、走廊与门拼成关卡，靠种子复现同一张图，反复调规则时不用手工重摆房间，测试也能拿固定种子跑。"
+    },
+    {
+      "titleZh": "植被与装饰摆放",
+      "descZh": "地形出来后在坡地与平地上撒石头、草木与建筑，用规则控制密度与朝向，比手工摆放几百个实例快，改风格只动节点参数。"
+    },
+    {
+      "titleZh": "2D 关卡草图",
+      "descZh": "做 2D 房间或平台关卡时用同一套图结构产出 TileMap 数据，规则改完立刻重新生成，适合先跑通布局再交给美术细化。"
+    },
+    {
+      "titleZh": "规则复用与团队协作",
+      "descZh": "把一张生成图存成资源复用在不同区域，美术与策划只调参数不动代码，改规则时全项目一起生效，评审也有统一的图可看。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "生成图资源",
+      "descZh": "由节点与连线组成的图资源，保存规则与参数，能当作资产在多个场景或区域复用，换种子就得到另一批结果。"
+    },
+    {
+      "titleZh": "区块化世界",
+      "descZh": "区块加载器按玩家位置生成的地形与物件，可挂到 GridMap、TileMap 或自定义 Actor 上，适合无缝或分块世界，卸载也由加载器统一管理。"
+    },
+    {
+      "titleZh": "自定义生成节点",
+      "descZh": "继承现有节点写出的新生成步骤，注册后出现在图里，规则不够用时可以自己补，不必改插件本体。"
+    },
+    {
+      "titleZh": "可复现的随机结果",
+      "descZh": "用种子控制的随机流，同一张图与同一个种子能得到相同产物，方便回归测试与分享特定关卡，也便于复盘某次生成。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "GaeaGenerator",
+      "descZh": "运行期驱动生成图的入口，按区块与参数执行图并产出数据，场景里挂上它才真正开始生成。"
+    },
+    {
+      "name": "GaeaChunkLoader",
+      "descZh": "按玩家位置调度区块生成与卸载，把结果分发给 GridMap、TileMap 或自定义 Actor，控制内存占用。"
+    },
+    {
+      "name": "Graph Editor",
+      "descZh": "编辑器里的节点图界面，支持框选、重路由、右键菜单与参数编辑，规则复杂时仍能看清流向。"
+    },
+    {
+      "name": "Node Preview",
+      "descZh": "在图里预览单个节点的产出，调参数时不必整张图重跑，定位哪一步出错更快。"
+    },
+    {
+      "name": "Custom Nodes",
+      "descZh": "把自定义生成步骤注册成图节点，用 GDScript 扩展规则，适合项目特有的地形或布局需求。"
+    }
+  ],
+  "limitsZh": "2.0 仍是 beta：README 直接写明处于早期开发、对规模较大或较复杂的项目尚未优化，节点数量一多，图执行与编辑器预览都会变慢。全部用 GDScript 实现，大范围生成与高频区块切换会把开销压在脚本层，实时生成的大世界要谨慎控制区块尺寸与并发。文档站按版本分册，但视频教程仍停留在 1.X，照着旧教程搭图会对不上节点名与参数。4.3 及更早必须切回 1.X 分支，两个版本的图不通用，迁移要重建。生成结果依赖图写得好，规则冲突时容易出现空洞、重叠或物件悬空，插件不会替你校验布局合法性。",
+  "workflowZh": [
+    {
+      "stepZh": "把 gaea 目录复制进 addons 并在项目设置启用"
+    },
+    {
+      "stepZh": "新建生成图资源，先连一个输出节点跑通空图"
+    },
+    {
+      "stepZh": "加噪声与地形节点，调参数直到预览符合预期"
+    },
+    {
+      "stepZh": "把生成图挂到 GaeaGenerator 节点，并设置世界尺寸与边界"
+    },
+    {
+      "stepZh": "配置区块加载器，指定输出到 GridMap 或 TileMap"
+    },
+    {
+      "stepZh": "用固定种子跑一遍，再换种子看结果差异"
+    }
+  ],
+  "pros": [
+    "节点图把生成规则可视化，改参数就能换世界，不必为每种地形写一套专用脚本，规则复用也方便。",
+    "2D 与 3D 共用一套图结构，区块加载器可直接输出到 GridMap、TileMap 或自定义 Actor，接入现有场景成本低。",
+    "支持注册自定义节点，规则不够时可以扩展现有步骤，不会被插件自带节点限制住。",
+    "编辑器带节点预览与图框、重路由，图变大后仍能分段调试，定位某个节点的问题比整图重跑快。"
+  ],
+  "cons": [
+    "2.0 还在 beta，作者说明未针对大型复杂项目优化，图一复杂就明显变慢，不能当成熟生产工具。",
+    "纯 GDScript 执行，大规模地块与频繁流式加载会吃主线程，实时生成的世界要严格限制区块规模。",
+    "4.3 以下要回退 1.X，两个版本图资源不通用，老项目升级得重建生成图。"
+  ],
+  "pitfalls": [
+    "生成图存好了但场景里没挂 GaeaGenerator，运行后什么都不会产出，先确认运行期入口节点在场景树里。",
+    "区块尺寸设得太大又开高分辨率噪声，生成一帧要几百毫秒，玩家移动时直接卡住，先缩小区块再调精度。",
+    "换种子后没清掉已生成的区块缓存，地图看起来只变了一半，测试前先让加载器完整重载。"
+  ],
+  "bestFor": "需要规则化生成地形、房间或装饰，并且愿意接受 beta 阶段性能上限的 2D 与 3D 项目，尤其是想用图而不是代码维护生成逻辑的团队。",
+  "avoidWhenZh": "要求稳定产线工具、实时生成超大世界，或团队不熟悉节点图调试方式时，等 2.0 稳定或改用专门的地形方案更稳妥。",
+  "compareTips": {
+    "vs": [
+      "Zylann__godot_heightmap_plugin",
+      "Zylann__godot_voxel",
+      "TokisanGames__Terrain3D"
+    ],
+    "whenZh": "Gaea 管的是规则与摆放，不负责地形渲染优化；heightmap 与 Terrain3D 提供可刷的地表，Voxel 提供可破坏体积。要程序化拼出关卡结构选 Gaea，要手工雕刻地形选 heightmap 或 Terrain3D，要做挖掘破坏选 Voxel，三者可以组合使用。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "程序化生成",
+    "节点图",
+    "区块加载",
+    "地形",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "用节点图组织生成流程",
+      "source": "README.md",
+      "quote": "Gaea uses a graph system to create a flow of customizable nodes"
+    },
+    {
+      "claim": "可以扩展自定义节点",
+      "source": "README.md",
+      "quote": "Creating custom nodes is easy, too, so you aren't limited by what the addon has."
+    },
+    {
+      "claim": "2.0 仍处于早期开发",
+      "source": "README.md",
+      "quote": "is currently in early development, and may not yet be optimized for larger"
+    },
+    {
+      "claim": "4.3 及更早需使用 1.X 分支",
+      "source": "README.md",
+      "quote": "For 4.3 and below, use"
+    },
+    {
+      "claim": "插件版本为 2.0 beta6",
+      "source": "addons/gaea/plugin.cfg",
+      "quote": "version=\"v2.0.0-beta6\""
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "id": "HungryProton__monitor_overlay",
+  "depth": "standard",
+  "taglineZh": "在游戏窗口内叠加显示编辑器监视器里的性能指标",
+  "summaryZh": "Monitor Overlay 把 Godot 编辑器 Monitor 面板里的运行时指标搬进游戏窗口：FPS、对象数、节点数、内存、绘制图元等，用 Control 浮层实时显示，还能按时间画折线图。用法是给场景加一个 MonitorOverlay 节点，在检查器的 Active monitors 分组勾选需要的项，整层就是普通 Control，可随意调位置、尺寸与图形高度。它适合开发期与测试包内观察性能，但浮层自身也会改变对象与节点计数，画图还会带来额外开销。",
+  "whatItDoes": "插件注册一个 MonitorOverlay 节点类型，每帧读取引擎监视器数据并绘制成文本或曲线。你可勾选要显示的指标，设置图高与历史长度；关闭 Plot Graphs 可只留数值。浮层本质是 Control，可套用锚点、主题与布局设置，也能按需在发布版中移除。",
+  "useCases": [
+    {
+      "titleZh": "测试包内看性能",
+      "descZh": "不用开编辑器，直接在游戏窗口里看 FPS、内存与绘制调用的实时变化，测试包里也能随时自查。"
+    },
+    {
+      "titleZh": "QA 复现卡顿",
+      "descZh": "给 QA 包挂上浮层，复现卡顿时能当场读到实时指标并截图留证，取证更可靠也更快，方便反馈给程序。"
+    },
+    {
+      "titleZh": "对比优化收益",
+      "descZh": "用折线图记录对象数与图元数，直观看到优化前后的收益差别，判断改动是否有效，避免凭感觉调优。"
+    },
+    {
+      "titleZh": "理解绘制成本",
+      "descZh": "展示引擎指标随场景切换的起伏，帮助理解绘制与内存成本的构成，减少盲目试错，指导后续优化。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "运行时指标浮层",
+      "descZh": "在游戏画面内显示所选监视器数值，随时开关，不必切回编辑器或另开调试窗口。"
+    },
+    {
+      "titleZh": "指标折线图",
+      "descZh": "按历史长度绘制折线，观察指标随时间的波动与尖峰，定位卡顿发生的时刻。"
+    },
+    {
+      "titleZh": "可融入 HUD 的 Control",
+      "descZh": "沿用 UI 锚点、尺寸与主题，能融进现有 HUD 布局而不突兀，也能单独作为调试层。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Active monitors",
+      "descZh": "在检查器按分组勾选指标，只显示当前关心的帧率、内存或图元。"
+    },
+    {
+      "name": "Plot Graphs",
+      "descZh": "把指标画成折线，历史长度可调，不需要时能整体关闭曲线以省开销。"
+    },
+    {
+      "name": "Graph height",
+      "descZh": "单独控制图形高度，数值区与曲线区可按需分配垂直空间，窄屏也能塞下。"
+    },
+    {
+      "name": "Control 节点",
+      "descZh": "浮层就是 Control，可直接用布局、主题与可见性统一管理，也能继承现有 UI 样式。"
+    }
+  ],
+  "limitsZh": "它只读引擎 Monitor 面板已有的指标，不能自定义采样点或导出报表；需要更细的火焰图、帧捕获得用专业 profiler。浮层自身会新增节点与绘制，因此对象数、节点数、内存与图元数在开启前后会有差异，解读数据时要把这部分算进去。绘制曲线需要保存历史值，历史越长开销越大，低端设备上可能反过来影响帧率。节点必须放在场景树靠后位置，否则会被其他 UI 遮住；发布版还需要自己移除或禁用。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons 目录到工程，在插件页启用 Monitor Overlay"
+    },
+    {
+      "stepZh": "在场景中添加 MonitorOverlay 节点，或挂到现有 HUD 下"
+    },
+    {
+      "stepZh": "确认节点位于场景树靠后位置，避免被其他 UI 盖住"
+    },
+    {
+      "stepZh": "在检查器勾选要看的指标，按需调整字号与颜色"
+    },
+    {
+      "stepZh": "按需调图高与历史长度，不需要曲线时直接关掉"
+    }
+  ],
+  "pros": [
+    "不进编辑器就能在游戏窗口读取引擎指标，测试包与外部运行环境同样可用",
+    "勾选式配置，几乎不需要写代码就能上手，美术与测试也能自己开",
+    "浮层是 Control，布局、主题与字号可自由调整，能贴合项目现有 UI 风格",
+    "可关闭曲线，兼顾观察需求与运行开销，低端设备上也能只留数值",
+    "MIT 许可，测试包内使用没有额外约束，也能直接改代码加指标"
+  ],
+  "cons": [
+    "只能显示内置监视器项，无法自定义采样点或加业务指标",
+    "浮层自身会改变节点与内存计数，对比数据要固定配置",
+    "曲线历史越长，额外开销越明显，低端机可能反过来掉帧"
+  ],
+  "pitfalls": [
+    "节点放太靠前会被其他 UI 遮挡，应放在场景树末尾或调高层级",
+    "开启浮层后对象数会变，性能对比要固定同一配置再比，否则数字没有意义",
+    "发布版忘记移除浮层会暴露调试信息，还白白多耗一点性能"
+  ],
+  "bestFor": "适合在开发期和 QA 测试包内观察帧率与内存趋势，希望不切编辑器就能看到引擎指标，并能接受浮层自身带来少量开销的项目。",
+  "avoidWhenZh": "需要自定义性能采样、导出报表或做长时间压测分析，要求指标绝对精确的场合。",
+  "compareTips": {
+    "vs": [
+      "codevogel__godot_doctor"
+    ],
+    "whenZh": "两者都服务调试：Monitor Overlay 把引擎内置指标画进游戏窗口，godot_doctor 检查项目配置与资源问题。想看运行时性能选前者，想体检工程配置选后者。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "性能监控",
+    "调试浮层",
+    "运行时指标",
+    "FPS"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "在游戏窗口内显示 Monitor 面板数据",
+      "source": "README.md",
+      "quote": "Displays data from the Monitor panel at runtime in the game window."
+    },
+    {
+      "claim": "浮层自身会影响对象与内存计数",
+      "source": "README.md",
+      "quote": "the reported amount of objects / nodes / memory used / primitives drawn (and potentially others too) will differ if the overlay is enabled or not."
+    },
+    {
+      "claim": "可关闭曲线以降低开销",
+      "source": "README.md",
+      "quote": "If you don't need this feature, you can turn it off by disabling the Plot Graphs option in the inspector."
+    }
+  ]
+}

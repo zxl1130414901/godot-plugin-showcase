@@ -1,0 +1,34 @@
+{
+  "id": "Jenova-Framework__Jenova-Runtime",
+  "descriptionZh": "把 C++20/23 脚本后端接入 Godot 编辑器的运行时，含构建系统、编译器接口与脚本解释层",
+  "category": "editor-tool",
+  "tags": [
+    "C++脚本",
+    "GDExtension",
+    "原生库",
+    "编译工具链"
+  ],
+  "prosShort": [
+    "在编辑器内直接编写 C++ 脚本",
+    "可直连 OpenCV、CUDA 等原生库与 GPU 能力",
+    "构建系统与编译接口链路完整"
+  ],
+  "consShort": [
+    "仅支持 Windows 与 Linux x64 两个桌面平台",
+    "构建前置多，首次编译成本高",
+    "文档多在外部站点，仓库说明有限"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 2
+  },
+  "installComplexity": 5,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "dialogic-godot__dialogic",
+  "descriptionZh": "以时间轴事件编排对白、立绘、分支与演出的完整对话系统，适合视觉小说与剧情 RPG。",
+  "category": "visual-script",
+  "tags": [
+    "对话系统",
+    "视觉小说",
+    "时间轴",
+    "本地化"
+  ],
+  "prosShort": [
+    "演出、分支与存档能力很完整",
+    "官方文档与示例场景都完整",
+    "内建历史存档与本地化流程"
+  ],
+  "consShort": [
+    "插件体积接近30MB确实很笨重",
+    "只支持 Godot 4.5 及以上新版引擎",
+    "复杂分支只能靠手动播放调试"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

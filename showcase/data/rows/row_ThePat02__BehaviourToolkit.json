@@ -1,0 +1,14 @@
+{
+  "id": "ThePat02__BehaviourToolkit",
+  "descriptionZh": "用可视化节点搭建行为树与状态机，内置黑板共享数据的 Godot 4 AI 工具包，支持互相嵌套。",
+  "category": "state-logic",
+  "tags": ["行为树", "状态机", "黑板", "AI", "节点化"],
+  "prosShort": ["行为树与状态机共用一套节点体系", "支持行为与状态互相嵌套拆解", "工具箱面板加模板，原型迭代快"],
+  "consShort": ["参数与黑板键缺少类型校验", "复杂 AI 会让场景树变得很深", "社区规模小，文档以英文为主"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 4, "performance": 3, "stability": 4},
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

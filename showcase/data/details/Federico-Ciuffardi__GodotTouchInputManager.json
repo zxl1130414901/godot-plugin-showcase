@@ -1,0 +1,65 @@
+{
+  "id": "Federico-Ciuffardi__GodotTouchInputManager",
+  "depth": "standard",
+  "taglineZh": "给 Godot 项目补齐触屏手势与鼠标转触摸输入",
+  "summaryZh": "Godot Touch Input Manager 是一个轻量输入插件，只需把 InputManager.gd 设为自动加载，它就会持续分析触摸事件并识别手势。识别结果以信号和自定义输入事件两种形式给出，覆盖单击、双击、拖拽、滑动、长按、捏合、旋转以及多指版本，还能把鼠标输入翻译成触摸，方便在桌面上调试移动端操作。插件同时支持 Godot 3 与 4，自带配置项与 wiki 文档，仓库体积很小，接入成本低。官方曾推动把这些手势并入引擎原生事件，但相关 PR 仍未合并。",
+  "whatItDoes": "InputManager 作为自动加载脚本常驻运行，把底层 InputEventScreenTouch 与 InputEventScreenDrag 按时间、位移与手指数归类，达到阈值后生成对应的自定义输入事件并发出信号。开发者可以直接连接 single_tap 等信号，也可以在 _input 里匹配 InputEventSingleScreenSwipe 这类事件类。配置可调长按时长、滑动距离阈值等参数，鼠标模拟让单指操作在桌面也能触发同一套手势。",
+  "useCases": [
+    {"titleZh": "移动端手势操作", "descZh": "用滑动、长按与捏合手势控制角色或相机，让触屏操作不必自己写识别逻辑，省时省力，上手很快。"},
+    {"titleZh": "桌面调试触屏逻辑", "descZh": "开启鼠标模拟后，用鼠标在编辑器里测试单指点击、拖拽与滑动，免去每次上真机，提高调试效率。"},
+    {"titleZh": "多指缩放与旋转", "descZh": "借助捏合与旋转事件做地图缩放或转盘交互，多指手势已有现成实现，稳定可靠，可直接复用。"},
+    {"titleZh": "原型快速验证", "descZh": "原型阶段直接 autoload 一个脚本就能接入手势，不必引入重型输入框架，改造成本低，适合小项目。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "自动加载单例", "descZh": "InputManager.gd 作为 autoload 常驻，持续分析触摸并分发手势事件，也无需每帧手动轮询输入状态。"},
+    {"titleZh": "自定义输入事件类", "descZh": "十余个 InputEvent 子类覆盖单指与多指手势，可在 _input 中匹配并读取位置、方向与时间等字段。"},
+    {"titleZh": "手势信号", "descZh": "每个手势都有对应信号，连接后即可在脚本里响应而不必轮询，也便于解耦。"}
+  ],
+  "featureCallouts": [
+    {"name": "十余种手势", "descZh": "单击、双击、拖拽、滑动、长按、捏合、旋转及多指版本都有事件类与信号。"},
+    {"name": "信号与事件双通道", "descZh": "既可连接信号，也可在 _input 里判断自定义事件，接入方式灵活多样。"},
+    {"name": "鼠标转触摸", "descZh": "把鼠标按键与移动模拟成触摸，桌面调试移动端逻辑无需真机。"},
+    {"name": "可调识别参数", "descZh": "长按时长、滑动距离等阈值可配置，按项目手感微调识别灵敏度。"},
+    {"name": "兼容 Godot 3 与 4", "descZh": "同一套脚本在 3.x 与 4.x 都能运行，老项目迁移时改动较少。"}
+  ],
+  "limitsZh": "插件只做手势识别，不包含虚拟摇杆、按钮或多点触控的界面控件，复杂触控 UI 仍要自己搭。手势阈值是全局配置，不同界面需要不同灵敏度时要在脚本里临时改参数或自行封装。识别基于原始触摸事件的位移与时间，快速连击或轻微抖动可能被误判，需要实际设备上调阈值。它依赖自动加载脚本常驻，多个场景切换时状态会延续，必要时手动清理。项目虽仍更新，但文档主要在 wiki 与 README 表格，深入用法要读源码。",
+  "workflowZh": [
+    {"stepZh": "从发布页下载压缩包，把 InputManager.gd 解压到项目目录中"},
+    {"stepZh": "在项目设置自动加载页新增 InputManager.gd 并设为单例启用"},
+    {"stepZh": "在场景脚本里连接所需的单指或多指信号并处理"},
+    {"stepZh": "反复调长按时长与滑动阈值并实测匹配手势手感"},
+    {"stepZh": "需要桌面测试时打开鼠标模拟开关，再运行进行验证"}
+  ],
+  "pros": [
+    "只要一个自动加载脚本就能接入手势识别，几乎不用改现有输入代码，改动极小",
+    "单击、双击、拖拽、滑动、长按、捏合与旋转都覆盖，单指多指版本齐全，够用且实用",
+    "内置鼠标转触摸，桌面编辑器里就能测试点击、拖拽与滑动，不必每次打包真机",
+    "既可直接连接手势信号，也能在 _input 里匹配自定义事件，两种接法各有适用场景",
+    "同一套脚本兼容 Godot 3 与 4，老项目升级到 4 时手势逻辑基本可以照搬，省事"
+  ],
+  "cons": [
+    "插件只负责手势识别，虚拟摇杆、触控按钮与安全区适配都不提供，界面要自己搭",
+    "手势阈值全局生效，同一项目里不同界面需要不同灵敏度时，只能临时改参数或自己封装",
+    "README 多为手势表格与 wiki 链接，缺少完整教程，想改识别细节还得直接读源码"
+  ],
+  "pitfalls": [
+    "手指轻微抖动或快速连击可能被识别成滑动或长按，务必在真机上反复调阈值",
+    "自动加载单例跨场景常驻，手势计数与按下状态会延续，切换场景时要主动清理或重置",
+    "手势识别与 UI 按钮同时监听触摸时容易互相抢事件，要理清 _input 与 GUI 的传递顺序"
+  ],
+  "bestFor": "用 Godot 做移动端或触屏项目，需要滑动、长按、捏合、旋转等手势，但不想引入重型输入框架的独立开发者与小团队。",
+  "avoidWhenZh": "需要成套触控 UI 控件，或项目已用完整输入框架、只缺手势以外的功能、复杂摇杆。",
+  "compareTips": {"vs": ["GodotVR__godot-xr-tools"], "whenZh": "GDTIM 面向手机与触摸屏的平面手势识别，godot-xr-tools 面向 VR/XR 的控制器、手部与移动交互。做普通触屏手游选前者，做头显或 XR 项目选后者，两者输入模型完全不同。"},
+  "category": "ui",
+  "tags": ["触屏", "手势识别", "输入", "移动端", "鼠标模拟"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 4, "performance": 4, "stability": 4},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {"claim": "自动加载脚本即可开始分析触摸输入", "source": "README.md", "quote": "* Locate the extracted `InputManager.gd`, and [Autoload](https://docs.godotengine.org/en/3.4/tutorials/scripting/singletons_autoload.html) it."},
+    {"claim": "提供手势模拟相关文档", "source": "README.md", "quote": "### Gesture emulation"},
+    {"claim": "仍在推动手势成为引擎原生事件", "source": "README.md", "quote": "There are two active PRs that add some GDTIM gestures as native Godot events, one for [version 3.x](https://github.com/godotengine/godot/pull/37754) and one for [version 4.x](https://github.com/godotengine/godot/pull/39055), if you are interested, please show your support there."},
+    {"claim": "从发布页下载最新版本使用", "source": "README.md", "quote": "* Download the latest release from https://github.com/Federico-Ciuffardi/Godot-Touch-Input-Manager/releases"}
+  ]
+}

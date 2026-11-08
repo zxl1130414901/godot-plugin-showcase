@@ -1,0 +1,35 @@
+{
+  "id": "fenix-hub__godot-engine.easy-charts",
+  "descriptionZh": "用 Control 节点绘制折线、柱状、饼图与雷达图的轻量图表插件，整体接入成本不高。",
+  "category": "ui",
+  "tags": [
+    "图表",
+    "数据可视化",
+    "Control",
+    "UI",
+    "GDScript"
+  ],
+  "prosShort": [
+    "六种图表组件开箱即可用，团队上手也快。",
+    "纯 Control 跟随 UI 自适应，接入成本不高。",
+    "数据与样式都在检查器调，后续扩展方便。"
+  ],
+  "consShort": [
+    "只支持 Control 没有 3D，团队要提前评估。",
+    "大数据量重绘会卡 UI，规模化后更明显。",
+    "维护节奏慢文档略滞后，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 2,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

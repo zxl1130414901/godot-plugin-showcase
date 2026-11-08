@@ -1,0 +1,145 @@
+{
+  "id": "doceazedo__godot_wry",
+  "depth": "standard",
+  "taglineZh": "在 Godot 里嵌入系统原生浏览器来搭建游戏 UI",
+  "summaryZh": "Godot WRY 把 Rust 实现的跨平台 webview 库 WRY 封装成 Godot 4 扩展，让项目里出现一个能加载网址与 res:// 本地文件的浏览器节点。页面用 HTML、CSS 与 JavaScript 写，输入事件会转发给 webview，JavaScript 与 GDScript 之间可双向调用，适合做角色创建器、登录页、内嵌商城或帮助文档。它复用系统自带内核：Windows 走 WebView2，macOS 走 WebKit，Linux 走 WebKitGTK。安装可用 AssetLib 或预编译发行包，自行编译则需要 Rust 工具链与 just 构建脚本。仓库文档站点另有 API 参考、教程与各平台编译指南。",
+  "whatItDoes": "扩展在场景里提供一个 WebView 节点，内部拉起系统原生 webview 实例并渲染到纹理上。节点可加载远程网址或 res:// 下的本地页面，鼠标与键盘事件由引擎转发进去，页面里的 JavaScript 也能反过来调用 GDScript 方法。它把窗口尺寸、透明背景与焦点交给节点属性控制，示例工程里有一个用 HTML 做的角色创建器界面，可直接对照接入方式。",
+  "useCases": [
+    {
+      "titleZh": "用网页做游戏内 UI",
+      "descZh": "角色创建器、设置页与内嵌商城用 HTML、CSS 与 JavaScript 排版，改样式比重做一堆 Control 节点快得多，很适合界面频繁变动、需要快速试版的游戏项目。"
+    },
+    {
+      "titleZh": "内嵌登录与支付页",
+      "descZh": "把账号登录、订阅或支付流程放进 webview，页面由后端团队维护，游戏端只负责传参与接收回调，改文案与流程不必重新发版。"
+    },
+    {
+      "titleZh": "游戏内浏览器与帮助",
+      "descZh": "加载 Wiki、攻略站点或社区页面，玩家不必切出游戏去查资料，适合需要边玩边查阅大量文本的养成与模拟类游戏。"
+    },
+    {
+      "titleZh": "复用前端组件库",
+      "descZh": "团队已有 React 或 Vue 组件与设计系统，可直接在 webview 里渲染复用，省去在 Godot 里用 Control 节点重写一整套界面，还要维护主题与字体。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "WebView 浏览器节点",
+      "descZh": "可加入场景树的浏览器节点，负责加载网址或本地页面，并把鼠标与键盘输入送进页面，以及焦点状态。"
+    },
+    {
+      "titleZh": "JS 与 GDScript 桥",
+      "descZh": "一条双向调用通道，网页可以读取游戏状态，游戏脚本也能查询与操作页面元素，并对事件做出反应。"
+    },
+    {
+      "titleZh": "示例界面工程",
+      "descZh": "仓库里附了一个用 HTML 搭出来的角色创建器演示，可当作接入模板照着改成自己的界面，省去从零搭页面。"
+    },
+    {
+      "titleZh": "跨平台二进制",
+      "descZh": "按平台打包好的 Rust 扩展库，覆盖 Windows、macOS 与 Linux 三个桌面平台，解压即可使用，无需自行编译也能先跑起来看效果。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "原生内核",
+      "descZh": "复用系统自带 webview，不额外打包 Chromium，安装包体积和分发成本都更小，也不占额外内存。"
+    },
+    {
+      "name": "本地与远程页面",
+      "descZh": "既能打开在线网址，也能加载 res:// 里的本地 HTML 文件，离线界面同样可用，路径可写相对路径。"
+    },
+    {
+      "name": "输入事件转发",
+      "descZh": "鼠标移动、点击与键盘事件都会传进页面，表单、按钮与滚动都能正常交互，也支持触摸。"
+    },
+    {
+      "name": "脚本双向通信",
+      "descZh": "JavaScript 与 GDScript 可以互相调用，便于把网页表单与游戏玩法、存档串起来，也能回传信号。"
+    }
+  ],
+  "limitsZh": "平台覆盖不完整：Android、iOS 与 HTML5 仍标为计划中，Linux 只在 X11 下受支持，Wayland 与无桌面环境不保证可用。导出的游戏依赖目标机安装 WebView2 或 WebKitGTK，Linux 上还得处理运行库依赖，缺库时窗口直接白屏。扩展是 Rust 编译产物，自行构建要装 Rust 工具链与 just，交叉编译到各平台并不轻松。webview 渲染在独立进程或系统组件里，透明叠加、输入焦点与高分屏缩放偶有偏差，需要逐平台调。网页内容完全可信才行，加载外部页面等于把网络内容放进游戏进程边界。",
+  "workflowZh": [
+    {
+      "stepZh": "用 AssetLib 或发行包把 addons/godot_wry 整个目录放进项目的插件目录"
+    },
+    {
+      "stepZh": "在项目设置里启用插件，然后完整重启一次编辑器"
+    },
+    {
+      "stepZh": "新建一个 WebView 节点，填写网址或 res:// 的相对页面路径"
+    },
+    {
+      "stepZh": "用信号与 JS 桥把页面事件接进自己的游戏逻辑"
+    },
+    {
+      "stepZh": "按目标平台检查所需导出依赖与系统内核版本"
+    }
+  ],
+  "pros": [
+    "复用系统原生 webview，不必把整套 Chromium 打进游戏包，安装体积明显更小，启动也更快。",
+    "HTML 与 CSS 做界面效率高，复杂排版与动效比在 Godot 里重写 Control 控件省事，迭代也更快。",
+    "JavaScript 与 GDScript 可双向调用，网页和玩法能直接交换数据，不必经过中间文件转发。",
+    "官方发行包覆盖三大桌面平台，AssetLib 安装也方便，版本更新较勤且文档站点齐全。"
+  ],
+  "cons": [
+    "Android、iOS 与 HTML5 尚未支持，移动端项目完全用不上，只能做桌面版。",
+    "Linux 仅限 X11，依赖 WebKitGTK，缺库时页面直接白屏，Wayland 用户同样受影响。",
+    "Rust 扩展需按平台编译，自行构建门槛较高，交叉编译更麻烦。",
+    "webview 与引擎的焦点、缩放和透明叠加需要逐平台调，测试成本高。"
+  ],
+  "pitfalls": [
+    "Linux 上没装 WebKitGTK 时页面全白且没有报错，要先用系统包管理器补齐依赖再启动。",
+    "导出包不会自动带上平台运行库，测试机与开发机环境不同容易复现不了。",
+    "页面加载完成前调用 JS 接口会失败，需等加载信号后再发消息，最好稍等片刻。"
+  ],
+  "bestFor": "需要把网页界面塞进桌面游戏，或想复用现有前端组件做 UI，且主要面向 Windows 与 macOS 分发，能接受 Linux 额外配置运行库的团队。",
+  "avoidWhenZh": "项目要发移动端或 Web 版，或无法接受用户机器缺少 webview 运行库时出现白屏风险。",
+  "compareTips": {
+    "vs": [
+      "dsh0416__godot-cef",
+      "lihop__godot-xterm"
+    ],
+    "whenZh": "和基于 CEF 的 godot-cef 相比，WRY 不打包 Chromium，包体小但内核随系统，行为差异更多；要完全一致的渲染结果选 CEF，要轻量与更小的分发包选它，Linux 部署前务必先确认运行库。"
+  },
+  "category": "ui",
+  "tags": [
+    "WebView",
+    "UI",
+    "Rust",
+    "跨平台"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "定位是用原生 webview 搭浏览器与 GUI",
+      "source": "README.md",
+      "quote": "This extension allows you to use the native webview in Godot to build browsers and GUIs with HTML, CSS and JavaScript."
+    },
+    {
+      "claim": "支持 JS 与 GDScript 双向集成",
+      "source": "README.md",
+      "quote": "- 🧩 JavaScript ⇔ GDScript code integration"
+    },
+    {
+      "claim": "扩展最低兼容 Godot 4.1",
+      "source": "WRY.gdextension",
+      "quote": "compatibility_minimum = 4.1"
+    },
+    {
+      "claim": "推荐安装预编译发行包而非源码",
+      "source": "README.md",
+      "quote": "Download the latest release ZIP file (_not_ the source code)."
+    }
+  ]
+}

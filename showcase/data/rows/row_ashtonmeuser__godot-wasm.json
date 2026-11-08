@@ -1,0 +1,34 @@
+{
+  "id": "ashtonmeuser__godot-wasm",
+  "descriptionZh": "GDExtension 让 GDScript 加载与调用 WebAssembly 模块，支持沙箱与多语言，整体接入成本不高。",
+  "category": "platform-export",
+  "tags": [
+    "WebAssembly",
+    "沙箱",
+    "跨语言",
+    "GDExtension"
+  ],
+  "prosShort": [
+    "GDScript 调用接口很简单，团队上手也快。",
+    "Wasm 沙箱适合加载不可信模组",
+    "支持 Wasmer 与 Wasmtime 双运行时，接入成本不高。"
+  ],
+  "consShort": [
+    "仍需自行编译二进制，团队要提前评估。",
+    "只支持整数浮点返回值，规模化后更明显。",
+    "Web 导出与完整 WASI 不支持，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

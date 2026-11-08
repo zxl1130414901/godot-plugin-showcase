@@ -1,0 +1,35 @@
+{
+  "id": "supabase-community__godot-engine.supabase",
+  "descriptionZh": "把 Supabase 的认证、数据库、实时订阅与存储封装成 GDScript 节点与信号的后端插件",
+  "category": "network",
+  "tags": [
+    "Supabase",
+    "后端",
+    "账号",
+    "数据库",
+    "实时同步"
+  ],
+  "prosShort": [
+    "认证、数据库、实时与存储全覆盖",
+    "配置进项目设置，不写死密钥",
+    "链式查询与信号回调贴合 GDScript"
+  ],
+  "consShort": [
+    "默认分支只支持 Godot 3.x，4.x 要另切分支",
+    "无离线缓存，也没有请求重试队列",
+    "文档依赖外部 wiki，仓库内示例偏少"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "idlerunner00__procedural-pixel-creatures",
+  "descriptionZh": "用 C# 程序化生成像素生物的体型、配色与动画，并可繁殖导出精灵表的实验场",
+  "category": "asset-pipeline",
+  "tags": [
+    "程序化生成",
+    "像素美术",
+    "C#",
+    "精灵表",
+    "生物"
+  ],
+  "prosShort": [
+    "体型配色动画全部代码生成",
+    "锁定满意性状再重掷，调型更高效",
+    "可导出精灵表与 JSON 基因组数据"
+  ],
+  "consShort": [
+    "自动安装脚本以 Windows 为主，其他平台要手动配",
+    "同屏百只生物时性能吃紧，需控制数量",
+    "代码由大模型主导，边界处理欠打磨"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

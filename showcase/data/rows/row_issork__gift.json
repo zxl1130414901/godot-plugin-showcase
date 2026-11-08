@@ -1,0 +1,35 @@
+{
+  "id": "issork__gift",
+  "descriptionZh": "Twitch 聊天接入插件，支持 IRC 与 EventSub 通道及多种 OAuth 流程。",
+  "category": "network",
+  "tags": [
+    "Twitch",
+    "IRC",
+    "EventSub",
+    "OAuth授权",
+    "聊天指令"
+  ],
+  "prosShort": [
+    "IRC 与 EventSub 双通道",
+    "OAuth 流程覆盖完整",
+    "命令带权限参数校验与聊天复刻示例"
+  ],
+  "consShort": [
+    "版本标注为 alpha",
+    "README 简略缺安装说明",
+    "需 Twitch 应用才能测试"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

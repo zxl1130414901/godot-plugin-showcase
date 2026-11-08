@@ -1,0 +1,149 @@
+{
+  "id": "paulloz__godot-ink",
+  "taglineZh": "把 ink 叙事脚本接入 Godot 4 的对话与分支工具",
+  "summaryZh": "GodotInk 把 inkle 的 ink 叙事脚本运行时接进 Godot 4，编译后的 story 可在 GDScript 与 C# 里查询、选择分支、保存状态并触发变量观察。它提供导入器与 InkPlayer 节点，对话文本、选项与标签都能直接取用，适合视觉小说、叙事冒险与分支剧情。代价是安装要改 csproj 并先构建 C# 程序集，即使主逻辑用 GDScript 也绕不开 .NET；ink 语法与编译流程要单独学。它把剧本与游戏逻辑分开，编剧可以独立迭代。",
+  "whatItDoes": "导入 ink 编译产物并在运行时推进 story，向脚本提供文本、选项、标签与状态存档接口，同时监听剧情变量变化。",
+  "useCases": [
+    {
+      "titleZh": "视觉小说对话",
+      "descZh": "视觉小说把 ink 剧本编译进项目，用 InkPlayer 推进对话并按选项跳转，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "剧情驱动状态",
+      "descZh": "叙事冒险需要在对话里改游戏状态，用 ink 变量观察回调触发任务与音效，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "编剧独立迭代",
+      "descZh": "做分支剧情原型，编剧只改 ink 文件，程序不改代码就能看到新分支，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "对话进度存档",
+      "descZh": "需要保存对话进度，用 story 状态的序列化接口读写存档，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "InkPlayer 节点",
+      "descZh": "包装 ink story 的运行时节点，提供继续、选择与变量查询接口，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "INK 导入器",
+      "descZh": "把 ink 与 json 编译产物导入为资源，编辑器里可直接预览结构，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "变量观察器",
+      "descZh": "监听 ink 变量变化并发出信号，用于驱动游戏状态与界面更新，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "GDScript 与 C#",
+      "descZh": "两套 API 对齐，团队可按模块选择脚本语言，参数集中在检查器面板。"
+    },
+    {
+      "name": "分支与标签",
+      "descZh": "读取选项、标签与段落元数据，做选项样式与跳转逻辑，后续修改起来也不费劲。"
+    },
+    {
+      "name": "状态存档",
+      "descZh": "序列化 story 状态为字符串，可随存档写入并恢复进度，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "变量回调",
+      "descZh": "变量变化触发信号，剧情条件能直接影响玩法，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "剧本外置",
+      "descZh": "ink 文件独立于场景，编剧改完重新导入即可生效，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "安装流程要求项目有 csproj 并导入 props、构建一次，纯 GDScript 项目也要装 .NET 版引擎，门槛比一般插件高。它绑定 Godot 4，Godot 3 要用另一分支。ink 的编译错误只在导入时提示，复杂剧本定位要靠 inky 编辑器。插件不提供对话 UI，打字机效果、选项按钮与历史记录都要自己搭。运行时错误如选项索引越界会中断 story，需要自己包一层保护。C# 与 GDScript 示例不完全对称，跨语言项目要核对 API。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 .NET 版 Godot 并创建 C# 解决方案，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "把 addons 目录放进项目并导入 props，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "构建一次项目生成程序集，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "在项目设置里启用 GodotInk，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "放入 ink 文件并由导入器生成资源，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "用 InkPlayer 推进对话并处理选项，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "剧本与代码分离，编剧可以独立改剧情并快速验证，团队新人照着示例就能上手。",
+    "同时提供 GDScript 与 C# 接口，脚本选型不受限，出现问题时也更容易定位原因。",
+    "选项、标签与变量回调齐全，分支玩法实现直接，对中小团队的时间成本很友好。",
+    "支持 story 状态序列化，对话存档接入简单，长期维护与升级的压力都比较小。",
+    "MIT 许可且文档示例完整，商业项目可放心用，实际项目落地时省下大量重复工作。"
+  ],
+  "cons": [
+    "必须构建 C# 程序集，纯 GDScript 项目也要装 .NET，升级引擎版本时容易卡住。",
+    "不提供对话 UI，打字机与选项界面都要自己写，定制之前往往要先读源码。",
+    "ink 语法与编译流程要额外学习，报错定位偏难，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "项目没有 csproj 就只复制 addons，导入器不会工作，先创建 C# 解决方案。",
+    "选项索引在剧情更新后变化，硬编码下标会跳到错误分支，上线前要专门过一遍。",
+    "忘记保存 story 状态就切场景，重进对话会从剧本开头重来，排查时需要多留一层日志。"
+  ],
+  "bestFor": "要做视觉小说、叙事冒险或大量分支剧情，并愿意用 ink 管理剧本的 Godot 4 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只需要简单线性对话，或团队完全不想引入 .NET 与 ink 编译流程，用轻量对话插件更省事。",
+  "compareTips": {
+    "vs": [
+      "nathanhoad__godot_dialogue_manager",
+      "dialogic-godot__dialogic"
+    ],
+    "whenZh": "三者都做对话：GodotInk 用 ink 脚本、编剧可独立迭代，适合复杂分支；Dialogue Manager 用自定义 DSL 轻量直接；Dialogic 是带编辑器的完整叙事系统。要复杂分支与外部剧本科选 GodotInk，要代码内对话选前者，要可视化时间线选 Dialogic。"
+  },
+  "category": "visual-script",
+  "tags": [
+    "叙事",
+    "对话系统",
+    "ink",
+    "分支剧情",
+    "C#"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "快速入门与完整文档在项目 wiki",
+      "source": "README.md",
+      "quote": "You'll find a quick-start guide, and the general documentation on the project's"
+    },
+    {
+      "claim": "安装假设已有 Godot 与 .NET 环境",
+      "source": "README.md",
+      "quote": "The following instructions assume that you have a working Godot and .NET installation."
+    },
+    {
+      "claim": "导入后需构建一次项目",
+      "source": "README.md",
+      "quote": "Build your project once."
+    },
+    {
+      "claim": "插件描述为 ink 叙事脚本集成",
+      "source": "addons/GodotInk/plugin.cfg",
+      "quote": "An integration for ink, a powerful narrative scripting language."
+    }
+  ],
+  "depth": "standard"
+}

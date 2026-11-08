@@ -1,0 +1,144 @@
+{
+  "id": "appsinacup__godot-softbody2d",
+  "depth": "standard",
+  "taglineZh": "从贴图一键生成可形变、可破裂的 2D 软体",
+  "summaryZh": "这个插件把一张带透明边缘的贴图转成由 RigidBody2D、Joint2D 与 Skeleton2D 组成的软体，支持果冻回弹、破洞、切割与缩放，并提供调试绘制。安装只需拷贝 addons 目录，但要求 Godot 4.4+，力驱动断裂还要切到 Rapier 物理；骨段数量上去后性能与稳定性会明显下滑，堆叠场景并不适合，选型前建议结合团队实际评估，更适合作为该品类的专用工具。",
+  "whatItDoes": "从 Texture2D 的 alpha 边缘提取多边形，向内生成规则分区的骨段，删除多边形外的部分后绑定到 Skeleton2D，从而用刚体与关节驱动贴图形变。支持挖洞纹理、按力或按距离断裂、运行时 cut()、整体缩放，以及调试绘制骨段与关节。附带 5 个演示场景与自动化测试。",
+  "useCases": [
+    {
+      "titleZh": "果冻角色",
+      "descZh": "史莱姆、布丁一类需要挤压回弹的 2D 主角，用贴图直接生成软体骨架，省去手工绑骨，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "可破坏障碍",
+      "descZh": "需要被击穿或断裂的软体墙、藤蔓，用断裂模式替换静态碰撞体，命中后即时变形，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "切割玩法",
+      "descZh": "水果忍者式切割玩法，用 cut 接口在命中点断开软体并保留切口形变，无需预做破碎模型。"
+    },
+    {
+      "titleZh": "物理演示原型",
+      "descZh": "快速搭出软体、刚体、可拾取物体混排的演示场景，验证手感与参数再进正式关卡，对独立开发者尤其友好且后续扩展方便。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "软体节点",
+      "descZh": "可直接加入场景的 SoftBody2D 节点与配套 Skeleton2D 骨架，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "可破坏贴图体",
+      "descZh": "带断裂阈值与切割接口的软体实例，运行时能重建拓扑与骨段，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "调试可视化",
+      "descZh": "骨段、关节与应力状态的调试绘制层，便于观察形变问题，可以直接放进项目里使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "SoftBody2D 节点",
+      "descZh": "从贴图自动生成骨段与关节，添加节点即可得到可用软体，参数集中在检查器面板。"
+    },
+    {
+      "name": "cut()",
+      "descZh": "运行时在指定位置切断软体并重建拓扑，支持连续切割，后续修改起来也不费劲。"
+    },
+    {
+      "name": "break_mode",
+      "descZh": "按距离或按力触发断裂，后者需要切换到 Rapier 物理，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "hole 纹理",
+      "descZh": "识别贴图内部透明孔洞，生成环形软体与对应骨段，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "debug_draw",
+      "descZh": "显示骨段、关节与受力状态，方便对照调参与排查穿透，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "软体由大量刚体与关节拼成，骨段密度越高物理开销越大，几十个软体同屏就会明显掉帧，移动端尤其吃紧。最低要求 Godot 4.4，旧版 4.x 无法使用；力驱动断裂依赖 Godot Rapier Physics，默认物理引擎下只能走距离断裂。软体是 2D 骨架近似，没有真正的体积与自碰撞，叠压、堆叠场景的表现不如专业软体求解器。纹理需要干净 alpha 边缘，模糊或半透明边缘会生成畸形轮廓，需先处理美术资源。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录拷入项目并在项目设置中启用插件"
+    },
+    {
+      "stepZh": "准备边缘清晰的贴图，需要孔洞时再准备内层贴图"
+    },
+    {
+      "stepZh": "添加 SoftBody2D 节点并指定纹理与骨段密度"
+    },
+    {
+      "stepZh": "调整刚度、关节可达范围与断裂阈值"
+    },
+    {
+      "stepZh": "按需切换 Rapier 物理或调用 cut 接口，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "从贴图自动生成骨架，省去手工绑骨与逐个关节布置，团队新人照着示例就能上手。",
+    "断裂、切割、挖洞等玩法接口齐全，可直接接战斗逻辑，出现问题时也更容易定位原因。",
+    "附带演示场景与自动化测试，改参数后能快速回归验证，对中小团队的时间成本很友好。",
+    "纯 GDScript 实现，可直接阅读源码并按项目需要改写，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "刚体数量随骨段密度上升，同屏多个软体时性能开销大",
+    "必须使用 Godot 4.4+，旧项目与 4.3 工程无法直接接入",
+    "力驱动断裂强依赖 Rapier 物理引擎，默认物理下功能缺失"
+  ],
+  "pitfalls": [
+    "半透明或模糊边缘会让轮廓生成失败甚至出现尖刺，需先修图",
+    "骨段密度过高会引发关节抖动与穿透，反而更难调，上线前要专门过一遍。",
+    "替换物理引擎后，原有断裂阈值与刚度参数需重新标定，排查时需要多留一层日志。"
+  ],
+  "bestFor": "2D 独立游戏需要果冻角色、可破坏软体或切割玩法，且能接受 Godot 4.4 与物理开销的开发团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "同屏软体数量很多、面向低端移动设备，或项目仍停留在 Godot 4.3 及更早版本时。",
+  "compareTips": {
+    "vs": [
+      "monxa__GodotIK"
+    ],
+    "whenZh": "两者都做程序化形变控制：SoftBody2D 用刚体与关节驱动贴图软体，偏 2D 物理表现；GodotIK 用反向动力学求解 3D 骨骼链，偏角色姿态。一个面向果冻与破坏，一个面向骨骼对齐，场景几乎不重叠。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "2D物理",
+    "软体",
+    "可破坏",
+    "纹理生成",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "用刚体与关节加骨架实现贴图形变",
+      "source": "README.md",
+      "quote": "Adds the SoftBody2D node which creates a set of RigidBody2Ds and Joint2Ds used with a Skeleton2D in order to deform the texture."
+    },
+    {
+      "claim": "最低要求 Godot 4.4",
+      "source": "README.md",
+      "quote": "Requires Godot 4.4 or newer."
+    },
+    {
+      "claim": "力驱动断裂需要 Rapier",
+      "source": "README.md",
+      "quote": "Force based breaking (`break_mode = FORCE`) needs [Godot Rapier Physics]"
+    },
+    {
+      "claim": "支持切割与调试绘制等新特性",
+      "source": "README.md",
+      "quote": "shape holding `joint_reach`, force based breaking, `cut()`, `edge_clearance`, `bake_scale` and `debug_draw`"
+    }
+  ]
+}

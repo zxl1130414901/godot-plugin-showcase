@@ -1,0 +1,152 @@
+{
+  "taglineZh": "为 Godot 4.4 做的 3D 关卡摆放与资产浏览工具",
+  "summaryZh": "Scene Builder 想在 Godot 编辑器里复刻关卡设计软件的手感：把常用 3D 场景做成可点选的条目，选中后直接在视口里刷到碰撞体表面，配合旋转、偏移、缩放模式与网格吸附快速铺场景。它还带一个资产浏览器 Dock、命令面板与一批生产力命令，条目和分类由 SceneBuilderItem 资源组织。它只处理 Node3D 场景，且只能放在碰撞形状上，插件版本号仍是 0.0。",
+  "whatItDoes": "插件提供 Scene Builder Dock 与命令面板两部分：Dock 从 res://Data/scene_builder/ 下的 CollectionNames 与 SceneBuilderItem 资源读取条目并显示图标，选中条目后在视口点击碰撞体即可实例化，快捷键切换 X/Y/Z 旋转、偏移与缩放模式。scene_builder_commands.gd 注册命令并监听快捷键，行为可通过 scene_builder_config.tres 调整根目录、热键开关与命令面板按键。",
+  "useCases": [
+    {
+      "titleZh": "关卡搭建",
+      "descZh": "3D 箱庭或地牢关卡需要反复摆墙、道具与装饰，用条目面板刷场景比每次拖 tscn 快得多。"
+    },
+    {
+      "titleZh": "资产浏览",
+      "descZh": "素材量大时用 Dock 按分类浏览 3D 场景条目，右键即可回到文件系统定位源场景，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "关卡原型",
+      "descZh": "原型阶段要一天铺出可走的场景，配合网格吸附与旋转模式能快速对齐模块，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "团队规范",
+      "descZh": "把常用模块做成统一条目集合，新人按分类取用，减少随手复制导致的命名混乱，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "生产力命令",
+      "descZh": "常用编辑器操作集中到命令面板，用一个按键调用，减少在多层菜单里翻找，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "关卡摆放 Dock",
+      "descZh": "带分类与图标的条目面板，选中后可在视口连续放置 Node3D 场景，摆放结果就是普通节点。"
+    },
+    {
+      "titleZh": "条目资源",
+      "descZh": "SceneBuilderItem 与 CollectionNames 资源，用来描述可放置内容与分类，Dock 启动时按分类读取并显示图标。"
+    },
+    {
+      "titleZh": "命令面板",
+      "descZh": "把常用编辑器命令集中到一个可搜索入口，命令与快捷键集中在一处管理。"
+    },
+    {
+      "titleZh": "配置文件",
+      "descZh": "scene_builder_config.tres 控制数据根目录、热键开关与面板按键，改配置不用动插件源码。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "表面放置",
+      "descZh": "只允许放在碰撞形状上，自带表面法线对齐，贴墙贴地不用手动调朝向。"
+    },
+    {
+      "name": "旋转与缩放模式",
+      "descZh": "数字键切换 X/Y/Z 旋转、偏移与缩放模式，方括号按九十度步进。"
+    },
+    {
+      "name": "网格吸附",
+      "descZh": "放置时按网格对齐，模块化关卡能拼得整齐，避免出现缝隙，铺地板时不用逐个调坐标。"
+    },
+    {
+      "name": "条目分类",
+      "descZh": "Dock 按 CollectionNames 分类显示，适合把大量模块分成墙体、道具与装饰，新增分类不需要改代码。"
+    },
+    {
+      "name": "命令面板",
+      "descZh": "反引号唤出，可搜索并执行插件注册的各类生产力命令，常用操作集中在一个入口。"
+    }
+  ],
+  "limitsZh": "README 限定只处理 Node3D 场景，且模型只能放在碰撞形状上，没有碰撞体的装饰物无法直接刷；2D 项目完全用不上。安装时若把整个仓库克隆进 addons 会出现 addons/scene_builder/addons/scene_builder 的嵌套路径，需要自己整理目录，否则插件识别不到。plugin.cfg 版本号还是 0.0，功能与接口仍在调整；Dock 需要先准备 CollectionNames 与条目资源，空项目里打开是空的，配置门槛不低。",
+  "workflowZh": [
+    {
+      "stepZh": "把 scene_builder 放到 res://addons 并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在配置资源里确认数据根目录与命令面板按键。"
+    },
+    {
+      "stepZh": "编辑 CollectionNames 资源，生成对应的分类文件夹。"
+    },
+    {
+      "stepZh": "为每个可放置场景创建 SceneBuilderItem 条目，Dock 刷新后即可看到新分类。"
+    },
+    {
+      "stepZh": "在 Dock 选中条目，切到视口点击碰撞体摆放。"
+    }
+  ],
+  "pros": [
+    "把场景摆放从拖文件变成点选刷取，铺量大的 3D 关卡能明显提速。",
+    "表面法线对齐与网格吸附都在，模块化场景拼起来整齐，返工更少。",
+    "条目按分类组织，团队可以共享同一套模块库，减少重复劳动与命名混乱。",
+    "README 覆盖快捷键、配置与实现结构，还配了快速上手视频，团队新人照着示例就能上手。"
+  ],
+  "cons": [
+    "只支持 Node3D 与碰撞体表面，2D 与无碰撞装饰物用不了",
+    "Dock 需要先建条目与分类资源，空项目里配置门槛偏高",
+    "版本号 0.0，接口仍在变动，长期维护依赖单一作者"
+  ],
+  "pitfalls": [
+    "整仓克隆进 addons 会多一层嵌套目录，插件面板里可能找不到它。",
+    "条目资源没建好时 Dock 是空的，容易误判为插件没有生效，上线前要专门过一遍。",
+    "放置只认碰撞形状，没有碰撞体的装饰物点了也不会有反应。"
+  ],
+  "bestFor": "做 3D 箱庭、地牢或模块化关卡，需要频繁摆放场景模块并希望统一资产分类的关卡设计者，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "做 2D 项目，或不愿意先整理条目与分类资源就想直接摆放时。",
+  "compareTips": {
+    "vs": [
+      "Zylann__godot_editor_debugger_plugin"
+    ],
+    "whenZh": "两者都是编辑器内的工作流插件：scene-builder 服务 3D 关卡摆放与资产浏览，editor_debugger_plugin 服务排查编辑器自身场景树的问题。做关卡选前者，做编辑器扩展或查插件报错选后者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "关卡设计",
+    "3D",
+    "资产浏览",
+    "编辑器插件",
+    "场景摆放"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4.4 的 3D 关卡设计与资产浏览工具",
+      "source": "README.md",
+      "quote": "Scene Builder is a 3D level design tool and asset browser for  [Godot 4.4+](https://godotengine.org/), together with a set of common productivity commands."
+    },
+    {
+      "claim": "只处理 Node3D 场景且只能放在碰撞形状上",
+      "source": "README.md",
+      "quote": "Scene builder is made to serve as a scene browser and scene placer for scenes of type Node3D. Scenes may only be placed on collision shapes."
+    },
+    {
+      "claim": "整仓放入 addons 会形成嵌套目录",
+      "source": "README.md",
+      "quote": "which means that a recursive directory pattern will exist"
+    },
+    {
+      "claim": "插件版本号仍为 0.0",
+      "source": "addons/scene_builder/plugin.cfg",
+      "quote": "version=\"0.0\""
+    }
+  ],
+  "id": "sci-comp__scene-builder",
+  "depth": "standard"
+}

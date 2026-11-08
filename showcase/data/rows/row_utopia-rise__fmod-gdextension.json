@@ -1,0 +1,35 @@
+{
+  "id": "utopia-rise__fmod-gdextension",
+  "descriptionZh": "把 FMOD Studio 事件、总线与 3D 定位音频接入 Godot 的原生扩展，整体接入成本不高。",
+  "category": "audio",
+  "tags": [
+    "音频中间件",
+    "FMOD",
+    "GDExtension",
+    "3D音效",
+    "交互式音乐"
+  ],
+  "prosShort": [
+    "事件总线与3D定位能力齐全",
+    "bank 支持实时更新音频，团队上手也快。",
+    "桌面移动与Web都有预编译库"
+  ],
+  "consShort": [
+    "必须同时匹配引擎与FMOD版本",
+    "C# 项目拿不到绑定，团队要提前评估。",
+    "FMOD 商业授权另算成本，规模化后更明显。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

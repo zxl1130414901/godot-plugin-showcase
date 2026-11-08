@@ -1,0 +1,35 @@
+{
+  "id": "paulloz__godot-ink",
+  "descriptionZh": "把 ink 叙事脚本与分支剧情接入 Godot 4 的对话运行时插件，整体接入成本不高。",
+  "category": "visual-script",
+  "tags": [
+    "叙事",
+    "对话系统",
+    "ink",
+    "分支剧情",
+    "C#"
+  ],
+  "prosShort": [
+    "剧本与代码分离便于编剧迭代",
+    "GDScript 与 C# 双接口，团队上手也快。",
+    "支持分支标签与状态存档，接入成本不高。"
+  ],
+  "consShort": [
+    "安装需构建 C# 程序集，团队要提前评估。",
+    "不提供对话 UI 要自己搭，规模化后更明显。",
+    "ink 语法与编译流程需学习，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,139 @@
+{
+  "id": "daenvil__MarkdownLabel",
+  "depth": "standard",
+  "taglineZh": "用 Markdown 代替 BBCode 渲染富文本的自定义节点",
+  "summaryZh": "MarkdownLabel 是继承自 RichTextLabel 的自定义节点，把富文本的书写格式从 BBCode 换成 Markdown。作者最初是为了在游戏里直接展示仓库里的致谢与更新日志，避免同一段文字维护两份格式。使用方式简单：在场景里添加节点后填写 markdown_text 字段，或用 display_file 方法直接导入 Markdown 文件；节点的 bbcode_enabled 与 text 属性被隐藏，避免误改破坏解析。支持的语法覆盖代码、标题、链接、水平分割线、图片、列表与任务清单、表格、字符转义与国际化，另有高级用法章节。README 也坦诚说明它不适合运行时频繁修改的文本，性能不及原生 BBCode。",
+  "whatItDoes": "把 Markdown 文本解析成 RichTextLabel 可显示的富文本，并在内部自动开启 BBCode 以完成格式化。支持直接从 .md 文件导入内容，适合致谢、更新日志、帮助说明等静态长文。保留 RichTextLabel 的其余属性，开发者仍可照常设置滚动、换行与主题样式。",
+  "useCases": [
+    {
+      "titleZh": "游戏内致谢与更新日志",
+      "descZh": "直接读取仓库里的 Markdown 文件展示，避免为游戏单独维护一份排版文本。"
+    },
+    {
+      "titleZh": "帮助与说明文档",
+      "descZh": "用标题、列表与表格组织说明内容，比手写 BBCode 更易维护。"
+    },
+    {
+      "titleZh": "包含代码片段的界面",
+      "descZh": "在设置说明或教程里展示代码块，借助代码语法渲染呈现。"
+    },
+    {
+      "titleZh": "多语言说明文本",
+      "descZh": "结合插件的国际化支持，用多份 Markdown 文件承载不同语言的说明。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Markdown 富文本框",
+      "descZh": "可直接填写 markdown_text 或导入文件的界面节点。"
+    },
+    {
+      "titleZh": "格式化后的长文界面",
+      "descZh": "含标题、列表、表格、图片与链接的排版结果。"
+    },
+    {
+      "titleZh": "可复用的 md 内容",
+      "descZh": "与仓库共用的 Markdown 文件，减少格式重复维护。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "表格与列表",
+      "descZh": "支持表格、有序无序列表，以及带复选框的任务清单项。"
+    },
+    {
+      "name": "文件直接导入",
+      "descZh": "用 display_file 方法读取 .md 文件内容并显示。"
+    },
+    {
+      "name": "转义与国际化",
+      "descZh": "提供字符转义规则与多语言文本支持。"
+    },
+    {
+      "name": "属性保护",
+      "descZh": "隐藏 bbcode_enabled 与 text，避免误改破坏解析。"
+    }
+  ],
+  "limitsZh": "README 的 Disclaimer 与 Limitations 写得相当直接：作者自述是快速写成、此前并不了解如何正确解析 Markdown，可能存在低效与 bug，并考虑日后改写成 C++ 以提升性能。节点定位是静态文本，明确不建议用于运行时频繁修改的内容，每次文本变化都涉及重新解析，开销高于原生 BBCode。部分 Markdown 语法元素尚未支持，遇到不认识的写法会按原样显示或丢失格式。要兼容 Godot 4.2 以上，4.4 之后另有 uid 文件，跨版本使用时仍需确认文件完整性；安装后可能还需要重载项目才能正常识别节点。仓库根目录的 README 只有一行指引，实质内容都在 addons 子目录里，通过 GitHub 首页进入时容易误以为文档缺失。",
+  "workflowZh": [
+    {
+      "stepZh": "下载 addons 目录合并到工程，或用 AssetLib 安装。"
+    },
+    {
+      "stepZh": "在项目设置中启用 MarkdownLabel 插件，必要时重载项目。"
+    },
+    {
+      "stepZh": "在场景中挂载 MarkdownLabel 节点。"
+    },
+    {
+      "stepZh": "填写 markdown_text，或调用 display_file 加载 md 文件。"
+    },
+    {
+      "stepZh": "调整 RichTextLabel 其余属性完成滚动与样式设置。"
+    }
+  ],
+  "pros": [
+    "用 Markdown 书写富文本，比 BBCode 更易读易维护。",
+    "语法覆盖表格、列表、代码、图片与任务清单。",
+    "可直接读取 md 文件，与仓库文档共用一份内容。",
+    "文档详尽，含限制说明与国际化和高级用法。"
+  ],
+  "cons": [
+    "运行时频繁改文本性能不佳。",
+    "部分 Markdown 语法元素尚不支持。",
+    "根目录 README 过短，实质文档藏在 addon 内。"
+  ],
+  "pitfalls": [
+    "手动打开 bbcode_enabled 或改写 text 属性会破坏解析，应通过 markdown_text 设置内容。",
+    "把该节点用于每帧刷新的动态文本，会因反复解析造成明显开销。"
+  ],
+  "bestFor": "适合在游戏内展示致谢、更新日志、帮助说明等静态长文，并希望与仓库 Markdown 共用内容的项目。",
+  "avoidWhenZh": "需要高频更新的动态文本、或对渲染性能有严格预算的界面，应直接使用原生 BBCode 与 RichTextLabel。",
+  "compareTips": {
+    "vs": [
+      "rakugoteam__VisualNovelKit"
+    ],
+    "whenZh": "VisualNovelKit 的 AdvancedText 面向对白演出并支持多种标记混用，MarkdownLabel 专注把静态 Markdown 文件渲染成界面文本，用途一个偏叙事、一个偏说明文档。"
+  },
+  "category": "ui",
+  "tags": [
+    "Markdown",
+    "富文本",
+    "RichTextLabel",
+    "文档展示",
+    "自定义节点"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "节点继承 RichTextLabel，用 Markdown 替代 BBCode",
+      "source": "addons/markdownlabel/README.md",
+      "quote": "A custom [Godot](https://godotengine.org/) node that extends [RichTextLabel](...) to use Markdown instead of BBCode."
+    },
+    {
+      "claim": "兼容 Godot 4.2 以上，并为 4.4 提供 uid 文件",
+      "source": "addons/markdownlabel/README.md",
+      "quote": "Compatible with **Godot 4.2+**. Contains uid files for Godot 4.4+."
+    },
+    {
+      "claim": "不建议用于运行时动态修改的文本",
+      "source": "addons/markdownlabel/README.md",
+      "quote": "It's not recommended to use this for text which is dynamically modified at run time."
+    },
+    {
+      "claim": "性能不及原生 BBCode",
+      "source": "addons/markdownlabel/README.md",
+      "quote": "Obviously using BBCode will be better performance-wise since it's natively integrated in Godot."
+    }
+  ]
+}

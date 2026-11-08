@@ -1,0 +1,69 @@
+{
+  "id": "chickensoft-games__GodotEnv",
+  "depth": "standard",
+  "taglineZh": "用一条命令统一管理 Godot 版本切换与项目插件安装",
+  "summaryZh": "GodotEnv 是一个用 .NET 写的命令行工具，帮你在 Windows、macOS 与 Linux 上统一管理 Godot 引擎版本和项目插件。它能自动下载解压多个 Godot 版本，用软链接切换当前使用的版本，并维护一个指向活动版本的 GODOT 环境变量，让脚本与编辑器命令始终调用同一份引擎。插件管理走项目根目录的 addons.json，可从本地路径、远程 git 仓库或软链接安装，还支持插件之间声明依赖并生成扁平依赖图，替代长期难维护的 git submodule。首次使用需先装 .NET SDK 与 git，再全局安装命令行。",
+  "whatItDoes": "它把 Godot 版本安装与项目插件依赖两件事都收进一条 CLI。版本侧下载引擎包并解压到统一目录，通过切换软链接改变活动版本，同时更新 GODOT 环境变量，让终端、脚本与 CI 都指向同一份引擎。插件侧读取项目根目录的 addons.json，按条目从本地路径、远程 git 仓库或软链接拉取，遇到插件互相依赖时按扁平依赖图解析并去重，最后落地到 addons 目录。工具本身是 .NET 全局命令，不会往项目里塞运行时。",
+  "useCases": [
+    {"titleZh": "多版本并行开发", "descZh": "同时在维护 Godot 3 与 Godot 4 的老项目和新项目，用一条命令切换活动版本，不必手动改 PATH 或重装引擎，切换后终端与编辑器都指向新版本。"},
+    {"titleZh": "团队统一引擎版本", "descZh": "把版本号写进项目文档，新成员装好 .NET 后一条命令拉取同一版本引擎，配合 GODOT 环境变量让所有人的构建脚本行为一致。"},
+    {"titleZh": "插件依赖集中声明", "descZh": "用项目根目录的 addons.json 声明插件来源与依赖，新克隆的项目执行一次安装就能补齐全部插件，省掉逐个复制的重复操作。"},
+    {"titleZh": "CI 流水线固定版本", "descZh": "在持续集成里安装 CLI 后按配置下载指定 Godot 版本，构建环境不再依赖镜像里预装的引擎，复现构建问题更容易。"},
+    {"titleZh": "替代 git 子模块", "descZh": "把原本用 git submodule 管理的插件改写成 addons.json 条目，升级与回滚只改一行来源，团队里再没人被子模块状态困住。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "版本切换目录", "descZh": "把多个 Godot 版本解压到统一目录，用软链接指向当前活动版本，切换时只动链接不动文件，因此切换很快。"},
+    {"titleZh": "GODOT 环境变量", "descZh": "自动维护一个指向活动版本的环境变量，让终端、脚本与 CI 命令不必硬编码引擎路径。"},
+    {"titleZh": "addons.json 清单", "descZh": "项目根目录维护一份插件来源清单，支持本地路径、远程仓库与软链接三种来源，安装结果落到 addons 目录。"},
+    {"titleZh": "扁平依赖图", "descZh": "允许插件声明对其他插件的依赖，安装时按扁平关系解析顺序并去重，避免重复拉取同一份代码。"}
+  ],
+  "featureCallouts": [
+    {"name": "一条命令装引擎", "descZh": "直接从命令行下载并解压官方 Godot 版本，省去手动找下载页与逐包解压的步骤。"},
+    {"name": "软链接切换版本", "descZh": "切换活动版本只是改一条软链接，项目配置与构建脚本无需改动，回退旧版本也同样迅速。"},
+    {"name": "自动生成配置文件", "descZh": "首次接入时自动写好 .gitignore 与 addons 目录的编辑器配置，省去手工整理项目结构的琐事。"},
+    {"name": "跨平台命令", "descZh": "在 Windows、macOS 与 Linux 上都提供同一套命令，成员换系统后不必重新熟悉操作流程，减少磨合。"},
+    {"name": "扁平依赖图", "descZh": "插件之间的依赖交给扁平依赖图统一解析，重复来源自动合并，安装结果稳定且可预测。"}
+  ],
+  "limitsZh": "GodotEnv 本身不是 Godot 插件，而是单独的 .NET 命令行工具，必须先装 .NET SDK 与 git，并在 shell 里配好可用环境，否则下载、拉取与软链接都会失败。安装走 NuGet 全局命令，若本机没有可用的 NuGet 源，会直接报错需要先补源。Windows 上创建软链接、改动部分文件可能要管理员权限或开启开发者模式，命令执行时偶尔会弹出并立刻关闭窗口，属于正常现象。它只管引擎版本与插件来源，不负责项目导出、资源压缩或打包发布，这些仍要交给 Godot 的导出流程和其他工具。",
+  "workflowZh": [
+    {"stepZh": "先装好 .NET SDK 与 git，再用全局命令安装 GodotEnv 命令行工具"},
+    {"stepZh": "在项目根目录建好 addons.json，把插件来源写成条目"},
+    {"stepZh": "运行 godotenv 的版本安装命令，把需要的 Godot 版本下载到本地"},
+    {"stepZh": "需要切换时更新软链接，并确认 GODOT 环境变量指向新版本"},
+    {"stepZh": "addons.json 改动后执行插件安装，检查 addons 目录是否补齐"}
+  ],
+  "pros": [
+    "把引擎下载、解压与版本切换收进一条命令，多版本并行时不必反复重装，省下准备时间",
+    "用 addons.json 声明插件来源与依赖，克隆项目后一次安装即可补齐，比 git submodule 更容易理解和维护",
+    "自动写好 .gitignore 与 addons 目录的编辑器配置，新项目接入插件前不必手工整理目录结构",
+    "维护 GODOT 环境变量，终端、脚本与 CI 都指向同一个活动版本，减少版本错配带来的构建差异",
+    "来源可读、依赖扁平，插件升级只改一行清单，团队不必再处理子模块指针与冲突"
+  ],
+  "cons": [
+    "必须先装 .NET SDK 与 git 并配好 shell，缺一不可，否则安装与拉取插件都会失败",
+    "Windows 上创建软链接常需管理员权限，未开开发者模式容易报权限错误",
+    "强依赖 NuGet 源，内网或离线环境需要先补源才能装上，否则命令直接报错",
+    "它只管理引擎与插件来源，项目导出与打包仍要另配流程"
+  ],
+  "pitfalls": [
+    "addons.json 里的远程仓库地址变更后没重新安装，项目会残留旧版本插件，需先清理目录再装",
+    "Windows 未开开发者模式时软链接创建会失败，弹窗一闪而过容易被忽略，要留意退出码",
+    "插件之间存在编译期或版本耦合时，扁平依赖图只解决拉取顺序，冲突仍要人工核对"
+  ],
+  "bestFor": "适合在同一台机器维护多个 Godot 版本、用 git 协作并以命令行驱动构建的团队与开发者，尤其被 submodule 困扰的项目。",
+  "avoidWhenZh": "只用一个固定 Godot 版本、习惯在编辑器里手动装插件，或者离线无法配置 NuGet 源的项目。",
+  "compareTips": {"vs": ["hhyyrylainen__GodotPckTool"], "whenZh": "GodotEnv 管的是引擎版本与插件依赖清单，PckTool 管的是把资源打成或拆开 pck 包。做多版本构建与插件同步时用 GodotEnv，发布前处理打包产物时用 PckTool，两者可以串在同一条流水线上。"},
+  "category": "asset-pipeline",
+  "tags": ["版本管理", "插件管理", "命令行", "CI", "dotnet", "依赖图"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 4, "performance": 5, "stability": 4},
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {"claim": "工具用于切换 Godot 版本并管理项目插件", "source": "README.md", "quote": "GodotEnv is a command-line tool that makes it easy to switch between Godot versions and manage addons in your projects."},
+    {"claim": "通过更新软链接切换活动版本", "source": "README.md", "quote": "Switch the active version of Godot by updating a symlink."},
+    {"claim": "插件来源支持本地路径、远程仓库与软链接", "source": "README.md", "quote": "Install addons in a Godot project from local paths, remote git repositories, or symlinks using an easy-to-understand `addons.json` file."},
+    {"claim": "Windows 上部分操作需要管理员权限", "source": "README.md", "quote": "Certain operations may require administrator privileges, such as managing symlinks or editing certain files."},
+    {"claim": "通过 .NET 全局工具安装", "source": "README.md", "quote": "dotnet tool install --global Chickensoft.GodotEnv"}
+  ]
+}

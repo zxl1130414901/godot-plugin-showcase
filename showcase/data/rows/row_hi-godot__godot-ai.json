@@ -1,0 +1,35 @@
+{
+  "id": "hi-godot__godot-ai",
+  "descriptionZh": "把编辑器里的场景、脚本、信号与属性操作封装成 MCP 工具，让 AI 客户端直接改真实工程。",
+  "category": "ai-gen",
+  "tags": [
+    "AI代理",
+    "MCP",
+    "编辑器自动化",
+    "场景编辑",
+    "Python"
+  ],
+  "prosShort": [
+    "工具覆盖面在同类里最广，且分域可关",
+    "脚本写入前会做解析校验并热重载",
+    "dock 可一键配置二十多个客户端"
+  ],
+  "consShort": [
+    "强制 Godot 4.7 以上，旧项目装不了",
+    "C# 只读写文本，不报编译错误",
+    "工具集中主线程，大场景会卡"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

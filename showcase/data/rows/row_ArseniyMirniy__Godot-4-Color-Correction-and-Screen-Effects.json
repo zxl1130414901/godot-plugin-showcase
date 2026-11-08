@@ -1,0 +1,33 @@
+{
+  "id": "ArseniyMirniy__Godot-4-Color-Correction-and-Screen-Effects",
+  "category": "3d-shader",
+  "tags": [
+    "色彩校正",
+    "后处理",
+    "视觉着色器",
+    "画面特效"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "descriptionZh": "Godot 4 的屏幕后处理着色器合集，含轻量色彩校正与十余种电影感特效，适合快速统一画面风格",
+  "prosShort": [
+    "两档方案兼顾低配与高画质",
+    "纯视觉着色器，可直接打开改",
+    "参数可动画，适合剧情演出，团队上手也快。"
+  ],
+  "consShort": [
+    "非插件，安装要手工搭节点链",
+    "编辑器内看不到效果，调参低效"
+  ],
+  "sampleStatus": "none"
+}

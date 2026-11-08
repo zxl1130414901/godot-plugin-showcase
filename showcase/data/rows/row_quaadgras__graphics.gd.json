@@ -1,0 +1,34 @@
+{
+  "id": "quaadgras__graphics.gd",
+  "descriptionZh": "用 Go 写 Godot 4 游戏并自带 gd 构建与多平台交叉编译的运行时",
+  "category": "visual-script",
+  "tags": [
+    "Go",
+    "语言绑定",
+    "GDExtension",
+    "跨平台编译"
+  ],
+  "prosShort": [
+    "Go 编译期检查挡住类型错误",
+    "原生执行比 GDScript 更快，团队上手也快。",
+    "一条命令交叉编译多平台，接入成本不高。"
+  ],
+  "consShort": [
+    "首次构建慢且依赖 CGO，团队要提前评估。",
+    "API 随引擎主线频繁变动，规模化后更明显。",
+    "第三方插件生态很小，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

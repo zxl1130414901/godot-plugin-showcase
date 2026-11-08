@@ -1,0 +1,34 @@
+{
+  "id": "nathanhoad__godot_input_helper",
+  "descriptionZh": "识别键鼠与手柄、支持运行时改键和手柄震动的 Godot 4 输入小工具。",
+  "category": "state-logic",
+  "tags": [
+    "输入设备",
+    "按键映射",
+    "手柄震动",
+    "改键界面"
+  ],
+  "prosShort": [
+    "自动识别当前用键鼠还是手柄",
+    "改键可在运行时完成无需重启",
+    "官方提供 GDScript 与 C# 两套可用实现"
+  ],
+  "consShort": [
+    "不含现成提示 UI 与改键界面",
+    "两套设备混用时判断会来回跳",
+    "部分平台手柄震动会静默失效"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,147 @@
+{
+  "id": "ReconWorldLab__godot-gaussian-splatting",
+  "depth": "standard",
+  "taglineZh": "在 Godot 中实时渲染 3D 高斯泼溅资产的插件",
+  "summaryZh": "gdgs 是 Godot 4 的实时 3D 高斯泼溅渲染插件，能把 ply、compressed ply、splat、sog、glb 与 usdz 资产导入为 Gaussian 资源，并用 GaussianSplatNode 放进场景。它提供 Compute 与 Raster 两套后端，前者按 tile 排序并与场景深度合成，后者走标准透明管线以支持 Mobile 与 Compatibility。3.3 还加入重光照与编辑器内碰撞生成，但重光照只能压暗烘焙光，无法真正移除，选型前建议结合团队实际评估。",
+  "whatItDoes": "插件导入高斯资产并生成共享 GPU 资源，GaussianSplatNode 负责变换与资源引用，实际绘制由所选后端完成。Compute 后端用 CompositorEffect 做逐 tile 排序、深度测试与合成；Raster 后端用实例化四边形与硬件深度测试，并按项目设置自动回退。编辑器还提供调试视图以及从高斯数据生成 StaticBody3D 碰撞与烘焙光照代理。",
+  "useCases": [
+    {
+      "titleZh": "实景扫描",
+      "descZh": "把无人机或手机扫描的 3DGS 场景放进游戏，做可漫游的写实环境，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "数字孪生",
+      "descZh": "展厅、房产或文物展示需要真实感场景，用泼溅资产替代高面数建模，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "混合场景",
+      "descZh": "让泼溅背景与普通 Godot 几何同场渲染，并借深度合成处理遮挡，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "碰撞交互",
+      "descZh": "在扫描场景上生成碰撞体，做第一人称行走或简单物理交互，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "高斯资源",
+      "descZh": "统一的 GPU 就绪资源，由多种源格式导入生成，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "GaussianSplatNode",
+      "descZh": "承载变换与资源引用，可多实例同场，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "碰撞体",
+      "descZh": "编辑器生成的 StaticBody3D 与凹多边形形状，可以直接放进项目里使用，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "光照代理",
+      "descZh": "烘焙出的法线与遮蔽数据，用于重光照与投影，可以直接放进项目里使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "双后端",
+      "descZh": "Compute 精确排序，Raster 低显存并支持移动渲染器，参数集中在检查器面板。"
+    },
+    {
+      "name": "深度合成",
+      "descZh": "Compute 通过 CompositorEffect 与场景深度互遮挡，调用方式简单不需要额外封装。"
+    },
+    {
+      "name": "重光照",
+      "descZh": "用烘焙代理给泼溅法线与遮蔽，最多八盏灯可动态移动，后续修改起来也不费劲。"
+    },
+    {
+      "name": "碰撞生成",
+      "descZh": "按面或平滑网格两种模式从高斯数据生成碰撞，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "调试视图",
+      "descZh": "可切换 alpha、颜色、GS 深度与深度剔除掩码，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "最低要求 Godot 4.3 且 Compute 后端只在 Forward Plus 可用，Raster 后端标记为 beta，移动端实机覆盖仍在推进。重光照依赖烘焙代理，只能把整体压暗再让灯光提亮，无法移除扫描时已经烤进颜色里的光，也收不到投影。碰撞是空心三角网格壳，小体积高速刚体需要开启连续碰撞检测。资产格式支持有边界，超大 ply 要另下 Release 样例，插件体积与显存占用都不低。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons/gdgs 并启用插件，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "导入高斯资产并等待生成资源，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "添加 GaussianSplatNode 并指定资源，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "按后端配置 WorldEnvironment，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "生成碰撞或烘焙光照代理，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "从导入、渲染到碰撞与重光照都在插件内完成，工作流闭环，团队新人照着示例就能上手。",
+    "两套后端可按渲染器与显存预算切换，还带故障回退，出现问题时也更容易定位原因。",
+    "文档包含架构、后端对比、重光照限制与变更记录，信息密度高。",
+    "编辑器内有调试视图与碰撞生成，调场景不必全靠运行游戏。"
+  ],
+  "cons": [
+    "Compute 后端限定 Forward Plus，Raster 仍是 beta，升级引擎版本时容易卡住。",
+    "重光照无法移除已烘焙的光，效果有物理上限，定制之前往往要先读源码。",
+    "资产与显存开销大，低端设备和小场景不划算，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "Compute 后端必须手动配置 WorldEnvironment 的 Compositor 与 Effect，漏一步只会看到黑屏，上线前要专门过一遍。",
+    "后端选择只在启动时生效，改项目设置后必须重启编辑器或游戏。",
+    "碰撞是空壳网格，快速小物体不开启连续碰撞会穿墙，排查时需要多留一层日志。"
+  ],
+  "bestFor": "要用 3DGS 扫描资产做写实场景展示，并能接受较高显存与 Forward Plus 限制的 3D 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "目标设备是低端移动端，或只需要普通三角网格场景时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "TokisanGames__Terrain3D"
+    ],
+    "whenZh": "两者都处理大体积 3D 内容；gdgs 渲染扫描得到的泼溅资产，Terrain3D 用高度图管理可编辑地形。写实扫描背景选前者，可雕刻开放世界地形选后者。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "3DGS",
+    "渲染",
+    "扫描资产",
+    "重光照"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "要求 Godot 4.3 与 Forward Plus",
+      "source": "addons/gdgs/plugin.cfg",
+      "quote": "Requires Godot 4.3+ with the Forward Plus renderer."
+    },
+    {
+      "claim": "支持多种高斯资产格式",
+      "source": "addons/gdgs/plugin.cfg",
+      "quote": "Import, render, relight, and generate collision for 3D Gaussian Splatting assets (.ply, .compressed.ply, .splat, .sog, .glb, .usdz)."
+    },
+    {
+      "claim": "Raster 后端为 beta",
+      "source": "README.md",
+      "quote": "This is a **beta release**: the Raster backend is new and feedback is very welcome."
+    },
+    {
+      "claim": "重光照无法移除已烘焙的光",
+      "source": "README.md",
+      "quote": "Relighting a capture cannot remove the light that was baked into it"
+    }
+  ]
+}

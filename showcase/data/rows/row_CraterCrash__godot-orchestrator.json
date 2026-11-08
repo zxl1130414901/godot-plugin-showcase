@@ -1,0 +1,35 @@
+{
+  "id": "CraterCrash__godot-orchestrator",
+  "descriptionZh": "给 Godot 4 补上节点式可视化脚本，OScript 可直接挂到任意节点，内置数百个节点，支持函数、信号与复杂类型。",
+  "category": "visual-script",
+  "tags": [
+    "可视化脚本",
+    "节点图",
+    "GDExtension",
+    "C++",
+    "信号"
+  ],
+  "prosShort": [
+    "OScript 能像 GDScript 那样挂到任意节点",
+    "内置数百个节点，覆盖常见逻辑",
+    "支持自定义函数、信号与复杂类型"
+  ],
+  "consShort": [
+    "与引擎版本强绑定，用错会崩",
+    "扩展不支持热重载，改完要重启",
+    "图缺文本 diff，多人改动易冲突"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,152 @@
+{
+  "id": "grazianobolla__godot-monke-net",
+  "depth": "standard",
+  "taglineZh": "为 Godot 提供客户端预测与状态同步的 C# 网络库",
+  "summaryZh": "monke-net 是面向 Godot 4 .NET 的客户端-服务器网络库，主打客户端预测与和解校正：角色移动输入由客户端先行计算，服务器权威模拟后再把差异回传，配合快照插值让远端角色平滑。库还提供时钟同步、状态复制与生成、销毁同步，自带示例场景。它仍处于 0.1.x 阶段，delta 压缩与客户端间延迟补偿未完成，并依赖修改版 Godot 支持手动物理步进，接入前要评估风险。",
+  "whatItDoes": "以 C# 程序集形式提供网络核心：NetworkManager 管理连接与 tick，预测模块记录输入并做状态和解，快照模块缓存服务器状态用于插值，时钟同步对齐两端时间。示例项目含预测角色、生成同步与基础调试面板，插件配置在 addons/monke-net 下。用户需在角色脚本里接入预测与和解回调，并替换为仓库指定的 Godot 分支。",
+  "useCases": [
+    {
+      "titleZh": "联机动作原型",
+      "descZh": "需要低延迟移动手感，先用预测与和解验证操作延迟表现，再决定是否继续投入，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "状态同步试验",
+      "descZh": "比较快照插值与直接广播的差异，为后续自研网络层积累参数与结论，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "学习网络架构",
+      "descZh": "阅读预测、和解与时钟同步实现，理解 tick、输入队列与权威模拟的配合方式，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "小型对战项目",
+      "descZh": "对延迟敏感的 1v1 或小队玩法，可直接复用网络层，把精力放在玩法本身，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "网络管理器",
+      "descZh": "NetworkManager 负责连接、tick 与消息分发，是库的入口，生成结果在编辑器与运行时都能复用。"
+    },
+    {
+      "titleZh": "预测与和解",
+      "descZh": "记录客户端输入并在服务器状态回传后校正，降低操作延迟感，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "快照插值",
+      "descZh": "缓存服务器快照，让远端角色在两个 tick 之间平滑移动，可以直接放进项目里使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "客户端预测",
+      "descZh": "本地先算移动再校正，高延迟下操作更跟手，参数集中在检查器面板。"
+    },
+    {
+      "name": "状态和解",
+      "descZh": "服务器权威结果回传后修正偏差，避免客户端漂移，后续修改起来也不费劲。"
+    },
+    {
+      "name": "快照插值",
+      "descZh": "远端角色在快照间插值，减少抖动与瞬移，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "时钟同步",
+      "descZh": "对齐两端 tick 时间，为预测与延迟补偿打基础，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "生成同步",
+      "descZh": "玩家与实体的生成、销毁走网络消息，场景状态保持一致，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "项目自述未完成：delta 压缩、客户端间延迟补偿与部分同步细节仍在待办，正式项目要自行补齐或接受缺失。它依赖一份修改过的 Godot 分支来支持手动物理步进，团队必须自行编译引擎，部署与升级成本高。仅支持 .NET 8 与 C#，GDScript 项目无法直接使用；还依赖 ImGui 调试扩展，版本冲突要自己解决。仓库没有发布包，示例与文档都在源码里，0.1.x 阶段接口可能随时变动。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 .NET 8 与对应 Godot 分支，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "编译修改版 Godot 引擎，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "把 addons/monke-net 拷入项目，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "在角色脚本接入预测与和解，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "启动示例场景测试双端，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需调整 tick 与插值参数，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "预测与和解链路完整，联机移动手感比裸 ENet 好，团队新人照着示例就能上手。",
+    "快照插值与时钟同步都有实现，省去基础网络搭建，出现问题时也更容易定位原因。",
+    "示例覆盖生成同步与角色控制，可当骨架改，对中小团队的时间成本很友好。",
+    "C# 代码结构清晰，便于二次开发与调试，长期维护与升级的压力都比较小。"
+  ],
+  "cons": [
+    "依赖定制 Godot 分支，构建与升级成本高，升级引擎版本时容易卡住。",
+    "功能未完成，delta 压缩与延迟补偿缺失，定制之前往往要先读源码。",
+    "0.1.x 阶段接口不稳，文档有限，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "用官方 Godot 打开会因缺少手动物理步进接口报错，先确认分支。",
+    "tick 率与物理帧不一致会造成预测漂移，两侧要统一配置，上线前要专门过一遍。",
+    "忘记同步生成消息会导致客户端看不到新玩家，排查时需要多留一层日志。"
+  ],
+  "bestFor": "对移动延迟敏感、愿意自编译定制引擎并具备 C# 网络经验的 1v1 或小队联机项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "使用标准 Godot 版本，或需要稳定 API 与完整文档的生产项目，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "thegatesbrowser__godot-multiplayer"
+    ],
+    "whenZh": "两者都是联机起点：本模板用 ENet 加插值并附语音，monke-net 用客户端预测与状态同步；要语音社交选前者，要高延迟下的操作手感选后者。"
+  },
+  "category": "network",
+  "tags": [
+    "多人联机",
+    "客户端预测",
+    "状态同步",
+    "C#"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 1,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "isGDExtension": false,
+  "evidence": [
+    {
+      "claim": "面向客户端-服务器架构并含预测与和解",
+      "source": "README.md",
+      "quote": "C# Godot Addon that facilitates creating robust multiplayer games using the Client-Authoritative Server architecture, including client side prediction, entity interpolation, lag compensation and more!"
+    },
+    {
+      "claim": "必须使用作者修改版 Godot 才能手动物理步进",
+      "source": "README.md",
+      "quote": "Right now MonkeNet uses its [own fork of Godot!!!](https://github.com/grazianobolla/godot) for networked physics!!!"
+    },
+    {
+      "claim": "delta 压缩与延迟补偿仍未完成",
+      "source": "README.md",
+      "quote": "- [ ] Delta Compression for inputs/entity states"
+    },
+    {
+      "claim": "依赖 .NET 8 与 ImGui",
+      "source": "README.md",
+      "quote": "MonkeNet requires your game project to use .NET 8"
+    },
+    {
+      "claim": "安装只需拷贝 addons 并启用插件",
+      "source": "README.md",
+      "quote": "copy the `addons\\monke-net\\` folder, paste it into your project `addons\\` folder, and enable the plugin in your project settings."
+    }
+  ]
+}

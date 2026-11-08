@@ -1,0 +1,143 @@
+{
+  "id": "sphynx-owner__JFA_driven_motion_blur_addon",
+  "depth": "standard",
+  "taglineZh": "基于跳跃泛洪算法的 Godot 4 运动模糊工具包",
+  "summaryZh": "它解决的是 3D 场景缺少可信运动模糊的问题：把速度图交给计算着色器，用跳跃泛洪算法做膨胀，再合成到画面上。使用时给 WorldEnvironment 挂 MotionBlurCompositor，再依次添加 PreBlurProcessor 与 Guertin 或 JumpFlood 效果，并可为每个效果打开调试合成器查看中间阶段。它只提供渲染效果，不处理相机路径抖动或景深，且与 MSAA 存在冲突；透明物体要改用 pre-transparent 回调。README 还提示 4.7 用户换用新仓库、4.4 用户走专门分支。",
+  "whatItDoes": "提供 MotionBlurCompositor、PreBlurProcessor、GuertinMotionBlur、SphynxSimpleJumpFloodMotionBlur、ExperimentalJumpFloodMotionBlur 与 DebugCompositorEffect 等 CompositorEffect。速度由相机移动、旋转与物体移动几个资源组件合成，再经跳跃泛洪膨胀后模糊。另含 RadialBlurMesh 与 LinearMotionBlurMesh 两个网格工具，用于螺旋桨和车轮的径向与线性模糊。",
+  "useCases": [
+    {
+      "titleZh": "第三人称动作场景",
+      "descZh": "高速移动的第三人称或赛车场景需要可信的拖影，用 Guertin 效果能兼顾性能与观感，适合先做画面对比再定参数。"
+    },
+    {
+      "titleZh": "径向模糊道具",
+      "descZh": "给风扇、螺旋桨或车轮加 RadialBlurMesh，比整屏运动模糊更省，且能按网格位置控制方向，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "技术研究",
+      "descZh": "研究跳跃泛洪膨胀与速度图重建时，可借调试合成器逐阶段查看缓存、邻域最大值与合成结果。"
+    },
+    {
+      "titleZh": "过场镜头",
+      "descZh": "过场镜头需要明显的速度感，可临时提高模糊强度并用 PreBlurProcessor 控制相机旋转贡献，在这类项目里能省下不少重复劳动。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "运动模糊合成器",
+      "descZh": "MotionBlurCompositor 与多种 CompositorEffect，挂在 WorldEnvironment 上即可参与渲染管线，结构与引擎资源体系保持一致。"
+    },
+    {
+      "titleZh": "预模糊速度处理",
+      "descZh": "PreBlurProcessor 把相机与物体运动折算成速度图，是后续膨胀与模糊的输入，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "调试与径向工具",
+      "descZh": "DebugCompositorEffect、RadialBlurMesh 与 LinearMotionBlurMesh，用于排查阶段和道具拖影，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "跳跃泛洪膨胀",
+      "descZh": "用 JFA 在屏幕空间快速扩散速度采样，得到更连贯的拖影边缘，是仓库的核心创新点。"
+    },
+    {
+      "name": "三种模糊实现",
+      "descZh": "Guertin、Simple Jump Flood 与 Experimental Jump Flood 可选，按性能与真实感取舍，参数集中在检查器面板。"
+    },
+    {
+      "name": "分阶段调试",
+      "descZh": "给效果打开 Debug 后可用 C、Z 与 freeze 输入逐阶段查看中间纹理，后续修改起来也不费劲。"
+    },
+    {
+      "name": "径向模糊网格",
+      "descZh": "RadialBlurMesh 与 LinearMotionBlurMesh 直接挂在道具上，适合车轮和螺旋桨，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "PreBlurProcessor",
+      "descZh": "新增的必需前置效果，负责汇总相机与物体的速度来源，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "工具包只覆盖屏幕空间运动模糊，景深、相机抖动、时间性抗锯齿都不提供，需要另配效果。版本适配偏窄：主分支面向 Godot 4.3 之后，README 明确 4.7 应改用新仓库、4.4 要切专门分支，跨版本项目容易踩空。效果依赖 CompositorEffect，必须使用 Forward+ 或 Mobile 渲染器，兼容渲染器下不可用。与 MSAA 冲突：要让透明物体叠在模糊背景上，需把前后两个效果都改到 pre-transparent 回调并关闭 MSAA。参数以资源和检查器为主，没有可视化调参面板，文档只有一份 README 与视频，缺少逐项参数说明。",
+  "workflowZh": [
+    {
+      "stepZh": "复制 addons 目录后到项目设置启用插件"
+    },
+    {
+      "stepZh": "在场景的 WorldEnvironment 节点上添加运动模糊合成器"
+    },
+    {
+      "stepZh": "按说明添加 PreBlurProcessor 与 Guertin 运动模糊效果，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "调节模糊强度并开启调试视图对比"
+    },
+    {
+      "stepZh": "打包前确认透明物体回调与 MSAA 开关"
+    }
+  ],
+  "pros": [
+    "提供三种现成运动模糊实现，Guertin 版兼顾性能与真实感，可直接对比选型。",
+    "速度图与泛洪膨胀分阶段组织，调试合成器能逐个查看，排查画面问题更直观。",
+    "附带径向与线性模糊网格，螺旋桨、车轮一类旋转道具可直接复用。",
+    "全部是 GDScript 与 GLSL 资源，不依赖原生编译，拷贝 addons 即可接入，团队新人照着示例就能上手。"
+  ],
+  "cons": [
+    "只支持 Godot 4.3 之后的 CompositorEffect，旧版本与兼容渲染器不可用。",
+    "与 MSAA、透明物体有明确冲突，需要改回调阶段并关闭抗锯齿。",
+    "主仓库已提示 4.7 用户迁移，4.4 用户走单独分支，维护呈分叉状态。"
+  ],
+  "pitfalls": [
+    "PreBlurProcessor 是必需前置，漏掉它时模糊效果没有速度输入，画面几乎无变化。",
+    "透明物体要在 pre-transparent 回调渲染，且必须关闭 MSAA，否则叠层会错，上线前要专门过一遍。",
+    "调试需要手动注册 C、Z 与 freeze 输入事件，未配置时看不到中间阶段。"
+  ],
+  "bestFor": "需要给 3D 动作或赛车画面加可信运动模糊，并且使用 Godot 4.3 以上 Forward+ 渲染器的中小团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "项目停留在 Godot 4.2 及更早，或必须开启 MSAA 与兼容渲染器时，否则投入产出比会很低。",
+  "compareTips": {
+    "vs": [
+      "celyk__GPUTrail"
+    ],
+    "whenZh": "两者都是屏幕空间 GPU 特效：JFA 工具包专注相机与物体运动模糊，含多种泛洪实现和调试阶段；GPUTrail 专注粒子丝带拖尾，节点即插即用。要真实运动模糊选前者，要角色武器拖影选后者。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "运动模糊",
+    "后处理",
+    "跳跃泛洪",
+    "相机效果"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "必须添加前置 PreBlurProcessor",
+      "source": "README.md",
+      "quote": "Add a new PreBlurProcessor effect, which is now required."
+    },
+    {
+      "claim": "Guertin 是综合最优的模糊实现",
+      "source": "README.md",
+      "quote": "GuertinMotionBlur - An all-around best blur effect, robust, performant, and now also realistic."
+    },
+    {
+      "claim": "与 MSAA 不兼容",
+      "source": "README.md",
+      "quote": "At this point, it would not work if you have MSAA enabled, so make sure to also turn that off."
+    },
+    {
+      "claim": "4.7 用户应改用新仓库",
+      "source": "README.md",
+      "quote": "**For Godot 4.7 users** there's a new and improved [Godot Motion Blur Addon](https://github.com/sphynx-owner/Godot-Motion-Blur-Addon) you can use."
+    }
+  ]
+}

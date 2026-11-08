@@ -1,0 +1,67 @@
+{
+  "id": "calico-games__react-native-godot",
+  "depth": "standard",
+  "taglineZh": "把 Godot 渲染内核嵌进 React Native 应用以运行 3D 场景",
+  "summaryZh": "React Native Godot 把 Godot 引擎以原生模块形式嵌进 React Native 应用，让 JavaScript 界面与 Godot 渲染同屏共存。它用 C++ JSI 直接打通 JavaScript 与原生层，提供 GodotView 组件承载渲染视图，支持 Metal、OpenGL 与 Vulkan，并能在运行时编译执行 GDScript、动态创建节点。React Native 与 Godot 之间可以双向收发消息，适合在现有 App 里插入一个 3D 场景或小游戏。目前 iOS 已实现且模拟器不支持，Android 仍在开发中，集成还需要自己编译 C++ 原生层。",
+  "whatItDoes": "它把 Godot 引擎当作原生渲染模块接入 React Native 工程：用 GodotProvider 初始化引擎，用 GodotView 在界面里开出一块 Godot 渲染区域，原生层通过 C++ JSI 暴露同步调用，让 JavaScript 直接读写 Godot 对象。开发者可以把导出的 pck 项目导入包内，也可以在运行时编译 GDScript 并动态建节点，改逻辑不必重新出包。两端通过事件通道双向传消息，React Native 可以控制场景，Godot 也能回调界面。渲染后端覆盖 Metal、OpenGL 与 Vulkan，兼容新旧架构。",
+  "useCases": [
+    {"titleZh": "App 内嵌 3D 场景", "descZh": "在已有的 React Native 应用里插入一个商品展示、角色预览或可旋转模型页，用原生渲染保证帧率，界面其余部分仍用现有组件库。"},
+    {"titleZh": "小游戏混合开发", "descZh": "把玩法逻辑放进 Godot 场景，把登录、支付、排行榜等交给 React Native，两边通过消息通道联动，避免整套重写。"},
+    {"titleZh": "复用已有 Godot 项目", "descZh": "手上已有 Godot 的小游戏或 3D 展示，通过导出 pck 并接入 GodotView，就能把它搬进移动端 App，不必重做界面。"},
+    {"titleZh": "动态脚本实验", "descZh": "利用运行时编译 GDScript 的能力，在调试阶段临时改场景逻辑与节点结构，验证效果后再固化，迭代更快。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "GodotView 组件", "descZh": "在 React Native 布局里开出一块原生渲染视图，把 Godot 画面作为普通组件嵌进页面，位置与尺寸跟着布局走。"},
+    {"titleZh": "双向消息通道", "descZh": "JavaScript 侧可以给 Godot 发指令，Godot 侧也能回调界面层，两端共享同一个运行中的应用。"},
+    {"titleZh": "运行时脚本能力", "descZh": "支持在运行期编译 GDScript 并创建节点，临时改动场景逻辑不必重新导出 pck 包。"},
+    {"titleZh": "原生绑定层", "descZh": "以 C++ JSI 直接连接 JavaScript 与引擎，调用开销低于普通桥接，适合移动端的高频交互场景。"}
+  ],
+  "featureCallouts": [
+    {"name": "JSI 原生性能", "descZh": "用 C++ JSI 直连 JavaScript 与引擎，避开传统桥接的序列化开销，交互响应更及时。"},
+    {"name": "多渲染后端", "descZh": "iOS 走 Metal，其他平台可走 OpenGL 与 Vulkan，按设备能力选择最合适的渲染路径。"},
+    {"name": "GodotProvider 初始化", "descZh": "用 Provider 包住应用根节点统一初始化引擎，避免每个页面各自加载造成重复开销。"},
+    {"name": "项目导入工作流", "descZh": "配套脚本把 Godot 项目导出为 pck 并打进包内，接入步骤相对清晰，新手也能走通。"},
+    {"name": "新旧架构兼容", "descZh": "同时支持 React Native 的旧架构与新架构，项目升级时不必推倒重来，迁移成本可控。"}
+  ],
+  "limitsZh": "平台覆盖最需要留意：iOS 已实现但模拟器明确不支持，只能在真机调试；Android 仍标注为开发中，无法直接用于生产。运行要求 Godot 4.5 与 React Native 0.80 以上，iOS 最低 15.1、Android 最低 API 21，老项目要连带升级依赖。原生层是 C++ 实现，集成需要自行编译 iOS 与 Android 的原生工程，还要配置 podspec 与 Gradle，对只写过 JavaScript 的团队门槛偏高。此外 Godot 项目要先导出成 pck 再打进包内，资源更新链路与纯前端项目不同，发布与热更都要重新设计。",
+  "workflowZh": [
+    {"stepZh": "确认 Godot 4.5 与 React Native 0.80 以上，并升级 iOS 与 Android 目标版本"},
+    {"stepZh": "用包管理安装 react-native-godot，并编译配套的 C++ 原生层"},
+    {"stepZh": "在应用根节点用 GodotProvider 包住，完成引擎初始化"},
+    {"stepZh": "把 Godot 项目导出成 pck，按示例脚本打进应用资源目录"},
+    {"stepZh": "在页面里放置 GodotView，并通过消息通道连接两端逻辑"}
+  ],
+  "pros": [
+    "用 C++ JSI 直连 JavaScript 与原生层，调用不走桥接序列化，交互类操作的响应明显更快",
+    "GodotView 能当普通组件嵌进现有页面，界面与 3D 场景共存，不必为 3D 单独做一套应用",
+    "支持运行时编译 GDScript 并动态建节点，调试阶段改逻辑不用反复出包，迭代节奏更顺",
+    "双向消息通道让登录、支付等业务留在 React Native，玩法与渲染交给 Godot，职责划分清楚"
+  ],
+  "cons": [
+    "Android 支持仍是开发中状态，iOS 模拟器也不支持，只能在真机上调试验证",
+    "原生层由 C++ 实现，集成要自己编译 iOS 与 Android 工程，纯前端团队上手成本高",
+    "要求 Godot 4.5 与 React Native 0.80 以上，老项目需连带升级依赖并处理兼容问题",
+    "Godot 项目要先导出 pck 再打进包，资源更新与发布流程都要重新搭建"
+  ],
+  "pitfalls": [
+    "在 iOS 模拟器里运行会直接失败，必须换真机，否则会误判为集成出错",
+    "忘记在根节点包 GodotProvider 就使用 GodotView，引擎未初始化会直接白屏或报错",
+    "Godot 导出的 pck 没按示例打进资源目录，视图能显示但场景加载为空，需核对脚本"
+  ],
+  "bestFor": "适合已有成熟 React Native 应用、想在界面里插入 3D 场景或小游戏，并且团队具备原生编译能力的移动端团队。",
+  "avoidWhenZh": "需要立刻支持 Android、只做纯 3D 独立游戏，或团队没有 iOS 与 Android 原生构建经验的项目。",
+  "compareTips": {"vs": ["godotjs__GodotJS"], "whenZh": "React Native Godot 是把 Godot 引擎嵌进 React Native 的移动端方案，GodotJS 是把 JavaScript 运行在 Godot 引擎内部的绑定。若已有 React Native 应用想加 3D 选前者，若想用 JavaScript 写 Godot 逻辑则选后者，出发点正好相反。"},
+  "category": "platform-export",
+  "tags": ["React Native", "嵌入", "iOS", "JSI", "3D", "移动端"],
+  "scores": {"coverage": 4, "usability": 2, "docs": 3, "maintenance": 3, "performance": 4, "stability": 2},
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {"claim": "目标是把 Godot 带入 React Native 做 3D 体验", "source": "README.md", "quote": "Bring **Godot** to **React Native** 🔮. Create immersive 3D experiences or interactive games directly within React Native."},
+    {"claim": "原生 C++ JSI 提供直接绑定", "source": "README.md", "quote": "**Native C++ JSI performance** - Direct JavaScript to native bindings"},
+    {"claim": "iOS 已实现而 Android 仍在开发中", "source": "README.md", "quote": "iOS support is implemented, full Android support is coming soon."},
+    {"claim": "要求 Godot 4.5 与 React Native 0.80 以上", "source": "README.md", "quote": "- Godot 4.5 ([https://godotengine.org/](https://godotengine.org/))"},
+    {"claim": "支持运行时编译 GDScript", "source": "README.md", "quote": "**Runtime GDScript compilation** - Create and execute scripts dynamically"}
+  ]
+}

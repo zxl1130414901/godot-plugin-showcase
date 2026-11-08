@@ -1,0 +1,149 @@
+{
+  "id": "ceceppa__anima",
+  "taglineZh": "用类 CSS 语法给 Godot UI 加 89 种动画与 33 种缓动",
+  "summaryZh": "Anima 是一个 UI 动画插件，用链式语法把透明度、位移、缩放与旋转串成序列、并行或分组动画，内置 89 种来自 animate.css 的效果与 33 种缓动曲线。它支持无限、限次与延迟循环，支持相对值、关键帧与 Grid 场景的分组错峰动画，还能反向播放。写法接近 CSS，几行代码就能出效果，适合菜单、结算与提示。代价是它主要面向 Control 节点，复杂状态机与时间轴管理仍要自己组织，文档以示例为主。它把 Tween 的低层参数包装成可读的动画描述。",
+  "whatItDoes": "提供链式动画 API 与内置动画库，把 Control 节点的属性变化编排成序列、并行、循环与关键帧动画。",
+  "useCases": [
+    {
+      "titleZh": "菜单按钮错峰入场",
+      "descZh": "主菜单按钮需要错峰淡入，用 Grid 分组动画一行代码让整排按钮依次出现，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "结算面板强调",
+      "descZh": "结算面板要数字滚动与缩放强调，用链式动画并行处理透明度与缩放，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "呼吸提示效果",
+      "descZh": "提示条需要无限呼吸效果，用循环与反向播放做往复，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "页面切换动画",
+      "descZh": "界面切页要连续动画，用序列动画按顺序播放入场、停留与退场，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Anima 入口",
+      "descZh": "静态入口，通过 Anima.Node 选择节点并链式创建动画与关键帧，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "AnimaTween",
+      "descZh": "动画实例，支持播放、反向、延迟与循环控制，可 await 完成，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "内置动画库",
+      "descZh": "89 种预设效果与 33 条缓动曲线，可直接按名称调用，结构与引擎资源体系保持一致。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "链式语法",
+      "descZh": "按顺序写目标属性与时长，读起来接近 CSS 声明，参数集中在检查器面板。"
+    },
+    {
+      "name": "序列并行分组",
+      "descZh": "多个动画可顺序、并行或按组编排，复杂入场也能一行串起，后续修改起来也不费劲。"
+    },
+    {
+      "name": "循环与反向",
+      "descZh": "无限、限次与延迟循环，支持倒放与往复，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "关键帧",
+      "descZh": "用字典描述 from 与 to，配合缓动做自定义过渡，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "Grid 分组",
+      "descZh": "对网格子节点做错峰动画，适合背包与按钮墙，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "它主要操作 Control 节点的常见属性，3D 节点、骨骼与材质参数要自己扩展。动画状态没有统一管理，页面切换时若忘记停止旧动画，属性会被两个 Tween 抢写。循环动画在节点隐藏后仍可能继续跑，需要手动停止。文档以在线站点与示例代码为主，版本升级后 API 变动要对照迁移说明。复杂时间轴、事件回调与音频同步能力弱于专业动画工具。它包装了 Tween，极端性能场景仍受每帧属性写入限制。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons 目录复制进项目，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在项目设置里启用 Anima，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "给目标 Control 节点写 Anima.Node 调用，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "选择内置动画或自定义关键帧，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "按需组合序列、并行与循环，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在页面切换时停止不再使用的动画"
+    }
+  ],
+  "pros": [
+    "类 CSS 写法可读性高，几行就有完整动画，团队新人照着示例就能上手。",
+    "89 种预设与 33 种缓动，常见 UI 效果不用手调，出现问题时也更容易定位原因。",
+    "支持序列、并行、分组与反向，编排能力比裸 Tween 强，对中小团队的时间成本很友好。",
+    "Grid 分组错峰动画适合按钮墙与背包，长期维护与升级的压力都比较小。",
+    "纯 GDScript，无原生依赖，接入成本低，实际项目落地时省下大量重复工作。"
+  ],
+  "cons": [
+    "主要面向 Control，3D 与材质动画要自己扩，升级引擎版本时容易卡住。",
+    "缺少动画状态管理，页面切换容易忘停，定制之前往往要先读源码。",
+    "复杂时间轴与事件同步能力有限，与既有工程风格可能冲突。"
+  ],
+  "pitfalls": [
+    "切页时没停旧动画，两个 Tween 同时写同一属性会抖动，上线前要专门过一遍。",
+    "对隐藏节点启动循环动画，后台仍在消耗性能，排查时需要多留一层日志。",
+    "关键帧里混用相对值与绝对值，结果与预期位移不一致，联调阶段往往才会暴露出来。"
+  ],
+  "bestFor": "需要给菜单、结算与提示做快速 UI 动效，并且希望用可读语法而不是手写 Tween 的 Godot 4 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "需要复杂时间轴、3D 动画或帧精确的事件同步，专业动画工具与 AnimationPlayer 更合适。",
+  "compareTips": {
+    "vs": [
+      "Guillemsc__GTweensGodot",
+      "murikistudio__simple-gui-transitions"
+    ],
+    "whenZh": "三者都做 UI 动效：Anima 提供 89 种预设与类 CSS 链式语法；GTweens 偏代码式补间与延迟调用；simple-gui-transitions 专注页面切换转场。要丰富预设选 Anima，要轻量 Tween 工具选 GTweens，只做切页转场选后者。"
+  },
+  "category": "ui",
+  "tags": [
+    "UI动画",
+    "缓动",
+    "Tween",
+    "菜单",
+    "GDScript"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "简化 Godot UI 动画制作",
+      "source": "README.md",
+      "quote": "Anima is an add-on for the Godot game engine that simplifies the process of creating dynamic and impactful UI animations."
+    },
+    {
+      "claim": "内置 89 种动画与 33 种缓动",
+      "source": "README.md",
+      "quote": "With 89 built-in animations and 33 easing options"
+    },
+    {
+      "claim": "用简洁语法几行代码完成动画",
+      "source": "README.md",
+      "quote": "allowing you to create animations using a clear and concise syntax with just a few lines of code"
+    },
+    {
+      "claim": "可通过复制 addons 安装",
+      "source": "README.md",
+      "quote": "This is a regular editor plugin."
+    }
+  ],
+  "depth": "standard"
+}

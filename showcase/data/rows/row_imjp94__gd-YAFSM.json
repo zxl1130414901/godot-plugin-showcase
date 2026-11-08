@@ -1,0 +1,14 @@
+{
+  "id": "imjp94__gd-YAFSM",
+  "descriptionZh": "用流程图编辑器设计状态机资源，支持嵌套状态机与远程调试的 Godot 4 插件，接入不需要继承自定义类。",
+  "category": "state-logic",
+  "tags": ["状态机", "流程图", "远程调试", "资源复用"],
+  "prosShort": ["流程图编辑，设计师也能看懂", "状态机资源化，可跨场景复用", "远程调试可实时查看状态参数"],
+  "consShort": ["状态内逻辑仍需自己写脚本", "更新停滞，新版兼容性需自行测试", "文档分散，缺少完整的系统教程"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 2, "performance": 4, "stability": 4},
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

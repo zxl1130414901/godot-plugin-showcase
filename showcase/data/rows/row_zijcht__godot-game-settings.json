@@ -1,0 +1,34 @@
+{
+  "id": "zijcht__godot-game-settings",
+  "descriptionZh": "面向中小项目的设置菜单框架，预置显示、音频与按键选项并统一保存与应用，支持自定义设置项。",
+  "category": "save-data",
+  "tags": [
+    "设置菜单",
+    "存档",
+    "输入重映射",
+    "UI组件"
+  ],
+  "prosShort": [
+    "预置显示、音频与按键三类设置逻辑",
+    "现成界面组件齐全，可直接拼装选项页",
+    "所有设置集中在一个单例里管理"
+  ],
+  "consShort": [
+    "定位中小项目，设置一多就明显变重",
+    "存档文件名固定，旧项目迁移麻烦",
+    "设置类型与范围只能在脚本里改"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

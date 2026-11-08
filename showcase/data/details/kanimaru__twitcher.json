@@ -1,0 +1,141 @@
+{
+  "id": "kanimaru__twitcher",
+  "depth": "standard",
+  "taglineZh": "在 Godot 里接入 Twitch 聊天、事件订阅与 OAuth 授权的库",
+  "summaryZh": "Twitcher 是面向 Godot 4 的 Twitch 接入库，把授权、聊天与事件订阅集中到一个插件。它封装 OAuth 授权与令牌刷新，按作用域申请权限；聊天层基于 IRC，可连接频道、收发消息并解析命令；事件层用 EventSub 监听关注、订阅与打赏，收到后以信号交给游戏逻辑。插件在检查器里配置应用信息与令牌，仓库另附可运行示例与游戏模板，从授权到互动的完整链路都能照着走。MIT 许可，可商用，也有社区维护的 C# 版本可参考。",
+  "whatItDoes": "为 Godot 项目提供 Twitch 认证与 API 封装，把聊天消息、关注订阅等 EventSub 事件转成节点信号供游戏逻辑响应。自动生成 Helix REST API 的类型安全包装方法，开发者不必手写 HTTP 请求与 JSON 解析。提供聊天指令框架，定义指令、校验权限，并自动汇总帮助列表。",
+  "useCases": [
+    {
+      "titleZh": "直播互动玩法",
+      "descZh": "让观众在聊天里发指令触发游戏事件，主播与观众同屏互动，投票、礼物与打赏都能接。"
+    },
+    {
+      "titleZh": "事件订阅",
+      "descZh": "用 EventSub 监听关注、订阅与打赏等事件，收到后驱动场景变化、播报提示或者发放奖励与弹窗提醒。"
+    },
+    {
+      "titleZh": "频道机器人",
+      "descZh": "读取聊天并自动回复、计时或管理命令，做直播辅助工具与聊天管理，规则可自己扩展。"
+    },
+    {
+      "titleZh": "快速接入示例",
+      "descZh": "参考示例场景与内置模板，几步完成授权与连接，再逐步加自己的逻辑，不必从协议读起。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "OAuth 授权流程",
+      "descZh": "内置授权与令牌管理，按作用域申请权限，省略手写回调、刷新与存储流程。"
+    },
+    {
+      "titleZh": "聊天与事件订阅",
+      "descZh": "封装 IRC 聊天与 EventSub，收到消息与事件后以信号形式交给游戏逻辑，网络细节不侵入玩法。"
+    },
+    {
+      "titleZh": "编辑器配置与模板",
+      "descZh": "在编辑器里填应用信息与令牌，附示例与游戏模板，接入路径清楚，调试也能少走弯路。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "OAuth 设置",
+      "descZh": "在检查器里配置客户端与作用域，插件负责跳转授权与保存令牌。"
+    },
+    {
+      "name": "聊天客户端",
+      "descZh": "连接频道并收发消息，支持命令解析，可直接驱动游戏事件，断线后还能重连。"
+    },
+    {
+      "name": "EventSub",
+      "descZh": "订阅关注、订阅与打赏等事件，回调以信号发出，便于与游戏逻辑解耦。"
+    },
+    {
+      "name": "示例工程",
+      "descZh": "带可运行示例与游戏模板，照着改就能接进自己的项目，也方便验证授权流程。"
+    }
+  ],
+  "limitsZh": "插件硬性要求 Godot 4.4 以上，旧版本项目无法使用。addon 必须放在 res://addons/twitcher 这一精确路径，否则内部资源加载会失败，改名或挪位置都会出问题。功能依赖真实的 Twitch 应用与 OAuth 授权，开发者需要自行注册应用、申请作用域并处理令牌刷新，离线状态或未授权时多数节点无法工作。表情加载方面，Godot 不原生支持动态 GIF，默认转换器只能显示静态图，要播放动态表情得额外安装 ImageMagick，或使用标注为实验性的原生转换器，后者对异常 GIF 兼容性不佳。文档主体放在外部站点，仓库 README 只给入口与要点，缺少离线参考。",
+  "workflowZh": [
+    {
+      "stepZh": "在 Twitch 开发者后台注册应用，并拿到客户端 ID 与密钥"
+    },
+    {
+      "stepZh": "在插件设置里填入客户端信息，并勾选所需作用域"
+    },
+    {
+      "stepZh": "运行授权流程，把令牌保存到本地资源"
+    },
+    {
+      "stepZh": "连接目标频道，监听聊天与事件信号"
+    },
+    {
+      "stepZh": "按事件驱动场景逻辑，先在示例工程里验证"
+    }
+  ],
+  "pros": [
+    "聊天、事件订阅与授权都封装好，不必自己拼 HTTP 与 WebSocket 连接层与重连逻辑",
+    "编辑器内可配置应用信息与令牌，接入步骤集中，排错也方便",
+    "附示例与游戏模板，从授权到互动的完整链路都有参考，少走摸索的弯路",
+    "以信号对外，游戏逻辑与网络层解耦，替换实现或加新事件都更容易",
+    "MIT 许可，可商用，也能按需要裁剪模块，直接进发行版本，不必额外授权"
+  ],
+  "cons": [
+    "依赖 Twitch 平台规则与审核，应用信息或作用域配错就连不上",
+    "网络层出错时排查要靠日志，缺少图形化的连接状态面板",
+    "维护节奏一般，平台接口变动后需自行跟进适配与升级"
+  ],
+  "pitfalls": [
+    "作用域申请不全时事件订阅会被拒，先对照文档把需要的权限列全",
+    "令牌过期未刷新会静默断开，需监听错误并重新走授权流程",
+    "在发布版里硬编码客户端密钥有泄露风险，改走外部配置文件读取"
+  ],
+  "bestFor": "做直播互动游戏、频道机器人或主播工具，需要 Twitch 聊天与事件能力，并能按平台规则配置应用与作用域。",
+  "avoidWhenZh": "只做单机游戏、不愿意注册 Twitch 应用并维护 OAuth 令牌，或仍停留在 Godot 4.3 及更早版本时不应引入。",
+  "compareTips": {
+    "vs": [
+      "godot-tube__tube"
+    ],
+    "whenZh": "Twitcher 负责 Twitch 平台的授权、聊天与事件订阅，偏网络接入；godot-mcp 把编辑器能力暴露给外部工具，偏工具链。两者领域不同，按需求选即可。"
+  },
+  "category": "network",
+  "tags": [
+    "Twitch",
+    "直播互动",
+    "OAuth",
+    "聊天指令",
+    "EventSub"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "插件面向 Godot 4.4 及以上版本",
+      "source": "README.md",
+      "quote": "**Seamless Twitch Integration for Godot 4.4+**"
+    },
+    {
+      "claim": "使用 EventSub 与 Helix API，避开废弃的 IRC",
+      "source": "README.md",
+      "quote": "Utilizes EventSub for real-time events and the Helix API for robust interactions (moving away from deprecated IRC features for core functionality)."
+    },
+    {
+      "claim": "addon 必须位于固定路径",
+      "source": "README.md",
+      "quote": "The addon *must* reside in the exact path `res://addons/twitcher` for internal resources to load correctly."
+    },
+    {
+      "claim": "动态表情需要额外转换器",
+      "source": "README.md",
+      "quote": "`MagickImageTransformer`:** Requires ImageMagick to be installed separately."
+    }
+  ]
+}

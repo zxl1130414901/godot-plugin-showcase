@@ -1,0 +1,147 @@
+{
+  "id": "DesirePathGames__Slay-The-Robot",
+  "depth": "standard",
+  "taglineZh": "Godot 4 的完整杀戮尖塔式肉鸽卡牌框架",
+  "summaryZh": "Slay The Robot 是面向 Godot 4 的肉鸽卡牌构筑框架，目标是把杀戮尖塔式循环拆成可复用系统：数据驱动的卡牌与遗物、内容包、动作与拦截器、校验器、事件对话、三幕流程、确定性随机、统计与存档、模组加载都已实现。卡牌可以由 JSON 描述，大部分效果不写代码就能拼出来。它更像一份完整工程模板，而非即插即用插件，要求 Godot 4.6，且上手要先读懂动作体系。",
+  "whatItDoes": "动作系统是核心：攻击、抽牌、购买、结束回合、生成世界与状态增减都通过统一动作脚本执行，拦截器可在执行前改写参数，校验器为 UI 与逻辑提供同一套条件判断。卡牌、遗物、消耗品用 Resource 与内容包组织，卡牌可由 JSON 生成，装饰器提供附加效果。另有确定性随机轨道、统计钩子、SerializableData 存档、事件对话状态机与模组加载。",
+  "useCases": [
+    {
+      "titleZh": "卡牌构筑",
+      "descZh": "直接以框架为底做爬塔式单机，卡牌遗物与三幕流程已有骨架，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "玩法原型",
+      "descZh": "用 JSON 与现成动作快速拼卡，验证数值与组合再决定是否自研，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "教学项目",
+      "descZh": "把动作、拦截器与校验器分层讲清楚，适合作为系统设计案例，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "模组化游戏",
+      "descZh": "需要玩家自制卡牌与脚本，可直接复用外部资源与脚本加载，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "卡牌与遗物",
+      "descZh": "数据驱动的 CardData、ArtifactData 与内容包，生成结果在编辑器与运行时都能复用，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "动作运行时",
+      "descZh": "统一动作脚本、拦截器与校验器管线，结构与引擎资源体系保持一致，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "存档与统计",
+      "descZh": "SerializableData JSON 存档与 RunStats 历史记录，生成结果在编辑器与运行时都能复用，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "模组加载",
+      "descZh": "mod_info 与 mod_list 驱动的外部资源脚本加载，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "数据驱动卡牌",
+      "descZh": "JSON 载荷生成卡牌，多数效果无需写代码，参数集中在检查器面板。"
+    },
+    {
+      "name": "动作拦截器",
+      "descZh": "执行前改写动作参数，状态与遗物可链式影响结果，后续修改起来也不费劲。"
+    },
+    {
+      "name": "校验器",
+      "descZh": "UI 提示与出牌条件共用同一套判断，避免两套算法，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "确定性随机",
+      "descZh": "分轨随机数保证洗牌、事件与伤害可复现，与原生资源体系兼容良好。"
+    },
+    {
+      "name": "存档与模组",
+      "descZh": "自动序列化嵌套对象，并支持外部模组覆盖脚本，调用方式简单不需要额外封装。"
+    }
+  ],
+  "limitsZh": "框架以完整 Godot 工程交付，没有插件式安装说明，接入意味着把项目结构一起搬走或大幅裁剪。README 要求 Godot 4.6，较早的 4.x 版本需要自行迁移。示例 JSON 数据默认不随仓库提供，必须先取消 Global 里的导出注释并运行一次生成。Wiki 仍标注 WIP，动作、拦截器与校验器的组合方式主要靠读源码。系统高度自成体系，与既有战斗或存档架构并存时改造成本高。",
+  "workflowZh": [
+    {
+      "stepZh": "用 Godot 4.6 打开仓库并运行主场景，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "在 Global 中导出示例数据生成 JSON，完成后确认输出没有问题。"
+    },
+    {
+      "stepZh": "读动作与拦截器管线理解结算顺序。"
+    },
+    {
+      "stepZh": "用内容包添加卡牌与遗物，先在测试场景里验证一遍。"
+    },
+    {
+      "stepZh": "替换美术并接入自有存档需求，再按项目实际情况微调。"
+    }
+  ],
+  "pros": [
+    "从卡牌、遗物到三幕流程与存档都有实现，接近可直接改的完整游戏骨架。",
+    "动作、拦截器与校验器共用一条管线，UI 预览与实际结算不容易对不上。",
+    "确定性随机与统计钩子考虑周全，适合需要可复现与成就系统的项目。",
+    "MIT 许可且支持模组，二创与商业使用都没有授权障碍，团队新人照着示例就能上手。"
+  ],
+  "cons": [
+    "以完整工程交付，接入要整体搬运并裁剪，不能当插件直接装。",
+    "要求 Godot 4.6，较早版本需要自行迁移，升级引擎版本时容易卡住。",
+    "文档以 README 与 WIP Wiki 为主，深入改造要读源码，定制之前往往要先读源码。"
+  ],
+  "pitfalls": [
+    "示例 JSON 默认未生成，忘记取消 Global 的导出注释会得到空卡池，上线前要专门过一遍。",
+    "动作必须走框架管线，直接改节点或绕过拦截器会让 UI 预览与实际伤害不一致。",
+    "模组脚本能覆盖核心逻辑，启用第三方模组前要限制来源，避免存档被破坏。"
+  ],
+  "bestFor": "准备做杀戮尖塔式单机卡牌构筑，愿意以完整工程为底改造的中小团队，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只想给现有项目加一套卡牌 UI，或仍停留在 Godot 4.5 及更早版本时。",
+  "compareTips": {
+    "vs": [
+      "db0__godot-card-game-framework"
+    ],
+    "whenZh": "两者都服务卡牌游戏；Slay-The-Robot 提供完整肉鸽循环与动作管线，db0 的框架更偏通用卡牌桌与规则积木。要做爬塔式单机选前者，要做通用卡牌对战选后者。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "肉鸽",
+    "卡牌构筑",
+    "数据驱动",
+    "完整框架"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4 的肉鸽卡牌构筑框架",
+      "source": "README.md",
+      "quote": "Slay the Robot is a comprehensive framework for Godot 4 which enables and streamlines the creation of roguelike deckbuilders similar to Slay the Spire."
+    },
+    {
+      "claim": "卡牌可由 JSON 描述",
+      "source": "README.md",
+      "quote": "Cards have a massive and robust data-driven API, allowing you or users to create cards from simple JSON payloads."
+    },
+    {
+      "claim": "示例 JSON 默认不包含",
+      "source": "README.md",
+      "quote": "JSON files are not included with the project by default and game data is generated from code."
+    },
+    {
+      "claim": "要求 Godot 4.6",
+      "source": "README.md",
+      "quote": "Slay the Robot is written in Godot 4.6 via GDScript"
+    }
+  ]
+}

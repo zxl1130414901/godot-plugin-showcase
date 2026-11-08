@@ -1,0 +1,14 @@
+{
+  "id": "quentincaffeino__godot-console",
+  "descriptionZh": "可扩展的游戏内控制台，支持命令注册、TAB 补全与会话历史，但只面向 Godot 3，发行版需自行管控。",
+  "category": "debug-perf",
+  "tags": ["游戏内控制台", "调试命令", "自动补全", "Godot3"],
+  "prosShort": ["命令注册链式调用，扩展成本低", "自带补全与历史，输入效率高", "输出同步到控制台与引擎日志"],
+  "consShort": ["只面向 Godot 3，新版项目不可用", "发行版保留需自建命令白名单", "界面与主题定制都得自己改脚本"],
+  "scores": {"coverage": 3, "usability": 4, "docs": 3, "maintenance": 4, "performance": 3, "stability": 4},
+  "installComplexity": 2,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

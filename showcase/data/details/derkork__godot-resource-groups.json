@@ -1,0 +1,144 @@
+{
+  "id": "derkork__godot-resource-groups",
+  "depth": "standard",
+  "taglineZh": "用路径表达式管理资源组，告别硬编码资源路径",
+  "summaryZh": "它解决的是 Godot 只能按硬编码路径加载资源的问题：新增 ResourceGroup 资源类型，用 Base Folder、Includes、Excludes 三个字段与通配符表达式描述一组资源，运行时一次 load_all 或 load_matching 就能拿到数组。启动时或手动重建会按表达式扫描项目，新增、改名、删除资源都会自动同步。还提供后台加载器与进度回调，可取消并避免卡顿。限制是库仍较新、可能藏 bug，路径不能出项目目录，C# 包装仍是实验 API。",
+  "whatItDoes": "新增 ResourceGroup 资源类型，包含 Base Folder、Includes、Excludes 三个属性，支持 *、**、? 三种通配符。提供 load_all、load_matching、load_all_into 与后台版本 load_all_in_background、load_matching_in_background，回调里带 resource、path、progress、last 与 success。编辑器菜单 Project → Tools 可手动重建，插件也可调用 ResourceGroupsPlugin.rebuild_resource_groups()。",
+  "useCases": [
+    {
+      "titleZh": "关卡选择",
+      "descZh": "所有关卡场景放在 levels 目录，用 **.tscn 建资源组，菜单直接遍历加载，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "预加载防卡顿",
+      "descZh": "开放世界或大关卡需要在进入前预载资源，用后台加载器显示进度条，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "Mod 资源",
+      "descZh": "从 mod 目录加载贴图与配置而不写死路径，路径表达式能跟随目录变化，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "图集与贴图批量",
+      "descZh": "示例里有一千张图片的资源组，适合批量加载贴图或音频做资源检查，原型阶段出效果很快且正式项目也能沿用。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "资源组资源",
+      "descZh": "可在文件系统右键新建的 ResourceGroup.tres，检查器里配置路径表达式，不必再手工搭建一套。"
+    },
+    {
+      "titleZh": "加载 API",
+      "descZh": "GDScript 与 C# 两套 load_all/load_matching 接口，支持类型安全数组，可以直接放进项目里使用。"
+    },
+    {
+      "titleZh": "后台加载器",
+      "descZh": "ResourceGroupBackgroundLoader 提供进度、成功标记与取消能力，生成结果在编辑器与运行时都能复用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "通配符表达式",
+      "descZh": "*、** 与 ? 组合成包含与排除规则，目录结构变化后仍能匹配，参数集中在检查器面板。"
+    },
+    {
+      "name": "自动重建",
+      "descZh": "项目启动时扫描并刷新资源组，也可在设置里关闭以缩短启动时间。"
+    },
+    {
+      "name": "后台加载",
+      "descZh": "逐项加载并回调进度，适合大资源包与加载界面，后续修改起来也不费劲。"
+    },
+    {
+      "name": "C# 包装",
+      "descZh": "ResourceGroup.Of 与 LoadAll 等静态方法，让 C# 项目也能直接用，在编辑器里就能完成配置。"
+    },
+    {
+      "name": "编辑器菜单",
+      "descZh": "Project → Tools 下可手动重建全部资源组，改完路径规则立即生效，与原生资源体系兼容良好。"
+    }
+  ],
+  "limitsZh": "库作者自己标注仍很新、使用案例不多，可能还有未发现的 bug，生产项目要先小范围验证。资源组只能扫描项目目录内的资源，Base Folder 不能指向项目外，做外部 mod 目录要另想办法。自动重建会在每次启动时扫描，资源组很多或目录很大时会拖慢启动，只能在项目设置里整体关闭，不能按组关闭。重建 API 只在编辑器可用，运行时调用会报错。C# 支持是实验性的包装层，API 可能变动。路径表达式只做通配符匹配，不支持正则、标签或依赖关系筛选。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/godot_resource_groups 复制进项目并启用插件"
+    },
+    {
+      "stepZh": "在文件系统面板右键新建 ResourceGroup 资源文件"
+    },
+    {
+      "stepZh": "在检查器里设置 Base Folder 与包含排除规则"
+    },
+    {
+      "stepZh": "在游戏脚本里用 load_all 读取整组资源数组"
+    },
+    {
+      "stepZh": "大资源改用后台加载器并接进度回调"
+    }
+  ],
+  "pros": [
+    "用路径表达式替代硬编码，资源增删改名后组内容会自动同步。",
+    "GDScript 与 C# 都有加载接口，类型安全数组与后台加载都覆盖，团队新人照着示例就能上手。",
+    "README 与 manual 目录给出完整操作步骤和 FAQ，边界情况写得清楚，出现问题时也更容易定位原因。",
+    "启动自动重建可关闭，重建入口也暴露给其他编辑器插件调用。"
+  ],
+  "cons": [
+    "库仍较新且作者提示可能有 bug，生产使用要预留验证时间。",
+    "只能扫描项目内目录，外部 mod 或用户目录资源无法纳入。",
+    "自动重建会在启动时全量扫描，资源多时拖慢启动且不能按组关闭。"
+  ],
+  "pitfalls": [
+    "Base Folder 填到项目外路径会直接失败，编辑器只给出校验提示，上线前要专门过一遍。",
+    "自动重建关闭后新增资源不会进组，必须手动跑一次重建菜单。",
+    "后台加载器不保留引用会被提前释放，加载永远不结束且没有报错。"
+  ],
+  "bestFor": "资源数量多、路径经常变动，希望用声明式资源组替代硬编码加载的中大型 Godot 项目，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "只需要加载寥寥几个固定资源，或资源目录位于项目外部时。",
+  "compareTips": {
+    "vs": [
+      "Lcbx__GdScript2All"
+    ],
+    "whenZh": "两者都处理资源与代码的组织：Resource Groups 解决按目录批量收集与后台加载，适合关卡表、图集与 mod；GdScript2All 解决把 GDScript 转成 C#/C++，属于代码迁移。批量资源用前者，跨语言迁移用后者。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "资源加载",
+    "通配符",
+    "后台加载",
+    "C#支持",
+    "编辑器工具"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "用一行代码加载整组资源而不写死路径",
+      "source": "README.md",
+      "quote": "You can then load these resources from your game code with a single line without having to hardcode the paths to the resources and doing any directory scanning."
+    },
+    {
+      "claim": "资源组由路径表达式与通配符定义",
+      "source": "README.md",
+      "quote": "Resource groups are defined with path expressions and wildcards so they are resilient to changes in your project structure"
+    },
+    {
+      "claim": "作者提示库仍较新可能有问题",
+      "source": "README.md",
+      "quote": "This library is still quite new and has not seen much use yet. While it works reasonably well, there may still be bugs."
+    },
+    {
+      "claim": "后台加载器必须保留引用",
+      "source": "README.md",
+      "quote": "you need to retain a reference to the background loader during the loading process."
+    }
+  ]
+}

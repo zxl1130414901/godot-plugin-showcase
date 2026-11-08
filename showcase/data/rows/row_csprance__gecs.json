@@ -1,0 +1,14 @@
+{
+  "id": "csprance__gecs",
+  "descriptionZh": "面向 Godot 4.6 以上的实体组件系统框架，提供查询缓存、可视化组件编辑、单步调试器与多人网络模块",
+  "category": "state-logic",
+  "tags": ["ECS", "架构", "实体组件", "查询", "调试"],
+  "prosShort": ["查询按组件关系过滤并自动缓存", "与节点场景衔接可继续用编辑器", "自带单步调试器与关系图便于排查"],
+  "consShort": ["要求引擎 4.6 以上，4.5 旧版无法运行", "组件属性漏写默认值导出会报错", "仓库体积很大，示例与插件占用多"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 4, "maintenance": 4, "performance": 4, "stability": 4},
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "citizenll__godot-flexbox",
+  "descriptionZh": "基于 Yoga 的 Godot Flexbox 布局 GDExtension，提供 FlexContainer 容器、子项弹性属性与检查器面板",
+  "category": "ui",
+  "tags": [
+    "Flexbox",
+    "布局容器",
+    "GDExtension",
+    "响应式UI",
+    "CSS"
+  ],
+  "prosShort": [
+    "套用 flexbox 概念排布复杂界面布局",
+    "布局参数集中在容器与子项属性",
+    "以 GDExtension 实现，重排效率明显更高"
+  ],
+  "consShort": [
+    "需自行编译 GDExtension，环境门槛偏高",
+    "仍在开发，边缘情况未必覆盖",
+    "文档偏截图，深入用法读源码"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 2
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

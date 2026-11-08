@@ -1,0 +1,139 @@
+{
+  "id": "KOBUGE-Games__godot-logger",
+  "depth": "standard",
+  "taglineZh": "模块化分级并可写文件的日志单例",
+  "summaryZh": "Godot Logger 启用后注册 KLogger 单例，提供 debug、info、warn、error 等级别，按模块过滤输出，格式串可自定义时间戳与模块名，错误码还能映射成可读说明。输出可以只进控制台，也可以走文件策略，支持缓冲与队列模式，外部 Sink 还能把日志转给自定义后端。它适合需要模块级日志与落盘的项目。限制是功能面朴素：没有日志轮转、远程收集或结构化字段，README 也建议直接读源码了解 API；维护节奏慢，主要按 Godot 4 基础接口使用。",
+  "whatItDoes": "单例提供 KLogger.warn、info、error 等方法，可传模块名与 Error 码。输出格式由 output_format 的占位符控制，时间格式按模块设置。内部由模块与输出策略组成：控制台、文件与外部 Sink 可按级别组合，文件写入支持缓冲与队列，减少频繁 IO。",
+  "useCases": [
+    {
+      "titleZh": "模块化调试输出",
+      "descZh": "按系统模块过滤日志，定位问题时不被无关输出淹没，比裸 print 高效得多，也更容易看清调用顺序。"
+    },
+    {
+      "titleZh": "运行日志落盘",
+      "descZh": "把警告与错误写进文件，方便测试包回收后排查，也能复盘玩家现场的异常与崩溃前的最后几步。"
+    },
+    {
+      "titleZh": "统一日志格式",
+      "descZh": "自定义时间戳与级别格式，让团队日志规范一致，外部工具也更容易解析，交接时不用再解释字段。"
+    },
+    {
+      "titleZh": "外部日志收集",
+      "descZh": "通过 Sink 把日志接到自建收集器或调试面板，做集中查看与告警，也能按需转成 JSON 供分析。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "KLogger 全局单例",
+      "descZh": "任意脚本可调用的日志入口，启用插件即注册，不需要在各处传引用，接入成本几乎为零。"
+    },
+    {
+      "titleZh": "分级模块日志",
+      "descZh": "按模块与级别过滤，控制台与文件策略可分开，调试与发布可以用不同配置，避免发布版刷屏。"
+    },
+    {
+      "titleZh": "可配置日志文件",
+      "descZh": "路径、写入模式与缓冲策略可调，输出到指定文件，也能换成自定义 Sink 对接外部系统。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "日志级别",
+      "descZh": "debug、info、warn、error 等分级，可按模块设阈值，发布版只留警告以上，控制台更干净。"
+    },
+    {
+      "name": "output_format",
+      "descZh": "用 {TIME}、{LVL}、{MOD}、{MSG} 拼出统一格式，时间格式也能单独指定，日志一眼能看懂。"
+    },
+    {
+      "name": "文件输出",
+      "descZh": "支持缓冲与队列写入，减少频繁打开文件的 IO 开销，大量日志时也不至于拖慢主线程。"
+    },
+    {
+      "name": "外部 Sink",
+      "descZh": "把日志转交自定义后端，便于接收集器或游戏内调试面板，也能同时输出到多个目标。"
+    },
+    {
+      "name": "Error 码映射",
+      "descZh": "传入 Error 枚举后自动附上可读的错误说明，排查时省去查文档，错误码也更好理解。"
+    }
+  ],
+  "limitsZh": "功能停在基础日志层：没有按大小或日期轮转，文件会一直增长；没有结构化 JSON、字段查询或远程上传，海量日志分析仍要外部工具。模块要手动 add_module，拼写错误不会报错，只是过滤不到。文件策略依赖路径可写，导出后写进 res:// 会失败；缓冲队列在崩溃时可能丢失最后一批日志。项目版本 1.0.0 且更新节奏慢，README 直接让你读源码，缺少完整 API 文档与迁移说明；也没有日志级别运行时热切换的界面。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/godot-logger 整个目录复制进项目并启用插件"
+    },
+    {
+      "stepZh": "确认 KLogger 已经正确加入项目的单例列表"
+    },
+    {
+      "stepZh": "在脚本里按模块名调用 info、warn 或 error 方法"
+    },
+    {
+      "stepZh": "配置输出格式与时间戳格式，统一团队风格"
+    },
+    {
+      "stepZh": "按需启用文件策略，或接入外部 Sink 后端"
+    }
+  ],
+  "pros": [
+    "模块级过滤，定位问题比裸 print 高效，日志也不容易互相淹没，排查链条清楚",
+    "支持文件输出与缓冲策略，测试包可回收日志，便于事后排查，也能保留现场",
+    "格式串自定义，时间戳与级别可统一，输出风格一致，交接与工具解析都方便",
+    "错误码自动映射可读说明，排查时不必再翻枚举定义，理解成本更低",
+    "MIT 许可，源码短便于改造，可按项目需要加字段或改输出策略"
+  ],
+  "cons": [
+    "无日志轮转，文件会持续增长，长时间运行要手动清理",
+    "无结构化字段与远程收集，海量日志分析仍要靠外部工具",
+    "更新慢，API 文档主要靠读源码，新手理解成本偏高"
+  ],
+  "pitfalls": [
+    "导出后写 res:// 路径会失败，文件策略应指向 user://，否则日志会静默丢失",
+    "模块名拼错不会报错，只是日志被过滤掉，容易误判为没执行，建议统一常量",
+    "崩溃时缓冲日志可能未落盘，关键错误要及时 flush，否则最后一段会丢"
+  ],
+  "bestFor": "需要按模块过滤、统一格式并把警告错误落盘的中小型 Godot 4 项目，尤其是要回收测试包日志的团队。",
+  "avoidWhenZh": "需要日志轮转、结构化查询或远程集中收集的大型项目与线上服务型产品。",
+  "compareTips": {
+    "vs": [
+      "HungryProton__monitor_overlay"
+    ],
+    "whenZh": "KLogger 负责文本日志的分级与落盘，Monitor Overlay 负责运行时性能指标可视化。排查逻辑问题看日志，排查性能问题看浮层，两者可以同时挂着。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "日志",
+    "调试",
+    "模块过滤",
+    "文件输出"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "为 Godot 项目提供日志 API",
+      "source": "plugin.cfg",
+      "quote": "The Godot Logger is a plugin that provides a logging API for projects developed with Godot Engine."
+    },
+    {
+      "claim": "输出格式由占位符字段组成",
+      "source": "README.md",
+      "quote": "The `output_format` property can be customized using format fields from the `FORMAT_IDS` dictionary."
+    },
+    {
+      "claim": "支持自定义输出格式与时间格式",
+      "source": "README.md",
+      "quote": "The `output_format` property can be customized using format fields from the\n`FORMAT_IDS` dictionary. They are placeholders which will be replaced by the\nrelevant content."
+    }
+  ]
+}

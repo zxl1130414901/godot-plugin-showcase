@@ -1,0 +1,162 @@
+{
+  "id": "nezvers__Godot-GameTemplate",
+  "depth": "standard",
+  "taglineZh": "俯视射击项目模板，菜单、设置、暂停与通用脚本库一次备齐",
+  "summaryZh": "Godot Game Template 是 NeZvers 自用的俯视射击项目骨架，主体放在 addons/top_down，把开场菜单、全屏切换、音量分组、暂停、按键重绑定、逐帧调试暂停与基于截图的着色器转场都做进去，主场景直接从启动加载页开始。跨项目通用的部分另抽成 addons/great_games_library：资源引用管理、可带配置回调的实例池、线程加载静态函数、音效管理器与可保存资源，还有伤害与拾取用的数据传递节点、场景集中数据收集节点。模板侧附带 AStar 网格寻路的敌人、波次刷怪与若干示例关卡，另装一个看板任务插件。作者说明这是个人项目模板，会随自己的游戏需求继续演进，也明确不推荐新手直接照抄。",
+  "whatItDoes": "提供一套可直接运行的俯视射击示例工程，主场景是启动预加载页，加载完成后进入标题界面再进关卡。菜单体系覆盖全屏切换、主音量与音乐音效分组、按键重绑定与暂停，暂停时还能逐帧推进。场景切换用当前帧截图加着色器做过渡，切换前会预编译着色器并预加载目标场景。通用库把音效、实例池、线程加载、可保存资源与区域数据传递做成独立资源或节点，与模板解耦。敌人使用 AStar 网格寻路并按波次刷出，示例关卡给出最小可玩闭环。",
+  "useCases": [
+    {
+      "titleZh": "俯视射击原型",
+      "descZh": "要在一两天内验证射击手感与刷怪节奏，直接用模板里的角色、武器、投射物与波次系统改数值，省掉搭基础场景与状态流转的时间。"
+    },
+    {
+      "titleZh": "补齐菜单与设置层",
+      "descZh": "项目已有玩法但界面是临时拼的，可以把 top_down 里的菜单、设置与暂停场景挑出来接上自己的主场景，音频总线与按键重绑定直接复用。"
+    },
+    {
+      "titleZh": "按键重绑定与手柄接入",
+      "descZh": "需要让玩家自定义键位或接手柄时，用自带的输入重绑定界面改 InputMap 条目，不必再写一套扫描按键并保存的流程，设置会随存档保留。"
+    },
+    {
+      "titleZh": "调试期的时间控制",
+      "descZh": "排查战斗时序时用逐帧暂停与步进，把一帧一帧看清楚，配合暂停系统还能在不改代码的情况下冻结场景观察状态变化。"
+    },
+    {
+      "titleZh": "跨项目复用底层件",
+      "descZh": "把 great_games_library 单独复制到别的工程，实例池、线程加载、音效管理与可保存资源都能直接调用，不必为每个新项目重写这些底层件。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可玩的俯视射击场景",
+      "descZh": "带敌人寻路、波次刷怪、武器与投射物的示例关卡，改数值与美术就能当作玩法原型，也能整块删掉只保留框架部分。"
+    },
+    {
+      "titleZh": "菜单与设置界面",
+      "descZh": "开场菜单、全屏切换、音量分组、按键重绑定与暂停界面，均以场景形式提供，复制后可改名换图，不必从零搭 UI。"
+    },
+    {
+      "titleZh": "通用脚本资源库",
+      "descZh": "实例池、资源引用、线程加载、音效管理、可保存资源与数据传递节点等独立资源与节点，能被其他项目直接复制使用。"
+    },
+    {
+      "titleZh": "截图式转场效果",
+      "descZh": "用当前帧截图加着色器做的场景切换过渡，切关时不必额外做加载动画，也能替换着色器改成自己喜欢的样式。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "SoundResource",
+      "descZh": "把一组音效打包成资源，由 SoundManager 统一播放与回收，随机变体、音高与音量范围都能在资源里配置。"
+    },
+    {
+      "name": "InstanceResource",
+      "descZh": "带配置回调的实例化资源，创建节点时可传入初始化参数，并支持动态实例池复用，减少频繁创建销毁的开销。"
+    },
+    {
+      "name": "ThreadUtility",
+      "descZh": "静态函数封装的线程加载工具，把资源读取放到后台线程并回报进度，适合切换大场景时避免主线程卡顿。"
+    },
+    {
+      "name": "SaveableResource",
+      "descZh": "可序列化到磁盘的资源基类，把需要保存的字段声明出来后由它统一读写，省去手写存档结构的重复工作。"
+    },
+    {
+      "name": "AreaTransmitter",
+      "descZh": "配合接收节点做伤害、拾取与障碍的数据传递，用区域广播代替直接引用，节点之间的耦合更低。"
+    }
+  ],
+  "limitsZh": "它是一份个人项目模板而不是框架：作者声明会随自己游戏的需求继续演进，超出俯视射击范围的部分不会补，也没有版本化迁移说明。脚本数量很多，类名与目录按作者习惯命名，第一次读要花时间理清依赖，README 只有一份简短说明，没有逐模块文档。项目默认按 Godot 4.7 特性配置，旧版 4.x 打开可能出现属性缺失或特性不兼容，需要手动降级。Steam 初始化脚本与示例资源一并放在工程里，正式项目要逐项关掉或删除，否则会带上无用依赖。音频总线布局被迫放在默认路径，改名或移动会让音量设置失效。所谓通用库仍与模板共享部分约定，单独抽出来用时需要自己补齐单例与输入配置。",
+  "workflowZh": [
+    {
+      "stepZh": "复制两个 addons 目录并在项目设置里启用插件"
+    },
+    {
+      "stepZh": "检查自动加载项，确认 SoundManager 等单例路径正确"
+    },
+    {
+      "stepZh": "先读 title.tscn 与 room_0.tscn，理解示例场景的组织方式"
+    },
+    {
+      "stepZh": "把玩家、武器与敌人换成自己的美术与数值"
+    },
+    {
+      "stepZh": "在设置界面里接上项目音量总线与按键映射"
+    },
+    {
+      "stepZh": "跑一遍波次关卡，确认转场与暂停都正常"
+    }
+  ],
+  "pros": [
+    "菜单、设置、暂停、转场与音效管理一次备齐，玩法原型可以直接从可玩状态开始改，省掉一周的底层搭建。",
+    "通用脚本库覆盖实例池、线程加载与可保存资源，这些底层件在其他项目里也能直接复制使用，复用价值高于模板本身。",
+    "全部是 GDScript 且不依赖编译，改起来没有黑盒，遇到不符合需求的地方能直接读源码改逻辑。",
+    "示例关卡带 AStar 寻路敌人与波次刷怪，能当作俯视射击的最小可玩闭环参考，比只看文档更容易理解结构。"
+  ],
+  "cons": [
+    "作者按自己的游戏需求演进，目录与脚本命名偏个人习惯，缺少模块文档，接手成本比看 README 高得多。",
+    "绑定较新的 Godot 版本特性，旧 4.x 项目迁入时要逐个处理属性与 API 差异，不能直接复制即用。",
+    "内置 Steam 初始化与示例资源未做裁剪开关，正式项目要手动清理，否则包体与依赖都会被拖住。"
+  ],
+  "pitfalls": [
+    "把工程里自带的 Steam 初始化单例留着不管，导出到没有 Steam 的环境会报初始化失败，先删掉或改成条件启用。",
+    "音频总线布局被固定在默认路径，改动文件名后设置界面的音量滑条不起作用，排查时先看 default_bus_layout 是否还在原位。",
+    "直接复制 top_down 场景而不改自动加载路径，切换场景后音效与暂停状态会丢失，单例必须在项目设置里指向新路径。"
+  ],
+  "bestFor": "想快速验证俯视射击玩法、又需要一套现成菜单与音效底座的独立开发者，尤其是愿意读源码改结构而不是等文档的人。",
+  "avoidWhenZh": "项目不是俯视射击、或团队需要稳定文档与语义化目录时，这套个人风格明显的模板会带来额外理解成本。",
+  "compareTips": {
+    "vs": [
+      "Maaack__Godot-Game-Template",
+      "stesproject__godot-2d-topdown-template",
+      "crystal-bit__godot-game-template"
+    ],
+    "whenZh": "Maaack 的模板强在界面完整与安装向导，但不含玩法；stesproject 更贴近 2D 俯视射击的完整玩法闭环；crystal-bit 偏工程骨架与状态机。要玩法参考选 stesproject，要菜单底座选 Maaack，要能直接改的射击原型选本项目。"
+  },
+  "category": "ui",
+  "tags": [
+    "模板",
+    "俯视射击",
+    "菜单",
+    "音频",
+    "资源管理"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "面向俯视射击的起始模板",
+      "source": "README.md",
+      "quote": "particularly suited for top-down shooter games."
+    },
+    {
+      "claim": "把通用脚本抽成可跨项目使用的库",
+      "source": "README.md",
+      "quote": "a collection of scripts that offer general-purpose solutions applicable across various games."
+    },
+    {
+      "claim": "作者明确不推荐新手使用",
+      "source": "README.md",
+      "quote": "This template is not recommended for beginners who may need a guidance."
+    },
+    {
+      "claim": "自带线程加载工具",
+      "source": "README.md",
+      "quote": "Static functions for threaded loading"
+    },
+    {
+      "claim": "模板会随作者自己的游戏继续演进",
+      "source": "README.md",
+      "quote": "It serves as my personal project template and will continue to evolve"
+    }
+  ]
+}

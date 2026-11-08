@@ -1,0 +1,34 @@
+{
+  "id": "levinzonr__godot-asset-placer",
+  "category": "editor-tool",
+  "tags": [
+    "3D关卡搭建",
+    "资产摆放",
+    "编辑器插件",
+    "场景美化"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "descriptionZh": "编辑器内 3D 资产摆放工具，支持刷子散布、集合管理与调色板快捷选取，适合大场景铺量",
+  "prosShort": [
+    "预览加射线落点，摆放省心，命中较准",
+    "刷子与随机抽取适合铺量，大场景提速明显",
+    "集合与调色板便于管理资产"
+  ],
+  "consShort": [
+    "目录手动同步，首次导入慢，需等待",
+    "缩略图质量不稳，复杂模型偏暗",
+    "仅支持有限资源格式，其它需先转换"
+  ],
+  "sampleStatus": "none"
+}

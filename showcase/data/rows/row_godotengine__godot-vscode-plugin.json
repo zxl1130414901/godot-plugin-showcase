@@ -1,0 +1,35 @@
+{
+  "id": "godotengine__godot-vscode-plugin",
+  "descriptionZh": "官方维护的 VS Code 扩展，为 GDScript 提供补全、跳转、格式化与断点调试，并覆盖场景与资源文件。",
+  "category": "editor-tool",
+  "tags": [
+    "VS Code",
+    "GDScript",
+    "语言服务",
+    "调试器",
+    "TypeScript"
+  ],
+  "prosShort": [
+    "官方仓库维护，紧跟引擎协议",
+    "补全跳转与文档悬停都齐全",
+    "调试器支持断点与调用栈视图"
+  ],
+  "consShort": [
+    "依赖引擎开端口，编辑器关了就失效",
+    "动态类型推断有限，补全不全",
+    "不做场景编辑，也不管资源导入"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

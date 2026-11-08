@@ -1,0 +1,35 @@
+{
+  "id": "Ark2000__PankuConsole",
+  "descriptionZh": "游戏内运行期调试工具箱，可执行表达式、看原生日志、自动生成属性面板并监视表达式，窗口支持多屏自由布局。",
+  "category": "debug-perf",
+  "tags": [
+    "调试",
+    "控制台",
+    "运行时",
+    "日志",
+    "GDScript"
+  ],
+  "prosShort": [
+    "运行中执行表达式与改属性",
+    "原生日志搬进游戏窗口查看",
+    "插件不到 256KB，各模块还能单独拆"
+  ],
+  "consShort": [
+    "发行版必须手动关掉调试后门",
+    "监视项一多，掉帧就会很明显",
+    "只支持 Godot 4，版本更新节奏偏慢"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

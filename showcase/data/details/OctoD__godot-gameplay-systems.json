@@ -1,0 +1,68 @@
+{
+  "id": "OctoD__godot-gameplay-systems",
+  "depth": "standard",
+  "taglineZh": "在 Godot 里搭建属性、技能与效果系统的节点与资源集合",
+  "summaryZh": "Godot Gameplay Systems 把技能、属性、效果、背包与交互这些 RPG 常见系统做成节点和资源，让你在场景里组合而不是从零写逻辑。属性节点负责数值与修改器，技能与效果负责触发与持续影响，另有背包、装备、交互、镜头震动与回合制节点等模块，仓库附带多个示例工程可直接运行。作者已在 README 提示 1.0 将改用 GDExtension 重写、旧 API 会变化，因此它更适合学习与原型，长期项目则需先评估迁移成本，避免中途返工。",
+  "whatItDoes": "以节点与资源形式提供属性、技能、效果、背包、装备、交互、镜头震动与回合制等模块，可在场景树里组合出数值与技能体系。仓库附带 diablo 类、DOOM 类、平台跳跃、俯视角与回合制等多个示例工程，运行即可查看各系统的接法。",
+  "useCases": [
+    {"titleZh": "RPG 属性与技能原型", "descZh": "用属性节点和技能资源快速搭出数值成长、增益减益与技能释放流程，验证手感，不必先写一整套战斗框架。"},
+    {"titleZh": "背包与交互系统验证", "descZh": "直接复用背包、装备与交互模块，把拾取、开关与对话逻辑接到场景里，省去从零实现物品容器与交互判定。"},
+    {"titleZh": "回合制玩法试验", "descZh": "使用回合制节点与配套示例，验证行动顺序、技能结算与状态效果叠加，再决定是否继续扩展这套节点。"},
+    {"titleZh": "学习节点化系统设计", "descZh": "通过示例工程拆解属性、效果与技能如何用节点组合，作为自研系统的参考，也能对照自己的架构查漏补缺。"}
+  ],
+  "whatItMakes": [
+    {"titleZh": "可组合的属性节点", "descZh": "把生命、攻击等数值做成节点，用修改器与效果叠加计算最终数值，并在检查器里直接查看当前结果。"},
+    {"titleZh": "技能与效果资源", "descZh": "技能配置与效果定义存成资源，可在不同角色与场景之间复用，改数值不必翻脚本。"},
+    {"titleZh": "示例玩法工程", "descZh": "附带多个完整示例场景，演示属性、技能、背包与回合制的组合方式，可直接运行并仿照改造。"}
+  ],
+  "featureCallouts": [
+    {"name": "属性系统", "descZh": "支持基础值与修改器，可叠加增益、减益与持续效果并给出最终数值。"},
+    {"name": "技能与效果", "descZh": "技能触发效果链，支持冷却、消耗与目标选择等常见规则，配置项集中在资源与检查器里。"},
+    {"name": "背包与装备", "descZh": "提供物品容器与装备槽位，可与属性修改器联动影响角色数值。"},
+    {"name": "交互与镜头", "descZh": "附带交互系统与镜头震动模块，补齐拾取、开关与打击反馈，减少另找插件的麻烦。"},
+    {"name": "回合制节点", "descZh": "提供回合制流程节点，可组合行动顺序与技能结算逻辑，适合战棋与回合 RPG 原型。"}
+  ],
+  "limitsZh": "仓库 README 明确提示正在用 GDExtension 全面重写，1.0 会改动旧 API，并建议新项目改用作者拆出的独立属性与技能扩展，说明当前版本处于过渡期。插件以 GDScript 场景与资源为主，性能依赖节点数量，大量实体时属性与效果叠加需要自行优化。联机部分作者坦言测试不多，只给出用 MultiplayerSynchronizer 复制的思路，没有开箱方案。",
+  "workflowZh": [
+    {"stepZh": "复制 addons 目录，在项目设置里启用 GGS 插件"},
+    {"stepZh": "重载项目，确认插件面板与资源类型可用"},
+    {"stepZh": "给角色挂属性节点，配置基础值与修改器"},
+    {"stepZh": "创建技能与效果资源，绑定到角色技能槽"},
+    {"stepZh": "运行附带示例工程，对照调整自己的组合方式"}
+  ],
+  "pros": [
+    "把属性、技能、效果、背包等系统做成节点，组合方式直观且贴近 Godot 风格",
+    "附带多个完整示例工程，覆盖动作、俯视角与回合制等不同玩法",
+    "属性与效果用资源描述，便于在不同角色之间复用与批量配置",
+    "文档目录较全，属性、技能、背包与交互都有独立说明页，查概念比翻源码快",
+    "采用 MIT 许可，商用与修改分发没有明显限制，可放心改造成自己的系统"
+  ],
+  "cons": [
+    "作者宣布将用 GDExtension 重写，当前 API 属于过渡期随时会变",
+    "联机复制只有思路说明，缺少可直接使用的同步方案",
+    "纯 GDScript 实现，大量实体时数值计算与效果叠加有性能压力",
+    "示例工程体积较大，首次打开与运行需要额外等待资源导入"
+  ],
+  "pitfalls": [
+    "按 README 直接用于新项目要谨慎，作者已建议改用拆分后的独立扩展",
+    "硬引用 res:// 路径的自定义类在 1.0 方案下会失效，升级前要先评估",
+    "效果与修改器的叠加顺序会影响最终数值，配置时要固定结算顺序并测试"
+  ],
+  "bestFor": "用 Godot 4 做 RPG 或动作游戏原型、希望用节点化方式快速搭出属性技能与背包，并能接受后续重写迁移的开发者。",
+  "avoidWhenZh": "需要长期稳定 API、强联机同步，或对大量实体属性计算有严格性能要求的项目。",
+  "compareTips": {
+    "vs": ["shomykohai__quest-system"],
+    "whenZh": "两者都偏 RPG 系统：GGS 覆盖属性、技能、效果与背包，偏向底层通用能力；quest-system 专注任务链与目标流程。搭战斗数值选 GGS，只补任务系统选后者。"
+  },
+  "category": "state-logic",
+  "tags": ["RPG", "属性系统", "技能", "背包"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 4, "maintenance": 2, "performance": 3, "stability": 2},
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {"claim": "定位为技能与属性类玩法的节点资源集合", "source": "addons/godot_gameplay_systems/plugin.cfg", "quote": "is a set of nodes and resources which speed up development of skills and attribute based gameplay mechanisms."},
+    {"claim": "作者计划用 GDExtension 全面重写并改动旧 API", "source": "README.md", "quote": "A full rewrite is going on (using gdextension). Some old api will change"},
+    {"claim": "联机能力未被充分测试", "source": "README.md", "quote": "Did not test too much, but abilities, effects and attributes could be replicated using the `MultiplayerSynchronizer` node"}
+  ]
+}

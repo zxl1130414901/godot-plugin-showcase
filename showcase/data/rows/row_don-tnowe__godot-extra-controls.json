@@ -1,0 +1,35 @@
+{
+  "id": "don-tnowe__godot-extra-controls",
+  "descriptionZh": "一批补足界面的 Control 控件合集，含动画容器、拖拽框选与属性表单。",
+  "category": "ui",
+  "tags": [
+    "控件合集",
+    "容器布局",
+    "拖拽排序",
+    "属性表单",
+    "工具界面"
+  ],
+  "prosShort": [
+    "控件种类多，拖拽与连线开箱可用",
+    "动画容器自带补间，换序更顺",
+    "纯 GDScript 实现，接入不需要构建步骤"
+  ],
+  "consShort": [
+    "文档以列表为主，参数说明少",
+    "控件风格偏默认，需统一皮肤",
+    "部分控件仅适合编辑器式界面"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 2,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

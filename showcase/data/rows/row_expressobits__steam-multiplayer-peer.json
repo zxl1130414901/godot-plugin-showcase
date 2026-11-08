@@ -1,0 +1,35 @@
+{
+  "id": "expressobits__steam-multiplayer-peer",
+  "descriptionZh": "基于 Steam Sockets 的 GDExtension 传输层，把 ENet 对等体换成 Steam 连接，方便接入现成好友与大厅，但作者已暂停开发。",
+  "category": "network",
+  "tags": [
+    "Steam",
+    "联机",
+    "GDExtension",
+    "点对点",
+    "传输层"
+  ],
+  "prosShort": [
+    "现有联机代码换掉对等体就能跑",
+    "不依赖 GodotSteam，装好扩展即可建立连接",
+    "底层用 Steam Sockets，与 ENet 的使用方式很接近"
+  ],
+  "consShort": [
+    "作者已暂停开发，后续适配要自己扛",
+    "目前不支持通道，无法分流可靠数据",
+    "必须先配好 Steamworks 的 AppID 与登录才能连上"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

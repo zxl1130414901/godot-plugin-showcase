@@ -1,0 +1,35 @@
+{
+  "id": "ahopness__GodotRetro",
+  "descriptionZh": "收录 CRT、VHS、NTSC 与噪点等复古后处理效果的着色器包，整体接入成本不高。",
+  "category": "3d-shader",
+  "tags": [
+    "复古滤镜",
+    "CRT",
+    "VHS",
+    "后处理",
+    "着色器"
+  ],
+  "prosShort": [
+    "二十多个复古效果可直接用",
+    "新旧渲染器都有接入方式，团队上手也快。",
+    "附示例场景方便对照调参，接入成本不高。"
+  ],
+  "consShort": [
+    "效果独立缺少统一管线，团队要提前评估。",
+    "叠加过多会明显掉帧，规模化后更明显。",
+    "参数说明少主要靠读源码，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

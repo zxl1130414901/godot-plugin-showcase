@@ -1,0 +1,172 @@
+{
+  "id": "KoBeWi__Metroidvania-System",
+  "depth": "standard",
+  "taglineZh": "给类银河恶魔城做地图编辑、房间连接与收集品追踪的工具箱",
+  "summaryZh": "Metroidvania System（MetSys）是 KoBeWi 从自己的银河恶魔城项目里抽出来的通用工具：核心是一张网格地图编辑器，用格子拼出房间、图层与分组，再把场景挂到房间上，房间之间能拖拽连接并在场景里显示邻接预览。它还管物件持久化，自动为收集品、开关与可破坏墙生成唯一 ID，只用两个方法就能存取状态。运行时提供地图查看、迷雾、小地图、场景转接与存档相关能力，组件可以单独拆用，非银河恶魔城项目也能只取其中一部分。它要求 Godot 4.6 以上，旧版要用 1.6 稳定分支。",
+  "whatItDoes": "提供 Map Editor 面板，用格子绘制世界地图，支持多图层、房间自动分组、单元格颜色与符号、边框贴图与自定义绘制元素。房间可关联场景，地图里能拖拽移动并用预览跳转到相邻场景。运行时地图查看器显示已探索区域、收集品与当前位置，并支持迷雾与逐像素探索。物件 ID 系统自动为场景内外的持久对象生成唯一标识，用两个可选参数的管理方法读写状态。另带小地图、场景转接与存档辅助组件。",
+  "useCases": [
+    {
+      "titleZh": "规划世界地图",
+      "descZh": "关卡数量多起来之前先在地图编辑器里排版房间与区域，用图层区分地面、地下与平行世界，避免后面靠表格维护关卡关系。"
+    },
+    {
+      "titleZh": "房间转接与预览",
+      "descZh": "在场景边缘显示相邻房间预览并点击跳转，做跨房间的门与电梯时不用反复记路径，关卡之间的连通关系一目了然。"
+    },
+    {
+      "titleZh": "收集品与开关持久化",
+      "descZh": "给收集品、开关与可破坏墙自动分配唯一 ID，玩家回头再进房间时状态还在，不必手写一长串事件标记。"
+    },
+    {
+      "titleZh": "小地图与探索迷雾",
+      "descZh": "需要游戏内小地图或逐像素探索时，直接用运行时查看器与迷雾组件，省掉自己写地图渲染与探索记录。"
+    },
+    {
+      "titleZh": "关卡设计与评审",
+      "descZh": "策划在编辑器里改地图布局，程序通过预览跳转核对场景连接，评审时对着整张世界图讨论比逐个打开场景高效。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "网格世界地图",
+      "descZh": "由单元格、图层与分组组成的地图资源，支持自定义颜色、符号与边框，能整体导出用于文档或游戏内展示。"
+    },
+    {
+      "titleZh": "房间与场景映射",
+      "descZh": "每个房间关联的场景路径与相邻关系，场景里能显示邻接预览，转接逻辑可以据此自动生成，减少手写跳转表。"
+    },
+    {
+      "titleZh": "物件 ID 与存档",
+      "descZh": "为持久对象生成的唯一标识与状态记录，配合两个管理方法读写，收集品与开关状态能跨场景保留。"
+    },
+    {
+      "titleZh": "小地图与迷雾层",
+      "descZh": "运行时地图查看器、小地图与迷雾组件，按探索进度显示区域，适合做成游戏内的地图界面，也能直接叠在 HUD 上。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Map Editor",
+      "descZh": "网格地图编辑器，支持多图层、房间分组、颜色符号与自定义元素，带完整撤销重做与外部改动检测。"
+    },
+    {
+      "name": "Object IDs",
+      "descZh": "自动为场景内外对象生成唯一 ID，用两个可选参数的方法读写持久状态，免去手写事件标记。"
+    },
+    {
+      "name": "Room Links",
+      "descZh": "房间与场景关联并显示邻接预览，可直接点击跳转，跨房间转接不必反复查路径。"
+    },
+    {
+      "name": "Map Viewer",
+      "descZh": "运行时地图查看器，显示已探索区域、收集品与当前位置，可接小地图与迷雾。"
+    },
+    {
+      "name": "FogOfMystery",
+      "descZh": "逐像素探索与迷雾组件，玩家走过的地方才显示，适合做探索型地图界面。"
+    }
+  ],
+  "limitsZh": "它假设世界由方形或矩形网格房间组成，房间形状不规则或需要大量斜向连接时，地图表达力会明显下降。要求 Godot 4.6 以上，旧版本只能用 1.6 稳定分支，两代功能与数据结构差异较大，升级要迁移地图资源。文档主要放在 wiki，缺少系统化的迁移与最佳实践章节，复杂用法得读源码。地图编辑器在处理大量单元格与图层时会变重，超大世界建议拆成多张地图。物件 ID 依赖场景结构与路径，重命名节点或移动场景可能导致 ID 变化，已存档的状态会对不上。运行时组件只覆盖地图、迷雾与基础存档，任务、对话与战斗仍要另配。",
+  "workflowZh": [
+    {
+      "stepZh": "把 addons/MetroidvaniaSystem 整个复制进项目，再启用插件"
+    },
+    {
+      "stepZh": "新建地图资源，先用格子铺出第一片区域"
+    },
+    {
+      "stepZh": "给每个房间关联具体场景，并把相邻连接配好"
+    },
+    {
+      "stepZh": "在场景里放持久对象，确认自动生成 ID"
+    },
+    {
+      "stepZh": "接上 MapView 与小地图，试着走一圈看迷雾"
+    },
+    {
+      "stepZh": "存档后重新进入场景，核对收集品与开关状态"
+    }
+  ],
+  "pros": [
+    "地图编辑器把房间、图层与连接集中管理，世界结构一眼看清，关卡多了也不容易漏接。",
+    "物件 ID 自动生成，收集品、开关与破坏墙的持久状态用两个方法就能存取，省掉大量手工事件表。",
+    "运行时自带地图查看、小地图与迷雾，探索型地图界面不必从零写渲染与记录逻辑。",
+    "组件可拆用，非银河恶魔城项目也能只取地图或持久化部分，不会被整套框架绑住。"
+  ],
+  "cons": [
+    "只支持方形或矩形网格房间，不规则地形与斜向连接的表达力有限，复杂世界要绕开或用自定义元素补。",
+    "要求 Godot 4.6 以上，旧项目只能用 1.6 分支，跨代升级要迁移地图资源且两边不兼容。",
+    "文档集中在 wiki，缺少迁移与最佳实践，深入用法得读源码，新人上手门槛不低。"
+  ],
+  "pitfalls": [
+    "重命名场景节点或移动场景文件，物件 ID 跟着变，旧存档状态全部对不上，持久对象路径要提前定好。",
+    "地图改了却没用编辑器的外部改动检测，场景里的房间预览还是旧的，先刷新再核对连接。",
+    "把运行时地图查看器挂在会被暂停的节点下，打开菜单后地图也不刷新，注意暂停模式设置。"
+  ],
+  "bestFor": "做 2D 网格化银河恶魔城、需要统一管理房间连接与收集品状态，并愿意按 wiki 文档自己摸索的团队。",
+  "avoidWhenZh": "世界不是网格房间结构，或项目还在 Godot 4.5 及更早、无法升级引擎时，也不适合不能接受地图数据由插件托管的团队。",
+  "compareTips": {
+    "vs": [
+      "shomykohai__quest-system",
+      "bitbrain__pandora",
+      "glass-brick__Scene-Manager"
+    ],
+    "whenZh": "quest-system 与 pandora 管任务与数据，Scene-Manager 只管场景切换。MetSys 强在地图结构与房间映射，任务与对话仍要接别的插件。要地图与收集品持久化选 MetSys，要任务系统选前两者。"
+  },
+  "category": "editor-tool",
+  "tags": [
+    "银河恶魔城",
+    "地图编辑",
+    "房间连接",
+    "存档",
+    "小地图"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向银河恶魔城的通用工具集",
+      "source": "README.md",
+      "quote": "general-purpose toolkit for creating metroidvania games in Godot game engine."
+    },
+    {
+      "claim": "覆盖地图设计、导航与收集品追踪",
+      "source": "README.md",
+      "quote": "It helps with map design, navigation and presentation, tracking collectibles"
+    },
+    {
+      "claim": "地图支持多图层与平行世界",
+      "source": "README.md",
+      "quote": "The map supports independent layers, allowing for sub-areas, parallel worlds etc."
+    },
+    {
+      "claim": "单元格会自动归组为房间并可关联场景",
+      "source": "README.md",
+      "quote": "Cells are automatically grouped into rooms and can have assigned scenes."
+    },
+    {
+      "claim": "编辑器支持完整撤销重做",
+      "source": "README.md",
+      "quote": "Full undo/redo support."
+    },
+    {
+      "claim": "旧版本需使用 1.6 稳定分支",
+      "source": "README.md",
+      "quote": "For older versions, use the"
+    },
+    {
+      "claim": "插件版本为 1.7-dev",
+      "source": "addons/MetroidvaniaSystem/plugin.cfg",
+      "quote": "version=\"1.7-dev\""
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "addmix__godot_aerodynamic_physics",
+  "descriptionZh": "为 3D 刚体叠加升力、阻力、螺旋桨与喷气推力的空气动力学模拟插件",
+  "category": "state-logic",
+  "tags": [
+    "空气动力学",
+    "飞行模拟",
+    "刚体物理",
+    "螺旋桨"
+  ],
+  "prosShort": [
+    "升力、阻力与推力覆盖飞行需求",
+    "参数充分，可精细调气动特性",
+    "附带概念文档与完整演示场景"
+  ],
+  "consShort": [
+    "纯 GDScript 实现，影响面多时吃性能",
+    "0.9 版本，接口与命名仍可能变动",
+    "气动与控制参数耦合，调参门槛高"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

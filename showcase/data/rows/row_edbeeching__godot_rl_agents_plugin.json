@@ -1,0 +1,35 @@
+{
+  "id": "edbeeching__godot_rl_agents_plugin",
+  "descriptionZh": "连接 Godot 与 Python 强化学习框架的插件，用于训练 NPC 智能体。",
+  "category": "ai-gen",
+  "tags": [
+    "强化学习",
+    "Python接口",
+    "智能体训练",
+    "AI传感器",
+    "NPC行为"
+  ],
+  "prosShort": [
+    "三套强化学习框架且带记忆智能体接口",
+    "2D 与 3D 均有支持",
+    "MIT 许可无授权负担"
+  ],
+  "consShort": [
+    "需外部 Python 环境与框架",
+    "训练耗时长调参难",
+    "插件侧文档极简"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

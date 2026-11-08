@@ -1,0 +1,147 @@
+{
+  "id": "Moonzel__Godot-PerfBullets",
+  "depth": "standard",
+  "taglineZh": "用 C++ 与 MultiMesh 轻松在屏幕上生成成千上万颗子弹",
+  "summaryZh": "Godot-PerfBullets 用 MultiMeshInstance2D 批量绘制子弹，把移动、碰撞与生命周期逻辑放进 C++ 扩展，从而在屏幕上同时维持成千上万颗弹幕。插件把单颗子弹抽象成 BulletType 资源，Spawner 负责生成与推进，BulletBorder 控制出界销毁，PatternManager 可以编排多个发射器和复杂弹阵。仓库附带压力测试与示例场景，适合弹幕射击或需要海量粒子的项目，但只能在 Mobile 与 Forward+ 渲染器下工作。实际项目还需自行处理暂停、分层与音效等外围逻辑。",
+  "whatItDoes": "每个 Spawner 节点持有一个 BulletType 资源，资源里定义碰撞形状、贴图或精灵表，C++ 层按每帧或物理帧推进实例变换并检测命中。命中通过信号回传，出界由 BulletBorder 的矩形范围统一回收，PatternManager 按时间表启用不同发射器。渲染交给 MultiMesh，所以节点数量不随子弹数线性增长。",
+  "useCases": [
+    {
+      "titleZh": "弹幕射击游戏",
+      "descZh": "做东方风格的弹幕射击，用发射器与弹阵管理把成千上万颗子弹压进少数节点，画面实际帧率仍能保持稳定。"
+    },
+    {
+      "titleZh": "压力测试基准",
+      "descZh": "需要评估项目在极端弹幕下的性能，仓库自带压力测试场景，可直接观察真实帧时间与渲染开销的明显变化。"
+    },
+    {
+      "titleZh": "弹阵演出",
+      "descZh": "为 Boss 战或过场演出制作环形、扇形与自机狙弹阵，用 PatternManager 按时间轴自动切换多种不同发射器与完整整套弹幕组合。"
+    },
+    {
+      "titleZh": "海量粒子替代",
+      "descZh": "画面需要大量小粒子或光点时，用精灵表动画的子弹实例替代普通节点，减少场景树节点与绘制调用的整体压力。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Spawner 发射器",
+      "descZh": "负责生成子弹并推进逻辑，可切换每帧或物理帧模式，也能把每颗子弹统一设为追踪某个节点。"
+    },
+    {
+      "titleZh": "BulletType 弹种资源",
+      "descZh": "描述单种子弹的具体碰撞形状、贴图与完整的动画精灵表，不同弹种可以共享同一套生成逻辑。"
+    },
+    {
+      "titleZh": "BulletBorder 边界回收",
+      "descZh": "用两个对角节点划出屏幕矩形边界，子弹飞出范围后自动销毁，避免无效实例持续占用内存。"
+    },
+    {
+      "titleZh": "PatternManager 弹阵编队",
+      "descZh": "把多个发射器编入同一张时间表，按顺序自动激活并组合成一整套复杂弹幕，无需手写调度代码。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "C++ 逻辑",
+      "descZh": "子弹的移动、碰撞与回收全部都在 C++ 扩展里逐帧执行，脚本层只负责配置与信号。"
+    },
+    {
+      "name": "MultiMesh 渲染",
+      "descZh": "屏幕上所有子弹共用一个 MultiMeshInstance2D，整体绘制调用数量不会随子弹增长而明显爆炸。"
+    },
+    {
+      "name": "精灵动画",
+      "descZh": "支持精灵表逐帧动画，在保持多实例渲染优势的同时让子弹有明显动态外观。"
+    },
+    {
+      "name": "碰撞遮罩",
+      "descZh": "可为每颗子弹指定自定义碰撞形状与遮罩，命中判定走物理层而非逐像素检测。"
+    },
+    {
+      "name": "自机狙",
+      "descZh": "子弹可以朝玩家节点持续修正方向，做自机狙与追踪弹时无需自己写追踪逻辑。"
+    }
+  ],
+  "limitsZh": "插件只验证过 Godot 4.1 与 4.2，且限定 Mobile 或 Forward+ 渲染器，Compatibility 渲染路径基本无法使用。仓库内置的二进制是预编译的 Windows 版本，其他平台要自己准备 C++ 构建环境重新编译。README 强调前六个设置步骤缺一不可，节点层级、BulletType、碰撞形状与 MultiMesh 贴图任何一项漏配，发射器都不会工作。示例场景与说明以截图为主，复杂弹阵仍要读代码理解。插件面向二维弹幕，三维场景与需要逐颗独立脚本的项目并不合适。",
+  "workflowZh": [
+    {
+      "stepZh": "在项目设置中启用 PerfBullets 插件，并在 Node2D 场景下添加 Spawner 子节点。"
+    },
+    {
+      "stepZh": "为 Spawner 新建 BulletType 资源，设置具体对应的碰撞形状与贴图。"
+    },
+    {
+      "stepZh": "在节点的 MultiMeshInstance2D 区域具体指定子弹纹理或动画精灵表。"
+    },
+    {
+      "stepZh": "添加 BulletBorder 节点和两个对角 Node2D，划定子弹的回收矩形范围。"
+    },
+    {
+      "stepZh": "用 PatternManager 编排多个发射器的时间表，并连接 bullet_hit 命中信号。"
+    }
+  ],
+  "pros": [
+    "C++ 承担子弹的移动与碰撞逻辑，海量弹幕下脚本开销很小，帧率表现十分突出。",
+    "MultiMesh 批量渲染让整体绘制调用保持稳定，弹幕数量大幅提升时收益更加明显。",
+    "BulletType 资源与发射器职责清晰，配置弹种和弹阵不需要直接修改底层 C++ 代码。",
+    "仓库自带压力测试场景与多个示例，能快速确认性能上限和实际接入用法。"
+  ],
+  "cons": [
+    "仅支持 4.1 与 4.2 并限定两种渲染器，升级项目或换渲染路径都要重测。",
+    "预编译只覆盖 Windows，其他平台必须自己搭完整 C++ 工具链编译。",
+    "初始设置步骤多且顺序敏感，漏配一项发射器就完全不工作。"
+  ],
+  "pitfalls": [
+    "六个关键步骤必须按顺序完成，尤其是 BulletType 的碰撞形状与 MultiMesh 贴图任何一项都不能漏。",
+    "只有 Mobile 与 Forward+ 可用，切到 Compatibility 渲染器后项目里的子弹可能直接不显示或行为异常。",
+    "命中信号要显式连到处理节点，忘连接时子弹会穿透目标而看不出报错。"
+  ],
+  "bestFor": "适合二维弹幕射击与需要海量子弹或粒子的项目，尤其是已经锁定 Godot 4.1、4.2 并使用 Mobile 或 Forward+ 渲染器的团队。",
+  "avoidWhenZh": "三维弹幕、需要逐颗子弹挂脚本，或必须使用 Compatibility 渲染器的项目不适合；非 Windows 平台还要先解决编译。",
+  "compareTips": {
+    "vs": [
+      "Dark-Peace__BulletUpHell"
+    ],
+    "whenZh": "与 Dark-Peace 的 BulletUpHell 相比，后者是偏 GDScript 的完整弹幕框架，上手简单但海量弹幕性能有限；本项目用 C++ 与 MultiMesh 追求极限数量，愿意接受平台与渲染器限制、并自行解决跨平台编译时选它。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "bullet-hell",
+    "gdextension",
+    "multimesh",
+    "performance"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 5
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "主打在屏幕上渲染成千上万颗子弹并优化性能",
+      "source": "README.md",
+      "quote": "Spawn thousands of bullets or particles on screen while optimizing performance!"
+    },
+    {
+      "claim": "仅支持 Godot 4.1、4.2 与两种渲染器",
+      "source": "README.md",
+      "quote": "This plugin is for **GDExtension** and works with Godot 4.1 and 4.2. Only with Mobile or Forward+ renderers."
+    },
+    {
+      "claim": "前六个设置步骤缺一不可",
+      "source": "README.md",
+      "quote": "The first six steps are *crucial* for the Spawner to work"
+    },
+    {
+      "claim": "用 BulletBorder 控制子弹出界销毁",
+      "source": "README.md",
+      "quote": "Create a barrier for the bullets so they despawn at a certain distance using BulletBorder Class"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "rakugoteam__VisualNovelKit",
+  "descriptionZh": "受 Ren'Py 启发的 Godot 视觉小说套件，整合对话系统、富文本与剧本高亮模板",
+  "category": "visual-script",
+  "tags": [
+    "视觉小说",
+    "对话脚本",
+    "UI模板",
+    "Ren'Py风格",
+    "富文本"
+  ],
+  "prosShort": [
+    "模板工程开箱可跑，原型起步快",
+    "对话与富文本插件一次给齐",
+    "剧本与场景分离，便于多人协作"
+  ],
+  "consShort": [
+    "项目仍在开发，部分功能缺失",
+    "文档偏薄，细节需要读源码与示例",
+    "多插件协同，版本不一致容易冲突"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,147 @@
+{
+  "id": "cloudofoz__godot-smashthemesh",
+  "depth": "standard",
+  "taglineZh": "把 3D 网格砸成碎块，再给每块单独套上物理",
+  "summaryZh": "Smash The Mesh 用 Godot 的 CSG 系统把 3D 网格切成一堆碎块，再给每块生成刚体与碰撞体，做出可击碎的墙体、木箱与石像。它提供两个节点：STMInstance3D 适合碎块少、计算轻的物体，缓存版 STMCachedInstance3D 会把结果存成压缩场景，下次直接从磁盘加载，省去重复计算。生成参数、物理参数与碎块数量都在检查器里调，缓存路径默认 res://stm_cache/。文档分 API、缓存、碎块生成与性能几节，并标注仍是 BETA。Godot 4.4 起 CSG 不再支持非流形网格，用前要确认模型是封闭实体。",
+  "whatItDoes": "节点读取目标网格后，按碎块数量与切分参数生成一组 CSG 操作，求出每块的交集几何，再为每块建网格实例、刚体与碰撞形状。STMInstance3D 可以在加载时预生成，也可以等 smash_the_mesh 调用时再算；缓存版把整棵碎块树打包成压缩场景，参数不变时直接复用。物理质量、冲量与碎片存活时间等参数在检查器里统一设置。",
+  "useCases": [
+    {
+      "titleZh": "可破坏场景道具",
+      "descZh": "木箱、石墙与雕像被击中后按预设碎块炸开，碎块带刚体，玩家能看到真实的坍塌过程，省去逐块手摆碎片与动画。"
+    },
+    {
+      "titleZh": "战斗打击反馈",
+      "descZh": "近战或爆炸命中时现算碎块并施加冲量，碎片朝四周飞散，打击感比单纯粒子更实在，命中点位置直接决定飞散方向。"
+    },
+    {
+      "titleZh": "预生成缓存",
+      "descZh": "同一堵墙反复被打碎时，用缓存节点加载已算好的碎块场景，跳过每次重建的耗时，进入战斗时加载速度明显更快。"
+    },
+    {
+      "titleZh": "关卡美术迭代",
+      "descZh": "改碎块密度或切口方向后重新生成，形态随之变化，不必手工拆模型或重做多套碎块，几组参数就能试出不同手感。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "STMInstance3D 轻量节点",
+      "descZh": "轻量节点，可直接在加载时或调用 smash_the_mesh 时把网格换成碎块并启用物理，碎块数量较少时最省心。"
+    },
+    {
+      "titleZh": "STMCachedInstance3D 缓存节点",
+      "descZh": "带缓存的版本，参数不变时直接读磁盘上的压缩场景，参数改了才重新计算，省去每次进入关卡的等待。"
+    },
+    {
+      "titleZh": "物理参数集",
+      "descZh": "质量、冲量、摩擦与碎块存活时间都能逐项设置，让不同材质的破碎手感分开，木头轻、石头沉这类差异也能体现。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "CSG 切分",
+      "descZh": "碎片由 Godot 的 CSG 求交生成，切口形状随参数变化，不需要外部建模软件，可直接在引擎里完成。"
+    },
+    {
+      "name": "磁盘缓存",
+      "descZh": "缓存节点把碎块树存成压缩场景，默认写入 res://stm_cache/，双击缓存文件就能直接打开检查。"
+    },
+    {
+      "name": "预生成选项",
+      "descZh": "可在加载时预生成碎块，也可等到真正被打碎那一刻再算，按关卡自己的预算取舍。"
+    },
+    {
+      "name": "两个节点可选",
+      "descZh": "轻量物体用 STMInstance3D，反复破碎的墙用带缓存的版本，复杂度自己控制，两者切换成本很低。"
+    }
+  ],
+  "limitsZh": "README 标注这是 BETA 版本，仍在开发，复杂模型上要先做充分测试。Godot 4.4 起 CSG 不再支持非流形网格，开放面、非水密表面与断开的面都不能直接用，模型得先修成封闭实体。碎块越多，生成耗时与物理开销越大，性能压力落在主机上。缓存文件与参数绑定，手动改缓存会让它失效，还要记得关掉自动覆盖。节点只处理几何切分与刚体，没有内置破坏后的贴图切换、声音或特效衔接。文档虽长，但很多页面仍在补充，遇到问题要多翻 issue。对性能敏感的项目，最好只在关键物件上开启。",
+  "workflowZh": [
+    {
+      "stepZh": "把整个 addons/smash_the_mesh 目录复制进项目对应目录，并在插件页启用插件。"
+    },
+    {
+      "stepZh": "先准备封闭实体网格，确认没有开放面或断开的面。"
+    },
+    {
+      "stepZh": "把 STMInstance3D 或缓存版节点放到目标网格下，指定源模型。"
+    },
+    {
+      "stepZh": "调碎块数量与物理参数，运行时调用 smash_the_mesh 触发破碎。"
+    },
+    {
+      "stepZh": "确认效果后开启缓存，把生成结果写进磁盘供下次直接加载。"
+    }
+  ],
+  "pros": [
+    "用 CSG 在引擎内直接切分网格，碎块带刚体与碰撞，不用外部建模工具做碎片。",
+    "缓存把碎块结果存成压缩场景，反复破碎的物件不必每次都重新完整计算。",
+    "两个节点覆盖轻量与频繁破碎两种场景，复杂度可以按物件重要性分配。",
+    "文档分 API、缓存、碎块生成与性能几节，参数含义与性能建议大致都能查到。"
+  ],
+  "cons": [
+    "BETA 版本仍在开发，复杂模型上的稳定性要自己多做充分测试。",
+    "Godot 4.4 起 CSG 不支持非流形网格，开放面模型必须先修成封闭实体。",
+    "碎块越多生成越慢，物理开销也越高，低端机上容易明显掉帧。",
+    "缓存与参数绑定，手动编辑缓存会失效，改参数后必须重新生成。"
+  ],
+  "pitfalls": [
+    "用开放面或非流形模型会直接失败，先检查网格是否完全水密再调参数，否则白忙。",
+    "碎块数量调太高时一次生成明显卡顿甚至爆内存，按物件大小分批设置。",
+    "手动改过缓存文件后未关闭写入，下一次进关会被自动直接覆盖，改动全丢。"
+  ],
+  "bestFor": "做可破坏箱子、墙体与场景道具的 3D 游戏，想要真实碎块物理又不想逐个做破碎动画的独立开发者与小团队。",
+  "avoidWhenZh": "需要影视级断裂形变、开放面模型，或必须在中低端设备上同时破碎大量物体的项目。",
+  "compareTips": {
+    "vs": [
+      "PiCode9560__Godot-4-Concave-Mesh-Slicer",
+      "cloudofoz__godot-deformablemesh"
+    ],
+    "whenZh": "和凹面切片插件相比，它不按一刀切而是用 CSG 生成多块碎块，并带缓存复用；与 deformablemesh 的形变思路不同，它产出独立刚体碎片而不是连续弯曲；需要精确切口时，切片工具更可控。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "破坏",
+    "网格切分",
+    "CSG",
+    "物理",
+    "缓存"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 2,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "把 3D 网格打碎并给每块施加物理",
+      "source": "README.md",
+      "quote": "**Smash The Mesh (STM)** is a Godot add-on that allows you to **break a 3D mesh** into **multiple pieces** and then **apply physics** to each fragment."
+    },
+    {
+      "claim": "缓存结果到磁盘以便快速加载",
+      "source": "plugin.cfg",
+      "quote": "This is a plug-in that allows you to break 3D meshes into multiple pieces and apply physics to each fragment. It includes features for saving the results to disk (cache) for quick loading."
+    },
+    {
+      "claim": "基于 CSG 生成碎块",
+      "source": "README.md",
+      "quote": "STM uses Godot's **Constructive Solid Geometry (CSG)** system to create fragments from a mesh."
+    },
+    {
+      "claim": "标注为 BETA 版本",
+      "source": "README.md",
+      "quote": "#### Note 1: This is a BETA version and still under development. Please test thoroughly to ensure it fits your needs."
+    },
+    {
+      "claim": "Godot 4.4 起不支持非流形网格",
+      "source": "README.md",
+      "quote": "#### Note 2: As of Godot 4.4+, non-manifold meshes are no longer supported by the CSG system (e.g., open meshes, non-watertight surfaces, or disconnected faces)."
+    }
+  ]
+}

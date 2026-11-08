@@ -1,0 +1,161 @@
+{
+  "id": "TokisanGames__Terrain3D",
+  "depth": "standard",
+  "taglineZh": "用 C++ GDExtension 实现、可雕刻与绘制的超大世界地形系统",
+  "summaryZh": "Terrain3D 用 C++ 写成 GDExtension，把高度图、纹理、颜色与湿度的绘制放进一个可流式加载的 Terrain3D 节点。它把地形切成可变尺寸的区域，按十级 LOD 生成网格，并支持 32 张纹理混合、挖孔与植被实例化。与 HTerrain 等 GDScript 方案相比，它把重计算放到原生层，能撑到 65 公里级世界；代价是必须匹配引擎版本并处理预编译库或自行编译。它把地形当作可编辑资源而不是一次性网格，改高度不会重建整张场景，这对反复迭代的开放世界很关键。它同时提供编辑器笔刷与运行时接口，策划与程序都能直接改地形。",
+  "whatItDoes": "提供 Terrain3D 节点与 Terrain3DData 资源，在编辑器里用笔刷雕刻高度、绘制纹理与颜色、打孔和放置植被。运行时按相机距离流式加载区域，碰撞体可单独生成。高度图可从 HTerrain、Gaea、World Machine、Unity 等工具导入。着色器支持宏观纹理变化、去平铺与湿滑效果，接口对 GDScript、C# 与 C++ 均可用。",
+  "useCases": [
+    {
+      "titleZh": "开放世界地形",
+      "descZh": "在大地图项目里铺几公里起伏地形，靠区域流式加载控制显存占用与绘制距离，避免一次性加载整张地形。"
+    },
+    {
+      "titleZh": "关卡快速打样",
+      "descZh": "原型期用雕刻与纹理笔刷几小时出可跑地形，不必等美术完成整套建模、UV 拆分与导入流程，验证玩法更快。"
+    },
+    {
+      "titleZh": "外部高度图落地",
+      "descZh": "把 Gaea 或 World Machine 导出的高度图导入，直接生成带碰撞、纹理与植被的可玩地形区块，省去手工刷地形的重复劳动。"
+    },
+    {
+      "titleZh": "植被铺设",
+      "descZh": "用实例化散布树木与石块，并按 LOD 与阴影替身控制远处渲染开销，避免每棵树单独绘制造成卡顿。"
+    },
+    {
+      "titleZh": "洞穴与断崖",
+      "descZh": "用挖孔与陡坡笔刷做洞穴入口和悬崖，避免为局部地貌额外建模型再对齐，同时保持地貌衔接自然。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Terrain3D 区域数据",
+      "descZh": "保存高度、纹理、颜色与湿度的区域资源文件，可按区块拆分并随场景流式加载与卸载，支持按需预加载。"
+    },
+    {
+      "titleZh": "地形网格与碰撞",
+      "descZh": "运行时按相机距离生成多级 LOD 网格及配套碰撞体，可直接供角色、载具与物理查询使用，无需额外建模。"
+    },
+    {
+      "titleZh": "植被实例",
+      "descZh": "散布在区域内的 MultiMesh 植被实例，含远距离 LOD 与阴影替身，可明显减少绘制调用，适合大规模森林与草地。"
+    },
+    {
+      "titleZh": "可导入高度图资产",
+      "descZh": "对接外部地形工具的中间高度文件，形成从 Gaea、World Machine 到引擎的完整资产流水线，减少重复导入与手工对齐。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Terrain3DData",
+      "descZh": "以图像块存储高度与控制贴图，支持区域级增删与流式读写，方便按需加载。"
+    },
+    {
+      "name": "Sculpt / Paint / Hole",
+      "descZh": "编辑器笔刷覆盖高度、纹理、颜色、湿度与挖孔，并带压感、遮罩与笔刷衰减控制。"
+    },
+    {
+      "name": "Texture Detiling",
+      "descZh": "用宏观纹理与去平铺参数减少远距离纹理重复，让大面积地表在远处也不显假。"
+    },
+    {
+      "name": "Foliage Instancer",
+      "descZh": "按密度与坡度散布植被，提供多级 LOD 与阴影替身，控制远处渲染开销与显存。"
+    },
+    {
+      "name": "Heightmap Import",
+      "descZh": "读取外部工具导出的高度图并生成区域数据，可批量转换与按区域重新导入。"
+    }
+  ],
+  "limitsZh": "需要与引擎版本严格对齐，gdextension 声明最低兼容 4.6，换小版本常要重新编译或等官方包。区域流式加载对磁盘 IO 敏感，大量区域同时可见时会卡顿，需要控制加载半径与线程数。纹理上限 32 张，超过只能拆多套材质；地形着色器较重，低端移动 GPU 需降级。编辑器笔刷写入偏单线程，超大区域一次雕刻会有明显停顿。自定义网格与碰撞让 Navigation 烘焙需要额外处理；官方文档以英文为主，高度图导入与材质参数需要多次试错，地形编辑也不是非破坏流程，覆盖保存后旧高度无法回滚。编辑器内预览与运行时效果也可能有细微差异。",
+  "workflowZh": [
+    {
+      "stepZh": "安装预编译库，或用 SCons 与 godot-cpp 自行编译"
+    },
+    {
+      "stepZh": "在场景中新建 Terrain3D 节点并指定数据资源"
+    },
+    {
+      "stepZh": "导入或生成高度图，设置区域大小与分辨率"
+    },
+    {
+      "stepZh": "用笔刷雕刻地形，并绘制纹理、颜色与湿度"
+    },
+    {
+      "stepZh": "配置地形材质、植被散布与 LOD 切换距离"
+    },
+    {
+      "stepZh": "生成碰撞并在运行场景验证流式加载"
+    }
+  ],
+  "pros": [
+    "原生 C++ 实现，网格生成与 LOD 在后台线程完成，大地形帧率明显优于 GDScript 方案。",
+    "区域化设计支持 64 米到 65 公里，世界规模上限远超多数同类地形插件，适合长线开放世界项目。",
+    "雕刻、绘制、挖孔与植被散布都在同一面板完成，编辑器内的工作流非常连贯。",
+    "文档站覆盖安装、编程接口与升级路径，配套示例项目可直接运行验证效果。"
+  ],
+  "cons": [
+    "必须匹配 Godot 版本并获取预编译库，自行编译还要配 SCons 与 godot-cpp。",
+    "着色器与流式加载都偏重，低端移动设备需要主动降低分辨率与绘制距离。",
+    "区域、数据资源与材质概念较多，调好效果前需要先理解整体架构。"
+  ],
+  "pitfalls": [
+    "把项目从 4.4 升到 4.6 会因最低兼容声明拒绝加载，需换成对应版本库。",
+    "区域文件放在 res:// 下会打包进 PCK，运行时需要可写的数据应改存外部目录。",
+    "导入高度图时未统一缩放，地形高度会差一个数量级，角色直接穿地或悬空。"
+  ],
+  "bestFor": "要做几十平方公里开放世界，且团队能接受 GDExtension 版本管理与编译成本的 3D 项目组，最好有专职技术美术。",
+  "avoidWhenZh": "只是小箱庭关卡或纯 2D 项目，用内置网格或轻量地形插件更省事，不必背上编译负担。",
+  "compareTips": {
+    "vs": [
+      "Zylann__godot_heightmap_plugin",
+      "Zylann__godot_voxel",
+      "mohsenph69__Godot-MTerrain-plugin"
+    ],
+    "whenZh": "HTerrain 是 GDScript 实现、上手快但大地形吃力；Voxel 面向可破坏体素而非高度图；MTerrain 更偏移动端轻量。追求世界规模与帧率选 Terrain3D，追求改地形的手工成本低选 HTerrain，预算有限或只想快速验证玩法时可以先试 HTerrain。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "地形",
+    "开放世界",
+    "GDExtension",
+    "LOD"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "地形规模从 64 米到 65.5 公里",
+      "source": "README.md",
+      "quote": "Terrains as small as 64x64m up to 65.5x65.5km"
+    },
+    {
+      "claim": "支持最多 32 张纹理",
+      "source": "README.md",
+      "quote": "Up to 32 textures"
+    },
+    {
+      "claim": "地形网格有十级 LOD",
+      "source": "README.md",
+      "quote": "Up to 10 levels of detail for the terrain mesh"
+    },
+    {
+      "claim": "扩展最低兼容 Godot 4.6",
+      "source": "project/addons/terrain_3d/terrain.gdextension",
+      "quote": "compatibility_minimum = 4.6"
+    },
+    {
+      "claim": "编辑器支持雕刻、挖孔、纹理与颜色绘制",
+      "source": "README.md",
+      "quote": "Sculpting, holes, texture painting, texture detiling, painting colors and wetness"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "EIRTeam__EIRTeam.FFmpeg",
+  "descriptionZh": "基于 FFmpeg 为 Godot 4 补齐视频解码能力的 GDExtension 扩展，整体接入成本不高。",
+  "category": "asset-pipeline",
+  "tags": [
+    "FFmpeg",
+    "视频解码",
+    "GDExtension",
+    "h264",
+    "跨平台"
+  ],
+  "prosShort": [
+    "补齐内置播放器缺失的编码",
+    "以 GDExtension 形式独立分发，团队上手也快。",
+    "构建流程按平台有明确说明"
+  ],
+  "consShort": [
+    "必须自行编译 FFmpeg 与扩展库，团队要提前评估。",
+    "Windows 构建未在文档覆盖，规模化后更明显。",
+    "仓库几乎没有示例工程可用"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

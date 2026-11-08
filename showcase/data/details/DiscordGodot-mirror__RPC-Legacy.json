@@ -1,0 +1,140 @@
+{
+  "id": "DiscordGodot-mirror__RPC-Legacy",
+  "depth": "standard",
+  "taglineZh": "用 C++ 扩展把 Discord 富状态、邀请与好友列表接进 Godot",
+  "summaryZh": "RPC-Legacy 用 C++ GDExtension 封装 Discord Game SDK，让 GDScript 能设置 Rich Presence、发送邀请、注册 Steam 或启动命令、读取用户资料与好友列表，并管理 Discord 覆盖层。插件还带可选的编辑器状态显示，开发时也能展示当前项目。README 明确说明它针对 Game SDK 而非 Embedded App SDK，Discord 已发布新 SDK，本仓库处于等待大改的过渡期。使用前需要用 SCons 编译，并把官方 SDK 动态库随导出一起分发。",
+  "whatItDoes": "把 Discord Game SDK 的核心对象包装成 Godot 可调用的单例与类，GDScript 里配置应用 ID、回调与活动信息即可显示 Rich Presence。支持邀请、用户信息、好友关系与覆盖层开关；编辑器插件可选地把当前项目同步为 Discord 状态。构建脚本下载或解压 SDK，用 SCons 生成各平台动态库。",
+  "useCases": [
+    {
+      "titleZh": "显示当前游玩状态",
+      "descZh": "在 Discord 资料里展示游戏名、当前关卡与组队人数，并区分排位与休闲对局，让好友一眼看到你在玩什么。"
+    },
+    {
+      "titleZh": "Discord 好友邀请",
+      "descZh": "调用 SDK 的邀请接口把好友拉进房间，收到加入请求时触发回调，省去自建好友与邀请链路的工作量。"
+    },
+    {
+      "titleZh": "好友在线状态面板",
+      "descZh": "读取关系管理器里的好友列表与在线状态，在游戏内做简易面板，显示谁在线、谁正在玩同一款游戏。"
+    },
+    {
+      "titleZh": "编辑器协作可见性",
+      "descZh": "开启编辑器富状态后，协作者能在 Discord 里看到你正在编辑哪个 Godot 项目，方便团队同步进度。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "跨平台动态库",
+      "descZh": "SCons 构建脚本产出 Windows、Linux 与 macOS 的 GDExtension 动态库，随导出包一起分发，用户端不必再装工具链。"
+    },
+    {
+      "titleZh": "脚本可调用的 SDK 封装",
+      "descZh": "把 Discord SDK 的用户、活动、邀请与关系接口封装成 GDScript 可直接调用的类与方法，省去手写原生绑定。"
+    },
+    {
+      "titleZh": "编辑器状态模块",
+      "descZh": "可选的编辑器端模块，把当前项目名与编辑状态同步到 Discord 活动卡片上，开关放在项目设置里。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Rich Presence",
+      "descZh": "设置活动详情、状态、时间戳与图片资源，让好友在 Discord 资料里看到你正在玩的游戏内容。"
+    },
+    {
+      "name": "邀请与回调",
+      "descZh": "封装邀请发送与加入回调，玩家接受邀请后能进入对应房间，房间逻辑仍要自己接。"
+    },
+    {
+      "name": "关系管理器",
+      "descZh": "读取好友列表、在线状态与头像信息，并可监听状态变化事件，用于自建好友面板。"
+    },
+    {
+      "name": "Editor Presence",
+      "descZh": "可选开关，编辑器运行时把项目信息作为 Discord 活动展示，多人协作时能互相看到。"
+    },
+    {
+      "name": "SCons 构建链",
+      "descZh": "仓库自带构建与发布脚本，能分别产出调试版和模板发布版动态库，覆盖三大桌面平台。"
+    }
+  ],
+  "limitsZh": "必须自己编译：仓库只含 C++ 源码与构建脚本，addons 目录在构建后才填充，不能直接拖进项目。Discord Game SDK 需要随导出包分发动态库，移动端与 Web 导出基本不在支持范围。Discord 已转向新的 Social SDK，README 承认本仓库是过渡版本、文档将大改，长期兼容性存疑。功能依赖 Discord 客户端运行，无客户端时连接会失败；好友与邀请能力也受平台与账号状态限制。",
+  "workflowZh": [
+    {
+      "stepZh": "先安装 Python、SCons 与 C++ 编译工具链，确认 scons 命令可用"
+    },
+    {
+      "stepZh": "在 Discord 开发者后台建应用拿到 ID，并把 Game SDK 动态库放进项目"
+    },
+    {
+      "stepZh": "执行仓库的 build 脚本编译 GDExtension，产物会写进 addons 与 bin 目录"
+    },
+    {
+      "stepZh": "把编译好的 addons 拷进工程，在项目设置插件页启用并填应用 ID"
+    },
+    {
+      "stepZh": "脚本里初始化 RPC 客户端，连接成功后调用活动设置与邀请接口"
+    }
+  ],
+  "pros": [
+    "把 Rich Presence、邀请、好友列表与用户资料一次性封装进 Godot，不必自己写原生绑定",
+    "提供完整 C++ 源码与 SCons 脚本，可按需裁剪功能或适配新的平台与架构",
+    "附带编辑器状态显示，团队开发时在 Discord 里就能看到彼此的进度",
+    "采用 MIT 许可，商业项目集成的法律约束较小，二次分发也相对自由",
+    "构建脚本覆盖 Windows、Linux 与 macOS，桌面三平台都有现成编译路径可照抄"
+  ],
+  "cons": [
+    "必须自行编译，仓库不含预编译库，无法直接拷贝 addons 就使用",
+    "基于过时的 Game SDK，Discord 已推新 Social SDK，未来接口可能整体重写",
+    "仓库内文档偏少，快速上手主要靠外部文档站点，离线时不好查"
+  ],
+  "pitfalls": [
+    "导出包忘记带上 Discord 动态库时运行会直接初始化失败，错误信息也不指向缺库",
+    "Discord 客户端未启动或版本过旧时连接会失败，需要在游戏里做降级提示而不是崩溃",
+    "应用 ID 与 SDK 版本不匹配会导致富状态不显示，换应用后要重新核对配置"
+  ],
+  "bestFor": "适合已确定在桌面端接入 Discord 社交功能、且团队能维护 C++ 构建与动态库分发的联机项目，需要资料页展示状态并拉好友进房时优先考虑。",
+  "avoidWhenZh": "只做 Web 或移动端导出、不愿维护 C++ 构建链，或已需要 Discord 新 Social SDK 能力的项目。",
+  "compareTips": {
+    "vs": [
+      "supabase-community__godot-engine.supabase"
+    ],
+    "whenZh": "RPC-Legacy 走 Discord 官方 SDK 的桌面原生绑定，擅长状态展示与好友邀请；supabase 走云端数据库与实时订阅，擅长账号、存档与排行榜。要做社交展示选前者，要做后端数据选后者，两者也能并存。"
+  },
+  "category": "network",
+  "tags": [
+    "Discord",
+    "Rich Presence",
+    "社交",
+    "GDExtension",
+    "好友列表"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "基于 Discord Game SDK 而非 Embedded App SDK",
+      "source": "README.md",
+      "quote": "This is for the Discord Game SDK NOT the Embedded App SDK"
+    },
+    {
+      "claim": "面向 Godot 4.4 以上，支持编辑器 Rich Presence",
+      "source": "README.md",
+      "quote": "Discord RPC Plugin for GDScript with an easy-to-use code pattern in Godot Engine 4.4+, with optional Editor Rich Presence!"
+    },
+    {
+      "claim": "仓库依赖 SCons 构建工具",
+      "source": "requirements.txt",
+      "quote": "setuptools\nscons"
+    }
+  ]
+}

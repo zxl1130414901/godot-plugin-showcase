@@ -1,0 +1,35 @@
+{
+  "id": "appsinacup__godot-softbody2d",
+  "descriptionZh": "把贴图自动转成刚体与关节驱动的二维软体，支持断裂、切割与调试绘制",
+  "category": "state-logic",
+  "tags": [
+    "2D物理",
+    "软体",
+    "可破坏",
+    "纹理生成",
+    "GDScript"
+  ],
+  "prosShort": [
+    "贴图自动生成骨架省去绑骨",
+    "断裂、切割与挖洞接口齐全，团队上手也快。",
+    "附带演示场景与自动化测试"
+  ],
+  "consShort": [
+    "骨段增多后物理性能明显下降",
+    "运行强制要求 Godot 4.4 及更高版本",
+    "力驱动断裂强依赖 Rapier 物理引擎"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

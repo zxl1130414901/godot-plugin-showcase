@@ -1,0 +1,154 @@
+{
+  "id": "foxssake__netfox",
+  "depth": "standard",
+  "taglineZh": "为联机游戏提供时钟同步、回滚插值与延迟补偿的插件套件",
+  "summaryZh": "netfox 面向需要手感顺滑的联机游戏，核心是一套网络时钟与状态同步基础设施：所有客户端按同一时间基准推进，节点变换与属性通过插值平滑显示，输入则在客户端预测、服务端校正，缓解延迟带来的抖动。包内拆成核心、noray 连接、高层游戏组件与内部工具四个插件，可以只取需要的部分。文档站给出从时钟、回滚到属性同步的分步教程，另有一个可玩的示例项目。它要求理解 tick 与权威服务器的概念，不是装上就能自动联机的成品方案。",
+  "whatItDoes": "提供跨机时间基准、状态插值、客户端预测与服务端校正等网络同步基础件，并附带连接服务与输入、武器等高层组件。",
+  "useCases": [
+    {
+      "titleZh": "多人动作对战",
+      "descZh": "客户端先行预测移动与开火，服务端校正偏差，玩家在百毫秒延迟下仍能获得接近本机的操作手感。"
+    },
+    {
+      "titleZh": "合作闯关联机",
+      "descZh": "两名玩家各自控制角色，位置、动画与朝向都靠插值同步，避免高延迟时角色瞬移与抖动。"
+    },
+    {
+      "titleZh": "服务器权威逻辑",
+      "descZh": "把伤害、拾取等关键判定放在服务端，客户端只发送输入，并按校正结果回放本地表现。"
+    },
+    {
+      "titleZh": "快速搭建联机原型",
+      "descZh": "用现成的连接插件与示例项目先把房间与同步跑通，再逐步替换成自己的玩法逻辑。"
+    },
+    {
+      "titleZh": "接入中继服务",
+      "descZh": "没有公网地址时用 noray 中继建立连接，省去自建 NAT 穿透、端口映射与证书续期等相关运维。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "网络时钟与回滚",
+      "descZh": "统一各客户端的时间基准并提供回滚能力，是状态同步与预测校正的底座。"
+    },
+    {
+      "titleZh": "属性与变换同步",
+      "descZh": "把节点变换与自定义属性按 tick 同步，并附插值让远端画面始终保持平滑。"
+    },
+    {
+      "titleZh": "noray 连接插件",
+      "descZh": "封装中继服务的连接握手与房间流程，让没有公网地址的玩家也能建连。"
+    },
+    {
+      "titleZh": "高层游戏组件",
+      "descZh": "提供输入管理与武器基类等常用封装，减少各项目重复编写联机样板代码。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Client-side Prediction",
+      "descZh": "客户端先按本地输入推进，再把状态发给服务端校验，降低操作延迟感。"
+    },
+    {
+      "name": "Server-side Reconciliation",
+      "descZh": "服务端用权威状态修正客户端偏差，避免作弊与长期状态漂移。"
+    },
+    {
+      "name": "Time Synchronization",
+      "descZh": "所有机器共享同一 tick 基准，为回滚与插值提供稳定而统一的时间线。"
+    },
+    {
+      "name": "State Interpolation",
+      "descZh": "远端对象按收到的快照插值渲染，掩盖网络抖动造成的跳变。"
+    },
+    {
+      "name": "noray Integration",
+      "descZh": "通过中继服务建立连接，免去自建穿透、端口映射与证书的运维。"
+    }
+  ],
+  "limitsZh": "它提供的是同步基础设施而不是成品联机框架，房间匹配、玩家生命周期、断线重连与作弊防护仍要自己设计，第一次接触 tick 与权威服务器概念时学习曲线明显。核心以 GDScript 实现，状态同步频率高、玩家数量多时 CPU 与带宽都要实测，官方也建议先读文档再改参数。noray 是独立服务，需要自行部署或使用作者提供的实例，长期运维不在插件范围内。示例项目偏小型演示，复杂载具、大量弹道与物理交互仍需自己扩展。文档以英文为主，中文资料少，出问题主要靠 Discord 与 issue。",
+  "workflowZh": [
+    {
+      "stepZh": "先从 Releases 页面下载所需的插件压缩包"
+    },
+    {
+      "stepZh": "把 netfox 核心与所有依赖一起放进 addons 目录"
+    },
+    {
+      "stepZh": "在项目设置里启用核心与所需子插件"
+    },
+    {
+      "stepZh": "按文档给玩家节点加同步与输入组件"
+    },
+    {
+      "stepZh": "用示例项目逐项验证时钟、插值与校正效果"
+    }
+  ],
+  "pros": [
+    "把时间基准、插值、预测与校正打包成完整链路，省去从零搭同步层。",
+    "拆成多个子插件，可按项目需要只装核心，或再加连接与高层组件。",
+    "文档站有分步教程与可玩示例，照着做能较快跑通第一个联机场景。",
+    "采用服务端权威模型，关键判定集中在服务端，便于后续加防护。"
+  ],
+  "cons": [
+    "不含匹配、房间、重连与反作弊，完整联机仍需大量自研。",
+    "概念门槛高，没做过权威服务器的人要先补 tick 与回滚知识。",
+    "noray 中继需自行部署，长期运维与费用不在插件覆盖范围。",
+    "更新频繁，跨版本升级时要重新验证同步参数与手感。"
+  ],
+  "pitfalls": [
+    "客户端与服务端时钟漂移未处理时会反复校正，先按文档调好时间基准。",
+    "同步属性漏注册或注册顺序不对会静默不同步，排查时先看调试面板。",
+    "高延迟下预测幅度过大容易橡皮筋，需限制校正距离并加平滑。"
+  ],
+  "bestFor": "做实时联机的动作、射击或合作游戏，需要客户端预测与服务端校正，并愿意投入时间理解同步模型的 Godot 4 团队。",
+  "avoidWhenZh": "回合制、异步对战或只做局域网小游戏，用内置 RPC 就够了，引入整套同步层反而增加复杂度。",
+  "compareTips": {
+    "vs": [
+      "devmoreir4__godot-3d-multiplayer-template",
+      "thegatesbrowser__godot-multiplayer"
+    ],
+    "whenZh": "netfox 是同步底层库，需要你自己写玩法与房间流程；3D 多人模板与多人模板项目则把会话、角色与服务器打包成可运行工程。要可控的同步手感选 netfox，要开箱即用的联机样板选模板。"
+  },
+  "category": "network",
+  "tags": [
+    "联机同步",
+    "客户端预测",
+    "延迟补偿",
+    "时间同步",
+    "中继连接"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "支持客户端与服务端架构",
+      "source": "README.md",
+      "quote": "Supports client-server architecture"
+    },
+    {
+      "claim": "核心能力包括跨机一致的时间",
+      "source": "README.md",
+      "quote": "Consistent timing across multiple machines"
+    },
+    {
+      "claim": "提供客户端预测与服务端校正",
+      "source": "README.md",
+      "quote": "Lag compensation with Client-side Prediction and Server-side Reconciliation"
+    },
+    {
+      "claim": "noray 子插件负责连接建立",
+      "source": "addons/netfox.noray/plugin.cfg",
+      "quote": "Bulletproof your connectivity with noray integration for netfox"
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "id": "V-Sekai__unidot_importer",
+  "depth": "standard",
+  "taglineZh": "Unity 资源迁移：把 .unitypackage 翻译成 Godot 4 场景与资源",
+  "summaryZh": "Unidot Importer 是纯 GDScript 写成的资源翻译器，把 Unity 的 .unitypackage、预制体、模型、材质与动画转换成 Godot 4 原生格式，例如 .unity 与 .prefab 会变成 .tscn。它按 GUID 建立资源数据库，处理骨骼重定向、动画树与地形细节网格，导入完成后插件本身可以直接移除。脚本、着色器、UI 与 PlayableDirector 仍需手工处理。大包导入吃内存，长动画可能卡住主线程，适合一次性搬迁 Unity 项目的团队，而不是长期混用两套资源的工作流。",
+  "whatItDoes": "提供一个编辑器插件，读取 .unitypackage 或 Unity 资源目录，把其中的场景、预制体、网格、材质、动画与贴图翻译成 Godot 4 原生场景和资源。",
+  "useCases": [
+    {
+      "titleZh": "Unity 原型搬迁",
+      "descZh": "把旧 Unity 项目的场景与预制体整体导入 Godot 4，尽量保留节点层级、GUID 引用与继承关系，减少手工重建。"
+    },
+    {
+      "titleZh": "美术资源转换",
+      "descZh": "把模型、材质、贴图与动画片段批量翻成 tres 与 tscn，让美术不必按两种引擎各维护一份源文件。"
+    },
+    {
+      "titleZh": "人形骨骼复用",
+      "descZh": "导入带 Avatar 的人形模型与动画，借助动画树辅助脚本，把 Mixamo 一类的人形资源搬到 Godot 里播放。"
+    },
+    {
+      "titleZh": "旧项目评估",
+      "descZh": "先导一两个包看看转换结果与报错规模，再评估整个 Unity 项目迁移的工作量、风险与优先级。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "资源翻译层",
+      "descZh": "把 Unity 的 YAML 资源与 .unitypackage 解包内容映射成 Godot 的场景、材质、网格、动画与贴图资源。"
+    },
+    {
+      "titleZh": "GUID 资源库",
+      "descZh": "按 Unity 的 GUID 建立索引，处理预制体引用、依赖顺序与继承场景之间的一一对应关系。"
+    },
+    {
+      "titleZh": "动画辅助运行时",
+      "descZh": "附带的 anim_tree 脚本把 AnimatorController 的状态、过渡与混合树映射到 Godot 的原生动画树节点。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "unitypackage Import",
+      "descZh": "直接读取 .unitypackage 或整个资源文件夹，把包内内容一次排队批量转换。"
+    },
+    {
+      "name": "Prefab Translation",
+      "descZh": "预制体与继承预制体会翻成原生场景与继承场景，保留节点结构。"
+    },
+    {
+      "name": "Humanoid Animation",
+      "descZh": "支持 Avatar 与人形骨骼，动画片段与状态机可以带到 Godot 的动画树里。"
+    },
+    {
+      "name": "Editor Settings Check",
+      "descZh": "借助外部 FBX2glTF 把 FBX 转成 glTF，路径在编辑器设置里配置一次即可。"
+    },
+    {
+      "name": "Removable Addon",
+      "descZh": "翻译完成后插件可移除，工程里只留转换结果与一个动画运行时脚本。"
+    }
+  ],
+  "limitsZh": "它只翻译资源，不翻译逻辑：MonoBehaviour、自定义着色器与 UI 画布都要手工重写，别指望一键完成整个项目。导入过程会预解析大量资产，内存占用高，成千上万文件的包建议分批导入。大动画仍在主线程处理，编辑器可能长时间无响应。未标注的 GUID 缺失不会主动报警，模型可能悄悄少部件。README 明确支持到 4.2，更新的 4.x 版本要自己验证。人形重定向对缺骨骼或缩放异常的骨架并不可靠。",
+  "workflowZh": [
+    {
+      "stepZh": "把整个仓库解压到工程的 addons 目录下"
+    },
+    {
+      "stepZh": "在编辑器设置里配好外部 FBX2glTF 可执行文件路径"
+    },
+    {
+      "stepZh": "在项目设置的插件页启用 Unidot Importer 插件"
+    },
+    {
+      "stepZh": "从工具菜单选择要导入的包或目录"
+    },
+    {
+      "stepZh": "按贴图、材质、模型、场景的顺序分批导入"
+    },
+    {
+      "stepZh": "查看导入日志并手工补齐脚本与着色器"
+    }
+  ],
+  "pros": [
+    "覆盖预制体、网格、材质、动画、地形与音频等常见 Unity 资源类型，搬迁时省下大量重复搭建。",
+    "按 GUID 处理依赖与继承关系，导入后的场景层级与引用比手工重建更接近原工程。",
+    "纯 GDScript 实现，阅读与改错都方便，不引入原生扩展或额外运行时依赖。",
+    "翻译完成后插件可以直接移除，不会在成品工程里留下长期耦合。"
+  ],
+  "cons": [
+    "脚本、着色器与 UI 完全不在翻译范围，逻辑迁移仍要逐个人工处理。",
+    "大包导入内存占用很高，动画处理会阻塞主线程，编辑器容易假死。",
+    "已知问题列表很长，缺骨骼、未打包预制体与依赖勾选都可能出偏差。",
+    "文档以站点与 README 为主，出错时更多要靠日志自己定位。"
+  ],
+  "pitfalls": [
+    "没在编辑器设置里配 FBX2glTF 就导入，FBX 模型会转换失败或丢网格。",
+    "不分批直接导大包，容易吃满内存甚至让编辑器崩溃，先导小包验证流程。",
+    "导入顺序颠倒会让材质找不到贴图，按贴图、材质、模型、场景的顺序推进。"
+  ],
+  "bestFor": "准备把已有 Unity 项目或素材库整体搬到 Godot 4、并愿意接受脚本与着色器仍需手工重写的中大型团队。",
+  "avoidWhenZh": "只做少量模型搬运，或项目重度依赖 MonoBehaviour 与自定义着色器、希望全自动转换的场景。",
+  "compareTips": {
+    "vs": [
+      "V-Sekai__godot-vrm"
+    ],
+    "whenZh": "两者都属于资源导入：Unidot 面向 Unity 工程，翻译预制体、材质与动画；godot-vrm 面向虚拟形象，导入 VRM 骨骼、表情与材质。搬 Unity 项目选前者，做虚拟主播或角色换装选后者。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "Unity迁移",
+    "资源转换",
+    "unitypackage导入",
+    "预制体翻译",
+    "场景重建"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 2,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "核心能力是把 unitypackage 资产转换成 Godot 4 兼容格式",
+      "source": "README.md",
+      "quote": "At its heart, Unidot Importer can convert `.unitypackage` assets and asset folders into Godot 4.x compatible formats."
+    },
+    {
+      "claim": "Unity 场景与预制体会被翻译成 Godot 场景文件",
+      "source": "README.md",
+      "quote": "For example, `.unity` and `.prefab` become `.tscn` and `.prefab.tscn`."
+    },
+    {
+      "claim": "声明支持 Godot 4.0 到 4.2 编辑器",
+      "source": "README.md",
+      "quote": "Unidot has been tested on Windows, macOS and Linux versions. Currently supports Godot Editor versions 4.0 through 4.2."
+    },
+    {
+      "claim": "插件定位是 unitypackage 源资源翻译器",
+      "source": "plugin.cfg",
+      "quote": "Interoperable source asset translator for .unitypackage assets."
+    }
+  ]
+}

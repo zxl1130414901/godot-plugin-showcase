@@ -1,0 +1,34 @@
+{
+  "id": "fbcosentino__godot-simplified-flightsim",
+  "descriptionZh": "模块化纯 GDScript 飞行模拟库，用 Aircraft 与模块拼装飞机直升机飞船，整体接入成本不高。",
+  "category": "state-logic",
+  "tags": [
+    "飞行模拟",
+    "模块化",
+    "载具物理",
+    "GDScript"
+  ],
+  "prosShort": [
+    "模块拼装覆盖飞机直升机飞船",
+    "纯 GDScript 调手感很快，团队上手也快。",
+    "README 与四示例很完整，接入成本不高。"
+  ],
+  "consShort": [
+    "不含 UI 与仪表美术要自制，团队要提前评估。",
+    "必须遵守模块回调时序，规模化后更明显。",
+    "气动近似高速下可能失稳，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

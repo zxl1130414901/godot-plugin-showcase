@@ -1,0 +1,35 @@
+{
+  "id": "YarnSpinnerTool__YarnSpinner-Godot",
+  "descriptionZh": "在 Godot 4 C# 项目中编译并运行 Yarn 对话脚本，含运行器、示例视图与带上下文的本地化 CSV 导出",
+  "category": "state-logic",
+  "tags": [
+    "对话系统",
+    "Yarn",
+    "C#",
+    "分支叙事",
+    "本地化"
+  ],
+  "prosShort": [
+    "完整接入 Yarn 语言与编译流程",
+    "脚本改动后自动重导入并编译",
+    "含运行器、命令、函数与示例视图"
+  ],
+  "consShort": [
+    "官方标注开发中无正式支持",
+    "仅支持 C# 项目，GDScript 需换另一版本",
+    "需维护 .NET 工程与 Yarn 项目资源"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 2
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

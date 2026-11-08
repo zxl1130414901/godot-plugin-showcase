@@ -1,0 +1,142 @@
+{
+  "id": "edbeeching__godot_rl_agents_plugin",
+  "depth": "standard",
+  "taglineZh": "把游戏接到 Python 强化学习框架训练 NPC 的插件",
+  "summaryZh": "这是 Godot RL Agents 库在 Godot 4 一侧的资源与插件，配合独立的 Python 仓库使用。它的作用是在 Godot 游戏与 Python 中运行的机器学习算法之间搭一条接口，让开发者用强化学习训练 NPC 或智能体的复杂行为。功能上包了三套主流强化学习框架的封装：StableBaselines3、Sample Factory 与 Ray RLLib；支持带记忆的智能体，提供 LSTM 与基于注意力的接口；同时支持 2D 与 3D 游戏，并附一套 AI 传感器以增强智能体对游戏世界的观察能力。项目为 MIT 许可，README 指向 AAAI-2022 Workshop 的论文作为方法说明，插件侧提供的是训练与推理所需的自定义节点。",
+  "whatItDoes": "在 Godot 工程中提供训练与推理用的自定义节点，把游戏状态与动作通过接口传给 Python 侧的算法。配套一套 AI 传感器，帮助智能体获取视野、距离与射线等观测信息。与三套强化学习框架对接，可按项目规模选择单机训练或分布式采样。",
+  "useCases": [
+    {
+      "titleZh": "训练游戏 NPC 行为",
+      "descZh": "用强化学习让敌人学会追击、躲避或协作，而不必手写复杂行为树。"
+    },
+    {
+      "titleZh": "AI 研究中的实验环境",
+      "descZh": "在 Godot 搭建可控场景，配合 Python 框架做算法对比与论文实验。"
+    },
+    {
+      "titleZh": "需要记忆能力的智能体",
+      "descZh": "借助 LSTM 与注意力接口，训练需要记住历史信息的策略。"
+    },
+    {
+      "titleZh": "2D 与 3D 项目通用",
+      "descZh": "同一套接口与传感器在 2D 与 3D 游戏中都可用，减少重复适配。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "训练用自定义节点",
+      "descZh": "插件提供的智能体与环境节点，负责与 Python 端通信。"
+    },
+    {
+      "titleZh": "AI 传感器套件",
+      "descZh": "用于生成观测的视野、距离与射线等传感器。"
+    },
+    {
+      "titleZh": "训练好的策略模型",
+      "descZh": "由外部框架产出、可在游戏中推理运行的模型文件。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "三框架封装",
+      "descZh": "支持 StableBaselines3、Sample Factory 与 Ray RLLib。"
+    },
+    {
+      "name": "记忆型智能体",
+      "descZh": "提供 LSTM 与注意力两种带记忆的接口。"
+    },
+    {
+      "name": "2D 与 3D 通用",
+      "descZh": "传感器与接口在两种视角下都可使用。"
+    },
+    {
+      "name": "开源无限制",
+      "descZh": "MIT 许可，免费且无版税要求。"
+    }
+  ],
+  "limitsZh": "本仓库只是 Godot 一侧的插件与资源，真正的训练逻辑在另一个 Python 仓库里，README 只有一千二百字符且大部分内容在介绍上游库，安装与使用细节需要跳到外部仓库与文档，离线查阅不便。完整流程要求同时具备 Godot 环境与 Python 环境，还要安装所选强化学习框架及其依赖（如 PyTorch 或 Ray），环境搭建成本远高于普通插件。强化学习本身需要大量训练时间与算力，调参与奖励设计的门槛也不低，不是装上就能得到可用 NPC。插件版本号仍是 0.1，插件描述甚至带有多余的制表符，元信息不算规范。它面向的是研究与小规模实验，产出模型的泛化能力与上线稳定性仍需自行评估，缺少针对生产环境的性能与安全说明。",
+  "workflowZh": [
+    {
+      "stepZh": "安装 Python 环境与所选强化学习框架依赖。"
+    },
+    {
+      "stepZh": "在 Godot 工程中启用 godot_rl_agents 插件。"
+    },
+    {
+      "stepZh": "给智能体挂载传感器与训练所需节点。"
+    },
+    {
+      "stepZh": "配置训练场景并通过接口连接到 Python 进程。"
+    },
+    {
+      "stepZh": "运行训练，观察奖励曲线与策略表现。"
+    },
+    {
+      "stepZh": "导出模型，在游戏中以推理模式加载运行。"
+    }
+  ],
+  "pros": [
+    "把 Godot 与三套主流强化学习框架打通，省去自建接口。",
+    "支持 2D 与 3D，并有专门的 AI 传感器套件。",
+    "提供 LSTM 与注意力接口，可训练带记忆的策略。",
+    "MIT 许可，学术与商业使用都没有授权负担。"
+  ],
+  "cons": [
+    "必须搭配外部 Python 仓库与框架，环境重。",
+    "训练耗时长，调参门槛高。",
+    "插件侧文档极简，细节依赖上游。"
+  ],
+  "pitfalls": [
+    "只装 Godot 插件而未配置 Python 端与框架依赖，训练流程根本无法启动。",
+    "奖励函数设计不当会训出退化策略，上线前需要多轮人工评估而非只看训练指标。"
+  ],
+  "bestFor": "适合有 Python 与机器学习经验、希望用强化学习研究或训练 NPC 行为的团队与研究者。",
+  "avoidWhenZh": "只想让 NPC 有可预测行为的普通游戏，用行为树或状态机更可控，也不必承担训练成本。",
+  "compareTips": {
+    "vs": [
+      "satelliteoflove__godot-mcp"
+    ],
+    "whenZh": "godot-mcp 让 LLM 助手参与开发流程，这个插件让强化学习算法训练游戏内智能体；前者服务开发者，后者服务游戏中的 NPC。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "强化学习",
+    "Python接口",
+    "智能体训练",
+    "AI传感器",
+    "NPC行为"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 2,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 4,
+  "evidence": [
+    {
+      "claim": "在 Godot 游戏与 Python 机器学习算法之间提供接口",
+      "source": "README.md",
+      "quote": "An interface between games created in the [Godot Engine](...) and Machine Learning algorithms running in Python"
+    },
+    {
+      "claim": "封装三套强化学习框架",
+      "source": "README.md",
+      "quote": "Wrappers for three well known rl frameworks: StableBaselines3, Sample Factory and [Ray RLLib](...)"
+    },
+    {
+      "claim": "支持带记忆的智能体与 2D/3D 游戏",
+      "source": "README.md",
+      "quote": "Support for memory-based agents, with LSTM or attention based interfaces\\n* Support for 2D and 3D games"
+    },
+    {
+      "claim": "插件元信息版本为 0.1",
+      "source": "addons/godot_rl_agents/plugin.cfg",
+      "quote": "name=\"GodotRLAgents\" ... version=\"0.1\""
+    }
+  ]
+}

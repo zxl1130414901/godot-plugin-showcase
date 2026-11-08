@@ -1,0 +1,34 @@
+{
+  "id": "touilleMan__godot-python",
+  "descriptionZh": "把 Python 接成 Godot 脚本语言的老项目，用 exposed 与 export 映射节点与属性，Godot 4 版本仍在重构。",
+  "category": "visual-script",
+  "tags": [
+    "Python",
+    "脚本语言",
+    "GDNative",
+    "C++"
+  ],
+  "prosShort": [
+    "Python 脚本能像 GDScript 一样挂到节点上",
+    "自带生成脚本与 REPL 可试调 API",
+    "Pool 数组可以拿指针直接读写"
+  ],
+  "consShort": [
+    "Godot 4 支持仍在重构，接口不稳定",
+    "要自己编译 CPython 与运行库文件",
+    "指针访问无边界检查容易崩"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 1,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 2
+  },
+  "installComplexity": 5,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

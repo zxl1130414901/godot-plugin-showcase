@@ -1,0 +1,135 @@
+{
+  "id": "godotengine__collada-exporter",
+  "depth": "standard",
+  "taglineZh": "Godot 社区的增强版 Collada 导出器，补足 Blender 的模型交换能力",
+  "summaryZh": "collada-exporter 是 Godot 引擎社区维护的 Blender 插件，用来把三维场景导出成 Collada 格式的 DAE 文件，再导入 Godot 使用。它由 io_scene_dae 插件目录和可选的 godot_export_manager.py 脚本组成，前者负责在 Blender 的导出菜单里增加增强版选项，后者提供批量导出辅助。项目历史可追溯到 2016 年，代码为 Python，采用 GPL-2.0 授权，安装方式是把整个目录复制到 Blender 的 scripts/addons 下再启用插件。它不属于 Godot 插件，而是 Blender 侧的导出工具，适合仍在使用 DAE 工作流的团队。",
+  "whatItDoes": "插件在 Blender 的导出流程里替换原生 Collada 导出器，导出时把网格、材质与节点层级整理成 DAE 文件，减少在 Godot 里重新修复的麻烦，并尽量保留常见的材质槽与层级信息。io_scene_dae 目录负责界面选项与导出逻辑，godot_export_manager.py 则提供命令行式的批量导出入口，方便一次处理多个场景。",
+  "useCases": [
+    {
+      "titleZh": "旧工程资产迁移",
+      "descZh": "把 Blender 中的建筑、道具与场景装饰导出为 DAE 文件，再导入 Godot 组装关卡，尽量保留对象层级、材质槽与基本 UV 信息，减少返工。"
+    },
+    {
+      "titleZh": "批量场景导出",
+      "descZh": "美术在 Blender 里完成低模场景后，用附带的导出管理脚本一次处理多个文件，省去逐一手动导出的重复劳动，速度更快。"
+    },
+    {
+      "titleZh": "Collada 流程教学",
+      "descZh": "教学或内部文档需要演示 Collada 的往返流程时，用它生成可复现的示例资产，并让学员对照在 Godot 里的导入结果，便于排查格式差异。"
+    },
+    {
+      "titleZh": "历史项目维护",
+      "descZh": "维护旧版 Blender 工程时，用增强导出器把资产迁移到 Godot 4，并核对对象命名、材质路径与缩放比例是否规范，避免带入旧问题。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "Blender 导出器目录",
+      "descZh": "io_scene_dae 目录提供增强版 Collada 导出选项，负责把网格、材质槽与对象层级写入 DAE 文件，替代 Blender 自带导出器。"
+    },
+    {
+      "titleZh": "批量导出脚本",
+      "descZh": "godot_export_manager.py 提供可选的批量导出入口，按配置一次性处理多个 Blender 场景文件，减少重复点击与人工等待，适合资产量大的团队。"
+    },
+    {
+      "titleZh": "安装说明与许可证",
+      "descZh": "README 写明把目录复制到 addons、在设置里启用插件的完整步骤，并附带 GPL-2.0 许可证文本，分发前务必阅读条款。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "增强导出",
+      "descZh": "在导出面板中增加选项，尽量保留网格、材质与层级，减少导入后的手工修复工作。"
+    },
+    {
+      "name": "批量脚本",
+      "descZh": "附带可选的管理脚本，可一次导出多个场景，适合需要反复重建资产文件的团队。"
+    },
+    {
+      "name": "格式兼容",
+      "descZh": "输出标准 DAE 文件，可被 Godot 直接导入，也能交给其他支持 Collada 的引擎与离线工具链处理。"
+    },
+    {
+      "name": "开源授权",
+      "descZh": "采用 GPL-2.0 授权并公开源码，可自行修补导出缺陷或增加选项，但闭源分发必须遵守许可证条款。"
+    }
+  ],
+  "limitsZh": "它的定位是导出工具而非完整资产管线，导出的 DAE 仍可能丢失部分材质参数、动画曲线或骨骼细节，导入后需要人工核对。项目源码多年未大改，最近一次提交在 2025 年，主要维护者精力有限，Blender 新版本的 Python API 变动可能带来兼容问题。它只支持 Collada 一种格式，无法替代 glTF 工作流，也不提供材质转换表、批量校验或导出报告。此外 GPL-2.0 授权会约束闭源分发，商业项目接入前应确认许可证影响。官方 README 也坦言这是面向旧工作流的增强导出器，遇到问题需自行到 GitHub 提交 issue。",
+  "workflowZh": [
+    {
+      "stepZh": "把 io_scene_dae 整个目录复制到 Blender 的 scripts/addons 目录，注意不要只复制其中文件。"
+    },
+    {
+      "stepZh": "打开 Blender 用户设置，在插件列表里启用 Better Collada Exporter，确认导出菜单可用。"
+    },
+    {
+      "stepZh": "在场景中选中要导出的对象，从文件菜单执行增强版 Collada 导出。"
+    },
+    {
+      "stepZh": "按项目需要调整导出选项，再确认输出路径与文件名。"
+    },
+    {
+      "stepZh": "可选步骤：复制并启用 godot_export_manager.py 脚本，按配置文件批量导出多个场景。"
+    }
+  ],
+  "pros": [
+    "增强导出能保留更多层级与材质信息，减少在 Godot 引擎里手工重建的工作量。",
+    "附带批量导出脚本，资产量大的团队能一次处理多个场景，省去重复操作。",
+    "安装步骤简单，复制目录再启用插件即可，不涉及编译、打包或额外环境依赖。",
+    "公开源码且项目历史较长，遇到导出问题可以直接阅读实现并提交补丁修复。"
+  ],
+  "cons": [
+    "项目维护缓慢，Blender 新版本的 API 变动可能带来兼容问题，需要自行验证。",
+    "只支持 Collada 一种格式，无法替代 glTF，也缺少材质转换与批量校验。",
+    "GPL-2.0 授权对闭源商业分发有约束，接入前需要确认许可条款与合规性。"
+  ],
+  "pitfalls": [
+    "插件目录必须整个复制，只复制其中文件会导致 Blender 加载时找不到模块而无法启用。",
+    "导出前先统一场景单位与对象缩放，否则 DAE 进入 Godot 后尺寸可能相差上百倍。",
+    "DAE 里的材质、动画与骨骼常被简化，导入 Godot 后要逐项检查，不能默认原样保留。"
+  ],
+  "bestFor": "适合仍以 Collada 为交换格式的 Blender 老项目、需要批量导出多个场景的美术团队，以及想在不更换工具链的前提下把资产搬进 Godot 的开发者。",
+  "avoidWhenZh": "新项目应优先选 glTF 工作流；需要动画、骨骼与材质完整往返，或必须闭源分发时也不适合依赖它。",
+  "compareTips": {
+    "vs": [
+      "godotengine__godot-blender-exporter"
+    ],
+    "whenZh": "与同属 Godot 官方的 godot-blender-exporter 相比，后者提供更现代的 glTF 导出与更完整的场景同步，属于推荐路线；collada-exporter 只在必须使用 DAE 的老项目里才有价值，选择时先看资产格式再决定。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "blender",
+    "collada",
+    "asset-export",
+    "legacy",
+    "addon"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "插件为 Blender 提供增强版 Collada 导出，方便导入 Godot 等引擎",
+      "source": "README.md",
+      "quote": "Enhanced Collada exporter for [Blender](https://www.blender.org), making the format viable for importing meshes into game engines such as [Godot Engine](https://godotengine.org) using a libre format."
+    },
+    {
+      "claim": "安装需要把整个 io_scene_dae 目录复制到 Blender 插件目录",
+      "source": "README.md",
+      "quote": "Copy the `io_scene_dae` directory the location where Blender stores the scripts/addons folder on your system (you should see other io_scene_* folders there from other addons)."
+    },
+    {
+      "claim": "项目采用 GPL-2.0 或更高版本授权",
+      "source": "README.md",
+      "quote": "This Better Collada exporter is distributed under the terms of the GNU General Public License, version 2 or later."
+    }
+  ]
+}

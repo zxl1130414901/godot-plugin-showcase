@@ -1,0 +1,35 @@
+{
+  "id": "db0__godot-card-game-framework",
+  "descriptionZh": "卡牌游戏框架，自带手牌、牌堆、拖拽翻转与目标箭头，另有字典式规则引擎、卡牌库与牌组构筑界面。",
+  "category": "state-logic",
+  "tags": [
+    "卡牌游戏",
+    "规则引擎",
+    "牌组构筑",
+    "Godot3",
+    "AGPL"
+  ],
+  "prosShort": [
+    "卡牌交互控件几乎全部现成",
+    "规则用纯文本字典脚本描述",
+    "卡库与牌组编辑器一并提供"
+  ],
+  "consShort": [
+    "只支持 Godot 3，迁到 4.x 要重写大量场景",
+    "AGPL 许可，闭源发行要读补充条款",
+    "GDScript 实现，同屏卡牌一多就会掉帧"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 4
+  },
+  "installComplexity": 3,
+  "godotVersion": "3.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

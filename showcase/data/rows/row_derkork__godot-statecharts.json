@@ -1,0 +1,35 @@
+{
+  "id": "derkork__godot-statecharts",
+  "descriptionZh": "把状态图搬进 Godot 4 的分层状态机插件，用节点与信号组织状态，支持守卫表达式、并行区域与运行期调试视图。",
+  "category": "state-logic",
+  "tags": [
+    "状态机",
+    "状态图",
+    "分层",
+    "GDScript",
+    "C#"
+  ],
+  "prosShort": [
+    "分层与并行能压住状态数量",
+    "接入只碰一个类与两个方法",
+    "守卫用声明式表达式写在图里"
+  ],
+  "consShort": [
+    "没有独立画布，状态多时难读",
+    "表达式守卫能力受引擎限制",
+    "只管状态组织，不含 AI 调度与寻路"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

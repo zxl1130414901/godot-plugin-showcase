@@ -1,0 +1,34 @@
+{
+  "id": "derkork__godot-resource-groups",
+  "descriptionZh": "用通配符资源组替代硬编码路径的 Godot 资源加载插件，整体接入成本不高。",
+  "category": "asset-pipeline",
+  "tags": [
+    "资源加载",
+    "通配符",
+    "后台加载",
+    "C#支持",
+    "编辑器工具"
+  ],
+  "prosShort": [
+    "以路径表达式替代硬编码路径",
+    "支持后台加载并回调进度，团队上手也快。",
+    "文档与示例覆盖比较完整，接入成本不高。"
+  ],
+  "consShort": [
+    "库仍较新可能藏有未知问题",
+    "只能扫描项目目录内部资源"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

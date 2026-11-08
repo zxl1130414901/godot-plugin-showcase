@@ -1,0 +1,34 @@
+{
+  "id": "godot-jolt__godot-jolt",
+  "descriptionZh": "把 Jolt 物理接入 Godot 3D 的 GDExtension，改一个设置即可替换内置物理，刚体多时更稳更快。",
+  "category": "3d-shader",
+  "tags": [
+    "物理",
+    "GDExtension",
+    "性能",
+    "3D"
+  ],
+  "prosShort": [
+    "改一个设置就能整体切换后端",
+    "大量刚体场景帧时间更平稳",
+    "关节替代节点支持断裂与软限位"
+  ],
+  "consShort": [
+    "不保证确定性，联机校验别用",
+    "官方已内置 Jolt，本库转维护，只修 bug",
+    "仅支持 4.3 到 4.6 且平台受限"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 2,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

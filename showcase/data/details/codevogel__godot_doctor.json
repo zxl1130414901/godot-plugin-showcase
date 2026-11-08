@@ -1,0 +1,142 @@
+{
+  "id": "codevogel__godot_doctor",
+  "depth": "standard",
+  "taglineZh": "在编辑器与命令行里校验场景和资源的声明式工具",
+  "summaryZh": "Godot Doctor 是 CodeVogel 做的校验插件，目标是在运行前就把场景、节点与资源里的错误抓出来。它采用声明式、测试驱动的写法：用 Callable 定义校验条件，错误信息作为元数据挂上去，不需要写一堆过程式的警告代码，也不需要给脚本加 @tool。支持 GDScript 与 C# 两种语言，能校验节点与资源，能检查 PackedScene 的具体类型，还提供默认的无代码校验与自动场景校验。除了在编辑器里跑，它也能在命令行执行，用于 CI 集成，并可生成类似 JUnit 的 XML 报告供流水线读取。仓库附大量成对的语言示例与设置资源，README 超过三万字，按语法、运行方式与实现原理分章说明。",
+  "whatItDoes": "把场景与资源的校验从零散代码抽象成可复用的校验条件，在保存或检查时自动验证并给出明确错误信息。提供常用校验条件的预设集合，并允许用 Callable 复用复杂逻辑、嵌套组合条件。可在命令行运行并输出结构化报告，接入持续集成流水线做质量门禁。",
+  "useCases": [
+    {
+      "titleZh": "防止场景引用丢失",
+      "descZh": "用校验条件检查导出属性是否为空、NodePath 是否指向存在的节点，避免运行时空引用。"
+    },
+    {
+      "titleZh": "资源类型安全",
+      "descZh": "校验 PackedScene 或资源的具体类型，防止美术或策划误拖错误资源。"
+    },
+    {
+      "titleZh": "CI 中的场景回归检查",
+      "descZh": "在流水线里运行校验并读取 XML 报告，阻止带问题的场景被合并。"
+    },
+    {
+      "titleZh": "团队统一校验规范",
+      "descZh": "把常用规则做成可复用条件，让各成员按同一套标准检查节点与资源。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可复用的校验条件",
+      "descZh": "以 Callable 表达的 ValidationCondition，可嵌套与组合。"
+    },
+    {
+      "titleZh": "编辑器与 CLI 报告",
+      "descZh": "校验结果与类似 JUnit 的 XML 输出文件。"
+    },
+    {
+      "titleZh": "成对的语言示例",
+      "descZh": "GDScript 与 C# 两套等价示例，涵盖常见校验场景。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "无需 @tool",
+      "descZh": "校验逻辑不依赖 @tool 脚本，不污染运行时对象。"
+    },
+    {
+      "name": "声明式语法",
+      "descZh": "以校验条件加错误信息元数据表达规则，可读性强。"
+    },
+    {
+      "name": "节点与资源通吃",
+      "descZh": "场景节点与资源文件都能纳入同一套校验。"
+    },
+    {
+      "name": "CLI 与 CI 集成",
+      "descZh": "支持命令行运行并输出 XML 报告供流水线消费。"
+    }
+  ],
+  "limitsZh": "仓库根目录没有 README，GitHub 首页只有 CONTRIBUTING 一类文件，完整文档位于 addons/godot_doctor 内，初次访问容易以为缺少说明，必须点进子目录才能读到三万字的正文。插件同时包含 C# 与 GDScript 两套实现，不用 C# 的项目需要手动删除 core/csharp 与 examples/csharp 目录，否则会带上无用文件。声明式校验引入新概念（校验条件、元数据、嵌套与 IValidatable 接口），团队需要先统一理解再大规模写规则，否则容易出现规则重复或误报。它只负责静态校验，不能替代运行期测试，交互逻辑与时序问题仍需单元测试或试玩覆盖。校验规则写得太严会让每个场景都报错，需要按项目阶段调整设置资源里的默认项。",
+  "workflowZh": [
+    {
+      "stepZh": "通过 AssetLib 或手动把插件目录拷入工程并启用。"
+    },
+    {
+      "stepZh": "按需删除 C# 相关目录以精简体积。"
+    },
+    {
+      "stepZh": "在设置资源中调整默认校验行为。"
+    },
+    {
+      "stepZh": "为关键节点或资源编写校验条件与错误信息。"
+    },
+    {
+      "stepZh": "在编辑器中触发校验，修复报出的问题。"
+    },
+    {
+      "stepZh": "在 CI 中以命令行运行并生成 XML 报告。"
+    }
+  ],
+  "pros": [
+    "在运行前发现场景与资源错误，减少线上事故。",
+    "声明式写法可读性高，且不需要 @tool。",
+    "GDScript 与 C# 双语言支持，示例成对提供。",
+    "可在命令行与 CI 中运行，输出结构化报告。"
+  ],
+  "cons": [
+    "仓库根无 README，文档藏在 addon 目录内。",
+    "不用 C# 时需手动删除多余目录。",
+    "新概念较多，规则需要团队统一理解。"
+  ],
+  "pitfalls": [
+    "把校验规则写得过严，会让大量正常场景报错，应先从关键属性开始逐步加规则。",
+    "在 CI 里直接跑 CLI 而未配置退出码或报告路径，流水线可能无法依据结果失败。"
+  ],
+  "bestFor": "适合场景与资源数量多、多人协作容易出错，并且希望把校验纳入 CI 门禁的 Godot 4 项目。",
+  "avoidWhenZh": "项目很小、场景屈指可数，或团队不愿维护额外校验规则集时，引入成本高于收益。",
+  "compareTips": {
+    "vs": [
+      "godot-gdunit-labs__gdUnit4Net"
+    ],
+    "whenZh": "Godot Doctor 校验场景与资源的结构与引用，GDUnit4Net 跑单元与场景测试验证行为；两者一个静态、一个动态，可组合成完整的质量门禁。"
+  },
+  "category": "debug-perf",
+  "tags": [
+    "场景校验",
+    "资源检查",
+    "声明式",
+    "CI集成",
+    "C#支持"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "插件在运行前校验场景、节点与资源，且不需要 @tool",
+      "source": "addons/godot_doctor/README.md",
+      "quote": "A powerful validation plugin for Godot that catches errors before they reach runtime. Validate scenes, nodes, and resources using a declarative, test-driven approach, in either `gdscript` or `C#`. No `@tool` required!"
+    },
+    {
+      "claim": "可在命令行运行并生成类似 JUnit 的 XML 报告",
+      "source": "addons/godot_doctor/README.md",
+      "quote": "## Running Godot Doctor on the CLI ... Generating a JUnit-like XML Report"
+    },
+    {
+      "claim": "不用 C# 时可删除 csharp 相关目录",
+      "source": "addons/godot_doctor/README.md",
+      "quote": "If you don't use `C#` in your project, you can safely delete the `addons/godot_doctor/core/csharp` and the `addons/godot_doctor/examples/csharp` directories."
+    },
+    {
+      "claim": "插件元信息与版本",
+      "source": "addons/godot_doctor/plugin.cfg",
+      "quote": "name=\"Godot Doctor\" ... version=\"2.2.0\""
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "Zorochase__ultimate-retro-shader-collection",
+  "descriptionZh": "面向 PS1 与 N64 复古画风的 Godot 4 着色器合集与样例，整体接入成本不高。",
+  "category": "3d-shader",
+  "tags": [
+    "复古画风",
+    "PS1",
+    "N64",
+    "着色器合集",
+    "3D材质"
+  ],
+  "prosShort": [
+    "复古效果覆盖较为完整全面",
+    "文档逐项说明每个参数含义",
+    "着色器可兼容全部渲染后端"
+  ],
+  "consShort": [
+    "并非插件需手工挂接材质，团队要提前评估。",
+    "旧版本升级会破坏材质引用"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "carenalgas__popochiu",
+  "descriptionZh": "点击式冒险游戏框架，内置房间热点、物品栏、对话与存读档，整体接入成本不高。",
+  "category": "state-logic",
+  "tags": [
+    "点击冒险",
+    "叙事",
+    "房间",
+    "物品栏",
+    "对话"
+  ],
+  "prosShort": [
+    "点击式冒险要素基本齐全，团队上手也快。",
+    "编辑器 Dock 降低搭建门槛，接入成本不高。",
+    "自带界面主题与存读档，后续扩展方便。"
+  ],
+  "consShort": [
+    "工程组织强势改造成本高，团队要提前评估。",
+    "仅适用于 2D 点击式冒险，规模化后更明显。",
+    "要求较新的 Godot 版本，升级时容易卡住。"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 4,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

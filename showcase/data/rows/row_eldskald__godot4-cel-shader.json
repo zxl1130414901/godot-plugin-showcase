@@ -1,0 +1,35 @@
+{
+  "id": "eldskald__godot4-cel-shader",
+  "descriptionZh": "为 Godot 4 提供分级光照、描边与高光的卡通着色器方案，整体接入成本不高。",
+  "category": "3d-shader",
+  "tags": [
+    "卡通渲染",
+    "描边",
+    "着色器",
+    "Godot4",
+    "风格化"
+  ],
+  "prosShort": [
+    "一套着色器覆盖卡通光照描边",
+    "效果拆成 include 后可按需组合，团队上手也快。",
+    "自带演示场景与逐步接入说明"
+  ],
+  "consShort": [
+    "并非插件需要手工替换材质",
+    "全局 uniform 必须逐项手工添加，团队要提前评估。",
+    "缺少移动端性能裁剪明确方案"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

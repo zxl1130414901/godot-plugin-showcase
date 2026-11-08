@@ -1,0 +1,35 @@
+{
+  "id": "GarrettGunnell__Godot-PSX",
+  "descriptionZh": "还原 PS1 观感的 Godot 4 空间着色器，含顶点吸附、仿射贴图、抖动与雾效",
+  "category": "3d-shader",
+  "tags": [
+    "PS1风格",
+    "空间着色器",
+    "仿射贴图",
+    "抖动量化",
+    "复古渲染"
+  ],
+  "prosShort": [
+    "顶点吸附与仿射贴图还原年代感",
+    "单文件着色器，换材质即生效",
+    "示例场景与素材齐全，便于调参"
+  ],
+  "consShort": [
+    "参数分散在材质，缺全局配置",
+    "不含复古后处理与低分辨率配套方案",
+    "维护活跃度偏低，引擎升级后需自行核对"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

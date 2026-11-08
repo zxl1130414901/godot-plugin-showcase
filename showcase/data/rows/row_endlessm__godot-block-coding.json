@@ -1,0 +1,35 @@
+{
+  "id": "endlessm__godot-block-coding",
+  "descriptionZh": "Godot 4 可视化编程插件，用可拖拽积木拼出游戏逻辑，并生成可运行脚本，面向教学与轻量原型。",
+  "category": "visual-script",
+  "tags": [
+    "可视化编程",
+    "积木",
+    "教育",
+    "GDScript",
+    "编辑器"
+  ],
+  "prosShort": [
+    "积木拖拽即可让角色直接动起来",
+    "生成的脚本仍然走引擎常规流程",
+    "支持自定义积木与分类的二次扩展"
+  ],
+  "consShort": [
+    "积木覆盖有限，复杂玩法要写脚本",
+    "生成代码可读性一般，排错比较费劲",
+    "画布积木一多就会明显变得卡顿"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

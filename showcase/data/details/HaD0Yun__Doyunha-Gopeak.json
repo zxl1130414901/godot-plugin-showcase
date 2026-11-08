@@ -1,0 +1,152 @@
+{
+  "taglineZh": "让 AI 助手直接操作 Godot 项目的 MCP 服务器，95 项工具",
+  "summaryZh": "GoPeak 是一个面向 Godot 的 MCP 服务器，把项目发现、场景与脚本编辑、资源操作、运行时检查、GDScript LSP 与 DAP 调试、截图与输入注入等能力包装成工具，供 Claude Desktop、Cursor 一类支持 MCP 的客户端调用。默认 compact 配置只暴露可信核心工具，其余按工具组动态启用，以控制上下文开销。它不替代 Godot，需要 Node.js 18 以上与本地 Godot 路径，运行时、LSP 与 DAP 能力还要求装配套 addon 或开启对应端口。",
+  "whatItDoes": "通过 stdio 与 MCP 客户端通信，工具定义在 tool-definitions 与 tool-groups 里，tool.catalog 负责检索并按需激活工具组。场景与资源操作走 godot-bridge 与 addon 里的 GDScript 执行脚本，LSP 连接 6005 端口、DAP 连接 6006 端口做补全与断点调试，测试类工具可截图、抓取视口与注入输入。资产库工具从 Poly Haven、ambientCG 与 Kenney 拉取 CC0 素材。",
+  "useCases": [
+    {
+      "titleZh": "AI 辅助开发",
+      "descZh": "想用 Claude 或 Cursor 直接改 Godot 场景与脚本的开发者，让助手先读项目状态再动手，团队分工时职责会更清楚。"
+    },
+    {
+      "titleZh": "调试闭环",
+      "descZh": "需要 AI 读运行日志、抓截图并修首个报错的流程，可用 DAP 与运行时工具闭环，在这类项目里能省下不少重复劳动。"
+    },
+    {
+      "titleZh": "批量场景改动",
+      "descZh": "重复性的场景与资源改动可写成提示词，让助手批量执行而不用手点编辑器，对独立开发者尤其友好且后续扩展方便。"
+    },
+    {
+      "titleZh": "素材搜集",
+      "descZh": "原型阶段缺少素材时，用资产库工具搜索并下载 CC0 模型与贴图，原型阶段出效果很快且正式项目也能沿用。"
+    },
+    {
+      "titleZh": "团队交接",
+      "descZh": "想把排查过程与决策记录交给助手，用 intent 工具生成交接说明，团队分工时职责会更清楚。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "MCP 服务器进程",
+      "descZh": "通过 npx 启动，向 MCP 客户端暴露一组 Godot 操作工具，按 stdio 通信，不需要常驻服务。"
+    },
+    {
+      "titleZh": "编辑器侧 addon",
+      "descZh": "自动重载插件与桥接脚本，配合外部修改时刷新场景与脚本，工程里只保留一个轻量 addon。"
+    },
+    {
+      "titleZh": "运行时可视化面板",
+      "descZh": "通过 WebSocket 展示工具调用事件与状态，便于观察助手动作与失败原因，不用翻日志。"
+    },
+    {
+      "titleZh": "多语言文档",
+      "descZh": "英中日韩德葡六份 README 与架构、迁移策略说明，非英语团队也能上手，降低理解成本。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "工具组",
+      "descZh": "compact 模式下核心工具常驻，其余按需激活，减少上下文占用，默认配置即可开始用。"
+    },
+    {
+      "name": "LSP 与 DAP",
+      "descZh": "接 Godot 补全与调试端口，让助手能查符号、下断点与读调用栈，不用在编辑器里来回点。"
+    },
+    {
+      "name": "场景桥接",
+      "descZh": "通过 addon 执行 GDScript，实现节点创建、重命名与资源保存，改动会落到真实工程文件。"
+    },
+    {
+      "name": "CC0 资产库",
+      "descZh": "内置 Poly Haven、ambientCG 与 Kenney 检索，原型素材可直接取用，下载后可直接放进项目。"
+    },
+    {
+      "name": "截图与输入注入",
+      "descZh": "运行时截图、视口捕获与输入注入，用来验证界面与交互是否正常。"
+    }
+  ],
+  "limitsZh": "所有能力都建立在 MCP 客户端之上，终端用户不会直接使用它，配置里要写本地 Godot 路径，路径错了大半工具就不可用。README 自己标注了很多工具组为 audit-required，意味着尚未在 Godot 4 夹具里验证，TileMapLayer 之类的版本兼容仍在调整。运行时检查、LSP 补全与 DAP 调试各有前置条件：要装 addon、开 6005 与 6006 端口，缺一项对应工具组就只是摆设。它不是 Godot 插件，不能从 AssetLib 安装。",
+  "workflowZh": [
+    {
+      "stepZh": "确认 Node.js 18 以上与本地 Godot 可执行文件路径。"
+    },
+    {
+      "stepZh": "在 MCP 客户端配置里加入 gopeak 命令与 GODOT_PATH。"
+    },
+    {
+      "stepZh": "启动后先列出项目并查看项目信息。"
+    },
+    {
+      "stepZh": "按需激活工具组，例如 dap 或 runtime，再按项目实际情况微调。"
+    },
+    {
+      "stepZh": "让助手执行改动并在运行时验证结果。"
+    }
+  ],
+  "pros": [
+    "把场景、脚本、资源与调试串成一条 AI 可执行的链路，减少在编辑器与聊天之间来回切换。",
+    "compact 工具组按需激活，比一次性暴露全部工具更省上下文，新手也能按提示词跑通。",
+    "文档有六种语言与架构说明，安装步骤与首条提示词写得很具体。",
+    "自带 CC0 资产检索与截图、输入注入，原型阶段的验证手段比较完整。"
+  ],
+  "cons": [
+    "必须搭配 MCP 客户端，单独安装没有可用的界面，配置错了就没有可用工具",
+    "多组工具标注 audit-required，能力尚待验证，别当稳定功能用",
+    "运行时、LSP 与 DAP 都要额外开端口或装 addon，缺一项就少一组能力"
+  ],
+  "pitfalls": [
+    "GODOT_PATH 指向错误版本或目录，多数工具会直接失败且提示不明确。",
+    "没装配套 addon 时，运行时检查与场景桥接只能部分工作，容易误判为工具坏了。",
+    "compact 模式下工具默认不可见，误以为功能缺失前先查工具组是否激活。"
+  ],
+  "bestFor": "已经在用 MCP 客户端的独立开发者，希望 AI 能直接读写真实 Godot 项目并跑调试闭环，能明显缩短前期搭建时间。",
+  "avoidWhenZh": "不使用 MCP 客户端，或只想要一个编辑器内可视化工具的项目。",
+  "compareTips": {
+    "vs": [
+      "Coding-Solo__godot-mcp"
+    ],
+    "whenZh": "两者都是 Godot 的 MCP 服务器，接口与工具命名不同，选型时按客户端兼容性与工具组覆盖度对比。GoPeak 的优势在 LSP、DAP、截图与资产库这类扩展面，需要运行证据的调试流程更能体现差别。"
+  },
+  "category": "ai-gen",
+  "tags": [
+    "MCP",
+    "AI助手",
+    "自动化",
+    "调试",
+    "TypeScript"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "让 AI 助手端到端运行与调试 Godot 项目",
+      "source": "README.md",
+      "quote": "GoPeak is an MCP server for Godot that lets AI assistants run, inspect, modify, and debug real projects end-to-end."
+    },
+    {
+      "claim": "需要 Godot 4.x、Node.js 18 以上与 MCP 客户端",
+      "source": "README.md",
+      "quote": "- Godot 4.x\n- Node.js 18+\n- MCP-compatible client (Claude Desktop, Cursor, Cline, OpenCode, etc.)"
+    },
+    {
+      "claim": "compact 默认只暴露核心工具并按需激活工具组",
+      "source": "README.md",
+      "quote": "`compact` (default): trusted core tools plus dynamic tool groups activated on demand."
+    },
+    {
+      "claim": "工具成熟度标注保守，未验证的组标为 audit-required",
+      "source": "README.md",
+      "quote": "Maturity labels are intentionally conservative until each group has Godot 4 fixture evidence"
+    }
+  ],
+  "id": "HaD0Yun__Doyunha-Gopeak",
+  "depth": "standard"
+}

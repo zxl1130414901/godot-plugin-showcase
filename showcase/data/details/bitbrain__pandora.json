@@ -1,0 +1,142 @@
+{
+  "id": "bitbrain__pandora",
+  "depth": "standard",
+  "taglineZh": "在同一面板里管理 RPG 物品、法术、怪物与掉落的数据库插件",
+  "summaryZh": "Pandora 把 RPG 里散落各处的数据收进一个专用编辑器：物品、法术、能力、角色、怪物与掉落表都能在同一面板里新建、复制与删除，分类属性会自动向下继承到子类与实体。运行时通过 Pandora 单例按 ID 取数据，实体可以实例化成独立对象，再改堆叠数量等数值，不必把配方写死在场景里。数据以自定义资源保存，方便版本管理与批量调整。作者明确标注项目仍在 Alpha，接口与编辑器行为还会变，适合在早期就把数据层统一，而不是临近发售才迁移。",
+  "whatItDoes": "提供 RPG 数据编辑器与 Pandora 单例运行时接口，把分类、实体与掉落表做成可继承的资源，用 ID 在代码里取用与实例化。",
+  "useCases": [
+    {
+      "titleZh": "物品与掉落表维护",
+      "descZh": "策划在编辑器里改物品属性与掉落权重，不用打开场景，也不必麻烦程序去改常量表。"
+    },
+    {
+      "titleZh": "法术与技能配置",
+      "descZh": "把伤害、冷却与消耗写成实体属性，战斗脚本只读 ID 与数值，调平衡时不必改动任何代码。"
+    },
+    {
+      "titleZh": "怪物与角色档案",
+      "descZh": "怪物血量、抗性与掉落集中管理，新增敌人时复制实体再改差异字段即可，省去重复填表。"
+    },
+    {
+      "titleZh": "工具脚本取数",
+      "descZh": "写导入或校验工具时也能调用同一个单例读取数据，避免再维护一份表格造成两处不一致。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "数据编辑器面板",
+      "descZh": "集中增删分类与实体的编辑器界面，属性继承会自动向子类与实体传播。"
+    },
+    {
+      "titleZh": "实体与分类资源",
+      "descZh": "可被场景引用或在运行时实例化的数据对象，字段能被脚本按类型读取。"
+    },
+    {
+      "titleZh": "Pandora 运行时单例",
+      "descZh": "按实体 ID 取数据并实例化的运行时入口，让游戏逻辑与编辑器数据解耦。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "Dedicated Editor UI",
+      "descZh": "物品、法术与怪物等分类都在同一面板里维护，属性改动自动向下传播。"
+    },
+    {
+      "name": "Pandora Singleton",
+      "descZh": "运行时按 ID 取实体并实例化，不必把资源路径硬编码进场景脚本。"
+    },
+    {
+      "name": "Entity Inheritance",
+      "descZh": "分类属性可被实体继承或覆盖，改一处就能影响整组内容与数值。"
+    },
+    {
+      "name": "Unit Tested",
+      "descZh": "仓库用单元测试覆盖主要功能，改动数据层后有回归验证可跑。"
+    }
+  ],
+  "limitsZh": "项目仍处 Alpha，作者在 README 顶部直接写明尚未达到生产可用，接口、资源格式与编辑器行为都可能随版本变化，升级要留回归时间。它只解决数据存储与取用，不含战斗公式、掉落计算与存档流程，这些仍要自己写。数据都存在自定义资源里，实体数量上千后编辑器打开与保存会变慢，批量改动也缺少表格化视图。文档主要指向外部 Wiki，仓库内只有示例与测试，遇到边界问题得去讨论区问。绑定单例的写法让数据层与插件耦合，若以后换方案要改所有取数调用。",
+  "workflowZh": [
+    {
+      "stepZh": "把 pandora 目录整体复制到工程的 addons 目录下"
+    },
+    {
+      "stepZh": "在项目设置的插件页里勾选并启用 Pandora"
+    },
+    {
+      "stepZh": "在编辑器里新建分类、实体与掉落表"
+    },
+    {
+      "stepZh": "在脚本里用单例按 ID 取实体并实例化"
+    },
+    {
+      "stepZh": "跑单元测试或示例场景验证数据读取"
+    }
+  ],
+  "pros": [
+    "分类与实体支持属性继承，同类数据改一处就能影响整组，维护成本低。",
+    "运行时用 ID 取数，场景与脚本不依赖具体资源路径，重构更安全。",
+    "自带单元测试与示例工程，改完能跑回归，接入时有现成参照。",
+    "把 RPG 数据从场景里剥离，策划可独立维护，减少程序反复改表。"
+  ],
+  "cons": [
+    "仍处 Alpha，接口与资源格式可能变动，不适合临近上线的项目。",
+    "只做数据层，战斗公式、掉落计算与存档都需要自己实现。",
+    "上千实体后编辑器加载与保存变慢，缺少批量表格编辑能力。",
+    "文档依赖外部 Wiki，仓库内说明较薄，边界问题要问讨论区。"
+  ],
+  "pitfalls": [
+    "实体 ID 改名后旧的取数调用会失效且不一定报错，重命名前先全局搜索。",
+    "分类属性向下传播会覆盖子类手工值，调整父类前确认没有单独改过。",
+    "自定义资源合并冲突较难读，多人同时改同一分类建议拆成多个文件。"
+  ],
+  "bestFor": "正在做 RPG 或带大量物品、法术与怪物的项目，希望早期就把数据从场景里剥离并统一管理的 Godot 4 团队。",
+  "avoidWhenZh": "项目已临近发售、无法承担 Alpha 变动，或只需要十几件固定道具的小体量游戏。",
+  "compareTips": {
+    "vs": [
+      "peter-kish__gloot",
+      "OctoD__godot-gameplay-systems"
+    ],
+    "whenZh": "三者都在管游戏数据：Pandora 面向 RPG 内容库，分类与实体继承强于通用物品系统；GLoot 专注背包格子、重量与堆叠；OctoD 偏向角色属性与技能的战斗框架。要内容生产管线选 Pandora，要背包交互选 GLoot。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "RPG数据",
+    "道具管理",
+    "法术配置",
+    "实体继承",
+    "数据编辑器"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "插件用于简化 RPG 数据管理",
+      "source": "README.md",
+      "quote": "an addon for the Godot Engine that simplifies the handling of RPG data"
+    },
+    {
+      "claim": "作者声明项目仍处于 Alpha",
+      "source": "README.md",
+      "quote": "NOT PRODUCTION-READY YET"
+    },
+    {
+      "claim": "数据可在同一面板集中管理",
+      "source": "README.md",
+      "quote": "Manage all your RPG data in one place."
+    },
+    {
+      "claim": "插件配置里列出可存储的数据类型",
+      "source": "addons/pandora/plugin.cfg",
+      "quote": "Store items, inventories, spells, mobs and more."
+    }
+  ]
+}

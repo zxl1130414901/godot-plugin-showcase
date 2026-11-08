@@ -1,0 +1,14 @@
+{
+  "id": "chickensoft-games__GodotEnv",
+  "descriptionZh": "用 .NET 命令行统一管理 Godot 版本切换与插件依赖安装，还能替代 git 子模块，适合多版本协作。",
+  "category": "asset-pipeline",
+  "tags": ["版本管理", "插件管理", "命令行", "CI", "dotnet", "依赖图"],
+  "prosShort": ["一条命令装引擎并切版本，无需反复重装", "用 addons.json 声明来源，克隆后一次补齐插件", "自动维护 GODOT 环境变量，减少版本错配问题"],
+  "consShort": ["必须先装 .NET SDK 与 git，并配好 shell 环境", "Windows 建软链接常需管理员权限或开发者模式", "强依赖 NuGet 源，内网离线环境容易装不上"],
+  "scores": {"coverage": 4, "usability": 4, "docs": 4, "maintenance": 4, "performance": 5, "stability": 4},
+  "installComplexity": 2,
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,142 @@
+{
+  "id": "cluttered-code__godot-health-hitbox-hurtbox",
+  "depth": "standard",
+  "taglineZh": "可组合的生命值、攻击与受击组件，覆盖 2D 与 3D",
+  "summaryZh": "这是 ClutteredCode 做的生命值与伤害组件库，面向 Godot 4.5 以上版本，同时提供 2D 与 3D 两套节点。它的模型很清晰：HitBox 或 HitScan 产生 HealthAction 数组，交给 HurtBox，HurtBox 按规则转换后输出 HealthModifiedAction 数组，最后由 Health 节点统一结算伤害与治疗。v5 把简单节点改名为 Basic 系列并新增高级版本：Basic 版只需设置影响类型与数值，高级版支持带类型的动作数组与修饰器，HurtBox 还能按动作类型应用不同的增减倍率，Health 记录当前与最大生命、状态条件与可选修饰器。仓库附示例工程、教程目录、封面图与在线 demo，并接入了 gdUnit4 与 CI。",
+  "whatItDoes": "提供可挂载的伤害与受击判定节点，把攻击、防御与生命值结算拆成可组合的三段。Basic 系列用最少的配置完成常见攻击与治疗，高级系列用动作数组与修饰器表达复杂规则。Health 节点维护生命值状态与条件判断，供 UI 与其他系统查询。",
+  "useCases": [
+    {
+      "titleZh": "2D 与 3D 动作游戏",
+      "descZh": "给角色挂 HurtBox 与 Health、给武器挂 HitBox，形成完整的伤害链路。"
+    },
+    {
+      "titleZh": "需要不同减伤规则的敌人",
+      "descZh": "用 HurtBox 的修饰器按动作类型设置不同倍率，区分物理与火焰抗性。"
+    },
+    {
+      "titleZh": "远程射击判定",
+      "descZh": "用 HitScan 沿射线检测并调用 fire 触发动作，适合枪械与激光。"
+    },
+    {
+      "titleZh": "需要治疗与附加效果",
+      "descZh": "Health 支持治疗与状态条件，可扩展持续伤害或护盾逻辑。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "可挂载的战斗组件",
+      "descZh": "Basic 与高级两套 HitBox、HitScan、HurtBox 节点。"
+    },
+    {
+      "titleZh": "生命值状态节点",
+      "descZh": "Health 记录当前与最大生命、条件与修饰器。"
+    },
+    {
+      "titleZh": "可参考的示例工程",
+      "descZh": "仓库内 examples 与教程，配合 itch.io 在线演示。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "三段式链路",
+      "descZh": "攻击产生动作、受击转换动作、生命值结算，职责分明。"
+    },
+    {
+      "name": "2D 与 3D 双套件",
+      "descZh": "同一套概念在 2D 与 3D 中都有对应节点。"
+    },
+    {
+      "name": "动作修饰器",
+      "descZh": "HurtBox 可按动作类型设置伤害或治疗的倍率。"
+    },
+    {
+      "name": "射线式攻击",
+      "descZh": "HitScan 需显式调用 fire 触发，适合精确命中判定。"
+    }
+  ],
+  "limitsZh": "插件要求 Godot 4.5 以上，较旧的 4.x 工程无法直接使用。v5 是一次不兼容重命名：简单节点改成了 Basic 前缀，同时新增高级变体，README 明确要求从旧版本迁移时必须先升到 v4.4.0 再升 v5，跨版本直接替换会出现节点类型找不到的问题。文档主体放在 GitHub Wiki，仓库内 README 虽然清晰但只是概览，深入教程与 API 细节需要联网查阅。作为战斗组件库，它只负责判定与数值结算，不含动画、击退、音效与状态机等表现层，实际项目仍需自行串联。仓库同时内置了 gdUnit4 测试插件，安装时会一并带入测试框架，若工程已有测试工具需注意冲突。高级模式的动作数组与修饰器概念较多，团队需要先统一约定再大规模使用。",
+  "workflowZh": [
+    {
+      "stepZh": "确认工程为 Godot 4.5 以上，安装插件并启用。"
+    },
+    {
+      "stepZh": "给攻击方添加 HitBox 或 HitScan，设置动作与数值。"
+    },
+    {
+      "stepZh": "给受击方添加 HurtBox，配置倍率或修饰器。"
+    },
+    {
+      "stepZh": "给角色添加 Health，设置最大生命与初始状态。"
+    },
+    {
+      "stepZh": "运行示例工程，确认动作从攻击传到生命值的链路。"
+    },
+    {
+      "stepZh": "按需扩展动作类型与修饰规则。"
+    }
+  ],
+  "pros": [
+    "攻击、受击与生命值职责拆分清晰，组合灵活。",
+    "2D 与 3D 都有对应节点，跨视角项目可复用概念。",
+    "高级模式支持带类型的动作与修饰器，扩展性强。",
+    "有示例工程、教程、在线 demo 与 CI，维护度高。"
+  ],
+  "cons": [
+    "要求 Godot 4.5 以上。",
+    "v5 重命名不兼容，迁移需按步骤升级。",
+    "只覆盖判定与结算，不含表现层。"
+  ],
+  "pitfalls": [
+    "从旧版本直接替换为 v5 会因节点改名而报类型缺失，需先升到 v4.4.0 再升级。",
+    "HitScan 不会自动开火，忘记调用 fire 会以为判定失效。"
+  ],
+  "bestFor": "适合需要统一伤害与治疗判定、并且同时涉及 2D 与 3D 的动作游戏项目，尤其是已使用 Godot 4.5 的团队。",
+  "avoidWhenZh": "战斗逻辑极简只做一次性扣血，或工程版本低于 4.5 且短期内无法升级时，自写少量脚本更省事。",
+  "compareTips": {
+    "vs": [
+      "Jeh3no__Godot-Advanced-State-Machine-First-Person-Controller"
+    ],
+    "whenZh": "这个组件库管伤害判定与生命值结算，FSM 控制器管角色状态与移动；做完整的战斗角色时，两者分别负责数值链路与控制逻辑。"
+  },
+  "category": "state-logic",
+  "tags": [
+    "生命值",
+    "伤害判定",
+    "组件化",
+    "2D与3D",
+    "战斗系统"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 5,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 1,
+  "evidence": [
+    {
+      "claim": "面向 Godot 4.5 以上的 2D/3D 生命值与伤害组件",
+      "source": "addons/health_hitbox_hurtbox/README.md",
+      "quote": "Composable 2D/3D components for health, damage, and healing in Godot 4.5+."
+    },
+    {
+      "claim": "v5 将简单节点改名为 Basic 并新增高级变体",
+      "source": "addons/health_hitbox_hurtbox/README.md",
+      "quote": "v5 renamed the simple nodes to `Basic*` and added advanced variants with typed actions and modifiers."
+    },
+    {
+      "claim": "旧版本迁移需先升到 v4.4.0 再升 v5",
+      "source": "addons/health_hitbox_hurtbox/README.md",
+      "quote": "Upgrade to v4.4.0 first if migrating from older versions, then to v5."
+    },
+    {
+      "claim": "HitScan 需要显式调用 fire 触发",
+      "source": "addons/health_hitbox_hurtbox/README.md",
+      "quote": "`HitScan2D` / `3D` — `actions`; call `fire()`"
+    }
+  ]
+}

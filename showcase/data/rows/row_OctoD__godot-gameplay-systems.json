@@ -1,0 +1,14 @@
+{
+  "id": "OctoD__godot-gameplay-systems",
+  "descriptionZh": "用节点与资源搭出属性、技能、效果与背包等 RPG 系统的插件，附带多套示例工程。",
+  "category": "state-logic",
+  "tags": ["RPG", "属性系统", "技能", "背包"],
+  "prosShort": ["属性、技能与背包等模块齐全", "附带动作与回合制等多套示例工程", "用节点组合，整体贴近 Godot 原生风格"],
+  "consShort": ["作者已宣布将用 GDExtension 重写全部 API", "当前 API 处过渡期，长期稳定性差", "联机同步只有思路，缺少开箱方案"],
+  "scores": {"coverage": 4, "usability": 3, "docs": 4, "maintenance": 2, "performance": 3, "stability": 2},
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

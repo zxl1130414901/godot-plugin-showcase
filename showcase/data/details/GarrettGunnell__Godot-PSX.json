@@ -1,0 +1,140 @@
+{
+  "id": "GarrettGunnell__Godot-PSX",
+  "depth": "standard",
+  "taglineZh": "还原 PS1 画面的 Godot 4 着色器，含顶点抖动与仿射贴图",
+  "summaryZh": "Godot-PSX 是 Acerola 那个知名 PS1 复古着色器的 Godot 移植版，单个 spatial 着色器把 PlayStation 时代的几项视觉缺陷当作风格来复刻：仿射纹理映射让贴图在斜面上扭动，整数裁剪空间坐标带来顶点像素吸附的抖动感，此外还有 Y 轴公告板、平面着色、Gouraud 着色、可选动态光、线性距离雾以及 15 位色深的抖动与量化。作者坦言为了易读牺牲了部分便利，比如没有全局着色器变量，改雾或光要逐个材质调整。",
+  "whatItDoes": "提供一个可直接挂到材质上的空间着色器，把 PS1 的仿射贴图、顶点吸附与 15 位色抖动等特征组合成统一的复古外观。附带示例场景与模型贴图，展示着色器在角色与场景上的实际效果，并附相机与角色控制脚本用于演示。着色器内以注释解释各段代码，方便想自己改写或做后处理方案的人参考。",
+  "useCases": [
+    {
+      "titleZh": "复古 3D 游戏",
+      "descZh": "给低模场景套上 PS1 材质，顶点抖动与低分辨率贴图带来年代感，适合做怀旧风独立游戏。"
+    },
+    {
+      "titleZh": "风格化短片",
+      "descZh": "用仿射贴图与有序抖动做刻意不稳定的画面，配合顶点光照与距离雾，营造早期主机质感。"
+    },
+    {
+      "titleZh": "着色器学习",
+      "descZh": "代码带逐段注释，能对着实现理解顶点吸附与仿射映射的原理，适合当作图形入门材料。"
+    },
+    {
+      "titleZh": "美术风格试验",
+      "descZh": "在同一场景切换抖动、吸附与雾参数，对比不同年代观感，能更快定下项目的美术方向。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "PS1 空间着色器",
+      "descZh": "单文件空间着色器实现顶点吸附、仿射贴图、抖动与雾，挂到材质即可生效。"
+    },
+    {
+      "titleZh": "示例场景与素材",
+      "descZh": "仓库带模型、纹理与演示场景，可直接跑起来看效果，也方便逐个参数对照调节。"
+    },
+    {
+      "titleZh": "可调材质参数",
+      "descZh": "抖动强度、光照与雾都做成 uniform，可按材质逐个调整，不必改代码再重新导出。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "顶点吸附",
+      "descZh": "把顶点位置量化到低精度网格，还原 PS1 特有的抖动与透视变形，近处模型会明显摆动。"
+    },
+    {
+      "name": "仿射贴图",
+      "descZh": "关闭透视校正，纹理在斜面上拉伸，出现主机时代的贴图滑动感。"
+    },
+    {
+      "name": "有序抖动",
+      "descZh": "用抖动图案压色深，减少色带，画面更接近低色深主机的输出效果。"
+    },
+    {
+      "name": "顶点光照与雾",
+      "descZh": "内置简单的顶点光照与距离雾，减少对引擎灯光的依赖，也贴近早期管线。"
+    },
+    {
+      "name": "醒目注释",
+      "descZh": "着色器内逐段写注释，读代码就能理解每一步作用，改参数时也有依据。"
+    }
+  ],
+  "limitsZh": "README 明确说明该着色器为了易用性放弃了 Godot 的一些便利，没有做全局着色器变量，因此雾、光、抖动等参数都散落在每个材质实例上，场景里材质一多就要逐个同步修改，作者自己建议改用全局 uniform 或做成后处理。仓库没有 project.godot，是以散装资源（Shaders、Materials、Models、Scenes、Scripts）组织的示例包，没有 plugin.cfg，也没有 AssetLib 发布，接入只能手动拷贝文件。仓库体量很小，README 仅千余字符，缺少参数含义表、兼容性说明与更新记录，遇到渲染管线差异需要读源码自行判断。它只覆盖着色器层面，抗锯齿、分辨率缩放等主机时代的画面特征需要另外实现。",
+  "workflowZh": [
+    {
+      "stepZh": "把着色器资源与配套材质一起复制进项目"
+    },
+    {
+      "stepZh": "给场景里的 MeshInstance3D 节点换上这套新材质资源"
+    },
+    {
+      "stepZh": "按目标风格调整抖动强度、贴图缩放与雾参数"
+    },
+    {
+      "stepZh": "开关顶点吸附与仿射贴图，对比两种观感差异"
+    },
+    {
+      "stepZh": "参考示例场景微调光照方向与相机距离"
+    }
+  ],
+  "pros": [
+    "顶点吸附、仿射贴图与抖动齐全，观感接近真实 PS1 输出，风格辨识度高",
+    "单文件着色器，接入只需换材质，不依赖插件或构建步骤，迁移成本低",
+    "示例工程带模型与贴图，开箱能看到效果，调参时有直接对照",
+    "代码注释详细，适合当学习材料，也便于按项目需要二次修改",
+    "MIT 许可，商用与改造都没有额外限制，可直接进发行版本，二次分发也省心"
+  ],
+  "cons": [
+    "参数分散在材质里，没有全局配置，多材质场景要逐个调",
+    "只解决渲染观感，不含后处理、分辨率和 UI 的复古配套",
+    "维护活跃度低，引擎版本升级后需自行核对兼容性"
+  ],
+  "pitfalls": [
+    "忘记关透视校正会让仿射效果消失，先确认对应参数已开启",
+    "顶点吸附过强会让近处模型抖动明显，按相机距离收窄强度",
+    "多材质各调一份容易不一致，建议先定一组基准值再复制到其他材质"
+  ],
+  "bestFor": "做复古 3D、PS1 风格独立游戏或渲染学习，愿意手工调材质参数并接受单文件着色器方式的 Godot 4 开发者。",
+  "avoidWhenZh": "需要成套复古后处理管线，或要求所有参数集中配置、多人协作统一管理的项目。",
+  "compareTips": {
+    "vs": [
+      "Chrisknyfe__boujie_water_shader"
+    ],
+    "whenZh": "两者都改渲染表现：Godot-PSX 提供 PS1 风格的空间着色器，管材质与整体观感；antialiased-line2d 提升 2D 线条与多边形抗锯齿。做复古 3D 选前者，做 2D 线条选后者。"
+  },
+  "category": "3d-shader",
+  "tags": [
+    "PS1风格",
+    "空间着色器",
+    "仿射贴图",
+    "抖动量化",
+    "复古渲染"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 4
+  },
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "installComplexity": 2,
+  "evidence": [
+    {
+      "claim": "着色器覆盖仿射贴图、像素吸附与抖动等 PS1 特征",
+      "source": "README.md",
+      "quote": "- Affine Texture Mapping\n- Integer Clip Space Coordinates (Pixel Snapping)"
+    },
+    {
+      "claim": "作者说明未使用全局着色器变量，参数需逐材质调整",
+      "source": "README.md",
+      "quote": "This shader lacks some conveniences of the Godot engine in favor of making it more easily usable, such as no global shader variables."
+    },
+    {
+      "claim": "着色器代码带注释，便于参考改写",
+      "source": "README.md",
+      "quote": "contains comments explaining the shader code for those wanting to reference it"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "tomyud1__godot-mcp",
+  "descriptionZh": "面向 Godot 4.4 的 MCP 集成，六十九个工具让 AI 直接读写场景、脚本与项目配置。",
+  "category": "ai-gen",
+  "tags": [
+    "mcp",
+    "ai",
+    "editor-automation",
+    "workflow",
+    "nodejs"
+  ],
+  "prosShort": [
+    "工具覆盖面广，场景与脚本都能改",
+    "自带撤销与批处理，能降低误改风险",
+    "可视化项目地图，便于理解工程结构"
+  ],
+  "consShort": [
+    "需安装 Node.js 并手动配置客户端环境",
+    "仅本地运行，只连一个编辑器实例",
+    "AI 改动不会进入原生撤销栈"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

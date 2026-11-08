@@ -1,0 +1,147 @@
+{
+  "id": "H2xDev__GodotVMF",
+  "depth": "standard",
+  "taglineZh": "把 Hammer 制作的 VMF 地图连同材质模型一起导入 Godot",
+  "summaryZh": "GodotVMF 让 Godot 直接导入 Valve Hammer 编辑器保存的 VMF 地图文件，把刷体几何、UV、材质编号与平滑组一起带进引擎。它支持实例、位移面、源引擎的 MDL 模型、VMT 材质与 VTF 贴图，也能读取实体、表面属性与 Hammer 的输入输出连线。附带的 FGD 生成器可以根据已实现的实体反推 FGD 文件，方便在 Hammer 里继续编辑。作者建议搭配 Hammer++ 使用，以获得更精确的顶点数据。插件还提供示例工程与视频教程，安装与材质流程都有对应的 Wiki 说明。",
+  "whatItDoes": "导入时插件解析 VMF 的实体与刷体，把每个面拆成带 UV 与材质引用的网格，位移面保留顶点数据并转成 Godot 网格。模型、材质与贴图按源引擎路径解析，实体映射成对应脚本类，输入输出连到信号或回调。材质编译属性与表面属性会转成资源字段，供后续替换或调试。",
+  "useCases": [
+    {
+      "titleZh": "Source 地图移植",
+      "descZh": "想把现有的 Source 引擎地图搬到 Godot 继续开发，用导入器保留刷体几何、材质引用与实体布局，省去重制关卡的时间。"
+    },
+    {
+      "titleZh": "Hammer 关卡流程",
+      "descZh": "团队习惯在熟悉的 Hammer 里搭建关卡，导入后直接得到整套可运行的 Godot 场景，不必换编辑器从头重做一遍关卡资产。"
+    },
+    {
+      "titleZh": "实体与逻辑迁移",
+      "descZh": "地图依赖按钮、门与触发器的连线逻辑，导入器会保留原有实体和输入输出，方便后续逐个实体接回游戏逻辑脚本。"
+    },
+    {
+      "titleZh": "材质与位移面",
+      "descZh": "关卡包含混合材质与位移地形，导入后贴图与顶点位移都完整保留，省去大量手工重建原有地形的重复工作量。"
+    }
+  ],
+  "whatItMakes": [
+    {
+      "titleZh": "VMF 导入器",
+      "descZh": "把 VMF 文件统一解析成 Godot 网格与场景节点，刷体、实体、位移面与材质都有各自对应的数据结构。"
+    },
+    {
+      "titleZh": "源格式支持",
+      "descZh": "原生读取 MDL 模型、VMT 材质与 VTF 贴图，压缩格式支持 DXT1、DXT3 与 DXT5，混合材质另有对应的专用着色器。"
+    },
+    {
+      "titleZh": "实体与 I/O",
+      "descZh": "实体按类型映射为对应的可配置节点，Hammer 的输入输出连线被完整保留，可继续挂接游戏脚本逻辑。"
+    },
+    {
+      "titleZh": "FGD 生成器",
+      "descZh": "根据代码里已实现的实体自动生成 FGD 文件，让 Hammer 编辑器方便识别并补全项目自定义实体的属性，继续在 Hammer 里使用。"
+    }
+  ],
+  "featureCallouts": [
+    {
+      "name": "刷体几何",
+      "descZh": "导入刷体的 UV、材质编号与平滑组，完整保留关卡表面的基本外观与光照分组。"
+    },
+    {
+      "name": "位移面",
+      "descZh": "位移地形按顶点数据导入，混合材质转成专用着色器，保留实际地形过渡效果。"
+    },
+    {
+      "name": "原生模型",
+      "descZh": "直接读取 MDL 模型与配套材质贴图，不需要额外先把资源转成通用格式再进引擎。"
+    },
+    {
+      "name": "实体系统",
+      "descZh": "实体按类型映射到节点，输入输出连线保留，方便直接把地图逻辑接回游戏脚本。"
+    },
+    {
+      "name": "FGD 生成",
+      "descZh": "根据代码里的实体实现自动反推 FGD 文件，让 Hammer 能识别项目的自定义实体与属性。"
+    }
+  ],
+  "limitsZh": "VPK 包内的素材无法自动提取，地图引用的材质与模型要先手动解包放到工程目录，否则导入后会出现缺图或空模型。部分模型的朝向会错误，需要给对应实体加旋转偏移来修正；README 只给了这一句提示，具体实体要逐个试。插件版本号已到 2.2，但仓库没有明确列出支持的 Godot 版本，升级引擎前最好先用小地图验证。仓库接近四十兆，包含示例资源；FGD 生成器是另一个独立插件，需要单独启用。位移面与混合材质虽然支持，复杂 Source 地图仍可能出现观感差异。",
+  "workflowZh": [
+    {
+      "stepZh": "把 godotvmf 与 godotfgd 两个目录复制进 addons，并在项目设置中分别启用插件。"
+    },
+    {
+      "stepZh": "把 VMF 文件与手动解包后的材质、模型资源放进工程目录中。"
+    },
+    {
+      "stepZh": "在编辑器里导入 VMF，逐项检查刷体、位移面与实体是否完整。"
+    },
+    {
+      "stepZh": "修正朝向偏移并替换缺失材质，调整混合着色器。"
+    },
+    {
+      "stepZh": "用 FGD 生成器导出实体定义文件，再回到 Hammer 里继续编辑关卡。"
+    }
+  ],
+  "pros": [
+    "直接把 Hammer 关卡带进 Godot，刷体、材质与实体都能保留，整体移植成本明显非常低。",
+    "原生支持 MDL 模型、VMT 材质与 VTF 贴图，省去大量格式转换与手工重制贴图的工作。",
+    "实体与输入输出一并导入，地图逻辑可以逐步接回脚本而不是全部重写。",
+    "FGD 生成器让自定义实体在 Hammer 里完整可见，编辑、导入与再编辑形成完整顺畅闭环。"
+  ],
+  "cons": [
+    "VPK 素材不能自动提取，前置解包工作繁琐，漏文件时排查不直观。",
+    "部分模型朝向错误，需要逐个加旋转修正，批量地图很费时间。",
+    "未明确声明支持的引擎版本，升级 Godot 后可能出现兼容问题。"
+  ],
+  "pitfalls": [
+    "地图引用的素材若没先解包到工程目录，导入结果会缺材质或模型，先补齐再排查导入器。",
+    "模型朝向错误不是导入失败，先试 Additional Rotation 旋转属性修正，不要急着重导整张地图。",
+    "FGD 生成器依赖代码里已实现的实体，新增实体后要重新生成，否则 Hammer 里看不到属性。"
+  ],
+  "bestFor": "适合想把 Source 引擎地图或 Hammer 关卡迁移到 Godot 的团队，尤其是关卡资产以完整的刷体、位移面和实体逻辑为主的项目。",
+  "avoidWhenZh": "完全不用 Hammer 的新项目没有收益；依赖 VPK 打包素材又不愿解包的项目应先评估迁移成本。",
+  "compareTips": {
+    "vs": [
+      "func-godot__func_godot_plugin"
+    ],
+    "whenZh": "与 func_godot 相比，后者同样导入 VMF 但走更通用的实体与脚本映射，社区规模与文档成熟度都更高；GodotVMF 强调原生 MDL、VMT、VTF 与 FGD 生成，移植 Source 素材与材质时更加直接。"
+  },
+  "category": "asset-pipeline",
+  "tags": [
+    "vmf",
+    "hammer",
+    "level-import",
+    "source-engine"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 3,
+    "docs": 4,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 2
+  },
+  "godotVersion": "unknown",
+  "needCompile": false,
+  "installComplexity": 3,
+  "evidence": [
+    {
+      "claim": "导入 VMF 地图到 Godot",
+      "source": "README.md",
+      "quote": "An importer of [VMF files](https://developer.valvesoftware.com/wiki/VMF_(Valve_Map_Format)) into [Godot Engine](https://godotengine.org/)."
+    },
+    {
+      "claim": "VTF 贴图仅支持三种压缩格式",
+      "source": "README.md",
+      "quote": "Native VTF support (only DXT1, DXT3, DXT5 supported)"
+    },
+    {
+      "claim": "不支持从 VPK 提取素材",
+      "source": "README.md",
+      "quote": "Extraction of materials and models from VPKs is not supported"
+    },
+    {
+      "claim": "部分导入模型朝向错误",
+      "source": "README.md",
+      "quote": "Some of imported models may have wrong orientation"
+    }
+  ]
+}

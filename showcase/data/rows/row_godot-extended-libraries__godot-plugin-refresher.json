@@ -1,0 +1,35 @@
+{
+  "id": "godot-extended-libraries__godot-plugin-refresher",
+  "descriptionZh": "在编辑器工具栏加下拉框与刷新按钮，一键重载指定插件的工具。",
+  "category": "editor-tool",
+  "tags": [
+    "编辑器插件",
+    "热重载",
+    "工具栏",
+    "插件开发",
+    "效率工具"
+  ],
+  "prosShort": [
+    "一键重载插件，省去反复进设置",
+    "下拉框覆盖含已禁用的插件",
+    "纯 GDScript 编写，代码短小也容易改"
+  ],
+  "consShort": [
+    "只刷新插件，不重置编辑器缓存",
+    "重载会丢未保存的插件状态",
+    "功能单一，插件多时查找要滚动"
+  ],
+  "scores": {
+    "coverage": 2,
+    "usability": 5,
+    "docs": 3,
+    "maintenance": 3,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

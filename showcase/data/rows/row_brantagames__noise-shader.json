@@ -1,0 +1,14 @@
+{
+  "id": "brantagames__noise-shader",
+  "descriptionZh": "为 Godot 4 相机提供四种 CompositorEffect 噪声特效，可做复古闪烁与滑动故障画面，接入很简单。",
+  "category": "3d-shader",
+  "tags": ["噪声", "CompositorEffect", "着色器", "相机特效", "复古"],
+  "prosShort": ["挂到相机列表即生效，接入成本极低", "参数可实时调，同一效果能变出多种观感", "自带演示场景，可对照光照与天空设置"],
+  "consShort": ["必须配合黑天空与点光源，否则效果难看", "只在播放时可见，静态截图会显得杂乱", "仓库基本停更，文档与移动端验证都偏少"],
+  "scores": {"coverage": 2, "usability": 4, "docs": 3, "maintenance": 2, "performance": 4, "stability": 4},
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

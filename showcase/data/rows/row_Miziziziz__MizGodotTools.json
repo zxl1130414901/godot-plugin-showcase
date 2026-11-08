@@ -1,0 +1,35 @@
+{
+  "id": "Miziziziz__MizGodotTools",
+  "descriptionZh": "作者自用的 Godot 代码合集，含存档、设置菜单、NPC 视野与场景切换示例。",
+  "category": "state-logic",
+  "tags": [
+    "代码合集",
+    "存档系统",
+    "设置菜单",
+    "NPC视野",
+    "场景切换"
+  ],
+  "prosShort": [
+    "常见基础功能都有现成实现",
+    "功能独立可按需摘取不引入整套",
+    "代码短小很适合当 GDScript 写法参考"
+  ],
+  "consShort": [
+    "没有插件入口只能手动复制改造",
+    "示例深度有限缺少版本迁移",
+    "代码风格不统一注释少难维护"
+  ],
+  "scores": {
+    "coverage": 3,
+    "usability": 3,
+    "docs": 2,
+    "maintenance": 2,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

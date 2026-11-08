@@ -1,0 +1,34 @@
+{
+  "id": "DaxianLee__godot-mcp",
+  "descriptionZh": "把 AI 客户端接进 Godot 编辑器，用工具调用直接改场景、节点、脚本与资源文件的本地 MCP 插件。",
+  "category": "ai-gen",
+  "tags": [
+    "AI代理",
+    "MCP",
+    "编辑器自动化",
+    "场景编辑"
+  ],
+  "prosShort": [
+    "工具覆盖场景节点脚本与常用资源",
+    "服务跑在编辑器内，改动直接落盘",
+    "内置九种界面语言，中文开箱即用"
+  ],
+  "consShort": [
+    "默认端口固定，占用时缺少明确提示",
+    "完全没有权限控制与操作审计记录",
+    "复杂材质图与动画曲线只能整段写"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

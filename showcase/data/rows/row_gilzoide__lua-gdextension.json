@@ -1,0 +1,35 @@
+{
+  "id": "gilzoide__lua-gdextension",
+  "descriptionZh": "把 Lua 5.4 或 LuaJIT 接入 Godot 4.5 以上项目的扩展，可用 Lua 直接写脚本并创建独立的模组 State。",
+  "category": "visual-script",
+  "tags": [
+    "Lua",
+    "脚本语言",
+    "模组",
+    "GDExtension",
+    "REPL"
+  ],
+  "prosShort": [
+    "可以直接用 Lua 编写节点与资源脚本",
+    "多个 State 彼此互相隔离，便于做沙箱",
+    "并同时提供 LuaJIT 运行时与编辑器 REPL"
+  ],
+  "consShort": [
+    "只能在 Godot 4.5 以上的版本里使用",
+    "脚本入口写法特殊，新手容易卡住",
+    "LuaJIT 运行时目前完全不支持 Web 导出"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 3,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": true,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

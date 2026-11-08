@@ -1,0 +1,34 @@
+{
+  "id": "Guillemsc__GTweensGodot",
+  "descriptionZh": "面向 Godot 4 .NET 的 C# 补间库，用扩展方法与序列编排取代字符串属性路径动画",
+  "category": "ui",
+  "tags": [
+    "补间动画",
+    "C#",
+    "缓动",
+    "序列动画"
+  ],
+  "prosShort": [
+    "不用属性字符串，重构改名更安全",
+    "序列与并行编排，表达力强好维护",
+    "补间可 await，直接嵌入异步流程"
+  ],
+  "consShort": [
+    "只支持 C# 项目，纯 GDScript 工程完全用不上",
+    "没有可视化时间线，只能写代码",
+    "与原生 Tween 并用易形成两套体系"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 4,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 4,
+    "stability": 4
+  },
+  "installComplexity": 2,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

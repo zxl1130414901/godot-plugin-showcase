@@ -1,0 +1,34 @@
+{
+  "id": "GodotVR__godot_openxr_vendors",
+  "descriptionZh": "以 GDExtension 接入 Meta、Pico 与 Android XR 厂商扩展的插件，提供深度、锚点、眼动与光照能力",
+  "category": "platform-export",
+  "tags": [
+    "OpenXR",
+    "XR厂商扩展",
+    "混合现实",
+    "GDExtension"
+  ],
+  "prosShort": [
+    "把多厂商 OpenXR 扩展统一接入同一插件",
+    "官方二进制、文档站与类参考齐全",
+    "覆盖深度、锚点、眼动、面部与光照"
+  ],
+  "consShort": [
+    "能力按设备分化，代码需做检测",
+    "部分厂商组件另有许可，商用需核对",
+    "自行编译需要完整的 Android 与 CMake 工具链"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 3,
+    "docs": 5,
+    "maintenance": 4,
+    "performance": 4,
+    "stability": 3
+  },
+  "installComplexity": 3,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": true,
+  "sampleStatus": "none"
+}

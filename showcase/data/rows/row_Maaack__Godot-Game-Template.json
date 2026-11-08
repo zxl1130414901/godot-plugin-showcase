@@ -1,0 +1,35 @@
+{
+  "id": "Maaack__Godot-Game-Template",
+  "descriptionZh": "开箱即用的 Godot 游戏模板，备齐主菜单、设置、暂停、制作名单与带进度条的转场加载场景。",
+  "category": "ui",
+  "tags": [
+    "模板",
+    "菜单",
+    "设置",
+    "转场",
+    "GDScript"
+  ],
+  "prosShort": [
+    "十几分钟就有完整开场流程",
+    "模板与插件两种形态都能用",
+    "音乐与界面音效控制器齐全"
+  ],
+  "consShort": [
+    "只管开场流程，玩法要自己写",
+    "示例资源多，替换占位图费时",
+    "绑定较新引擎版本，老版要退"
+  ],
+  "scores": {
+    "coverage": 4,
+    "usability": 5,
+    "docs": 5,
+    "maintenance": 5,
+    "performance": 5,
+    "stability": 4
+  },
+  "installComplexity": 1,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "edbeeching__godot_rl_agents",
+  "descriptionZh": "把 Godot 游戏接成强化学习环境，用四种 Python 框架训练 NPC 行为，训练后可导出 ONNX 在游戏内推理。",
+  "category": "ai-gen",
+  "tags": [
+    "强化学习",
+    "Python",
+    "AI训练",
+    "ONNX",
+    "传感器"
+  ],
+  "prosShort": [
+    "Godot 场景可直接当作训练环境",
+    "一套环境能接四种主流框架",
+    "支持记忆结构与 2D、3D 两类场景"
+  ],
+  "consShort": [
+    "安装链很长，环境问题最耗时间",
+    "同步训练会周期性冻结场景",
+    "依赖上游框架，升级易破配置"
+  ],
+  "scores": {
+    "coverage": 5,
+    "usability": 2,
+    "docs": 4,
+    "maintenance": 3,
+    "performance": 3,
+    "stability": 3
+  },
+  "installComplexity": 4,
+  "godotVersion": "4.x",
+  "needCompile": false,
+  "isGDExtension": false,
+  "sampleStatus": "none"
+}
