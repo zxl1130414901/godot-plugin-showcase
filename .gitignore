@@ -1,0 +1,42 @@
+# ===== 白名单模式：默认忽略仓库内一切文件 =====
+/*
+
+# 顶层调研数据
+!/manifest.json
+!/.gitignore
+!/.gitattributes
+
+# 展示站根目录（便于逐层放行）
+!/showcase
+/showcase/*
+
+# 放行：档案数据、站点产物、截图、说明与文档
+!/showcase/data
+!/showcase/app
+!/showcase/README.md
+!/showcase/docs
+
+/showcase/app/*
+!/showcase/app/dist
+!/showcase/app/screenshots
+!/showcase/app/README.md
+!/showcase/app/docs
+
+# 放行：站点源码、构建脚本与构建入口配置（保证远端可复现构建）
+!/showcase/app/src
+!/showcase/app/scripts
+!/showcase/app/package.json
+!/showcase/app/package-lock.json
+!/showcase/app/vite.config.ts
+!/showcase/app/vitest.config.ts
+!/showcase/app/tsconfig.json
+!/showcase/app/eslint.config.mjs
+!/showcase/app/index.html
+
+# 兜底排除：依赖、缓存、临时产物
+node_modules/
+_tmp/
+dist/**/*.map
+*.log
+.DS_Store
+Thumbs.db
